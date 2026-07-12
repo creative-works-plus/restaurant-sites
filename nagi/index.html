@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>居酒屋 凪｜古河駅近く・寛ぎの一献と旬肴の店</title>
+<meta name="description" content="茨城県古河市北町、古河駅から徒歩約10分の居酒屋 凪。名物「牛肉のタタキ」やボリューム満点の「ネギ入り厚焼き玉子」など、旬の肴とお酒でゆったりとした夜をお過ごしいただけます。">
+<meta property="og:title" content="居酒屋 凪｜古河市北町の隠れ家的居酒屋">
+<meta property="og:description" content="風がやみ、波が静まる「凪」のひととき。旬の肴と美酒で寛ぐ、古河市北町の居酒屋。">
+<meta property="og:type" content="restaurant">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2312181f' stroke='%23c8a25c' stroke-width='3'/%3E%3Ctext x='50' y='66' font-size='50' text-anchor='middle' fill='%23c8a25c' font-family='serif'%3E%E5%87%A2%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "居酒屋 凪",
+  "servesCuisine": "Japanese",
+  "telephone": "+81-280-32-7041",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "北町1-3",
+    "addressLocality": "古河市",
+    "addressRegion": "茨城県",
+    "addressCountry": "JP"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "17:00", "closes": "22:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "17:30", "closes": "23:00" }
+  ]
+}
+</script>
+<style>
+    /* ==========================================================
+       トークン（色・書体）
+       居酒屋 凪＝「凪いだ夜の海」をモチーフにした配色
+       深藍の夜空 × 月明かりの銀白 × 真鍮（しんちゅう）の金
+       ========================================================== */
+    :root {
+        --night: #121821;        /* 夜の海（ベース背景） */
+        --night-deep: #0a0e14;   /* 最深部（フッター・ヒーロー下部） */
+        --surface: #1b232d;      /* カード面 */
+        --surface-soft: #212a35; /* 少し明るいカード面 */
+        --moon: #f3efe4;         /* 月明かり（見出し・主要テキスト） */
+        --mist: #a9b3bd;         /* 霧（本文グレー） */
+        --gold: #c8a25c;         /* 真鍮金（アクセント） */
+        --gold-soft: #e3c688;
+        --wave: #3d5a68;         /* 波の藍緑（罫線・波紋） */
+        --open-green: #7fc383;   /* 営業中バッジ */
+        --closed-red: #d98a7e;   /* 定休日バッジ */
+        --line: rgba(200, 162, 92, 0.22);
+        --font-serif: 'Yu Mincho', 'YuMincho', 'BIZ UDMincho', 'Hiragino Mincho ProN', serif;
+        --font-sans: 'BIZ UDPGothic', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+    body {
+        font-family: var(--font-sans); font-size: 16px; line-height: 1.9; letter-spacing: 0.04em;
+        color: var(--mist); background-color: var(--night); margin: 0; padding: 0;
+        overflow-x: hidden;
+    }
+    a { color: inherit; }
+    img, svg { max-width: 100%; display: block; }
+    h1, h2, h3 { color: var(--moon); }
+
+    a:focus-visible, button:focus-visible, [role="button"]:focus-visible, .hamburger:focus-visible {
+        outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px;
+    }
+
+    /* ========== 印章（凪エンブレム） ========== */
+    .seal { flex-shrink: 0; }
+    .seal circle.ring { fill: var(--night); stroke: var(--gold); stroke-width: 3; }
+    .seal text { fill: var(--gold); font-family: var(--font-serif); }
+
+    /* ========== オープニングスプラッシュ ==========
+       開店時（初回表示時）に店先のイラストを全画面で見せてからページへ。
+       クリックでスキップ／同一セッション2回目以降・reduced-motion時はほぼ即時に消える */
+    .splash {
+        position: fixed; inset: 0; z-index: 2000;
+        background-color: var(--night-deep); cursor: pointer;
+    }
+    .splash img {
+        width: 100%; height: 100%; object-fit: cover;
+        opacity: 0; animation: splashIn 1s ease forwards;
+    }
+    /* 端をわずかに落として夜の雰囲気に馴染ませる */
+    .splash::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse at 50% 45%, rgba(10,14,20,0) 55%, rgba(10,14,20,0.55) 100%);
+    }
+    .splash.done { opacity: 0; transition: opacity 0.8s ease; pointer-events: none; }
+    @keyframes splashIn { to { opacity: 1; } }
+
+    /* ========== ナビゲーション ========== */
+    .global-nav {
+        background-color: rgba(10, 14, 20, 0.86); backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+        position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-container {
+        max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
+        padding: 14px 24px;
+    }
+    .nav-logo {
+        display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 1.4rem; font-weight: bold;
+        color: var(--moon); text-decoration: none; letter-spacing: 0.1em; z-index: 1001;
+    }
+    .nav-links { display: flex; list-style: none; margin: 0; padding: 0; gap: 4px; align-items: center; }
+    .nav-links a {
+        text-decoration: none; color: var(--mist); font-size: 0.92rem; font-weight: bold; transition: 0.25s;
+        padding: 10px 14px; border-radius: 3px; display: inline-block; position: relative;
+    }
+    .nav-links a:hover { color: var(--gold-soft); background: rgba(200,162,92,0.08); }
+    /* スクロール連動：現在地のセクションを金の下線で示す */
+    .nav-links a.current { color: var(--gold-soft); }
+    .nav-links a.current::after {
+        content: ""; position: absolute; left: 14px; right: 14px; bottom: 4px; height: 2px;
+        background: var(--gold); border-radius: 2px;
+    }
+
+    .nav-reserve {
+        background-color: var(--gold); color: var(--night-deep) !important;
+        padding: 10px 20px !important; border-radius: 3px; border: 1px solid var(--gold);
+    }
+    .nav-reserve:hover { background-color: transparent !important; color: var(--gold-soft) !important; }
+    .nav-reserve.current::after { display: none; }
+
+    .hamburger {
+        display: none; background: none; border: none; padding: 4px; cursor: pointer;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background-color: var(--moon); margin: 5px 0; transition: 0.3s; }
+
+    /* ========== 共通セクション ========== */
+    main { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 88px 0; border-bottom: 1px solid var(--line); position: relative; }
+
+    /* 筆文字の透かし（凪・肴・酒）：セクション背景に縦書きで極薄配置 */
+    .watermark {
+        position: absolute; top: 70px; right: -6px; z-index: -1;
+        font-family: var(--font-serif); writing-mode: vertical-rl; line-height: 1;
+        font-size: clamp(8rem, 20vw, 15rem); color: rgba(200, 162, 92, 0.055);
+        letter-spacing: 0.3em; pointer-events: none; user-select: none;
+    }
+    .watermark.left { left: -6px; right: auto; }
+    section:last-of-type { border-bottom: none; }
+
+    .eyebrow {
+        display: block; text-align: center; color: var(--gold); font-weight: bold;
+        letter-spacing: 0.35em; font-size: 0.74rem; margin-bottom: 14px; text-transform: uppercase;
+    }
+    .section-title {
+        text-align: center; font-size: 2.15rem; color: var(--moon); margin: 0 0 20px;
+        font-family: var(--font-serif); letter-spacing: 0.1em; font-weight: normal;
+    }
+    .section-lead {
+        max-width: 680px; margin: 0 auto 56px; font-size: 1rem; text-align: center; color: var(--mist);
+    }
+
+    /* 波紋アクセント */
+    .ripple { width: 64px; height: 20px; margin: 0 auto 28px; opacity: 0.8; }
+
+    .card {
+        background-color: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+        padding: 52px; box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+    .card.center { text-align: center; }
+
+    .btn-link {
+        display: inline-block; background-color: var(--gold); color: var(--night-deep);
+        text-decoration: none; padding: 15px 42px; border-radius: 3px; font-weight: bold;
+        letter-spacing: 0.1em; transition: 0.25s; border: 1px solid var(--gold); cursor: pointer;
+    }
+    .btn-link:hover { background-color: transparent; color: var(--gold-soft); }
+    .btn-link.outline { background: transparent; color: var(--moon); border-color: rgba(243,239,228,0.4); }
+    .btn-link.outline:hover { border-color: var(--gold); color: var(--gold-soft); }
+
+    .note-text { font-size: 0.84rem; color: #7c8590; margin-top: 14px; display: block; }
+
+    /* ========== スクロール表示アニメーション ========== */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.shown { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ========== 波ディバイダー ========== */
+    .wave-divider { width: 100%; height: 42px; display: block; }
+    .wave-divider path { fill: var(--night-deep); }
+
+    /* ========== ヒーロー ========== */
+    .hero {
+        position: relative; padding: 170px 20px 120px; text-align: center; overflow: hidden;
+        /* 店先イラストを夜の藍で染めて敷く。下端は波・次セクションへ溶けるよう最深部の色に落とす */
+        background:
+            linear-gradient(to bottom, rgba(10,14,20,0.66) 0%, rgba(18,24,33,0.8) 50%, rgba(10,14,20,0.95) 100%),
+            url("images/storefront.jpg") center 32% / cover no-repeat var(--night);
+    }
+    .hero::before {
+        content: ""; position: absolute; inset: 0;
+        background-image:
+            radial-gradient(circle at 82% 18%, rgba(227,198,136,0.16) 0%, rgba(227,198,136,0) 40%),
+            repeating-linear-gradient(115deg, rgba(200,162,92,0.035) 0px, rgba(200,162,92,0.035) 1px, transparent 1px, transparent 90px);
+        pointer-events: none;
+    }
+    .hero-container { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-emblem { width: 64px; height: 64px; margin: 0 auto 24px; }
+    .hero-title {
+        font-family: var(--font-serif); font-size: 4.6rem; font-weight: normal; color: var(--moon);
+        margin: 0 0 18px; letter-spacing: 0.28em; text-shadow: 0 6px 40px rgba(0,0,0,0.5);
+    }
+    .hero-title span { display: block; font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 16px; letter-spacing: 0.4em; font-family: var(--font-sans); }
+    .hero .catch {
+        font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.9; color: var(--moon); margin-bottom: 34px;
+    }
+    .hero .lead {
+        font-size: 0.98rem; line-height: 2.05; color: var(--mist); text-align: justify; max-width: 620px; margin: 0 auto;
+    }
+    .hero-ctas { display: flex; gap: 16px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+
+    /* ---------- 凪の海：ゆったり流れる二層の波 ---------- */
+    .hero-waves {
+        position: absolute; left: 0; bottom: -2px; width: 200%; height: 88px;
+        pointer-events: none; z-index: 0;
+    }
+    .hero-waves svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-waves .wave-back { animation: waveDrift 34s linear infinite; opacity: 0.55; }
+    .hero-waves .wave-front { animation: waveDrift 18s linear infinite reverse; }
+    @keyframes waveDrift { to { transform: translateX(-50%); } }
+
+    /* ---------- 月明かりの光の粒 ---------- */
+    .particle {
+        position: absolute; bottom: 18%; border-radius: 50%;
+        background: var(--gold-soft); box-shadow: 0 0 10px rgba(227, 198, 136, 0.85);
+        opacity: 0; pointer-events: none;
+        animation: particleRise linear infinite;
+    }
+    @keyframes particleRise {
+        0%   { transform: translateY(0) translateX(0); opacity: 0; }
+        12%  { opacity: 0.85; }
+        60%  { opacity: 0.5; }
+        100% { transform: translateY(-340px) translateX(24px); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .particle { display: none; }
+    }
+
+    /* 営業ステータスバッジ（本日の営業状況を自動表示） */
+    .status-badge {
+        display: inline-flex; align-items: center; gap: 10px; margin-bottom: 30px;
+        background: rgba(10,14,20,0.6); border: 1px solid var(--line); border-radius: 999px;
+        padding: 8px 22px; font-size: 0.88rem; color: var(--moon); letter-spacing: 0.06em;
+    }
+    .status-badge .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .status-badge.open .dot { background: var(--open-green); box-shadow: 0 0 10px rgba(127,195,131,0.7); }
+    .status-badge.open strong { color: var(--open-green); }
+    .status-badge.closed .dot { background: var(--closed-red); }
+    .status-badge.closed strong { color: var(--closed-red); }
+    .status-badge strong { font-weight: bold; }
+
+    /* ========== お知らせ ========== */
+    .news-list { list-style: none; margin: 0; padding: 0; }
+    .news-list li {
+        display: flex; gap: 22px; align-items: baseline; padding: 20px 6px;
+        border-bottom: 1px dotted rgba(169,179,189,0.25); flex-wrap: wrap;
+    }
+    .news-list li:last-child { border-bottom: none; }
+    .news-date { color: var(--gold); font-size: 0.86rem; white-space: nowrap; font-family: var(--font-serif); letter-spacing: 0.08em; }
+    .news-label {
+        font-size: 0.72rem; font-weight: bold; letter-spacing: 0.12em; border-radius: 2px;
+        padding: 2px 10px; white-space: nowrap;
+    }
+    .news-label.info { background: rgba(61,90,104,0.5); color: #bcd3dc; }
+    .news-label.holiday { background: rgba(217,138,126,0.18); color: var(--closed-red); border: 1px solid rgba(217,138,126,0.35); }
+    .news-label.event { background: rgba(200,162,92,0.16); color: var(--gold-soft); border: 1px solid var(--line); }
+    .news-body { color: var(--moon); font-size: 0.95rem; flex: 1; min-width: 200px; }
+
+    /* ========== おすすめ料理カード ========== */
+    .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .dish-card { background-color: var(--surface); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+    .dish-visual {
+        height: 220px; display: flex; align-items: center; justify-content: center;
+        background: radial-gradient(circle at 50% 40%, var(--surface-soft) 0%, var(--night-deep) 100%);
+        border-bottom: 1px solid var(--line);
+    }
+    .dish-visual svg { width: 120px; height: 120px; }
+    /* 実際の料理写真は「暗い漆の皿」に載せるイメージで円形に切り抜いて見せる
+       （元画像が小さいため、大きく引き伸ばさず上質に見せる工夫） */
+    .dish-visual img {
+        width: 172px; height: 172px; border-radius: 50%; object-fit: cover;
+        border: 3px solid rgba(200,162,92,0.45); box-shadow: 0 0 0 10px rgba(10,14,20,0.6), 0 14px 34px rgba(0,0,0,0.5);
+    }
+    .dish-body { padding: 30px 32px 34px; }
+    .dish-tag { color: var(--gold); font-size: 0.78rem; letter-spacing: 0.2em; font-weight: bold; }
+    .dish-name { font-family: var(--font-serif); font-size: 1.4rem; color: var(--moon); margin: 10px 0 6px; }
+    .dish-price { color: var(--gold-soft); font-size: 1rem; margin: 0 0 14px; font-family: var(--font-serif); }
+    .dish-desc { font-size: 0.92rem; line-height: 1.85; }
+
+    /* ========== 席・空間 ========== */
+    .seat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .seat-card {
+        background-color: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+        padding: 34px 28px; text-align: center;
+    }
+    .seat-card svg { width: 58px; height: 58px; margin: 0 auto 18px; }
+    .seat-card h3 { font-family: var(--font-serif); font-size: 1.2rem; margin: 0 0 12px; font-weight: normal; }
+    .seat-card p { font-size: 0.9rem; margin: 0; text-align: left; }
+
+    /* ========== メニューリスト ========== */
+    /* カテゴリジャンプ（メニューが長いのでワンタップで目的の欄へ） */
+    .menu-jump {
+        display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 0 auto 46px;
+    }
+    .menu-jump a {
+        text-decoration: none; font-size: 0.86rem; font-weight: bold; color: var(--mist);
+        border: 1px solid var(--line); border-radius: 999px; padding: 8px 20px; transition: 0.25s;
+        background: var(--surface);
+    }
+    .menu-jump a:hover { color: var(--night-deep); background: var(--gold); border-color: var(--gold); }
+
+    .menu-category {
+        color: var(--gold-soft); font-family: var(--font-serif); font-size: 1.28rem; margin: 46px 0 18px;
+        padding-bottom: 10px; border-bottom: 1px solid var(--line); display: flex; align-items: baseline; gap: 12px;
+        scroll-margin-top: 90px;
+    }
+    .menu-category:first-of-type { margin-top: 0; }
+
+    .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 36px; margin-bottom: 8px; }
+    .menu-item {
+        display: flex; align-items: baseline; gap: 10px;
+        padding: 13px 2px; border-bottom: 1px dotted rgba(169,179,189,0.25);
+    }
+    .menu-item-name { color: var(--moon); font-size: 0.98rem; }
+    .menu-item-name::before { content: "凪 "; color: var(--gold); font-size: 0.7rem; letter-spacing: 0; opacity: 0.7; }
+    /* 名前と価格を点線でつなぎ、視線の迷いをなくす */
+    .menu-item .leader { flex: 1; border-bottom: 1px dotted rgba(200,162,92,0.35); transform: translateY(-4px); min-width: 16px; }
+    .menu-item-price { color: var(--gold-soft); font-size: 0.9rem; white-space: nowrap; flex-shrink: 0; }
+    .osusume {
+        display: inline-block; background: rgba(200,162,92,0.16); color: var(--gold-soft);
+        border: 1px solid var(--line); font-size: 0.66rem; font-weight: bold; letter-spacing: 0.1em;
+        border-radius: 2px; padding: 1px 8px; margin-left: 8px; vertical-align: middle; white-space: nowrap;
+    }
+
+    .menu-intro { text-align: center; max-width: 620px; margin: 0 auto 24px; font-size: 0.95rem; }
+
+    .highlight-box {
+        background: linear-gradient(135deg, rgba(200,162,92,0.1), rgba(61,90,104,0.08));
+        border: 1px solid var(--line); border-radius: 4px; padding: 26px 30px; margin: 44px 0 0;
+        text-align: center; font-size: 0.92rem;
+    }
+    .highlight-box strong { color: var(--gold-soft); }
+    .highlight-box .btn-link { margin-top: 18px; padding: 12px 34px; font-size: 0.92rem; }
+
+    /* ========== 店舗情報 ========== */
+    .info-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .info-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .info-table th, .info-table td { padding: 20px 4px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .info-table tr:last-child th, .info-table tr:last-child td { border-bottom: none; }
+    .info-table th { color: var(--gold); font-family: var(--font-serif); width: 30%; white-space: nowrap; font-weight: normal; }
+    .info-table td { color: var(--moon); }
+    .info-table td a { color: var(--gold-soft); text-decoration: none; }
+    .info-table td a:hover { text-decoration: underline; }
+    .today-row td { color: var(--gold-soft); font-weight: bold; }
+
+    .map-container { width: 100%; height: 400px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); filter: grayscale(0.3) invert(0.92) contrast(0.9); }
+    .map-container iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .map-actions { margin-top: 14px; text-align: center; }
+    .map-actions a { font-size: 0.88rem; color: var(--gold-soft); text-decoration: none; border-bottom: 1px dotted var(--gold); padding-bottom: 2px; }
+    .map-actions a:hover { color: var(--gold); }
+
+    /* ========== フッター ========== */
+    footer {
+        background-color: var(--night-deep); color: var(--mist); text-align: center; padding: 52px 20px 36px;
+        font-size: 0.85rem;
+    }
+    footer .seal { margin: 0 auto 16px; }
+    footer .footer-phone { color: var(--gold-soft); font-weight: bold; font-size: 1.15rem; text-decoration: none; }
+    footer .footer-phone:hover { color: var(--gold); }
+    footer p { margin: 6px 0; }
+    footer .footer-hours { font-size: 0.8rem; color: #7c8590; }
+    footer .footer-note { color: #58616b; font-size: 0.78rem; margin-top: 18px; }
+
+    /* ========== フローティングUI（電話・トップへ戻る） ========== */
+    .float-call {
+        display: none; position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 1100;
+        background: var(--gold); color: var(--night-deep); text-decoration: none; font-weight: bold;
+        text-align: center; padding: 15px; border-radius: 6px; letter-spacing: 0.08em;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-size: 1rem;
+    }
+    .float-call small { display: block; font-size: 0.72rem; font-weight: normal; letter-spacing: 0.05em; opacity: 0.85; }
+
+    .to-top {
+        position: fixed; right: 22px; bottom: 22px; z-index: 1090; width: 48px; height: 48px;
+        border-radius: 50%; border: 1px solid var(--line); background: rgba(27,35,45,0.92);
+        color: var(--gold-soft); cursor: pointer; font-size: 1.1rem; line-height: 1;
+        opacity: 0; visibility: hidden; transform: translateY(10px); transition: 0.3s;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .to-top.shown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .to-top:hover { background: var(--gold); color: var(--night-deep); }
+
+    /* ==========================================================
+       スマホ対応
+       ========================================================== */
+    @media (max-width: 850px) {
+        .hamburger { display: block; z-index: 1001; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .nav-links {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            background-color: rgba(10, 14, 20, 0.98); flex-direction: column; justify-content: center;
+            transition: right 0.4s ease; z-index: 1000; display: flex;
+        }
+        .nav-links.open { right: 0; }
+        .nav-links a { color: var(--moon); font-size: 1.15rem; padding: 14px; }
+        .nav-links a.current::after { display: none; }
+        .nav-reserve { margin-top: 18px; }
+
+        .hero { padding: 130px 20px 90px; }
+        .hero-title { font-size: 2.7rem; }
+        .hero .catch { font-size: 1.2rem; }
+
+        .signature-grid { grid-template-columns: 1fr; }
+        .seat-grid { grid-template-columns: 1fr; }
+        .info-layout { grid-template-columns: 1fr; }
+        .menu-grid { grid-template-columns: 1fr; }
+        .card { padding: 30px 22px; }
+        section { padding: 60px 0; }
+
+        /* スマホでは常時、画面下に電話予約ボタンを表示 */
+        .float-call { display: block; }
+        .to-top { bottom: 92px; }
+        footer { padding-bottom: 110px; }
+        main { padding-bottom: 20px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- オープニング：店先のイラストを全画面表示してからページ本体へ -->
+<div class="splash" id="splash" role="img" aria-label="居酒屋 凪の店先">
+    <img src="images/storefront.jpg" alt="">
+</div>
+<noscript><style>.splash { display: none; }</style></noscript>
+
+<nav class="global-nav">
+    <div class="nav-container">
+        <a href="#top" class="nav-logo" aria-label="トップへ戻る">
+            <svg class="seal" width="28" height="28" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="45"/><text x="50" y="65" font-size="48" text-anchor="middle">凪</text></svg>
+            居酒屋 凪
+        </a>
+
+        <button class="hamburger" onclick="toggleMenu()" aria-label="メニューを開閉する" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="#news" onclick="closeMenu()">お知らせ</a></li>
+            <li><a href="#signature" onclick="closeMenu()">おすすめ</a></li>
+            <li><a href="#menu" onclick="closeMenu()">おしながき</a></li>
+            <li><a href="#drink" onclick="closeMenu()">お飲み物</a></li>
+            <li><a href="#seat" onclick="closeMenu()">お席</a></li>
+            <li><a href="#info" onclick="closeMenu()">店舗情報</a></li>
+            <li><a href="tel:0280327041" class="nav-reserve">ご予約</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="hero" id="top">
+    <div class="hero-container">
+        <svg class="hero-emblem" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="45"/><text x="50" y="65" font-size="48" text-anchor="middle">凪</text></svg>
+        <h1 class="hero-title"><span>古河・北町　寛ぎの一献</span>居酒屋 凪</h1>
+
+        <!-- 本日の営業状況（JSで自動更新） -->
+        <p class="status-badge" id="status-badge"><span class="dot" aria-hidden="true"></span><span id="status-text">本日の営業時間を確認中…</span></p>
+
+        <p class="catch">風がやみ、波がしずまる。<br>そんな静けさを、肴と酒で。</p>
+        <p class="lead">
+            「凪（なぎ）」とは、風が止み波がおだやかになるひとときを指す言葉。古河駅から歩いてほど近いこの店で、慌ただしい一日の終わりに、静かに肩の力を抜いていただければと願っています。名物の牛肉のタタキやボリューム満点の厚焼き玉子を肴に、ゆっくりと杯を重ねる夜を。
+        </p>
+        <div class="hero-ctas">
+            <a href="tel:0280327041" class="btn-link">お電話でご予約（0280-32-7041）</a>
+            <a href="#menu" class="btn-link outline">おしながきを見る</a>
+        </div>
+    </div>
+
+    <!-- 月明かりの光の粒（左位置・大きさ・速さをそれぞれ変えて自然な揺らぎに） -->
+    <span class="particle" style="left:12%; width:5px; height:5px; animation-duration:9s;  animation-delay:0s;"></span>
+    <span class="particle" style="left:26%; width:3px; height:3px; animation-duration:12s; animation-delay:3s;"></span>
+    <span class="particle" style="left:41%; width:4px; height:4px; animation-duration:10s; animation-delay:6s;"></span>
+    <span class="particle" style="left:58%; width:3px; height:3px; animation-duration:13s; animation-delay:1.5s;"></span>
+    <span class="particle" style="left:71%; width:5px; height:5px; animation-duration:9.5s; animation-delay:4.5s;"></span>
+    <span class="particle" style="left:84%; width:4px; height:4px; animation-duration:11s; animation-delay:7.5s;"></span>
+    <span class="particle" style="left:93%; width:3px; height:3px; animation-duration:14s; animation-delay:2s;"></span>
+
+    <!-- ゆったり流れる二層の波（前後で速度と向きを変えて奥行きを出す） -->
+    <div class="hero-waves" aria-hidden="true">
+        <svg class="wave-back" viewBox="0 0 1200 88" preserveAspectRatio="none">
+            <path fill="#3d5a68" d="M0,44 C100,22 200,22 300,44 S500,66 600,44 S800,22 900,44 S1100,66 1200,44 L1200,88 L0,88 Z"/>
+        </svg>
+        <svg class="wave-front" viewBox="0 0 1200 88" preserveAspectRatio="none">
+            <path fill="#121821" d="M0,56 C100,36 200,36 300,56 S500,76 600,56 S800,36 900,56 S1100,76 1200,56 L1200,88 L0,88 Z"/>
+        </svg>
+    </div>
+</header>
+
+<main>
+    <!-- マスターが日々更新する告知欄。臨時休業・入荷情報などをここに書き足す -->
+    <section id="news">
+        <span class="watermark" aria-hidden="true">凪</span>
+        <span class="eyebrow">NEWS</span>
+        <h2 class="section-title">凪からのお知らせ</h2>
+        <svg class="ripple" viewBox="0 0 64 20" aria-hidden="true"><path d="M0,10 Q8,2 16,10 T32,10 T48,10 T64,10" fill="none" stroke="#c8a25c" stroke-width="1.4"/></svg>
+        <div class="card reveal">
+            <ul class="news-list">
+                <li>
+                    <span class="news-date">2026.07.10</span>
+                    <span class="news-label event">入荷情報</span>
+                    <span class="news-body">夏の生搾りフルーツサワーはじめました。今週は「小玉すいか」と「パイン」です。</span>
+                </li>
+                <li>
+                    <span class="news-date">2026.07.01</span>
+                    <span class="news-label holiday">休業案内</span>
+                    <span class="news-body">8月13日（木）〜16日（日）は夏季休業とさせていただきます。</span>
+                </li>
+                <li>
+                    <span class="news-date">2026.06.20</span>
+                    <span class="news-label info">お知らせ</span>
+                    <span class="news-body">ご宴会コース（飲み放題付き）のご予約を承っております。お気軽にお電話ください。</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="signature">
+        <span class="eyebrow">SIGNATURE</span>
+        <h2 class="section-title">当店自慢の一品</h2>
+        <p class="section-lead">数ある肴の中でも、特にお客様からご好評をいただいている二品をご紹介いたします。</p>
+        <div class="signature-grid">
+            <div class="dish-card reveal">
+                <div class="dish-visual">
+                    <img src="images/gyuniku-tataki.png" alt="牛肉のタタキ。表面を炙り中は赤みを残した薄切りの牛肉">
+                </div>
+                <div class="dish-body">
+                    <span class="dish-tag">RECOMMEND 01</span>
+                    <h3 class="dish-name">牛肉のタタキ</h3>
+                    <p class="dish-price">￥980（税込）</p>
+                    <p class="dish-desc">表面を香ばしく炙り、中は赤みを残してしっとりと。旨みを閉じ込めた一枚一枚を、薬味とともにさっぱりとお楽しみいただけます。お酒との相性は抜群、まずはこの一皿から始めるお客様が多い当店の代表格です。</p>
+                </div>
+            </div>
+            <div class="dish-card reveal">
+                <div class="dish-visual">
+                    <img src="images/atsuyaki-tamago.png" alt="ネギ入り厚焼き玉子。刻みネギを練り込んで分厚く焼き上げ、大葉を添えた一皿">
+                </div>
+                <div class="dish-body">
+                    <span class="dish-tag">RECOMMEND 02</span>
+                    <h3 class="dish-name">ネギ入り厚焼き玉子</h3>
+                    <p class="dish-price">￥680（税込）</p>
+                    <p class="dish-desc">刻みネギをたっぷりと練り込み、じっくりと焼き上げた分厚い一枚。「ボリューム満点で最高」とお客様の声もいただく看板の卵料理です。出汁の効いたやさしい甘みが、お酒の合間にほっと一息つかせてくれます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <span class="watermark left" aria-hidden="true">肴</span>
+        <span class="eyebrow">FOOD MENU</span>
+        <h2 class="section-title">おしながき</h2>
+        <p class="menu-intro">旬の食材を使った肴の数々。仕入れにより内容・価格が変動する場合がございます。</p>
+
+        <!-- カテゴリへワンタップで飛べるジャンプボタン -->
+        <nav class="menu-jump" aria-label="料理カテゴリへ移動">
+            <a href="#cat-sashimi">お造り</a>
+            <a href="#cat-yakimono">焼き物</a>
+            <a href="#cat-agemono">揚げ物</a>
+            <a href="#cat-ippin">一品料理</a>
+            <a href="#cat-shime">ご飯もの・〆</a>
+        </nav>
+
+        <h3 class="menu-category">お通し</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">本日のお通し</span><span class="leader"></span><span class="menu-item-price">￥330</span></div>
+        </div>
+
+        <h3 class="menu-category" id="cat-sashimi">お造り</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">本日の鮮魚三点盛り</span><span class="leader"></span><span class="menu-item-price">￥1,280</span></div>
+            <div class="menu-item"><span class="menu-item-name">まぐろ中とろ</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">カツオのたたき</span><span class="leader"></span><span class="menu-item-price">￥780</span></div>
+            <div class="menu-item"><span class="menu-item-name">甘えびの姿造り</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
+        </div>
+
+        <h3 class="menu-category" id="cat-yakimono">焼き物</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">牛肉のタタキ<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥980</span></div>
+            <div class="menu-item"><span class="menu-item-name">炭火焼き鳥盛り合わせ（5本）</span><span class="leader"></span><span class="menu-item-price">￥980</span></div>
+            <div class="menu-item"><span class="menu-item-name">豚トロ塩レモン焼き</span><span class="leader"></span><span class="menu-item-price">￥780</span></div>
+            <div class="menu-item"><span class="menu-item-name">国産ホルモン炭火焼き</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
+            <div class="menu-item"><span class="menu-item-name">焼き椎茸バター醤油</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
+        </div>
+
+        <h3 class="menu-category" id="cat-agemono">揚げ物</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">若鶏の唐揚げ</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
+            <div class="menu-item"><span class="menu-item-name">白身魚の南蛮漬け</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
+            <div class="menu-item"><span class="menu-item-name">揚げ出し豆腐</span><span class="leader"></span><span class="menu-item-price">￥550</span></div>
+            <div class="menu-item"><span class="menu-item-name">クリームコロッケ</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
+        </div>
+
+        <h3 class="menu-category" id="cat-ippin">一品料理</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">ネギ入り厚焼き玉子<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
+            <div class="menu-item"><span class="menu-item-name">じっくり煮込んだもつ煮込み</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
+            <div class="menu-item"><span class="menu-item-name">自家製冷奴</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
+            <div class="menu-item"><span class="menu-item-name">枝豆</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
+            <div class="menu-item"><span class="menu-item-name">自家製ポテトサラダ</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
+        </div>
+
+        <h3 class="menu-category" id="cat-shime">ご飯もの・〆</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">焼きおにぎり</span><span class="leader"></span><span class="menu-item-price">￥330</span></div>
+            <div class="menu-item"><span class="menu-item-name">凪特製お茶漬け</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
+            <div class="menu-item"><span class="menu-item-name">〆の卵かけご飯</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
+        </div>
+
+        <p class="note-text" style="text-align:center;">※価格は全て税込です。仕入れ状況によりご提供できない場合がございます。</p>
+
+        <div class="highlight-box reveal">
+            <strong>ご宴会・貸切のご相談も承ります。</strong><br>
+            知人・友人との集まりにぴったりの落ち着いた雰囲気です。ご予算やご要望に合わせてコースもご用意いたしますので、お気軽にお電話ください。<br>
+            <a href="tel:0280327041" class="btn-link">宴会のご相談はこちら</a>
+        </div>
+    </section>
+
+    <section id="drink">
+        <span class="watermark" aria-hidden="true">酒</span>
+        <span class="eyebrow">DRINK MENU</span>
+        <h2 class="section-title">お飲み物</h2>
+        <p class="menu-intro">料理に合わせて、日本酒から焼酎、ビール、サワーまで種類豊富にご用意しております。</p>
+
+        <h3 class="menu-category">日本酒</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">常陸の地酒 各種（冷・熱燗）</span><span class="leader"></span><span class="menu-item-price">￥580〜</span></div>
+            <div class="menu-item"><span class="menu-item-name">季節限定 純米吟醸</span><span class="leader"></span><span class="menu-item-price">￥780〜</span></div>
+        </div>
+
+        <h3 class="menu-category">ビール・ハイボール・サワー</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">生ビール</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
+            <div class="menu-item"><span class="menu-item-name">ハイボール</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
+            <div class="menu-item"><span class="menu-item-name">自家製レモンサワー</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
+            <div class="menu-item"><span class="menu-item-name">季節の生搾りフルーツサワー<span class="osusume">季節限定</span></span><span class="leader"></span><span class="menu-item-price">￥520</span></div>
+        </div>
+
+        <h3 class="menu-category">焼酎・ウイスキー</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">芋焼酎（ロック・水割り）</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
+            <div class="menu-item"><span class="menu-item-name">麦焼酎（ロック・水割り）</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
+            <div class="menu-item"><span class="menu-item-name">ウイスキー各種</span><span class="leader"></span><span class="menu-item-price">￥580〜</span></div>
+        </div>
+
+        <h3 class="menu-category">ソフトドリンク</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">ウーロン茶・烏龍茶ハイ</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
+            <div class="menu-item"><span class="menu-item-name">オレンジジュース</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
+        </div>
+        <p class="note-text" style="text-align:center; margin-top: 24px;">※価格は全て税込です。仕入れ状況により銘柄が変更となる場合がございます。お車でお越しの方への酒類のご提供はできません。</p>
+    </section>
+
+    <!-- お客様が来店前に一番知りたい「どんな席で飲めるのか」を案内 -->
+    <section id="seat">
+        <span class="eyebrow">SEAT</span>
+        <h2 class="section-title">お席のご案内</h2>
+        <p class="section-lead">お一人でも、お仲間とでも。その日の気分に合わせてお選びください。</p>
+        <div class="seat-grid">
+            <div class="seat-card reveal">
+                <svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#c8a25c" stroke-width="2">
+                    <line x1="8" y1="24" x2="52" y2="24"/>
+                    <line x1="14" y1="24" x2="14" y2="48"/>
+                    <line x1="46" y1="24" x2="46" y2="48"/>
+                    <circle cx="30" cy="38" r="5"/>
+                    <line x1="30" y1="43" x2="30" y2="52"/>
+                </svg>
+                <h3>カウンター席</h3>
+                <p>お一人様も大歓迎。店主との会話を楽しみながら、静かに一献傾けられる特等席です。仕事帰りにふらりとどうぞ。</p>
+            </div>
+            <div class="seat-card reveal">
+                <svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#c8a25c" stroke-width="2">
+                    <rect x="18" y="22" width="24" height="16" rx="2"/>
+                    <line x1="10" y1="46" x2="14" y2="34"/>
+                    <line x1="50" y1="46" x2="46" y2="34"/>
+                    <line x1="24" y1="38" x2="24" y2="48"/>
+                    <line x1="36" y1="38" x2="36" y2="48"/>
+                </svg>
+                <h3>テーブル席</h3>
+                <p>ご友人やご家族との食事にちょうどよいテーブル席。気の置けない仲間同士、ゆっくりと語らいながらお過ごしください。</p>
+            </div>
+            <div class="seat-card reveal">
+                <svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#c8a25c" stroke-width="2">
+                    <rect x="10" y="14" width="40" height="30" rx="3"/>
+                    <path d="M10 26 h40"/>
+                    <circle cx="22" cy="35" r="3"/>
+                    <circle cx="38" cy="35" r="3"/>
+                </svg>
+                <h3>ご宴会・貸切</h3>
+                <p>歓送迎会や打ち上げなどのご宴会も承ります。人数・ご予算はお気軽にご相談ください。駐車場もございます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="info">
+        <span class="eyebrow">ACCESS</span>
+        <h2 class="section-title">店舗情報・アクセス</h2>
+        <div class="info-layout">
+            <table class="info-table">
+                <tr><th>店名</th><td>居酒屋 凪</td></tr>
+                <tr><th>所在地</th><td>茨城県古河市北町1-3</td></tr>
+                <tr><th>電話番号</th><td><a href="tel:0280327041">0280-32-7041</a><br><span class="note-text" style="margin-top:4px;">ご予約・お問い合わせはお電話にて</span></td></tr>
+                <tr><th>アクセス</th><td>JR古河駅から徒歩約10分</td></tr>
+                <tr id="hours-weekday"><th>営業時間（月〜金）</th><td>17:00〜22:30（L.O. 22:00）</td></tr>
+                <tr id="hours-saturday"><th>営業時間（土）</th><td>17:30〜23:00（L.O. 22:30）</td></tr>
+                <tr id="hours-sunday"><th>定休日</th><td>日曜日</td></tr>
+                <tr><th>駐車場</th><td>あり（お車でお越しの方への酒類のご提供はできません）</td></tr>
+                <tr><th>お支払い</th><td>現金</td></tr>
+            </table>
+            <div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps?q=茨城県古河市北町1-3&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="居酒屋 凪の地図"></iframe>
+                </div>
+                <p class="map-actions">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=茨城県古河市北町1-3" target="_blank" rel="noopener">Googleマップで経路を見る →</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <svg class="seal" width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="45"/><text x="50" y="65" font-size="48" text-anchor="middle">凪</text></svg>
+    <p>居酒屋 凪　茨城県古河市北町1-3</p>
+    <p><a class="footer-phone" href="tel:0280327041">0280-32-7041</a></p>
+    <p class="footer-hours">月〜金 17:00〜22:30 ／ 土 17:30〜23:00 ／ 日曜定休</p>
+    <p class="footer-note">© 2026 居酒屋 凪 All Rights Reserved.</p>
+</footer>
+
+<!-- スマホ用：常時表示の電話予約ボタン -->
+<a class="float-call" href="tel:0280327041">📞 お電話でご予約する<small>0280-32-7041（本日の空席状況もこちら）</small></a>
+
+<!-- トップへ戻る -->
+<button class="to-top" id="to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="ページの先頭へ戻る">▲</button>
+
+<script>
+    /* ---------- オープニングスプラッシュ ----------
+       初回は約1.8秒見せてからフェードアウト。クリックで即スキップ。
+       同じセッション内の再訪・「視差効果を減らす」設定時はほぼ待たせない */
+    (function () {
+        var splash = document.getElementById('splash');
+        if (!splash) return;
+        var quick = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        try {
+            quick = quick || sessionStorage.getItem('nagiSplashSeen') === '1';
+            sessionStorage.setItem('nagiSplashSeen', '1');
+        } catch (e) { /* プライベートモード等でsessionStorageが使えない場合は毎回表示 */ }
+        var hidden = false;
+        function hide() {
+            if (hidden) return;
+            hidden = true;
+            splash.classList.add('done');
+            setTimeout(function () {
+                if (splash.parentNode) splash.parentNode.removeChild(splash);
+            }, 900);
+        }
+        splash.addEventListener('click', hide);
+        setTimeout(hide, quick ? 150 : 1800);
+    })();
+
+    /* ---------- ハンバーガーメニュー ---------- */
+    function toggleMenu() {
+        var links = document.querySelector('.nav-links');
+        var burger = document.querySelector('.hamburger');
+        var isOpen = links.classList.toggle('open');
+        burger.classList.toggle('open');
+        burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+    function closeMenu() {
+        var links = document.querySelector('.nav-links');
+        var burger = document.querySelector('.hamburger');
+        if (links.classList.contains('open')) {
+            links.classList.remove('open');
+            burger.classList.remove('open');
+            burger.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    /* ---------- 本日の営業状況バッジ ----------
+       営業時間を変更したら HOURS を書き換えるだけで表示も自動で変わります。
+       [開店時, 開店分, 閉店時, 閉店分] ／ null は定休日 */
+    var HOURS = {
+        0: null,                  // 日曜：定休日
+        1: [17, 0, 22, 30],       // 月
+        2: [17, 0, 22, 30],       // 火
+        3: [17, 0, 22, 30],       // 水
+        4: [17, 0, 22, 30],       // 木
+        5: [17, 0, 22, 30],       // 金
+        6: [17, 30, 23, 0]        // 土
+    };
+    function fmt(h, m) { return h + ':' + (m < 10 ? '0' : '') + m; }
+    function updateStatus() {
+        var badge = document.getElementById('status-badge');
+        var text = document.getElementById('status-text');
+        var now = new Date();
+        var today = HOURS[now.getDay()];
+
+        if (!today) {
+            badge.className = 'status-badge closed';
+            text.innerHTML = '本日は<strong>定休日</strong>です（日曜定休）';
+        } else {
+            var mins = now.getHours() * 60 + now.getMinutes();
+            var open = today[0] * 60 + today[1];
+            var close = today[2] * 60 + today[3];
+            var range = fmt(today[0], today[1]) + '〜' + fmt(today[2], today[3]);
+            if (mins >= open && mins < close) {
+                badge.className = 'status-badge open';
+                text.innerHTML = 'ただいま<strong>営業中</strong>（本日 ' + range + '）';
+            } else if (mins < open) {
+                badge.className = 'status-badge closed';
+                text.innerHTML = '本日 <strong>' + fmt(today[0], today[1]) + ' 開店</strong>（' + range + '）';
+            } else {
+                badge.className = 'status-badge closed';
+                text.innerHTML = '本日の営業は<strong>終了</strong>しました（' + range + '）';
+            }
+        }
+
+        /* 店舗情報テーブルの「今日の行」を強調 */
+        var day = now.getDay();
+        var rowId = day === 0 ? 'hours-sunday' : (day === 6 ? 'hours-saturday' : 'hours-weekday');
+        ['hours-weekday', 'hours-saturday', 'hours-sunday'].forEach(function (id) {
+            var row = document.getElementById(id);
+            if (row) row.classList.toggle('today-row', id === rowId);
+        });
+    }
+    updateStatus();
+    setInterval(updateStatus, 60000);
+
+    /* ---------- スクロールで要素をふわっと表示 ---------- */
+    var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('shown');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function (el) { revealObserver.observe(el); });
+
+    /* ---------- ナビの現在地ハイライト ---------- */
+    var sections = document.querySelectorAll('main section');
+    var navMap = {};
+    document.querySelectorAll('.nav-links a[href^="#"]').forEach(function (a) {
+        navMap[a.getAttribute('href').slice(1)] = a;
+    });
+    var spyObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            var link = navMap[entry.target.id];
+            if (!link) return;
+            if (entry.isIntersecting) {
+                document.querySelectorAll('.nav-links a.current').forEach(function (el) { el.classList.remove('current'); });
+                link.classList.add('current');
+            }
+        });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function (s) { spyObserver.observe(s); });
+
+    /* ---------- トップへ戻るボタン ---------- */
+    var toTop = document.getElementById('to-top');
+    window.addEventListener('scroll', function () {
+        toTop.classList.toggle('shown', window.pageYOffset > 600);
+    }, { passive: true });
+</script>
+
+</body>
+</html>

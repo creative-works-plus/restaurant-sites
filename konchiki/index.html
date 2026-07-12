@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>居酒屋 こんちき｜茨城県古河市下辺見の隠れ家</title>
+    <meta name="description" content="茨城県古河市下辺見の隠れ家居酒屋「こんちき」。岩手県産地養鶏の串焼き、手作りのおつまみ、季節の地酒を揃えています。ご予約はお電話にて（0280-33-7762）。">
+    <meta property="og:title" content="居酒屋 こんちき｜古河市下辺見の隠れ家">
+    <meta property="og:description" content="地養鶏の串焼きと手作りのおつまみ、季節の地酒が楽しめる古河市の隠れ家居酒屋。">
+    <meta property="og:type" content="restaurant">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%230d0d0d' stroke='%23b33939' stroke-width='4'/%3E%3Ctext x='50' y='66' font-size='46' text-anchor='middle' fill='%23e8dcc4' font-family='serif'%3E%E3%81%93%3C/text%3E%3C/svg%3E">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "居酒屋 こんちき",
+      "servesCuisine": "Japanese",
+      "telephone": "+81-280-33-7762",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "下辺見2789",
+        "addressLocality": "古河市",
+        "addressRegion": "茨城県",
+        "postalCode": "306-0235",
+        "addressCountry": "JP"
+      }
+    }
+    </script>
+    <!-- 和風感を演出するGoogleフォント（Noto Serif JP） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           ベース設定
+        ========================================= */
+        :root {
+            --bg-color: #0d0d0d;
+            --text-color: #e8dcc4;
+            --text-mute: #b8b1a3;
+            --accent-color: #b33939;
+            --accent-soft: rgba(179, 57, 57, 0.35);
+            --warm-accent: #c9a063;
+            --warm-soft: rgba(201, 160, 99, 0.35);
+            --line-soft: rgba(232, 220, 196, 0.22);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: var(--text-color);
+            font-family: 'Noto Serif JP', serif;
+            overflow-x: hidden;
+        }
+
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        @keyframes bgRevealFromDark {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes contentFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           背景画像設定
+        ========================================= */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('10081227700928758642.jpeg');
+            background-size: cover;
+            background-position: top center;
+            z-index: 0;
+            opacity: 0;
+            animation: bgRevealFromDark 1.6s ease-out forwards;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.42) 32%, rgba(0,0,0,0.42) 62%, rgba(0,0,0,0.88) 100%);
+            z-index: 1;
+        }
+
+        /* =========================================
+           メインレイアウト・コンテンツ
+        ========================================= */
+        .wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 2rem 4rem;
+            box-sizing: border-box;
+            opacity: 0;
+            animation: contentFadeIn 1s ease-out 1s both;
+        }
+
+        header.main-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.2em;
+        }
+
+        header.main-header p {
+            font-size: 0.9rem;
+            margin: 0 0 0.6rem;
+            color: var(--text-mute);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+            letter-spacing: 0.35em;
+        }
+
+        header.main-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.8rem;
+        }
+        header.main-header h1::after {
+            content: "";
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 48px; height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .left-nav {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .left-nav nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            gap: 1.5rem;
+        }
+
+        .left-nav nav ul li button {
+            color: var(--text-color);
+            background: none;
+            border: none;
+            appearance: none;
+            -webkit-appearance: none;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-family: inherit;
+            position: relative;
+            transition: color 0.3s, text-shadow 0.3s;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: 0.3em;
+            padding: 10px 6px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            cursor: pointer;
+        }
+
+        .left-nav nav ul li button::before {
+            content: "";
+            position: absolute; top: 0; right: -3px;
+            width: 0; height: 100%;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .left-nav nav ul li button:hover,
+        .left-nav nav ul li button:focus-visible {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(232, 220, 196, 0.8);
+        }
+        .left-nav nav ul li button:hover::before,
+        .left-nav nav ul li button:focus-visible::before { width: 2px; }
+
+        .right-info {
+            background: rgba(15, 15, 15, 0.75);
+            padding: 2.2rem 2rem;
+            border: 1px solid var(--line-soft);
+            border-radius: 4px;
+            max-width: 380px;
+            width: 100%;
+            box-sizing: border-box;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .right-info h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 1.6rem;
+            letter-spacing: 0.3em;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        .right-info h2::after {
+            content: "";
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 32px; height: 1px;
+            background: var(--warm-accent);
+        }
+
+        .right-info .info-block {
+            margin-bottom: 1.3rem;
+        }
+
+        .right-info .info-title {
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            color: var(--warm-accent);
+            font-size: 0.82rem;
+            letter-spacing: 0.2em;
+            border-bottom: 1px solid var(--warm-soft);
+            padding-bottom: 3px;
+        }
+
+        .right-info p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .map-wrapper {
+            margin-top: 14px;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border: 1px solid var(--line-soft);
+            border-radius: 4px;
+        }
+        .map-wrapper iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+        .google-review-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+            margin-top: 10px;
+            font-size: 0.82rem;
+            letter-spacing: 0.05em;
+            color: var(--text-mute);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .google-review-link span { color: var(--warm-accent); font-size: 0.9rem; }
+        .google-review-link:hover, .google-review-link:focus-visible {
+            color: var(--text-color);
+            border-color: var(--warm-soft);
+        }
+
+        .insta-card {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+            color: var(--text-color);
+            background: rgba(201, 160, 99, 0.06);
+            border: 1px solid var(--warm-soft);
+            border-radius: 4px;
+            padding: 0.85rem 1rem;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .insta-card:hover, .insta-card:focus-visible {
+            background: rgba(201, 160, 99, 0.14);
+            border-color: var(--warm-accent);
+        }
+        .insta-icon {
+            flex-shrink: 0;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--warm-soft);
+            color: var(--warm-accent);
+        }
+        .insta-text { font-size: 0.88rem; color: var(--text-mute); line-height: 1.5; }
+        .insta-text strong { display: block; color: var(--text-color); font-size: 0.95rem; letter-spacing: 0.05em; }
+
+        .business-hours {
+            display: table;
+            width: 100%;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            border-collapse: collapse;
+        }
+
+        .business-hours-row {
+            display: table-row;
+            border-bottom: 1px dashed var(--line-soft);
+        }
+
+        .business-hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .business-hours-day {
+            display: table-cell;
+            padding: 0.3rem 0;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .business-hours-time {
+            display: table-cell;
+            padding: 0.3rem 0;
+            text-align: right;
+        }
+
+        /* =========================================
+           電話番号リンク
+        ========================================= */
+        .tel-link {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .tel-link:hover { color: #ffffff; text-decoration: underline; }
+
+        .tel-link-large {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .tel-link-large:hover { color: var(--accent-color); }
+
+        /* =========================================
+           別ページ風 全画面オーバーレイ
+        ========================================= */
+        .page-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh; /* モバイルのアドレスバー増減に追従（末尾が隠れる問題を防ぐ） */
+            background-color: rgba(10, 10, 10, 0.98);
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain; /* 端まで達しても背後のトップページへスクロールが伝播しないようにする */
+            box-sizing: border-box;
+        }
+
+        .page-view.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* 背景画像を持つページは、本体の背景色を透明にして疑似要素の画像を見せる
+           （画像側に暗いグラデーションを重ねているため暗さは保たれる） */
+        #food-view, #drink-view, #course-view {
+            background-color: transparent;
+        }
+
+        /* お品書きページ専用の背景（焼き鳥イラスト）。世界観を壊さないよう暗めに重ねる */
+        #food-view::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
+                url('kontiki.yakitori.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            /* background-attachment: fixed はモバイルで描画が重く末尾が見切れるため、
+               疑似要素を固定して同じ見た目を安定して実現する */
+        }
+
+        /* お飲み物ページ専用の背景（地酒・焼酎のイラスト）。お品書きと同じトーンで統一 */
+        #drink-view::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
+                url('nomimono_konntiki.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+        }
+
+        /* 宴会コースページ専用の背景（個室のイラスト）。他ページと同じトーンで統一 */
+        #course-view::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
+                url('enkai_konntiki.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+        }
+
+        .close-fab {
+            position: fixed;
+            top: calc(16px + env(safe-area-inset-top, 0px));
+            left: calc(16px + env(safe-area-inset-left, 0px));
+            z-index: 50;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+            background: rgba(13, 13, 13, 0.72);
+            border: 1px solid var(--line-soft);
+            border-radius: 30px;
+            color: var(--text-mute);
+            font-family: inherit;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            padding: 0.6rem 1.1rem;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .close-fab:hover, .close-fab:focus-visible {
+            color: var(--text-color);
+            border-color: var(--accent-color);
+        }
+
+        .phone-fab {
+            position: fixed;
+            right: calc(18px + env(safe-area-inset-right, 0px));
+            bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+            z-index: 90;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.55);
+            transition: transform 0.25s ease, background 0.3s ease;
+        }
+        .phone-fab:hover, .phone-fab:focus-visible {
+            background: #8f2e2e;
+            transform: scale(1.06);
+        }
+        @media (max-width: 850px) {
+            .phone-fab { width: 52px; height: 52px; font-size: 1.4rem; }
+        }
+
+        .sub-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            /* 下端に十分な余白を設け、末尾のメニューが画面の一番下に張り付かないようにする。
+               iPhone等のホームバー領域（safe-area）も加味する。 */
+            padding: 4rem 2rem calc(5rem + env(safe-area-inset-bottom, 0px));
+        }
+
+        .sub-wrapper header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .sub-wrapper h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            margin-bottom: 0;
+            display: inline-block;
+            padding-bottom: 0.9rem;
+            position: relative;
+        }
+        .sub-wrapper h1::after {
+            content: "";
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+        }
+
+        /* カテゴリージャンプリンク */
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem 0.7rem;
+            max-width: 720px;
+            margin: -2rem auto 3.5rem;
+            padding: 0 0.5rem;
+        }
+        .category-nav button {
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(201, 160, 99, 0.06);
+            border: 1px solid var(--warm-soft);
+            border-radius: 30px;
+            color: var(--text-mute);
+            font-family: inherit;
+            font-size: 0.86rem;
+            letter-spacing: 0.12em;
+            padding: 0.42rem 1.05rem;
+            cursor: pointer;
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+        .category-nav button:hover,
+        .category-nav button:focus-visible {
+            color: var(--text-color);
+            background: rgba(201, 160, 99, 0.16);
+            border-color: var(--warm-accent);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem 4rem;
+            /* ジャンプ時に見出しが「戻る」ボタンの下に隠れないよう余裕をもたせる */
+            scroll-margin-top: 5rem;
+        }
+        .category {
+            scroll-margin-top: 5rem;
+        }
+
+        .category h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-color);
+            border-left: 3px solid var(--accent-color);
+            padding-left: 0.9rem;
+            margin-top: 0;
+            margin-bottom: 1.6rem;
+            letter-spacing: 0.2em;
+        }
+
+        .category-subtext {
+            font-size: 0.78rem;
+            color: var(--text-mute);
+            margin-left: 10px;
+            letter-spacing: 0;
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.2rem;
+        }
+
+        .item-name {
+            order: 1;
+            font-size: 1.03rem;
+            padding-right: 6px;
+            position: relative;
+            z-index: 2;
+            text-shadow:
+                0 0 2px var(--bg-color),
+                0 0 4px var(--bg-color),
+                0 0 6px var(--bg-color),
+                0 0 9px var(--bg-color),
+                0 0 12px var(--bg-color);
+        }
+
+        .item-price {
+            order: 3;
+            font-size: 1.03rem;
+            font-weight: bold;
+            color: var(--text-color);
+            padding-left: 6px;
+            position: relative;
+            z-index: 2;
+            white-space: nowrap;
+            /* 金額が右端で縦一列に揃うようにする */
+            min-width: 4.6em;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.04em;
+            text-shadow:
+                0 0 2px var(--bg-color),
+                0 0 4px var(--bg-color),
+                0 0 6px var(--bg-color),
+                0 0 9px var(--bg-color),
+                0 0 12px var(--bg-color);
+        }
+
+        /* 点線リーダーを品名と金額の「間」に敷き、金額を右端へ寄せる */
+        .menu-item::after {
+            content: "";
+            order: 2;
+            flex-grow: 1;
+            min-width: 1.2em;
+            margin: 0 0.2em;
+            border-bottom: 1px dotted var(--line-soft);
+            position: relative;
+            top: -4px;
+            z-index: 1;
+        }
+
+        /* 名称のみの行（サブ項目の見出し行）：リーダー罫線を出さない */
+        .item-heading {
+            font-size: 1.03rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* サブメニューの余白を調整 */
+        .sub-menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 0.92rem;
+            color: var(--text-mute);
+            padding-left: 1.5rem;
+            margin-top: -0.1rem;
+            margin-bottom: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* サブ項目にも薄い点線リーダーを敷き、金額を右端の縦列に揃える */
+        .sub-menu-item:not(.sub-menu-block)::after {
+            content: "";
+            order: 2;
+            flex-grow: 1;
+            min-width: 1.2em;
+            margin: 0 0.2em;
+            border-bottom: 1px dotted rgba(232, 220, 196, 0.14);
+            position: relative;
+            top: -4px;
+        }
+        .sub-menu-item:not(.sub-menu-block) span:first-child { order: 1; padding-right: 6px; }
+        .sub-menu-item:not(.sub-menu-block) span:last-child {
+            order: 3;
+            min-width: 4.6em;
+            text-align: right;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.04em;
+        }
+
+        /* 文字が消えないようにブロック要素にする用クラス */
+        .sub-menu-block {
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        /* 宴会コース（プチパーティ＆女子会）ページ用 */
+        .course-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .course-list li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.85rem;
+            font-size: 1.02rem;
+            line-height: 1.75;
+        }
+        .course-list li::before {
+            content: "・";
+            position: absolute;
+            left: 0;
+            color: var(--warm-accent);
+        }
+        .course-note {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: var(--text-mute);
+            margin: 0;
+        }
+        .course-star-note {
+            margin: 0.9rem 0 0;
+            font-size: 0.88rem;
+            color: var(--warm-accent);
+            letter-spacing: 0.03em;
+        }
+
+        .notice-box {
+            text-align: center;
+            padding: 4rem 0;
+            font-size: 1.15rem;
+            letter-spacing: 0.12em;
+            line-height: 2;
+        }
+
+        /* =========================================
+           レスポンシブ対応
+        ========================================= */
+        @media screen and (max-width: 900px) {
+            .wrapper { padding: 1.5rem; }
+            .main-content { flex-direction: column; justify-content: center; gap: 3rem; }
+            .left-nav nav ul { flex-direction: column; gap: 1rem; text-align: center; }
+            .left-nav nav ul li button {
+                writing-mode: horizontal-tb;
+                letter-spacing: 0.1em;
+                font-size: 1.4rem;
+                display: block;
+                padding: 8px;
+            }
+            .left-nav nav ul li button::before { display: none; }
+            .right-info { max-width: 100%; text-align: center; padding: 1.6rem; }
+            .business-hours-day { text-align: center; padding-right: 1rem; }
+            .business-hours-time { text-align: center; }
+            header.main-header h1 { font-size: 2.2rem; }
+            .menu-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .sub-wrapper h1 { font-size: 1.9rem; }
+            .category-subtext { display: block; margin-left: 0; margin-top: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景画像とオーバーレイ -->
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+
+    <a class="phone-fab" href="tel:0280337762" aria-label="電話をかける（0280-33-7762）">
+        <span aria-hidden="true">☎</span>
+    </a>
+
+    <!-- =========================================
+       メインのトップページ
+    ========================================= -->
+    <div class="wrapper">
+
+        <header class="main-header">
+            <p>茨城県古河市の隠れ家</p>
+            <h1>居酒屋 こんちき</h1>
+        </header>
+
+        <main class="main-content">
+            <section class="left-nav">
+                <nav>
+                    <ul>
+                        <li><button onclick="openPage('food-view')">お品書き</button></li>
+                        <li><button onclick="openPage('drink-view')">お飲み物</button></li>
+                        <li><button onclick="openPage('course-view')">宴会コース</button></li>
+                        <li><button onclick="scrollToStoreInfo()">店舗情報</button></li>
+                        <li><button onclick="openPage('reserve-view')">ご予約</button></li>
+                    </ul>
+                </nav>
+            </section>
+
+            <section class="right-info" id="store-info">
+                <h2>店舗情報</h2>
+                <div class="info-block">
+                    <span class="info-title">住所</span>
+                    <p>〒306-0235<br>茨城県古河市下辺見2789</p>
+                    <div class="map-wrapper">
+                        <iframe src="https://www.google.com/maps?q=茨城県古河市下辺見2789&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="居酒屋 こんちきの地図"></iframe>
+                    </div>
+                    <a class="google-review-link" href="https://www.google.com/search?q=居酒屋こんちき+下辺見+口コミ" target="_blank" rel="noopener">
+                        <span aria-hidden="true">★</span>Googleで口コミを見る
+                    </a>
+                </div>
+                <div class="info-block">
+                    <span class="info-title">営業時間</span>
+                    <div class="business-hours">
+                        <div class="business-hours-row">
+                            <div class="business-hours-day">月・水・木・日</div>
+                            <div class="business-hours-time">18:00 - 0:00</div>
+                        </div>
+                        <div class="business-hours-row">
+                            <div class="business-hours-day">金・土</div>
+                            <div class="business-hours-time">18:00 - 1:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-block">
+                    <span class="info-title">定休日</span>
+                    <p>火曜日</p>
+                </div>
+                <div class="info-block">
+                    <span class="info-title">駐車場</span>
+                    <p>店舗前にございます</p>
+                </div>
+                <div class="info-block">
+                    <span class="info-title">決済方法</span>
+                    <p>現金のみ</p>
+                </div>
+                <div class="info-block">
+                    <span class="info-title">ご予約・お問い合わせ</span>
+                    <p>TEL: <a href="tel:0280337762" class="tel-link">0280-33-7762</a></p>
+                </div>
+                <div class="info-block" style="margin-bottom: 0;">
+                    <a class="insta-card" href="https://www.instagram.com/_konchiki_/?hl=ja" target="_blank" rel="noopener">
+                        <span class="insta-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+                        </span>
+                        <span class="insta-text"><strong>@_konchiki_</strong>最新情報はこちら</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!--
+      改善提案：駐車場の有無・座席数や個室の有無・喫煙可否は原文に情報が
+      無かったため追加していません。分かる範囲で store-info 内に info-block を
+      追加していただくと、来店を迷っているお客様への安心材料になります。
+    -->
+
+
+    <!-- =========================================
+       お品書き 全画面ビュー
+    ========================================= -->
+    <div id="food-view" class="page-view">
+        <button class="close-fab" onclick="closePage('food-view')" aria-label="トップページへ戻る">← 戻る</button>
+        <div class="sub-wrapper">
+            <header>
+                <h1>お品書き</h1>
+            </header>
+
+            <nav class="category-nav" aria-label="お品書きのカテゴリー">
+                <button onclick="jumpToCategory('food-view', 0)">肴</button>
+                <button onclick="jumpToCategory('food-view', 1)">串</button>
+                <button onclick="jumpToCategory('food-view', 2)">焼</button>
+                <button onclick="jumpToCategory('food-view', 3)">揚</button>
+                <button onclick="jumpToCategory('food-view', 4)">豆腐料理</button>
+                <button onclick="jumpToCategory('food-view', 5)">〆飯</button>
+                <button onclick="jumpToCategory('food-view', 6)">甘味</button>
+            </nav>
+
+            <div class="menu-grid">
+                <!-- 肴 -->
+                <section class="category">
+                    <h3>肴</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">枝豆（茶豆・わさび風味）</span><span class="item-price">530円</span></li>
+                        <li class="menu-item"><span class="item-name">こんちき おつまみ3点盛り</span><span class="item-price">700円</span></li>
+                        <li class="menu-item"><span class="item-name">梅水晶</span><span class="item-price">380円</span></li>
+                        <li class="menu-item"><span class="item-name">きまぐれサラダ</span><span class="item-price">580円</span></li>
+                        <li class="menu-item"><span class="item-name">炙りエイヒレ</span><span class="item-price">500円</span></li>
+                        <li class="menu-item"><span class="item-name">カリ皮ポン酢</span><span class="item-price">500円</span></li>
+                        <li class="menu-item"><span class="item-name">こんちき ピリ辛冷奴</span><span class="item-price">380円</span></li>
+                        <li class="menu-item"><span class="item-name">冷やしトマトスライス</span><span class="item-price">300円</span></li>
+                    </ul>
+                </section>
+
+                <!-- 串 -->
+                <section class="category">
+                    <h3>串<span class="category-subtext">岩手県産地養鶏 使用</span></h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">おすすめ串盛り5点set</span><span class="item-price">1,200円</span></li>
+                        <li class="menu-item"><span class="item-name">上レバー</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">ねぎま</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">ハツ</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">つなぎ（1日3本限定）</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">上せせり</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">かわ</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">ヤゲン軟骨</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">砂肝</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">ぼんじり</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">タレつくね</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">おすすめ野菜焼き</span><span class="item-price">250円</span></li>
+                        <li class="menu-item"><span class="item-name">にんにく丸ごと焼き</span><span class="item-price">500円</span></li>
+                    </ul>
+                </section>
+
+                <!-- 焼 -->
+                <section class="category">
+                    <h3>焼</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">鶏皮ぎょうざ</span><span class="item-price">600円</span></li>
+                        <li class="menu-item"><span class="item-name">山芋のふわトロ焼き</span><span class="item-price">630円</span></li>
+                        <li class="menu-item"><span class="item-name">豚バラチャーシュー</span><span class="item-price">780円</span></li>
+                        <li class="menu-item"><span class="item-name">こんちき だし巻き卵</span><span class="item-price">580円</span></li>
+                        <li class="menu-item"><span class="item-name">明太ポテトチーズ焼き</span><span class="item-price">580円</span></li>
+                        <li class="menu-item item-heading"><span class="item-name">ママの気まぐれアヒージョ</span><span class="item-price">680円</span></li>
+                        <div class="sub-menu-item"><span>・追加バケット</span><span>150円</span></div>
+                        <div class="sub-menu-item"><span>・追加野菜</span><span>300円</span></div>
+                        <li class="menu-item"><span class="item-name">日替わり焼き魚</span><span class="item-price">600円</span></li>
+                        <li class="menu-item"><span class="item-name">野菜炒め</span><span class="item-price">580円</span></li>
+                        <li class="menu-item"><span class="item-name">ししゃも焼き</span><span class="item-price">330円</span></li>
+                    </ul>
+                </section>
+
+                <!-- 揚 -->
+                <section class="category">
+                    <h3>揚</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">海老のプリプリ春巻き</span><span class="item-price">650円</span></li>
+                        <li class="menu-item"><span class="item-name">ポテトフライ（塩・スパイシー）</span><span class="item-price">580円</span></li>
+                        <li class="menu-item"><span class="item-name">こんちき唐揚げ（塩・にんにく醤油）</span><span class="item-price">580円</span></li>
+                        <li class="menu-item"><span class="item-name">ごぼう唐揚げ</span><span class="item-price">500円</span></li>
+                    </ul>
+                </section>
+
+                <!-- 豆腐料理 -->
+                <section class="category">
+                    <h3>豆腐料理</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">冷や奴</span><span class="item-price">480円</span></li>
+                        <li class="menu-item"><span class="item-name">麻婆豆腐</span><span class="item-price">680円</span></li>
+                        <li class="menu-item"><span class="item-name">手作りの厚揚げ</span><span class="item-price">580円</span></li>
+                        <li class="menu-item"><span class="item-name">揚げ出し豆腐</span><span class="item-price">580円</span></li>
+                        <li class="menu-item"><span class="item-name">肉豆腐</span><span class="item-price">680円</span></li>
+                    </ul>
+                </section>
+
+                <!-- 〆飯 -->
+                <section class="category">
+                    <h3>〆飯</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">焼きおにぎり 1個</span><span class="item-price">280円</span></li>
+                        <li class="menu-item"><span class="item-name">醤油ラーメン</span><span class="item-price">780円</span></li>
+                        <li class="menu-item"><span class="item-name">濃厚鶏白湯ラーメン</span><span class="item-price">880円</span></li>
+                        <li class="menu-item"><span class="item-name">パスタ（アマトリチャーナ等）</span><span class="item-price">680円</span></li>
+                        <li class="menu-item"><span class="item-name">鶏の親子ぞうすい</span><span class="item-price">580円</span></li>
+                        <li class="menu-item"><span class="item-name">南高梅茶漬け</span><span class="item-price">480円</span></li>
+                        <li class="menu-item"><span class="item-name">卵かけごはん</span><span class="item-price">250円</span></li>
+                    </ul>
+                </section>
+
+                <!-- 甘味 -->
+                <section class="category">
+                    <h3>甘味</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">本日のアイス</span><span class="item-price">300円</span></li>
+                        <li class="menu-item"><span class="item-name">本日のアイスケーキ</span><span class="item-price">300円</span></li>
+                    </ul>
+                </section>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- =========================================
+       お飲み物 全画面ビュー
+    ========================================= -->
+    <div id="drink-view" class="page-view">
+        <button class="close-fab" onclick="closePage('drink-view')" aria-label="トップページへ戻る">← 戻る</button>
+        <div class="sub-wrapper">
+            <header>
+                <h1>お飲み物</h1>
+            </header>
+
+            <nav class="category-nav" aria-label="お飲み物のカテゴリー">
+                <button onclick="jumpToCategory('drink-view', 0)">麦酒</button>
+                <button onclick="jumpToCategory('drink-view', 1)">ハイボール</button>
+                <button onclick="jumpToCategory('drink-view', 2)">酎ハイサワー</button>
+                <button onclick="jumpToCategory('drink-view', 3)">地酒</button>
+                <button onclick="jumpToCategory('drink-view', 4)">焼酎</button>
+                <button onclick="jumpToCategory('drink-view', 5)">ワイン・果実酒</button>
+                <button onclick="jumpToCategory('drink-view', 6)">ソフトドリンク</button>
+            </nav>
+
+            <div class="menu-grid">
+                <!-- 麦酒 -->
+                <section class="category">
+                    <h3>麦酒</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">中ジョッキ（サッポロ生 黒ラベル）</span><span class="item-price">480円</span></li>
+                        <li class="menu-item"><span class="item-name">小ジョッキ（サッポロ生 黒ラベル）</span><span class="item-price">380円</span></li>
+                        <li class="menu-item"><span class="item-name">中瓶ビール（エビスビール）</span><span class="item-price">650円</span></li>
+                        <li class="menu-item"><span class="item-name">シャンディガフ</span><span class="item-price">480円</span></li>
+                        <li class="menu-item"><span class="item-name">ノンアルコールビール</span><span class="item-price">480円</span></li>
+                    </ul>
+                </section>
+
+                <!-- ハイボール -->
+                <section class="category">
+                    <h3>ハイボール</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">デュワーズハイボール</span><span class="item-price">420円</span></li>
+                        <li class="menu-item"><span class="item-name">濃いめ ハイボール</span><span class="item-price">520円</span></li>
+                        <li class="menu-item"><span class="item-name">ハイジンジャー</span><span class="item-price">480円</span></li>
+                        <li class="menu-item"><span class="item-name">コークハイ</span><span class="item-price">480円</span></li>
+                    </ul>
+                </section>
+
+                <!-- 酎ハイサワー -->
+                <section class="category">
+                    <h3>酎ハイサワー</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">ウーロンハイ</span><span class="item-price">430円</span></li>
+                        <li class="menu-item"><span class="item-name">ジャスミンハイ</span><span class="item-price">430円</span></li>
+                        <li class="menu-item"><span class="item-name">パンチレモンサワー</span><span class="item-price">430円</span></li>
+                        <li class="menu-item"><span class="item-name">ピンクグレフルサワー</span><span class="item-price">430円</span></li>
+                        <li class="menu-item"><span class="item-name">南高梅サワー</span><span class="item-price">430円</span></li>
+                        <li class="menu-item"><span class="item-name">ビワミンサワー</span><span class="item-price">430円</span></li>
+                    </ul>
+                </section>
+
+                <!-- 地酒 -->
+                <section class="category">
+                    <h3>地酒</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">季節の限定酒 90ml</span><span class="item-price">700円</span></li>
+                        <li class="menu-item item-heading"><span class="item-name">利き酒SET</span><span class="item-price">1,200円</span></li>
+                        <div class="sub-menu-item sub-menu-block">
+                            <span>・三種類の地酒が選べて、<br> 先付けが一品ついています。</span>
+                        </div>
+                    </ul>
+                </section>
+
+                <!-- 焼酎：SHOT/BOTTLEの二段構成でオーバーフローを防止 -->
+                <section class="category">
+                    <h3>焼酎</h3>
+                    <ul class="menu-list">
+                        <li class="item-heading"><span class="item-name">富乃宝山（芋）</span></li>
+                        <div class="sub-menu-item"><span>SHOT</span><span>450円</span></div>
+                        <div class="sub-menu-item"><span>BOTTLE</span><span>3,000円</span></div>
+
+                        <li class="item-heading"><span class="item-name">やきいも黒瀬（芋）</span></li>
+                        <div class="sub-menu-item"><span>SHOT</span><span>450円</span></div>
+                        <div class="sub-menu-item"><span>BOTTLE</span><span>2,800円</span></div>
+
+                        <li class="item-heading"><span class="item-name">千亀女（芋・麦）</span></li>
+                        <div class="sub-menu-item"><span>SHOT</span><span>450円</span></div>
+                        <div class="sub-menu-item"><span>BOTTLE</span><span>2,800円</span></div>
+
+                        <li class="item-heading"><span class="item-name">わら麦（麦）</span></li>
+                        <div class="sub-menu-item"><span>SHOT</span><span>450円</span></div>
+                        <div class="sub-menu-item"><span>BOTTLE</span><span>2,800円</span></div>
+
+                        <li class="item-heading"><span class="item-name">加賀の露（麦）</span></li>
+                        <div class="sub-menu-item"><span>SHOT</span><span>450円</span></div>
+                        <div class="sub-menu-item"><span>BOTTLE</span><span>2,800円</span></div>
+
+                        <li class="item-heading" style="margin-bottom: 1.2rem;"><span class="item-name">刻の一滴（麦）</span></li>
+                        <div class="sub-menu-item" style="margin-top:-1rem; margin-bottom:1.2rem;"><span>BOTTLE</span><span>3,000円</span></div>
+
+                        <li class="item-heading"><span class="item-name" style="color:var(--accent-color);">ボトルセット</span></li>
+                        <div class="sub-menu-item"><span>・ミネラル</span><span>100円</span></div>
+                        <div class="sub-menu-item"><span>・氷</span><span>200円</span></div>
+                        <div class="sub-menu-item"><span>・炭酸</span><span>100円</span></div>
+                        <div class="sub-menu-item"><span>・お湯</span><span>200円</span></div>
+                    </ul>
+                </section>
+
+                <!-- ワイン・果実酒 -->
+                <section class="category">
+                    <h3>ワイン</h3>
+                    <ul class="menu-list" style="margin-bottom: 2rem;">
+                        <li class="menu-item"><span class="item-name">本日のグラスワイン 白・赤</span><span class="item-price">各500円</span></li>
+                        <li class="menu-item"><span class="item-name">自家製サングリア 白・赤</span><span class="item-price">各580円</span></li>
+                    </ul>
+
+                    <h3>果実酒<span class="category-subtext">ロック・ソーダ割</span></h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">白加賀梅酒</span><span class="item-price">450円</span></li>
+                        <li class="menu-item"><span class="item-name">黒カシス</span><span class="item-price">450円</span></li>
+                        <li class="menu-item"><span class="item-name">あらごしみかん酒</span><span class="item-price">450円</span></li>
+                        <li class="menu-item"><span class="item-name">トマトのお酒</span><span class="item-price">420円</span></li>
+                    </ul>
+                </section>
+
+                <!-- ソフトドリンク -->
+                <section class="category">
+                    <h3>ソフトドリンク</h3>
+                    <ul class="menu-list">
+                        <li class="menu-item"><span class="item-name">100％オレンジジュース</span><span class="item-price">280円</span></li>
+                        <li class="menu-item"><span class="item-name">100％グレープフルーツジュース</span><span class="item-price">280円</span></li>
+                        <li class="menu-item"><span class="item-name">ジンジャーエール</span><span class="item-price">280円</span></li>
+                        <li class="menu-item"><span class="item-name">コーラ</span><span class="item-price">280円</span></li>
+                        <li class="menu-item"><span class="item-name">ビワミンジュース</span><span class="item-price">280円</span></li>
+                        <li class="menu-item"><span class="item-name">ウーロン茶</span><span class="item-price">280円</span></li>
+                        <li class="menu-item"><span class="item-name">ジャスミン茶</span><span class="item-price">280円</span></li>
+                    </ul>
+                </section>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- =========================================
+       宴会コース（プチパーティ＆女子会）全画面ビュー
+    ========================================= -->
+    <div id="course-view" class="page-view">
+        <button class="close-fab" onclick="closePage('course-view')" aria-label="トップページへ戻る">← 戻る</button>
+        <div class="sub-wrapper">
+            <header>
+                <h1>プチパーティ＆女子会コース</h1>
+            </header>
+
+            <div class="menu-grid">
+                <!-- 3,000円コース 料理 -->
+                <section class="category">
+                    <h3>3,000円コース 料理</h3>
+                    <ul class="course-list">
+                        <li>おつまみ3点盛り</li>
+                        <li>サラダ</li>
+                        <li>揚げ盛り</li>
+                        <li>串盛り合わせ</li>
+                        <li>〆寿司</li>
+                        <li>デザート</li>
+                    </ul>
+                </section>
+
+                <!-- 幹事さんへ -->
+                <section class="category">
+                    <h3>幹事さんへ</h3>
+                    <p class="course-note">
+                        コース内容・金額等はご予算に合わせて変更いたします。お肉を抜いてのご対応やその他ご要望も、お気軽にご相談ください。
+                    </p>
+                </section>
+
+                <!-- 飲み放題規則 -->
+                <section class="category">
+                    <h3>飲み放題（2時間 2,000円）規則</h3>
+                    <ul class="course-list">
+                        <li>コースメニューをご注文のお客様に限り、飲み放題のご注文を承っております。</li>
+                        <li>延長は30分ごとお一人様500円（当日の混雑状況によりお受けできない場合がございます）。</li>
+                    </ul>
+                    <p class="course-star-note">☆ドリンクメニューは別紙をご覧ください。</p>
+                </section>
+
+                <!-- お持ち帰り案内 -->
+                <section class="category">
+                    <h3>お花見・ご会合に便利な お持ち帰り</h3>
+                    <p class="course-note">
+                        お弁当・オードブル等のご注文も承っております（要予約）。お気軽にスタッフまでお尋ねください。
+                    </p>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- =========================================
+       ご予約 全画面ビュー
+    ========================================= -->
+    <div id="reserve-view" class="page-view">
+        <button class="close-fab" onclick="closePage('reserve-view')" aria-label="トップページへ戻る">← 戻る</button>
+        <div class="sub-wrapper">
+            <header>
+                <h1>ご予約</h1>
+            </header>
+            <div class="notice-box">
+                <p>ご予約はお電話にて承っております。</p>
+                <p style="font-size: 1.7rem; font-weight: bold; margin: 1.5rem 0;">
+                    <a href="tel:0280337762" class="tel-link-large">TEL: 0280-33-7762</a>
+                </p>
+                <p style="font-size: 0.92rem; color: var(--text-mute);">※混雑時など、お電話に繋がりにくい場合がございます。<br>あらかじめご了承ください。</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- =========================================
+       ページ制御用JavaScript
+    ========================================= -->
+    <script>
+        // 背後のトップページが裏でスクロールされないよう、body自体を位置固定する。
+        // （iOS Safariでは overflow:hidden だけではスクロール貫通を防げないため）
+        let savedScrollY = 0;
+
+        function openPage(pageId) {
+            savedScrollY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${savedScrollY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
+
+            const view = document.getElementById(pageId);
+            view.classList.add('active');
+            view.scrollTop = 0;
+        }
+
+        function closePage(pageId) {
+            document.getElementById(pageId).classList.remove('active');
+
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.width = '';
+            // 開く前に見ていた位置へ戻す
+            window.scrollTo(0, savedScrollY);
+        }
+
+        // カテゴリー見出しへスクロールするジャンプリンク
+        function jumpToCategory(viewId, index) {
+            const view = document.getElementById(viewId);
+            const targets = view.querySelectorAll('.category');
+            if (targets[index]) {
+                targets[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function scrollToStoreInfo() {
+            const target = document.getElementById('store-info');
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.page-view.active').forEach(function (p) {
+                    closePage(p.id);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

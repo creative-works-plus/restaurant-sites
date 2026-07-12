@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>なごみ処 秀 - 公式サイト｜茨城県古河市 坂間の隠れ家居酒屋</title>
+    <meta name="description" content="茨城県古河市坂間の隠れ家居酒屋「なごみ処 秀」。炭火焼き・旬の鮮魚・豊富な日本酒とお酒。ご予約はお電話にて承ります（0280-23-6039）。">
+    <meta property="og:title" content="なごみ処 秀｜古河市坂間の隠れ家居酒屋">
+    <meta property="og:description" content="炭火焼きと旬の鮮魚、豊富な日本酒・焼酎を揃えた古河市の隠れ家居酒屋。">
+    <meta property="og:type" content="restaurant">
+    <!-- OGP画像：サイト公開時は content をドメイン込みの絶対URL（例 https://example.com/image_12ff88.jpg）に変更してください -->
+    <meta property="og:image" content="image_12ff88.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#070707">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%23070707' stroke='%23c9a063' stroke-width='4'/%3E%3Ctext x='50' y='66' font-size='50' text-anchor='middle' fill='%23c9a063' font-family='serif'%3E%E7%A7%80%3C/text%3E%3C/svg%3E">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "なごみ処 秀",
+      "servesCuisine": "Japanese",
+      "telephone": "+81-280-23-6039",
+      "paymentAccepted": "Cash",
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "17:00",
+        "closes": "23:30"
+      }],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "坂間184",
+        "addressLocality": "古河市",
+        "addressRegion": "茨城県",
+        "postalCode": "306-0056",
+        "addressCountry": "JP"
+      }
+    }
+    </script>
+    <style>
+        /* ==========================================================================
+           0. トークン
+           ========================================================================== */
+        :root {
+            --bg: #070707;
+            --bg-panel: rgba(15, 15, 15, 0.68);
+            --ink: #e0dcd3;
+            --ink-soft: #a69e92;
+            --ink-mute: #8c8275;
+            --gold: #c9a063;
+            --gold-bright: #e8c98f;
+            --gold-soft: rgba(201, 160, 99, 0.18);
+            --gold-line: rgba(201, 160, 99, 0.28);
+        }
+
+        /* ==========================================================================
+           1. 全体設定・世界観
+           ========================================================================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+        }
+        body { background-color: var(--bg); color: var(--ink); font-family: "Shippori Mincho", "Noto Serif JP", "ヒラギノ明朝 ProN", serif; line-height: 1.85; overflow-x: hidden; min-height: 100vh; position: relative; font-feature-settings: "palt" 1; -webkit-font-smoothing: antialiased; }
+
+        ::selection { background: rgba(201, 160, 99, 0.35); color: #fff; }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: rgba(201, 160, 99, 0.35); border-radius: 5px; border: 2px solid #0a0a0a; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(201, 160, 99, 0.6); }
+
+
+        a, .button-link { color: var(--ink); text-decoration: none; cursor: pointer; transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease; }
+        a:hover, .button-link:hover { color: var(--gold); }
+
+        a:focus-visible, button:focus-visible, .button-link:focus-visible {
+            outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px;
+        }
+
+        button { font-family: inherit; }
+
+        .page-section { display: none; position: relative; z-index: 10; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        .page-section.active { display: block; opacity: 1; }
+
+        /* ==========================================================================
+           1.5 オープニング演出（初回表示のみ）
+           焚き火の背景とロゴが先に現れ、少し遅れてコンテンツがふわっと立ち上がる。
+           離脱を防ぐため全体で約1.5秒に収め、表示中も操作は妨げない。
+           再生後は body から .intro が外れるため、ページ切替時には再生されない。
+           ========================================================================== */
+        @keyframes introBgFade {
+            from { opacity: 0; }
+            to   { opacity: 0.55; }
+        }
+        @keyframes introFadeDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to   { opacity: 1; transform: none; }
+        }
+        @keyframes introFadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: none; }
+        }
+        body.intro .site-bg { animation: introBgFade 1.0s ease-out both; }
+        body.intro #page-top .logo-area { animation: introFadeDown 0.7s ease-out 0.15s both; }
+        body.intro #page-top .top-nav { animation: introFadeDown 0.7s ease-out 0.35s both; }
+        body.intro #page-top .content-section:nth-of-type(1) { animation: introFadeUp 0.75s ease-out 0.55s both; }
+        body.intro #page-top .content-section:nth-of-type(2) { animation: introFadeUp 0.75s ease-out 0.75s both; }
+        body.intro .float-reserve { animation: introFadeUp 0.6s ease-out 1.0s both; }
+
+        /* ==========================================================================
+           2. メインビジュアル（静止画背景）
+           ========================================================================== */
+        .background-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; overflow: hidden; background-color: #000; }
+        .site-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; opacity: 0.55; filter: brightness(0.85) contrast(1.15); transition: opacity 0.5s ease-in-out; }
+        .overlay-shadow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(7,7,7,0.95) 0%, rgba(7,7,7,0.2) 30%, rgba(7,7,7,0.2) 70%, rgba(7,7,7,0.95) 100%); pointer-events: none; }
+
+        /* ==========================================================================
+           3. 共通ヘッダー
+           ========================================================================== */
+        header { padding: 34px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gold-line); background: linear-gradient(to bottom, rgba(7,7,7,0.95), rgba(7,7,7,0.4)); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 100; transition: padding 0.35s ease, background-color 0.35s ease; }
+        body.scrolled header { padding-top: 14px; padding-bottom: 14px; background-color: rgba(7, 7, 7, 0.82); }
+        .logo-area { display: flex; align-items: center; gap: 14px; }
+        /* 店主がWix版HPで使っていた筆文字の円相（enso.png）をロゴに採用。
+           元画像は黄色のため、フィルターでサイトの金色に寄せている */
+        .logo-seal {
+            position: relative; width: 50px; height: 50px; flex-shrink: 0;
+            display: inline-flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 1.55rem; font-weight: 700; line-height: 1;
+        }
+        .logo-seal img { position: absolute; inset: 0; width: 100%; height: 100%; filter: hue-rotate(-14deg) saturate(0.5) brightness(0.85); }
+        .logo-seal.small { width: 38px; height: 38px; font-size: 1.15rem; }
+        .logo-text { display: flex; flex-direction: column; }
+        .store-name { font-size: clamp(1.6rem, 3.2vw, 2.1rem); font-weight: 700; letter-spacing: 0.55rem; color: var(--gold); background: linear-gradient(115deg, var(--gold-bright) 0%, var(--gold) 40%, #ae8850 72%, var(--gold-bright) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.85)); }
+        .store-sub { font-size: 0.78rem; letter-spacing: 0.3rem; margin-top: 3px; color: var(--ink-mute); text-transform: uppercase; }
+
+        /* 営業状況バッジ：曜日と時刻から自動で表示が切り替わる（設定はJS冒頭の BUSINESS） */
+        .open-status {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; align-self: flex-start;
+            font-size: 0.78rem; letter-spacing: 0.08rem; color: var(--ink-soft);
+            border: 1px solid var(--gold-line); border-radius: 20px; padding: 3px 14px;
+            background: rgba(7, 7, 7, 0.5);
+        }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px rgba(201, 160, 99, 0.5); flex-shrink: 0; }
+        .open-status.open .status-dot { background: #7fc383; box-shadow: 0 0 8px rgba(127, 195, 131, 0.6); }
+        .open-status.closed .status-dot { background: #d98a7e; box-shadow: 0 0 8px rgba(217, 138, 126, 0.55); }
+
+        /* 現金のみ：会計トラブル防止のため要所で目立たせる */
+        .cash-badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold); border-radius: 3px; padding: 2px 12px; font-weight: bold; letter-spacing: 0.12rem; }
+        .cash-note { text-align: center; color: var(--ink-soft); font-size: 0.85rem; letter-spacing: 0.1rem; margin: -34px 0 42px; }
+        .modal-note { color: var(--ink-mute); font-size: 0.8rem; margin: -22px 0 26px; }
+
+        /* カテゴリー冒頭の一言（SUPER COLD認定店など） */
+        .category-note { color: var(--ink-soft); font-size: 0.88rem; letter-spacing: 0.05rem; margin: -14px 0 22px; }
+
+        .top-nav { display: flex; gap: 8px; align-items: center; }
+        .top-nav .nav-item {
+            font-size: 0.95rem; letter-spacing: 0.1rem; padding: 8px 4px; position: relative;
+            background: none; border: none;
+        }
+        .top-nav .nav-item::after {
+            content: ""; position: absolute; left: 50%; bottom: 0; width: 0; height: 1px;
+            background: var(--gold); transition: width 0.3s ease, left 0.3s ease;
+        }
+        .top-nav .nav-item:hover::after, .top-nav .nav-item:focus-visible::after { width: 100%; left: 0; }
+        .back-home {
+            font-size: 0.95rem; color: var(--gold); border: 1px solid rgba(201, 160, 99, 0.4); padding: 8px 18px;
+            border-radius: 3px; background: rgba(7, 7, 7, 0.4); display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .back-home:hover { background: var(--gold-soft); color: var(--ink); border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); }
+
+        /* ==========================================================================
+           3.5 オープニングスプラッシュ
+           店主のWix版HPのロゴ（筆文字の円相）を全画面で見せてからページを立ち上げる。
+           拘束時間は約1.4秒＋クロスフェード。クリックでスキップ可、
+           同一セッション内の再読み込みと reduced-motion 環境では即座に開ける。
+           ========================================================================== */
+        .splash {
+            position: fixed; inset: 0; z-index: 1000; background: var(--bg); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.65s ease, visibility 0.65s ease;
+        }
+        .splash.done { opacity: 0; visibility: hidden; pointer-events: none; }
+        .splash-inner { text-align: center; padding: 20px; }
+        .splash-seal {
+            position: relative; width: clamp(110px, 22vw, 150px); height: clamp(110px, 22vw, 150px);
+            display: inline-flex; align-items: center; justify-content: center;
+            color: var(--gold); font-weight: 700; font-size: clamp(2.6rem, 7vw, 3.6rem); line-height: 1;
+            animation: splashSeal 1.0s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+            filter: drop-shadow(0 0 26px rgba(201, 160, 99, 0.18));
+        }
+        .splash-seal img { position: absolute; inset: 0; width: 100%; height: 100%; filter: hue-rotate(-14deg) saturate(0.5) brightness(0.85); }
+        @keyframes splashSeal { from { opacity: 0; transform: scale(0.82) rotate(-6deg); } }
+        .splash-name {
+            margin-top: 22px; color: var(--gold); font-size: clamp(1.3rem, 4vw, 1.8rem);
+            letter-spacing: 0.55rem; text-indent: 0.55rem;
+            animation: splashRise 0.9s ease-out 0.3s both;
+        }
+        .splash-sub {
+            margin-top: 10px; color: var(--ink-mute); font-size: 0.72rem;
+            letter-spacing: 0.42rem; text-indent: 0.42rem; text-transform: uppercase;
+            animation: splashRise 0.9s ease-out 0.5s both;
+        }
+        @keyframes splashRise { from { opacity: 0; transform: translateY(12px); } }
+
+        /* ==========================================================================
+           3.6 フッター（Wix版の「© 2018」表記を引き継ぐ）
+           ========================================================================== */
+        .site-footer {
+            position: relative; z-index: 10; text-align: center; padding: 46px 20px 100px;
+            border-top: 1px solid var(--gold-line);
+            background: linear-gradient(to top, rgba(7, 7, 7, 0.92), rgba(7, 7, 7, 0.3));
+        }
+        .footer-address { color: var(--ink-soft); font-size: 0.92rem; letter-spacing: 0.18rem; margin-bottom: 10px; }
+        .footer-address a { color: var(--ink-soft); }
+        .footer-sep { margin: 0 0.6em; color: var(--gold-line); }
+        .site-footer small { color: var(--ink-mute); font-size: 0.78rem; letter-spacing: 0.12rem; }
+
+        /* ==========================================================================
+           4. レイアウト・店舗情報
+           ========================================================================== */
+        .main-container { max-width: 1300px; margin: 0 auto; padding: 80px 40px; display: flex; gap: 50px; width: 100%; align-items: flex-start; }
+        .content-section { flex: 1; }
+        .section-inner { background: var(--bg-panel); border: 1px solid var(--gold-line); padding: 50px 40px; border-radius: 10px; backdrop-filter: blur(8px); box-shadow: 0 20px 40px rgba(0,0,0,0.8); min-height: 480px; position: relative; overflow: hidden; }
+        .section-inner::before { content: ""; position: absolute; top: 0; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 160, 99, 0.55), transparent); pointer-events: none; }
+        .section-title { font-size: 1.55rem; color: var(--gold); margin-bottom: 35px; border-left: 4px solid var(--gold); padding-left: 15px; letter-spacing: 0.18rem; }
+
+        .ornament-divider { display: flex; align-items: center; gap: 16px; width: 100%; margin: 44px 0; color: var(--gold-line); }
+        .ornament-divider::before, .ornament-divider::after { content: ""; flex: 1; height: 1px; background: var(--gold-line); }
+        .ornament-divider span { color: var(--gold); font-size: 0.9rem; }
+
+        .sns-banner {
+            margin-top: 8px; background: rgba(201,160,99,0.06); border: 1px solid var(--gold-line); border-radius: 4px;
+            padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .sns-banner:hover { background: var(--gold-soft); border-color: var(--gold); }
+        .sns-text { color: var(--ink); font-size: 0.92rem; text-align: left; }
+        .sns-text strong { color: var(--gold); display: block; margin-bottom: 4px; letter-spacing: 0.05rem; font-size: 0.98rem; }
+        .sns-icon { color: var(--gold); font-size: 1.4rem; font-weight: bold; border: 1px solid var(--gold-line); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+        .info-table { width: 100%; border-collapse: collapse; }
+        .info-table th, .info-table td { padding: 16px 0; text-align: left; vertical-align: top; border-bottom: 1px solid rgba(140, 130, 117, 0.15); font-size: 0.95rem; }
+        .info-table tr:last-child th, .info-table tr:last-child td { border-bottom: none; }
+        .info-table th { width: 30%; color: var(--gold); font-weight: normal; letter-spacing: 0.1rem; }
+        .info-table td { color: var(--ink); }
+        .info-table td small { color: var(--ink-mute); display: block; margin-top: 4px; }
+        .tel-link { color: var(--ink); text-decoration: none; font-size: 1.15rem; font-weight: bold; letter-spacing: 0.1rem; }
+        .tel-link:hover { color: var(--gold); }
+        .reservation-note { display: block; color: var(--gold); font-size: 0.85rem; margin-top: 6px; }
+        .map-wrapper { margin-top: 15px; width: 100%; height: 280px; overflow: hidden; border: 1px solid rgba(201, 160, 99, 0.3); border-radius: 8px; }
+        /* 地図はダークに反転し金茶の色味を足してサイトの世界観に馴染ませる。
+           マウスを乗せている間だけ元の配色に戻り、道順などを確認しやすくする */
+        .map-wrapper iframe {
+            width: 100%; height: 100%; border: 0; display: block;
+            filter: invert(0.92) grayscale(0.2) sepia(0.3) hue-rotate(-18deg) saturate(1.15) contrast(0.92) brightness(0.92);
+            transition: filter 0.45s ease;
+        }
+        .map-wrapper:hover iframe, .map-wrapper:focus-within iframe { filter: none; }
+
+        /* ==========================================================================
+           5. メニュー共通デザイン
+           ========================================================================== */
+        .menu-container { max-width: 1100px; margin: 0 auto; padding: 60px 20px 140px; }
+
+        /* --------------------------------------------------------------------------
+           メニューページ専用の背景写真
+           サイト全体のトーン（#070707 × 金）を保つため、写真の上に暗いグラデーションを重ね、
+           上下を締めて中央の料理をほのかに見せる。position:fixed の疑似要素方式なので
+           モバイルでも描画が安定し、スクロールしても背景は固定される。
+           -------------------------------------------------------------------------- */
+        #page-food-index::before,
+        #page-drink-index::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        #page-food-index::before {
+            background-image:
+                linear-gradient(180deg, rgba(7,7,7,0.94) 0%, rgba(7,7,7,0.62) 32%, rgba(7,7,7,0.66) 68%, rgba(7,7,7,0.95) 100%),
+                url('bg-yakitori.png');
+        }
+        #page-drink-index::before {
+            background-image:
+                linear-gradient(180deg, rgba(7,7,7,0.94) 0%, rgba(7,7,7,0.62) 32%, rgba(7,7,7,0.66) 68%, rgba(7,7,7,0.95) 100%),
+                url('bg-sake.png');
+        }
+
+        .page-title { text-align: center; font-size: clamp(1.7rem, 4.5vw, 2.1rem); letter-spacing: 0.45rem; text-indent: 0.45rem; color: var(--gold); margin-bottom: 50px; text-shadow: 2px 2px 10px rgba(0,0,0,0.9); }
+        .page-title::after { content: "◆"; display: block; font-size: 0.75rem; margin-top: 14px; letter-spacing: 0; text-indent: 0; opacity: 0.75; }
+        .menu-category { background: var(--bg-panel); border: 1px solid var(--gold-line); padding: 40px; border-radius: 10px; margin-bottom: 36px; backdrop-filter: blur(8px); box-shadow: 0 15px 30px rgba(0,0,0,0.7); transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .menu-category:hover { border-color: rgba(201, 160, 99, 0.5); box-shadow: 0 18px 36px rgba(0,0,0,0.8), 0 0 24px rgba(201, 160, 99, 0.06); }
+        .menu-category-title { color: var(--gold); font-size: 1.35rem; margin-bottom: 26px; border-bottom: 1px solid var(--gold-line); padding-bottom: 10px; letter-spacing: 0.12rem; }
+
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 8px 34px; }
+        .menu-item { padding-bottom: 20px; min-width: 0; }
+        .item-header {
+            display: flex; flex-direction: column; gap: 5px; min-width: 0;
+            border-bottom: 1px dashed rgba(140, 130, 117, 0.3); padding-bottom: 8px;
+            transition: border-color 0.3s ease;
+        }
+        .menu-item:hover .item-header { border-bottom-color: rgba(201, 160, 99, 0.55); }
+        .item-name { font-size: 1.12rem; font-weight: 600; color: var(--ink); transition: color 0.3s ease; }
+        .menu-item:hover .item-name { color: #f2e8d5; }
+
+        /* 価格：税込を主表示（金色）、税抜は小さく添える */
+        .item-price { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
+        .price-row { display: flex; align-items: baseline; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+        .price-label { font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.05rem; border: 1px solid rgba(140,130,117,0.35); border-radius: 3px; padding: 1px 7px; }
+        .price-main { font-size: 1.05rem; color: var(--gold); font-weight: bold; letter-spacing: 0.03rem; font-variant-numeric: tabular-nums; }
+        .price-ex { font-size: 0.8rem; color: var(--ink-mute); font-variant-numeric: tabular-nums; }
+        /* 解析できない表記はそのまま表示（保険） */
+        .price-raw { font-size: 0.98rem; color: var(--gold); font-weight: bold; text-align: right; white-space: normal; overflow-wrap: break-word; word-break: keep-all; }
+
+        /* カテゴリージャンプ（チップ型ボタン） */
+        .category-nav {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 10px;
+            max-width: 860px; margin: -14px auto 46px;
+        }
+        .category-nav button {
+            appearance: none; -webkit-appearance: none; cursor: pointer;
+            background: rgba(7, 7, 7, 0.55); border: 1px solid var(--gold-line); border-radius: 30px;
+            color: var(--ink-soft); font-family: inherit; font-size: 0.88rem; letter-spacing: 0.1rem;
+            padding: 8px 18px; backdrop-filter: blur(4px);
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+        .category-nav button:hover, .category-nav button:focus-visible {
+            color: var(--gold); background: var(--gold-soft); border-color: var(--gold);
+        }
+        .category-nav button:active { transform: translateY(1px); }
+        /* ジャンプ時に見出しが固定ヘッダーに隠れないようにする */
+        .menu-category { scroll-margin-top: 150px; }
+
+        /* ==========================================================================
+           6. フローティング予約ボタン（メニュー閲覧中も予約導線を確保）
+           ========================================================================== */
+        .float-reserve {
+            position: fixed; right: 24px; bottom: 24px; z-index: 200; background: var(--bg);
+            border: 1px solid var(--gold); color: var(--gold); padding: 14px 22px; border-radius: 30px;
+            font-size: 0.92rem; letter-spacing: 0.08rem; display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); cursor: pointer;
+        }
+        .float-reserve { transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; }
+        .float-reserve:hover { background: var(--gold); color: var(--bg); transform: translateY(-2px); }
+
+        /* トップへ戻るボタン（長いお品書きページからの戻り導線） */
+        .to-top {
+            position: fixed; right: 27px; bottom: 92px; z-index: 190;
+            width: 44px; height: 44px; border-radius: 50%;
+            border: 1px solid var(--gold-line); background: rgba(7, 7, 7, 0.8); color: var(--gold);
+            font-size: 0.85rem; cursor: pointer; backdrop-filter: blur(4px);
+            opacity: 0; visibility: hidden; transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+        .to-top.visible { opacity: 1; visibility: visible; transform: none; }
+        .to-top:hover { background: var(--gold); color: var(--bg); }
+
+        /* ==========================================================================
+           7. 予約確認モーダル
+           ========================================================================== */
+        .modal-backdrop {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.72); z-index: 500; display: none;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-backdrop.open { display: flex; animation: backdropFade 0.25s ease both; }
+        .modal-box {
+            background: #101010; border: 1px solid var(--gold-line); border-radius: 10px; max-width: 400px; width: 100%;
+            padding: 40px 34px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+        .modal-backdrop.open .modal-box { animation: modalPop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.15) both; }
+        @keyframes backdropFade { from { opacity: 0; } }
+        @keyframes modalPop { from { opacity: 0; transform: translateY(16px) scale(0.96); } }
+        .modal-box h3 { color: var(--gold); font-size: 1.2rem; letter-spacing: 0.1rem; margin-bottom: 18px; }
+        .modal-box p { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 30px; }
+        .modal-box .modal-tel { display: block; font-size: 1.5rem; color: var(--gold); font-weight: bold; margin-bottom: 30px; letter-spacing: 0.05rem; }
+        .modal-actions { display: flex; gap: 12px; justify-content: center; }
+        .modal-actions button {
+            flex: 1; padding: 13px 0; border-radius: 3px; font-size: 0.95rem; cursor: pointer; letter-spacing: 0.05rem;
+            border: 1px solid var(--gold-line); background: transparent; color: var(--ink);
+        }
+        .modal-actions .modal-call { background: var(--gold); color: var(--bg); border-color: var(--gold); font-weight: bold; }
+        .modal-actions .modal-call:hover { background: transparent; color: var(--gold); }
+        .modal-actions .modal-cancel:hover { border-color: var(--gold); color: var(--gold); }
+
+        @media (max-width: 850px) {
+            header { flex-direction: column; gap: 20px; padding: 28px 20px; text-align: center; }
+            .open-status { align-self: center; }
+            .top-nav { flex-wrap: wrap; justify-content: center; }
+            .main-container { flex-direction: column; padding: 30px 15px; }
+            .section-inner { padding: 35px 25px; min-height: auto; }
+            .tel-link { text-decoration: underline; }
+            .float-reserve span.float-label { display: none; }
+            .float-reserve { padding: 16px; border-radius: 50%; }
+            .menu-category { scroll-margin-top: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash" id="splash" aria-hidden="true">
+        <div class="splash-inner">
+            <span class="splash-seal"><img src="enso.png" alt="">秀</span>
+            <p class="splash-name">なごみ処 秀</p>
+            <p class="splash-sub">Nagomidokoro Syu</p>
+        </div>
+    </div>
+    <noscript><style>.splash { display: none; }</style></noscript>
+
+    <div class="background-container">
+        <img src="image_12ff88.jpg" alt="なごみ処 秀 店内の様子" class="site-bg" id="site-bg-image">
+        <div class="overlay-shadow"></div>
+    </div>
+
+    <div id="page-top" class="page-section active">
+        <header>
+            <div class="logo-area">
+                <span class="logo-seal" aria-hidden="true"><img src="enso.png" alt="">秀</span>
+                <div class="logo-text">
+                    <h1 class="store-name">なごみ処 秀</h1>
+                    <div class="store-sub">Nagomidokoro Syu</div>
+                    <div class="open-status" id="open-status" role="status">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        <span class="status-text">営業状況を確認中…</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="top-nav">
+                <button class="button-link nav-item" onclick="switchPage('page-food-index')">お品書き</button>
+                <button class="button-link nav-item" onclick="switchPage('page-drink-index')">お飲み物</button>
+                <button class="button-link nav-item" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">店舗情報</button>
+                <button class="button-link nav-item" onclick="openReserveModal()">ご予約</button>
+            </nav>
+        </header>
+
+        <main class="main-container">
+            <section class="content-section">
+                <div class="section-inner" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <h2 class="section-title" style="border-left: none; padding-left: 0; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">おしながき</h2>
+                    <p style="margin-bottom: 30px; color: var(--ink-soft);">炭火焼き、旬の鮮魚など自慢の品々</p>
+                    <button class="button-link back-home" style="margin-bottom: 10px; font-size: 1.1rem; padding: 12px 30px;" onclick="switchPage('page-food-index')">お料理一覧を見る ＞</button>
+
+                    <div class="ornament-divider"><span>◆</span></div>
+
+                    <h2 class="section-title" style="border-left: none; padding-left: 0; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">お飲み物</h2>
+                    <p style="margin-bottom: 30px; color: var(--ink-soft);">こだわりの日本酒、焼酎、各種お酒</p>
+                    <button class="button-link back-home" style="font-size: 1.1rem; padding: 12px 30px;" onclick="switchPage('page-drink-index')">お飲み物一覧を見る ＞</button>
+
+                    <a href="https://x.com/nagomidokorosyu" target="_blank" rel="noopener" class="sns-banner" style="margin-top: 50px; width: 100%;">
+                        <div class="sns-text">
+                            <strong>日替わりのおすすめメニュー発信中</strong>
+                            こちらで最新情報を更新しています
+                        </div>
+                        <div class="sns-icon" aria-hidden="true">𝕏</div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="content-section" id="info">
+                <div class="section-inner">
+                    <h2 class="section-title">店舗情報</h2>
+                    <table class="info-table">
+                        <tr><th>営業時間</th><td>17:00 〜 23:30</td></tr>
+                        <tr><th>定休日</th><td>火曜日</td></tr>
+                        <tr><th>電話番号</th><td>
+                            <a href="tel:0280236039" class="tel-link">0280-23-6039</a>
+                            <span class="reservation-note">※ご予約は電話対応のみ承っております。</span>
+                        </td></tr>
+                        <tr><th>お席</th><td>テーブル席・お座敷<small>店内は広々として、ゆったりお過ごしいただけます</small></td></tr>
+                        <tr><th>駐車場</th><td>店舗前に駐車可能</td></tr>
+                        <tr><th>お支払い方法</th><td><span class="cash-badge">現金のみ</span><small>クレジットカード・電子マネー等はご利用いただけません</small></td></tr>
+                        <tr><th>アクセス</th><td>
+                            〒306-0056<br>茨城県古河市坂間184<br><small>古河駅から車で10分</small>
+                            <div class="map-wrapper"><iframe src="https://maps.google.com/maps?q=36.164803,139.707494&z=17&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="なごみ処 秀の地図"></iframe></div>
+                        </td></tr>
+                    </table>
+                    <!--
+                      改善提案：ご予算の目安・総座席数や個室の有無は原文になかったため追加していません。
+                      追記の場合はこの info-table に行を足してください。
+                    -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="page-food-index" class="page-section">
+        <header>
+            <div class="logo-area">
+                <span class="logo-seal small" aria-hidden="true"><img src="enso.png" alt="">秀</span>
+                <div class="store-name" style="font-size:1.5rem;">なごみ処 秀</div>
+            </div>
+            <button class="button-link back-home" onclick="switchPage('page-top')">＜ 戻る</button>
+        </header>
+        <main class="menu-container">
+            <h1 class="page-title">お品書き 一覧</h1>
+            <p class="cash-note">お支払いは現金のみとなっております</p>
+            <div id="dynamic-food-index"></div>
+        </main>
+    </div>
+
+    <div id="page-drink-index" class="page-section">
+        <header>
+            <div class="logo-area">
+                <span class="logo-seal small" aria-hidden="true"><img src="enso.png" alt="">秀</span>
+                <div class="store-name" style="font-size:1.5rem;">なごみ処 秀</div>
+            </div>
+            <button class="button-link back-home" onclick="switchPage('page-top')">＜ 戻る</button>
+        </header>
+        <main class="menu-container">
+            <h1 class="page-title">お飲み物 一覧</h1>
+            <p class="cash-note">お支払いは現金のみとなっております</p>
+            <div id="dynamic-drink-index"></div>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p class="footer-address">茨城県古河市坂間184<span class="footer-sep">｜</span><a href="tel:0280236039">0280-23-6039</a></p>
+        <small>© 2018 なごみ処 秀</small>
+    </footer>
+
+    <button class="float-reserve" onclick="openReserveModal()" aria-label="お電話でご予約">
+        <span aria-hidden="true">☎</span><span class="float-label">ご予約</span>
+    </button>
+
+    <button class="to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="ページ上部へ戻る">▲</button>
+
+    <div class="modal-backdrop" id="reserve-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-box">
+            <h3 id="modal-title">ご予約はお電話にて</h3>
+            <p>大変恐れ入りますが、ご予約はお電話のみで承っております。このまま店舗へお電話をおかけしますか？</p>
+            <span class="modal-tel">0280-23-6039</span>
+            <p class="modal-note">※お支払いは現金のみとなっております</p>
+            <div class="modal-actions">
+                <button class="modal-cancel" onclick="closeReserveModal()">キャンセル</button>
+                <button class="modal-call" onclick="callStore()">電話をかける</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const foodData = {
+            kushi: { title: "串", items: [{ name: "焼とり（4本）タレ・塩", price: "400円（税込440円）" }, { name: "ネギマ（4本）タレ・塩", price: "450円（税込495円）" }, { name: "とり皮（4本）タレ・塩", price: "450円（税込495円）" }, { name: "つくね（3本）タレ・塩", price: "450円（税込495円）" }, { name: "タン串（4本）", price: "450円（税込495円）" }, { name: "かしら（4本）", price: "450円（税込495円）" }, { name: "すな肝（4本）", price: "500円（税込550円）" }, { name: "なんこつ（3本）", price: "450円（税込495円）" }, { name: "つくば鳥レバー（3本）タレ・塩", price: "450円（税込495円）" }, { name: "アスパラ肉巻（3本）", price: "450円（税込495円）" }, { name: "魚串[サンマ・サバ]（2本）", price: "400円（税込440円）" }, { name: "おもち肉巻（2本）", price: "350円（税込385円）" }, { name: "串盛（5本）", price: "600円（税込660円）" }, { name: "串盛（10本）", price: "1200円（税込1320円）" }] },
+            sashimi: { title: "刺身", items: [{ name: "マグロ", price: "900円（税込990円）" }, { name: "カンパチ", price: "800円（税込880円）" }, { name: "マダコ", price: "800円（税込880円）" }, { name: "若イカ姿盛", price: "650円（税込715円）" }, { name: "おまかせ盛 一人前", price: "1000円（税込1100円）" }, { name: "おまかせ盛 二〜三人前", price: "2000円（税込2200円）" }, { name: "おまかせ盛 三〜四人前", price: "2500円（税込2750円）" }] },
+            nimono: { title: "煮物", items: [{ name: "もつ煮", price: "400円（税込440円）" }] },
+            yakimono: { title: "焼物", items: [{ name: "サバ焼", price: "450円（税込495円）" }, { name: "ホッケ焼", price: "650円（税込715円）" }, { name: "ブリのカマ焼", price: "650円（税込715円）" }] },
+            agemono: { title: "揚物", items: [{ name: "鳥の唐揚げ", price: "550円（税込605円）" }, { name: "カニクリームコロッケ（2ヶ）", price: "400円（税込440円）" }, { name: "川えび唐揚げ", price: "500円（税込550円）" }, { name: "チートロフライ", price: "400円（税込440円）" }, { name: "フレンチポテト", price: "350円（税込385円）" }, { name: "チーズポテトフライ", price: "400円（税込440円）" }, { name: "鳥なんこつ唐揚げ", price: "450円（税込495円）" }, { name: "特撰メンチ", price: "450円（税込495円）" }] },
+            osusume: { title: "おすすめ", items: [{ name: "エビチリ", price: "1000円（税込1100円）" }, { name: "餃子（6ヶ）", price: "400円（税込440円）" }, { name: "ホルモン炒め", price: "450円（税込495円）" }, { name: "豚キムチーズ", price: "550円（税込605円）" }, { name: "若鳥のレモン煮", price: "550円（税込605円）" }, { name: "チーズピザ", price: "600円（税込660円）" }] },
+            speed: { title: "スピードメニュー", items: [{ name: "浅漬け", price: "350円（税込385円）" }, { name: "枝豆", price: "300円（税込330円）" }, { name: "冷やっこ", price: "250円（税込275円）" }] },
+            gohan_men: { title: "ご飯物・めん類", items: [{ name: "おにぎり（鮭・明太子・梅）", price: "400円（税込440円）" }, { name: "チャーハン", price: "550円（税込605円）" }, { name: "ガーリックチャーハン", price: "600円（税込660円）" }, { name: "ラーメン", price: "550円（税込605円）" }, { name: "チャーシューメン", price: "650円（税込715円）" }, { name: "もやしラーメン", price: "650円（税込715円）" }, { name: "ライスセット", price: "250円（税込275円）" }] },
+            salad: { title: "サラダ", items: [{ name: "秀（しゅう）サラダ", price: "550円（税込605円）" }, { name: "トマトサラダ", price: "500円（税込550円）" }] },
+            dessert: { title: "デザート", items: [{ name: "盆栽アイス", price: "350円（税込385円）" }, { name: "ソフトクリーム（バニラ・チョコ）", price: "300円（税込330円）" }] }
+        };
+
+        const drinkData = {
+            beer: { title: "ビール", note: "スーパードライ SUPER COLD 認定店。氷点下近くまでキンキンに冷やした樽生をお出しします。", items: [{ name: "アサヒスーパードライ 樽生 中ジョッキ", price: "600円（税込660円）" }, { name: "《瓶ビール》アサヒスーパードライ 大瓶", price: "630円（税込693円）" }, { name: "《瓶ビール》キリンラガービール 大瓶", price: "630円（税込693円）" }, { name: "《ノンアルコールビール》アサヒ ドライゼロ 小瓶", price: "400円（税込440円）" }] },
+            highball: { title: "ハイボール", items: [{ name: "ブラックニッカメガハイボール", price: "650円（税込715円）" }, { name: "ブラックニッカハイボール", price: "380円（税込418円）" }, { name: "角メガハイボール", price: "750円（税込825円）" }, { name: "角ハイボール", price: "450円（税込495円）" }] },
+            whisky: { title: "ウイスキー（ロック・水割）", items: [{ name: "ブラックニッカクリア", price: "450円（税込495円）" }, { name: "角瓶", price: "550円（税込605円）" }] },
+            sour: { title: "サワー・ハイ", items: [
+                { name: "生レモンサワー", price: "500円（税込550円）" },
+                { name: "生グレープフルーツサワー", price: "500円（税込550円）" },
+                { name: "生オレンジサワー", price: "500円（税込550円）" },
+                { name: "レモン", price: "400円（税込440円）" },
+                { name: "グレープフルーツ", price: "400円（税込440円）" },
+                { name: "男梅", price: "400円（税込440円）" },
+                { name: "アセロラ", price: "400円（税込440円）" },
+                { name: "パイン", price: "400円（税込440円）" },
+                { name: "ゆずみつ", price: "400円（税込440円）" },
+                { name: "巨峰", price: "400円（税込440円）" },
+                { name: "カルピス", price: "400円（税込440円）" },
+                { name: "すだち", price: "400円（税込440円）" },
+                { name: "ウーロンハイ", price: "400円（税込440円）" },
+                { name: "冷茶ハイ", price: "400円（税込440円）" },
+                { name: "青汁ハイ", price: "400円（税込440円）" },
+                { name: "無糖紅茶ハイ", price: "400円（税込440円）" },
+                { name: "◆メガ", price: "＋200円（税込220円）" },
+                { name: "◆焼酎W", price: "＋100円（税込110円）" }
+            ] },
+            sake: { title: "日本酒", items: [{ name: "日本酒［常温・燗］一合", price: "450円（税込495円）" }, { name: "玉日姫［常温・燗］二合", price: "650円（税込715円）" }, { name: "久保田 千寿 一合", price: "500円（税込550円）" }, { name: "久保田 紅寿 一合", price: "650円（税込715円）" }, { name: "八海山 一合", price: "650円（税込715円）" }] },
+            shochu_jug: { title: "焼酎ジョッキ", items: [{ name: "麦焼酎 水割", price: "400円（税込440円）" }, { name: "芋焼酎 水割", price: "400円（税込440円）" }] },
+            umeshu: { title: "梅酒・果実酒（ロック・ソーダ割）", items: [{ name: "梅酒", price: "450円（税込495円）" }, { name: "あらごしみかん酒（果肉入）", price: "500円（税込550円）" }, { name: "あらごしゆず酒（果肉入）", price: "500円（税込550円）" }] },
+            shochu: { title: "焼酎（グラス／ボトル）", items: [{ name: "[麦] いいちこ", price: "グラス 500円(税込550円) ／ ボトル 2200円(税込2420円)" }, { name: "[麦] 一粒の麦", price: "グラス 500円(税込550円) ／ ボトル 2500円(税込2750円)" }, { name: "[麦] 蟻", price: "ボトルのみ 2500円（税込2750円）" }, { name: "[麦] 頑固人", price: "グラス 500円(税込550円) ／ ボトル 2600円(税込2860円)" }, { name: "[芋] 薩摩", price: "グラス 500円(税込550円) ／ ボトル 2700円(税込2970円)" }, { name: "[芋] 紫の赤兎馬", price: "グラス 550円(税込605円) ／ ボトル 3300円(税込3630円)" }, { name: "[芋] 富乃宝山", price: "グラス 550円(税込605円) ／ ボトル 3300円(税込3630円)" }, { name: "[芋] 吉兆宝山", price: "グラス 550円(税込605円) ／ ボトル 3300円(税込3630円)" }, { name: "[甲] 鏡月", price: "ボトルのみ 1800円（税込1980円）" }, { name: "《ボトルのお供》氷", price: "200円（税込220円）" }, { name: "《ボトルのお供》水（ペットボトル）", price: "200円（税込220円）" }, { name: "《ボトルのお供》梅干 一ヶ", price: "50円（税込55円）" }, { name: "《ボトルのお供》お湯（ポット）", price: "300円（税込330円）" }] },
+            wine: { title: "ワイン", items: [{ name: "かちわりワインジョッキ 赤／白", price: "各550円（税込605円）" }, { name: "グラスワイン 赤／白", price: "各400円（税込440円）" }] },
+            cocktail: { title: "カクテル", items: [
+                { name: "カシスソーダ", price: "450円（税込495円）" },
+                { name: "ピーチソーダ", price: "450円（税込495円）" },
+                { name: "カシスオレンジ", price: "450円（税込495円）" },
+                { name: "ピーチオレンジ", price: "450円（税込495円）" },
+                { name: "カシスウーロン", price: "450円（税込495円）" },
+                { name: "ピーチウーロン", price: "450円（税込495円）" },
+                { name: "カルーアミルク", price: "500円（税込550円）" },
+                { name: "いちごミルク", price: "500円（税込550円）" },
+                { name: "抹茶ミルク", price: "500円（税込550円）" }
+            ] },
+            non_alcohol: { title: "ノンアルコール", items: [
+                { name: "ゼロハイレモン", price: "350円（税込385円）" },
+                { name: "ゼロハイグレープフルーツ", price: "350円（税込385円）" },
+                { name: "カシスオレンジ", price: "350円（税込385円）" },
+                { name: "アサヒドライゼロ", price: "400円（税込440円）" }
+            ] },
+            soft_drink: { title: "ソフトドリンク", items: [
+                { name: "コーラ", price: "250円（税込275円）" },
+                { name: "ジンジャーエール", price: "250円（税込275円）" },
+                { name: "オレンジジュース", price: "250円（税込275円）" },
+                { name: "ウーロン茶", price: "250円（税込275円）" },
+                { name: "カルピス", price: "250円（税込275円）" },
+                { name: "無糖紅茶", price: "250円（税込275円）" },
+                { name: "巨峰ソーダ", price: "250円（税込275円）" },
+                { name: "グレープフルーツソーダ", price: "250円（税込275円）" },
+                { name: "パインソーダ", price: "250円（税込275円）" },
+                { name: "アセロラソーダ", price: "250円（税込275円）" },
+                { name: "ホットウーロン茶", price: "300円（税込330円）" }
+            ] }
+        };
+
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+
+        /* --------------------------------------------------------------------------
+           価格表示の整形
+           データ側は従来どおり「400円（税込440円）」形式の文字列のままでOK。
+           表示時に解析して「税抜を主表示（金色）・税込をカッコ内に小さく」で組み直し、
+           4桁以上の数字には自動でカンマを付ける。
+           「グラス 500円(税込550円) ／ ボトル 2200円(税込2420円)」のような
+           複数価格は「／」で分割して1行ずつ縦に積む。
+           解析できない表記はそのまま表示する（保険）。
+           -------------------------------------------------------------------------- */
+        function formatYen(numStr) {
+            return Number(String(numStr).replace(/,/g, '')).toLocaleString('ja-JP');
+        }
+
+        const PRICE_PATTERN = /^\s*(.*?)\s*([＋+]?)(各?)\s*([0-9,]+)\s*円\s*[（(]\s*税込\s*[＋+]?\s*([0-9,]+)\s*円\s*[）)]\s*$/;
+
+        function buildPriceHTML(priceStr) {
+            const parts = String(priceStr).split(/\s*／\s*/);
+            const rows = [];
+            for (const part of parts) {
+                const m = part.match(PRICE_PATTERN);
+                if (!m) return `<span class="price-raw">${escapeHTML(priceStr)}</span>`;
+                const label = m[1], plus = m[2] ? '＋' : '', kaku = m[3] || '';
+                const exPrice = formatYen(m[4]), inPrice = formatYen(m[5]);
+                rows.push(`
+                    <span class="price-row">
+                        ${label ? `<span class="price-label">${escapeHTML(label)}</span>` : ''}
+                        <span class="price-main">${plus}${kaku}${exPrice}円</span>
+                        <span class="price-ex">（税込${plus}${inPrice}円）</span>
+                    </span>
+                `);
+            }
+            return rows.join('');
+        }
+
+        function generateMenuHTML(dataObj, idPrefix) {
+            let indexHtml = '';
+            for (const key in dataObj) {
+                const category = dataObj[key];
+                indexHtml += `
+                    <section class="menu-category" id="${idPrefix}-${key}">
+                        <h2 class="menu-category-title">${escapeHTML(category.title)}</h2>
+                        ${category.note ? `<p class="category-note">${escapeHTML(category.note)}</p>` : ''}
+                        <div class="menu-grid">
+                `;
+                category.items.forEach(item => {
+                    indexHtml += `
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <span class="item-name">${escapeHTML(item.name)}</span>
+                                <span class="item-price">${buildPriceHTML(item.price)}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                indexHtml += `</div></section>`;
+            }
+            return indexHtml;
+        }
+
+        /* カテゴリージャンプ（チップ型ボタン）を生成 */
+        function generateCategoryNav(dataObj, idPrefix) {
+            let navHtml = `<nav class="category-nav" aria-label="カテゴリーへ移動">`;
+            for (const key in dataObj) {
+                navHtml += `<button type="button" onclick="jumpToCategory('${idPrefix}-${key}')">${escapeHTML(dataObj[key].title)}</button>`;
+            }
+            navHtml += `</nav>`;
+            return navHtml;
+        }
+
+        function jumpToCategory(sectionId) {
+            const el = document.getElementById(sectionId);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function generateDynamicMenus() {
+            document.getElementById('dynamic-food-index').innerHTML =
+                generateCategoryNav(foodData, 'food-cat') + generateMenuHTML(foodData, 'food-cat');
+            document.getElementById('dynamic-drink-index').innerHTML =
+                generateCategoryNav(drinkData, 'drink-cat') + generateMenuHTML(drinkData, 'drink-cat');
+        }
+
+        function switchPage(pageId) {
+            const bgImage = document.getElementById('site-bg-image');
+            if (bgImage) bgImage.style.opacity = 0;
+            setTimeout(() => {
+                const sections = document.querySelectorAll('.page-section');
+                sections.forEach(section => section.classList.remove('active'));
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    window.scrollTo({ top: 0 });
+                }
+                if (bgImage) bgImage.style.opacity = 0.55;
+            }, 350);
+        }
+
+        function openReserveModal() {
+            document.getElementById('reserve-modal').classList.add('open');
+        }
+        function closeReserveModal() {
+            document.getElementById('reserve-modal').classList.remove('open');
+        }
+        function callStore() {
+            window.location.href = "tel:0280236039";
+        }
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeReserveModal();
+        });
+
+        /* スクロール量に応じてヘッダーを縮小し、トップへ戻るボタンを出す */
+        window.addEventListener('scroll', function () {
+            document.body.classList.toggle('scrolled', window.scrollY > 80);
+            document.querySelector('.to-top').classList.toggle('visible', window.scrollY > 500);
+        }, { passive: true });
+
+        document.getElementById('reserve-modal') && document.getElementById('reserve-modal').addEventListener('click', function (e) {
+            if (e.target === this) closeReserveModal();
+        });
+
+        /* --------------------------------------------------------------------------
+           営業状況バッジ
+           定休日や営業時間が変わったら、この BUSINESS だけ直せば表示が変わる。
+           closedDays: 0=日, 1=月, 2=火, 3=水, 4=木, 5=金, 6=土
+           （現在の設定は食べログ掲載情報：火曜定休・17:00〜23:30）
+           -------------------------------------------------------------------------- */
+        const BUSINESS = {
+            closedDays: [2],
+            open: { h: 17, m: 0 },
+            close: { h: 23, m: 30 },
+            label: "17:00〜23:30"
+        };
+
+        function updateOpenStatus() {
+            const el = document.getElementById('open-status');
+            if (!el) return;
+            const now = new Date();
+            const minutes = now.getHours() * 60 + now.getMinutes();
+            const openM = BUSINESS.open.h * 60 + BUSINESS.open.m;
+            const closeM = BUSINESS.close.h * 60 + BUSINESS.close.m;
+            let cls = '', text = '';
+            if (BUSINESS.closedDays.indexOf(now.getDay()) !== -1) {
+                cls = 'closed'; text = '本日は定休日です';
+            } else if (minutes >= openM && minutes < closeM) {
+                cls = 'open'; text = 'ただいま営業中 ' + BUSINESS.label;
+            } else if (minutes < openM) {
+                text = '本日 ' + BUSINESS.label + ' 営業';
+            } else {
+                cls = 'closed'; text = '本日の営業は終了しました';
+            }
+            el.className = 'open-status' + (cls ? ' ' + cls : '');
+            el.querySelector('.status-text').textContent = text;
+        }
+        updateOpenStatus();
+        setInterval(updateOpenStatus, 60000);
+
+        window.onload = function () {
+            generateDynamicMenus();
+        };
+
+        /* --------------------------------------------------------------------------
+           オープニングスプラッシュ制御
+           約1.4秒ロゴを見せたあと、スプラッシュのフェードアウトと同時に
+           body へ .intro を付与し、下からページが立ち上がる（クロスフェード）。
+           ・クリックで即スキップ可能
+           ・同一セッション内の再読み込みでは待たせない
+           ・reduced-motion 環境でも待たせない
+           .intro は演出終了後に外す（外した時点で各要素は通常スタイル＝表示済み）
+           -------------------------------------------------------------------------- */
+        (function () {
+            const splash = document.getElementById('splash');
+            if (!splash) return;
+            let quick = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            try {
+                if (sessionStorage.getItem('syuSplashSeen') === '1') quick = true;
+                sessionStorage.setItem('syuSplashSeen', '1');
+            } catch (e) { /* プライベートモード等でsessionStorageが使えなくても演出は続行 */ }
+            let revealed = false;
+            function reveal() {
+                if (revealed) return;
+                revealed = true;
+                document.body.classList.add('intro');
+                splash.classList.add('done');
+                setTimeout(function () {
+                    document.body.classList.remove('intro');
+                    splash.remove();
+                }, 2200);
+            }
+            splash.addEventListener('click', reveal);
+            setTimeout(reveal, quick ? 150 : 1400);
+        })();
+    </script>
+</body>
+</html>
