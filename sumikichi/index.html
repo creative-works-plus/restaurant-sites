@@ -316,13 +316,30 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
 .map-link:hover{color:var(--kinari)}
 .info-photo img{border-radius:2px}
 .info-photo figcaption{font-size:.75rem;color:var(--kinari-dim);margin-top:10px;letter-spacing:.1em}
+.info-map{grid-column:1 / -1;margin-top:8px}
+.info-map iframe{width:100%;height:340px;border:1px solid var(--line);border-radius:2px;display:block}
+.info-map figcaption{font-size:.75rem;color:var(--kinari-dim);margin-top:10px;letter-spacing:.1em}
 
-/* ---------- 末尾CTA ---------- */
+/* ---------- 末尾CTA（炭×熾火の自作グラフィック。写真不使用） ---------- */
 .closing{
-  position:relative;text-align:center;padding:110px 24px;overflow:hidden;
-  background:url("hero-yakitori.jpg") center/cover no-repeat;
+  position:relative;text-align:center;padding:120px 24px 130px;overflow:hidden;
+  background:
+    /* 熾火の粒（静止） */
+    radial-gradient(circle 3px at 18% 88%, rgba(240,138,60,.7), transparent 70%),
+    radial-gradient(circle 2px at 26% 94%, rgba(224,80,31,.6), transparent 70%),
+    radial-gradient(circle 2px at 72% 90%, rgba(240,138,60,.65), transparent 70%),
+    radial-gradient(circle 3px at 82% 95%, rgba(224,80,31,.55), transparent 70%),
+    radial-gradient(circle 2px at 55% 97%, rgba(240,138,60,.55), transparent 70%),
+    /* 下から立ちのぼる熾火の照り返し */
+    radial-gradient(ellipse 95% 60% at 50% 112%, rgba(224,80,31,.32), rgba(224,80,31,.1) 45%, transparent 72%),
+    linear-gradient(#241f1b, #171412);
 }
-.closing::before{content:"";position:absolute;inset:0;background:rgba(23,20,18,.88)}
+/* 「炭」の透かし */
+.closing::before{
+  content:"炭";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);
+  font-family:var(--serif);font-size:clamp(15rem,38vw,24rem);line-height:1;
+  color:rgba(240,232,220,.05);pointer-events:none;
+}
 .closing > *{position:relative}
 .closing h2{margin-bottom:10px}
 .closing p{color:var(--kinari-dim);font-size:.9rem;max-width:34em;margin:0 auto 34px}
@@ -564,6 +581,13 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
       <figure class="info-photo reveal">
         <img src="drink-highball.jpg" alt="カウンターでの一杯とお通し" loading="lazy">
         <figcaption>カウンター中心の18席。お一人様も歓迎です。</figcaption>
+      </figure>
+      <figure class="info-map reveal">
+        <iframe
+          src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B1%E6%9C%AC%E7%94%BA1-3-5&z=17&output=embed"
+          title="炭きちの地図（茨城県古河市東本町1-3-5）"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <figcaption>JR古河駅 東口より徒歩2分／駐車場2〜3台あり</figcaption>
       </figure>
     </div>
   </section>
