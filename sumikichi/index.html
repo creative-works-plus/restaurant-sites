@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="炭きち｜古河駅東口・炭火焼き居酒屋">
 <meta property="og:description" content="炭火の串、新鮮な刺身、氷点下のSUPER COLD。古河駅から徒歩2分、18席の炭火居酒屋。">
-<meta property="og:image" content="hero-sashimi.jpg">
+<meta property="og:image" content="images/hero-sashimi.jpg">
 <meta property="og:locale" content="ja_JP">
 
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="%23171412"/><circle cx="50" cy="50" r="45" fill="none" stroke="%23E0501F" stroke-width="4"/><text x="50" y="66" font-size="46" text-anchor="middle" fill="%23F0E8DC" font-family="serif">炭</text></svg>'>
@@ -51,7 +51,7 @@
   --sumi:#171412;        /* 墨 — 背景 */
   --sumi-2:#211d1a;      /* 灰墨 — カード */
   --sumi-3:#2c2723;      /* 面の持ち上げ */
-  --line:#3b342e;        /* 罫線 */
+  --line:#4d443b;        /* 罫線 */
   --kinari:#f0e8dc;      /* 生成り — 本文 */
   --kinari-dim:#b0a495;  /* 生成り淡 */
   --okibi:#e0501f;       /* 熾火 */
@@ -159,13 +159,13 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
 }
 .hero-bg{
   position:absolute;inset:0;
-  background:url("hero-sashimi.jpg") center 40%/cover no-repeat;
+  background:url("images/hero-sashimi.jpg") center 40%/cover no-repeat;
 }
 .hero-bg::after{
   content:"";position:absolute;inset:0;
   background:
-    linear-gradient(105deg,rgba(23,20,18,.85) 0%,rgba(23,20,18,.38) 46%,rgba(23,20,18,.05) 75%),
-    linear-gradient(rgba(23,20,18,.15),rgba(23,20,18,.85) 94%);
+    linear-gradient(105deg,rgba(23,20,18,.62) 0%,rgba(23,20,18,.22) 46%,rgba(23,20,18,.02) 75%),
+    linear-gradient(rgba(23,20,18,.12),rgba(23,20,18,.58) 94%);
 }
 .hero-inner{
   position:relative;z-index:2;width:100%;
@@ -179,7 +179,7 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
   font-size:clamp(2.1rem,6.2vw,3.6rem);
   letter-spacing:.3em;line-height:1.75;
   height:5.4em; /* 「炭火と、」「刺身と。」で2行に揃える */
-  text-shadow:0 2px 24px rgba(0,0,0,.6);
+  text-shadow:0 2px 20px rgba(0,0,0,.85),0 1px 3px rgba(0,0,0,.9);
 }
 .hero-catch em{
   font-style:normal;
@@ -187,9 +187,10 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .hero-sub{max-width:26em}
-.hero-sub p{color:var(--kinari-dim);font-size:.95rem;margin:18px 0 28px}
+.hero-sub p{color:var(--kinari);font-size:.95rem;margin:18px 0 28px;text-shadow:0 1px 12px rgba(0,0,0,.8),0 1px 3px rgba(0,0,0,.85)}
 .hero-station{
   font-family:var(--serif);font-size:1.05rem;letter-spacing:.2em;
+  text-shadow:0 1px 12px rgba(0,0,0,.8),0 1px 3px rgba(0,0,0,.85);
 }
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px}
 .cta-main{
@@ -204,9 +205,10 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
 .cta-main .cap{font-size:.7rem;letter-spacing:.28em}
 .cta-sub{
   display:inline-flex;align-items:center;
-  border:1px solid var(--line);color:var(--kinari-dim);
+  background:rgba(240,232,220,.08);
+  border:1px solid rgba(240,232,220,.35);color:var(--kinari);
   padding:14px 26px;border-radius:2px;font-size:.85rem;letter-spacing:.2em;
-  transition:border-color .3s,color .3s;
+  transition:border-color .3s,color .3s,background .3s;
 }
 .cta-sub:hover,.cta-sub:focus-visible{border-color:var(--okibi-2);color:var(--kinari)}
 .scroll-hint{
@@ -288,6 +290,9 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
   padding:2px 8px;border-radius:2px;white-space:nowrap;
 }
 .dish p{font-size:.82rem;color:var(--kinari-dim);margin-top:6px}
+/* 名物は大きく見せる */
+.dish.featured{grid-column:1 / -1;grid-template-columns:230px 1fr}
+.dish.featured .dish-img{width:230px;height:150px}
 
 /* ---------- ギャラリー ---------- */
 .gallery{background:var(--sumi-2)}
@@ -298,6 +303,18 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
 .gallery-grid figure.wide{grid-column:span 2;aspect-ratio:2/1}
 .gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,filter .6s ease;filter:saturate(.96)}
 .gallery-grid figure:hover img{transform:scale(1.06);filter:saturate(1.08)}
+
+/* ---------- 口コミの帯（生成りの抜け） ---------- */
+.voice{background:var(--kinari);color:var(--sumi);text-align:center;padding:88px 24px}
+.voice .eyebrow{color:var(--okibi)}
+.voice blockquote{
+  font-family:var(--serif);font-size:clamp(1.25rem,3.2vw,1.85rem);
+  letter-spacing:.12em;line-height:2.1;max-width:24em;margin:0 auto;
+}
+.voice cite{display:block;margin-top:20px;font-style:normal;font-size:.76rem;letter-spacing:.22em;color:#7a6f61}
+.voice .skewer{margin:26px auto 0;
+  background:linear-gradient(90deg,transparent,var(--okibi) 30%,var(--okibi-2) 55%,transparent)}
+.voice .skewer::before{left:calc(50% - 3px)}
 
 /* ---------- INFO ---------- */
 .info .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
@@ -320,7 +337,7 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
 /* 白基調の地図を反転・色調補正して墨色の世界観に馴染ませる（sepiaで生成り寄りの暖色に） */
 .info-map iframe{
   width:100%;height:340px;border:1px solid var(--line);border-radius:2px;display:block;
-  filter:invert(.92) hue-rotate(180deg) sepia(.18) saturate(.55) brightness(.9) contrast(.95);
+  filter:invert(.88) hue-rotate(180deg) sepia(.18) saturate(.55) brightness(.98) contrast(.92);
 }
 .info-map figcaption{font-size:.75rem;color:var(--kinari-dim);margin-top:10px;letter-spacing:.1em}
 
@@ -374,6 +391,8 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
   .closing h2{font-size:1.42rem;letter-spacing:.1em}
   .dish{grid-template-columns:88px 1fr;gap:14px}
   .dish-img{width:88px;height:88px}
+  .dish.featured{grid-template-columns:120px 1fr}
+  .dish.featured .dish-img{width:120px;height:120px}
   .news .wrap{flex-direction:column;gap:8px}
 }
 </style>
@@ -434,7 +453,7 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
   <section class="about" id="about">
     <div class="wrap">
       <figure class="about-photo reveal">
-        <img src="yakitori-tare.jpg" alt="炭火で焼き上げたタレの焼き鳥" loading="lazy">
+        <img src="images/yakitori-tare.jpg" alt="炭火で焼き上げたタレの焼き鳥" loading="lazy">
       </figure>
       <div class="reveal">
         <span class="eyebrow">About Us</span>
@@ -457,7 +476,7 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
       </div>
       <div class="pillars-grid">
         <article class="pillar reveal">
-          <div class="pillar-img"><img src="hero-yakitori.jpg" alt="炭火焼きの串" loading="lazy"></div>
+          <div class="pillar-img"><img src="images/hero-yakitori.jpg" alt="炭火焼きの串" loading="lazy"></div>
           <div class="pillar-body">
             <span class="pillar-no">其の一</span>
             <h3>炭火の串</h3>
@@ -465,7 +484,7 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
           </div>
         </article>
         <article class="pillar reveal">
-          <div class="pillar-img"><img src="sashimi-tako.jpg" alt="タコの刺身" loading="lazy"></div>
+          <div class="pillar-img"><img src="images/sashimi-tako.jpg" alt="タコの刺身" loading="lazy"></div>
           <div class="pillar-body">
             <span class="pillar-no">其の二</span>
             <h3>その日の魚</h3>
@@ -473,7 +492,7 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
           </div>
         </article>
         <article class="pillar cold reveal">
-          <div class="pillar-img"><img src="beer-supercold.jpg" alt="氷点下のスーパードライ SUPER COLD" loading="lazy"></div>
+          <div class="pillar-img"><img src="images/beer-supercold.jpg" alt="氷点下のスーパードライ SUPER COLD" loading="lazy"></div>
           <div class="pillar-body">
             <span class="pillar-no">其の三</span>
             <h3><span>氷点下の一杯</span></h3>
@@ -491,46 +510,46 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
         <span class="eyebrow">Menu</span>
         <h2>お品書き</h2>
         <div class="skewer" aria-hidden="true"></div>
-        <p class="menu-note">※仕入れにより内容・価格が変わります。本日のおすすめは店内の黒板にて。</p>
+        <p class="menu-note">ご予算の目安：お一人様 ¥4,000前後（お食事とお酒で）<br>※仕入れにより内容・価格が変わります。本日のおすすめは店内の黒板にて。</p>
       </div>
       <div class="menu-grid">
-        <div class="dish reveal">
-          <div class="dish-img"><img src="wagyu-tataki.jpg" alt="和牛タタキ" loading="lazy"></div>
+        <div class="dish featured reveal">
+          <div class="dish-img"><img src="images/wagyu-tataki.jpg" alt="和牛タタキ" loading="lazy"></div>
           <div>
             <h3>和牛タタキ <span class="tag">名物</span></h3>
             <p>表面だけを香ばしく炙り、薬味と一緒に。お客様から「絶品」の声をいただく一皿。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="sashimi-hirame.jpg" alt="ヒラメの刺身" loading="lazy"></div>
+          <div class="dish-img"><img src="images/sashimi-hirame.jpg" alt="ヒラメの刺身" loading="lazy"></div>
           <div>
             <h3>刺身盛り合わせ <span class="tag">本日の魚</span></h3>
             <p>ヒラメ、タコなど、その日いちばんの魚を少しずつ。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="yakitori-shio.jpg" alt="焼き鳥 塩" loading="lazy"></div>
+          <div class="dish-img"><img src="images/yakitori-shio.jpg" alt="焼き鳥 塩" loading="lazy"></div>
           <div>
             <h3>焼き鳥（タレ・塩）</h3>
             <p>炭火の定番。一本ずつ、焼き加減を見ながらお出しします。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="isobe-age.jpg" alt="大和芋の磯辺揚げ" loading="lazy"></div>
+          <div class="dish-img"><img src="images/isobe-age.jpg" alt="大和芋の磯辺揚げ" loading="lazy"></div>
           <div>
             <h3>大和芋の磯辺揚げ <span class="tag">人気</span></h3>
             <p>外はさっくり、中はふわとろ。磯の香りが日本酒を呼びます。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="shimesaba.jpg" alt="しめ鯖" loading="lazy"></div>
+          <div class="dish-img"><img src="images/shimesaba.jpg" alt="しめ鯖" loading="lazy"></div>
           <div>
             <h3>しめ鯖</h3>
             <p>締め加減は浅めに、鯖の旨みを残して。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="ebi-fry.jpg" alt="エビフライ" loading="lazy"></div>
+          <div class="dish-img"><img src="images/ebi-fry.jpg" alt="エビフライ" loading="lazy"></div>
           <div>
             <h3>エビフライ</h3>
             <p>揚げ物もぬかりなく。ビールのお供にどうぞ。</p>
@@ -549,17 +568,27 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
         <div class="skewer" aria-hidden="true"></div>
       </div>
       <div class="gallery-grid reveal">
-        <figure class="wide"><img src="sashimi-hirame.jpg" alt="ヒラメの刺身盛り" loading="lazy"></figure>
-        <figure><img src="kushi-mori.jpg" alt="串焼き二本盛り" loading="lazy"></figure>
-        <figure><img src="yakiton-tare.jpg" alt="焼きとん タレ" loading="lazy"></figure>
-        <figure><img src="drink-highball.jpg" alt="ハイボールとお通し" loading="lazy"></figure>
-        <figure><img src="kushi-lemon.jpg" alt="串焼きとレモン" loading="lazy"></figure>
-        <figure class="wide"><img src="wagyu-tataki.jpg" alt="和牛タタキ" loading="lazy"></figure>
-        <figure><img src="atsuage.jpg" alt="厚揚げ焼き" loading="lazy"></figure>
-        <figure><img src="kushi-tare2.jpg" alt="タレ串" loading="lazy"></figure>
-        <figure><img src="sashimi-tako.jpg" alt="タコ刺し" loading="lazy"></figure>
-        <figure><img src="beer-supercold.jpg" alt="キンキンに冷えた生ビール" loading="lazy"></figure>
+        <figure class="wide"><img src="images/sashimi-hirame.jpg" alt="ヒラメの刺身盛り" loading="lazy"></figure>
+        <figure><img src="images/kushi-mori.jpg" alt="串焼き二本盛り" loading="lazy"></figure>
+        <figure><img src="images/yakiton-tare.jpg" alt="焼きとん タレ" loading="lazy"></figure>
+        <figure><img src="images/drink-highball.jpg" alt="ハイボールとお通し" loading="lazy"></figure>
+        <figure><img src="images/kushi-lemon.jpg" alt="串焼きとレモン" loading="lazy"></figure>
+        <figure class="wide"><img src="images/wagyu-tataki.jpg" alt="和牛タタキ" loading="lazy"></figure>
+        <figure><img src="images/atsuage.jpg" alt="厚揚げ焼き" loading="lazy"></figure>
+        <figure><img src="images/kushi-tare2.jpg" alt="タレ串" loading="lazy"></figure>
+        <figure><img src="images/sashimi-tako.jpg" alt="タコ刺し" loading="lazy"></figure>
+        <figure><img src="images/beer-supercold.jpg" alt="キンキンに冷えた生ビール" loading="lazy"></figure>
       </div>
+    </div>
+  </section>
+
+  <!-- 口コミ -->
+  <section class="voice" aria-label="お客様の声">
+    <div class="reveal">
+      <span class="eyebrow">Voice</span>
+      <blockquote>「フラっと入って、大当たり。」<br>「日本酒の温度管理もバッチリ。」</blockquote>
+      <cite>— 食べログの口コミより</cite>
+      <div class="skewer" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -583,7 +612,7 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
         <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B1%E6%9C%AC%E7%94%BA1-3-5+%E7%82%AD%E3%81%8D%E3%81%A1" target="_blank" rel="noopener">Google マップで開く →</a>
       </div>
       <figure class="info-photo reveal">
-        <img src="drink-highball.jpg" alt="カウンターでの一杯とお通し" loading="lazy">
+        <img src="images/drink-highball.jpg" alt="カウンターでの一杯とお通し" loading="lazy">
         <figcaption>カウンター中心の18席。お一人様も歓迎です。</figcaption>
       </figure>
       <figure class="info-map reveal">
