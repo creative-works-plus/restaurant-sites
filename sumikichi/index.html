@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>炭きち - 公式サイト｜古河市 炭火焼き居酒屋</title>
+<meta name="description" content="古河駅東口徒歩2分の炭火焼き居酒屋「炭きち」。炭火で焼き上げる串と新鮮な刺身、氷点下のスーパードライ SUPER COLD。18席の小さな店で、今夜も炭が熾きています。ご予約は 0280-31-0366 まで。">
+<meta name="theme-color" content="#171412">
+
+<!-- OGP（og:image は公開時に絶対URLへ差し替えてください） -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="炭きち｜古河駅東口・炭火焼き居酒屋">
+<meta property="og:description" content="炭火の串、新鮮な刺身、氷点下のSUPER COLD。古河駅から徒歩2分、18席の炭火居酒屋。">
+<meta property="og:image" content="hero-sashimi.jpg">
+<meta property="og:locale" content="ja_JP">
+
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="%23171412"/><circle cx="50" cy="50" r="45" fill="none" stroke="%23E0501F" stroke-width="4"/><text x="50" y="66" font-size="46" text-anchor="middle" fill="%23F0E8DC" font-family="serif">炭</text></svg>'>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "炭きち",
+  "servesCuisine": "居酒屋・炭火焼き・海鮮",
+  "telephone": "+81-280-31-0366",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "JP",
+    "addressRegion": "茨城県",
+    "addressLocality": "古河市",
+    "streetAddress": "東本町1-3-5"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "18:00",
+      "closes": "23:00"
+    }
+  ],
+  "priceRange": "¥4,000～¥4,999"
+}
+</script>
+
+<style>
+:root{
+  --sumi:#171412;        /* 墨 — 背景 */
+  --sumi-2:#211d1a;      /* 灰墨 — カード */
+  --sumi-3:#2c2723;      /* 面の持ち上げ */
+  --line:#3b342e;        /* 罫線 */
+  --kinari:#f0e8dc;      /* 生成り — 本文 */
+  --kinari-dim:#b0a495;  /* 生成り淡 */
+  --okibi:#e0501f;       /* 熾火 */
+  --okibi-2:#f08a3c;     /* 熾火の芯 */
+  --kori:#a8cad4;        /* 氷 — SUPER COLD専用 */
+  --serif:'Shippori Mincho B1', serif;
+  --sans:'Zen Kaku Gothic New', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--sumi);
+  color:var(--kinari);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.9;
+  letter-spacing:.04em;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+/* ---------- 共通パーツ ---------- */
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:96px 0}
+.eyebrow{
+  font-family:var(--sans);
+  font-size:.72rem;
+  letter-spacing:.42em;
+  color:var(--okibi-2);
+  text-transform:uppercase;
+  display:block;
+  margin-bottom:14px;
+}
+h2{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(1.6rem,4vw,2.2rem);
+  letter-spacing:.14em;
+  line-height:1.5;
+}
+/* 串モチーフの区切り：熾火グラデの一本線 */
+.skewer{
+  width:72px;height:2px;margin-top:22px;
+  background:linear-gradient(90deg,var(--okibi),var(--okibi-2) 55%,transparent);
+  position:relative;
+}
+.skewer::before{
+  content:"";position:absolute;left:-2px;top:-2px;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--okibi-2);
+  box-shadow:0 0 8px 2px rgba(240,138,60,.55);
+}
+.center .skewer{margin-left:auto;margin-right:auto;
+  background:linear-gradient(90deg,transparent,var(--okibi) 30%,var(--okibi-2) 55%,transparent)}
+.center .skewer::before{left:calc(50% - 3px)}
+.center{text-align:center}
+
+/* スクロール出現 */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+.reveal.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+
+/* ---------- ヘッダー ---------- */
+header{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 22px;
+  background:linear-gradient(rgba(23,20,18,.85),rgba(23,20,18,0));
+  transition:background .4s ease;
+}
+header.is-solid{background:rgba(23,20,18,.92);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+  width:40px;height:40px;border-radius:50%;
+  border:1.5px solid var(--okibi);
+  display:grid;place-items:center;
+  font-family:var(--serif);font-size:1.15rem;color:var(--kinari);
+  background:rgba(224,80,31,.08);
+}
+.brand-name{font-family:var(--serif);font-size:1.15rem;letter-spacing:.3em}
+nav ul{display:flex;gap:30px}
+nav a{font-size:.8rem;letter-spacing:.22em;color:var(--kinari-dim);transition:color .3s}
+nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
+.tel-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--sans);font-size:.85rem;letter-spacing:.08em;
+  border:1px solid var(--okibi);color:var(--kinari);
+  padding:9px 18px;border-radius:2px;
+  background:rgba(224,80,31,.12);
+  transition:background .3s;
+}
+.tel-btn:hover,.tel-btn:focus-visible{background:rgba(224,80,31,.35)}
+.menu-toggle{display:none}
+
+/* ---------- ヒーロー ---------- */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;align-items:center;justify-content:flex-start;
+  padding:0;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url("hero-sashimi.jpg") center 40%/cover no-repeat;
+}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(105deg,rgba(23,20,18,.85) 0%,rgba(23,20,18,.38) 46%,rgba(23,20,18,.05) 75%),
+    linear-gradient(rgba(23,20,18,.15),rgba(23,20,18,.85) 94%);
+}
+.hero-inner{
+  position:relative;z-index:2;width:100%;
+  max-width:1080px;margin:0 auto;padding:120px 24px 90px;
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:48px;
+}
+/* 縦書きキャッチ — この店の看板 */
+.hero-catch{
+  writing-mode:vertical-rl;
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.1rem,6.2vw,3.6rem);
+  letter-spacing:.3em;line-height:1.75;
+  height:5.4em; /* 「炭火と、」「刺身と。」で2行に揃える */
+  text-shadow:0 2px 24px rgba(0,0,0,.6);
+}
+.hero-catch em{
+  font-style:normal;
+  background:linear-gradient(180deg,var(--okibi-2),var(--okibi));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{max-width:26em}
+.hero-sub p{color:var(--kinari-dim);font-size:.95rem;margin:18px 0 28px}
+.hero-station{
+  font-family:var(--serif);font-size:1.05rem;letter-spacing:.2em;
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+.cta-main{
+  display:inline-flex;flex-direction:column;align-items:flex-start;gap:2px;
+  background:linear-gradient(135deg,var(--okibi),#c23e12);
+  color:#fff;padding:14px 26px;border-radius:2px;
+  box-shadow:0 6px 24px rgba(224,80,31,.35);
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.cta-main:hover,.cta-main:focus-visible{transform:translateY(-2px);box-shadow:0 10px 30px rgba(224,80,31,.5)}
+.cta-main .num{font-size:1.3rem;font-weight:700;letter-spacing:.06em;line-height:1.3}
+.cta-main .cap{font-size:.7rem;letter-spacing:.28em}
+.cta-sub{
+  display:inline-flex;align-items:center;
+  border:1px solid var(--line);color:var(--kinari-dim);
+  padding:14px 26px;border-radius:2px;font-size:.85rem;letter-spacing:.2em;
+  transition:border-color .3s,color .3s;
+}
+.cta-sub:hover,.cta-sub:focus-visible{border-color:var(--okibi-2);color:var(--kinari)}
+.scroll-hint{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  font-size:.65rem;letter-spacing:.4em;color:var(--kinari-dim);
+  writing-mode:vertical-rl;height:70px;z-index:2;
+}
+.scroll-hint::after{
+  content:"";position:absolute;left:50%;bottom:-8px;
+  width:1px;height:34px;background:linear-gradient(var(--okibi-2),transparent);
+}
+
+/* ---------- NEWS ---------- */
+.news{padding:56px 0;border-bottom:1px solid var(--line)}
+.news .wrap{display:flex;gap:40px;align-items:baseline;flex-wrap:wrap}
+.news h2{font-size:1.1rem;white-space:nowrap}
+.news ul{flex:1;min-width:260px}
+.news li{
+  display:flex;gap:22px;padding:10px 0;border-bottom:1px dashed var(--line);
+  font-size:.88rem;
+}
+.news li:last-child{border-bottom:none}
+.news time{color:var(--okibi-2);font-size:.8rem;letter-spacing:.1em;white-space:nowrap}
+
+/* ---------- ABOUT ---------- */
+.about .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.about-photo{position:relative}
+.about-photo img{border-radius:2px;box-shadow:18px 18px 0 -2px rgba(224,80,31,.16)}
+.about p{margin-top:26px;color:var(--kinari-dim);font-size:.95rem}
+.about strong{color:var(--kinari);font-weight:500}
+.about-lead{
+  font-family:var(--serif);font-size:1.25rem;letter-spacing:.12em;line-height:2.2;
+  color:var(--kinari);margin-top:30px;
+}
+
+/* ---------- こだわり ---------- */
+.pillars{background:var(--sumi-2)}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+.pillar{
+  background:var(--sumi);border:1px solid var(--line);border-radius:2px;
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .35s ease,border-color .35s ease;
+}
+.pillar:hover{transform:translateY(-6px);border-color:rgba(224,80,31,.55)}
+.pillar-img{aspect-ratio:4/3;overflow:hidden}
+.pillar-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.pillar:hover .pillar-img img{transform:scale(1.05)}
+.pillar-body{padding:26px 26px 30px}
+.pillar-no{
+  font-family:var(--serif);font-size:.78rem;letter-spacing:.3em;color:var(--okibi-2);
+}
+.pillar h3{
+  font-family:var(--serif);font-weight:500;font-size:1.25rem;
+  letter-spacing:.14em;margin:8px 0 12px;
+}
+.pillar p{font-size:.88rem;color:var(--kinari-dim)}
+/* SUPER COLD の柱だけ「氷」に温度反転 */
+.pillar.cold:hover{border-color:rgba(168,202,212,.6)}
+.pillar.cold .pillar-no{color:var(--kori)}
+.pillar.cold h3 span{color:var(--kori)}
+
+/* ---------- お品書き ---------- */
+.menu-note{color:var(--kinari-dim);font-size:.82rem;margin-top:16px}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 48px;margin-top:54px}
+.dish{
+  display:grid;grid-template-columns:112px 1fr;gap:20px;align-items:center;
+  padding:16px 0;border-bottom:1px solid var(--line);
+}
+.dish-img{width:112px;height:112px;overflow:hidden;border-radius:2px}
+.dish-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.dish:hover .dish-img img{transform:scale(1.08)}
+.dish h3{
+  font-family:var(--serif);font-weight:500;font-size:1.08rem;letter-spacing:.1em;
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.dish .tag{
+  font-family:var(--sans);font-size:.62rem;letter-spacing:.2em;
+  color:var(--okibi-2);border:1px solid rgba(224,80,31,.5);
+  padding:2px 8px;border-radius:2px;white-space:nowrap;
+}
+.dish p{font-size:.82rem;color:var(--kinari-dim);margin-top:6px}
+
+/* ---------- ギャラリー ---------- */
+.gallery{background:var(--sumi-2)}
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:54px;
+}
+.gallery-grid figure{overflow:hidden;border-radius:2px;aspect-ratio:1/1}
+.gallery-grid figure.wide{grid-column:span 2;aspect-ratio:2/1}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,filter .6s ease;filter:saturate(.96)}
+.gallery-grid figure:hover img{transform:scale(1.06);filter:saturate(1.08)}
+
+/* ---------- INFO ---------- */
+.info .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.info table{width:100%;border-collapse:collapse;margin-top:40px;font-size:.9rem}
+.info th,.info td{
+  text-align:left;padding:15px 6px;border-bottom:1px solid var(--line);
+  vertical-align:top;font-weight:300;
+}
+.info th{width:7.5em;color:var(--okibi-2);letter-spacing:.18em;font-weight:400;white-space:nowrap}
+.info td small{color:var(--kinari-dim);display:block;font-size:.78rem}
+.map-link{
+  display:inline-flex;align-items:center;gap:8px;margin-top:22px;
+  font-size:.85rem;letter-spacing:.14em;color:var(--okibi-2);
+  border-bottom:1px solid rgba(224,80,31,.5);padding-bottom:3px;
+}
+.map-link:hover{color:var(--kinari)}
+.info-photo img{border-radius:2px}
+.info-photo figcaption{font-size:.75rem;color:var(--kinari-dim);margin-top:10px;letter-spacing:.1em}
+
+/* ---------- 末尾CTA ---------- */
+.closing{
+  position:relative;text-align:center;padding:110px 24px;overflow:hidden;
+  background:url("hero-yakitori.jpg") center/cover no-repeat;
+}
+.closing::before{content:"";position:absolute;inset:0;background:rgba(23,20,18,.88)}
+.closing > *{position:relative}
+.closing h2{margin-bottom:10px}
+.closing p{color:var(--kinari-dim);font-size:.9rem;max-width:34em;margin:0 auto 34px}
+.closing .cta-main{align-items:center}
+.closing .hours{margin-top:26px;font-size:.8rem;letter-spacing:.16em;color:var(--kinari-dim)}
+
+/* ---------- フッター ---------- */
+footer{padding:36px 24px;border-top:1px solid var(--line);text-align:center}
+footer .brand-name{font-size:1rem}
+footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7rem;letter-spacing:.12em}
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width:900px){
+  .about .wrap,.info .wrap{grid-template-columns:1fr;gap:44px}
+  .pillars-grid{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}
+  .menu-grid{grid-template-columns:1fr;gap:6px}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  nav{display:none}
+}
+@media (max-width:640px){
+  section{padding:68px 0}
+  .hero-inner{flex-direction:row;align-items:flex-end;gap:14px;padding:100px 22px 96px}
+  .hero-catch{height:5.2em;letter-spacing:.22em}
+  .cta-main{padding:12px 18px}
+  .cta-main .num{font-size:1.15rem}
+  .cta-sub{padding:12px 18px}
+  .tel-btn{padding:8px 13px;font-size:.78rem}
+  .closing h2{font-size:1.42rem;letter-spacing:.1em}
+  .dish{grid-template-columns:88px 1fr;gap:14px}
+  .dish-img{width:88px;height:88px}
+  .news .wrap{flex-direction:column;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <a class="brand" href="#top" aria-label="炭きち トップへ">
+    <span class="brand-mark" aria-hidden="true">炭</span>
+    <span class="brand-name">炭きち</span>
+  </a>
+  <nav aria-label="メイン">
+    <ul>
+      <li><a href="#about">当店について</a></li>
+      <li><a href="#pillars">こだわり</a></li>
+      <li><a href="#menu">お品書き</a></li>
+      <li><a href="#gallery">ギャラリー</a></li>
+      <li><a href="#info">店舗情報</a></li>
+    </ul>
+  </nav>
+  <a class="tel-btn" href="tel:0280310366">📞 0280-31-0366</a>
+</header>
+
+<main id="top">
+
+  <!-- ヒーロー -->
+  <section class="hero" aria-label="メインビジュアル">
+    <div class="hero-bg" role="img" aria-label="ヒラメの刺身盛り合わせ"></div>
+    <div class="hero-inner">
+      <h1 class="hero-catch">炭火と、<em>刺身</em>と。</h1>
+      <div class="hero-sub">
+        <p class="hero-station">古河駅東口、歩いて二分。</p>
+        <p>炭の熾きる音と、その日いちばんの魚。18席の小さな店で、今夜もお待ちしています。</p>
+        <div class="hero-cta">
+          <a class="cta-main" href="tel:0280310366">
+            <span class="cap">ご予約・お問い合わせ</span>
+            <span class="num">0280-31-0366</span>
+          </a>
+          <a class="cta-sub" href="#menu">お品書きを見る</a>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-hint" aria-hidden="true">SCROLL</span>
+  </section>
+
+  <!-- NEWS -->
+  <section class="news" aria-label="お知らせ">
+    <div class="wrap reveal">
+      <h2><span class="eyebrow">News</span>お知らせ</h2>
+      <ul>
+        <li><time datetime="2026-07">2026.07</time><span>ホームページを公開しました。</span></li>
+        <li><time datetime="2026-07">2026.07</time><span>20名様以下の貸切のご相談を承ります。お電話にてお気軽にどうぞ。</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <figure class="about-photo reveal">
+        <img src="yakitori-tare.jpg" alt="炭火で焼き上げたタレの焼き鳥" loading="lazy">
+      </figure>
+      <div class="reveal">
+        <span class="eyebrow">About Us</span>
+        <h2>駅前の路地に、<br>炭の熾きる店。</h2>
+        <div class="skewer" aria-hidden="true"></div>
+        <p class="about-lead">フラっと入って、大当たり。<br>そんな一軒でありたいと思っています。</p>
+        <p>「炭きち」は古河駅東口から徒歩2分、<strong>カウンター中心・18席</strong>の炭火焼き居酒屋です。炭火でじっくり焼き上げる串と、その日仕入れた魚の刺身、そしてキンキンに冷えたビール。気取らない店ですが、素材と温度には手を抜きません。</p>
+        <p>お一人でも、お仕事帰りの一杯でも。出張でお泊まりの方にもご贔屓いただいています。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- こだわり -->
+  <section class="pillars" id="pillars">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">Our Commitment</span>
+        <h2>炭きちの、三つのこだわり</h2>
+        <div class="skewer" aria-hidden="true"></div>
+      </div>
+      <div class="pillars-grid">
+        <article class="pillar reveal">
+          <div class="pillar-img"><img src="hero-yakitori.jpg" alt="炭火焼きの串" loading="lazy"></div>
+          <div class="pillar-body">
+            <span class="pillar-no">其の一</span>
+            <h3>炭火の串</h3>
+            <p>強火の遠火でじっくりと。炭の香りをまとった焼き鳥・焼きとんを、タレと塩でどうぞ。</p>
+          </div>
+        </article>
+        <article class="pillar reveal">
+          <div class="pillar-img"><img src="sashimi-tako.jpg" alt="タコの刺身" loading="lazy"></div>
+          <div class="pillar-body">
+            <span class="pillar-no">其の二</span>
+            <h3>その日の魚</h3>
+            <p>タコ、ヒラメ、しめ鯖。その日の仕入れで内容が変わる刺身は、まず黒板をご覧ください。</p>
+          </div>
+        </article>
+        <article class="pillar cold reveal">
+          <div class="pillar-img"><img src="beer-supercold.jpg" alt="氷点下のスーパードライ SUPER COLD" loading="lazy"></div>
+          <div class="pillar-body">
+            <span class="pillar-no">其の三</span>
+            <h3><span>氷点下の一杯</span></h3>
+            <p>スーパードライ「SUPER COLD」認定店。4℃未満のキンキンに冷えた一杯を、炭火の熱と一緒に。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- お品書き -->
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">Menu</span>
+        <h2>お品書き</h2>
+        <div class="skewer" aria-hidden="true"></div>
+        <p class="menu-note">※仕入れにより内容・価格が変わります。本日のおすすめは店内の黒板にて。</p>
+      </div>
+      <div class="menu-grid">
+        <div class="dish reveal">
+          <div class="dish-img"><img src="wagyu-tataki.jpg" alt="和牛タタキ" loading="lazy"></div>
+          <div>
+            <h3>和牛タタキ <span class="tag">名物</span></h3>
+            <p>表面だけを香ばしく炙り、薬味と一緒に。お客様から「絶品」の声をいただく一皿。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="sashimi-hirame.jpg" alt="ヒラメの刺身" loading="lazy"></div>
+          <div>
+            <h3>刺身盛り合わせ <span class="tag">本日の魚</span></h3>
+            <p>ヒラメ、タコなど、その日いちばんの魚を少しずつ。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="yakitori-shio.jpg" alt="焼き鳥 塩" loading="lazy"></div>
+          <div>
+            <h3>焼き鳥（タレ・塩）</h3>
+            <p>炭火の定番。一本ずつ、焼き加減を見ながらお出しします。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="isobe-age.jpg" alt="大和芋の磯辺揚げ" loading="lazy"></div>
+          <div>
+            <h3>大和芋の磯辺揚げ <span class="tag">人気</span></h3>
+            <p>外はさっくり、中はふわとろ。磯の香りが日本酒を呼びます。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="shimesaba.jpg" alt="しめ鯖" loading="lazy"></div>
+          <div>
+            <h3>しめ鯖</h3>
+            <p>締め加減は浅めに、鯖の旨みを残して。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="ebi-fry.jpg" alt="エビフライ" loading="lazy"></div>
+          <div>
+            <h3>エビフライ</h3>
+            <p>揚げ物もぬかりなく。ビールのお供にどうぞ。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ギャラリー -->
+  <section class="gallery" id="gallery">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">Gallery</span>
+        <h2>炭きちの晩酌風景</h2>
+        <div class="skewer" aria-hidden="true"></div>
+      </div>
+      <div class="gallery-grid reveal">
+        <figure class="wide"><img src="sashimi-hirame.jpg" alt="ヒラメの刺身盛り" loading="lazy"></figure>
+        <figure><img src="kushi-mori.jpg" alt="串焼き二本盛り" loading="lazy"></figure>
+        <figure><img src="yakiton-tare.jpg" alt="焼きとん タレ" loading="lazy"></figure>
+        <figure><img src="drink-highball.jpg" alt="ハイボールとお通し" loading="lazy"></figure>
+        <figure><img src="kushi-lemon.jpg" alt="串焼きとレモン" loading="lazy"></figure>
+        <figure class="wide"><img src="wagyu-tataki.jpg" alt="和牛タタキ" loading="lazy"></figure>
+        <figure><img src="atsuage.jpg" alt="厚揚げ焼き" loading="lazy"></figure>
+        <figure><img src="kushi-tare2.jpg" alt="タレ串" loading="lazy"></figure>
+        <figure><img src="sashimi-tako.jpg" alt="タコ刺し" loading="lazy"></figure>
+        <figure><img src="beer-supercold.jpg" alt="キンキンに冷えた生ビール" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO -->
+  <section class="info" id="info">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">Information</span>
+        <h2>店舗情報</h2>
+        <div class="skewer" aria-hidden="true"></div>
+        <table>
+          <tr><th>店名</th><td>炭きち（すみきち）</td></tr>
+          <tr><th>住所</th><td>〒306-0017 茨城県古河市東本町1-3-5<br><small>JR古河駅 東口より徒歩2分</small></td></tr>
+          <tr><th>電話</th><td><a href="tel:0280310366">0280-31-0366</a></td></tr>
+          <tr><th>営業時間</th><td>18:00 – 23:00</td></tr>
+          <tr><th>定休日</th><td>日曜・月曜<small>※日曜が祝日の場合は営業する場合があります。お電話でご確認ください。</small></td></tr>
+          <tr><th>席数</th><td>18席（20名様以下の貸切可）</td></tr>
+          <tr><th>駐車場</th><td>あり（2〜3台）</td></tr>
+          <tr><th>お支払い</th><td>現金・PayPay<small>※カード・電子マネーはご利用いただけません</small></td></tr>
+        </table>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B1%E6%9C%AC%E7%94%BA1-3-5+%E7%82%AD%E3%81%8D%E3%81%A1" target="_blank" rel="noopener">Google マップで開く →</a>
+      </div>
+      <figure class="info-photo reveal">
+        <img src="drink-highball.jpg" alt="カウンターでの一杯とお通し" loading="lazy">
+        <figcaption>カウンター中心の18席。お一人様も歓迎です。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 末尾CTA -->
+  <section class="closing">
+    <div class="reveal">
+      <span class="eyebrow">Reservation</span>
+      <h2>今夜、炭が熾きています。</h2>
+      <p>ご予約・貸切のご相談はお電話にて。もちろん、フラっとのご来店も大歓迎です。</p>
+      <a class="cta-main" href="tel:0280310366">
+        <span class="cap">ご予約・お問い合わせ</span>
+        <span class="num">0280-31-0366</span>
+      </a>
+      <p class="hours">営業時間 18:00–23:00｜日曜・月曜定休</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="brand-name">炭きち</span>
+  <small>茨城県古河市東本町1-3-5｜0280-31-0366<br>© 炭きち All Rights Reserved.</small>
+</footer>
+
+<script>
+// ヘッダー背景の切り替え
+const header = document.getElementById('header');
+addEventListener('scroll', () => {
+  header.classList.toggle('is-solid', scrollY > 60);
+}, {passive: true});
+
+// スクロール出現
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+}, {threshold: .12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
