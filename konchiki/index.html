@@ -8,12 +8,15 @@
     <meta property="og:title" content="居酒屋 こんちき｜古河市下辺見の隠れ家">
     <meta property="og:description" content="地養鶏の串焼きと手作りのおつまみ、季節の地酒が楽しめる古河市の隠れ家居酒屋。">
     <meta property="og:type" content="restaurant">
+    <!-- og:image は公開URL基準の絶対URL（公開先を変える場合は差し替える） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/konchiki/gallery-tsukune-sumibi.jpg">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%230d0d0d' stroke='%23b33939' stroke-width='4'/%3E%3Ctext x='50' y='66' font-size='46' text-anchor='middle' fill='%23e8dcc4' font-family='serif'%3E%E3%81%93%3C/text%3E%3C/svg%3E">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
       "name": "居酒屋 こんちき",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/konchiki/gallery-tsukune-sumibi.jpg",
       "servesCuisine": "Japanese",
       "telephone": "+81-280-33-7762",
       "address": {
@@ -356,6 +359,152 @@
             display: table-cell;
             padding: 0.3rem 0;
             text-align: right;
+        }
+
+        /* =========================================
+           料理・地酒ギャラリー（トップページ下部）
+        ========================================= */
+        .food-gallery {
+            width: 100%;
+            max-width: 1050px;
+            margin: 5.5rem auto 1.5rem;
+        }
+
+        .food-gallery h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 0.35em;
+            margin: 0 0 0.9rem;
+            padding-bottom: 0.9rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+        }
+        .food-gallery h2::after {
+            content: "";
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 48px; height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+        }
+
+        .food-gallery .gallery-lead {
+            text-align: center;
+            font-size: 0.92rem;
+            color: var(--text-mute);
+            letter-spacing: 0.15em;
+            margin: 0 0 2.4rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.4rem;
+        }
+
+        .gallery-item {
+            margin: 0;
+        }
+
+        .gallery-item .photo-frame {
+            display: block;
+            overflow: hidden;
+            border: 1px solid var(--line-soft);
+            border-radius: 4px;
+            background: rgba(15, 15, 15, 0.6);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+        }
+
+        .gallery-item img {
+            display: block;
+            width: 100%;
+            height: auto; /* width/height属性の高さ指定を打ち消し、aspect-ratioを効かせる */
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.04); }
+
+        .gallery-item figcaption {
+            margin-top: 0.7rem;
+            text-align: center;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            color: var(--text-mute);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+            line-height: 1.6;
+        }
+
+        /* スクロール出現演出（JS有効時のみ初期非表示にする） */
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .js .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-cta {
+            text-align: center;
+            margin: 3rem 0 1rem;
+        }
+        .gallery-cta .cta-note {
+            font-size: 0.9rem;
+            color: var(--text-mute);
+            letter-spacing: 0.12em;
+            margin: 0 0 0.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+        }
+        .gallery-cta .cta-tel {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        /* =========================================
+           メニューページ内の写真ストリップ
+        ========================================= */
+        .photo-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.1rem;
+            max-width: 880px;
+            margin: -1.2rem auto 3.2rem;
+        }
+        .photo-strip.two-col {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 620px;
+        }
+
+        .photo-strip figure { margin: 0; }
+
+        .photo-strip .photo-frame {
+            display: block;
+            overflow: hidden;
+            border: 1px solid var(--line-soft);
+            border-radius: 4px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+        }
+
+        .photo-strip img {
+            display: block;
+            width: 100%;
+            height: auto; /* width/height属性の高さ指定を打ち消し、aspect-ratioを効かせる */
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .photo-strip figure:hover img { transform: scale(1.04); }
+
+        .photo-strip figcaption {
+            margin-top: 0.6rem;
+            text-align: center;
+            font-size: 0.82rem;
+            letter-spacing: 0.1em;
+            color: var(--text-mute);
+            line-height: 1.6;
         }
 
         /* =========================================
@@ -765,6 +914,29 @@
             .menu-grid { grid-template-columns: 1fr; gap: 2.5rem; }
             .sub-wrapper h1 { font-size: 1.9rem; }
             .category-subtext { display: block; margin-left: 0; margin-top: 5px; }
+
+            .food-gallery { margin-top: 4rem; }
+            .food-gallery h2 { font-size: 1.3rem; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .gallery-item figcaption { font-size: 0.8rem; }
+
+            /* メニューページの写真は横スクロールでめくれるようにする */
+            .photo-strip {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.9rem;
+                margin: -1rem -2rem 2.8rem;
+                padding: 0 2rem 0.6rem;
+                max-width: none;
+            }
+            .photo-strip figure {
+                flex: 0 0 68%;
+                scroll-snap-align: center;
+            }
+            .photo-strip.two-col { max-width: none; }
+            .photo-strip.two-col figure { flex: 0 0 68%; }
         }
     </style>
 </head>
@@ -864,6 +1036,34 @@
                 </div>
             </section>
         </main>
+
+        <!-- 料理・地酒ギャラリー（食べログ・Instagramの写真より） -->
+        <section class="food-gallery" aria-label="お料理とお酒の写真">
+            <h2>こんちきの味</h2>
+            <p class="gallery-lead">炭火の焼き場から、揚げたて・作りたてをお届けします。</p>
+            <div class="gallery-grid">
+                <figure class="gallery-item reveal">
+                    <span class="photo-frame"><img src="gallery-tsukune-sumibi.jpg" alt="炭火の焼き台で煙を上げながら焼かれるつくねの串" loading="lazy" width="480" height="640"></span>
+                    <figcaption>炭火でじっくり焼き上げるつくね</figcaption>
+                </figure>
+                <figure class="gallery-item reveal">
+                    <span class="photo-frame"><img src="gallery-kushimori.jpg" alt="長皿に盛られたおすすめ串盛り5点セット" loading="lazy" width="480" height="640"></span>
+                    <figcaption>おすすめ串盛り 5点set</figcaption>
+                </figure>
+                <figure class="gallery-item reveal">
+                    <span class="photo-frame"><img src="gallery-sashimi.jpg" alt="まぐろ・サーモン・かつおのたたきの刺身盛り合わせ" loading="lazy" width="640" height="480"></span>
+                    <figcaption>日替わりのおすすめも豊富に</figcaption>
+                </figure>
+                <figure class="gallery-item reveal">
+                    <span class="photo-frame"><img src="gallery-kikizake-set.jpg" alt="地酒の一升瓶と三つのお猪口が並ぶ利き酒セット" loading="lazy" width="480" height="640"></span>
+                    <figcaption>三種を飲み比べる利き酒SET</figcaption>
+                </figure>
+            </div>
+            <div class="gallery-cta reveal">
+                <p class="cta-note">ご予約・お問い合わせはお電話にて</p>
+                <p class="cta-tel"><a href="tel:0280337762" class="tel-link-large">TEL: 0280-33-7762</a></p>
+            </div>
+        </section>
     </div>
 
 
@@ -886,6 +1086,21 @@
                 <button onclick="jumpToCategory('food-view', 5)">〆飯</button>
                 <button onclick="jumpToCategory('food-view', 6)">甘味</button>
             </nav>
+
+            <div class="photo-strip">
+                <figure>
+                    <span class="photo-frame"><img src="gallery-yakidai-kushi.jpg" alt="炭火の焼き台に並ぶ焼き上げ中の串" loading="lazy" width="480" height="640"></span>
+                    <figcaption>ご注文ごとに炭火で焼き上げます</figcaption>
+                </figure>
+                <figure>
+                    <span class="photo-frame"><img src="gallery-tare-kushi.jpg" alt="照りよくタレをまとった串焼き二本" loading="lazy" width="480" height="640"></span>
+                    <figcaption>照り艶よく仕上げるタレ串</figcaption>
+                </figure>
+                <figure>
+                    <span class="photo-frame"><img src="gallery-dashimaki.jpg" alt="大根おろしを添えたこんちきのだし巻き卵" loading="lazy" width="640" height="480"></span>
+                    <figcaption>こんちき だし巻き卵</figcaption>
+                </figure>
+            </div>
 
             <div class="menu-grid">
                 <!-- 肴 -->
@@ -1011,6 +1226,17 @@
                 <button onclick="jumpToCategory('drink-view', 5)">ワイン・果実酒</button>
                 <button onclick="jumpToCategory('drink-view', 6)">ソフトドリンク</button>
             </nav>
+
+            <div class="photo-strip two-col">
+                <figure>
+                    <span class="photo-frame"><img src="gallery-jizake.jpg" alt="栄光冨士・豊盃など地酒の一升瓶三本とグラス" loading="lazy" width="480" height="640"></span>
+                    <figcaption>全国の蔵から届く地酒</figcaption>
+                </figure>
+                <figure>
+                    <span class="photo-frame"><img src="gallery-jizake-ginsei.jpg" alt="銀星など季節の日本酒の四合瓶とグラス" loading="lazy" width="480" height="640"></span>
+                    <figcaption>季節の限定酒も入荷します</figcaption>
+                </figure>
+            </div>
 
             <div class="menu-grid">
                 <!-- 麦酒 -->
@@ -1260,6 +1486,27 @@
                 });
             }
         });
+
+        // ギャラリーのスクロール出現演出。
+        // JS有効時のみ .js クラス経由で初期非表示にするため、JSが動かない環境でも写真は必ず見える。
+        document.documentElement.classList.add('js');
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.reveal').forEach(function (el) {
+                revealObserver.observe(el);
+            });
+        } else {
+            document.querySelectorAll('.reveal').forEach(function (el) {
+                el.classList.add('is-visible');
+            });
+        }
     </script>
 
 </body>
