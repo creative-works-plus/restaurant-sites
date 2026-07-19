@@ -538,9 +538,24 @@
            8. 店舗案内
            ========================================================================== */
         .info-section { background: var(--sumi-2); }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 60px); align-items: center; }
-        .info-photo { border-radius: 10px; overflow: hidden; border: 1px solid rgba(201, 138, 75, 0.16); }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 60px); align-items: stretch; }
+        .info-left { display: flex; flex-direction: column; gap: 16px; }
+        .info-photo { border-radius: 10px; overflow: hidden; border: 1px solid rgba(201, 138, 75, 0.16); aspect-ratio: 16 / 10; flex-shrink: 0; }
         .info-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .info-map {
+            flex: 1;
+            min-height: 230px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(201, 138, 75, 0.16);
+            background: var(--sumi-3);
+        }
+        .info-map iframe {
+            width: 100%; height: 100%; border: 0; display: block;
+            /* 白地図を反転して和モダンのダークトーンに寄せる */
+            filter: invert(0.9) hue-rotate(185deg) grayscale(0.22) sepia(0.3) saturate(1.15) brightness(0.92) contrast(1.04);
+        }
+        @media (max-width: 820px) { .info-map { min-height: 260px; } }
         .info-table { width: 100%; border-collapse: collapse; }
         .info-table th, .info-table td { padding: 15px 4px; border-bottom: 1px solid rgba(201, 138, 75, 0.16); vertical-align: top; text-align: left; font-weight: 400; }
         .info-table th { width: 7.5em; color: var(--dou); font-size: 0.82rem; letter-spacing: 0.2em; white-space: nowrap; }
@@ -803,7 +818,6 @@
                     <figure><img src="kushiyaki.jpg" alt="レモンを添えた炉端の串焼き" loading="lazy"><figcaption>串焼き</figcaption></figure>
                     <figure><img src="tokkuri.jpg" alt="徳利とお猪口で燗酒" loading="lazy"><figcaption>燗酒で一献</figcaption></figure>
                     <figure class="wide"><img src="interior.jpg" alt="カウンターとテーブル席、壁に手書きのお品書きが並ぶ店内" loading="lazy"><figcaption>店内 — カウンター・テーブル・お座敷</figcaption></figure>
-                    <figure><img src="sashimi-board.jpg" alt="木の板に盛られたまぐろと白身の刺身" loading="lazy"><figcaption>板盛りの刺身</figcaption></figure>
                 </div>
             </div>
         </section>
@@ -817,7 +831,12 @@
                     <div class="kushi-line" aria-hidden="true"></div>
                 </div>
                 <div class="info-grid">
-                    <div class="info-photo reveal"><img src="exterior.jpg" alt="黒い暖簾に白い鶴の紋が染め抜かれた一鶴の入口" loading="lazy"></div>
+                    <div class="info-left reveal">
+                        <div class="info-photo"><img src="exterior.jpg" alt="黒い暖簾に白い鶴の紋が染め抜かれた一鶴の入口" loading="lazy"></div>
+                        <div class="info-map">
+                            <iframe src="https://www.google.com/maps?q=%E9%A3%9F%E5%BD%A9%E9%85%92%E4%B8%80%E9%B6%B4+%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B1%E6%9C%AC%E7%94%BA2-16-8&z=16&hl=ja&output=embed" title="食彩酒 一鶴の地図（茨城県古河市東本町2-16-8）" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                        </div>
+                    </div>
                     <div class="reveal" data-delay="1">
                         <table class="info-table">
                             <tr><th>店名</th><td>食彩酒 一鶴<small>（しょくさいしゅ いっかく）</small></td></tr>
