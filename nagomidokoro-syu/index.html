@@ -8,8 +8,8 @@
     <meta property="og:title" content="なごみ処 秀｜古河市坂間の隠れ家居酒屋">
     <meta property="og:description" content="炭火焼きと旬の鮮魚、豊富な日本酒・焼酎を揃えた古河市の隠れ家居酒屋。">
     <meta property="og:type" content="restaurant">
-    <!-- OGP画像：サイト公開時は content をドメイン込みの絶対URL（例 https://example.com/image_12ff88.jpg）に変更してください -->
-    <meta property="og:image" content="image_12ff88.jpg">
+    <!-- OGP画像：サイト公開時は content をドメイン込みの絶対URL（例 https://example.com/dish-sashimi.jpg）に変更してください -->
+    <meta property="og:image" content="dish-sashimi.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#070707">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,7 +115,8 @@
            2. メインビジュアル（静止画背景）
            ========================================================================== */
         .background-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; overflow: hidden; background-color: #000; }
-        .site-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; opacity: 0.55; filter: brightness(0.85) contrast(1.15); transition: opacity 0.5s ease-in-out; }
+        /* 外観写真（曇天の空・黒壁）を暗く締めて金基調に馴染ませる。空が濁らない程度に軽く暖色を足す */
+        .site-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; opacity: 0.52; filter: brightness(0.6) contrast(1.12) saturate(1.05) sepia(0.16) hue-rotate(-6deg); transition: opacity 0.5s ease-in-out; }
         .overlay-shadow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(7,7,7,0.95) 0%, rgba(7,7,7,0.2) 30%, rgba(7,7,7,0.2) 70%, rgba(7,7,7,0.95) 100%); pointer-events: none; }
 
         /* ==========================================================================
@@ -232,6 +233,24 @@
         .ornament-divider { display: flex; align-items: center; gap: 16px; width: 100%; margin: 44px 0; color: var(--gold-line); }
         .ornament-divider::before, .ornament-divider::after { content: ""; flex: 1; height: 1px; background: var(--gold-line); }
         .ornament-divider span { color: var(--gold); font-size: 0.9rem; }
+
+        /* --------------------------------------------------------------------------
+           料理ギャラリー：実店舗の写真を金線カードで見せる。
+           トーンを揃えるため写真をわずかに暗く・暖色寄りに補正し、ホバー時のみ動く。
+           -------------------------------------------------------------------------- */
+        .gallery-band { max-width: 1300px; margin: 0 auto; padding: 20px 40px 0; width: 100%; }
+        .gallery-inner { background: var(--bg-panel); border: 1px solid var(--gold-line); padding: 48px 40px; border-radius: 10px; backdrop-filter: blur(8px); box-shadow: 0 20px 40px rgba(0,0,0,0.8); position: relative; overflow: hidden; }
+        .gallery-inner::before { content: ""; position: absolute; top: 0; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 160, 99, 0.55), transparent); pointer-events: none; }
+        .gallery-head { text-align: center; margin-bottom: 8px; }
+        .gallery-head h2 { font-size: 1.55rem; color: var(--gold); letter-spacing: 0.2rem; display: inline-block; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        .gallery-head p { color: var(--ink-soft); font-size: 0.92rem; margin-top: 14px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
+        .gallery-card { position: relative; border: 1px solid var(--gold-line); border-radius: 8px; overflow: hidden; background: #0a0a0a; transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease; }
+        .gallery-card img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; filter: brightness(0.92) saturate(1.04) contrast(1.03); transition: transform 0.5s ease, filter 0.35s ease; }
+        .gallery-card figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 16px 12px; color: var(--ink); font-size: 0.9rem; letter-spacing: 0.08rem; text-align: center; background: linear-gradient(to top, rgba(7,7,7,0.9) 0%, rgba(7,7,7,0.55) 55%, transparent 100%); }
+        .gallery-card:hover, .gallery-card:focus-within { border-color: var(--gold); box-shadow: 0 14px 28px rgba(0,0,0,0.7); transform: translateY(-4px); }
+        .gallery-card:hover img, .gallery-card:focus-within img { transform: scale(1.06); filter: brightness(1) saturate(1.1) contrast(1.04); }
+        .gallery-note { text-align: center; color: var(--ink-mute); font-size: 0.82rem; margin-top: 26px; }
 
         .sns-banner {
             margin-top: 8px; background: rgba(201,160,99,0.06); border: 1px solid var(--gold-line); border-radius: 4px;
@@ -396,6 +415,10 @@
             .top-nav { flex-wrap: wrap; justify-content: center; }
             .main-container { flex-direction: column; padding: 30px 15px; }
             .section-inner { padding: 35px 25px; min-height: auto; }
+            .gallery-band { padding: 10px 15px 0; }
+            .gallery-inner { padding: 34px 20px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 26px; }
+            .gallery-card figcaption { font-size: 0.8rem; padding: 18px 8px 10px; }
             .tel-link { text-decoration: underline; }
             .float-reserve span.float-label { display: none; }
             .float-reserve { padding: 16px; border-radius: 50%; }
@@ -415,7 +438,8 @@
     <noscript><style>.splash { display: none; }</style></noscript>
 
     <div class="background-container">
-        <img src="image_12ff88.jpg" alt="なごみ処 秀 店内の様子" class="site-bg" id="site-bg-image">
+        <!-- メイン背景：実店舗の外観（黒壁×黄暖簾×円相看板）。座敷に戻す場合は src を bg-interior.jpg に変更するだけ -->
+        <img src="bg-exterior.jpg" alt="なごみ処 秀 黒壁に暖簾が下がる店舗外観" class="site-bg" id="site-bg-image">
         <div class="overlay-shadow"></div>
     </div>
 
@@ -439,6 +463,42 @@
                 <button class="button-link nav-item" onclick="openReserveModal()">ご予約</button>
             </nav>
         </header>
+
+        <section class="gallery-band" aria-label="お料理の写真">
+            <div class="gallery-inner">
+                <div class="gallery-head">
+                    <h2>お料理</h2>
+                    <p>炭火焼き、旬の鮮魚。素材の味を活かした自慢の品々をご用意しています。</p>
+                </div>
+                <div class="gallery-grid">
+                    <figure class="gallery-card">
+                        <img src="dish-sashimi.jpg" alt="旬の鮮魚を盛り合わせたお造り" loading="lazy">
+                        <figcaption>旬の鮮魚 お造り盛り合わせ</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="dish-yakitori.jpg" alt="炭火で焼き上げた焼き鳥" loading="lazy">
+                        <figcaption>炭火焼き鳥</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="dish-aburi.jpg" alt="香ばしく炙った鶏の炭火焼き" loading="lazy">
+                        <figcaption>鶏の炭火焼き</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="dish-kushi.jpg" alt="ベーコン巻きなどの串焼き" loading="lazy">
+                        <figcaption>串焼き各種</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="dish-fry.jpg" alt="サクサクに揚げた揚げ物の一品" loading="lazy">
+                        <figcaption>揚げたて一品</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="dish-otsukuri.jpg" alt="白身魚のお造り" loading="lazy">
+                        <figcaption>白身のお造り</figcaption>
+                    </figure>
+                </div>
+                <p class="gallery-note">※写真は一例です。仕入れにより内容が変わります。日替わりのおすすめは X（旧Twitter）で発信中です。</p>
+            </div>
+        </section>
 
         <main class="main-container">
             <section class="content-section">

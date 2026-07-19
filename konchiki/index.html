@@ -151,6 +151,14 @@
             background: linear-gradient(to right, transparent, var(--accent-color), transparent);
         }
 
+        header.main-header .tagline {
+            font-size: 1.02rem;
+            color: var(--text-color);
+            margin: 1.1rem 0 0;
+            letter-spacing: 0.18em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+        }
+
         .main-content {
             display: flex;
             justify-content: space-between;
@@ -266,7 +274,14 @@
             border: 1px solid var(--line-soft);
             border-radius: 4px;
         }
-        .map-wrapper iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .map-wrapper iframe {
+            width: 100%; height: 100%; border: 0; display: block;
+            /* 夜の店の世界観に合わせ、地図を暗色に調色。触れると通常の色に戻る */
+            filter: invert(0.92) hue-rotate(180deg) grayscale(0.25) brightness(0.88) contrast(0.95) sepia(0.18);
+            transition: filter 0.4s ease;
+        }
+        .map-wrapper:hover iframe,
+        .map-wrapper:focus-within iframe { filter: none; }
 
         .google-review-link {
             display: inline-flex;
@@ -771,6 +786,7 @@
         <header class="main-header">
             <p>茨城県古河市の隠れ家</p>
             <h1>居酒屋 こんちき</h1>
+            <p class="tagline">地養鶏の炭火串焼きと、選りすぐりの地酒。</p>
         </header>
 
         <main class="main-content">
@@ -797,6 +813,9 @@
                     <a class="google-review-link" href="https://www.google.com/search?q=居酒屋こんちき+下辺見+口コミ" target="_blank" rel="noopener">
                         <span aria-hidden="true">★</span>Googleで口コミを見る
                     </a>
+                    <a class="google-review-link" style="margin-left: 16px;" href="https://www.google.com/maps?q=茨城県古河市下辺見2789" target="_blank" rel="noopener">
+                        <span aria-hidden="true">➤</span>地図アプリで道順を見る
+                    </a>
                 </div>
                 <div class="info-block">
                     <span class="info-title">営業時間</span>
@@ -816,12 +835,20 @@
                     <p>火曜日</p>
                 </div>
                 <div class="info-block">
+                    <span class="info-title">お席</span>
+                    <p>カウンター・円卓のお座敷　全25席<br>貸切は20名様までご相談ください</p>
+                </div>
+                <div class="info-block">
                     <span class="info-title">駐車場</span>
-                    <p>店舗前にございます</p>
+                    <p>店舗前・隣接地に15台ございます</p>
                 </div>
                 <div class="info-block">
                     <span class="info-title">決済方法</span>
                     <p>現金のみ</p>
+                </div>
+                <div class="info-block">
+                    <span class="info-title">お持ち帰り</span>
+                    <p>お弁当・オードブル承ります（要予約）</p>
                 </div>
                 <div class="info-block">
                     <span class="info-title">ご予約・お問い合わせ</span>
@@ -838,11 +865,6 @@
             </section>
         </main>
     </div>
-    <!--
-      改善提案：駐車場の有無・座席数や個室の有無・喫煙可否は原文に情報が
-      無かったため追加していません。分かる範囲で store-info 内に info-block を
-      追加していただくと、来店を迷っているお客様への安心材料になります。
-    -->
 
 
     <!-- =========================================

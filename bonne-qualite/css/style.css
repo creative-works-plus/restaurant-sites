@@ -401,6 +401,152 @@ Concept
 }
 
 /* ==========================
+Speciality（トップページ：人気メニュー）
+========================== */
+
+.speciality {
+    background: #f3eee7;
+}
+
+.speciality-lead {
+    text-align: center;
+    color: #666;
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto 50px;
+    line-height: 2;
+}
+
+.speciality-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.speciality-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(111, 78, 55, .08);
+    overflow: hidden;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.speciality-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(111, 78, 55, 0.12);
+    border-color: rgba(111, 78, 55, .18);
+}
+
+.speciality-card figure {
+    margin: 0;
+    overflow: hidden;
+}
+
+.speciality-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform .5s ease;
+}
+
+.speciality-card:hover img {
+    transform: scale(1.04);
+}
+
+.speciality-card__body {
+    padding: 24px 26px 28px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.speciality-card__body h3 {
+    font-size: 1.15rem;
+    color: #6f4e37;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+
+.speciality-card__price {
+    color: #b68d40;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.speciality-card__desc {
+    font-size: 0.9rem;
+    color: #777;
+    line-height: 1.8;
+    flex-grow: 1;
+}
+
+.speciality-card__link {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 0.86rem;
+    color: #6f4e37;
+    letter-spacing: 0.05em;
+}
+
+@media(max-width:768px) {
+    .speciality-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+/* ==========================
+Access Map
+========================== */
+
+.access-map {
+    max-width: 960px;
+    margin: 40px auto 0;
+    height: 360px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(111, 78, 55, .12);
+    box-shadow: 0 8px 32px rgba(111, 78, 55, 0.08);
+}
+
+.access-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    /* 生成り×ブラウンの店内トーンに合わせて地図を調色。触れると通常の色に戻る */
+    filter: sepia(0.32) saturate(0.72) contrast(0.94) brightness(1.03);
+    transition: filter 0.4s ease;
+}
+
+.access-map:hover iframe,
+.access-map:focus-within iframe {
+    filter: none;
+}
+
+.access-map-link {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: #6f4e37;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: .3s;
+}
+
+.access-map-link:hover {
+    color: #b68d40;
+}
+
+/* ==========================
 Menu
 ========================== */
 
@@ -459,9 +605,9 @@ Menu
 
 .menu-hub-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 24px;
-    max-width: 960px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -514,6 +660,7 @@ Menu
     margin-bottom: 56px;
     padding-bottom: 56px;
     border-bottom: 1px solid #e8e0d6;
+    scroll-margin-top: 110px;
 }
 
 .menu-section:last-of-type {
@@ -1165,14 +1312,9 @@ Footer
     background: #6f4e37;
     color: white;
 
-    padding: 30px 0;
+    padding: 52px 0 36px;
 
     text-align: center;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 80px;
 }
 
 .footer h3 {
@@ -1180,8 +1322,56 @@ Footer
     margin-bottom: 15px;
 }
 
+.footer-name {
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+}
+
+.footer-name span {
+    display: block;
+    font-size: 0.72rem;
+    opacity: .7;
+    letter-spacing: 0.2em;
+    margin-top: 2px;
+}
+
+.footer-info {
+    font-size: 0.9rem;
+    line-height: 2;
+    opacity: .85;
+    margin-top: 18px;
+}
+
+.footer-info a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-info a:hover {
+    text-decoration: underline;
+}
+
+.footer-insta {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 26px;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, .4);
+    border-radius: 999px;
+    transition: .3s;
+}
+
+.footer-insta:hover {
+    background: rgba(255, 255, 255, .12);
+    border-color: rgba(255, 255, 255, .7);
+}
+
 .copyright {
-    margin: 0;
+    margin: 28px 0 0;
     opacity: .7;
     font-size: .9rem;
 }

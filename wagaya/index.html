@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>居酒屋 和が家｜古河市 下山町の隠れ家的居酒屋・幻の銘酒「十四代」</title>
-<meta name="description" content="茨城県古河市下山町の居酒屋 和が家。幻の日本酒「十四代」と手作り料理、完全個室（カラオケ完備）でのご宴会、ボリューム満点のランチ、テイクアウトまで。ご予約はお電話にて承ります。">
+<meta name="description" content="茨城県古河市下山町の居酒屋 和が家。幻の日本酒「十四代」と手作り料理、完全個室（カラオケ完備）でのご宴会、小鉢がずらり並ぶ名物1,100円ランチ、テイクアウトまで。駐車場あり。ご予約はお電話にて承ります。">
 <meta property="og:title" content="居酒屋 和が家｜古河市のくつろぎ処">
 <meta property="og:description" content="幻の銘酒「十四代」と手作り料理でお迎えする、古河市下山町の居酒屋。">
 <meta property="og:type" content="restaurant">
@@ -179,6 +179,31 @@
     .hero-ctas { display: flex; gap: 16px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
 
     .map-container { margin-top: 36px; width: 100%; height: 380px; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 24px rgba(18,35,58,0.06); border: 1px solid var(--line); }
+    /* 地図を和紙・藍の世界観に合わせて古地図風に調色。触れると通常の色に戻る */
+    .map-container iframe {
+        filter: sepia(0.42) saturate(0.6) contrast(0.92) brightness(1.04);
+        transition: filter 0.4s ease;
+    }
+    .map-container:hover iframe,
+    .map-container:focus-within iframe { filter: none; }
+    .map-open-link {
+        display: inline-block; margin-top: 14px; font-size: 0.88rem; color: var(--indigo);
+        text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px;
+    }
+    .map-open-link:hover { color: var(--vermillion); border-color: var(--vermillion); }
+
+    .sns-card {
+        display: flex; align-items: center; justify-content: center; gap: 14px;
+        margin-top: 28px; padding: 20px 24px; background: #fffdf8; border: 1px solid var(--line);
+        border-radius: 6px; text-decoration: none; transition: 0.25s;
+    }
+    .sns-card:hover { border-color: var(--vermillion); box-shadow: 0 4px 20px rgba(179,59,42,0.1); }
+    .sns-card .sns-icon {
+        flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--vermillion);
+        color: var(--vermillion); display: flex; align-items: center; justify-content: center;
+    }
+    .sns-card .sns-text { font-size: 0.92rem; color: #7a7161; line-height: 1.6; text-align: left; }
+    .sns-card .sns-text strong { display: block; color: var(--indigo); font-size: 1.02rem; }
 
     .info-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 36px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
     .info-table th, .info-table td { padding: 22px 28px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
@@ -187,6 +212,31 @@
     .info-table td { background-color: #fffdf8; }
 
     .recruit-box { background: linear-gradient(135deg, #fdf4f2, #fffdf8); border: 1px solid rgba(179,59,42,0.18); border-radius: 6px; padding: 56px; text-align: center; }
+
+    /* ランチハイライト（名物1,100円ランチ） */
+    .lunch-highlight {
+        display: flex; align-items: center; justify-content: center; gap: 30px;
+        margin: 10px auto 26px; flex-wrap: wrap;
+    }
+    .lunch-price {
+        font-family: var(--font-serif); color: var(--vermillion); line-height: 1; white-space: nowrap;
+    }
+    .lunch-price .num { font-size: 4.2rem; font-weight: bold; letter-spacing: 0.02em; }
+    .lunch-price .unit { font-size: 1.5rem; margin-left: 4px; }
+    .lunch-price .all { display: block; font-size: 0.95rem; color: var(--indigo); letter-spacing: 0.2em; margin-bottom: 8px; }
+    .lunch-price-desc {
+        text-align: left; font-family: var(--font-serif); font-size: 1.1rem; color: var(--indigo); line-height: 2;
+        border-left: 2px solid var(--vermillion); padding-left: 20px;
+    }
+    .lunch-days {
+        display: inline-block; background: var(--paper-deep); border-radius: 999px;
+        padding: 8px 26px; font-size: 0.92rem; margin: 0 0 28px;
+    }
+    .lunch-days strong { color: var(--vermillion); }
+    @media (max-width: 850px) {
+        .lunch-highlight { flex-direction: column; gap: 16px; }
+        .lunch-price-desc { text-align: center; border-left: none; padding-left: 0; }
+    }
 
     /* 十四代ハイライトカード */
     .sake-highlight {
@@ -328,12 +378,23 @@
 
         <section id="lunch-teaser">
             <span class="section-eyebrow">LUNCH</span>
-            <h2 class="section-title">ランチメニュー</h2>
+            <h2 class="section-title">名物・小鉢ランチ</h2>
             <div class="premium-card">
-                <p class="section-text">
-                    お昼の時間は、ボリューム満点で手作りの温かさが嬉しい定食ランチをご提供しています。全品1,100円（コーヒー付き）で、午後の活力になること間違いなしです。
-                </p>
-                <a onclick="navigateTo('lunch')" class="btn-link">ランチメニューを見る</a>
+                <div class="lunch-highlight">
+                    <div class="lunch-price">
+                        <span class="all">どれを選んでも</span>
+                        <span class="num">1,100</span><span class="unit">円</span>
+                    </div>
+                    <p class="lunch-price-desc">
+                        お盆いっぱいに小鉢が並ぶ、手作りの定食ランチ。<br>
+                        メインを選んだら、あとは小鉢とごはんで大満足。<br>
+                        食後のコーヒーまで付いてきます。
+                    </p>
+                </div>
+                <p class="lunch-days">ランチ営業は <strong>月・火・金曜</strong>　11:00～14:00</p>
+                <div>
+                    <a onclick="navigateTo('lunch')" class="btn-link">ランチメニューを見る</a>
+                </div>
             </div>
         </section>
 
@@ -396,16 +457,31 @@
                         ※毎週水曜日は定休日となります。
                     </td>
                 </tr>
+                <tr><th>お席</th>
+                    <td>カウンター席・小上がりのお座敷・カラオケ完備の完全個室<br>※店内貸切のご相談も承ります。</td>
+                </tr>
+                <tr><th>駐車場</th>
+                    <td>あり（店舗前5台＋隣接駐車場もご利用いただけます）</td>
+                </tr>
+                <tr><th>お支払い</th>
+                    <td>現金／クレジットカード（JCB・AMEX・Diners）／電子マネー／PayPay</td>
+                </tr>
+                <tr><th>ご予算の目安</th>
+                    <td>ランチ 1,100円　／　夜 4,000円～6,000円ほど</td>
+                </tr>
             </table>
-            <!--
-              改善提案：来店を検討するお客様が気にしやすい下記の項目は、原文に情報が無かったため
-              追加しておりません。可能であれば info-table に行を追加してご記入ください。
-              例）駐車場の台数／ご予算の目安／お支払い方法（クレジット・電子マネー対応の有無）／
-                  総座席数・個室の収容人数／喫煙可否
-            -->
             <div class="map-container">
                 <iframe src="https://www.google.com/maps?q=茨城県古河市下山町9-27&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="居酒屋 和が家の地図"></iframe>
             </div>
+            <div style="text-align:center;">
+                <a class="map-open-link" href="https://www.google.com/maps?q=茨城県古河市下山町9-27" target="_blank" rel="noopener">Googleマップで道順を見る</a>
+            </div>
+            <a class="sns-card" href="https://www.instagram.com/izakaya.wagaya/" target="_blank" rel="noopener">
+                <span class="sns-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+                </span>
+                <span class="sns-text"><strong>Instagram @izakaya.wagaya</strong>本日のおすすめや営業のお知らせはこちらから</span>
+            </a>
         </section>
 
         <section id="recruit">
@@ -425,8 +501,12 @@
     <main>
         <div class="premium-card" style="text-align: left; margin-top: 40px;">
             <h2 class="section-title" style="justify-content:center;">ランチメニュー</h2>
-            <p class="section-text" style="text-align: center;">手作りの温かさが嬉しい定食ランチをご用意しております。</p>
-            <h3 class="menu-category" style="display:block; text-align:center; margin:36px auto;">全品 1,100円（コーヒー付）</h3>
+            <p class="section-text" style="text-align: center;">
+                お盆いっぱいに小鉢が並ぶ、手作りの定食ランチ。<br>
+                ごはん・お味噌汁・食後のコーヒー付きでどれを選んでも1,100円です。<br>
+                <span class="note-text">※ランチ営業は月・火・金曜 11:00～14:00です。</span>
+            </p>
+            <h3 class="menu-category" style="display:block; text-align:center; margin:36px auto;">全品 1,100円（小鉢・コーヒー付）</h3>
 
             <div class="menu-grid">
                 <div class="menu-item"><span class="menu-item-name">煮込みハンバーグ</span></div>
