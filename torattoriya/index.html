@@ -248,10 +248,10 @@ section { position: relative; padding: 108px 0; }
 .atmosphere-facts div { border-top: 1px solid var(--umber-line); padding-top: 12px; }
 .atmosphere-facts dt { font-size: 0.78rem; color: var(--brass); letter-spacing: 0.05em; margin-bottom: 4px; }
 .atmosphere-facts dd { font-size: 0.95rem; }
-.atmosphere-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.atmosphere-photos img:first-child { grid-column: 1 / -1; }
-.atmosphere-photos img { border-radius: 4px; aspect-ratio: 4/3; object-fit: cover; transition: transform 0.6s ease; }
-.atmosphere-photos a:hover img { transform: scale(1.03); }
+.atmosphere-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.atmosphere-photos img { border-radius: 4px; aspect-ratio: 1/1; object-fit: cover; width: 100%; transition: transform 0.6s ease; }
+.atmosphere-photos a { display: block; overflow: hidden; border-radius: 4px; }
+.atmosphere-photos a:hover img { transform: scale(1.04); }
 
 /* ==========================================================================
    6. メニュー
@@ -269,15 +269,20 @@ section { position: relative; padding: 108px 0; }
 .menu-card .tag .name { font-family: "Shippori Antique B1", serif; font-size: 1.05rem; }
 .menu-card .tag .price { color: var(--ember-bright); font-size: 0.9rem; margin-top: 4px; letter-spacing: 0.02em; }
 
-.menu-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 44px; }
-@media (max-width: 980px) { .menu-list { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 620px) { .menu-list { grid-template-columns: 1fr; } }
+.menu-subhead { text-align: center; margin: 0 0 34px; }
+.menu-subhead .en-label { display: block; margin-bottom: 6px; }
+.menu-subhead h3 { font-family: "Shippori Antique B1", serif; font-weight: 400; font-size: 1.5rem; letter-spacing: 0.08em; }
+.menu-list { columns: 3; column-gap: 48px; }
+.menu-list + .menu-subhead { margin-top: 64px; }
+@media (max-width: 980px) { .menu-list { columns: 2; } }
+@media (max-width: 620px) { .menu-list { columns: 1; } }
+.menu-list-group { break-inside: avoid; margin-bottom: 26px; }
 .menu-list-group h4 {
     font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--brass);
-    font-size: 1.05rem; letter-spacing: 0.03em; margin: 30px 0 12px;
+    font-size: 1.05rem; letter-spacing: 0.03em; margin: 26px 0 12px;
     border-bottom: 1px solid var(--umber-line); padding-bottom: 10px;
 }
-.menu-list-group:first-child h4 { margin-top: 0; }
+.menu-list-group > h4:first-child { margin-top: 0; }
 .menu-row { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; font-size: 0.94rem; gap: 12px; }
 .menu-row .dish { color: var(--paper); }
 .menu-row .dish small { display: block; color: var(--paper-mute); font-size: 0.78rem; margin-top: 2px; }
@@ -424,9 +429,10 @@ footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margi
             </dl>
         </div>
         <div class="atmosphere-photos reveal">
-            <a href="gallery-counter.jpg" target="_blank" rel="noopener"><img src="gallery-counter.jpg" alt="ジャズが流れるカウンター席、日本酒の瓶が並ぶ" loading="lazy" width="640" height="480"></a>
-            <a href="gallery-seating.jpg" target="_blank" rel="noopener"><img src="gallery-seating.jpg" alt="木レンガ調の壁とテーブル席" loading="lazy" width="640" height="480"></a>
-            <a href="gallery-horumon-fresh.jpg" target="_blank" rel="noopener"><img src="gallery-horumon-fresh.jpg" alt="厳選部位の和牛ホルモン盛り合わせ" loading="lazy" width="640" height="480"></a>
+            <a href="gallery-counter.jpg" target="_blank" rel="noopener"><img src="gallery-counter.jpg" alt="ジャズが流れるカウンター席、日本酒の瓶が並ぶ" loading="lazy" width="640" height="640"></a>
+            <a href="gallery-seating.jpg" target="_blank" rel="noopener"><img src="gallery-seating.jpg" alt="木レンガ調の壁とテーブル席" loading="lazy" width="640" height="640"></a>
+            <a href="gallery-lantern-tori.jpg" target="_blank" rel="noopener"><img src="gallery-lantern-tori.jpg" alt="「鶏」と書かれた白い提灯の灯り" loading="lazy" width="640" height="640"></a>
+            <a href="gallery-exterior.jpg" target="_blank" rel="noopener"><img src="gallery-exterior.jpg" alt="店頭の赤い立て看板" loading="lazy" width="640" height="640"></a>
         </div>
     </div>
 </section>
@@ -442,58 +448,131 @@ footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margi
         <div class="menu-feature-grid reveal">
             <div class="menu-card">
                 <img src="menu-yakitori-plate.jpg" alt="つくば鶏の串焼き盛り合わせ" loading="lazy" width="480" height="640">
-                <div class="tag"><div class="name">つくば鶏串</div><div class="price">¥154〜</div></div>
+                <div class="tag"><div class="name">つくば鶏串（塩・タレ）</div><div class="price">¥143〜</div></div>
             </div>
             <div class="menu-card">
-                <img src="menu-motsuni.jpg" alt="つくば鶏MIXとらっ鳥煮" loading="lazy" width="480" height="640">
-                <div class="tag"><div class="name">つくば鶏MIXとらっ鳥煮</div><div class="price">¥748</div></div>
+                <img src="menu-gyutan-grill.jpg" alt="特上！牛タン網焼き" loading="lazy" width="480" height="640">
+                <div class="tag"><div class="name">特上！牛タン網焼き</div><div class="price">¥1,078</div></div>
+            </div>
+            <div class="menu-card">
+                <img src="gallery-motsunabe.jpg" alt="博多モツ鍋" loading="lazy" width="480" height="640">
+                <div class="tag"><div class="name">博多モツ鍋</div><div class="price">¥1,408</div></div>
             </div>
             <div class="menu-card">
                 <img src="menu-mizutaki-ramen.jpg" alt="特製鶏白湯ラーメン" loading="lazy" width="480" height="640">
-                <div class="tag"><div class="name">特製鶏白湯ラーメン</div><div class="price">¥858</div></div>
-            </div>
-            <div class="menu-card">
-                <img src="menu-tantanmen.jpg" alt="自家製担々麺" loading="lazy" width="480" height="640">
-                <div class="tag"><div class="name">自家製担々麺</div><div class="price">¥968</div></div>
+                <div class="tag"><div class="name">特製鶏白湯ラーメン</div><div class="price">¥825</div></div>
             </div>
         </div>
 
+        <div class="menu-subhead reveal">
+            <span class="en-label">Food</span>
+            <h3 class="jp-serif">お料理</h3>
+        </div>
         <div class="menu-list reveal">
             <div class="menu-list-group">
-                <h4>Yakitori — つくば鶏串</h4>
+                <h4>Kushiyaki — つくば鶏串（塩・タレ）</h4>
                 <div class="menu-row"><span class="dish">上もも</span><span class="price">¥154</span></div>
-                <div class="menu-row"><span class="dish">ねぎま</span><span class="price">¥187</span></div>
-                <div class="menu-row"><span class="dish">セセリ</span><span class="price">¥187</span></div>
-                <div class="menu-row"><span class="dish">砂肝</span><span class="price">¥154</span></div>
-                <div class="menu-row"><span class="dish">自家製つくね</span><span class="price">¥220</span></div>
-
-                <h4>Basashi — 馬刺し</h4>
-                <div class="menu-row"><span class="dish">馬刺し赤身</span><span class="price">¥1,078</span></div>
+                <div class="menu-row"><span class="dish">ねぎま</span><span class="price">¥165</span></div>
+                <div class="menu-row"><span class="dish">せせり</span><span class="price">¥154</span></div>
+                <div class="menu-row"><span class="dish">こころ</span><span class="price">¥143</span></div>
+                <div class="menu-row"><span class="dish">砂肝</span><span class="price">¥143</span></div>
+                <div class="menu-row"><span class="dish">トロ肝</span><span class="price">¥176</span></div>
+                <div class="menu-row"><span class="dish">手羽先</span><span class="price">¥176</span></div>
+                <div class="menu-row"><span class="dish">ぼんじり</span><span class="price">¥143</span></div>
+                <div class="menu-row"><span class="dish">皮／鶏皮</span><span class="price">¥143</span></div>
+                <div class="menu-row"><span class="dish">ナンコツ</span><span class="price">¥143</span></div>
+                <div class="menu-row"><span class="dish">超希少部位 こころ残り／ソリレス<small>あったらラッキー</small></span><span class="price">¥198</span></div>
+            </div>
+            <div class="menu-list-group">
+                <h4>Horumon &amp; Gyutan — ホルモン串・牛タン</h4>
+                <div class="menu-row"><span class="dish">トロホルモン串</span><span class="price">¥308</span></div>
+                <div class="menu-row"><span class="dish">牛こころ串／こころ残り串</span><span class="price">¥264</span></div>
+                <div class="menu-row"><span class="dish">特上！牛タン網焼き</span><span class="price">¥1,078</span></div>
+                <div class="menu-row"><span class="dish">牛タン先網焼き</span><span class="price">¥528</span></div>
+                <div class="menu-row"><span class="dish">野菜串<small>椎茸・エリンギ・ししとう・ネギ・銀杏 ほか</small></span><span class="price">各¥132</span></div>
+            </div>
+            <div class="menu-list-group">
+                <h4>Sashimi — 刺し・たたき</h4>
+                <div class="menu-row"><span class="dish">馬刺し赤身／ふたえご／たてがみ</span><span class="price">各¥1,078</span></div>
+                <div class="menu-row"><span class="dish">馬刺しユッケ</span><span class="price">¥1,078</span></div>
                 <div class="menu-row"><span class="dish">馬レバ刺し</span><span class="price">¥1,408</span></div>
                 <div class="menu-row"><span class="dish">馬刺し3種盛り</span><span class="price">¥2,178</span></div>
+                <div class="menu-row"><span class="dish">宮崎産赤鶏たたき盛り</span><span class="price">¥1,408</span></div>
             </div>
             <div class="menu-list-group">
-                <h4>Gyutan — 仙台直送！牛タン</h4>
-                <div class="menu-row"><span class="dish">特上！牛タン編み焼き</span><span class="price">¥1,078</span></div>
-                <div class="menu-row"><span class="dish">牛タン先網焼き</span><span class="price">¥528</span></div>
-
-                <h4>Nabe — とらっ鳥屋のお鍋</h4>
-                <div class="menu-row"><span class="dish">つくば鶏水炊き</span><span class="price">¥1,265</span></div>
-                <div class="menu-row"><span class="dish">博多モツ鍋</span><span class="price">¥1,408</span></div>
-                <div class="menu-row"><span class="dish">〆の生ラーメン<small>鍋の〆に</small></span><span class="price">¥385</span></div>
+                <h4>Mushidori — 絶品 蒸し鶏</h4>
+                <div class="menu-row"><span class="dish">よだれどり</span><span class="price">¥638</span></div>
+                <div class="menu-row"><span class="dish">自家製ゴマダレバンバンジー</span><span class="price">¥638</span></div>
+                <div class="menu-row"><span class="dish">蒸し鶏ネギソース</span><span class="price">¥638</span></div>
+                <div class="menu-row"><span class="dish">蒸し鶏3種盛り</span><span class="price">¥968</span></div>
             </div>
             <div class="menu-list-group">
-                <h4>Drink — 酒・ハイボール</h4>
-                <div class="menu-row"><span class="dish">サッポロ黒ラベル</span><span class="price">¥539</span></div>
-                <div class="menu-row"><span class="dish">角ハイボール</span><span class="price">¥385</span></div>
-                <div class="menu-row"><span class="dish">フレッシュ生レモンサワー</span><span class="price">¥462</span></div>
-                <div class="menu-row"><span class="dish">黒霧島（焼酎グラス）</span><span class="price">¥462</span></div>
-                <div class="menu-row"><span class="dish">日本酒</span><span class="price">¥572</span></div>
-                <div class="menu-row"><span class="dish">グラスワイン</span><span class="price">¥528</span></div>
-                <div class="menu-row"><span class="dish">黒霧島（ボトル）</span><span class="price">¥2,178</span></div>
+                <h4>Ippin — 一品・おつまみ</h4>
+                <div class="menu-row"><span class="dish">おつまみ三種盛り</span><span class="price">¥638</span></div>
+                <div class="menu-row"><span class="dish">どんぐり／各種浅漬け／わさび枝豆</span><span class="price">各¥319</span></div>
+                <div class="menu-row"><span class="dish">ハニークリームチーズ<small>女性に人気</small></span><span class="price">¥528</span></div>
+                <div class="menu-row"><span class="dish">たこ山葵／梅水晶／ホタルイカ沖漬け</span><span class="price">各¥429</span></div>
+                <div class="menu-row"><span class="dish">海鮮珍味3種盛</span><span class="price">¥748</span></div>
+                <div class="menu-row"><span class="dish">とらっ鳥屋サラダ</span><span class="price">¥605</span></div>
+            </div>
+            <div class="menu-list-group">
+                <h4>Nabe &amp; Nikomi — 鍋・煮込み</h4>
+                <div class="menu-row"><span class="dish">博多モツ鍋<small>鶏スープとモツのダブルスープ・1人前</small></span><span class="price">¥1,408</span></div>
+                <div class="menu-row"><span class="dish">つくば鶏水炊き<small>自家製鶏白湯・1人前</small></span><span class="price">¥1,265</span></div>
+                <div class="menu-row"><span class="dish">和牛味噌もつ煮</span><span class="price">¥748</span></div>
+                <div class="menu-row"><span class="dish">つくば鶏MIXとらっ鳥煮</span><span class="price">¥748</span></div>
+            </div>
+            <div class="menu-list-group">
+                <h4>Gohan — ご飯物・〆・甘味</h4>
+                <div class="menu-row"><span class="dish">鳥節卵かけご飯<small>超新鮮・超濃厚</small></span><span class="price">¥528</span></div>
+                <div class="menu-row"><span class="dish">自家製鶏スープ茶漬け</span><span class="price">¥528</span></div>
+                <div class="menu-row"><span class="dish">特製鶏白湯ラーメン</span><span class="price">¥825</span></div>
+                <div class="menu-row"><span class="dish">自家製担々麺</span><span class="price">¥858</span></div>
+                <div class="menu-row"><span class="dish">本日のアイスクリーム</span><span class="price">¥385</span></div>
             </div>
         </div>
-        <p class="menu-note">ソフトドリンク各種（コーラ・ジンジャーエール・お茶ほか）¥319〜もご用意しています。上記は一例です。仕入れ状況により内容・価格が変動する場合がございます。最新のメニューは店頭にてご確認ください。</p>
+
+        <div class="menu-subhead reveal">
+            <span class="en-label">Drink</span>
+            <h3 class="jp-serif">お飲み物</h3>
+        </div>
+        <div class="menu-list reveal">
+            <div class="menu-list-group">
+                <h4>Beer — ビール</h4>
+                <div class="menu-row"><span class="dish">サッポロ黒ラベル</span><span class="price">¥539</span></div>
+                <div class="menu-row"><span class="dish">ホッピーセット（白・黒）</span><span class="price">¥462</span></div>
+                <div class="menu-row"><span class="dish">ノンアルコールビール</span><span class="price">¥440</span></div>
+
+                <h4>Highball — ハイボール</h4>
+                <div class="menu-row"><span class="dish">角ハイボール</span><span class="price">¥385</span></div>
+                <div class="menu-row"><span class="dish">コーク／ジンジャー／カシス 他</span><span class="price">各¥429</span></div>
+                <div class="menu-row"><span class="dish">お茶ハイ<small>緑茶・烏龍・ほうじ茶・紅茶 ほか</small></span><span class="price">各¥385</span></div>
+            </div>
+            <div class="menu-list-group">
+                <h4>Sour — サワー・レモンサワー</h4>
+                <div class="menu-row"><span class="dish">フレッシュ生レモンサワー</span><span class="price">¥462</span></div>
+                <div class="menu-row"><span class="dish">こだわり／よだれレモンサワー</span><span class="price">各¥418</span></div>
+                <div class="menu-row"><span class="dish">普通のレモンサワー</span><span class="price">¥385</span></div>
+                <div class="menu-row"><span class="dish">プレーンサワー</span><span class="price">¥319</span></div>
+                <div class="menu-row"><span class="dish">男梅／巨峰／カルピス 他</span><span class="price">各¥385</span></div>
+
+                <h4>Shochu — 焼酎</h4>
+                <div class="menu-row"><span class="dish">黒霧島（芋）／村正（麦）</span><span class="price">¥462</span></div>
+                <div class="menu-row"><span class="dish">三岳（芋）／中々（麦）</span><span class="price">¥528</span></div>
+                <div class="menu-row"><span class="dish">ボトル各種</span><span class="price">¥1,518〜</span></div>
+            </div>
+            <div class="menu-list-group">
+                <h4>Whisky &amp; More — ウイスキー・その他</h4>
+                <div class="menu-row"><span class="dish">山崎／白洲</span><span class="price">¥638</span></div>
+                <div class="menu-row"><span class="dish">知多</span><span class="price">¥858</span></div>
+                <div class="menu-row"><span class="dish">日本酒（冷・熱燗）</span><span class="price">¥572</span></div>
+                <div class="menu-row"><span class="dish">グラスワイン</span><span class="price">¥462</span></div>
+                <div class="menu-row"><span class="dish">本日の梅酒</span><span class="price">¥495</span></div>
+                <div class="menu-row"><span class="dish">カクテル各種</span><span class="price">¥528</span></div>
+                <div class="menu-row"><span class="dish">ソフトドリンク各種<small>コーラ・ジンジャーエール・お茶 ほか</small></span><span class="price">各¥319</span></div>
+            </div>
+        </div>
+        <p class="menu-note">上記は一例です。仕入れ状況により内容・価格が変動する場合がございます。最新のメニューは店頭にてご確認ください。（価格はすべて税込）</p>
     </div>
 </section>
 
@@ -501,17 +580,16 @@ footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margi
     <div class="wrap">
         <div class="section-head reveal">
             <span class="en-label">Gallery</span>
-            <h2 class="jp-serif">灯りと、肴と。</h2>
+            <h2 class="jp-serif">炭火の、肴。</h2>
+            <p>七輪でじっくり。素材の旨みを引き出した一皿の数々。</p>
         </div>
         <div class="gallery-grid reveal">
-            <a href="gallery-horumon-grill.jpg" target="_blank" rel="noopener"><img src="gallery-horumon-grill.jpg" alt="七輪で焼く和牛ホルモン" loading="lazy" width="640" height="640"></a>
+            <a href="gallery-wagyu-grill.jpg" target="_blank" rel="noopener"><img src="gallery-wagyu-grill.jpg" alt="七輪で焼く和牛ホルモンの盛り合わせ" loading="lazy" width="640" height="640"></a>
+            <a href="gallery-kushi-grill.jpg" target="_blank" rel="noopener"><img src="gallery-kushi-grill.jpg" alt="炭火で焼くつくば鶏の串" loading="lazy" width="640" height="640"></a>
             <a href="gallery-horumon-fresh.jpg" target="_blank" rel="noopener"><img src="gallery-horumon-fresh.jpg" alt="厳選部位の和牛ホルモン盛り合わせ" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-meat-platter.jpg" target="_blank" rel="noopener"><img src="gallery-meat-platter.jpg" alt="牛タン・カルビなど盛り合わせ" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-motsunabe.jpg" target="_blank" rel="noopener"><img src="gallery-motsunabe.jpg" alt="博多モツ鍋をひと口" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-exterior.jpg" target="_blank" rel="noopener"><img src="gallery-exterior.jpg" alt="店頭の赤い立て看板" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-lantern-tori.jpg" target="_blank" rel="noopener"><img src="gallery-lantern-tori.jpg" alt="「鶏」と書かれた白い提灯" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-counter.jpg" target="_blank" rel="noopener"><img src="gallery-counter.jpg" alt="日本酒の並ぶカウンター席" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-seating.jpg" target="_blank" rel="noopener"><img src="gallery-seating.jpg" alt="木とレンガ調の壁のテーブル席" loading="lazy" width="640" height="640"></a>
+            <a href="gallery-meat-platter.jpg" target="_blank" rel="noopener"><img src="gallery-meat-platter.jpg" alt="和牛・希少部位の盛り合わせ" loading="lazy" width="640" height="640"></a>
+            <a href="menu-motsuni.jpg" target="_blank" rel="noopener"><img src="menu-motsuni.jpg" alt="つくば鶏MIXとらっ鳥煮" loading="lazy" width="640" height="640"></a>
+            <a href="menu-tantanmen.jpg" target="_blank" rel="noopener"><img src="menu-tantanmen.jpg" alt="自家製担々麺" loading="lazy" width="640" height="640"></a>
         </div>
     </div>
 </section>
