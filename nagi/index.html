@@ -3,20 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>居酒屋 凪｜古河駅近く・寛ぎの一献と旬肴の店</title>
-<meta name="description" content="茨城県古河市北町、古河駅から徒歩約10分の居酒屋 凪。名物「牛肉のタタキ」やボリューム満点の「ネギ入り厚焼き玉子」など、旬の肴とお酒でゆったりとした夜をお過ごしいただけます。">
+<title>居酒屋 凪 - 公式サイト｜古河市 居酒屋・手造りピザ＆パスタ</title>
+<meta name="description" content="茨城県古河市北町の居酒屋 凪。名物の牛のたたき（100g 1,650円〜）とジャンボ厚焼玉子、手造りピザ・パスタ、〆のおにぎりとお茶漬け。テイクアウトも承ります。古河駅から徒歩約10分・ご予約は0280-32-7041。">
 <meta property="og:title" content="居酒屋 凪｜古河市北町の隠れ家的居酒屋">
-<meta property="og:description" content="風がやみ、波が静まる「凪」のひととき。旬の肴と美酒で寛ぐ、古河市北町の居酒屋。">
+<meta property="og:description" content="風がやみ、波が静まる「凪」のひととき。名物の牛のたたきと手造りピザ・パスタ、〆のおにぎりとお茶漬け。">
 <meta property="og:type" content="restaurant">
+<!-- og:image は公開時に絶対URL（https://creative-works-plus.github.io/restaurant-sites/nagi/images/gyu-tataki-01.jpg）へ差し替える -->
+<meta property="og:image" content="images/gyu-tataki-01.jpg">
+<meta name="theme-color" content="#121821">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2312181f' stroke='%23c8a25c' stroke-width='3'/%3E%3Ctext x='50' y='66' font-size='50' text-anchor='middle' fill='%23c8a25c' font-family='serif'%3E%E5%87%A2%3C/text%3E%3C/svg%3E">
-<!-- ヒーロー背景（CSS background-image）用の先読み。店先イラストがLCP要素になるため -->
-<link rel="preload" as="image" href="images/storefront.jpg" fetchpriority="high">
+<!-- ヒーロー背景（CSS background-image）用の先読み。名物・牛のたたきの実写がLCP要素になるため -->
+<link rel="preload" as="image" href="images/gyu-tataki-01.jpg" fetchpriority="high">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Restaurant",
   "name": "居酒屋 凪",
-  "servesCuisine": "Japanese",
+  "servesCuisine": ["Japanese", "Pizza", "Pasta"],
+  "image": ["images/gyu-tataki-01.jpg", "images/storefront-real.jpg"],
+  "priceRange": "￥1,000〜￥4,000",
   "telephone": "+81-280-32-7041",
   "address": {
     "@type": "PostalAddress",
@@ -66,7 +71,9 @@
         overflow-x: hidden;
     }
     a { color: inherit; }
-    img, svg { max-width: 100%; display: block; }
+    /* height:auto を必ず添える。<img>のheight属性がaspect-ratio/object-fitを上書きして
+       写真が縦に引き伸ばされるのを防ぐため */
+    img, svg { max-width: 100%; height: auto; display: block; }
     h1, h2, h3 { color: var(--moon); }
 
     a:focus-visible, button:focus-visible, [role="button"]:focus-visible, .hamburger:focus-visible {
@@ -180,12 +187,11 @@
     .hero {
         position: relative; padding: 170px 20px 120px; text-align: center; overflow: hidden;
         min-height: 100svh; display: flex; align-items: center; justify-content: center;
-        /* 店先イラストを夜の藍で染めて敷く。上部は看板・提灯の暖色が透けるよう浅めに、
-           イラスト中央〜下部（営業時間の札・黒板メニュー＝本文と表記が異なるため）は
-           札の高さから濃く潰して次セクションの最深部の色へ溶かす */
+        /* 名物・牛のたたきの実写（黒い角皿）を夜の藍で染めて敷く。
+           被写体が潰れないよう上部は浅めに、下部は最深部の色へ溶かして次セクションへ繋ぐ */
         background:
-            linear-gradient(to bottom, rgba(10,14,20,0.35) 0%, rgba(10,14,20,0.45) 18%, rgba(10,14,20,0.94) 32%, rgba(10,14,20,0.99) 50%, var(--night-deep) 62%, var(--night-deep) 100%),
-            url("images/storefront.jpg") center 32% / cover no-repeat var(--night);
+            linear-gradient(to bottom, rgba(10,14,20,0.82) 0%, rgba(10,14,20,0.66) 26%, rgba(10,14,20,0.88) 50%, rgba(10,14,20,0.97) 66%, var(--night-deep) 80%, var(--night-deep) 100%),
+            url("images/gyu-tataki-01.jpg") center 58% / cover no-repeat var(--night);
     }
     .hero::before {
         content: ""; position: absolute; inset: 0;
@@ -250,6 +256,14 @@
     .status-badge.closed strong { color: var(--closed-red); }
     .status-badge strong { font-weight: bold; }
 
+    /* 業態バッジ：店の袖看板に掲げられた2つの顔（手造りピザ＆パスタ／おにぎり＆お茶漬け） */
+    .trade-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 26px 0 0; padding: 0; list-style: none; }
+    .trade-badges li {
+        border: 1px solid var(--line); border-radius: 999px; padding: 7px 20px;
+        font-size: 0.82rem; letter-spacing: 0.08em; color: var(--gold-soft);
+        background: rgba(10,14,20,0.45);
+    }
+
     /* ========== お知らせ ========== */
     .news-list { list-style: none; margin: 0; padding: 0; }
     .news-list li {
@@ -268,8 +282,7 @@
     .news-body { color: var(--moon); font-size: 0.95rem; flex: 1; min-width: 200px; }
 
     /* ========== おすすめ料理（P3 エディトリアル） ==========
-       写真がこの2枚しかないため、大きく組んだうえで
-       余白のある「額装（マット）」で見せて質感を補う。
+       高解像度の実写が揃ったので、額装をやめて写真を大きく主役に据える。
        奇数行・偶数行で写真とテキストの左右を入れ替える。 */
     .dish-editorial-list { display: flex; flex-direction: column; gap: 68px; margin-top: 4px; }
     .dish-row { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 52px; align-items: center; }
@@ -277,29 +290,40 @@
     .dish-row.reverse .dish-photo { order: 2; }
     .dish-row.reverse .dish-copy { order: 1; }
 
-    /* 額装（マット）：淡いノイズと金の気配を敷いた台紙の中央に、原寸150pxの実写を
-       広めの余白で「小さく丁寧に」収める（拡大ボケ防止） */
     .dish-photo {
-        position: relative; width: 100%; max-width: 230px; margin: 0 auto;
-        padding: 36px; border: 1px solid var(--line); border-radius: 4px;
-        background-color: var(--surface);
-        background-image:
-            radial-gradient(circle at 50% 28%, rgba(227,198,136,0.07), rgba(227,198,136,0) 65%),
-            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+        position: relative; width: 100%; margin: 0; padding: 0; overflow: hidden;
+        border: 1px solid var(--line); border-radius: 4px;
         box-shadow: 0 20px 50px rgba(0,0,0,0.35);
     }
-    /* 原寸150×150pxの実写を等倍以下（150px）で飾る。額装の余白を広めに取り、
-       小さく丁寧に見せることで拡大ボケを防ぐ */
     .dish-photo-inner {
-        position: relative; width: 150px; height: 150px; max-width: 100%;
-        margin: 0 auto; overflow: hidden; border-radius: 2px;
-        box-shadow: 0 0 0 1px rgba(200,162,92,0.35);
+        position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden;
     }
+    .dish-photo-inner.square { aspect-ratio: 1 / 1; }
     .dish-photo-inner img { width: 100%; height: 100%; object-fit: cover; }
     @media (hover: hover) {
         .dish-photo-inner img { transition: transform 0.5s ease, filter 0.5s ease; }
         .dish-row:hover .dish-photo-inner img { transform: scale(1.04); filter: brightness(1.06); }
     }
+
+    /* ========== ギャラリー（P4 モザイク） ========== */
+    .gallery-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; gap: 12px;
+    }
+    .gallery-grid figure { margin: 0; overflow: hidden; border-radius: 4px; border: 1px solid var(--line); aspect-ratio: 1 / 1; }
+    .gallery-grid figure.wide { grid-column: span 2; grid-row: span 2; }
+    .gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
+    @media (hover: hover) {
+        .gallery-grid img { transition: transform 0.5s ease, filter 0.5s ease; }
+        .gallery-grid figure:hover img { transform: scale(1.05); filter: brightness(1.08); }
+    }
+
+    /* ========== 外観写真（店舗情報） ========== */
+    .shop-photo { margin: 0 0 18px; }
+    .shop-photo img {
+        width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+        border-radius: 4px; border: 1px solid var(--line);
+    }
+    .shop-photo figcaption { font-size: 0.84rem; color: #7c8590; margin-top: 10px; text-align: center; }
 
     .dish-copy { padding: 4px 6px; }
     .dish-tag { color: var(--gold); font-size: 0.78rem; letter-spacing: 0.2em; font-weight: bold; }
@@ -338,6 +362,8 @@
         scroll-margin-top: 90px;
     }
     .menu-category:first-of-type { margin-top: 0; }
+    /* h4は大カテゴリ（h3）の下にぶら下がる小カテゴリ。一段小さくして階層を出す */
+    h4.menu-category { font-size: 1.08rem; margin: 32px 0 14px; border-bottom-style: dotted; }
 
     .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 36px; margin-bottom: 8px; }
     .menu-item {
@@ -363,6 +389,12 @@
     }
 
     .menu-intro { text-align: center; max-width: 620px; margin: 0 auto 24px; font-size: 0.95rem; }
+    /* カテゴリ内が全品同価格のとき、見出しの右に価格をまとめて出す */
+    .menu-category .cat-price { margin-left: auto; font-size: 0.9rem; color: var(--gold-soft); white-space: nowrap; }
+    /* 価格を出さない欄（サラダ・お飲み物）：品名だけを2列で並べる */
+    .menu-grid.names-only .menu-item { border-bottom: 1px dotted rgba(169,179,189,0.18); }
+    /* カテゴリ直下の一文（そのカテゴリの説明） */
+    .cat-note { font-size: 0.9rem; margin: -6px 0 14px; color: var(--mist); }
 
     .highlight-box {
         background: linear-gradient(135deg, rgba(200,162,92,0.1), rgba(61,90,104,0.08));
@@ -429,12 +461,14 @@
         .hamburger.open span:nth-child(2) { opacity: 0; }
         .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+        /* ドロワーは right:-100% ではなく transform で画面外へ逃がす。
+           right:-100% だとドキュメント幅が2倍と計測され、横スクロールの誤検知を生むため */
         .nav-links {
-            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            position: fixed; top: 0; right: 0; width: 100%; height: 100vh;
             background-color: rgba(10, 14, 20, 0.98); flex-direction: column; justify-content: center;
-            transition: right 0.4s ease; z-index: 1000; display: flex;
+            transform: translateX(100%); transition: transform 0.4s ease; z-index: 1000; display: flex;
         }
-        .nav-links.open { right: 0; }
+        .nav-links.open { transform: translateX(0); }
         .nav-links a { color: var(--moon); font-size: 1.15rem; padding: 14px; }
         .nav-links a.current::after { display: none; }
         .nav-reserve { margin-top: 18px; }
@@ -447,6 +481,9 @@
         .dish-row.reverse .dish-photo { order: 0; }
         .dish-row.reverse .dish-copy { order: 1; }
         .dish-editorial-list { gap: 48px; }
+        .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .menu-category { flex-wrap: wrap; }
+        .menu-category .cat-price { margin-left: 0; width: 100%; }
         .seat-grid { grid-template-columns: 1fr; }
         .info-layout { grid-template-columns: 1fr; }
         .menu-grid { grid-template-columns: 1fr; }
@@ -475,11 +512,11 @@
         </button>
 
         <ul class="nav-links">
-            <li><a href="#news" onclick="closeMenu()">お知らせ</a></li>
             <li><a href="#signature" onclick="closeMenu()">おすすめ</a></li>
+            <li><a href="#gallery" onclick="closeMenu()">写真</a></li>
             <li><a href="#menu" onclick="closeMenu()">おしながき</a></li>
             <li><a href="#drink" onclick="closeMenu()">お飲み物</a></li>
-            <li><a href="#seat" onclick="closeMenu()">お席</a></li>
+            <li><a href="#takeout" onclick="closeMenu()">お持ち帰り</a></li>
             <li><a href="#info" onclick="closeMenu()">店舗情報</a></li>
             <li><a href="tel:0280327041" class="nav-reserve">ご予約</a></li>
         </ul>
@@ -496,8 +533,12 @@
 
         <p class="catch">風がやみ、波がしずまる。<br>そんな静けさを、肴と酒で。</p>
         <p class="lead">
-            「凪（なぎ）」とは、風が止み波がおだやかになるひとときを指す言葉。古河駅から歩いてほど近いこの店で、慌ただしい一日の終わりに、静かに肩の力を抜いていただければと願っています。名物の牛肉のタタキやボリューム満点の厚焼き玉子を肴に、ゆっくりと杯を重ねる夜を。
+            「凪（なぎ）」とは、風が止み波がおだやかになるひとときを指す言葉。古河駅から歩いてほど近いこの店で、慌ただしい一日の終わりに、静かに肩の力を抜いていただければと願っています。名物の牛のたたきやジャンボ厚焼玉子はもちろん、手造りのピザ・パスタ、〆のおにぎりやお茶漬けまで。肩肘張らずに、長く居られる一軒です。
         </p>
+        <ul class="trade-badges">
+            <li>手造りピザ＆パスタ</li>
+            <li>おにぎり＆お茶漬け</li>
+        </ul>
         <div class="hero-ctas">
             <a href="tel:0280327041" class="btn-link">お電話でご予約（0280-32-7041）</a>
             <a href="#menu" class="btn-link outline">おしながきを見る</a>
@@ -525,7 +566,10 @@
 </header>
 
 <main>
-    <!-- マスターが日々更新する告知欄。臨時休業・入荷情報などをここに書き足す -->
+    <!-- ▼ 告知欄 ▼
+         臨時休業・入荷情報などを書き足す欄です。日付を入れる場合は
+         <span class="news-date">2026.08.01</span> を <span class="news-label"> の前に足してください。
+         ラベルは info（お知らせ）／holiday（休業案内）／event（入荷情報）の3種類が使えます。 -->
     <section id="news">
         <span class="watermark" aria-hidden="true">凪</span>
         <span class="eyebrow">NEWS</span>
@@ -534,19 +578,12 @@
         <div class="card reveal">
             <ul class="news-list">
                 <li>
-                    <span class="news-date">2026.07.10</span>
-                    <span class="news-label event">入荷情報</span>
-                    <span class="news-body">夏の生搾りフルーツサワーはじめました。今週は「小玉すいか」と「パイン」です。</span>
-                </li>
-                <li>
-                    <span class="news-date">2026.07.01</span>
-                    <span class="news-label holiday">休業案内</span>
-                    <span class="news-body">8月13日（木）〜16日（日）は夏季休業とさせていただきます。</span>
-                </li>
-                <li>
-                    <span class="news-date">2026.06.20</span>
                     <span class="news-label info">お知らせ</span>
-                    <span class="news-body">ご宴会コース（飲み放題付き）のご予約を承っております。お気軽にお電話ください。</span>
+                    <span class="news-body">テイクアウトを承っております。受付は 15:30〜21:00、お電話でご予約ください。</span>
+                </li>
+                <li>
+                    <span class="news-label info">お知らせ</span>
+                    <span class="news-body">手造りのピザ・パスタ、〆のおにぎり・お茶漬けもご用意しております。</span>
                 </li>
             </ul>
         </div>
@@ -556,34 +593,69 @@
         <span class="watermark" aria-hidden="true">旬</span>
         <span class="eyebrow">SIGNATURE</span>
         <h2 class="section-title">当店自慢の一品</h2>
-        <p class="section-lead">数ある肴の中でも、特にお客様からご好評をいただいている二品をご紹介いたします。</p>
+        <p class="section-lead">数ある品書きの中でも、特にお客様からご好評をいただいているものをご紹介いたします。</p>
         <div class="dish-editorial-list">
             <article class="dish-row reveal">
                 <div class="dish-photo">
-                    <div class="dish-photo-inner">
-                        <img src="images/gyuniku-tataki.png" width="150" height="150" loading="lazy" decoding="async" alt="牛肉のタタキ。表面を炙り中は赤みを残した薄切りの牛肉">
+                    <div class="dish-photo-inner square">
+                        <img src="images/gyu-tataki-hero.jpg" width="640" height="640" loading="lazy" decoding="async" alt="牛のたたき。大皿に薄く引いた赤身を放射状に並べ、薬味と野菜を添えた盛り">
                     </div>
                 </div>
                 <div class="dish-copy">
                     <span class="dish-tag">RECOMMEND 01</span>
-                    <h3 class="dish-name">牛肉のタタキ</h3>
-                    <p class="dish-price">￥980（税込）</p>
-                    <p class="dish-desc">表面を香ばしく炙り、中は赤みを残してしっとりと。旨みを閉じ込めた一枚一枚を、薬味とともにさっぱりとお楽しみいただけます。お酒との相性は抜群、まずはこの一皿から始めるお客様が多い当店の代表格です。</p>
+                    <h3 class="dish-name">牛のたたき</h3>
+                    <p class="dish-price">200g ￥3,300 ／ 100g ￥1,650（税込）</p>
+                    <p class="dish-desc">表面を炙り、中は赤身を残して薄く引いた一皿です。きゅうりの千切りと薬味を添えて、さっぱりとお召し上がりいただけます。100gからご用意しておりますので、まずはこの一皿から。</p>
                 </div>
             </article>
             <article class="dish-row reverse reveal">
                 <div class="dish-photo">
                     <div class="dish-photo-inner">
-                        <img src="images/atsuyaki-tamago.png" width="150" height="150" loading="lazy" decoding="async" alt="ネギ入り厚焼き玉子。刻みネギを練り込んで分厚く焼き上げ、大葉を添えた一皿">
+                        <img src="images/atsuyaki-tamago-real.jpg" width="1024" height="768" loading="lazy" decoding="async" alt="ジャンボ厚焼玉子。刻みねぎを練り込んで厚く焼き上げ、大葉を敷いて切り分けた一皿">
                     </div>
                 </div>
                 <div class="dish-copy">
                     <span class="dish-tag">RECOMMEND 02</span>
-                    <h3 class="dish-name">ネギ入り厚焼き玉子</h3>
-                    <p class="dish-price">￥680（税込）</p>
-                    <p class="dish-desc">刻みネギをたっぷりと練り込み、じっくりと焼き上げた分厚い一枚。「ボリューム満点で最高」とお客様の声もいただく看板の卵料理です。出汁の効いたやさしい甘みが、お酒の合間にほっと一息つかせてくれます。</p>
+                    <h3 class="dish-name">ジャンボ厚焼玉子</h3>
+                    <p class="dish-price">￥990（ハーフ ￥605）（税込）</p>
+                    <p class="dish-desc">刻みねぎをたっぷり練り込み、厚く焼き上げた一枚。大葉を敷いて切り分けてお出しします。ハーフサイズもご用意していますので、お一人でも、シェアでも。</p>
                 </div>
             </article>
+            <article class="dish-row reveal">
+                <div class="dish-photo">
+                    <div class="dish-photo-inner">
+                        <img src="images/gratin.jpg" width="647" height="485" loading="lazy" decoding="async" alt="グラタン。土鍋で焼き上げ、パセリを散らした熱々の一皿">
+                    </div>
+                </div>
+                <div class="dish-copy">
+                    <span class="dish-tag">RECOMMEND 03</span>
+                    <h3 class="dish-name">手造りピザ＆パスタ、そしてグラタン</h3>
+                    <p class="dish-price">パスタ 各￥1,430 ／ ピザ ￥1,320〜 ／ グラタン ￥1,210〜（税込）</p>
+                    <p class="dish-desc">居酒屋でありながら、パスタとピザは手造り。土鍋で焼き上げるグラタンも、〆やお子様連れのお席でよくご注文をいただきます。</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <span class="watermark left" aria-hidden="true">盃</span>
+        <span class="eyebrow">GALLERY</span>
+        <h2 class="section-title">凪の卓から</h2>
+        <svg class="ripple" viewBox="0 0 64 20" aria-hidden="true"><path d="M0,10 Q8,2 16,10 T32,10 T48,10 T64,10" fill="none" stroke="#c8a25c" stroke-width="1.4"/></svg>
+        <p class="section-lead">お客様が撮ってくださった、実際のお料理です。</p>
+        <div class="gallery-grid reveal">
+            <figure class="wide"><img src="images/set-tataki-salad.jpg" width="1024" height="768" loading="lazy" decoding="async" alt="お盆に、鰹節をのせたサラダと牛のたたきを並べた二品"></figure>
+            <figure><img src="images/gyu-tataki-03.jpg" width="692" height="519" loading="lazy" decoding="async" alt="牛のたたき。青い絵付けの皿にきゅうりと薬味を添えて"></figure>
+            <figure><img src="images/atsuyaki-tamago-02.jpg" width="709" height="531" loading="lazy" decoding="async" alt="ジャンボ厚焼玉子を白い皿に盛った一皿"></figure>
+            <figure><img src="images/motsu-nikomi.jpg" width="684" height="513" loading="lazy" decoding="async" alt="豚もつ煮。白い器にもつと玉ねぎ、七味をふってレンゲを添えて"></figure>
+            <figure><img src="images/daikon-salad.jpg" width="648" height="486" loading="lazy" decoding="async" alt="ダイコンサラダ。ガラス器に大根の千切り、鰹節と刻みねぎ"></figure>
+            <figure><img src="images/maguro.jpg" width="630" height="472" loading="lazy" decoding="async" alt="まぐろの刺身。厚めに切った赤身を大葉とともに盛った皿"></figure>
+            <figure><img src="images/gyu-tataki-04.jpg" width="731" height="549" loading="lazy" decoding="async" alt="牛のたたきを箸で持ち上げたところ"></figure>
+            <figure><img src="images/salad.jpg" width="1024" height="768" loading="lazy" decoding="async" alt="キャベツ・レタス・大根に鰹節と刻みねぎをたっぷりのせたサラダ"></figure>
+            <figure><img src="images/set-buta-tamago.jpg" width="705" height="528" loading="lazy" decoding="async" alt="お盆に、豚肉のスライス・ジャンボ厚焼玉子・きゅうりの浅漬けを並べた盛り合わせ"></figure>
+            <figure><img src="images/buta-slice.jpg" width="669" height="502" loading="lazy" decoding="async" alt="スライスした豚肉に辛子とキャベツの千切りを添えた一皿"></figure>
+            <figure><img src="images/atsuyaki-tamago-03.jpg" width="640" height="640" loading="lazy" decoding="async" alt="ジャンボ厚焼玉子を切り分けたところのアップ"></figure>
+            <figure><img src="images/gyu-tataki-02.jpg" width="1024" height="768" loading="lazy" decoding="async" alt="牛のたたき。黒い角皿に薄切りの赤身ときゅうりの千切り"></figure>
         </div>
     </section>
 
@@ -595,60 +667,182 @@
 
         <!-- カテゴリへワンタップで飛べるジャンプボタン -->
         <nav class="menu-jump" aria-label="料理カテゴリへ移動">
-            <a href="#cat-sashimi">お造り</a>
-            <a href="#cat-yakimono">焼き物</a>
-            <a href="#cat-agemono">揚げ物</a>
             <a href="#cat-ippin">一品料理</a>
-            <a href="#cat-shime">ご飯もの・〆</a>
+            <a href="#cat-niku">肉料理</a>
+            <a href="#cat-gyokai">魚介料理</a>
+            <a href="#cat-pizza">ピザ・パスタ</a>
+            <a href="#cat-gohan">ごはん・〆</a>
+            <a href="#cat-salad">サラダ</a>
         </nav>
-
-        <h3 class="menu-category">お通し</h3>
-        <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">本日のお通し</span><span class="leader"></span><span class="menu-item-price">￥330</span></div>
-        </div>
-
-        <h3 class="menu-category" id="cat-sashimi">お造り</h3>
-        <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">本日の鮮魚三点盛り</span><span class="leader"></span><span class="menu-item-price">￥1,280</span></div>
-            <div class="menu-item"><span class="menu-item-name">まぐろ中とろ</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
-            <div class="menu-item"><span class="menu-item-name">カツオのたたき</span><span class="leader"></span><span class="menu-item-price">￥780</span></div>
-            <div class="menu-item"><span class="menu-item-name">甘えびの姿造り</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
-        </div>
-
-        <h3 class="menu-category" id="cat-yakimono">焼き物</h3>
-        <div class="menu-grid">
-            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/gyuniku-tataki.png" width="150" height="150" loading="lazy" decoding="async" alt="牛肉のタタキ"></span><span class="menu-item-name">牛肉のタタキ<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥980</span></div>
-            <div class="menu-item"><span class="menu-item-name">炭火焼き鳥盛り合わせ（5本）</span><span class="leader"></span><span class="menu-item-price">￥980</span></div>
-            <div class="menu-item"><span class="menu-item-name">豚トロ塩レモン焼き</span><span class="leader"></span><span class="menu-item-price">￥780</span></div>
-            <div class="menu-item"><span class="menu-item-name">国産ホルモン炭火焼き</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
-            <div class="menu-item"><span class="menu-item-name">焼き椎茸バター醤油</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
-        </div>
-
-        <h3 class="menu-category" id="cat-agemono">揚げ物</h3>
-        <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">若鶏の唐揚げ</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
-            <div class="menu-item"><span class="menu-item-name">白身魚の南蛮漬け</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
-            <div class="menu-item"><span class="menu-item-name">揚げ出し豆腐</span><span class="leader"></span><span class="menu-item-price">￥550</span></div>
-            <div class="menu-item"><span class="menu-item-name">クリームコロッケ</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
-        </div>
 
         <h3 class="menu-category" id="cat-ippin">一品料理</h3>
         <div class="menu-grid">
-            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/atsuyaki-tamago.png" width="150" height="150" loading="lazy" decoding="async" alt="ネギ入り厚焼き玉子"></span><span class="menu-item-name">ネギ入り厚焼き玉子<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
-            <div class="menu-item"><span class="menu-item-name">じっくり煮込んだもつ煮込み</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
-            <div class="menu-item"><span class="menu-item-name">自家製冷奴</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
-            <div class="menu-item"><span class="menu-item-name">枝豆</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
-            <div class="menu-item"><span class="menu-item-name">自家製ポテトサラダ</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
+            <div class="menu-item"><span class="menu-item-name">スタミナにんにく</span><span class="leader"></span><span class="menu-item-price">￥715</span></div>
+            <div class="menu-item"><span class="menu-item-name">揚げだし豆腐</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">ちくわ磯辺</span><span class="leader"></span><span class="menu-item-price">￥550</span></div>
+            <div class="menu-item"><span class="menu-item-name">キムチ納豆香味磯辺</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">納豆香味磯辺</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/atsuyaki-tamago-real.jpg" width="1024" height="768" loading="lazy" decoding="async" alt="ジャンボ厚焼玉子"></span><span class="menu-item-name">ジャンボ厚焼玉子<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥990（ハーフ ￥605）</span></div>
+            <div class="menu-item"><span class="menu-item-name">もち餃子</span><span class="leader"></span><span class="menu-item-price">￥550</span></div>
+            <div class="menu-item"><span class="menu-item-name">山芋磯辺 1本</span><span class="leader"></span><span class="menu-item-price">￥385</span></div>
+            <div class="menu-item"><span class="menu-item-name">なめこおろし</span><span class="leader"></span><span class="menu-item-price">￥550</span></div>
+            <div class="menu-item"><span class="menu-item-name">ジャーマンポテト</span><span class="leader"></span><span class="menu-item-price">￥1,210</span></div>
+            <div class="menu-item"><span class="menu-item-name">もずく酢</span><span class="leader"></span><span class="menu-item-price">￥550</span></div>
+            <div class="menu-item"><span class="menu-item-name">豆腐ステーキ</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">冷奴</span><span class="leader"></span><span class="menu-item-price">￥440</span></div>
+            <div class="menu-item"><span class="menu-item-name">オムレツ納豆</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">オムレツトマト</span><span class="leader"></span><span class="menu-item-price">￥770</span></div>
+            <div class="menu-item"><span class="menu-item-name">フライドポテトチーズ</span><span class="leader"></span><span class="menu-item-price">￥770</span></div>
+            <div class="menu-item"><span class="menu-item-name">ミニトマトの豚バラ巻き</span><span class="leader"></span><span class="menu-item-price">￥385</span></div>
+            <div class="menu-item"><span class="menu-item-name">ささみニンニク焼き</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">ささみスティック唐あげ</span><span class="leader"></span><span class="menu-item-price">￥660</span></div>
+            <div class="menu-item"><span class="menu-item-name">おでん（2人前）<span class="osusume">冬季限定</span></span><span class="leader"></span><span class="menu-item-price">￥1,760</span></div>
         </div>
 
-        <h3 class="menu-category" id="cat-shime">ご飯もの・〆</h3>
+        <h3 class="menu-category" id="cat-niku">肉料理</h3>
         <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">焼きおにぎり</span><span class="leader"></span><span class="menu-item-price">￥330</span></div>
-            <div class="menu-item"><span class="menu-item-name">凪特製お茶漬け</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
-            <div class="menu-item"><span class="menu-item-name">〆の卵かけご飯</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
+            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/gyu-tataki-01.jpg" width="1024" height="768" loading="lazy" decoding="async" alt="牛のたたき"></span><span class="menu-item-name">牛のたたき<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">200g ￥3,300／100g ￥1,650</span></div>
+            <div class="menu-item"><span class="menu-item-name">鳥からあげ</span><span class="leader"></span><span class="menu-item-price">￥660</span></div>
+            <div class="menu-item"><span class="menu-item-name">鳥のピリからねぎソース</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/motsu-nikomi.jpg" width="684" height="513" loading="lazy" decoding="async" alt="豚もつ煮"></span><span class="menu-item-name">豚もつ煮</span><span class="leader"></span><span class="menu-item-price">￥715</span></div>
+            <div class="menu-item"><span class="menu-item-name">牛すじ</span><span class="leader"></span><span class="menu-item-price">￥770</span></div>
+            <div class="menu-item"><span class="menu-item-name">豚の角煮</span><span class="leader"></span><span class="menu-item-price">￥1,100〜</span></div>
+            <div class="menu-item"><span class="menu-item-name">紙カツ</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+            <div class="menu-item"><span class="menu-item-name">生姜焼き</span><span class="leader"></span><span class="menu-item-price">￥1,210</span></div>
+            <div class="menu-item"><span class="menu-item-name">串カツ 1本</span><span class="leader"></span><span class="menu-item-price">￥660</span></div>
         </div>
 
-        <p class="note-text" style="text-align:center;">※価格は全て税込です。仕入れ状況によりご提供できない場合がございます。</p>
+        <h3 class="menu-category" id="cat-gyokai">魚介料理</h3>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">さばみそ</span><span class="leader"></span><span class="menu-item-price">￥660</span></div>
+            <div class="menu-item"><span class="menu-item-name">さば塩</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">ほっけ</span><span class="leader"></span><span class="menu-item-price">￥770</span></div>
+            <div class="menu-item"><span class="menu-item-name">こまい 1本</span><span class="leader"></span><span class="menu-item-price">￥330</span></div>
+            <div class="menu-item"><span class="menu-item-name">イカゲソあげ</span><span class="leader"></span><span class="menu-item-price">￥550</span></div>
+            <div class="menu-item"><span class="menu-item-name">イカバター焼</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">イカ一夜</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+            <div class="menu-item"><span class="menu-item-name">銀だら</span><span class="leader"></span><span class="menu-item-price">￥1,100〜</span></div>
+            <div class="menu-item"><span class="menu-item-name">チャンチャ焼</span><span class="leader"></span><span class="menu-item-price">￥1,210</span></div>
+        </div>
+
+        <h3 class="menu-category" id="cat-pizza">ピザ・パスタ・グラタン</h3>
+        <p class="cat-note">パスタとピザは手造りです。</p>
+
+        <h4 class="menu-category">パスタ<span class="cat-price">各 ￥1,430</span></h4>
+        <div class="menu-grid names-only">
+            <div class="menu-item"><span class="menu-item-name">シーフード</span></div>
+            <div class="menu-item"><span class="menu-item-name">明太子</span></div>
+            <div class="menu-item"><span class="menu-item-name">きのこ（スープ仕立）</span></div>
+            <div class="menu-item"><span class="menu-item-name">おまかせパスタ</span></div>
+            <div class="menu-item"><span class="menu-item-name">ナポリタン</span></div>
+            <div class="menu-item"><span class="menu-item-name">ミートソース</span></div>
+        </div>
+
+        <h4 class="menu-category">ピザ</h4>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">マルゲリータ</span><span class="leader"></span><span class="menu-item-price">￥1,320</span></div>
+            <div class="menu-item"><span class="menu-item-name">森のきのこ</span><span class="leader"></span><span class="menu-item-price">￥1,430</span></div>
+            <div class="menu-item"><span class="menu-item-name">おまかせピザ</span><span class="leader"></span><span class="menu-item-price">￥1,430</span></div>
+            <div class="menu-item"><span class="menu-item-name">アンチョビ</span><span class="leader"></span><span class="menu-item-price">￥1,430</span></div>
+            <div class="menu-item"><span class="menu-item-name">シーフード</span><span class="leader"></span><span class="menu-item-price">￥1,540</span></div>
+        </div>
+
+        <h4 class="menu-category">グラタン</h4>
+        <div class="menu-grid">
+            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/gratin.jpg" width="647" height="485" loading="lazy" decoding="async" alt="土鍋で焼き上げたグラタン"></span><span class="menu-item-name">ミックスグラタン</span><span class="leader"></span><span class="menu-item-price">￥1,320</span></div>
+            <div class="menu-item"><span class="menu-item-name">海老グラタン</span><span class="leader"></span><span class="menu-item-price">￥1,210</span></div>
+            <div class="menu-item"><span class="menu-item-name">ホタテグラタン</span><span class="leader"></span><span class="menu-item-price">￥1,210</span></div>
+            <div class="menu-item"><span class="menu-item-name">カキグラタン</span><span class="leader"></span><span class="menu-item-price">￥1,430</span></div>
+        </div>
+
+        <h4 class="menu-category">その他</h4>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">ガーリックトースト</span><span class="leader"></span><span class="menu-item-price">￥660</span></div>
+            <div class="menu-item"><span class="menu-item-name">あさりとトマト（ガーリックトースト付）</span><span class="leader"></span><span class="menu-item-price">￥2,750〜</span></div>
+            <div class="menu-item"><span class="menu-item-name">かちかち山</span><span class="leader"></span><span class="menu-item-price">￥770</span></div>
+            <div class="menu-item"><span class="menu-item-name">ちぢみ</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+        </div>
+
+        <h3 class="menu-category" id="cat-gohan">ごはん・〆</h3>
+        <p class="cat-note">〆はおにぎりとお茶漬けを。看板にも掲げている、凪のもうひとつの顔です。</p>
+
+        <h4 class="menu-category">おにぎり<span class="cat-price">各 ￥220</span></h4>
+        <div class="menu-grid names-only">
+            <div class="menu-item"><span class="menu-item-name">葉とうがらし</span></div>
+            <div class="menu-item"><span class="menu-item-name">しゃけ</span></div>
+            <div class="menu-item"><span class="menu-item-name">シーチキンマヨ</span></div>
+            <div class="menu-item"><span class="menu-item-name">おかか</span></div>
+            <div class="menu-item"><span class="menu-item-name">梅干し</span></div>
+            <div class="menu-item"><span class="menu-item-name">明太子</span></div>
+            <div class="menu-item"><span class="menu-item-name">昆布</span></div>
+            <div class="menu-item"><span class="menu-item-name">生たらこ</span></div>
+            <div class="menu-item"><span class="menu-item-name">焼たらこ</span></div>
+            <div class="menu-item"><span class="menu-item-name">しらす</span></div>
+            <div class="menu-item"><span class="menu-item-name">焼きおにぎり</span></div>
+            <div class="menu-item"><span class="menu-item-name">しゃけめんたい</span></div>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">いくら</span><span class="leader"></span><span class="menu-item-price">￥330</span></div>
+        </div>
+
+        <h4 class="menu-category">お茶漬け</h4>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">さけ</span><span class="leader"></span><span class="menu-item-price">￥660</span></div>
+            <div class="menu-item"><span class="menu-item-name">たらこ</span><span class="leader"></span><span class="menu-item-price">￥660</span></div>
+            <div class="menu-item"><span class="menu-item-name">うめ</span><span class="leader"></span><span class="menu-item-price">￥660</span></div>
+            <div class="menu-item"><span class="menu-item-name">ミックス</span><span class="leader"></span><span class="menu-item-price">￥770</span></div>
+            <div class="menu-item"><span class="menu-item-name">焼おに茶漬け</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+        </div>
+
+        <h4 class="menu-category">雑炊</h4>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">野菜</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">きのこ</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">にら</span><span class="leader"></span><span class="menu-item-price">￥770</span></div>
+            <div class="menu-item"><span class="menu-item-name">うめ</span><span class="leader"></span><span class="menu-item-price">￥770</span></div>
+            <div class="menu-item"><span class="menu-item-name">ほたて</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">海鮮</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+        </div>
+
+        <h4 class="menu-category">焼そば</h4>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">ソース焼そば</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+            <div class="menu-item"><span class="menu-item-name">たこピリ辛焼そば</span><span class="leader"></span><span class="menu-item-price">￥990</span></div>
+            <div class="menu-item"><span class="menu-item-name">塩焼そば</span><span class="leader"></span><span class="menu-item-price">￥990</span></div>
+        </div>
+
+        <h4 class="menu-category">ピラフ</h4>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">おまかせピラフ</span><span class="leader"></span><span class="menu-item-price">￥990</span></div>
+            <div class="menu-item"><span class="menu-item-name">海老ピラフ</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+            <div class="menu-item"><span class="menu-item-name">ホタテピラフ</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+            <div class="menu-item"><span class="menu-item-name">牛ピラフ</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+            <div class="menu-item"><span class="menu-item-name">ガーリックライス</span><span class="leader"></span><span class="menu-item-price">￥880</span></div>
+        </div>
+
+        <h4 class="menu-category">味噌汁</h4>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-item-name">豆腐わかめ</span><span class="leader"></span><span class="menu-item-price">￥385</span></div>
+            <div class="menu-item"><span class="menu-item-name">ワタリガニ</span><span class="leader"></span><span class="menu-item-price">￥440</span></div>
+            <div class="menu-item"><span class="menu-item-name">しじみ</span><span class="leader"></span><span class="menu-item-price">￥440</span></div>
+            <div class="menu-item"><span class="menu-item-name">なめこ</span><span class="leader"></span><span class="menu-item-price">￥385</span></div>
+            <div class="menu-item"><span class="menu-item-name">アサリ</span><span class="leader"></span><span class="menu-item-price">￥440</span></div>
+        </div>
+
+        <h3 class="menu-category" id="cat-salad">サラダ</h3>
+        <p class="note-text" style="margin-top:-6px;">※サラダ・お飲み物・デザートは価格改定中のため、店頭にてご確認ください。</p>
+        <div class="menu-grid names-only">
+            <div class="menu-item"><span class="menu-item-name">トマトのピリ辛ひき肉サラダ</span></div>
+            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/daikon-salad.jpg" width="648" height="486" loading="lazy" decoding="async" alt="ダイコンサラダ"></span><span class="menu-item-name">ダイコンサラダ</span></div>
+            <div class="menu-item"><span class="menu-item-name">トマトサラダ（タコ入）</span></div>
+            <div class="menu-item"><span class="menu-item-name">そうめんサラダ</span></div>
+            <div class="menu-item"><span class="menu-item-name">じゃこサラダ</span></div>
+            <div class="menu-item"><span class="menu-item-name">とろろサラダ</span></div>
+            <div class="menu-item"><span class="menu-item-name">タコサラダ</span></div>
+            <div class="menu-item"><span class="menu-item-name">生春巻（要予約）</span></div>
+        </div>
+
+        <p class="note-text" style="text-align:center;">※価格は全て税込です。仕入れ状況によりご提供できない場合がございます。メニューは一部抜粋です。記載のないお料理・お飲み物もございますので、店頭でお気軽にお尋ねください。</p>
 
         <div class="highlight-box reveal">
             <strong>ご宴会・貸切のご相談も承ります。</strong><br>
@@ -661,35 +855,73 @@
         <span class="watermark" aria-hidden="true">酒</span>
         <span class="eyebrow">DRINK MENU</span>
         <h2 class="section-title">お飲み物</h2>
-        <p class="menu-intro">料理に合わせて、日本酒から焼酎、ビール、サワーまで種類豊富にご用意しております。</p>
+        <p class="menu-intro">お食事に合わせて、カクテルからソフトドリンクまでご用意しております。</p>
+        <p class="note-text" style="text-align:center; margin-bottom: 28px;">※お飲み物の価格は改定中のため、店頭にてご確認ください。ビール・焼酎・日本酒などもご用意しております。</p>
 
-        <h3 class="menu-category">日本酒</h3>
-        <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">常陸の地酒 各種（冷・熱燗）</span><span class="leader"></span><span class="menu-item-price">￥580〜</span></div>
-            <div class="menu-item"><span class="menu-item-name">季節限定 純米吟醸</span><span class="leader"></span><span class="menu-item-price">￥780〜</span></div>
-        </div>
-
-        <h3 class="menu-category">ビール・ハイボール・サワー</h3>
-        <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">生ビール</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
-            <div class="menu-item"><span class="menu-item-name">ハイボール</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
-            <div class="menu-item"><span class="menu-item-name">自家製レモンサワー</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
-            <div class="menu-item"><span class="menu-item-name">季節の生搾りフルーツサワー<span class="osusume">季節限定</span></span><span class="leader"></span><span class="menu-item-price">￥520</span></div>
-        </div>
-
-        <h3 class="menu-category">焼酎・ウイスキー</h3>
-        <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">芋焼酎（ロック・水割り）</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
-            <div class="menu-item"><span class="menu-item-name">麦焼酎（ロック・水割り）</span><span class="leader"></span><span class="menu-item-price">￥480</span></div>
-            <div class="menu-item"><span class="menu-item-name">ウイスキー各種</span><span class="leader"></span><span class="menu-item-price">￥580〜</span></div>
+        <h3 class="menu-category">カクテル</h3>
+        <div class="menu-grid names-only">
+            <div class="menu-item"><span class="menu-item-name">カシスオレンジ</span></div>
+            <div class="menu-item"><span class="menu-item-name">カシスソーダ</span></div>
+            <div class="menu-item"><span class="menu-item-name">カルアーミルク</span></div>
+            <div class="menu-item"><span class="menu-item-name">ジントニック</span></div>
+            <div class="menu-item"><span class="menu-item-name">ソルティドッグ</span></div>
+            <div class="menu-item"><span class="menu-item-name">カンパリソーダ</span></div>
+            <div class="menu-item"><span class="menu-item-name">ディタモーニ</span></div>
+            <div class="menu-item"><span class="menu-item-name">モスコミュール</span></div>
+            <div class="menu-item"><span class="menu-item-name">ブルースカイ</span></div>
+            <div class="menu-item"><span class="menu-item-name">スクリュードライバー</span></div>
+            <div class="menu-item"><span class="menu-item-name">楊貴妃</span></div>
         </div>
 
         <h3 class="menu-category">ソフトドリンク</h3>
-        <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">ウーロン茶・烏龍茶ハイ</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
-            <div class="menu-item"><span class="menu-item-name">オレンジジュース</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
+        <div class="menu-grid names-only">
+            <div class="menu-item"><span class="menu-item-name">ジンジャエール</span></div>
+            <div class="menu-item"><span class="menu-item-name">グレープフルーツジュース</span></div>
+            <div class="menu-item"><span class="menu-item-name">オレンジジュース</span></div>
+            <div class="menu-item"><span class="menu-item-name">コーラ</span></div>
+            <div class="menu-item"><span class="menu-item-name">カルピス</span></div>
+            <div class="menu-item"><span class="menu-item-name">ウーロン茶（ホット・アイス）</span></div>
+            <div class="menu-item"><span class="menu-item-name">コーヒー</span></div>
+            <div class="menu-item"><span class="menu-item-name">特製人参ジュース</span></div>
         </div>
-        <p class="note-text" style="text-align:center; margin-top: 24px;">※価格は全て税込です。仕入れ状況により銘柄が変更となる場合がございます。お車でお越しの方への酒類のご提供はできません。</p>
+
+        <h3 class="menu-category">デザート</h3>
+        <div class="menu-grid names-only">
+            <div class="menu-item"><span class="menu-item-name">バニラアイス</span></div>
+            <div class="menu-item"><span class="menu-item-name">抹茶アイス</span></div>
+        </div>
+        <p class="note-text" style="text-align:center; margin-top: 24px;">※仕入れ状況により銘柄が変更となる場合がございます。お車でお越しの方への酒類のご提供はできません。</p>
+    </section>
+
+    <section id="takeout">
+        <span class="watermark" aria-hidden="true">包</span>
+        <span class="eyebrow">TAKE OUT</span>
+        <h2 class="section-title">お持ち帰り</h2>
+        <p class="section-lead">お店の味をご家庭で。受付は 15:30〜21:00 です。</p>
+        <div class="card reveal">
+            <div class="menu-grid">
+                <div class="menu-item"><span class="menu-item-name">牛のタタキ</span><span class="leader"></span><span class="menu-item-price">￥3,000（ハーフ ￥1,500）</span></div>
+                <div class="menu-item"><span class="menu-item-name">厚焼き玉子</span><span class="leader"></span><span class="menu-item-price">￥900（ハーフ ￥600）</span></div>
+                <div class="menu-item"><span class="menu-item-name">生姜焼き</span><span class="leader"></span><span class="menu-item-price">￥1,200</span></div>
+                <div class="menu-item"><span class="menu-item-name">長芋と山芋のとろとろ焼き</span><span class="leader"></span><span class="menu-item-price">￥1,500</span></div>
+                <div class="menu-item"><span class="menu-item-name">豚モツ煮込み</span><span class="leader"></span><span class="menu-item-price">￥650</span></div>
+                <div class="menu-item"><span class="menu-item-name">牛すじ</span><span class="leader"></span><span class="menu-item-price">￥650</span></div>
+                <div class="menu-item"><span class="menu-item-name">唐揚げ</span><span class="leader"></span><span class="menu-item-price">￥500</span></div>
+                <div class="menu-item"><span class="menu-item-name">フライドポテト</span><span class="leader"></span><span class="menu-item-price">￥700</span></div>
+                <div class="menu-item"><span class="menu-item-name">ちくわ磯部</span><span class="leader"></span><span class="menu-item-price">￥500</span></div>
+                <div class="menu-item"><span class="menu-item-name">納豆磯部巻き</span><span class="leader"></span><span class="menu-item-price">￥800</span></div>
+                <div class="menu-item"><span class="menu-item-name">トマトのピリ辛ひき肉サラダ</span><span class="leader"></span><span class="menu-item-price">￥900</span></div>
+                <div class="menu-item"><span class="menu-item-name">とろろサラダ</span><span class="leader"></span><span class="menu-item-price">￥1,300</span></div>
+                <div class="menu-item"><span class="menu-item-name">ピラフ（おまかせ・エビ）</span><span class="leader"></span><span class="menu-item-price">各 ￥1,000</span></div>
+                <div class="menu-item"><span class="menu-item-name">牛ピラフ</span><span class="leader"></span><span class="menu-item-price">￥1,100</span></div>
+                <div class="menu-item"><span class="menu-item-name">パスタ（ナポリタン・ミートソース）</span><span class="leader"></span><span class="menu-item-price">各 ￥1,000</span></div>
+                <div class="menu-item"><span class="menu-item-name">おにぎり各種</span><span class="leader"></span><span class="menu-item-price">￥200</span></div>
+            </div>
+            <p class="note-text">※テイクアウトの価格は店内の価格と異なります。改定されている場合がございますので、お電話でご確認ください。<br>※営業状況によってお時間をいただく場合がございます。お電話の際にご確認ください。<br>※記載以外のメニューもご用意できます。</p>
+            <div style="margin-top: 26px;">
+                <a href="tel:0280327041" class="btn-link">テイクアウトのご注文はこちら（0280-32-7041）</a>
+            </div>
+        </div>
     </section>
 
     <!-- お客様が来店前に一番知りたい「どんな席で飲めるのか」を案内 -->
@@ -749,6 +981,10 @@
                 <tr><th>お支払い</th><td>現金</td></tr>
             </table>
             <div>
+                <figure class="shop-photo">
+                    <img src="images/storefront-real.jpg" width="677" height="508" loading="lazy" decoding="async" alt="居酒屋 凪の外観。黒い板壁に白抜きの「凪」の看板、入口脇に黒板と鉢植えの緑">
+                    <figcaption>黒板と鉢植えが目印。看板の「凪」を探してお越しください。</figcaption>
+                </figure>
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps?q=茨城県古河市北町1-3&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="居酒屋 凪の地図"></iframe>
                 </div>
