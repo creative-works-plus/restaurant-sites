@@ -12,8 +12,8 @@
 <meta property="og:image" content="images/gyu-tataki-01.jpg">
 <meta name="theme-color" content="#121821">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2312181f' stroke='%23c8a25c' stroke-width='3'/%3E%3Ctext x='50' y='66' font-size='50' text-anchor='middle' fill='%23c8a25c' font-family='serif'%3E%E5%87%A2%3C/text%3E%3C/svg%3E">
-<!-- ヒーロー背景（CSS background-image）用の先読み。名物・牛のたたきの実写がLCP要素になるため -->
-<link rel="preload" as="image" href="images/gyu-tataki-01.jpg" fetchpriority="high">
+<!-- ヒーロー背景（CSS background-image）用の先読み。店先イラストがLCP要素になるため -->
+<link rel="preload" as="image" href="images/storefront.jpg" fetchpriority="high">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -187,11 +187,12 @@
     .hero {
         position: relative; padding: 170px 20px 120px; text-align: center; overflow: hidden;
         min-height: 100svh; display: flex; align-items: center; justify-content: center;
-        /* 名物・牛のたたきの実写（黒い角皿）を夜の藍で染めて敷く。
-           被写体が潰れないよう上部は浅めに、下部は最深部の色へ溶かして次セクションへ繋ぐ */
+        /* 店先イラストを夜の藍で染めて敷く。上部は看板・提灯の暖色が透けるよう浅めに、
+           イラスト中央〜下部（営業時間の札・黒板メニュー＝本文と表記が異なるため）は
+           札の高さから濃く潰して次セクションの最深部の色へ溶かす */
         background:
-            linear-gradient(to bottom, rgba(10,14,20,0.82) 0%, rgba(10,14,20,0.66) 26%, rgba(10,14,20,0.88) 50%, rgba(10,14,20,0.97) 66%, var(--night-deep) 80%, var(--night-deep) 100%),
-            url("images/gyu-tataki-01.jpg") center 58% / cover no-repeat var(--night);
+            linear-gradient(to bottom, rgba(10,14,20,0.35) 0%, rgba(10,14,20,0.45) 18%, rgba(10,14,20,0.94) 32%, rgba(10,14,20,0.99) 50%, var(--night-deep) 62%, var(--night-deep) 100%),
+            url("images/storefront.jpg") center 32% / cover no-repeat var(--night);
     }
     .hero::before {
         content: ""; position: absolute; inset: 0;
