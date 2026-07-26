@@ -11,15 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ccircle%20cx='50'%20cy='50'%20r='47'%20fill='%2315100c'%20stroke='%23b08d4f'%20stroke-width='4'/%3E%3Ctext%20x='50'%20y='68'%20font-size='52'%20text-anchor='middle'%20fill='%23d9642b'%20font-family='serif'%3E%E4%B8%B2%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="image" href="gallery-counter.jpg">
 <style>
 :root{--ink:#15100c;--umber:#2b2019;--umber-line:rgba(176,141,79,0.22);--paper:#f3ead9;--paper-dim:#d9cbb0;--paper-mute:#a89a83;--ember:#d9642b;--ember-bright:#ef8248;--brass:#b08d4f;--brass-soft:rgba(176,141,79,0.35);}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 body{background:var(--ink);color:var(--paper);font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;line-height:1.9;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-img{display:block;max-width:100%;}
+img{display:block;max-width:100%;height:auto;}
 a{color:inherit;text-decoration:none;}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:2px;}
+body::after{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;mix-blend-mode:overlay;}
 .jp-serif{font-family:"Shippori Antique B1","Hiragino Mincho ProN",serif;}
 .en-label{font-family:"Cormorant Garamond",serif;font-style:italic;letter-spacing:.12em;color:var(--ember-bright);font-size:.95rem;}
 .wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
@@ -64,6 +66,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ember);outline-offs
 .menu-list-group h4{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--brass);font-size:1.08rem;letter-spacing:.03em;margin:28px 0 12px;border-bottom:1px solid var(--umber-line);padding-bottom:10px;}
 .menu-list-group>h4:first-child{margin-top:0;}
 .menu-row{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;font-size:.96rem;gap:12px;}
+.menu-row.has-photo{align-items:center;}
+.menu-row .row-thumb{width:72px;height:72px;border-radius:6px;object-fit:cover;flex-shrink:0;margin-right:2px;}
+.menu-row .row-text{flex:1;display:flex;justify-content:space-between;align-items:baseline;gap:12px;min-width:0;}
 .menu-row .dish{color:var(--paper);}
 .menu-row .dish small{display:block;color:var(--paper-mute);font-size:.78rem;margin-top:2px;}
 .menu-row .price{color:var(--paper-mute);white-space:nowrap;font-variant-numeric:tabular-nums;}
@@ -86,10 +91,15 @@ footer .addr{color:var(--paper-mute);font-size:.86rem;margin-bottom:20px;line-he
 footer .foot-tel{font-size:1.05rem;color:var(--ember-bright);display:inline-block;margin-bottom:8px;}
 footer .copy{color:var(--paper-mute);opacity:.6;font-size:.76rem;margin-top:16px;}
 
-.float-tel{position:fixed;right:18px;bottom:18px;z-index:90;display:flex;align-items:center;gap:8px;background:var(--ember);color:#17110b;font-weight:700;padding:14px 20px;border-radius:999px;font-size:.9rem;box-shadow:0 10px 24px rgba(0,0,0,.4);opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease;}
-.float-tel.show{opacity:1;pointer-events:auto;transform:translateY(0);}
-.float-tel svg{width:15px;height:15px;fill:#17110b;}
-@media (min-width:861px){.float-tel{display:none;}}
+/* 固定予約バー（モバイル） */
+.mobile-bar{display:none;}
+@media (max-width:768px){
+    body{padding-bottom:66px;}
+    .mobile-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:90;background:rgba(21,16,12,.96);backdrop-filter:blur(8px);border-top:1px solid var(--umber-line);box-shadow:0 -6px 20px rgba(0,0,0,.35);}
+    .mobile-bar a{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 10px;color:var(--paper-mute);font-size:.68rem;letter-spacing:.02em;}
+    .mobile-bar a svg{width:19px;height:19px;fill:currentColor;}
+    .mobile-bar a.primary{color:var(--ember-bright);}
+}
 </style>
 </head>
 <body>
@@ -178,7 +188,7 @@ footer .copy{color:var(--paper-mute);opacity:.6;font-size:.76rem;margin-top:16px
             </div>
             <div class="menu-list-group">
                 <h4>Sake &amp; More — 和酒・その他</h4>
-                <div class="menu-row"><span class="dish">日本酒（冷・熱燗）</span><span class="price">¥572</span></div>
+                <div class="menu-row has-photo"><img class="row-thumb" src="gallery-counter.jpg" alt="カウンターに並ぶ日本酒の瓶" loading="lazy" decoding="async" width="640" height="640"><span class="row-text"><span class="dish">日本酒（冷・熱燗）</span><span class="price">¥572</span></span></div>
                 <div class="menu-row"><span class="dish">グラスワイン</span><span class="price">¥462</span></div>
                 <div class="menu-row"><span class="dish">本日の梅酒</span><span class="price">¥495</span></div>
                 <div class="menu-row"><span class="dish">カクテル各種<small>カシス・ウォッカ・カンパリ ほか</small></span><span class="price">¥528</span></div>
@@ -218,19 +228,27 @@ footer .copy{color:var(--paper-mute);opacity:.6;font-size:.76rem;margin-top:16px
     </div>
 </footer>
 
-<a href="tel:08066256378" class="float-tel" id="floatTel">
-    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1L6.6 10.8z"/></svg>
-    電話で予約
-</a>
+<nav class="mobile-bar" aria-label="ご予約・アクセス">
+    <a class="primary" href="tel:08066256378">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1L6.6 10.8z"/></svg>
+        電話
+    </a>
+    <a href="index.html#access">
+        <svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+        地図
+    </a>
+    <a href="https://www.instagram.com/tora_toriya/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.5.5.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45.53C6.09.28 6.82.11 7.88.06 8.94.01 9.28 0 12 0zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.17 1.17 0 1 1 0-2.34 1.17 1.17 0 0 1 0 2.34z" transform="translate(0 2)"/></svg>
+        Instagram
+    </a>
+</nav>
 
 <script>
 (function () {
     var header = document.getElementById('siteHeader');
-    var floatTel = document.getElementById('floatTel');
     window.addEventListener('scroll', function () {
         var y = window.scrollY;
         header.classList.toggle('scrolled', y > 40);
-        floatTel.classList.toggle('show', y > 400);
     }, { passive: true });
     var obs = new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });

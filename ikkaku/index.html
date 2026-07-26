@@ -17,6 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%2316120e'/%3E%3Cpath d='M50 8a42 42 0 1 0 42 42' fill='none' stroke='%23c98a4b' stroke-width='4' stroke-linecap='round'/%3E%3Ctext x='50' y='67' font-size='46' text-anchor='middle' fill='%23f3ede2' font-family='serif'%3E%E9%B6%B4%3C/text%3E%3C/svg%3E">
     <script type="application/ld+json">
     {
@@ -93,7 +94,7 @@
         a { color: var(--washi); text-decoration: none; transition: color .3s ease, border-color .3s ease, background-color .3s ease, opacity .3s ease; }
         a:hover { color: var(--okibi-bright); }
         a:focus-visible, button:focus-visible { outline: 2px solid var(--okibi-bright); outline-offset: 3px; border-radius: 2px; }
-        img { max-width: 100%; display: block; }
+        img { max-width: 100%; height: auto; display: block; }
         ul { list-style: none; }
 
         .serif { font-family: "Shippori Mincho B1", "Noto Serif JP", serif; }
@@ -210,7 +211,7 @@
             position: absolute; inset: 0; z-index: -1;
             background-image:
                 linear-gradient(100deg, rgba(22,18,14,0.96) 0%, rgba(22,18,14,0.82) 34%, rgba(22,18,14,0.35) 62%, rgba(22,18,14,0.55) 100%),
-                linear-gradient(to top, var(--sumi) 2%, transparent 30%),
+                linear-gradient(to top, var(--sumi) 0%, rgba(22,18,14,0.86) 12%, rgba(22,18,14,0.4) 26%, transparent 42%),
                 url("hero.jpg");
             background-size: cover;
             background-position: 72% center;
@@ -286,6 +287,7 @@
         .hero-scroll::after { content: ""; width: 1px; height: 42px; background: linear-gradient(to bottom, var(--dou), transparent); }
 
         @media (max-width: 760px) {
+            .hero { min-height: 88svh; }
             .hero-inner { padding: 110px 0 110px; }
             .hero-tate { display: none; }
             .hero-lead br { display: none; }
@@ -304,35 +306,56 @@
         /* ==========================================================================
            5. こだわり（三つの柱）
            ========================================================================== */
-        .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 3vw, 34px); }
-        .pillar {
-            background: var(--sumi-2);
-            border: 1px solid rgba(201, 138, 75, 0.14);
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex; flex-direction: column;
-            transition: transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+        /* エディトリアル2カラム（P3）：写真＋文章、行ごとに左右が入れ替わる */
+        .editorial-rows { display: flex; flex-direction: column; gap: clamp(56px, 8vw, 96px); }
+        .editorial-row {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: clamp(30px, 4.5vw, 60px);
+            align-items: center;
         }
-        .pillar:hover { transform: translateY(-6px); border-color: var(--dou-line); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); }
-        .pillar-img { aspect-ratio: 4 / 3; overflow: hidden; }
-        .pillar-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
-        .pillar:hover .pillar-img img { transform: scale(1.06); }
-        .pillar-body { padding: 26px 26px 30px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+        .editorial-row .editorial-media { order: 1; }
+        .editorial-row .editorial-body { order: 2; }
+        .editorial-row.reverse .editorial-media { order: 2; }
+        .editorial-row.reverse .editorial-body { order: 1; }
+        .editorial-media { position: relative; }
+        .editorial-main {
+            width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+            border-radius: 10px; display: block;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            transition: transform .6s ease;
+        }
+        @media (hover: hover) { .editorial-media:hover .editorial-main { transform: scale(1.035); } }
+        .editorial-accents {
+            position: absolute; right: -14px; bottom: -14px;
+            display: flex; gap: 7px;
+            background: var(--sumi-2);
+            border: 1px solid var(--dou-line);
+            border-radius: 10px;
+            padding: 7px;
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5);
+        }
+        .editorial-accents img {
+            width: 62px; height: 62px; object-fit: cover; border-radius: 6px;
+            transition: transform .5s ease, filter .5s ease;
+        }
+        .editorial-accents.single img { width: 74px; height: 96px; }
+        @media (hover: hover) { .editorial-accents img:hover { transform: scale(1.08); filter: brightness(1.08); } }
+        .editorial-body { display: flex; flex-direction: column; gap: 12px; }
         .pillar-num { font-family: "EB Garamond", serif; font-size: 0.75rem; letter-spacing: 0.34em; color: var(--dou); }
         .pillar-title { font-family: "Shippori Mincho B1", serif; font-size: 1.3rem; font-weight: 700; letter-spacing: 0.16em; }
         .pillar-text { font-size: 0.88rem; color: var(--washi-soft); line-height: 2.1; }
 
         @media (max-width: 860px) {
-            .pillars { grid-template-columns: 1fr; }
-            .pillar { flex-direction: row; }
-            .pillar-img { width: 38%; aspect-ratio: auto; }
-            .pillar-body { width: 62%; padding: 20px 20px 22px; }
-            .pillar-text { font-size: 0.82rem; line-height: 1.9; }
+            .editorial-row, .editorial-row.reverse { grid-template-columns: 1fr; }
+            .editorial-row .editorial-media, .editorial-row.reverse .editorial-media { order: 1; }
+            .editorial-row .editorial-body, .editorial-row.reverse .editorial-body { order: 2; }
+            .editorial-main { aspect-ratio: 3 / 2; }
+            .editorial-accents { right: 12px; bottom: -16px; }
         }
-        @media (max-width: 560px) {
-            .pillar { flex-direction: column; }
-            .pillar-img { width: 100%; aspect-ratio: 16 / 10; }
-            .pillar-body { width: 100%; }
+        @media (max-width: 480px) {
+            .editorial-accents img { width: 50px; height: 50px; }
+            .editorial-accents.single img { width: 58px; height: 76px; }
         }
 
         /* ==========================================================================
@@ -348,10 +371,14 @@
         }
         .menu-col-title::after { content: ""; flex: 1; height: 1px; background: var(--dou-line); }
         .menu-list li { display: flex; align-items: baseline; gap: 12px; padding: 13px 0; border-bottom: 1px dashed rgba(201, 138, 75, 0.18); }
+        .menu-list li.has-thumb { align-items: center; }
         .menu-list .name { font-size: 0.95rem; letter-spacing: 0.08em; }
         .menu-list .name small { display: block; font-size: 0.72rem; color: var(--washi-mute); letter-spacing: 0.06em; }
         .menu-list .dots { flex: 1; border-bottom: 1px dotted rgba(151, 140, 122, 0.4); transform: translateY(-4px); }
         .menu-list .price { font-family: "EB Garamond", serif; font-size: 1rem; color: var(--washi-soft); white-space: nowrap; }
+        .menu-list .thumb { width: 72px; height: 72px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+        .menu-list .thumb-pair { display: flex; gap: 5px; flex-shrink: 0; }
+        .menu-list .thumb-pair img { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; }
         .menu-note {
             margin-top: 30px;
             padding: 18px 22px;
@@ -507,6 +534,8 @@
             .menu-chips { margin-left: 0; order: 3; width: 100%; }
             .menu-close { margin-left: auto; }
             .menu-pane.is-active { grid-template-columns: 1fr; }
+            .menu-list .thumb { width: 56px; height: 56px; }
+            .menu-list .thumb-pair img { width: 44px; height: 44px; }
         }
         body.modal-open { overflow: hidden; }
 
@@ -522,14 +551,21 @@
         .gallery-grid figure { overflow: hidden; border-radius: 6px; position: relative; margin: 0; }
         .gallery-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease, filter .8s ease; }
         .gallery-grid figure:hover img { transform: scale(1.07); filter: brightness(1.08); }
-        .gallery-grid figcaption {
+        .gallery-grid figure::after {
+            content: "";
             position: absolute; left: 0; right: 0; bottom: 0;
+            height: 62%;
+            background: linear-gradient(to top, rgba(10, 8, 6, 0.92) 0%, rgba(10, 8, 6, 0.5) 48%, transparent 100%);
+            pointer-events: none;
+        }
+        .gallery-grid figcaption {
+            position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
             padding: 26px 12px 10px;
-            background: linear-gradient(to top, rgba(13, 10, 7, 0.85), transparent);
             font-size: 0.72rem; letter-spacing: 0.14em; color: var(--washi-soft);
         }
         .gallery-grid .tall { grid-row: span 2; }
         .gallery-grid .wide { grid-column: span 2; }
+        .gallery-grid .big { grid-column: span 2; grid-row: span 2; }
         @media (max-width: 760px) {
             .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
         }
@@ -723,26 +759,41 @@
                     <h2 class="section-title serif">一鶴の三つの柱</h2>
                     <div class="kushi-line" aria-hidden="true"></div>
                 </div>
-                <div class="pillars">
-                    <article class="pillar reveal" data-delay="1">
-                        <div class="pillar-img"><img src="oma-maguro.jpg" alt="大間漁業協同組合のラベルが貼られた本まぐろの塊" loading="lazy"></div>
-                        <div class="pillar-body">
+                <div class="editorial-rows">
+                    <article class="editorial-row reveal" data-delay="1">
+                        <div class="editorial-media">
+                            <img class="editorial-main" src="maguro-sashi.jpg" alt="大間産まぐろを切り分けた赤身の盛り" width="753" height="1000" loading="lazy" decoding="async">
+                            <div class="editorial-accents">
+                                <img src="oma-maguro.jpg" alt="大間漁業協同組合のラベルが貼られた本まぐろの塊" width="753" height="1000" loading="lazy" decoding="async">
+                                <img src="otoro.jpg" alt="市場で仕入れた本まぐろの大とろの塊" width="1000" height="750" loading="lazy" decoding="async">
+                                <img src="kani.jpg" alt="内子と外子がぎっしり詰まった香箱蟹" width="753" height="1000" loading="lazy" decoding="async">
+                                <img src="hotate.jpg" alt="殻ごと焼いた浜焼きホタテ" width="640" height="480" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                        <div class="editorial-body">
                             <span class="pillar-num latin">SAKANA</span>
                             <h3 class="pillar-title serif">大間のまぐろと、旬の鮮魚</h3>
                             <p class="pillar-text">まぐろの最高峰・青森県大間産の本まぐろをはじめ、その日の良い魚を目利きで仕入れます。刺身はもちろん、煮付け・塩焼きまで、一尾を余さず味わい尽くせます。</p>
                         </div>
                     </article>
-                    <article class="pillar reveal" data-delay="2">
-                        <div class="pillar-img"><img src="hero.jpg" alt="真っ赤に熾きた炉端の焼き台で串打ちした魚を焼く様子" loading="lazy"></div>
-                        <div class="pillar-body">
+                    <article class="editorial-row reverse reveal" data-delay="2">
+                        <div class="editorial-media">
+                            <img class="editorial-main" src="hero.jpg" alt="真っ赤に熾きた炉端の焼き台で串打ちした魚を焼く様子" width="825" height="1100" loading="lazy" decoding="async">
+                        </div>
+                        <div class="editorial-body">
                             <span class="pillar-num latin">ROBATA</span>
                             <h3 class="pillar-title serif">炉端焼き</h3>
                             <p class="pillar-text">店の顔は炉端の焼き台。串打ちした魚や季節の野菜を、熾火でじっくりと焼き上げます。皮は香ばしく、身はふっくら。焼きたてをそのまま席へお届けします。</p>
                         </div>
                     </article>
-                    <article class="pillar reveal" data-delay="3">
-                        <div class="pillar-img"><img src="sake-shelf.jpg" alt="而今・新政・寫楽など全国の日本酒が並ぶ棚" loading="lazy"></div>
-                        <div class="pillar-body">
+                    <article class="editorial-row reveal" data-delay="3">
+                        <div class="editorial-media">
+                            <img class="editorial-main" src="sake-shelf.jpg" alt="而今・新政・寫楽など全国の日本酒が並ぶ棚" width="828" height="1100" loading="lazy" decoding="async">
+                            <div class="editorial-accents single">
+                                <img src="tokkuri.jpg" alt="徳利とお猪口で燗酒" width="750" height="1000" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                        <div class="editorial-body">
                             <span class="pillar-num latin">SAKE</span>
                             <h3 class="pillar-title serif">選りすぐりの地酒</h3>
                             <p class="pillar-text">店主が惚れ込んだ全国の地酒を、その時々で入れ替えながらご用意。飲み比べで好みの一本を見つけるもよし、魚に合わせて選ぶもよし。山崎・白州・ラフロイグなど銘柄ウイスキーのハイボールも揃います。</p>
@@ -763,7 +814,7 @@
                 </div>
                 <div class="specialties">
                     <article class="specialty reveal" data-delay="1">
-                        <div class="specialty-img"><img src="ipponyaki.jpg" alt="塩をまとわせて炉端で焼き上げた旬魚の一本焼き" loading="lazy"></div>
+                        <div class="specialty-img"><img src="ipponyaki.jpg" alt="塩をまとわせて炉端で焼き上げた旬魚の一本焼き" width="1000" height="1000" loading="lazy" decoding="async"></div>
                         <div class="specialty-body">
                             <span class="specialty-tag latin">SPECIALITE 01</span>
                             <h3 class="serif">旬魚の一本焼き</h3>
@@ -772,7 +823,7 @@
                         </div>
                     </article>
                     <article class="specialty reveal" data-delay="2">
-                        <div class="specialty-img"><img src="otoro.jpg" alt="市場で仕入れた本まぐろの大とろの塊を構える店主" loading="lazy"></div>
+                        <div class="specialty-img"><img src="otoro.jpg" alt="市場で仕入れた本まぐろの大とろの塊を構える店主" width="1000" height="750" loading="lazy" decoding="async"></div>
                         <div class="specialty-body">
                             <span class="specialty-tag latin">SPECIALITE 02</span>
                             <h3 class="serif">大間まぐろ</h3>
@@ -781,7 +832,7 @@
                         </div>
                     </article>
                     <article class="specialty reveal" data-delay="3">
-                        <div class="specialty-img"><img src="ramen.jpg" alt="牡蠣とレモンをのせた締めの自家製ラーメン" loading="lazy"></div>
+                        <div class="specialty-img"><img src="ramen.jpg" alt="牡蠣とレモンをのせた締めの自家製ラーメン" width="528" height="700" loading="lazy" decoding="async"></div>
                         <div class="specialty-body">
                             <span class="specialty-tag latin">SPECIALITE 03</span>
                             <h3 class="serif">締めの自家製ラーメン</h3>
@@ -809,15 +860,16 @@
                     <div class="kushi-line" aria-hidden="true"></div>
                 </div>
                 <div class="gallery-grid reveal">
-                    <figure class="tall"><img src="sashimi-mori.jpg" alt="うに・まぐろ・貝類が並ぶ刺身の盛り合わせ" loading="lazy"><figcaption>刺身盛り合わせ</figcaption></figure>
-                    <figure><img src="maguro-sashi.jpg" alt="まぐろの赤身と中とろの刺身" loading="lazy"><figcaption>まぐろ二色</figcaption></figure>
-                    <figure><img src="nitsuke.jpg" alt="赤い魚の煮付け" loading="lazy"><figcaption>本日の煮付け</figcaption></figure>
-                    <figure class="tall"><img src="yakizakana.jpg" alt="炉端で焼き上げた魚の塩焼き" loading="lazy"><figcaption>炉端の塩焼き</figcaption></figure>
-                    <figure><img src="kani.jpg" alt="内子と外子がぎっしり詰まった香箱蟹" loading="lazy"><figcaption>香箱蟹（季節）</figcaption></figure>
-                    <figure><img src="hotate.jpg" alt="殻ごと焼いた浜焼きホタテ二枚" loading="lazy"><figcaption>浜焼きホタテ</figcaption></figure>
-                    <figure><img src="kushiyaki.jpg" alt="レモンを添えた炉端の串焼き" loading="lazy"><figcaption>串焼き</figcaption></figure>
-                    <figure><img src="tokkuri.jpg" alt="徳利とお猪口で燗酒" loading="lazy"><figcaption>燗酒で一献</figcaption></figure>
-                    <figure class="wide"><img src="interior.jpg" alt="カウンターとテーブル席、壁に手書きのお品書きが並ぶ店内" loading="lazy"><figcaption>店内 — カウンター・テーブル・お座敷</figcaption></figure>
+                    <figure class="big"><img src="sashimi-board.jpg" alt="木の盛台に盛り付けられた一鶴自慢の刺身" width="480" height="640" loading="lazy" decoding="async"><figcaption>本日の刺身盛り台</figcaption></figure>
+                    <figure class="tall"><img src="sashimi-mori.jpg" alt="うに・まぐろ・貝類が並ぶ刺身の盛り合わせ" width="1000" height="750" loading="lazy" decoding="async"><figcaption>刺身盛り合わせ</figcaption></figure>
+                    <figure><img src="maguro-sashi.jpg" alt="まぐろの赤身と中とろの刺身" width="753" height="1000" loading="lazy" decoding="async"><figcaption>まぐろ二色</figcaption></figure>
+                    <figure><img src="nitsuke.jpg" alt="赤い魚の煮付け" width="480" height="640" loading="lazy" decoding="async"><figcaption>本日の煮付け</figcaption></figure>
+                    <figure class="tall"><img src="yakizakana.jpg" alt="炉端で焼き上げた魚の塩焼き" width="750" height="1000" loading="lazy" decoding="async"><figcaption>炉端の塩焼き</figcaption></figure>
+                    <figure><img src="kani.jpg" alt="内子と外子がぎっしり詰まった香箱蟹" width="753" height="1000" loading="lazy" decoding="async"><figcaption>香箱蟹（季節）</figcaption></figure>
+                    <figure><img src="hotate.jpg" alt="殻ごと焼いた浜焼きホタテ二枚" width="640" height="480" loading="lazy" decoding="async"><figcaption>浜焼きホタテ</figcaption></figure>
+                    <figure><img src="kushiyaki.jpg" alt="レモンを添えた炉端の串焼き" width="480" height="640" loading="lazy" decoding="async"><figcaption>串焼き</figcaption></figure>
+                    <figure><img src="tokkuri.jpg" alt="徳利とお猪口で燗酒" width="750" height="1000" loading="lazy" decoding="async"><figcaption>燗酒で一献</figcaption></figure>
+                    <figure class="wide"><img src="interior.jpg" alt="カウンターとテーブル席、壁に手書きのお品書きが並ぶ店内" width="753" height="1000" loading="lazy" decoding="async"><figcaption>店内 — カウンター・テーブル・お座敷</figcaption></figure>
                 </div>
             </div>
         </section>
@@ -832,7 +884,7 @@
                 </div>
                 <div class="info-grid">
                     <div class="info-left reveal">
-                        <div class="info-photo"><img src="exterior.jpg" alt="黒い暖簾に白い鶴の紋が染め抜かれた一鶴の入口" loading="lazy"></div>
+                        <div class="info-photo"><img src="exterior.jpg" alt="黒い暖簾に白い鶴の紋が染め抜かれた一鶴の入口" width="1200" height="584" loading="lazy" decoding="async"></div>
                         <div class="info-map">
                             <iframe src="https://www.google.com/maps?q=%E9%A3%9F%E5%BD%A9%E9%85%92%E4%B8%80%E9%B6%B4+%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B1%E6%9C%AC%E7%94%BA2-16-8&z=16&hl=ja&output=embed" title="食彩酒 一鶴の地図（茨城県古河市東本町2-16-8）" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
                         </div>
@@ -876,7 +928,7 @@
                             友だち追加はこちら
                         </a>
                         <!-- 公式LINEのQRコード：line-qr.png（店主様提供）。PC・店頭掲示用に併記 -->
-                        <div class="line-qr"><img src="line-qr.png" alt="食彩酒 一鶴 公式LINE 友だち追加QRコード" loading="lazy" onerror="this.parentElement.classList.add('is-missing')"></div>
+                        <div class="line-qr"><img src="line-qr.png" alt="食彩酒 一鶴 公式LINE 友だち追加QRコード" width="600" height="598" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('is-missing')"></div>
                         <p class="qr-hint">パソコンでご覧の方はQRコードをスマホで読み取ってください</p>
                     </div>
                     <div class="sns-card reveal" data-delay="1">
@@ -950,18 +1002,18 @@
                     <div class="menu-cat">
                         <h4 class="menu-col-title serif">刺身・鮮魚</h4>
                         <ul class="menu-list">
-                            <li><span class="name">刺身盛り合わせ<small>その日の魚で仕立てるおまかせ</small></span><span class="dots"></span><span class="price">時価</span></li>
-                            <li><span class="name">大間まぐろ刺し<small>入荷日限定</small></span><span class="dots"></span><span class="price">時価</span></li>
+                            <li class="has-thumb"><img class="thumb" src="sashimi-mori.jpg" alt="食彩酒 一鶴 刺身盛り合わせ うに・まぐろ・貝類の盛り合わせ" width="1000" height="750" loading="lazy" decoding="async"><span class="name">刺身盛り合わせ<small>その日の魚で仕立てるおまかせ</small></span><span class="dots"></span><span class="price">時価</span></li>
+                            <li class="has-thumb"><img class="thumb" src="maguro-sashi.jpg" alt="食彩酒 一鶴 大間まぐろ刺し 赤身と中とろの盛り合わせ" width="753" height="1000" loading="lazy" decoding="async"><span class="name">大間まぐろ刺し<small>入荷日限定</small></span><span class="dots"></span><span class="price">時価</span></li>
                             <li><span class="name">旬の白身・貝・雲丹など</span><span class="dots"></span><span class="price">日替</span></li>
                         </ul>
                     </div>
                     <div class="menu-cat">
                         <h4 class="menu-col-title serif">焼物 魚貝類</h4>
                         <ul class="menu-list">
-                            <li><span class="name">今日の焼魚<small>一本焼き・本日の煮付けもこちらから</small></span><span class="dots"></span><span class="price">¥1,000〜</span></li>
+                            <li class="has-thumb"><span class="thumb-pair"><img src="ipponyaki.jpg" alt="食彩酒 一鶴 旬魚の一本焼き 塩をまとわせた一本焼き" width="1000" height="1000" loading="lazy" decoding="async"><img src="nitsuke.jpg" alt="食彩酒 一鶴 本日の煮付け 赤い魚の煮付け" width="480" height="640" loading="lazy" decoding="async"></span><span class="name">今日の焼魚<small>一本焼き・本日の煮付けもこちらから</small></span><span class="dots"></span><span class="price">¥1,000〜</span></li>
                             <li><span class="name">今日の焼貝</span><span class="dots"></span><span class="price">¥1,000〜</span></li>
                             <li><span class="name">ホッケ</span><span class="dots"></span><span class="price">¥900</span></li>
-                            <li><span class="name">サバ</span><span class="dots"></span><span class="price">¥900</span></li>
+                            <li class="has-thumb"><img class="thumb" src="yakizakana.jpg" alt="食彩酒 一鶴 炉端で焼いたサバの塩焼き" width="750" height="1000" loading="lazy" decoding="async"><span class="name">サバ</span><span class="dots"></span><span class="price">¥900</span></li>
                             <li><span class="name">明太子</span><span class="dots"></span><span class="price">¥800</span></li>
                             <li><span class="name">エビ焼</span><span class="dots"></span><span class="price">¥700</span></li>
                             <li><span class="name">うな肝</span><span class="dots"></span><span class="price">¥250</span></li>
@@ -970,7 +1022,7 @@
                     <div class="menu-cat">
                         <h4 class="menu-col-title serif">焼物 串</h4>
                         <ul class="menu-list">
-                            <li><span class="name">豚バラ</span><span class="dots"></span><span class="price">¥500</span></li>
+                            <li class="has-thumb"><img class="thumb" src="kushiyaki.jpg" alt="食彩酒 一鶴 レモンを添えた炉端の串焼き" width="480" height="640" loading="lazy" decoding="async"><span class="name">豚バラ</span><span class="dots"></span><span class="price">¥500</span></li>
                             <li><span class="name">つくね</span><span class="dots"></span><span class="price">¥350</span></li>
                             <li><span class="name">砂肝</span><span class="dots"></span><span class="price">¥300</span></li>
                             <li><span class="name">レバー</span><span class="dots"></span><span class="price">¥300</span></li>
@@ -1020,7 +1072,7 @@
                     <div class="menu-cat">
                         <h4 class="menu-col-title serif">店主特製ラーメン</h4>
                         <ul class="menu-list">
-                            <li><span class="name">醤油ラーメン</span><span class="dots"></span><span class="price">¥900</span></li>
+                            <li class="has-thumb"><img class="thumb" src="ramen.jpg" alt="食彩酒 一鶴 締めの自家製醤油ラーメン" width="528" height="700" loading="lazy" decoding="async"><span class="name">醤油ラーメン</span><span class="dots"></span><span class="price">¥900</span></li>
                             <li><span class="name">塩ラーメン</span><span class="dots"></span><span class="price">¥900</span></li>
                             <li><span class="name">トッピング<small>煮玉子¥150・ほうれん草¥150・チャーシュー¥350・白髪ねぎ¥350・バター¥100</small></span><span class="dots"></span><span class="price">¥100〜</span></li>
                         </ul>

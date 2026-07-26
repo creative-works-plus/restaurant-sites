@@ -8,8 +8,8 @@
 <meta property="og:title" content="宴会・コース（全26種）｜海鮮居酒屋 玖 -kyu-">
 <meta property="og:description" content="牡蠣コースから宴会・貸切・カラオケまで全26種のコースを税込価格で掲載。ご予算とご人数に合わせてお選びいただけます。">
 <meta property="og:type" content="website">
-<!-- og:image：実写 img/course-take.jpg を暫定使用。公開時は content をドメイン込みの絶対URL（例 https://creative-works-plus.github.io/restaurant-sites/kyu/img/course-take.jpg）に差し替えてください -->
-<meta property="og:image" content="img/course-take.jpg">
+<!-- og:image：実写 img/course-kaki-nama.jpg を暫定使用。公開時は content をドメイン込みの絶対URL（例 https://creative-works-plus.github.io/restaurant-sites/kyu/img/course-kaki-nama.jpg）に差し替えてください -->
+<meta property="og:image" content="img/course-kaki-nama.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0f1720">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -140,6 +140,8 @@
         background: var(--sumi);
     }
     .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* 写真内に焼き込まれた「※画像はイメージ」注記がcoverで不自然に切れないよう、上寄せでトリミング */
+    img[src$="banquet-spread2.jpg"] { object-position: 50% 20%; }
     .photo-frame.ratio-1x1 { aspect-ratio: 1 / 1; }
     .photo-frame.ratio-4x5 { aspect-ratio: 4 / 5; }
     .photo-frame.ratio-4x3 { aspect-ratio: 4 / 3; }
@@ -383,6 +385,12 @@
         .status-chip { display: inline-flex; }
     }
 
+    /* 900px未満（客の大半のスマホ）でも営業状況チップを表示。ヘッダーを折り返して2段目に配置 */
+    @media (max-width: 899px) {
+        .site-header { flex-wrap: wrap; row-gap: 10px; }
+        .status-chip { display: inline-flex; order: 3; flex-basis: 100%; justify-content: center; margin-left: 0; }
+    }
+
     @media (max-width: 1024px) {
         .course-grid { grid-template-columns: repeat(2, 1fr); }
         .course-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
@@ -403,6 +411,8 @@
         .footer-actions { flex-direction: column; }
         .footer-actions .btn { width: 100%; }
         .sticky-bar { display: flex; }
+        /* 追従予約バーの高さ分、本文末尾（フッター住所・©）が隠れないように余白を確保 */
+        body { padding-bottom: 68px; }
     }
 
     @media (min-width: 621px) {
@@ -486,7 +496,7 @@
                 <p class="page-hero-note">表示価格は全て税込です。最大88名までの貸切・カラオケ個室あり。駐車場50台完備。</p>
             </div>
             <div class="photo-frame ratio-4x3 reveal">
-                <img src="img/course-take.jpg" alt="牡蠣コースの熱々牡蠣鍋。土鍋仕立て" width="1000" height="1000" loading="eager" fetchpriority="high" decoding="async">
+                <img src="img/course-kaki-nama.jpg" alt="特大の生牡蠣に醤油を垂らすアップ。仕入れにこだわった鮮度抜群の牡蠣が自慢の看板メニュー" width="1200" height="1196" loading="eager" fetchpriority="high" decoding="async">
                 <span class="photo-caption">看板・牡蠣コース</span>
             </div>
         </div>
@@ -501,7 +511,7 @@
             <!-- 牡蠣コース -->
             <div class="group-block reveal">
                 <div class="group-banner">
-                    <img src="img/course-take.jpg" alt="牡蠣コースの熱々牡蠣鍋。土鍋仕立て" width="1000" height="1000" loading="lazy" decoding="async">
+                    <img src="img/course-kaki-nama.jpg" alt="特大の生牡蠣に醤油を垂らすアップ。鮮度抜群の牡蠣が主役の牡蠣コース" width="1200" height="1196" loading="lazy" decoding="async">
                     <span class="photo-caption">牡蠣コース｜熱々牡蠣鍋・浜焼き・フライ・天ぷらで牡蠣を堪能</span>
                 </div>
                 <div class="group-head">
@@ -568,7 +578,7 @@
             <!-- 飲放付き宴会コース -->
             <div class="group-block reveal">
                 <div class="group-banner">
-                    <img src="img/kanpai1.jpg" alt="生ビールで乾杯するひととき" width="1000" height="666" loading="lazy" decoding="async">
+                    <img src="img/kanpai1.jpg" alt="生ビールで乾杯するひととき" width="1300" height="866" loading="lazy" decoding="async">
                     <span class="photo-caption">飲み放題付き宴会コース｜梅・竹・松それぞれに飲み放題プランをご用意</span>
                 </div>
                 <div class="group-head">
@@ -658,7 +668,7 @@
             <!-- 女子会コース -->
             <div class="group-block reveal">
                 <div class="group-banner">
-                    <img src="img/course-joshikai.jpg" alt="女子会コースの華やかな料理とドリンク" width="1000" height="658" loading="lazy" decoding="async">
+                    <img src="img/course-joshikai.jpg" alt="女子会コースの華やかな料理とドリンク" width="1200" height="789" loading="lazy" decoding="async">
                     <span class="photo-caption">女子会コース｜見た目も華やかな一皿を揃えて</span>
                 </div>
                 <div class="group-head">
@@ -740,7 +750,7 @@
             <!-- カラオケ -->
             <div class="group-block reveal">
                 <div class="group-banner">
-                    <img src="img/karaoke.jpg" alt="カラオケ個室に設置されたカラオケ端末の画面" width="1000" height="990" loading="lazy" decoding="async">
+                    <img src="img/karaoke.jpg" alt="カラオケ個室に設置されたカラオケ端末の画面" width="950" height="940" loading="lazy" decoding="async">
                     <span class="photo-caption">カラオケ｜二次会の締めくくりに</span>
                 </div>
                 <div class="group-head">
@@ -768,7 +778,7 @@
             <!-- 牡蠣小屋コース -->
             <div class="group-block reveal">
                 <div class="group-banner">
-                    <img src="img/hamayaki.jpg" alt="炭火の網の上で焼く牡蠣とホタテ" width="1600" height="1600" loading="lazy" decoding="async">
+                    <img src="img/hamayaki.jpg" alt="炭火の網の上で焼く牡蠣とホタテ" width="1000" height="1000" loading="lazy" decoding="async">
                     <span class="photo-caption">牡蠣小屋コース｜炭火の浜焼きを、料理のみで</span>
                 </div>
                 <div class="group-head">

@@ -71,7 +71,7 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--kohaku);outline-offset:3px}
 
@@ -136,11 +136,24 @@ main,header,footer{position:relative;z-index:1}
   display:flex;align-items:center;justify-content:center;
   padding:110px 20px 70px;
   position:relative;
+  overflow:hidden;
   background:
     radial-gradient(ellipse 90% 60% at 70% 20%,rgba(217,162,75,.07),transparent 60%),
     linear-gradient(180deg,#232019 0%,var(--sumi) 70%);
 }
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  width:100%;height:100%;object-fit:cover;object-position:50% 35%;
+  opacity:.34;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(25,23,21,.5) 0%,rgba(25,23,21,.68) 40%,var(--sumi) 94%),
+    radial-gradient(ellipse 90% 60% at 70% 20%,rgba(217,162,75,.1),transparent 60%);
+}
 .hero-inner{
+  position:relative;z-index:1;
   display:flex;align-items:center;justify-content:center;
   gap:clamp(28px,7vw,90px);
   width:100%;max-width:1000px;
@@ -216,6 +229,9 @@ main,header,footer{position:relative;z-index:1}
   transform:rotate(45deg);flex-shrink:0;
 }
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero-photos{display:flex;gap:10px;width:100%;max-width:380px}
+.hero-photos img{height:90px;width:auto;flex:1;min-width:0;object-fit:cover;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+@media (max-width:720px){.hero-photos{max-width:340px;margin:0 auto}}
 .tel-large{
   display:inline-flex;flex-direction:column;align-items:center;gap:2px;
   background:var(--shu);color:#fff;
@@ -228,6 +244,7 @@ main,header,footer{position:relative;z-index:1}
 .tel-large .cap{font-size:.7rem;letter-spacing:.25em;opacity:.9}
 .hero-scroll{
   position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  z-index:1;
   font-size:.65rem;letter-spacing:.4em;color:var(--kami-dim);
   writing-mode:vertical-rl;
 }
@@ -272,7 +289,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
 
 /* ===== 名物（強み3つ） ===== */
 .meibutsu{background:var(--sumi-2)}
-.meibutsu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.meibutsu-grid{display:grid;grid-template-columns:1fr 1.22fr 1fr;gap:22px}
 .meibutsu-card{
   background:var(--sumi);
   border:1px solid var(--line);
@@ -304,6 +321,14 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
 .meibutsu-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .meibutsu-card:hover .ph img{transform:scale(1.05)}
 .meibutsu-card .body{padding:22px 22px 26px}
+.meibutsu-card--text .body{padding-top:26px}
+.meibutsu-card--text .tag{
+  display:inline-block;
+  font-family:var(--font-display);
+  font-size:.78rem;letter-spacing:.32em;
+  color:var(--kohaku);
+  margin-bottom:10px;
+}
 .meibutsu-card h3{
   font-family:var(--font-display);font-weight:400;
   font-size:1.2rem;letter-spacing:.1em;margin-bottom:8px;
@@ -331,6 +356,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
   display:flex;align-items:center;gap:14px;margin-bottom:14px;
 }
 .menu-cat h3::after{content:"";height:1px;flex:1;background:var(--line)}
+.cat-lead{width:38px;height:38px;border-radius:6px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.35)}
 .menu-list li{
   list-style:none;
   display:flex;align-items:baseline;gap:10px;
@@ -339,6 +365,15 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
   transition:background .3s,padding-left .3s;
 }
 .menu-list li:hover{background:rgba(240,233,220,.03);padding-left:8px}
+.menu-list li.has-ph{align-items:center;gap:14px}
+.menu-list li.has-ph .row{flex:1;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0}
+.menu-list .item-ph{
+  width:72px;height:72px;border-radius:6px;object-fit:cover;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .5s;
+}
+@media (hover:hover){
+  .menu-list li.has-ph:hover .item-ph{transform:scale(1.06)}
+}
 .menu-list .dots{flex:1;border-bottom:1px dotted rgba(240,233,220,.25);transform:translateY(-4px)}
 .menu-list .p{color:var(--kohaku);font-weight:500;white-space:nowrap;font-size:.92rem}
 .menu-list .sub{display:block;font-size:.76rem;color:var(--kami-dim);letter-spacing:.04em}
@@ -370,7 +405,8 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
 /* ===== 店内・席 ===== */
 .seats-flex{display:flex;gap:clamp(24px,5vw,56px);align-items:center}
 .seats-photo{flex:1.1;border-radius:8px;overflow:hidden}
-.seats-photo img{width:100%;height:100%;object-fit:cover}
+.seats-photo img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+@media (hover:hover){.seats-photo:hover img{transform:scale(1.04)}}
 .seats-text{flex:1}
 .seats-text p{color:var(--kami-dim);font-size:.94rem;margin-bottom:22px}
 .seat-types{display:grid;gap:12px}
@@ -403,6 +439,8 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
 .info-table dd small{color:var(--kami-dim);display:block;font-size:.78rem}
 .info-side{flex:1;display:flex;flex-direction:column;gap:16px}
 .info-side .ph{border-radius:8px;overflow:hidden}
+.info-side .ph img{transition:transform .5s}
+@media (hover:hover){.info-side .ph:hover img{transform:scale(1.03)}}
 .map-link{
   display:block;text-align:center;
   border:1px solid var(--line);border-radius:6px;
@@ -439,6 +477,27 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
 }
 .site-footer .copy{font-size:.68rem;color:rgba(168,158,143,.5);margin-top:14px;letter-spacing:.1em}
 
+/* ===== モバイル固定予約バー ===== */
+.mobile-cta{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;
+  display:none;
+  background:linear-gradient(180deg,rgba(25,23,21,.92),rgba(25,23,21,.98));
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-top:1px solid var(--line);
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  gap:10px;
+}
+.mobile-cta a{
+  flex:1;text-align:center;padding:12px 8px;border-radius:6px;
+  font-size:.85rem;letter-spacing:.08em;
+}
+.mobile-cta .call{background:var(--shu);color:#fff;font-weight:700;flex:1.6}
+.mobile-cta .map{border:1px solid var(--line);color:var(--kami)}
+@media (max-width:720px){
+  .mobile-cta{display:flex}
+  body{padding-bottom:76px}
+}
+
 /* ===== スクロール出現 ===== */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
 .reveal.on{opacity:1;transform:none}
@@ -474,6 +533,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
 
   <!-- ヒーロー -->
   <section class="hero" aria-label="メインビジュアル">
+    <img class="hero-bg" src="sign.jpg" alt="" width="640" height="360" fetchpriority="high" loading="eager" decoding="async">
     <div class="hero-inner">
       <div class="signboard" aria-hidden="true">
         <div class="seal-large">
@@ -500,6 +560,10 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
             <span class="cap">ご予約・お問い合わせ</span>
           </a>
         </div>
+        <div class="hero-photos">
+          <img src="yakitori-mori.jpg" alt="居酒屋ジャパンの焼き鳥盛り合わせ" loading="lazy" decoding="async" width="640" height="360">
+          <img src="maguro.jpg" alt="居酒屋ジャパンのまぐろ刺し" loading="lazy" decoding="async" width="480" height="640">
+        </div>
       </div>
     </div>
     <div class="hero-scroll" aria-hidden="true">たぐる</div>
@@ -516,23 +580,23 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
         </div>
       </div>
       <div class="meibutsu-grid">
-        <article class="meibutsu-card reveal">
-          <div class="ph ph-moji" aria-hidden="true"><span class="tate">醤油仕立て</span></div>
+        <article class="meibutsu-card meibutsu-card--text reveal">
           <div class="body">
+            <span class="tag">醤油仕立て</span>
             <h3>もつ煮込み <span class="price">400円</span></h3>
             <p>関東では珍しい醤油仕立て。じっくり煮込んだもつに味の染みたこんにゃく。まずはこれと一杯から。</p>
           </div>
         </article>
         <article class="meibutsu-card reveal">
-          <div class="ph"><img src="kushiyaki.jpg" alt="焼き鳥の盛り合わせ" loading="lazy" width="480" height="360"></div>
+          <div class="ph"><img src="kushiyaki.jpg" alt="焼き鳥の盛り合わせ" loading="lazy" decoding="async" width="480" height="640"></div>
           <div class="body">
             <h3>焼き鳥 <span class="price">一本から</span></h3>
             <p>ねぎま、つくね、タレの照りも香ばしく。一度食べると止まらなくなる、と評判の串の数々。</p>
           </div>
         </article>
-        <article class="meibutsu-card reveal">
-          <div class="ph ph-moji" aria-hidden="true"><span class="tate">手包み</span></div>
+        <article class="meibutsu-card meibutsu-card--text reveal">
           <div class="body">
+            <span class="tag">手包み</span>
             <h3>手作り焼き餃子 <span class="price">350円</span></h3>
             <p>外はかりかり、中はふっくらジューシー。ビールのお供に迷ったらまずこの一皿。</p>
           </div>
@@ -553,13 +617,13 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
       </div>
       <div class="menu-grid reveal">
         <div class="menu-cat">
-          <h3>肴</h3>
+          <h3><img class="cat-lead" src="otsumami.jpg" alt="" loading="lazy" decoding="async" width="480" height="640">肴</h3>
           <ul class="menu-list">
-            <li><span>枝豆</span><span class="dots"></span><span class="p">320円</span></li>
+            <li class="has-ph"><img class="item-ph" src="edamame.jpg" alt="居酒屋ジャパンの枝豆" loading="lazy" decoding="async" width="640" height="360"><span class="row"><span>枝豆</span><span class="dots"></span><span class="p">320円</span></span></li>
             <li><span>タコわさび</span><span class="dots"></span><span class="p">320円</span></li>
             <li><span>もつ煮込み<span class="sub">醤油仕立て・名物</span></span><span class="dots"></span><span class="p">400円</span></li>
             <li><span>手作り焼き餃子<span class="sub">外かりかり、中ジューシー</span></span><span class="dots"></span><span class="p">350円</span></li>
-            <li><span>お刺身<span class="sub">まぐろ・その日の魚（日替り）</span></span></li>
+            <li class="has-ph"><img class="item-ph" src="sashimi.jpg" alt="居酒屋ジャパンのお刺身" loading="lazy" decoding="async" width="640" height="360"><span class="row"><span>お刺身<span class="sub">まぐろ・その日の魚（日替り）</span></span></span></li>
           </ul>
         </div>
         <div class="menu-cat">
@@ -567,7 +631,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
           <ul class="menu-list">
             <li><span>ねぎま串<span class="sub">一本からどうぞ</span></span></li>
             <li><span>つくね串<span class="sub">一本からどうぞ</span></span></li>
-            <li><span>焼き鳥 盛り合わせ<span class="sub">迷ったらこれ</span></span></li>
+            <li class="has-ph"><img class="item-ph" src="kushiyaki.jpg" alt="居酒屋ジャパンの焼き鳥盛り合わせ" loading="lazy" decoding="async" width="480" height="640"><span class="row"><span>焼き鳥 盛り合わせ<span class="sub">迷ったらこれ</span></span></span></li>
             <li><span>鉄板焼き<span class="sub">豚肉ともやしの旨辛炒め ほか</span></span></li>
           </ul>
         </div>
@@ -583,7 +647,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
           <h3>お飲み物</h3>
           <ul class="menu-list">
             <li><span>生ビール</span></li>
-            <li><span>瓶ビール<span class="sub">エビス・サッポロ黒ラベル</span></span></li>
+            <li class="has-ph"><img class="item-ph" src="yebisu.jpg" alt="居酒屋ジャパンのエビスビール" loading="lazy" decoding="async" width="360" height="640"><span class="row"><span>瓶ビール<span class="sub">エビス・サッポロ黒ラベル</span></span></span></li>
             <li><span>焼酎<span class="sub">黒霧島 ほか</span></span></li>
             <li><span>日本酒・カクテル</span></li>
           </ul>
@@ -604,14 +668,14 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
         </div>
       </div>
       <div class="gallery-grid reveal">
-        <figure class="g-hero"><img src="maguro.jpg" alt="まぐろの刺身" loading="lazy" width="480" height="640"><figcaption>まぐろ刺し</figcaption></figure>
-        <figure><img src="yakitori-mori.jpg" alt="焼き鳥盛り合わせ" loading="lazy" width="640" height="360"><figcaption>焼き鳥</figcaption></figure>
-        <figure><img src="edamame.jpg" alt="枝豆" loading="lazy" width="640" height="360"><figcaption>枝豆 320円</figcaption></figure>
-        <figure><img src="sashimi.jpg" alt="白身魚の刺身" loading="lazy" width="640" height="360"><figcaption>お刺身</figcaption></figure>
-        <figure><img src="otsumami.jpg" alt="瓶ビールとお通し" loading="lazy" width="480" height="640"><figcaption>お通しと一杯</figcaption></figure>
-        <figure><img src="teppan.jpg" alt="豚肉ともやしの鉄板焼き" loading="lazy" width="640" height="360"><figcaption>鉄板焼き</figcaption></figure>
-        <figure class="g-wide"><img src="nabe.jpg" alt="野菜と豚肉の鍋料理" loading="lazy" width="640" height="360"><figcaption>あったか鍋</figcaption></figure>
-        <figure><img src="yebisu.jpg" alt="カウンターとエビスビール" loading="lazy" width="480" height="640"><figcaption>カウンターにて</figcaption></figure>
+        <figure class="g-hero"><img src="maguro.jpg" alt="まぐろの刺身" loading="lazy" decoding="async" width="480" height="640"><figcaption>まぐろ刺し</figcaption></figure>
+        <figure class="g-wide"><img src="yakitori-mori.jpg" alt="焼き鳥盛り合わせ" loading="lazy" decoding="async" width="640" height="360"><figcaption>焼き鳥</figcaption></figure>
+        <figure><img src="edamame.jpg" alt="枝豆" loading="lazy" decoding="async" width="640" height="360"><figcaption>枝豆 320円</figcaption></figure>
+        <figure><img src="sashimi.jpg" alt="白身魚の刺身" loading="lazy" decoding="async" width="640" height="360"><figcaption>お刺身</figcaption></figure>
+        <figure><img src="otsumami.jpg" alt="瓶ビールとお通し" loading="lazy" decoding="async" width="480" height="640"><figcaption>お通しと一杯</figcaption></figure>
+        <figure class="g-wide"><img src="teppan.jpg" alt="豚肉ともやしの鉄板焼き" loading="lazy" decoding="async" width="640" height="360"><figcaption>鉄板焼き</figcaption></figure>
+        <figure class="g-wide"><img src="nabe.jpg" alt="野菜と豚肉の鍋料理" loading="lazy" decoding="async" width="640" height="360"><figcaption>あったか鍋</figcaption></figure>
+        <figure><img src="yebisu.jpg" alt="カウンターとエビスビール" loading="lazy" decoding="async" width="360" height="640"><figcaption>カウンターにて</figcaption></figure>
       </div>
     </div>
   </section>
@@ -628,7 +692,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
       </div>
       <div class="seats-flex reveal">
         <div class="seats-photo">
-          <img src="interior.jpg" alt="小上がりの座敷とカウンターのある店内" loading="lazy" width="640" height="360">
+          <img src="interior.jpg" alt="小上がりの座敷とカウンターのある店内" loading="lazy" decoding="async" width="640" height="360">
         </div>
         <div class="seats-text">
           <p>
@@ -658,7 +722,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
         <div class="info-table">
           <dl>
             <dt>店名</dt><dd>居酒屋ジャパン</dd>
-            <dt>住所</dt><dd>〒306-0012 茨城県古河市東1-4-6<small>JR宇都宮線 古河駅東口より徒歩3分</small></dd>
+            <dt>住所</dt><dd>〒306-0012 茨城県古河市<span style="white-space:nowrap">東1-4-6</span><small>JR宇都宮線 古河駅東口より徒歩3分</small></dd>
             <dt>電話</dt><dd><a href="tel:0280-31-1707">0280-31-1707</a><small>ご予約承ります</small></dd>
             <dt>営業時間</dt><dd>月〜土 18:00 − 24:00</dd>
             <dt>定休日</dt><dd>日曜日</dd>
@@ -666,7 +730,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
           </dl>
         </div>
         <div class="info-side">
-          <div class="ph"><img src="sign.jpg" alt="コンクリート壁に掲げられた居酒屋ジャパンの看板" loading="lazy" width="640" height="360"></div>
+          <div class="ph"><img src="sign.jpg" alt="コンクリート壁に掲げられた居酒屋ジャパンの看板" loading="lazy" decoding="async" width="640" height="360"></div>
           <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=%E5%B1%85%E9%85%92%E5%B1%8B%E3%82%B8%E3%83%A3%E3%83%91%E3%83%B3+%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B11-4-6" target="_blank" rel="noopener">Google マップで開く →</a>
         </div>
       </div>
@@ -690,11 +754,16 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
 <footer class="site-footer">
   <div class="fbrand">居酒屋ジャパン</div>
   <address>
-    茨城県古河市東1-4-6 ／ 古河駅東口 徒歩3分<br>
+    茨城県古河市<span style="white-space:nowrap">東1-4-6</span> ／ 古河駅東口 徒歩3分<br>
     月〜土 18:00−24:00 ・ 日曜定休
   </address>
   <p class="copy">© 居酒屋ジャパン</p>
 </footer>
+
+<div class="mobile-cta">
+  <a class="call" href="tel:0280-31-1707">電話で予約</a>
+  <a class="map" href="https://www.google.com/maps/search/?api=1&query=%E5%B1%85%E9%85%92%E5%B1%8B%E3%82%B8%E3%83%A3%E3%83%91%E3%83%B3+%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B11-4-6" target="_blank" rel="noopener">地図を見る</a>
+</div>
 
 <script>
 (function(){

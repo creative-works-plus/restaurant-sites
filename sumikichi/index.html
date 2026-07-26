@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/hero-yakitori.jpg" fetchpriority="high">
 
 <script type="application/ld+json">
 {
@@ -71,9 +72,16 @@ body{
   letter-spacing:.04em;
   -webkit-font-smoothing:antialiased;
 }
-img{max-width:100%;display:block}
+img{max-width:100%;display:block;height:auto}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
+
+/* 炭のざらつき（P7・極薄ノイズ／画像ファイルは増やさない） */
+body::before{
+  content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.045;mix-blend-mode:overlay;
+}
 
 /* ---------- 共通パーツ ---------- */
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
@@ -117,6 +125,7 @@ h2{
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
 }
 
 /* ---------- ヘッダー ---------- */
@@ -159,17 +168,18 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
 }
 .hero-bg{
   position:absolute;inset:0;
-  background:url("images/hero-sashimi.jpg") center 40%/cover no-repeat;
+  background:url("images/hero-yakitori.jpg") 48% 46%/cover no-repeat;
 }
 .hero-bg::after{
   content:"";position:absolute;inset:0;
   background:
+    linear-gradient(0deg,rgba(224,80,31,.46) 0%,rgba(224,80,31,.16) 17%,transparent 40%),
     linear-gradient(105deg,rgba(23,20,18,.62) 0%,rgba(23,20,18,.22) 46%,rgba(23,20,18,.02) 75%),
-    linear-gradient(rgba(23,20,18,.12),rgba(23,20,18,.58) 94%);
+    linear-gradient(rgba(23,20,18,.08),rgba(23,20,18,.64) 92%);
 }
 .hero-inner{
   position:relative;z-index:2;width:100%;
-  max-width:1080px;margin:0 auto;padding:120px 24px 90px;
+  max-width:1080px;margin:0 auto;padding:132px 24px 100px;
   display:flex;flex-wrap:wrap;align-items:flex-end;gap:48px;
 }
 /* 縦書きキャッチ — この店の看板 */
@@ -244,40 +254,44 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
   color:var(--kinari);margin-top:30px;
 }
 
-/* ---------- こだわり ---------- */
+/* ---------- こだわり（P3 エディトリアル3連・左右交互） ---------- */
 .pillars{background:var(--sumi-2)}
-.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
-.pillar{
-  background:var(--sumi);border:1px solid var(--line);border-radius:2px;
-  overflow:hidden;display:flex;flex-direction:column;
-  transition:transform .35s ease,border-color .35s ease;
+.pillars-editorial{display:flex;flex-direction:column;gap:72px;margin-top:60px}
+.pillar-row{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center}
+.pillar-row.reverse .pillar-photo{order:2}
+.pillar-row.reverse .pillar-text{order:1}
+.pillar-photo{
+  overflow:hidden;border-radius:2px;
+  box-shadow:20px 20px 0 -3px rgba(224,80,31,.16);
 }
-.pillar:hover{transform:translateY(-6px);border-color:rgba(224,80,31,.55)}
-.pillar-img{aspect-ratio:4/3;overflow:hidden}
-.pillar-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
-.pillar:hover .pillar-img img{transform:scale(1.05)}
-.pillar-body{padding:26px 26px 30px}
+.pillar-photo img{
+  width:100%;height:auto;display:block;
+  transition:transform .6s ease,filter .6s ease;filter:saturate(.98);
+}
+@media (hover:hover){
+  .pillar-row:hover .pillar-photo img{transform:scale(1.045);filter:saturate(1.08)}
+}
 .pillar-no{
-  font-family:var(--serif);font-size:.78rem;letter-spacing:.3em;color:var(--okibi-2);
+  font-family:var(--serif);font-size:.82rem;letter-spacing:.32em;color:var(--okibi-2);
 }
-.pillar h3{
-  font-family:var(--serif);font-weight:500;font-size:1.25rem;
-  letter-spacing:.14em;margin:8px 0 12px;
+.pillar-row h3{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.35rem,2.6vw,1.6rem);
+  letter-spacing:.14em;margin:12px 0 16px;
 }
-.pillar p{font-size:.88rem;color:var(--kinari-dim)}
+.pillar-row p{font-size:.92rem;color:var(--kinari-dim);max-width:32em}
 /* SUPER COLD の柱だけ「氷」に温度反転 */
-.pillar.cold:hover{border-color:rgba(168,202,212,.6)}
-.pillar.cold .pillar-no{color:var(--kori)}
-.pillar.cold h3 span{color:var(--kori)}
+.pillar-row.cold .pillar-photo{box-shadow:20px 20px 0 -3px rgba(168,202,212,.24)}
+.pillar-row.cold .pillar-no{color:var(--kori)}
+.pillar-row.cold h3 span{color:var(--kori)}
 
 /* ---------- お品書き ---------- */
 .menu-note{color:var(--kinari-dim);font-size:.82rem;margin-top:16px}
 .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 48px;margin-top:54px}
 .dish{
-  display:grid;grid-template-columns:112px 1fr;gap:20px;align-items:center;
-  padding:16px 0;border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:88px 1fr;gap:18px;align-items:center;
+  padding:14px 0;border-bottom:1px solid var(--line);
 }
-.dish-img{width:112px;height:112px;overflow:hidden;border-radius:2px}
+.dish-img{width:88px;height:88px;overflow:hidden;border-radius:2px}
 .dish-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
 .dish:hover .dish-img img{transform:scale(1.08)}
 .dish h3{
@@ -297,12 +311,16 @@ nav a:hover,nav a:focus-visible{color:var(--okibi-2)}
 /* ---------- ギャラリー ---------- */
 .gallery{background:var(--sumi-2)}
 .gallery-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:54px;
+  display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:dense;gap:10px;margin-top:54px;
 }
 .gallery-grid figure{overflow:hidden;border-radius:2px;aspect-ratio:1/1}
 .gallery-grid figure.wide{grid-column:span 2;aspect-ratio:2/1}
+.gallery-grid figure.tall{grid-row:span 2;aspect-ratio:1/2}
+.gallery-grid figure.epic{grid-column:1 / -1;aspect-ratio:3/1}
 .gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,filter .6s ease;filter:saturate(.96)}
-.gallery-grid figure:hover img{transform:scale(1.06);filter:saturate(1.08)}
+@media (hover:hover){
+  .gallery-grid figure:hover img{transform:scale(1.06);filter:saturate(1.08)}
+}
 
 /* ---------- 口コミの帯（生成りの抜け） ---------- */
 .voice{background:var(--kinari);color:var(--sumi);text-align:center;padding:88px 24px}
@@ -375,13 +393,17 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
 /* ---------- レスポンシブ ---------- */
 @media (max-width:900px){
   .about .wrap,.info .wrap{grid-template-columns:1fr;gap:44px}
-  .pillars-grid{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}
+  .pillars-editorial{gap:44px}
+  .pillar-row{grid-template-columns:1fr;gap:20px}
+  .pillar-row.reverse .pillar-photo{order:0}
+  .pillar-row.reverse .pillar-text{order:1}
   .menu-grid{grid-template-columns:1fr;gap:6px}
   .gallery-grid{grid-template-columns:repeat(2,1fr)}
   nav{display:none}
 }
 @media (max-width:640px){
   section{padding:68px 0}
+  .hero{min-height:88svh}
   .hero-inner{flex-direction:row;align-items:flex-end;gap:14px;padding:100px 22px 96px}
   .hero-catch{height:5.2em;letter-spacing:.22em}
   .cta-main{padding:12px 18px}
@@ -389,11 +411,29 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
   .cta-sub{padding:12px 18px}
   .tel-btn{padding:8px 13px;font-size:.78rem}
   .closing h2{font-size:1.42rem;letter-spacing:.1em}
-  .dish{grid-template-columns:88px 1fr;gap:14px}
-  .dish-img{width:88px;height:88px}
+  .dish{grid-template-columns:76px 1fr;gap:14px}
+  .dish-img{width:76px;height:76px}
   .dish.featured{grid-template-columns:120px 1fr}
   .dish.featured .dish-img{width:120px;height:120px}
   .news .wrap{flex-direction:column;gap:8px}
+}
+
+/* ---------- スマホ固定予約バー ---------- */
+.mobile-reserve-bar{display:none}
+@media (max-width:768px){
+  body{padding-bottom:64px}
+  .mobile-reserve-bar{
+    display:flex;position:fixed;left:0;right:0;bottom:0;z-index:200;
+    background:rgba(23,20,18,.97);border-top:1px solid var(--line);
+  }
+  .mobile-reserve-bar a{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    padding:9px 6px 11px;font-size:.66rem;letter-spacing:.08em;color:var(--kinari-dim);
+    border-right:1px solid var(--line);
+  }
+  .mobile-reserve-bar a:last-child{border-right:none}
+  .mobile-reserve-bar a.primary{color:#fff;background:linear-gradient(135deg,var(--okibi),#c23e12)}
+  .mobile-reserve-bar .icon{font-size:1.05rem;line-height:1}
 }
 </style>
 </head>
@@ -420,7 +460,7 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
 
   <!-- ヒーロー -->
   <section class="hero" aria-label="メインビジュアル">
-    <div class="hero-bg" role="img" aria-label="ヒラメの刺身盛り合わせ"></div>
+    <div class="hero-bg" role="img" aria-label="炭火でじっくり焼き上げる串"></div>
     <div class="hero-inner">
       <h1 class="hero-catch">炭火と、<em>刺身</em>と。</h1>
       <div class="hero-sub">
@@ -453,7 +493,7 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
   <section class="about" id="about">
     <div class="wrap">
       <figure class="about-photo reveal">
-        <img src="images/yakitori-tare.jpg" alt="炭火で焼き上げたタレの焼き鳥" loading="lazy">
+        <img src="images/yakitori-tare.jpg" alt="炭火で焼き上げたタレの焼き鳥" width="750" height="1000" loading="lazy" decoding="async">
       </figure>
       <div class="reveal">
         <span class="eyebrow">About Us</span>
@@ -474,26 +514,32 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
         <h2>炭きちの、三つのこだわり</h2>
         <div class="skewer" aria-hidden="true"></div>
       </div>
-      <div class="pillars-grid">
-        <article class="pillar reveal">
-          <div class="pillar-img"><img src="images/hero-yakitori.jpg" alt="炭火焼きの串" loading="lazy"></div>
-          <div class="pillar-body">
+      <div class="pillars-editorial">
+        <article class="pillar-row reveal">
+          <figure class="pillar-photo">
+            <img src="images/kushi-mori.jpg" alt="炭火で焼き上げた串の二本盛り" width="1000" height="562" loading="lazy" decoding="async">
+          </figure>
+          <div class="pillar-text">
             <span class="pillar-no">其の一</span>
             <h3>炭火の串</h3>
             <p>強火の遠火でじっくりと。炭の香りをまとった焼き鳥・焼きとんを、タレと塩でどうぞ。</p>
           </div>
         </article>
-        <article class="pillar reveal">
-          <div class="pillar-img"><img src="images/sashimi-tako.jpg" alt="タコの刺身" loading="lazy"></div>
-          <div class="pillar-body">
+        <article class="pillar-row reverse reveal">
+          <figure class="pillar-photo">
+            <img src="images/sashimi-hirame.jpg" alt="その日仕入れたヒラメの刺身盛り合わせ" width="1000" height="749" loading="lazy" decoding="async">
+          </figure>
+          <div class="pillar-text">
             <span class="pillar-no">其の二</span>
             <h3>その日の魚</h3>
             <p>タコ、ヒラメ、しめ鯖。その日の仕入れで内容が変わる刺身は、まず黒板をご覧ください。</p>
           </div>
         </article>
-        <article class="pillar cold reveal">
-          <div class="pillar-img"><img src="images/beer-supercold.jpg" alt="氷点下のスーパードライ SUPER COLD" loading="lazy"></div>
-          <div class="pillar-body">
+        <article class="pillar-row cold reveal">
+          <figure class="pillar-photo">
+            <img src="images/beer-supercold.jpg" alt="氷点下のスーパードライ SUPER COLD" width="562" height="1000" loading="lazy" decoding="async">
+          </figure>
+          <div class="pillar-text">
             <span class="pillar-no">其の三</span>
             <h3><span>氷点下の一杯</span></h3>
             <p>スーパードライ「SUPER COLD」認定店。4℃未満のキンキンに冷えた一杯を、炭火の熱と一緒に。</p>
@@ -514,45 +560,80 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
       </div>
       <div class="menu-grid">
         <div class="dish featured reveal">
-          <div class="dish-img"><img src="images/wagyu-tataki.jpg" alt="和牛タタキ" loading="lazy"></div>
+          <div class="dish-img"><img src="images/wagyu-tataki.jpg" alt="和牛タタキ" width="1000" height="750" loading="lazy" decoding="async"></div>
           <div>
             <h3>和牛タタキ <span class="tag">名物</span></h3>
             <p>表面だけを香ばしく炙り、薬味と一緒に。お客様から「絶品」の声をいただく一皿。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="images/sashimi-hirame.jpg" alt="ヒラメの刺身" loading="lazy"></div>
+          <div class="dish-img"><img src="images/kushi-tare2.jpg" alt="炭火で焼いたタレの焼き鳥とレモン" width="1000" height="562" loading="lazy" decoding="async"></div>
           <div>
-            <h3>刺身盛り合わせ <span class="tag">本日の魚</span></h3>
-            <p>ヒラメ、タコなど、その日いちばんの魚を少しずつ。</p>
+            <h3>焼き鳥 たれ</h3>
+            <p>甘辛いタレをまとわせて、香ばしく一本ずつ。レモンを添えて。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="images/yakitori-shio.jpg" alt="焼き鳥 塩" loading="lazy"></div>
+          <div class="dish-img"><img src="images/yakitori-shio.jpg" alt="焼き鳥 塩" width="1000" height="562" loading="lazy" decoding="async"></div>
           <div>
-            <h3>焼き鳥（タレ・塩）</h3>
-            <p>炭火の定番。一本ずつ、焼き加減を見ながらお出しします。</p>
+            <h3>焼き鳥 しお</h3>
+            <p>炭火の定番。素材そのままの旨みを塩でシンプルに。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="images/isobe-age.jpg" alt="大和芋の磯辺揚げ" loading="lazy"></div>
+          <div class="dish-img"><img src="images/kushi-lemon.jpg" alt="串焼きとレモン" width="749" height="1000" loading="lazy" decoding="async"></div>
+          <div>
+            <h3>串盛り レモン添え</h3>
+            <p>香ばしく焼き上げた串に、レモンを添えて。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="images/yakiton-tare.jpg" alt="焼きとん タレ" width="1000" height="562" loading="lazy" decoding="async"></div>
+          <div>
+            <h3>焼きとん たれ</h3>
+            <p>炭火でじっくり焼き上げた豚串を、甘辛タレで。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="images/atsuage.jpg" alt="厚揚げ焼き" width="1000" height="562" loading="lazy" decoding="async"></div>
+          <div>
+            <h3>厚揚げ焼き</h3>
+            <p>外は香ばしく、中はとろり。お酒がすすむ一皿。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="images/isobe-age.jpg" alt="大和芋の磯辺揚げ" width="750" height="1000" loading="lazy" decoding="async"></div>
           <div>
             <h3>大和芋の磯辺揚げ <span class="tag">人気</span></h3>
             <p>外はさっくり、中はふわとろ。磯の香りが日本酒を呼びます。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="images/shimesaba.jpg" alt="しめ鯖" loading="lazy"></div>
+          <div class="dish-img"><img src="images/ebi-fry.jpg" alt="エビフライ" width="1000" height="562" loading="lazy" decoding="async"></div>
+          <div>
+            <h3>エビフライ</h3>
+            <p>揚げ物もぬかりなく。ビールのお供にどうぞ。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="images/shimesaba.jpg" alt="しめ鯖" width="1000" height="748" loading="lazy" decoding="async"></div>
           <div>
             <h3>しめ鯖</h3>
             <p>締め加減は浅めに、鯖の旨みを残して。</p>
           </div>
         </div>
         <div class="dish reveal">
-          <div class="dish-img"><img src="images/ebi-fry.jpg" alt="エビフライ" loading="lazy"></div>
+          <div class="dish-img"><img src="images/sashimi-tako.jpg" alt="タコ刺し" width="1000" height="749" loading="lazy" decoding="async"></div>
           <div>
-            <h3>エビフライ</h3>
-            <p>揚げ物もぬかりなく。ビールのお供にどうぞ。</p>
+            <h3>タコ刺し</h3>
+            <p>わさびと薬味を添えた、タコの刺身。</p>
+          </div>
+        </div>
+        <div class="dish reveal">
+          <div class="dish-img"><img src="images/sashimi-hirame.jpg" alt="ヒラメの刺身" width="1000" height="749" loading="lazy" decoding="async"></div>
+          <div>
+            <h3>刺身盛り合わせ <span class="tag">本日の魚</span></h3>
+            <p>ヒラメ、タコなど、その日いちばんの魚を少しずつ。</p>
           </div>
         </div>
       </div>
@@ -568,16 +649,17 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
         <div class="skewer" aria-hidden="true"></div>
       </div>
       <div class="gallery-grid reveal">
-        <figure class="wide"><img src="images/sashimi-hirame.jpg" alt="ヒラメの刺身盛り" loading="lazy"></figure>
-        <figure><img src="images/kushi-mori.jpg" alt="串焼き二本盛り" loading="lazy"></figure>
-        <figure><img src="images/yakiton-tare.jpg" alt="焼きとん タレ" loading="lazy"></figure>
-        <figure><img src="images/drink-highball.jpg" alt="ハイボールとお通し" loading="lazy"></figure>
-        <figure><img src="images/kushi-lemon.jpg" alt="串焼きとレモン" loading="lazy"></figure>
-        <figure class="wide"><img src="images/wagyu-tataki.jpg" alt="和牛タタキ" loading="lazy"></figure>
-        <figure><img src="images/atsuage.jpg" alt="厚揚げ焼き" loading="lazy"></figure>
-        <figure><img src="images/kushi-tare2.jpg" alt="タレ串" loading="lazy"></figure>
-        <figure><img src="images/sashimi-tako.jpg" alt="タコ刺し" loading="lazy"></figure>
-        <figure><img src="images/beer-supercold.jpg" alt="キンキンに冷えた生ビール" loading="lazy"></figure>
+        <figure class="epic"><img src="images/hero-sashimi.jpg" alt="ヒラメの刺身盛り合わせ" width="2400" height="755" loading="lazy" decoding="async"></figure>
+        <figure class="wide"><img src="images/wagyu-tataki.jpg" alt="和牛タタキ" width="1000" height="750" loading="lazy" decoding="async"></figure>
+        <figure class="tall"><img src="images/beer-supercold.jpg" alt="キンキンに冷えたSUPER COLD" width="562" height="1000" loading="lazy" decoding="async"></figure>
+        <figure><img src="images/kushi-mori.jpg" alt="串焼き二本盛り" width="1000" height="562" loading="lazy" decoding="async"></figure>
+        <figure><img src="images/yakiton-tare.jpg" alt="焼きとん タレ" width="1000" height="562" loading="lazy" decoding="async"></figure>
+        <figure><img src="images/drink-highball.jpg" alt="ハイボールとお通し" width="800" height="675" loading="lazy" decoding="async"></figure>
+        <figure><img src="images/kushi-lemon.jpg" alt="串焼きとレモン" width="749" height="1000" loading="lazy" decoding="async"></figure>
+        <figure><img src="images/atsuage.jpg" alt="厚揚げ焼き" width="1000" height="562" loading="lazy" decoding="async"></figure>
+        <figure><img src="images/kushi-tare2.jpg" alt="タレ串" width="1000" height="562" loading="lazy" decoding="async"></figure>
+        <figure><img src="images/sashimi-tako.jpg" alt="タコ刺し" width="1000" height="749" loading="lazy" decoding="async"></figure>
+        <figure><img src="images/sashimi-hirame.jpg" alt="ヒラメの刺身" width="1000" height="749" loading="lazy" decoding="async"></figure>
       </div>
     </div>
   </section>
@@ -612,7 +694,7 @@ footer small{display:block;margin-top:14px;color:var(--kinari-dim);font-size:.7r
         <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B1%E6%9C%AC%E7%94%BA1-3-5+%E7%82%AD%E3%81%8D%E3%81%A1" target="_blank" rel="noopener">Google マップで開く →</a>
       </div>
       <figure class="info-photo reveal">
-        <img src="images/drink-highball.jpg" alt="カウンターでの一杯とお通し" loading="lazy">
+        <img src="images/drink-highball.jpg" alt="カウンターでの一杯とお通し" width="800" height="675" loading="lazy" decoding="async">
         <figcaption>カウンター中心の18席。お一人様も歓迎です。</figcaption>
       </figure>
       <figure class="info-map reveal">
@@ -661,5 +743,10 @@ const io = new IntersectionObserver(entries => {
 }, {threshold: .12});
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
+
+<nav class="mobile-reserve-bar" aria-label="スマホ用予約バー">
+  <a class="primary" href="tel:0280310366"><span class="icon" aria-hidden="true">📞</span>電話で予約</a>
+  <a href="https://www.google.com/maps/search/?api=1&query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9D%B1%E6%9C%AC%E7%94%BA1-3-5+%E7%82%AD%E3%81%8D%E3%81%A1" target="_blank" rel="noopener"><span class="icon" aria-hidden="true">📍</span>地図を見る</a>
+</nav>
 </body>
 </html>

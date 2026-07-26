@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>居酒屋 こんちき｜茨城県古河市下辺見の隠れ家</title>
+    <title>居酒屋 こんちき - 公式サイト｜茨城県古河市下辺見の隠れ家居酒屋</title>
+    <meta name="theme-color" content="#0d0d0d">
     <meta name="description" content="茨城県古河市下辺見の隠れ家居酒屋「こんちき」。岩手県産地養鶏の串焼き、手作りのおつまみ、季節の地酒を揃えています。ご予約はお電話にて（0280-33-7762）。">
     <meta property="og:title" content="居酒屋 こんちき｜古河市下辺見の隠れ家">
     <meta property="og:description" content="地養鶏の串焼きと手作りのおつまみ、季節の地酒が楽しめる古河市の隠れ家居酒屋。">
@@ -33,6 +34,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 全画面に常時表示される背景写真（実質のヒーロー画像）。最優先で先読みする -->
+    <link rel="preload" as="image" href="10081227700928758642.jpeg" fetchpriority="high">
 
     <style>
         /* =========================================
@@ -50,6 +53,9 @@
         }
 
         *, *::before, *::after { box-sizing: border-box; }
+        /* img全体のグローバルルール。width/height属性による意図しない縦伸びを防ぎ、
+           各所のCSS（aspect-ratio・width:100%等）を正しく効かせる */
+        img { display: block; max-width: 100%; height: auto; }
         html { scroll-behavior: smooth; }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
@@ -107,6 +113,20 @@
             height: 100vh;
             background: linear-gradient(180deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.42) 32%, rgba(0,0,0,0.42) 62%, rgba(0,0,0,0.88) 100%);
             z-index: 1;
+        }
+
+        /* 極薄のノイズ質感（炭のざらつきの気配）。画像ファイルは増やさず、静止したまま常時表示 */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.045;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
         /* =========================================
@@ -399,6 +419,7 @@
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+            grid-auto-flow: dense;
             gap: 1.4rem;
         }
 
@@ -424,6 +445,12 @@
             transition: transform 0.6s ease;
         }
         .gallery-item:hover img { transform: scale(1.04); }
+
+        /* モザイク配置：写真1枚を大きく見せる（縦横比は変えず、コマの面積だけ変える） */
+        .gallery-item--wide { grid-column: span 2; }
+        .gallery-item--wide img { aspect-ratio: 3 / 2; }
+        .gallery-item--full { grid-column: 1 / -1; }
+        .gallery-item--full img { aspect-ratio: 2 / 1; }
 
         .gallery-item figcaption {
             margin-top: 0.7rem;
@@ -461,6 +488,114 @@
             font-size: 1.4rem;
             font-weight: 700;
             letter-spacing: 0.08em;
+        }
+
+        /* =========================================
+           地酒セクション（トップページ・P3エディトリアル）
+        ========================================= */
+        .jizake-section {
+            width: 100%;
+            max-width: 1050px;
+            margin: 1rem auto 1.5rem;
+        }
+
+        .jizake-section h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 0.35em;
+            margin: 0 0 0.9rem;
+            padding-bottom: 0.9rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+        }
+        .jizake-section h2::after {
+            content: "";
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 48px; height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+        }
+
+        .jizake-section .lead-text {
+            text-align: center;
+            font-size: 0.92rem;
+            color: var(--text-mute);
+            letter-spacing: 0.15em;
+            margin: 0 0 2.4rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+        }
+
+        .jizake-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2.6rem;
+        }
+
+        .jizake-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .jizake-row .photo-frame {
+            display: block;
+            overflow: hidden;
+            border: 1px solid var(--line-soft);
+            border-radius: 4px;
+            background: rgba(15, 15, 15, 0.6);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+        }
+
+        .jizake-row .photo-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .jizake-text p {
+            margin: 0 0 0.5rem;
+            font-size: 0.98rem;
+            line-height: 1.85;
+            color: var(--text-mute);
+            letter-spacing: 0.08em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+        }
+        .jizake-text p:last-child { margin-bottom: 0; }
+
+        .jizake-item-name {
+            color: var(--text-color) !important;
+            font-size: 1.08rem !important;
+            letter-spacing: 0.14em !important;
+        }
+        .jizake-item-price {
+            color: var(--warm-accent);
+            font-weight: 700;
+            margin-left: 0.6em;
+        }
+
+        @media (hover: hover) {
+            .jizake-row .photo-frame:hover img {
+                transform: scale(1.04);
+                filter: brightness(1.06);
+            }
+        }
+
+        @media screen and (min-width: 900px) {
+            .jizake-row {
+                grid-template-columns: 1.1fr 0.9fr;
+                gap: 2.6rem;
+            }
+            .jizake-row--reverse .photo-frame { order: 2; }
+            .jizake-row--reverse .jizake-text { order: 1; }
+        }
+
+        @media screen and (max-width: 900px) {
+            .jizake-section { margin-top: 3.5rem; }
+            .jizake-section h2 { font-size: 1.3rem; }
         }
 
         /* =========================================
@@ -528,6 +663,7 @@
            別ページ風 全画面オーバーレイ
         ========================================= */
         .page-view {
+            display: none; /* 非表示ビューの背景画像を初回ロード時にダウンロードさせないため、opacityではなくdisplayで切り替える */
             position: fixed;
             top: 0;
             left: 0;
@@ -536,9 +672,7 @@
             height: 100dvh; /* モバイルのアドレスバー増減に追従（末尾が隠れる問題を防ぐ） */
             background-color: rgba(10, 10, 10, 0.98);
             z-index: 10;
-            opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain; /* 端まで達しても背後のトップページへスクロールが伝播しないようにする */
@@ -546,7 +680,7 @@
         }
 
         .page-view.active {
-            opacity: 1;
+            display: block;
             pointer-events: auto;
         }
 
@@ -564,7 +698,7 @@
             z-index: -1;
             background-image:
                 linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
-                url('kontiki.yakitori.png');
+                url('kontiki.yakitori.jpg');
             background-size: cover;
             background-position: center 30%;
             background-repeat: no-repeat;
@@ -580,7 +714,7 @@
             z-index: -1;
             background-image:
                 linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
-                url('nomimono_konntiki.png');
+                url('nomimono_konntiki.jpg');
             background-size: cover;
             background-position: center 30%;
             background-repeat: no-repeat;
@@ -594,7 +728,7 @@
             z-index: -1;
             background-image:
                 linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
-                url('enkai_konntiki.png');
+                url('enkai_konntiki.jpg');
             background-size: cover;
             background-position: center 30%;
             background-repeat: no-repeat;
@@ -634,25 +768,107 @@
             right: calc(18px + env(safe-area-inset-right, 0px));
             bottom: calc(18px + env(safe-area-inset-bottom, 0px));
             z-index: 90;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45em;
+            height: 52px;
+            padding: 0 1.15rem 0 1rem;
+            border-radius: 30px;
             background: var(--accent-color);
             color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            font-family: inherit;
+            font-size: 0.98rem;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
             text-decoration: none;
             box-shadow: 0 8px 24px rgba(0,0,0,0.55);
             transition: transform 0.25s ease, background 0.3s ease;
         }
+        .phone-fab-icon { font-size: 1.25rem; line-height: 1; }
+        .phone-fab-num { font-weight: 700; font-variant-numeric: tabular-nums; }
         .phone-fab:hover, .phone-fab:focus-visible {
             background: #8f2e2e;
-            transform: scale(1.06);
+            transform: scale(1.04);
         }
         @media (max-width: 850px) {
-            .phone-fab { width: 52px; height: 52px; font-size: 1.4rem; }
+            .phone-fab { height: 46px; padding: 0 0.95rem 0 0.85rem; font-size: 0.85rem; }
+            .phone-fab-icon { font-size: 1.1rem; }
+        }
+        @media (max-width: 380px) {
+            /* 極小幅では番号を隠しアイコンのみの円形に戻す（はみ出し防止） */
+            .phone-fab-num { display: none; }
+            .phone-fab { width: 46px; padding: 0; justify-content: center; }
+        }
+
+        /* =========================================
+           ヒーロー直下の写真ストリップ（0秒で「炭火の串の店」を伝える）
+        ========================================= */
+        .hero-strip {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+            max-width: 640px;
+            height: 100px;
+            margin: 1.6rem auto 0;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+        }
+        .hero-strip img {
+            flex: 1 1 50%;
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* =========================================
+           ヒーロー直下のクイック情報バー（店舗情報カードを読み飛ばせるように）
+        ========================================= */
+        .quick-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.6rem 1.4rem;
+            max-width: 720px;
+            margin: 1.6rem auto 0;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid var(--line-soft);
+            border-radius: 30px;
+            background: rgba(15, 15, 15, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .quick-info-item {
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: var(--text-mute);
+            white-space: nowrap;
+        }
+        .quick-info-item strong {
+            color: var(--warm-accent);
+            font-weight: 500;
+            margin-right: 0.4em;
+        }
+        .quick-info-tel {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35em;
+            color: #fff;
+            background: var(--accent-color);
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background 0.3s ease;
+        }
+        .quick-info-tel:hover, .quick-info-tel:focus-visible { background: #8f2e2e; }
+        @media (max-width: 900px) {
+            .quick-info { gap: 0.5rem 1rem; margin-top: 1.3rem; }
+            .quick-info-item { font-size: 0.8rem; }
         }
 
         .sub-wrapper {
@@ -945,9 +1161,11 @@
     <!-- 背景画像とオーバーレイ -->
     <div class="bg-image"></div>
     <div class="bg-overlay"></div>
+    <div class="grain-overlay" aria-hidden="true"></div>
 
     <a class="phone-fab" href="tel:0280337762" aria-label="電話をかける（0280-33-7762）">
-        <span aria-hidden="true">☎</span>
+        <span class="phone-fab-icon" aria-hidden="true">☎</span>
+        <span class="phone-fab-num" aria-hidden="true">0280-33-7762</span>
     </a>
 
     <!-- =========================================
@@ -959,6 +1177,17 @@
             <p>茨城県古河市の隠れ家</p>
             <h1>居酒屋 こんちき</h1>
             <p class="tagline">地養鶏の炭火串焼きと、選りすぐりの地酒。</p>
+            <div class="hero-strip" aria-hidden="true">
+                <img src="gallery-kushimori.jpg" alt="" loading="eager" decoding="async" width="480" height="640">
+                <img src="gallery-sashimi.jpg" alt="" loading="eager" decoding="async" width="640" height="480">
+            </div>
+            <div class="quick-info">
+                <span class="quick-info-item"><strong>営業時間</strong>18:00〜</span>
+                <span class="quick-info-item"><strong>定休日</strong>火曜日</span>
+                <span class="quick-info-item"><strong>お席</strong>全25席</span>
+                <span class="quick-info-item"><strong>駐車場</strong>15台</span>
+                <a class="quick-info-tel" href="tel:0280337762"><span aria-hidden="true">☎</span>0280-33-7762</a>
+            </div>
         </header>
 
         <main class="main-content">
@@ -1038,32 +1267,59 @@
         </main>
 
         <!-- 料理・地酒ギャラリー（食べログ・Instagramの写真より） -->
-        <section class="food-gallery" aria-label="お料理とお酒の写真">
+        <section class="food-gallery" aria-label="お料理の写真">
             <h2>こんちきの味</h2>
             <p class="gallery-lead">炭火の焼き場から、揚げたて・作りたてをお届けします。</p>
             <div class="gallery-grid">
-                <figure class="gallery-item reveal">
-                    <span class="photo-frame"><img src="gallery-tsukune-sumibi.jpg" alt="炭火の焼き台で煙を上げながら焼かれるつくねの串" loading="lazy" width="480" height="640"></span>
-                    <figcaption>炭火でじっくり焼き上げるつくね</figcaption>
-                </figure>
-                <figure class="gallery-item reveal">
-                    <span class="photo-frame"><img src="gallery-kushimori.jpg" alt="長皿に盛られたおすすめ串盛り5点セット" loading="lazy" width="480" height="640"></span>
+                <figure class="gallery-item gallery-item--wide reveal">
+                    <span class="photo-frame"><img src="gallery-kushimori.jpg" alt="長皿に盛られたおすすめ串盛り5点セット" loading="lazy" decoding="async" width="480" height="640"></span>
                     <figcaption>おすすめ串盛り 5点set</figcaption>
                 </figure>
                 <figure class="gallery-item reveal">
-                    <span class="photo-frame"><img src="gallery-sashimi.jpg" alt="まぐろ・サーモン・かつおのたたきの刺身盛り合わせ" loading="lazy" width="640" height="480"></span>
-                    <figcaption>日替わりのおすすめも豊富に</figcaption>
+                    <span class="photo-frame"><img src="gallery-tsukune-sumibi.jpg" alt="炭火の焼き台で煙を上げながら焼かれるつくねの串" loading="lazy" decoding="async" width="480" height="640"></span>
+                    <figcaption>炭火でじっくり焼き上げるつくね</figcaption>
                 </figure>
                 <figure class="gallery-item reveal">
-                    <span class="photo-frame"><img src="gallery-kikizake-set.jpg" alt="地酒の一升瓶と三つのお猪口が並ぶ利き酒セット" loading="lazy" width="480" height="640"></span>
-                    <figcaption>三種を飲み比べる利き酒SET</figcaption>
+                    <span class="photo-frame"><img src="gallery-yakidai-kushi.jpg" alt="炭火の焼き台に並ぶ焼き上げ中の串" loading="lazy" decoding="async" width="480" height="640"></span>
+                    <figcaption>ご注文ごとに炭火で焼き上げます</figcaption>
+                </figure>
+                <figure class="gallery-item gallery-item--full reveal">
+                    <span class="photo-frame"><img src="gallery-sashimi.jpg" alt="まぐろ・サーモン・かつおのたたきの刺身盛り合わせ" loading="lazy" decoding="async" width="640" height="480"></span>
+                    <figcaption>日替わりのおすすめも豊富に</figcaption>
                 </figure>
             </div>
-            <div class="gallery-cta reveal">
-                <p class="cta-note">ご予約・お問い合わせはお電話にて</p>
-                <p class="cta-tel"><a href="tel:0280337762" class="tel-link-large">TEL: 0280-33-7762</a></p>
+        </section>
+
+        <!-- 地酒セクション（独立） -->
+        <section class="jizake-section" aria-label="地酒の写真">
+            <h2>選りすぐりの地酒</h2>
+            <div class="jizake-grid">
+                <article class="jizake-row reveal">
+                    <span class="photo-frame"><img src="gallery-jizake.jpg" alt="栄光冨士・豊盃など地酒の一升瓶三本とグラス" loading="lazy" decoding="async" width="480" height="640"></span>
+                    <div class="jizake-text">
+                        <p>全国の蔵から届く地酒</p>
+                    </div>
+                </article>
+                <article class="jizake-row jizake-row--reverse reveal">
+                    <span class="photo-frame"><img src="gallery-jizake-ginsei.jpg" alt="銀星など季節の日本酒の四合瓶とグラス" loading="lazy" decoding="async" width="480" height="640"></span>
+                    <div class="jizake-text">
+                        <p>季節の限定酒も入荷します</p>
+                    </div>
+                </article>
+                <article class="jizake-row reveal">
+                    <span class="photo-frame"><img src="gallery-kikizake-set.jpg" alt="地酒の一升瓶と三つのお猪口が並ぶ利き酒セット" loading="lazy" decoding="async" width="480" height="640"></span>
+                    <div class="jizake-text">
+                        <p class="jizake-item-name">利き酒SET<span class="jizake-item-price">1,200円</span></p>
+                        <p>三種類の地酒が選べて、先付けが一品ついています。</p>
+                    </div>
+                </article>
             </div>
         </section>
+
+        <div class="gallery-cta reveal">
+            <p class="cta-note">ご予約・お問い合わせはお電話にて</p>
+            <p class="cta-tel"><a href="tel:0280337762" class="tel-link-large">TEL: 0280-33-7762</a></p>
+        </div>
     </div>
 
 
@@ -1089,15 +1345,15 @@
 
             <div class="photo-strip">
                 <figure>
-                    <span class="photo-frame"><img src="gallery-yakidai-kushi.jpg" alt="炭火の焼き台に並ぶ焼き上げ中の串" loading="lazy" width="480" height="640"></span>
+                    <span class="photo-frame"><img src="gallery-yakidai-kushi.jpg" alt="炭火の焼き台に並ぶ焼き上げ中の串" loading="lazy" decoding="async" width="480" height="640"></span>
                     <figcaption>ご注文ごとに炭火で焼き上げます</figcaption>
                 </figure>
                 <figure>
-                    <span class="photo-frame"><img src="gallery-tare-kushi.jpg" alt="照りよくタレをまとった串焼き二本" loading="lazy" width="480" height="640"></span>
+                    <span class="photo-frame"><img src="gallery-tare-kushi.jpg" alt="照りよくタレをまとった串焼き二本" loading="lazy" decoding="async" width="480" height="640"></span>
                     <figcaption>照り艶よく仕上げるタレ串</figcaption>
                 </figure>
                 <figure>
-                    <span class="photo-frame"><img src="gallery-dashimaki.jpg" alt="大根おろしを添えたこんちきのだし巻き卵" loading="lazy" width="640" height="480"></span>
+                    <span class="photo-frame"><img src="gallery-dashimaki.jpg" alt="大根おろしを添えたこんちきのだし巻き卵" loading="lazy" decoding="async" width="640" height="480"></span>
                     <figcaption>こんちき だし巻き卵</figcaption>
                 </figure>
             </div>
@@ -1229,11 +1485,11 @@
 
             <div class="photo-strip two-col">
                 <figure>
-                    <span class="photo-frame"><img src="gallery-jizake.jpg" alt="栄光冨士・豊盃など地酒の一升瓶三本とグラス" loading="lazy" width="480" height="640"></span>
+                    <span class="photo-frame"><img src="gallery-jizake.jpg" alt="栄光冨士・豊盃など地酒の一升瓶三本とグラス" loading="lazy" decoding="async" width="480" height="640"></span>
                     <figcaption>全国の蔵から届く地酒</figcaption>
                 </figure>
                 <figure>
-                    <span class="photo-frame"><img src="gallery-jizake-ginsei.jpg" alt="銀星など季節の日本酒の四合瓶とグラス" loading="lazy" width="480" height="640"></span>
+                    <span class="photo-frame"><img src="gallery-jizake-ginsei.jpg" alt="銀星など季節の日本酒の四合瓶とグラス" loading="lazy" decoding="async" width="480" height="640"></span>
                     <figcaption>季節の限定酒も入荷します</figcaption>
                 </figure>
             </div>

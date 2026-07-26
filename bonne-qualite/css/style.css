@@ -10,6 +10,7 @@ Reset
 
 img {
     width: 100%;
+    height: auto;
     display: block;
 }
 
@@ -123,8 +124,40 @@ Common
     gap: 8px;
 }
 
+.btn-instagram svg {
+    flex-shrink: 0;
+}
+
 .btn-outline:hover {
     background: rgba(255, 255, 255, .15);
+}
+
+/* ==========================
+Scroll Reveal（出現演出）
+========================== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.no-js .reveal {
+    opacity: 1;
+    transform: none;
+}
+
+@media(prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
 }
 
 /* ==========================
@@ -154,8 +187,23 @@ Header
 
 .logo {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
+}
+
+.logo-mark {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(111, 78, 55, .18);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
 }
 
 .logo-main {
@@ -214,21 +262,55 @@ Header
     border-color: rgba(111, 78, 55, 0.35);
 }
 
+/* ヘッダー内の電話導線（ファーストビュー対応・PC/タブレットのみ） */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-tel {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+    padding: 9px 18px;
+    color: #fff;
+    background: #6f4e37;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    transition: .3s;
+}
+
+.header-tel svg {
+    flex-shrink: 0;
+}
+
+.header-tel:hover {
+    background: #5a3f2c;
+    transform: translateY(-1px);
+}
+
+@media(min-width: 769px) {
+    .header-tel {
+        display: inline-flex;
+    }
+}
+
 /* ==========================
 Hero
 ========================== */
 
 .fv {
     position: relative;
+    overflow: hidden;
 
-    height: 85vh;
-    min-height: 680px;
+    min-height: 100svh;
 
     background-color: #faf8f3;
-    background-image: url("../images/pizza2.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 
     display: flex;
     justify-content: center;
@@ -238,11 +320,28 @@ Hero
 
 }
 
+.fv-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 .fv-overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
 
-    background: rgba(0, 0, 0, .18);
+    background: linear-gradient(180deg,
+            rgba(20, 15, 10, .46) 0%,
+            rgba(20, 15, 10, .34) 22%,
+            rgba(20, 15, 10, .42) 46%,
+            rgba(20, 15, 10, .54) 68%,
+            rgba(20, 15, 10, .76) 100%);
 
 }
 
@@ -252,7 +351,7 @@ Hero
     bottom: 0;
     left: 0;
     right: 0;
-    height: 140px;
+    height: 180px;
     background: linear-gradient(to bottom, transparent, #faf8f3);
     z-index: 1;
     pointer-events: none;
@@ -260,7 +359,7 @@ Hero
 
 .fv-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     color: white;
     text-align: center;
 }
@@ -282,8 +381,53 @@ Hero
     opacity: 0.95;
 }
 
+/* 本日の営業状況（ヒーロー・電話ボタン直上） */
+.fv-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 28px;
+    padding: 9px 20px;
+    background: rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, .34);
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+}
+
+.fv-status__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: #8fd19e;
+    box-shadow: 0 0 8px rgba(143, 209, 158, .8);
+}
+
+.fv-status.is-closed .fv-status__dot {
+    background: #e59c86;
+    box-shadow: none;
+}
+
+.fv-status strong {
+    font-weight: 700;
+}
+
+@media(max-width:480px) {
+    .fv-status {
+        font-size: 0.78rem;
+        padding: 8px 16px;
+    }
+}
+
 .fv-cta {
     margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
 .btn--hero {
@@ -297,12 +441,22 @@ Hero
     border-radius: 30px;
     font-size: 1rem;
     letter-spacing: 0.05em;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease, border-color .3s ease;
 }
 
 .btn--hero:hover {
     background: #9c7f52;
     transform: translateY(-2px);
+}
+
+.btn--hero-outline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .75);
+}
+
+.btn--hero-outline:hover {
+    background: rgba(255, 255, 255, .14);
+    border-color: #fff;
 }
 
 .btn-arrow {
@@ -311,6 +465,163 @@ Hero
 
 .btn--hero:hover .btn-arrow {
     transform: translateX(4px);
+}
+
+/* ==========================
+Quick Nav（写真付きメニュー導線カード）
+========================== */
+
+.quicknav {
+    background: #faf8f3;
+}
+
+.quicknav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.quicknav-card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 3 / 4;
+    border-radius: 18px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(111, 78, 55, 0.14);
+}
+
+.quicknav-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease, filter .6s ease;
+}
+
+.quicknav-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 15, 10, 0) 38%, rgba(20, 15, 10, .82) 100%);
+}
+
+.quicknav-card__body {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 20px 18px;
+    color: #fff;
+    text-align: left;
+}
+
+.quicknav-card__body h3 {
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .3);
+}
+
+.quicknav-card__body p {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    opacity: .92;
+}
+
+@media(hover:hover) {
+    .quicknav-card:hover img {
+        transform: scale(1.06);
+        filter: brightness(1.05);
+    }
+}
+
+@media(max-width:768px) {
+    .quicknav-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .quicknav-card__body h3 {
+        font-size: 1.02rem;
+    }
+}
+
+/* ==========================
+Gallery Mosaic（人気メニュー：写真モザイク）
+========================== */
+
+.gallery-mosaic {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 90px;
+    grid-auto-flow: dense;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 56px auto 0;
+}
+
+.gallery-mosaic__item {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.gallery-mosaic__item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease, filter .6s ease;
+}
+
+@media(hover:hover) {
+    .gallery-mosaic__item:hover img {
+        transform: scale(1.07);
+        filter: brightness(1.05);
+    }
+}
+
+.gallery-mosaic__item--lg {
+    grid-column: span 3;
+    grid-row: span 3;
+}
+
+.gallery-mosaic__item--md {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.gallery-mosaic__item--sm {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+@media(max-width:768px) {
+    .gallery-mosaic {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 130px;
+        gap: 8px;
+        margin-top: 32px;
+    }
+
+    .gallery-mosaic__item--lg {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .gallery-mosaic__item--md {
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+
+    .gallery-mosaic__item--sm {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
 }
 
 /* ==========================
@@ -328,6 +639,14 @@ Content Visual
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
+    transition: transform .6s ease, filter .6s ease;
+}
+
+@media(hover:hover) {
+    .content-visual:hover img {
+        transform: scale(1.04);
+        filter: brightness(1.05);
+    }
 }
 
 /* ==========================
@@ -344,7 +663,7 @@ Concept
 
 .concept-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: .9fr 1.1fr;
     gap: 60px;
     align-items: center;
     max-width: 1000px;
@@ -614,7 +933,7 @@ Menu
 .menu-hub-card {
     display: flex;
     flex-direction: column;
-    padding: 36px 28px;
+    overflow: hidden;
     text-decoration: none;
     text-align: center;
     background: #fff;
@@ -627,6 +946,47 @@ Menu
     transform: translateY(-4px);
     box-shadow: 0 8px 32px rgba(111, 78, 55, 0.1);
     border-color: rgba(111, 78, 55, .18);
+}
+
+.menu-hub-card__visual {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+
+.menu-hub-card__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease, filter .6s ease;
+}
+
+@media(hover:hover) {
+    .menu-hub-card:hover .menu-hub-card__visual img {
+        transform: scale(1.05);
+        filter: brightness(1.05);
+    }
+}
+
+.menu-hub-card__visual--wine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #6f4e37 0%, #8b6f47 55%, #b68d40 100%);
+}
+
+.menu-hub-card__visual-mark {
+    font-family: "Noto Serif JP", serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, .95);
+}
+
+.menu-hub-card__body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 28px 26px 32px;
 }
 
 .menu-hub-card h2 {
@@ -888,6 +1248,62 @@ Wine
     line-height: 2;
 }
 
+/* ワインの数字ストリップ（既存の掲載本数のみを使用） */
+.wine-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 640px;
+    margin: 0 auto 56px;
+}
+
+.wine-stats__item {
+    text-align: center;
+    padding: 22px 12px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid rgba(111, 78, 55, .08);
+}
+
+.wine-stats__num {
+    display: block;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #b68d40;
+    line-height: 1.2;
+}
+
+.wine-stats__num span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-left: 2px;
+}
+
+.wine-stats__label {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.82rem;
+    color: #888;
+    letter-spacing: 0.05em;
+}
+
+@media(max-width:768px) {
+    .wine-stats {
+        gap: 10px;
+        margin-bottom: 36px;
+    }
+
+    .wine-stats__num {
+        font-size: 1.6rem;
+    }
+}
+
+/* ドリンクページ：導入ビジュアル */
+.drink-visual {
+    max-width: 640px;
+    margin: 0 auto 50px;
+}
+
 /* ==========================
 Subpage
 ========================== */
@@ -907,11 +1323,6 @@ Subpage
     background-repeat: no-repeat;
     position: relative;
     min-height: 400px;
-    width: 100vw;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
 .page-header--lunch {
@@ -923,11 +1334,6 @@ Subpage
     background-repeat: no-repeat;
     position: relative;
     min-height: 400px;
-    width: 100vw;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
 .page-header--dinner {
@@ -939,27 +1345,14 @@ Subpage
     background-repeat: no-repeat;
     position: relative;
     min-height: 400px;
-    width: 100vw;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
 .page-header--wine {
     padding: 180px 0 100px;
-    background-color: #f3eee7;
-    background-image: url("../images/wainimage.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    /* 専用の実写素材が無いため、背景写真ではなくブランドカラーのグラデーションで構成 */
+    background: linear-gradient(135deg, #6f4e37 0%, #8b6f47 55%, #b68d40 100%);
     position: relative;
     min-height: 400px;
-    width: 100vw;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
 .page-header--drink {
@@ -971,11 +1364,6 @@ Subpage
     background-repeat: no-repeat;
     position: relative;
     min-height: 400px;
-    width: 100vw;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
 .page-header--lunch::before,
@@ -1322,6 +1710,15 @@ Footer
     margin-bottom: 15px;
 }
 
+.footer-mark {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .25);
+}
+
 .footer-name {
     font-size: 1.4rem;
     letter-spacing: 0.08em;
@@ -1374,6 +1771,70 @@ Footer
     margin: 28px 0 0;
     opacity: .7;
     font-size: .9rem;
+}
+
+/* ==========================
+モバイル固定予約バー
+========================== */
+
+.mobile-reserve-bar {
+    display: none;
+}
+
+@media(max-width:768px) {
+
+    body {
+        padding-bottom: 76px;
+    }
+
+    .mobile-reserve-bar {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 998;
+        gap: 6px;
+
+        padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+
+        background: rgba(250, 248, 243, .97);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(111, 78, 55, 0.14);
+        box-shadow: 0 -4px 20px rgba(111, 78, 55, 0.1);
+    }
+
+    .mobile-reserve-bar a {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+
+        padding: 8px 4px;
+        border-radius: 12px;
+
+        color: #6f4e37;
+        text-decoration: none;
+        font-size: 0.66rem;
+        letter-spacing: 0.02em;
+    }
+
+    .mobile-reserve-bar .mrb-icon {
+        display: inline-flex;
+        line-height: 1;
+    }
+
+    .mobile-reserve-bar .mrb-icon svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .mobile-reserve-bar a.is-primary {
+        background: #6f4e37;
+        color: #fff;
+    }
 }
 
 /* ==========================
@@ -1431,9 +1892,11 @@ Responsive
     }
 
     .fv {
-        height: 75vh;
-        min-height: 600px;
-        background-position: center center;
+        min-height: 88svh;
+    }
+
+    .fv-media {
+        object-position: center center;
     }
 
     .fv-main-copy {
@@ -1495,9 +1958,17 @@ Responsive
         gap: 16px;
     }
 
-    .menu-hub-card,
     .menu-card {
         padding: 24px 20px;
+    }
+
+    .menu-hub-card__body {
+        padding: 22px 18px 26px;
+    }
+
+    .logo-mark {
+        width: 34px;
+        height: 34px;
     }
 
     .menu-section {

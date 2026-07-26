@@ -8,19 +8,21 @@
 <meta property="og:title" content="とらっ鳥屋｜古河駅徒歩10分の串焼き炭火ダイニング">
 <meta property="og:description" content="臭みのないつくば鶏と和牛ホルモンを七輪の炭火で。ジャズが流れる大人の隠れ家、古河市横山町のとらっ鳥屋。">
 <meta property="og:type" content="restaurant">
-<meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/torattoriya/hero-yakitori.jpg">
+<!-- OGP画像：公開時は content をドメイン込みの絶対URL（例 https://.../とらっ鳥屋/hero-yakitori.jpg）に変更してください -->
+<meta property="og:image" content="hero-yakitori.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#15100c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ccircle%20cx='50'%20cy='50'%20r='47'%20fill='%2315100c'%20stroke='%23b08d4f'%20stroke-width='4'/%3E%3Ctext%20x='50'%20y='68'%20font-size='52'%20text-anchor='middle'%20fill='%23d9642b'%20font-family='serif'%3E%E4%B8%B2%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="image" href="hero-yakitori.jpg" fetchpriority="high">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Restaurant",
   "name": "とらっ鳥屋",
-  "image": "https://creative-works-plus.github.io/restaurant-sites/torattoriya/hero-yakitori.jpg",
+  "image": "hero-yakitori.jpg",
   "servesCuisine": ["串焼き", "焼肉", "ホルモン", "居酒屋"],
   "priceRange": "¥¥",
   "telephone": "+81-80-6625-6378",
@@ -88,9 +90,18 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
 ::selection { background: rgba(217, 100, 43, 0.35); color: #fff; }
 a { color: inherit; text-decoration: none; }
+
+/* 質感レイヤー：炭の粒子感を極薄ノイズで全面に */
+body::after {
+    content: "";
+    position: fixed; inset: 0; z-index: 3; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+}
 a:focus-visible, button:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; border-radius: 2px; }
 
 .jp-serif { font-family: "Shippori Antique B1", "Hiragino Mincho ProN", serif; }
@@ -186,7 +197,7 @@ section { position: relative; padding: 108px 0; }
     position: relative;
     background: linear-gradient(to bottom, rgba(15, 11, 8, 0.35) 0%, rgba(15, 11, 8, 0.55) 55%, rgba(15, 11, 8, 0.96) 100%), url("hero-yakitori.jpg") center 34% / cover no-repeat;
 }
-.hero-inner { width: 100%; padding: 0 0 88px; }
+.hero-inner { width: 100%; padding: 0 24px 88px; }
 .hero .en-label { display: block; margin-bottom: 18px; opacity: 0; animation: heroUp 1s ease 0.2s forwards; }
 .hero h1 {
     font-family: "Shippori Antique B1", serif;
@@ -201,6 +212,7 @@ section { position: relative; padding: 108px 0; }
     opacity: 0; animation: heroUp 1s ease 0.6s forwards;
 }
 @keyframes heroUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 720px) { .hero { min-height: 88svh; } }
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; opacity: 0; animation: heroUp 1s ease 0.8s forwards; }
 .btn {
@@ -221,18 +233,27 @@ section { position: relative; padding: 108px 0; }
 /* ==========================================================================
    4. こだわり
    ========================================================================== */
-.kodawari-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; position: relative; z-index: 1; }
-@media (max-width: 860px) { .kodawari-grid { grid-template-columns: 1fr; gap: 46px; } }
-.kodawari-item { text-align: center; }
+.kodawari-list { display: flex; flex-direction: column; gap: 56px; position: relative; z-index: 1; }
+.kodawari-row { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
+.kodawari-photo { border-radius: 6px; overflow: hidden; }
+.kodawari-photo img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.6s ease; }
+@media (hover: hover) { .kodawari-photo:hover img { transform: scale(1.04); } }
+@media (min-width: 861px) {
+    .kodawari-row { grid-template-columns: 1.1fr 0.9fr; gap: 48px; }
+    .kodawari-row:nth-child(even) { grid-template-columns: 0.9fr 1.1fr; }
+    .kodawari-row:nth-child(even) .kodawari-photo { order: 2; }
+    .kodawari-row:nth-child(even) .kodawari-text { order: 1; }
+}
+.kodawari-item { text-align: left; }
 .kodawari-num { font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--brass); font-size: 1.05rem; }
 .kodawari-item h3 { font-family: "Shippori Antique B1", serif; font-size: 1.5rem; font-weight: 400; margin: 14px 0 16px; }
-.kodawari-item p { color: var(--paper-mute); font-size: 0.93rem; max-width: 26em; margin: 0 auto; }
+.kodawari-item p { color: var(--paper-mute); font-size: 0.93rem; max-width: 26em; }
 .kodawari-item .kanji-mark {
     font-family: "Shippori Antique B1", serif;
-    font-size: 2.6rem; color: var(--ember); line-height: 1;
+    font-size: 1.5rem; color: var(--ember); line-height: 1;
     display: inline-flex; align-items: center; justify-content: center;
-    width: 88px; height: 88px; border-radius: 50%;
-    border: 1px solid var(--umber-line); margin-bottom: 6px;
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid var(--umber-line); margin-bottom: 10px;
 }
 
 /* ==========================================================================
@@ -292,11 +313,20 @@ section { position: relative; padding: 108px 0; }
 /* ==========================================================================
    7. ギャラリー
    ========================================================================== */
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-@media (max-width: 720px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
-.gallery-grid a { display: block; border-radius: 4px; overflow: hidden; aspect-ratio: 1/1; }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 130px; grid-auto-flow: dense; gap: 16px; }
+.gallery-grid a { display: block; border-radius: 4px; overflow: hidden; }
+.gallery-grid a.g-big { grid-column: span 2; grid-row: span 2; }
+.gallery-grid a.g-tall { grid-row: span 2; }
+.gallery-grid a.g-wide { grid-column: span 2; }
+.gallery-grid figure { position: relative; width: 100%; height: 100%; }
 .gallery-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; filter: saturate(0.94); }
 .gallery-grid a:hover img { transform: scale(1.05); filter: saturate(1.1); }
+.gallery-grid figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 14px 10px; font-family: "Shippori Antique B1", serif; font-size: 0.82rem; letter-spacing: 0.02em; color: var(--paper); background: linear-gradient(to top, rgba(10, 7, 5, 0.88), transparent); pointer-events: none; }
+@media (max-width: 720px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; }
+    .gallery-grid a.g-tall { grid-row: span 1; }
+    .gallery-grid a:nth-child(4) { grid-column: span 2; }
+}
 
 /* ==========================================================================
    8. 口コミ
@@ -331,20 +361,23 @@ footer .foot-tel { font-size: 1.1rem; color: var(--ember-bright); margin-bottom:
 footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margin-top: 18px; }
 
 /* ==========================================================================
-   11. フローティング予約ボタン（モバイル）
+   11. 固定予約バー（モバイル）
    ========================================================================== */
-.float-tel {
-    position: fixed; right: 18px; bottom: 18px; z-index: 90;
-    display: flex; align-items: center; gap: 8px;
-    background: var(--ember); color: #17110b; font-weight: 700;
-    padding: 14px 20px; border-radius: 999px; font-size: 0.9rem;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
-    opacity: 0; pointer-events: none; transform: translateY(12px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
+.mobile-bar { display: none; }
+@media (max-width: 768px) {
+    body { padding-bottom: 66px; }
+    .mobile-bar {
+        display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+        background: rgba(21, 16, 12, 0.96); backdrop-filter: blur(8px);
+        border-top: 1px solid var(--umber-line); box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.35);
+    }
+    .mobile-bar a {
+        flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 3px;
+        padding: 9px 4px 10px; color: var(--paper-mute); font-size: 0.68rem; letter-spacing: 0.02em;
+    }
+    .mobile-bar a svg { width: 19px; height: 19px; fill: currentColor; }
+    .mobile-bar a.primary { color: var(--ember-bright); }
 }
-.float-tel.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
-.float-tel svg { width: 15px; height: 15px; fill: #17110b; }
-@media (min-width: 861px) { .float-tel { display: none; } }
 
 /* ==========================================================================
    12. シグネチャー：縦書き・炭火のグロー・トラットリア
@@ -469,24 +502,33 @@ footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margi
             <h2 class="jp-serif">炎が引き出す、旨みという仕事</h2>
             <p>素材はシンプルに、火入れだけを丁寧に。とらっ鳥屋の三つのこだわり。</p>
         </div>
-        <div class="kodawari-grid">
-            <div class="kodawari-item reveal">
-                <span class="kanji-mark">鶏</span>
-                <div class="kodawari-num">01 — Tsukuba Chicken</div>
-                <h3 class="jp-serif">臭みのない、つくば鶏</h3>
-                <p>柔らかくクセのない肉質が持ち味の「つくば鶏」。串の一本一本を、素材の甘みが分かる焼き加減で仕上げます。</p>
+        <div class="kodawari-list">
+            <div class="kodawari-row reveal">
+                <div class="kodawari-photo"><img src="gallery-kushi-grill.jpg" alt="炭火で焼くつくば鶏の串" loading="lazy" decoding="async" width="640" height="640"></div>
+                <div class="kodawari-item kodawari-text">
+                    <span class="kanji-mark">鶏</span>
+                    <div class="kodawari-num">01 — Tsukuba Chicken</div>
+                    <h3 class="jp-serif">臭みのない、つくば鶏</h3>
+                    <p>柔らかくクセのない肉質が持ち味の「つくば鶏」。串の一本一本を、素材の甘みが分かる焼き加減で仕上げます。</p>
+                </div>
             </div>
-            <div class="kodawari-item reveal">
-                <span class="kanji-mark">炭</span>
-                <div class="kodawari-num">02 — Shichirin Charcoal</div>
-                <h3 class="jp-serif">七輪と炭火の仕事</h3>
-                <p>炭火で焼き上げることで旨み成分のアミノ酸が増え、ジューシーに。七輪ならではの香ばしさをそのまま食卓へ。</p>
+            <div class="kodawari-row reveal">
+                <div class="kodawari-photo"><img src="gallery-wagyu-grill.jpg" alt="七輪で焼く和牛ホルモンの盛り合わせ" loading="lazy" decoding="async" width="640" height="427"></div>
+                <div class="kodawari-item kodawari-text">
+                    <span class="kanji-mark">炭</span>
+                    <div class="kodawari-num">02 — Shichirin Charcoal</div>
+                    <h3 class="jp-serif">七輪と炭火の仕事</h3>
+                    <p>炭火で焼き上げることで旨み成分のアミノ酸が増え、ジューシーに。七輪ならではの香ばしさをそのまま食卓へ。</p>
+                </div>
             </div>
-            <div class="kodawari-item reveal">
-                <span class="kanji-mark">塩</span>
-                <div class="kodawari-num">03 — Moshio Salt</div>
-                <h3 class="jp-serif">ひとつまみの藻塩</h3>
-                <p>タレに頼りすぎず、こだわりの藻塩で素材そのものの味を引き立てる。焼きたてを、まず塩で味わってほしい一皿。</p>
+            <div class="kodawari-row reveal">
+                <div class="kodawari-photo"><img src="gallery-horumon-fresh.jpg" alt="厳選部位の和牛ホルモン盛り合わせ" loading="lazy" decoding="async" width="640" height="480"></div>
+                <div class="kodawari-item kodawari-text">
+                    <span class="kanji-mark">塩</span>
+                    <div class="kodawari-num">03 — Moshio Salt</div>
+                    <h3 class="jp-serif">ひとつまみの藻塩</h3>
+                    <p>タレに頼りすぎず、こだわりの藻塩で素材そのものの味を引き立てる。焼きたてを、まず塩で味わってほしい一皿。</p>
+                </div>
             </div>
         </div>
     </div>
@@ -507,10 +549,10 @@ footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margi
             </dl>
         </div>
         <div class="atmosphere-photos reveal">
-            <a href="gallery-counter.jpg" target="_blank" rel="noopener"><img src="gallery-counter.jpg" alt="ジャズが流れるカウンター席、日本酒の瓶が並ぶ" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-seating.jpg" target="_blank" rel="noopener"><img src="gallery-seating.jpg" alt="木レンガ調の壁とテーブル席" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-lantern-tori.jpg" target="_blank" rel="noopener"><img src="gallery-lantern-tori.jpg" alt="「鶏」と書かれた白い提灯の灯り" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-exterior.jpg" target="_blank" rel="noopener"><img src="gallery-exterior.jpg" alt="店頭の赤い立て看板" loading="lazy" width="640" height="640"></a>
+            <a href="gallery-counter.jpg" target="_blank" rel="noopener"><img src="gallery-counter.jpg" alt="ジャズが流れるカウンター席、日本酒の瓶が並ぶ" loading="lazy" decoding="async" width="640" height="640"></a>
+            <a href="gallery-seating.jpg" target="_blank" rel="noopener"><img src="gallery-seating.jpg" alt="木レンガ調の壁とテーブル席" loading="lazy" decoding="async" width="640" height="640"></a>
+            <a href="gallery-lantern-tori.jpg" target="_blank" rel="noopener"><img src="gallery-lantern-tori.jpg" alt="「鶏」と書かれた白い提灯の灯り" loading="lazy" decoding="async" width="640" height="640"></a>
+            <a href="gallery-exterior.jpg" target="_blank" rel="noopener"><img src="gallery-exterior.jpg" alt="店頭の赤い立て看板" loading="lazy" decoding="async" width="640" height="640"></a>
         </div>
     </div>
 </section>
@@ -525,19 +567,19 @@ footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margi
 
         <div class="menu-feature-grid reveal">
             <div class="menu-card">
-                <img src="menu-yakitori-plate.jpg" alt="つくば鶏の串焼き盛り合わせ" loading="lazy" width="480" height="640">
+                <img src="menu-yakitori-plate.jpg" alt="つくば鶏の串焼き盛り合わせ" loading="lazy" decoding="async" width="640" height="425">
                 <div class="tag"><div class="name">つくば鶏串（塩・タレ）</div><div class="price">¥143〜</div></div>
             </div>
             <div class="menu-card">
-                <img src="menu-gyutan-grill.jpg" alt="特上！牛タン網焼き" loading="lazy" width="480" height="640">
+                <img src="menu-gyutan-grill.jpg" alt="特上！牛タン網焼き" loading="lazy" decoding="async" width="640" height="427">
                 <div class="tag"><div class="name">特上！牛タン網焼き</div><div class="price">¥1,078</div></div>
             </div>
             <div class="menu-card">
-                <img src="gallery-motsunabe.jpg" alt="博多モツ鍋" loading="lazy" width="480" height="640">
+                <img src="gallery-motsunabe.jpg" alt="博多モツ鍋" loading="lazy" decoding="async" width="640" height="426">
                 <div class="tag"><div class="name">博多モツ鍋</div><div class="price">¥1,408</div></div>
             </div>
             <div class="menu-card">
-                <img src="menu-mizutaki-ramen.jpg" alt="特製鶏白湯ラーメン" loading="lazy" width="480" height="640">
+                <img src="menu-mizutaki-ramen.jpg" alt="特製鶏白湯ラーメン" loading="lazy" decoding="async" width="640" height="640">
                 <div class="tag"><div class="name">特製鶏白湯ラーメン</div><div class="price">¥825</div></div>
             </div>
         </div>
@@ -571,12 +613,12 @@ footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margi
             <p>七輪でじっくり。素材の旨みを引き出した一皿の数々。</p>
         </div>
         <div class="gallery-grid reveal">
-            <a href="gallery-wagyu-grill.jpg" target="_blank" rel="noopener"><img src="gallery-wagyu-grill.jpg" alt="七輪で焼く和牛ホルモンの盛り合わせ" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-kushi-grill.jpg" target="_blank" rel="noopener"><img src="gallery-kushi-grill.jpg" alt="炭火で焼くつくば鶏の串" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-horumon-fresh.jpg" target="_blank" rel="noopener"><img src="gallery-horumon-fresh.jpg" alt="厳選部位の和牛ホルモン盛り合わせ" loading="lazy" width="640" height="640"></a>
-            <a href="gallery-meat-platter.jpg" target="_blank" rel="noopener"><img src="gallery-meat-platter.jpg" alt="和牛・希少部位の盛り合わせ" loading="lazy" width="640" height="640"></a>
-            <a href="menu-motsuni.jpg" target="_blank" rel="noopener"><img src="menu-motsuni.jpg" alt="つくば鶏MIXとらっ鳥煮" loading="lazy" width="640" height="640"></a>
-            <a href="menu-tantanmen.jpg" target="_blank" rel="noopener"><img src="menu-tantanmen.jpg" alt="自家製担々麺" loading="lazy" width="640" height="640"></a>
+            <a class="g-big" href="gallery-wagyu-grill.jpg" target="_blank" rel="noopener"><figure><img src="gallery-wagyu-grill.jpg" alt="七輪で焼く和牛ホルモンの盛り合わせ" loading="lazy" decoding="async" width="640" height="427"><figcaption>七輪で焼く和牛ホルモンの盛り合わせ</figcaption></figure></a>
+            <a class="g-tall" href="gallery-kushi-grill.jpg" target="_blank" rel="noopener"><figure><img src="gallery-kushi-grill.jpg" alt="炭火で焼くつくば鶏の串" loading="lazy" decoding="async" width="640" height="640"><figcaption>炭火で焼くつくば鶏の串</figcaption></figure></a>
+            <a href="gallery-horumon-fresh.jpg" target="_blank" rel="noopener"><figure><img src="gallery-horumon-fresh.jpg" alt="厳選部位の和牛ホルモン盛り合わせ" loading="lazy" decoding="async" width="640" height="480"><figcaption>厳選部位の和牛ホルモン盛り合わせ</figcaption></figure></a>
+            <a href="gallery-meat-platter.jpg" target="_blank" rel="noopener"><figure><img src="gallery-meat-platter.jpg" alt="和牛・希少部位の盛り合わせ" loading="lazy" decoding="async" width="640" height="426"><figcaption>和牛・希少部位の盛り合わせ</figcaption></figure></a>
+            <a class="g-wide" href="menu-motsuni.jpg" target="_blank" rel="noopener"><figure><img src="menu-motsuni.jpg" alt="つくば鶏MIXとらっ鳥煮" loading="lazy" decoding="async" width="640" height="425"><figcaption>つくば鶏MIXとらっ鳥煮</figcaption></figure></a>
+            <a class="g-wide" href="menu-tantanmen.jpg" target="_blank" rel="noopener"><figure><img src="menu-tantanmen.jpg" alt="自家製担々麺" loading="lazy" decoding="async" width="640" height="640"><figcaption>自家製担々麺</figcaption></figure></a>
         </div>
     </div>
 </section>
@@ -653,22 +695,28 @@ footer .copy { color: var(--paper-mute); opacity: 0.6; font-size: 0.76rem; margi
     </div>
 </footer>
 
-<a href="tel:08066256378" class="float-tel" id="floatTel">
-    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1L6.6 10.8z"/></svg>
-    電話で予約
-</a>
+<nav class="mobile-bar" aria-label="ご予約・アクセス">
+    <a class="primary" href="tel:08066256378">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1L6.6 10.8z"/></svg>
+        電話
+    </a>
+    <a href="#access">
+        <svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+        地図
+    </a>
+    <a href="https://www.instagram.com/tora_toriya/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.5.5.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45.53C6.09.28 6.82.11 7.88.06 8.94.01 9.28 0 12 0zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.17 1.17 0 1 1 0-2.34 1.17 1.17 0 0 1 0 2.34z" transform="translate(0 2)"/></svg>
+        Instagram
+    </a>
+</nav>
 
 <script>
 (function () {
     var header = document.getElementById('siteHeader');
-    var floatTel = document.getElementById('floatTel');
-    var hero = document.querySelector('.hero');
-    var heroH = hero ? hero.offsetHeight : 600;
 
     window.addEventListener('scroll', function () {
         var y = window.scrollY;
         header.classList.toggle('scrolled', y > 40);
-        floatTel.classList.toggle('show', y > heroH * 0.6);
     }, { passive: true });
 
     var observer = new IntersectionObserver(function (entries) {

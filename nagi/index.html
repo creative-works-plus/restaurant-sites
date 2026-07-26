@@ -9,6 +9,8 @@
 <meta property="og:description" content="風がやみ、波が静まる「凪」のひととき。旬の肴と美酒で寛ぐ、古河市北町の居酒屋。">
 <meta property="og:type" content="restaurant">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2312181f' stroke='%23c8a25c' stroke-width='3'/%3E%3Ctext x='50' y='66' font-size='50' text-anchor='middle' fill='%23c8a25c' font-family='serif'%3E%E5%87%A2%3C/text%3E%3C/svg%3E">
+<!-- ヒーロー背景（CSS background-image）用の先読み。店先イラストがLCP要素になるため -->
+<link rel="preload" as="image" href="images/storefront.jpg" fetchpriority="high">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -75,25 +77,6 @@
     .seal { flex-shrink: 0; }
     .seal circle.ring { fill: var(--night); stroke: var(--gold); stroke-width: 3; }
     .seal text { fill: var(--gold); font-family: var(--font-serif); }
-
-    /* ========== オープニングスプラッシュ ==========
-       開店時（初回表示時）に店先のイラストを全画面で見せてからページへ。
-       クリックでスキップ／同一セッション2回目以降・reduced-motion時はほぼ即時に消える */
-    .splash {
-        position: fixed; inset: 0; z-index: 2000;
-        background-color: var(--night-deep); cursor: pointer;
-    }
-    .splash img {
-        width: 100%; height: 100%; object-fit: cover;
-        opacity: 0; animation: splashIn 1s ease forwards;
-    }
-    /* 端をわずかに落として夜の雰囲気に馴染ませる */
-    .splash::after {
-        content: ""; position: absolute; inset: 0; pointer-events: none;
-        background: radial-gradient(ellipse at 50% 45%, rgba(10,14,20,0) 55%, rgba(10,14,20,0.55) 100%);
-    }
-    .splash.done { opacity: 0; transition: opacity 0.8s ease; pointer-events: none; }
-    @keyframes splashIn { to { opacity: 1; } }
 
     /* ========== ナビゲーション ========== */
     .global-nav {
@@ -186,24 +169,30 @@
     @media (prefers-reduced-motion: reduce) {
         .reveal { opacity: 1; transform: none; }
     }
+    /* JSが動かない場合の逃げ道：opacity:0のまま固まって本文が消えるのを防ぐ */
+    .no-js .reveal { opacity: 1; transform: none; }
 
     /* ========== 波ディバイダー ========== */
     .wave-divider { width: 100%; height: 42px; display: block; }
     .wave-divider path { fill: var(--night-deep); }
 
-    /* ========== ヒーロー ========== */
+    /* ========== ヒーロー（P1 フルブリード） ========== */
     .hero {
         position: relative; padding: 170px 20px 120px; text-align: center; overflow: hidden;
-        /* 店先イラストを夜の藍で染めて敷く。下端は波・次セクションへ溶けるよう最深部の色に落とす */
+        min-height: 100svh; display: flex; align-items: center; justify-content: center;
+        /* 店先イラストを夜の藍で染めて敷く。上部は看板・提灯の暖色が透けるよう浅めに、
+           イラスト中央〜下部（営業時間の札・黒板メニュー＝本文と表記が異なるため）は
+           札の高さから濃く潰して次セクションの最深部の色へ溶かす */
         background:
-            linear-gradient(to bottom, rgba(10,14,20,0.66) 0%, rgba(18,24,33,0.8) 50%, rgba(10,14,20,0.95) 100%),
+            linear-gradient(to bottom, rgba(10,14,20,0.35) 0%, rgba(10,14,20,0.45) 18%, rgba(10,14,20,0.94) 32%, rgba(10,14,20,0.99) 50%, var(--night-deep) 62%, var(--night-deep) 100%),
             url("images/storefront.jpg") center 32% / cover no-repeat var(--night);
     }
     .hero::before {
         content: ""; position: absolute; inset: 0;
         background-image:
             radial-gradient(circle at 82% 18%, rgba(227,198,136,0.16) 0%, rgba(227,198,136,0) 40%),
-            repeating-linear-gradient(115deg, rgba(200,162,92,0.035) 0px, rgba(200,162,92,0.035) 1px, transparent 1px, transparent 90px);
+            repeating-linear-gradient(115deg, rgba(200,162,92,0.035) 0px, rgba(200,162,92,0.035) 1px, transparent 1px, transparent 90px),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
         pointer-events: none;
     }
     .hero-container { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
@@ -278,26 +267,48 @@
     .news-label.event { background: rgba(200,162,92,0.16); color: var(--gold-soft); border: 1px solid var(--line); }
     .news-body { color: var(--moon); font-size: 0.95rem; flex: 1; min-width: 200px; }
 
-    /* ========== おすすめ料理カード ========== */
-    .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    .dish-card { background-color: var(--surface); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
-    .dish-visual {
-        height: 220px; display: flex; align-items: center; justify-content: center;
-        background: radial-gradient(circle at 50% 40%, var(--surface-soft) 0%, var(--night-deep) 100%);
-        border-bottom: 1px solid var(--line);
+    /* ========== おすすめ料理（P3 エディトリアル） ==========
+       写真がこの2枚しかないため、大きく組んだうえで
+       余白のある「額装（マット）」で見せて質感を補う。
+       奇数行・偶数行で写真とテキストの左右を入れ替える。 */
+    .dish-editorial-list { display: flex; flex-direction: column; gap: 68px; margin-top: 4px; }
+    .dish-row { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 52px; align-items: center; }
+    .dish-row.reverse { grid-template-columns: 0.9fr 1.1fr; }
+    .dish-row.reverse .dish-photo { order: 2; }
+    .dish-row.reverse .dish-copy { order: 1; }
+
+    /* 額装（マット）：淡いノイズと金の気配を敷いた台紙の中央に、原寸150pxの実写を
+       広めの余白で「小さく丁寧に」収める（拡大ボケ防止） */
+    .dish-photo {
+        position: relative; width: 100%; max-width: 230px; margin: 0 auto;
+        padding: 36px; border: 1px solid var(--line); border-radius: 4px;
+        background-color: var(--surface);
+        background-image:
+            radial-gradient(circle at 50% 28%, rgba(227,198,136,0.07), rgba(227,198,136,0) 65%),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+        box-shadow: 0 20px 50px rgba(0,0,0,0.35);
     }
-    .dish-visual svg { width: 120px; height: 120px; }
-    /* 実際の料理写真は「暗い漆の皿」に載せるイメージで円形に切り抜いて見せる
-       （元画像が小さいため、大きく引き伸ばさず上質に見せる工夫） */
-    .dish-visual img {
-        width: 172px; height: 172px; border-radius: 50%; object-fit: cover;
-        border: 3px solid rgba(200,162,92,0.45); box-shadow: 0 0 0 10px rgba(10,14,20,0.6), 0 14px 34px rgba(0,0,0,0.5);
+    /* 原寸150×150pxの実写を等倍以下（150px）で飾る。額装の余白を広めに取り、
+       小さく丁寧に見せることで拡大ボケを防ぐ */
+    .dish-photo-inner {
+        position: relative; width: 150px; height: 150px; max-width: 100%;
+        margin: 0 auto; overflow: hidden; border-radius: 2px;
+        box-shadow: 0 0 0 1px rgba(200,162,92,0.35);
     }
-    .dish-body { padding: 30px 32px 34px; }
+    .dish-photo-inner img { width: 100%; height: 100%; object-fit: cover; }
+    @media (hover: hover) {
+        .dish-photo-inner img { transition: transform 0.5s ease, filter 0.5s ease; }
+        .dish-row:hover .dish-photo-inner img { transform: scale(1.04); filter: brightness(1.06); }
+    }
+
+    .dish-copy { padding: 4px 6px; }
     .dish-tag { color: var(--gold); font-size: 0.78rem; letter-spacing: 0.2em; font-weight: bold; }
-    .dish-name { font-family: var(--font-serif); font-size: 1.4rem; color: var(--moon); margin: 10px 0 6px; }
-    .dish-price { color: var(--gold-soft); font-size: 1rem; margin: 0 0 14px; font-family: var(--font-serif); }
-    .dish-desc { font-size: 0.92rem; line-height: 1.85; }
+    .dish-name { font-family: var(--font-serif); font-size: 1.7rem; color: var(--moon); margin: 12px 0 8px; letter-spacing: 0.04em; }
+    .dish-price {
+        color: var(--gold-soft); font-size: 1.05rem; margin: 0 0 18px; font-family: var(--font-serif);
+        padding-bottom: 16px; border-bottom: 1px dotted rgba(200,162,92,0.35); display: inline-block;
+    }
+    .dish-desc { font-size: 0.95rem; line-height: 1.9; }
 
     /* ========== 席・空間 ========== */
     .seat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -333,6 +344,13 @@
         display: flex; align-items: baseline; gap: 10px;
         padding: 13px 2px; border-bottom: 1px dotted rgba(169,179,189,0.25);
     }
+    /* 写真のある品（名物2品）だけ、72pxの実写サムネを添える。基準はbaselineでなくcenterに */
+    .menu-item.has-photo { align-items: center; }
+    .menu-item-thumb {
+        flex-shrink: 0; width: 72px; height: 72px; border-radius: 3px; overflow: hidden;
+        border: 1px solid var(--line); box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    .menu-item-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .menu-item-name { color: var(--moon); font-size: 0.98rem; }
     .menu-item-name::before { content: "凪 "; color: var(--gold); font-size: 0.7rem; letter-spacing: 0; opacity: 0.7; }
     /* 名前と価格を点線でつなぎ、視線の迷いをなくす */
@@ -421,11 +439,14 @@
         .nav-links a.current::after { display: none; }
         .nav-reserve { margin-top: 18px; }
 
-        .hero { padding: 130px 20px 90px; }
+        .hero { padding: 130px 20px 90px; min-height: 88svh; }
         .hero-title { font-size: 2.7rem; }
         .hero .catch { font-size: 1.2rem; }
 
-        .signature-grid { grid-template-columns: 1fr; }
+        .dish-row, .dish-row.reverse { grid-template-columns: 1fr; gap: 28px; }
+        .dish-row.reverse .dish-photo { order: 0; }
+        .dish-row.reverse .dish-copy { order: 1; }
+        .dish-editorial-list { gap: 48px; }
         .seat-grid { grid-template-columns: 1fr; }
         .info-layout { grid-template-columns: 1fr; }
         .menu-grid { grid-template-columns: 1fr; }
@@ -440,13 +461,7 @@
     }
 </style>
 </head>
-<body>
-
-<!-- オープニング：店先のイラストを全画面表示してからページ本体へ -->
-<div class="splash" id="splash" role="img" aria-label="居酒屋 凪の店先">
-    <img src="images/storefront.jpg" alt="">
-</div>
-<noscript><style>.splash { display: none; }</style></noscript>
+<body class="no-js">
 
 <nav class="global-nav">
     <div class="nav-container">
@@ -473,7 +488,7 @@
 
 <header class="hero" id="top">
     <div class="hero-container">
-        <svg class="hero-emblem" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="45"/><text x="50" y="65" font-size="48" text-anchor="middle">凪</text></svg>
+        <svg class="seal hero-emblem" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="45"/><text x="50" y="65" font-size="48" text-anchor="middle">凪</text></svg>
         <h1 class="hero-title"><span>古河・北町　寛ぎの一献</span>居酒屋 凪</h1>
 
         <!-- 本日の営業状況（JSで自動更新） -->
@@ -538,32 +553,37 @@
     </section>
 
     <section id="signature">
+        <span class="watermark" aria-hidden="true">旬</span>
         <span class="eyebrow">SIGNATURE</span>
         <h2 class="section-title">当店自慢の一品</h2>
         <p class="section-lead">数ある肴の中でも、特にお客様からご好評をいただいている二品をご紹介いたします。</p>
-        <div class="signature-grid">
-            <div class="dish-card reveal">
-                <div class="dish-visual">
-                    <img src="images/gyuniku-tataki.png" alt="牛肉のタタキ。表面を炙り中は赤みを残した薄切りの牛肉">
+        <div class="dish-editorial-list">
+            <article class="dish-row reveal">
+                <div class="dish-photo">
+                    <div class="dish-photo-inner">
+                        <img src="images/gyuniku-tataki.png" width="150" height="150" loading="lazy" decoding="async" alt="牛肉のタタキ。表面を炙り中は赤みを残した薄切りの牛肉">
+                    </div>
                 </div>
-                <div class="dish-body">
+                <div class="dish-copy">
                     <span class="dish-tag">RECOMMEND 01</span>
                     <h3 class="dish-name">牛肉のタタキ</h3>
                     <p class="dish-price">￥980（税込）</p>
                     <p class="dish-desc">表面を香ばしく炙り、中は赤みを残してしっとりと。旨みを閉じ込めた一枚一枚を、薬味とともにさっぱりとお楽しみいただけます。お酒との相性は抜群、まずはこの一皿から始めるお客様が多い当店の代表格です。</p>
                 </div>
-            </div>
-            <div class="dish-card reveal">
-                <div class="dish-visual">
-                    <img src="images/atsuyaki-tamago.png" alt="ネギ入り厚焼き玉子。刻みネギを練り込んで分厚く焼き上げ、大葉を添えた一皿">
+            </article>
+            <article class="dish-row reverse reveal">
+                <div class="dish-photo">
+                    <div class="dish-photo-inner">
+                        <img src="images/atsuyaki-tamago.png" width="150" height="150" loading="lazy" decoding="async" alt="ネギ入り厚焼き玉子。刻みネギを練り込んで分厚く焼き上げ、大葉を添えた一皿">
+                    </div>
                 </div>
-                <div class="dish-body">
+                <div class="dish-copy">
                     <span class="dish-tag">RECOMMEND 02</span>
                     <h3 class="dish-name">ネギ入り厚焼き玉子</h3>
                     <p class="dish-price">￥680（税込）</p>
                     <p class="dish-desc">刻みネギをたっぷりと練り込み、じっくりと焼き上げた分厚い一枚。「ボリューム満点で最高」とお客様の声もいただく看板の卵料理です。出汁の効いたやさしい甘みが、お酒の合間にほっと一息つかせてくれます。</p>
                 </div>
-            </div>
+            </article>
         </div>
     </section>
 
@@ -597,7 +617,7 @@
 
         <h3 class="menu-category" id="cat-yakimono">焼き物</h3>
         <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">牛肉のタタキ<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥980</span></div>
+            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/gyuniku-tataki.png" width="150" height="150" loading="lazy" decoding="async" alt="牛肉のタタキ"></span><span class="menu-item-name">牛肉のタタキ<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥980</span></div>
             <div class="menu-item"><span class="menu-item-name">炭火焼き鳥盛り合わせ（5本）</span><span class="leader"></span><span class="menu-item-price">￥980</span></div>
             <div class="menu-item"><span class="menu-item-name">豚トロ塩レモン焼き</span><span class="leader"></span><span class="menu-item-price">￥780</span></div>
             <div class="menu-item"><span class="menu-item-name">国産ホルモン炭火焼き</span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
@@ -614,7 +634,7 @@
 
         <h3 class="menu-category" id="cat-ippin">一品料理</h3>
         <div class="menu-grid">
-            <div class="menu-item"><span class="menu-item-name">ネギ入り厚焼き玉子<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
+            <div class="menu-item has-photo"><span class="menu-item-thumb"><img src="images/atsuyaki-tamago.png" width="150" height="150" loading="lazy" decoding="async" alt="ネギ入り厚焼き玉子"></span><span class="menu-item-name">ネギ入り厚焼き玉子<span class="osusume">名物</span></span><span class="leader"></span><span class="menu-item-price">￥680</span></div>
             <div class="menu-item"><span class="menu-item-name">じっくり煮込んだもつ煮込み</span><span class="leader"></span><span class="menu-item-price">￥580</span></div>
             <div class="menu-item"><span class="menu-item-name">自家製冷奴</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
             <div class="menu-item"><span class="menu-item-name">枝豆</span><span class="leader"></span><span class="menu-item-price">￥380</span></div>
@@ -755,29 +775,8 @@
 <button class="to-top" id="to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="ページの先頭へ戻る">▲</button>
 
 <script>
-    /* ---------- オープニングスプラッシュ ----------
-       初回は約1.8秒見せてからフェードアウト。クリックで即スキップ。
-       同じセッション内の再訪・「視差効果を減らす」設定時はほぼ待たせない */
-    (function () {
-        var splash = document.getElementById('splash');
-        if (!splash) return;
-        var quick = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        try {
-            quick = quick || sessionStorage.getItem('nagiSplashSeen') === '1';
-            sessionStorage.setItem('nagiSplashSeen', '1');
-        } catch (e) { /* プライベートモード等でsessionStorageが使えない場合は毎回表示 */ }
-        var hidden = false;
-        function hide() {
-            if (hidden) return;
-            hidden = true;
-            splash.classList.add('done');
-            setTimeout(function () {
-                if (splash.parentNode) splash.parentNode.removeChild(splash);
-            }, 900);
-        }
-        splash.addEventListener('click', hide);
-        setTimeout(hide, quick ? 150 : 1800);
-    })();
+    /* JSが動いたことを示す（no-jsの逃げ道を解除） */
+    document.body.classList.remove('no-js');
 
     /* ---------- ハンバーガーメニュー ---------- */
     function toggleMenu() {
