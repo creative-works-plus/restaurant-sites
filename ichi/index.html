@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>いざかや 壱 - 公式サイト｜古河市 居酒屋</title>
+<meta name="description" content="茨城県古河市の居酒屋「いざかや 壱」。古河駅から徒歩4分、一品400円から。揚げ物・焼き物のつまみから、オムライス・チャーハン・定食まで。27席、お通しはサービス、駐車場あり。ご予約はお電話で。">
+
+<meta property="og:title" content="いざかや 壱｜古河市の居酒屋">
+<meta property="og:description" content="古河駅から徒歩4分。一杯だけでも、締めのごはんまでも。一品400円から揃う駅前の居酒屋です。">
+<meta property="og:type" content="restaurant">
+<meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/ichi/">
+<!-- OGP画像：公開URLに合わせた絶対URL。フォルダ名を変えたらここも直す -->
+<meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/ichi/img/hero-exterior.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="theme-color" content="#191512">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;500;700;800&family=IBM+Plex+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- favicon：炭色の角丸に木色の「壱」、足元に看板の赤 -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23191512'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23D8B183' font-family='serif' font-weight='700'%3E%E5%A3%B1%3C/text%3E%3Crect x='26' y='80' width='48' height='6' rx='3' fill='%23C8343D'/%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "いざかや 壱",
+  "servesCuisine": "Japanese",
+  "priceRange": "¥¥",
+  "telephone": "+81-80-9975-7963",
+  "paymentAccepted": "Cash, PayPay, Electronic Money",
+  "currenciesAccepted": "JPY",
+  "url": "https://creative-works-plus.github.io/restaurant-sites/ichi/",
+  "image": "https://creative-works-plus.github.io/restaurant-sites/ichi/img/hero-exterior.jpg",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "17:30",
+      "closes": "23:00"
+    }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "古河380-7",
+    "addressLocality": "古河市",
+    "addressRegion": "茨城県",
+    "postalCode": "306-0016",
+    "addressCountry": "JP"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 36.1921217,
+    "longitude": 139.7110209
+  },
+  "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E5%8F%A4%E6%B2%B3380-7",
+  "acceptsReservations": "True"
+}
+</script>
+
+<style>
+/* ==========================================================================
+   1. カラートークン（値は「いざかや 壱」の実写からサンプリング）
+   ========================================================================== */
+:root{
+    --bg:          #191512;
+    --surface:     #221D18;
+    --surface-2:   #2C261F;
+
+    --ink:         #F5EFE5;
+    --muted:       #C3B5A2;
+    --dim:         #9A8D7D;
+
+    --accent:      #C8343D;   /* 看板・ソファの赤。CTAと点にだけ使う */
+    --accent-hi:   #DC4A52;
+    --accent-deep: #97222B;
+    --accent-2:    #D8B183;   /* 縦格子・床のライトウッド。構造色 */
+
+    --line:        rgba(245,239,229,.13);
+    --line-strong: rgba(245,239,229,.24);
+    --shadow:      0 24px 60px rgba(0,0,0,.5);
+
+    --open:        #7fc383;
+    --closed:      #d98a7e;
+
+    --font-head:   'Kaisei Tokumin', serif;
+    --font-body:   'IBM Plex Sans JP', system-ui, sans-serif;
+
+    --radius:      10px;
+    --maxw:        1120px;
+    --gap:         clamp(16px, 4vw, 40px);
+    --pad-section: clamp(64px, 10vw, 120px);
+    --pad-inner:   clamp(20px, 5vw, 40px);
+    --header-h:    62px;
+}
+
+/* ==========================================================================
+   2. ベース（_共通パーツ/04-base.css）
+   ========================================================================== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:var(--header-h)}
+body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--font-body);line-height:1.85;
+    overflow-x:hidden;
+}
+img,svg,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+table{border-collapse:collapse}
+
+h1,h2,h3,h4,p,li,dt,dd,th,td,summary,figcaption{word-break:auto-phrase;text-wrap:pretty}
+.nw{display:inline-block}
+.br-sp{display:none}
+@media (max-width:600px){.br-sp{display:inline}.br-pc{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
+.container{width:min(100% - 2*var(--pad-inner),var(--maxw));margin-inline:auto}
+.section{padding-block:var(--pad-section)}
+
+.reveal{
+    opacity:0;transform:translateY(26px);
+    transition:opacity .8s cubic-bezier(.16,.7,.3,1),transform .8s cubic-bezier(.16,.7,.3,1);
+}
+.reveal.in-view{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.08s}
+.reveal-delay-2{transition-delay:.16s}
+.reveal-delay-3{transition-delay:.24s}
+.no-js .reveal{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+.photo-frame{
+    position:relative;overflow:hidden;border-radius:var(--radius);
+    border:1px solid var(--line-strong);box-shadow:var(--shadow);background:var(--surface-2);
+}
+.photo-frame img{width:100%;height:100%;object-fit:cover}
+
+.map-wrapper{
+    position:relative;width:100%;aspect-ratio:16/10;
+    border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+}
+.map-wrapper iframe{width:100%;height:100%;border:0}
+@media (max-width:620px){.map-wrapper{aspect-ratio:4/3}}
+
+.sticky-bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:150;
+    display:none;gap:1px;background:var(--line);
+    transform:translateY(100%);transition:transform .35s ease;
+    box-shadow:0 -10px 30px rgba(0,0,0,.45);
+}
+.sticky-bar.visible{transform:translateY(0)}
+.sticky-bar a{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:16px 10px;font-size:.88rem;font-weight:600;letter-spacing:.02em;
+}
+.sticky-bar a svg{width:17px;height:17px;flex-shrink:0}
+.sticky-bar .bar-tel{background:var(--accent);color:#fff}
+.sticky-bar .bar-alt{background:var(--surface);color:var(--ink)}
+
+.status-chip{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:5px 13px;border-radius:999px;border:1px solid var(--line-strong);
+    font-size:.8rem;letter-spacing:.04em;background:rgba(25,21,18,.6);
+}
+.status-chip::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--dim)}
+.status-chip.is-open::before{background:var(--open)}
+.status-chip.is-closed::before{background:var(--closed)}
+.status-chip.is-break::before{background:var(--accent)}
+
+/* ==========================================================================
+   3. 共通パーツ（見出し・ボタン）
+   ========================================================================== */
+.section-head{margin-bottom:clamp(28px,5vw,48px)}
+.section-label{
+    display:block;font-size:.72rem;letter-spacing:.28em;color:var(--accent-2);
+    text-transform:uppercase;margin-bottom:10px;
+}
+.section-title{
+    font-family:var(--font-head);font-weight:700;line-height:1.35;
+    font-size:clamp(1.5rem,4.6vw,2.3rem);letter-spacing:.04em;
+}
+.section-title .accent{color:var(--accent-2)}
+.section-note{margin-top:14px;color:var(--muted);font-size:clamp(.9rem,2.6vw,1rem);max-width:62ch}
+
+.btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    min-height:52px;padding:0 26px;border-radius:6px;
+    font-size:.98rem;font-weight:600;letter-spacing:.03em;
+    border:1px solid transparent;transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease;
+}
+.btn svg{width:18px;height:18px;flex-shrink:0}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:var(--accent-hi);border-color:var(--accent-hi);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line-strong);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--accent-2);color:var(--accent-2)}
+.btn-block{width:100%}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ==========================================================================
+   4. ヘッダー
+   ========================================================================== */
+.site-header{
+    position:fixed;top:0;left:0;right:0;z-index:120;
+    display:flex;align-items:center;gap:14px;
+    height:var(--header-h);padding-inline:clamp(14px,4vw,32px);
+    background:rgba(25,21,18,0);border-bottom:1px solid transparent;
+    transition:background .3s ease,border-color .3s ease;
+}
+body.scrolled .site-header{background:rgba(25,21,18,.94);border-bottom-color:var(--line);backdrop-filter:blur(8px)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-head);letter-spacing:.06em}
+.brand-mark{
+    width:32px;height:32px;flex-shrink:0;border-radius:7px;
+    background:var(--surface-2);border:1px solid var(--accent-2);
+    display:grid;place-items:center;color:var(--accent-2);
+    font-size:1.05rem;line-height:1;font-weight:700;padding-bottom:2px;
+}
+.brand-name{font-size:1.02rem;font-weight:700}
+.brand-name span{color:var(--accent-2)}
+.header-nav{margin-left:auto;display:flex;gap:clamp(14px,2vw,26px);font-size:.9rem}
+.header-nav a{color:var(--muted);transition:color .18s ease}
+.header-nav a:hover{color:var(--accent-2)}
+.header-tel{
+    display:inline-flex;align-items:center;gap:7px;min-height:44px;
+    padding:0 14px;border-radius:6px;background:var(--accent);color:#fff;
+    font-size:.88rem;font-weight:600;letter-spacing:.02em;white-space:nowrap;
+    transition:background .18s ease;
+}
+.header-tel:hover{background:var(--accent-hi)}
+.header-tel svg{width:15px;height:15px}
+/* ナビが隠れる幅では電話ボタンを右端へ寄せる（左に貼りつくのを防ぐ） */
+@media (max-width:900px){.header-nav{display:none}.header-tel{margin-left:auto}}
+@media (max-width:620px){
+    .header-tel{padding:0 11px;font-size:.8rem;gap:5px}
+    .brand-name{font-size:.94rem}
+}
+@media (max-width:359px){.header-tel{font-size:.74rem;padding:0 9px}}
+
+/* モバイルナビ */
+.nav-toggle{
+    display:none;width:44px;height:44px;flex-shrink:0;
+    background:none;border:1px solid var(--line-strong);border-radius:6px;
+    cursor:pointer;padding:12px 11px;flex-direction:column;justify-content:space-between;
+}
+.nav-toggle span{display:block;height:2px;width:100%;background:var(--ink);border-radius:2px;transition:transform .25s ease,opacity .25s ease}
+body.nav-open .nav-toggle span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+body.nav-open .nav-toggle span:nth-child(2){opacity:0}
+body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.mobile-nav{
+    position:fixed;inset:var(--header-h) 0 auto 0;z-index:110;
+    background:rgba(25,21,18,.98);border-bottom:1px solid var(--line);
+    display:grid;padding:8px 0;
+    transform:translateY(-115%);transition:transform .3s ease;
+}
+body.nav-open .mobile-nav{transform:translateY(0)}
+.mobile-nav a{padding:14px clamp(20px,5vw,32px);font-size:.98rem;border-bottom:1px solid var(--line)}
+.mobile-nav a:last-child{border-bottom:0}
+@media (max-width:900px){.nav-toggle{display:flex}}
+
+/* ==========================================================================
+   5. ヒーロー（型 A-5：文字主体。写真は薄く敷く／常時アニメーションなし）
+   ========================================================================== */
+.hero{
+    position:relative;min-height:100svh;display:flex;align-items:center;
+    padding-top:calc(var(--header-h) + 28px);padding-bottom:clamp(40px,9vw,80px);
+    overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.22;filter:saturate(.75)}
+.hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:
+        radial-gradient(120% 80% at 50% 30%, rgba(25,21,18,.45) 0%, rgba(25,21,18,.9) 62%, #191512 100%),
+        linear-gradient(180deg, rgba(25,21,18,.85) 0%, rgba(25,21,18,.25) 34%, #191512 100%);
+}
+.hero-inner{position:relative;z-index:1;text-align:center}
+.hero-eyebrow{
+    font-size:clamp(.7rem,2.6vw,.8rem);letter-spacing:.24em;color:var(--accent-2);
+    margin-bottom:clamp(14px,3vw,22px);
+}
+.hero-kanji{
+    font-family:var(--font-head);font-weight:800;line-height:.9;
+    font-size:clamp(7.5rem,30vw,15rem);letter-spacing:0;
+    color:var(--ink);
+    display:block;margin-bottom:clamp(16px,2.6vw,26px);
+    text-shadow:0 18px 50px rgba(0,0,0,.6);
+}
+.hero-rule{
+    width:clamp(48px,12vw,88px);height:3px;background:var(--accent);
+    margin:0 auto clamp(18px,3.4vw,26px);border-radius:2px;
+}
+.hero-name{
+    font-family:var(--font-head);font-weight:700;
+    font-size:clamp(1.35rem,5.6vw,2.1rem);letter-spacing:.18em;line-height:1.5;
+}
+.hero-romaji{
+    display:block;font-family:var(--font-body);font-weight:500;
+    font-size:clamp(.62rem,2.3vw,.76rem);letter-spacing:.42em;color:var(--dim);
+    margin-top:10px;
+}
+.hero-lead{
+    font-family:var(--font-head);font-weight:500;
+    font-size:clamp(1.05rem,4.2vw,1.6rem);line-height:1.75;letter-spacing:.06em;
+    margin-top:clamp(22px,4.6vw,34px);
+}
+.hero-lead em{font-style:normal;color:var(--accent-2)}
+.hero-sub{
+    color:var(--muted);font-size:clamp(.86rem,2.9vw,1rem);
+    margin-top:14px;max-width:36em;margin-inline:auto;
+}
+.hero-hours{
+    margin-top:clamp(16px,3vw,22px);font-size:clamp(.86rem,2.8vw,1rem);
+    font-weight:500;letter-spacing:.06em;color:var(--accent-2);
+}
+.hero-hours span{margin-inline:.5em;color:var(--dim)}
+.hero-status{margin-top:14px}
+.hero .hero-actions{justify-content:center;margin-top:clamp(18px,3.4vw,26px)}
+@media (max-width:620px){
+    .hero .hero-actions{flex-direction:column;align-items:stretch}
+    .hero .hero-actions .btn{width:100%}
+}
+
+/* ヒーロー直下の情報帯 */
+.facts{background:var(--surface);border-block:1px solid var(--line)}
+.facts-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    padding-block:clamp(20px,3.4vw,30px);
+}
+.facts-grid div{
+    padding-inline:clamp(6px,1.6vw,18px);text-align:center;
+    border-left:1px solid var(--line);
+}
+.facts-grid div:first-child{border-left:0}
+.facts-grid dt{font-size:.68rem;letter-spacing:.16em;color:var(--dim);margin-bottom:6px}
+.facts-grid dd{font-size:clamp(.8rem,2.4vw,.98rem);font-weight:500;line-height:1.5}
+.facts-grid dd small{display:block;font-size:.8rem;color:var(--muted);font-weight:400;margin-top:4px;line-height:1.6}
+@media (max-width:620px){
+    .facts-grid{grid-template-columns:repeat(2,1fr);row-gap:20px}
+    .facts-grid div:nth-child(odd){border-left:0}
+    .facts-grid div:nth-child(-n+2){padding-bottom:20px;border-bottom:1px solid var(--line)}
+}
+
+/* ==========================================================================
+   6. 使い方（3つのカード）
+   ========================================================================== */
+.use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+@media (max-width:820px){.use-grid{grid-template-columns:1fr;gap:16px}}
+.use-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:clamp(24px,3.6vw,34px);position:relative;overflow:hidden;
+    transition:border-color .2s ease,transform .2s ease;
+}
+.use-card:hover{border-color:var(--accent-2);transform:translateY(-3px)}
+.use-num{
+    font-family:var(--font-head);font-size:2.4rem;line-height:1;color:var(--accent-2);
+    opacity:.32;position:absolute;top:14px;right:18px;font-weight:700;
+}
+.use-card h3{
+    font-family:var(--font-head);font-size:clamp(1.06rem,3.4vw,1.24rem);
+    font-weight:700;letter-spacing:.05em;margin-bottom:12px;
+}
+.use-card p{color:var(--muted);font-size:.93rem}
+.use-card .use-price{
+    display:inline-block;margin-top:16px;padding:4px 12px;border-radius:999px;
+    background:var(--surface-2);border:1px solid var(--line);
+    font-size:.78rem;letter-spacing:.04em;color:var(--accent-2);
+}
+
+/* ==========================================================================
+   7. 店内（型 C-3：大小ミックス）
+   ========================================================================== */
+.space-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(12px,2vw,20px)}
+.space-grid .photo-frame{aspect-ratio:4/3}
+.space-main{grid-row:span 2}
+.space-main.photo-frame{aspect-ratio:auto;min-height:100%}
+@media (max-width:760px){
+    .space-grid{grid-template-columns:1fr 1fr}
+    .space-main{grid-row:auto;grid-column:span 2}
+    .space-main.photo-frame{aspect-ratio:4/3;min-height:0}
+}
+.space-caps{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(22px,3.4vw,32px);
+}
+@media (max-width:700px){.space-caps{grid-template-columns:1fr}}
+.space-caps li{
+    border-left:2px solid var(--accent-2);padding:4px 0 4px 14px;
+    font-size:.92rem;color:var(--muted);
+}
+.space-caps li b{display:block;color:var(--ink);font-weight:600;font-size:.98rem;margin-bottom:2px}
+
+/* ==========================================================================
+   8. 料理写真
+   ========================================================================== */
+.dish-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,20px)}
+@media (max-width:900px){.dish-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:600px){.dish-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+.dish figure{margin:0}
+.dish .photo-frame{aspect-ratio:3/4}
+.dish figcaption{
+    margin-top:10px;font-size:clamp(.8rem,2.5vw,.92rem);font-weight:500;line-height:1.5;
+}
+.dish figcaption span{display:block;color:var(--accent-2);font-size:.82em;font-weight:400;margin-top:2px}
+.dish-note{
+    margin-top:clamp(22px,3.4vw,30px);padding:16px 18px;border-radius:var(--radius);
+    background:var(--surface);border:1px solid var(--line);
+    color:var(--muted);font-size:.88rem;
+}
+
+/* ==========================================================================
+   9. おしながき（型 B-1：価格右寄せリスト＋タブ切替）
+   ========================================================================== */
+.menu-section{background:var(--surface);border-block:1px solid var(--line)}
+/* おしながきの前に必ず出す「お会計の条件」。あとから驚かせないため */
+.menu-terms{
+    margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 10px;
+}
+.menu-terms li{
+    background:var(--surface-2);border:1px solid var(--line-strong);border-left:3px solid var(--accent);
+    border-radius:6px;padding:9px 14px;font-size:clamp(.82rem,2.5vw,.9rem);color:var(--muted);
+}
+.menu-terms b{color:var(--ink);font-weight:600}
+
+.tabs{
+    display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;
+    margin-bottom:clamp(24px,3.6vw,34px);
+    scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+}
+.tabs::-webkit-scrollbar{height:4px}
+.tabs::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:2px}
+.tab{
+    flex:0 0 auto;background:none;cursor:pointer;color:var(--muted);
+    font-family:var(--font-body);font-size:.9rem;font-weight:500;letter-spacing:.05em;
+    padding:10px 18px;min-height:44px;border-radius:999px;
+    border:1px solid var(--line-strong);
+    transition:color .18s ease,border-color .18s ease,background .18s ease;
+}
+.tab:hover{color:var(--ink);border-color:var(--accent-2)}
+.tab[aria-selected="true"]{background:var(--accent-2);border-color:var(--accent-2);color:#191512;font-weight:600}
+.tab-panel[hidden]{display:none}
+
+.menu-cols{columns:2;column-gap:clamp(28px,5vw,64px)}
+/* 分類が1つしかないタブは、リスト自体を2段に流して左半分が空くのを防ぐ */
+.menu-cols.is-flow{columns:1}
+.menu-cols.is-flow .menu-list{columns:2;column-gap:clamp(28px,5vw,64px)}
+.menu-cols.is-flow .menu-list li{break-inside:avoid}
+@media (max-width:760px){.menu-cols,.menu-cols.is-flow .menu-list{columns:1}}
+.menu-group{break-inside:avoid;margin-bottom:clamp(26px,3.6vw,36px)}
+.menu-group h3{
+    font-family:var(--font-head);font-weight:700;font-size:1.02rem;letter-spacing:.12em;
+    color:var(--accent-2);padding-bottom:8px;margin-bottom:10px;
+    border-bottom:1px solid var(--line-strong);
+}
+.menu-list li{
+    display:flex;align-items:baseline;gap:8px;
+    padding:7px 0;border-bottom:1px dotted var(--line);
+    font-size:clamp(.9rem,2.6vw,.97rem);
+}
+.menu-list li:last-child{border-bottom:0}
+.menu-list .name{flex:1 1 auto;min-width:0}
+.menu-list .name small{display:block;color:var(--muted);font-size:.84rem;line-height:1.6;margin-top:2px}
+.menu-list .price{
+    flex:0 0 auto;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500;letter-spacing:.02em;
+}
+.menu-list .price small{color:var(--muted);font-weight:400;font-size:.82em}
+.menu-foot{
+    margin-top:clamp(24px,3.6vw,32px);padding-top:18px;border-top:1px solid var(--line);
+    color:var(--dim);font-size:.84rem;
+}
+
+/* ==========================================================================
+   10. お会計のこと
+   ========================================================================== */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+@media (max-width:820px){.price-grid{grid-template-columns:1fr;gap:16px}}
+.price-card{
+    border:1px solid var(--line);border-radius:var(--radius);padding:clamp(22px,3.2vw,30px);
+    background:var(--surface);
+}
+.price-card h3{
+    font-family:var(--font-head);font-size:1.06rem;font-weight:700;letter-spacing:.05em;margin-bottom:10px;
+}
+.price-card p{color:var(--muted);font-size:.92rem}
+.price-card .big{
+    display:block;font-family:var(--font-head);font-size:1.9rem;line-height:1.2;
+    color:var(--accent-2);margin-bottom:8px;font-weight:700;
+}
+
+/* ==========================================================================
+   11. アクセス
+   ========================================================================== */
+.info-layout{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(22px,3.6vw,44px);align-items:start}
+@media (max-width:860px){.info-layout{grid-template-columns:1fr}}
+.info-table{width:100%;font-size:clamp(.88rem,2.6vw,.96rem)}
+.info-table th,.info-table td{padding:13px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.info-table th{width:6.5em;font-weight:500;color:var(--accent-2);letter-spacing:.06em;padding-right:12px}
+.info-table td{color:var(--muted)}
+.info-table td small{display:block;color:var(--dim);font-size:.86em;margin-top:3px}
+.tel-link{color:var(--ink);font-weight:600;letter-spacing:.03em;border-bottom:1px solid var(--accent);padding-bottom:1px}
+.pay-chip{
+    display:inline-block;margin:0 6px 6px 0;padding:3px 11px;border-radius:999px;
+    background:var(--surface-2);border:1px solid var(--line);
+    font-size:.78rem;color:var(--ink);
+}
+.pay-chip.is-no{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--closed)}
+.map-link{margin-top:12px}
+
+/* ==========================================================================
+   12. フッター
+   ========================================================================== */
+.site-footer{background:var(--surface);border-top:1px solid var(--line);padding-block:clamp(36px,6vw,56px);text-align:center}
+.footer-kanji{font-family:var(--font-head);font-size:2.2rem;color:var(--accent-2);line-height:1;margin-bottom:12px;font-weight:700}
+.footer-name{font-family:var(--font-head);font-size:1.1rem;letter-spacing:.16em;font-weight:700}
+.footer-meta{color:var(--dim);font-size:.85rem;margin-top:12px;line-height:1.9}
+.footer-meta a{border-bottom:1px solid var(--line-strong)}
+.copyright{color:var(--dim);font-size:.74rem;margin-top:24px;letter-spacing:.06em}
+
+@media (max-width:620px){
+    .sticky-bar{display:flex}
+    body{padding-bottom:68px}
+}
+@media (min-width:621px){
+    .sticky-bar{display:none}
+    body{padding-bottom:0}
+}
+</style>
+</head>
+<body class="no-js">
+
+<header class="site-header">
+    <a href="#hero" class="brand">
+        <span class="brand-mark" aria-hidden="true">壱</span>
+        <span class="brand-name">いざかや <span>壱</span></span>
+    </a>
+    <nav class="header-nav" aria-label="メインナビゲーション">
+        <a href="#about">このお店</a>
+        <a href="#space">店内</a>
+        <a href="#dish">料理</a>
+        <a href="#menu">おしながき</a>
+        <a href="#price">お会計</a>
+        <a href="#info">アクセス</a>
+    </nav>
+    <a href="tel:08099757963" class="header-tel" aria-label="電話でご予約 080-9975-7963">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        <span class="tel-label">080-9975-7963</span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="#about" data-nav-link>このお店</a>
+    <a href="#space" data-nav-link>店内</a>
+    <a href="#dish" data-nav-link>料理</a>
+    <a href="#menu" data-nav-link>おしながき</a>
+    <a href="#price" data-nav-link>お会計のこと</a>
+    <a href="#info" data-nav-link>アクセス・店舗情報</a>
+</nav>
+
+<!-- ========================= ヒーロー ========================= -->
+<section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true">
+        <img src="img/hero-exterior.jpg" alt="" width="1500" height="1124"
+             loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="container hero-inner">
+        <p class="hero-eyebrow">茨城県古河市・古河駅から徒歩4分</p>
+        <span class="hero-kanji" aria-hidden="true">壱</span>
+        <div class="hero-rule" aria-hidden="true"></div>
+        <h1 class="hero-name">
+            いざかや 壱
+            <span class="hero-romaji">IZAKAYA ICHI</span>
+        </h1>
+        <p class="hero-lead">一杯だけでも、<em>締めのごはん</em>までも。</p>
+        <p class="hero-sub">
+            つまみは400円（税別）から。チャーハン、オムライス、定食まで揃うから、
+            飲む人もそうでない人も、この一軒で終われます。
+        </p>
+        <p class="hero-hours">17:30 – 23:00<span aria-hidden="true">｜</span>火曜・水曜 定休</p>
+        <p class="hero-status"><span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span></p>
+        <div class="hero-actions">
+            <a href="tel:08099757963" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                080-9975-7963｜ご予約
+            </a>
+            <a href="#menu" class="btn btn-ghost">おしながきを見る</a>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= 情報帯 ========================= -->
+<section class="facts">
+    <div class="container">
+        <dl class="facts-grid">
+            <div><dt>営業時間</dt><dd>17:30 – 23:00</dd></div>
+            <div><dt>定休日</dt><dd>火曜・水曜</dd></div>
+            <div><dt>席数</dt><dd>27席<small>カウンター／ソファ／ボックス</small></dd></div>
+            <div><dt>駐車場</dt><dd>店前3台<small>近隣パーキングも</small></dd></div>
+        </dl>
+    </div>
+</section>
+
+<!-- ========================= 使い方 ========================= -->
+<section class="section" id="about">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-label">How to use</span>
+            <h2 class="section-title">この一軒で、<span class="accent">終われる。</span></h2>
+            <p class="section-note">
+                古河駅から285m。仕事帰りにひとりで、仲間と、家族と。
+                お通しはサービスなので、頼んだぶんだけのお会計です。
+            </p>
+        </div>
+        <div class="use-grid">
+            <div class="use-card reveal">
+                <span class="use-num" aria-hidden="true">壱</span>
+                <h3>一杯だけ寄る</h3>
+                <p>枝豆、たたききゅうり、梅水晶。400円台のつまみとサッポロ生ビールで、30分だけ。カウンター席があるのでひとりでも居やすい店です。</p>
+                <span class="use-price">つまみ 400円〜</span>
+            </div>
+            <div class="use-card reveal reveal-delay-1">
+                <span class="use-num" aria-hidden="true">弐</span>
+                <h3>じっくり飲む</h3>
+                <p>馬刺し、熟成仙台牛タン塩、ホルモン焼き。焼酎もウイスキーもボトルで置けます。赤いソファのテーブル席は、4人でも6人でも組み替えられます。</p>
+                <span class="use-price">予算 3,000円台</span>
+            </div>
+            <div class="use-card reveal reveal-delay-2">
+                <span class="use-num" aria-hidden="true">参</span>
+                <h3>ごはんだけ食べる</h3>
+                <p>定食6種、チャーハン、昔ながらのオムライス、もちもちピッツア。お酒を飲まない方や、夕飯だけ済ませたい日にも入れます。</p>
+                <span class="use-price">定食 1,200円</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= 店内 ========================= -->
+<section class="section" id="space" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-label">Space</span>
+            <h2 class="section-title">黒い格子と、<span class="accent">明るい木の床。</span></h2>
+            <p class="section-note">
+                真新しい店内は全27席。カウンター、赤いソファのテーブル席、木のボックス席と、
+                人数と気分で座る場所を選べます。個室はありませんが、席の間はゆったり取ってあります。
+            </p>
+        </div>
+        <div class="space-grid reveal">
+            <div class="photo-frame space-main">
+                <img src="img/seat-sofa.jpg" alt="赤いレザーのベンチソファと黒いテーブルが並ぶ客席。床は明るい木、壁はチャコールグレー"
+                     width="1100" height="824" loading="lazy" decoding="async">
+            </div>
+            <div class="photo-frame">
+                <img src="img/seat-counter.jpg" alt="木の一枚板のカウンター席と厨房。奥に赤い吊り戸棚"
+                     width="1100" height="825" loading="lazy" decoding="async">
+            </div>
+            <div class="photo-frame">
+                <img src="img/seat-box.jpg" alt="向かい合わせのボックス席。クリーム色のベンチシートと石目調のテーブル"
+                     width="1100" height="825" loading="lazy" decoding="async">
+            </div>
+        </div>
+        <ul class="space-caps reveal">
+            <li><b>カウンター席</b>ひとり呑み・仕事帰りの一杯に</li>
+            <li><b>ソファのテーブル席</b>人数に合わせて組み替えられます</li>
+            <li><b>ボックス席</b>向かい合わせで、ゆっくり話せる席</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ========================= 料理 ========================= -->
+<section class="section" id="dish">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-label">Dishes</span>
+            <h2 class="section-title">つまみも、<span class="accent">締めも。</span></h2>
+            <p class="section-note">
+                揚げ物・焼き物・一品料理・お食事の4本立て。
+                おしながきの定番に加えて、週で変わる品も少しだけ並びます。
+            </p>
+        </div>
+        <div class="dish-grid">
+            <figure class="dish reveal">
+                <div class="photo-frame"><img src="img/dish-hormone.jpg" alt="味噌だれで炒めたホルモン焼き。黒い角皿に白髪ねぎを添えて" width="675" height="900" loading="lazy" decoding="async"></div>
+                <figcaption>ホルモン焼き<span>600円</span></figcaption>
+            </figure>
+            <figure class="dish reveal reveal-delay-1">
+                <div class="photo-frame"><img src="img/dish-karaage.jpg" alt="揚げたての鶏の唐揚げ。丸皿に山盛りでレモンとサラダを添えて" width="675" height="900" loading="lazy" decoding="async"></div>
+                <figcaption>鶏の唐揚げ<span>800円</span></figcaption>
+            </figure>
+            <figure class="dish reveal reveal-delay-2">
+                <div class="photo-frame"><img src="img/dish-shumai.jpg" alt="せいろで蒸し上げた海鮮と肉のしゅうまい盛り合わせ" width="675" height="900" loading="lazy" decoding="async"></div>
+                <figcaption>海鮮・肉しゅうまい盛<span>800円</span></figcaption>
+            </figure>
+            <figure class="dish reveal reveal-delay-3">
+                <div class="photo-frame"><img src="img/dish-hamburg.jpg" alt="デミグラスソースをかけた手作りハンバーグ。白い器に絹さやを添えて" width="675" height="900" loading="lazy" decoding="async"></div>
+                <figcaption>手作りハンバーグ<span>800円</span></figcaption>
+            </figure>
+            <figure class="dish reveal">
+                <div class="photo-frame"><img src="img/dish-tamagoyaki.jpg" alt="ねぎを巻き込んだ出汁の玉子焼き。大根おろしを添えて角皿に" width="675" height="900" loading="lazy" decoding="async"></div>
+                <figcaption>じゃこネギ玉子焼き<span>700円</span></figcaption>
+            </figure>
+            <figure class="dish reveal reveal-delay-1">
+                <div class="photo-frame"><img src="img/dish-gyusuji.jpg" alt="薄切りにした牛すじのスモーク。黒い角皿に辛子を添えて" width="675" height="900" loading="lazy" decoding="async"></div>
+                <figcaption>牛すじスモーク<span>週替わりの一品</span></figcaption>
+            </figure>
+            <figure class="dish reveal reveal-delay-2">
+                <div class="photo-frame"><img src="img/dish-umibudo.jpg" alt="ざるに盛った海ぶどうと、つけだれの小皿" width="675" height="900" loading="lazy" decoding="async"></div>
+                <figcaption>海ぶどう<span>週替わりの一品</span></figcaption>
+            </figure>
+            <figure class="dish reveal reveal-delay-3">
+                <div class="photo-frame"><img src="img/dish-tomato.jpg" alt="厚めに切ったトマトのスライス。白い皿にドレッシングを添えて" width="674" height="900" loading="lazy" decoding="async"></div>
+                <figcaption>とまとスライス<span>週替わりの一品</span></figcaption>
+            </figure>
+        </div>
+        <p class="dish-note reveal">
+            ※ 写真は実際にお出ししているお料理です。「週替わりの一品」はおしながきに載っていない日替わり・週替わりの品のため、
+            その日の仕入れによってご用意できないことがあります。店内の黒板・お品書きでご確認ください。
+        </p>
+    </div>
+</section>
+
+<!-- ========================= おしながき ========================= -->
+<section class="section menu-section" id="menu">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-label">Menu</span>
+            <h2 class="section-title">おしながき</h2>
+            <p class="section-note">店内のおしながきをそのまま載せています。</p>
+            <ul class="menu-terms">
+                <li><b>表示はすべて税別</b>です（別途 消費税10%）</li>
+                <li><b>テーブルチャージ お1人 300円</b>／<b>お通しはサービス</b></li>
+            </ul>
+        </div>
+
+        <div class="tabs reveal" role="tablist" aria-label="おしながきの分類">
+            <button class="tab" role="tab" id="tab-ippin"  aria-controls="panel-ippin"  aria-selected="true">一品料理</button>
+            <button class="tab" role="tab" id="tab-age"    aria-controls="panel-age"    aria-selected="false">揚げ物</button>
+            <button class="tab" role="tab" id="tab-yaki"   aria-controls="panel-yaki"   aria-selected="false">焼き物</button>
+            <button class="tab" role="tab" id="tab-shoku"  aria-controls="panel-shoku"  aria-selected="false">お食事</button>
+            <button class="tab" role="tab" id="tab-drink"  aria-controls="panel-drink"  aria-selected="false">飲みもの</button>
+            <button class="tab" role="tab" id="tab-bottle" aria-controls="panel-bottle" aria-selected="false">ボトル</button>
+        </div>
+
+        <!-- 一品料理 -->
+        <div class="tab-panel reveal" role="tabpanel" id="panel-ippin" aria-labelledby="tab-ippin">
+            <div class="menu-cols">
+                <div class="menu-group">
+                    <h3>一品料理</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">馬刺し</span><span class="price">1,200<small>円</small></span></li>
+                        <li><span class="name">海鮮・肉しゅうまい盛</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">ショウロンポウ</span><span class="price">700<small>円</small></span></li>
+                        <li><span class="name">ハバネロソーセージ</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">3種の牛タン入ソーセージ</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">ホルモン焼き</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">あさりの酒蒸し</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">枝豆ガーリック炒め</span><span class="price">600<small>円</small></span></li>
+                    </ul>
+                </div>
+                <div class="menu-group">
+                    <h3>一品料理（500円以下）</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">いぶりがっこちーず和え</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">梅水晶</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">韓国チャンジャ</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">コーンバター</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">たこわさび</span><span class="price">400<small>円</small></span></li>
+                        <li><span class="name">たたききゅうり</span><span class="price">400<small>円</small></span></li>
+                        <li><span class="name">ほたてわさび</span><span class="price">400<small>円</small></span></li>
+                        <li><span class="name">枝豆</span><span class="price">400<small>円</small></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 揚げ物 -->
+        <div class="tab-panel reveal" role="tabpanel" id="panel-age" aria-labelledby="tab-age" hidden>
+            <div class="menu-cols is-flow">
+                <div class="menu-group">
+                    <h3>揚げ物</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">鶏の唐揚げ</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">さきいか天ぷら</span><span class="price">700<small>円</small></span></li>
+                        <li><span class="name">ちーずポテトフライ</span><span class="price">700<small>円</small></span></li>
+                        <li><span class="name">ポテトフライ</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">豚バラにんにく</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">大葉ちーず</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">イカげそ</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">ちくわ磯部揚げ</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">揚げ餅</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">川海老唐揚げ</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">そら豆の唐揚げ</span><span class="price">500<small>円</small></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 焼き物 -->
+        <div class="tab-panel reveal" role="tabpanel" id="panel-yaki" aria-labelledby="tab-yaki" hidden>
+            <div class="menu-cols is-flow">
+                <div class="menu-group">
+                    <h3>焼き物</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">熟成仙台牛タン塩</span><span class="price">2,000<small>円</small></span></li>
+                        <li><span class="name">三元豚のしょうが焼き</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">チキンソテー</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">焼き魚</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">マーボー豆腐<small>甘口・辛口</small></span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">韓国チヂミ</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">いか姿焼き</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">手作りハンバーグ</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">じゃこネギ玉子焼き</span><span class="price">700<small>円</small></span></li>
+                        <li><span class="name">鉄板山芋焼き</span><span class="price">700<small>円</small></span></li>
+                        <li><span class="name">新潟栃尾の油揚げ</span><span class="price">600<small>円</small></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- お食事 -->
+        <div class="tab-panel reveal" role="tabpanel" id="panel-shoku" aria-labelledby="tab-shoku" hidden>
+            <div class="menu-cols">
+                <div class="menu-group">
+                    <h3>ごはん・麺</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">もちもちピッツア</span><span class="price">1,100<small>円</small></span></li>
+                        <li><span class="name">目玉焼き入ソースやきそば</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">オムレツやきそば</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">チャーハン</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">昔ながらのオムライス</span><span class="price">800<small>円</small></span></li>
+                        <li><span class="name">香ばし焼きおにぎり2ヶ</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">おにぎり2ヶ<small>梅入りゆかり／おかか昆布入り</small></span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">ご飯おかわり</span><span class="price">150<small>円</small></span></li>
+                    </ul>
+                </div>
+                <div class="menu-group">
+                    <h3>定食</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">チキンソテー定食</span><span class="price">1,200<small>円</small></span></li>
+                        <li><span class="name">唐揚げ定食</span><span class="price">1,200<small>円</small></span></li>
+                        <li><span class="name">しょうが焼き定食</span><span class="price">1,200<small>円</small></span></li>
+                        <li><span class="name">焼き魚定食</span><span class="price">1,200<small>円</small></span></li>
+                        <li><span class="name">ハンバーグ定食</span><span class="price">1,200<small>円</small></span></li>
+                        <li><span class="name">シュウマイ定食</span><span class="price">1,200<small>円</small></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 飲みもの -->
+        <div class="tab-panel reveal" role="tabpanel" id="panel-drink" aria-labelledby="tab-drink" hidden>
+            <div class="menu-cols">
+                <div class="menu-group">
+                    <h3>ビール・ハイボール</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">サッポロ生ビール<small>中</small></span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">サッポロ生ビール<small>大</small></span><span class="price">850<small>円</small></span></li>
+                        <li><span class="name">サッポロ生ビール<small>メガ</small></span><span class="price">1,100<small>円</small></span></li>
+                        <li><span class="name">サッポロラガー中瓶</span><span class="price">700<small>円</small></span></li>
+                        <li><span class="name">角ハイボール</span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">角ハイボール<small>メガ</small></span><span class="price">1,100<small>円</small></span></li>
+                        <li><span class="name">山崎<small>ロック・水割り・炭酸割り</small></span><span class="price">1,600<small>円</small></span></li>
+                        <li><span class="name">白州<small>ロック・水割り・炭酸割り</small></span><span class="price">1,600<small>円</small></span></li>
+                    </ul>
+                </div>
+                <div class="menu-group">
+                    <h3>樽ハイ・サワー</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">樽ハイ<small>レモン・グレープフルーツ・巨峰・ゆず（大）</small></span><span class="price">850<small>円</small></span></li>
+                        <li><span class="name">樽ハイ<small>レモン・グレープフルーツ・巨峰・ゆず（中）</small></span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">サワー<small>レモン・グレープフルーツ・巨峰・ゆず</small></span><span class="price">500<small>円</small></span></li>
+                    </ul>
+                </div>
+                <div class="menu-group">
+                    <h3>焼酎・梅酒</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">鏡月<small>水・湯・ウーロン・茶割り</small></span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">黒霧島<small>水・湯割り</small></span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">吉四六<small>水・湯・炭酸割り</small></span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">中々<small>水・湯・炭酸割り</small></span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">百年梅酒<small>ブランデー仕立て／ロック・水割り・炭酸割り</small></span><span class="price">600<small>円</small></span></li>
+                        <li><span class="name">冷酒 高清水</span><span class="price">800<small>円</small></span></li>
+                    </ul>
+                </div>
+                <div class="menu-group">
+                    <h3>ノンアルコール</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">瓶ビール サッポロプレミアム</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">タピオカミルクティー</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">イチゴネクター<small>牛乳入り</small></span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">コカ・コーラ</span><span class="price">350<small>円</small></span></li>
+                        <li><span class="name">ジンジャエール</span><span class="price">350<small>円</small></span></li>
+                        <li><span class="name">緑茶</span><span class="price">300<small>円</small></span></li>
+                        <li><span class="name">ウーロン茶</span><span class="price">300<small>円</small></span></li>
+                        <li><span class="name">オレンジ100%</span><span class="price">300<small>円</small></span></li>
+                        <li><span class="name">パイン100%</span><span class="price">300<small>円</small></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ボトル -->
+        <div class="tab-panel reveal" role="tabpanel" id="panel-bottle" aria-labelledby="tab-bottle" hidden>
+            <div class="menu-cols">
+                <div class="menu-group">
+                    <h3>焼酎</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">麦焼酎 吉四六</span><span class="price">5,000<small>円</small></span></li>
+                        <li><span class="name">麦焼酎 中々</span><span class="price">4,500<small>円</small></span></li>
+                        <li><span class="name">芋焼酎 黒霧島</span><span class="price">4,000<small>円</small></span></li>
+                        <li><span class="name">鏡月 25°</span><span class="price">2,500<small>円</small></span></li>
+                        <li><span class="name">鏡月 アセロラ</span><span class="price">2,500<small>円</small></span></li>
+                        <li><span class="name">鏡月 ゆず</span><span class="price">2,500<small>円</small></span></li>
+                    </ul>
+                </div>
+                <div class="menu-group">
+                    <h3>ウイスキー</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">山崎</span><span class="price">23,000<small>円</small></span></li>
+                        <li><span class="name">白州</span><span class="price">23,000<small>円</small></span></li>
+                        <li><span class="name">オールドパー</span><span class="price">11,000<small>円</small></span></li>
+                        <li><span class="name">角</span><span class="price">4,000<small>円</small></span></li>
+                    </ul>
+                </div>
+                <div class="menu-group">
+                    <h3>チャミスル 360ml</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">すもも</span><span class="price">1,200<small>円</small></span></li>
+                        <li><span class="name">マスカット</span><span class="price">1,200<small>円</small></span></li>
+                        <li><span class="name">プレーン</span><span class="price">1,200<small>円</small></span></li>
+                    </ul>
+                </div>
+                <div class="menu-group">
+                    <h3>割りもの・セット</h3>
+                    <ul class="menu-list">
+                        <li><span class="name">炭酸 1000ml</span><span class="price">1,000<small>円</small></span></li>
+                        <li><span class="name">お湯ポット</span><span class="price">1,000<small>円</small></span></li>
+                        <li><span class="name">氷（大）</span><span class="price">700<small>円</small></span></li>
+                        <li><span class="name">炭酸 500ml</span><span class="price">550<small>円</small></span></li>
+                        <li><span class="name">お茶</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">烏龍茶</span><span class="price">500<small>円</small></span></li>
+                        <li><span class="name">氷（小）</span><span class="price">300<small>円</small></span></li>
+                        <li><span class="name">水 500ml</span><span class="price">300<small>円</small></span></li>
+                        <li><span class="name">割り梅</span><span class="price">300<small>円</small></span></li>
+                        <li><span class="name">カットレモン</span><span class="price">300<small>円</small></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <p class="menu-foot reveal">
+            表示価格はすべて税別です（別途消費税10%）。
+            おしながきの内容・価格は変わることがあります。最新の内容は店内のおしながきをご覧ください。
+        </p>
+    </div>
+</section>
+
+<!-- ========================= お会計のこと ========================= -->
+<section class="section" id="price">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-label">Before you come</span>
+            <h2 class="section-title">お会計で、<span class="accent">驚かせない。</span></h2>
+            <p class="section-note">はじめてのお店で気になることを、先に書いておきます。</p>
+        </div>
+        <div class="price-grid">
+            <div class="price-card reveal">
+                <h3>チャージ</h3>
+                <span class="big">300円</span>
+                <p>お1人につきテーブルチャージ代を頂戴しています。<strong>お通しはサービス</strong>です。</p>
+            </div>
+            <div class="price-card reveal reveal-delay-1">
+                <h3>価格表示</h3>
+                <span class="big">税別</span>
+                <p>おしながきの価格は税別です。お会計時に消費税10%を加算させていただきます。</p>
+            </div>
+            <div class="price-card reveal reveal-delay-2">
+                <h3>お支払い</h3>
+                <span class="big">現金・PayPay</span>
+                <p>電子マネー・QRコード決済（PayPay）がお使いいただけます。クレジットカードはご利用いただけません。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= アクセス ========================= -->
+<section class="section" id="info" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-label">Access</span>
+            <h2 class="section-title">アクセス・<span class="accent">店舗情報</span></h2>
+            <p class="section-note">JR宇都宮線 古河駅から285m。駅から歩いて4分ほど、店の前に3台分の駐車場があります。</p>
+        </div>
+        <div class="info-layout">
+            <div class="reveal">
+                <table class="info-table">
+                    <tr><th>店名</th><td>いざかや 壱（いざかや いち）</td></tr>
+                    <tr><th>住所</th><td>〒306-0016<br>茨城県古河市古河380-7</td></tr>
+                    <tr><th>電話</th><td><a href="tel:08099757963" class="tel-link">080-9975-7963</a><small>ご予約を承ります</small></td></tr>
+                    <tr><th>営業時間</th><td>17:30 – 23:00</td></tr>
+                    <tr><th>定休日</th><td>火曜日・水曜日</td></tr>
+                    <tr><th>アクセス</th><td>古河駅から285m（徒歩約4分）</td></tr>
+                    <tr><th>席数</th><td>27席<small>カウンター席・ソファのテーブル席・ボックス席／個室はございません</small></td></tr>
+                    <tr><th>駐車場</th><td>店の前に3台<small>満車の場合は近隣のパーキングをご利用ください</small></td></tr>
+                    <tr><th>お支払い</th><td>
+                        <span class="pay-chip">現金</span><span class="pay-chip">PayPay</span><span class="pay-chip">電子マネー</span><span class="pay-chip is-no">クレジットカード</span>
+                    </td></tr>
+                </table>
+                <div class="hero-actions" style="margin-top:26px">
+                    <a href="tel:08099757963" class="btn btn-primary btn-block">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                        080-9975-7963｜お電話でご予約
+                    </a>
+                </div>
+            </div>
+            <div class="reveal">
+                <div class="map-wrapper">
+                    <iframe
+                        src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E5%8F%A4%E6%B2%B3380-7&z=16&output=embed"
+                        allowfullscreen loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="いざかや 壱 の地図"></iframe>
+                </div>
+                <a class="btn btn-ghost btn-block map-link"
+                   href="https://www.google.com/maps/dir/?api=1&amp;destination=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E5%8F%A4%E6%B2%B3380-7"
+                   target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Googleマップで経路を見る
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer">
+    <div class="container">
+        <p class="footer-kanji" aria-hidden="true">壱</p>
+        <p class="footer-name">いざかや 壱</p>
+        <p class="footer-meta">
+            〒306-0016 茨城県古河市古河380-7<br>
+            <a href="tel:08099757963">080-9975-7963</a>｜17:30 – 23:00（火・水 定休）
+        </p>
+        <p class="copyright">&copy; いざかや 壱</p>
+    </div>
+</footer>
+
+<div class="sticky-bar" id="sticky-bar">
+    <a href="#info" class="bar-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス・地図
+    </a>
+    <a href="tel:08099757963" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        電話で予約
+    </a>
+</div>
+
+<script>
+document.body.classList.remove('no-js');
+
+/* 1. ヘッダー縮小・追従予約バー */
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+        stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
+    }
+}, { passive: true });
+
+/* 2. モバイルナビ開閉 */
+var navToggle = document.getElementById('nav-toggle');
+function closeNav() {
+    document.body.classList.remove('nav-open');
+    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+}
+if (navToggle) {
+    navToggle.addEventListener('click', function () {
+        var open = document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+}
+document.querySelectorAll('[data-nav-link]').forEach(function (a) {
+    a.addEventListener('click', closeNav);
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+});
+
+/* 3. スクロール出現演出 */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+
+/* 4. おしながきのタブ切替 */
+var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+function selectTab(tab) {
+    tabs.forEach(function (t) {
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        var on = (t === tab);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        if (panel) {
+            panel.hidden = !on;
+            /* 切り替え後のパネルは演出待ちにしない（中身が見えない事故を防ぐ） */
+            if (on) panel.classList.add('in-view');
+        }
+    });
+}
+tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { selectTab(tab); });
+    tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+        if (e.key === 'ArrowLeft')  next = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (next) { e.preventDefault(); next.focus(); selectTab(next); }
+    });
+});
+
+/* 5. 営業状況バッジ（月・木・金・土・日 17:30-23:00／火・水 定休） */
+var DINNER = { open: 17 * 60 + 30, close: 23 * 60, label: '17:30〜23:00' };
+var BUSINESS = {
+    shiftsByDay: {
+        0: [DINNER],   /* 日 */
+        1: [DINNER],   /* 月 */
+        2: [],         /* 火 定休 */
+        3: [],         /* 水 定休 */
+        4: [DINNER],   /* 木 */
+        5: [DINNER],   /* 金 */
+        6: [DINNER]    /* 土 */
+    },
+    closedText: '本日は定休日です（火・水）'
+};
+
+function shiftsForToday(day) {
+    if (BUSINESS.shiftsByDay) return BUSINESS.shiftsByDay[day] || [];
+    return BUSINESS.closedDays.indexOf(day) !== -1 ? [] : BUSINESS.shifts;
+}
+
+function updateStatus() {
+    var el = document.getElementById('status-chip');
+    if (!el) return;
+    var now = new Date();
+    var minutes = now.getHours() * 60 + now.getMinutes();
+    var shifts = shiftsForToday(now.getDay());
+    var cls = '', text = '';
+
+    if (!shifts.length) {
+        cls = 'is-closed';
+        text = BUSINESS.closedText || '本日は定休日です';
+    } else {
+        var inShift = null;
+        for (var i = 0; i < shifts.length; i++) {
+            var s = shifts[i];
+            if (minutes >= s.open && minutes < s.close) { inShift = s; break; }
+        }
+        if (inShift) {
+            cls = 'is-open'; text = 'ただいま営業中 ' + inShift.label;
+        } else if (minutes < shifts[0].open) {
+            text = '本日 ' + shifts[0].label + ' 営業';
+        } else {
+            cls = 'is-closed'; text = '本日の営業は終了しました';
+        }
+    }
+    el.className = 'status-chip' + (cls ? ' ' + cls : '');
+    el.querySelector('.status-text').textContent = text;
+}
+updateStatus();
+setInterval(updateStatus, 60000);
+</script>
+</body>
+</html>
