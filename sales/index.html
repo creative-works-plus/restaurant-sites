@@ -26,21 +26,21 @@
   ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
   li {
     background: #191c1f; border: 1px solid #2c3034; border-radius: 10px;
-    padding: 13px 14px; display: flex; align-items: center;
-    justify-content: space-between; gap: 12px;
+    padding: 13px 14px 12px;
   }
-  .nm { flex: 1 1 auto; min-width: 0; }
   .nm b { display: block; font-size: 1rem; font-weight: 600; }
   .nm span { display: block; font-size: .72rem; color: #8e938f; margin-top: 1px; }
-  .bt { display: flex; gap: 8px; flex: none; }
-  .bt a {
-    display: grid; place-items: center; text-decoration: none;
-    min-width: 74px; min-height: 46px; border-radius: 7px;
-    font-size: .84rem; font-weight: 700; letter-spacing: .04em;
+  .bt { display: flex; gap: 8px; margin-top: 11px; }
+  .bt a, .bt button {
+    flex: 1; display: grid; place-items: center; text-decoration: none;
+    min-height: 48px; border-radius: 7px; font-family: inherit;
+    font-size: .87rem; font-weight: 700; letter-spacing: .04em;
+    border: 1px solid transparent; cursor: pointer;
   }
   .b1 { background: #d9a13b; color: #12100c; }
-  .b2 { background: transparent; color: #e9e7e2; border: 1px solid #3c4146; }
-  .bt a:active { opacity: .7; }
+  .b2 { background: transparent; color: #e9e7e2; border-color: #3c4146; }
+  .b3 { background: #1c4a3e; color: #eae7de; border-color: #2c6353; }
+  .bt a:active, .bt button:active { opacity: .7; }
   .sec { margin-top: 26px; }
   .sec h2 { font-size: .78rem; color: #8e938f; font-weight: 600; letter-spacing: .1em; margin-bottom: 10px; }
   .flat { display: flex; flex-direction: column; gap: 8px; }
@@ -51,6 +51,27 @@
   }
   .tip { font-size: .76rem; color: #7e837f; line-height: 1.9; margin-top: 24px; }
   .tip b { color: #b9bdb8; }
+
+  /* ---- QR オーバーレイ ---- */
+  .qrv {
+    position: fixed; inset: 0; z-index: 50;
+    background: rgba(0,0,0,.86);
+    display: grid; place-items: center; padding: 22px;
+  }
+  .qrv[hidden] { display: none; }
+  .qrbox {
+    background: #fff; color: #16181a; border-radius: 14px;
+    padding: 20px 20px 16px; width: min(100%, 360px); text-align: center;
+  }
+  .qname { font-size: .95rem; font-weight: 700; margin-bottom: 3px; }
+  .qsub { font-size: .7rem; color: #6b6f72; margin-bottom: 12px; }
+  .qrbox img { width: 100%; max-width: 280px; height: auto; display: block; margin: 0 auto; }
+  .qtip { font-size: .78rem; color: #3f4448; line-height: 1.8; margin-top: 12px; }
+  .qclose {
+    margin-top: 14px; width: 100%; min-height: 46px; border: 0; border-radius: 7px;
+    background: #16181a; color: #fff; font-family: inherit;
+    font-size: .87rem; font-weight: 700; letter-spacing: .04em; cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -66,6 +87,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/nagomidokoro-syu.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/nagomidokoro-syu/">サイト</a>
+        <button class="b3" type="button" data-slug="nagomidokoro-syu" data-name="なごみ処 秀">QR</button>
       </div>
     </li>
     <li>
@@ -73,6 +95,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/konchiki.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/konchiki/">サイト</a>
+        <button class="b3" type="button" data-slug="konchiki" data-name="居酒屋 こんちき">QR</button>
       </div>
     </li>
     <li>
@@ -80,6 +103,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/wagaya.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/wagaya/">サイト</a>
+        <button class="b3" type="button" data-slug="wagaya" data-name="居酒屋 和が家">QR</button>
       </div>
     </li>
     <li>
@@ -87,6 +111,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/bonne-qualite.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/bonne-qualite/">サイト</a>
+        <button class="b3" type="button" data-slug="bonne-qualite" data-name="Bonne Qualité">QR</button>
       </div>
     </li>
     <li>
@@ -94,6 +119,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/nagi.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/nagi/">サイト</a>
+        <button class="b3" type="button" data-slug="nagi" data-name="居酒屋 凪">QR</button>
       </div>
     </li>
     <li>
@@ -101,6 +127,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/sumikichi.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/sumikichi/">サイト</a>
+        <button class="b3" type="button" data-slug="sumikichi" data-name="炭きち">QR</button>
       </div>
     </li>
     <li>
@@ -108,6 +135,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/ikkaku.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/ikkaku/">サイト</a>
+        <button class="b3" type="button" data-slug="ikkaku" data-name="食彩酒 一鶴">QR</button>
       </div>
     </li>
     <li>
@@ -115,6 +143,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/izakaya-japan.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/izakaya-japan/">サイト</a>
+        <button class="b3" type="button" data-slug="izakaya-japan" data-name="居酒屋ジャパン">QR</button>
       </div>
     </li>
     <li>
@@ -122,6 +151,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/torattoriya.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/torattoriya/">サイト</a>
+        <button class="b3" type="button" data-slug="torattoriya" data-name="とらっ鳥屋">QR</button>
       </div>
     </li>
     <li>
@@ -129,6 +159,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/kyu.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/kyu/">サイト</a>
+        <button class="b3" type="button" data-slug="kyu" data-name="海鮮居酒屋 玖 -kyu-">QR</button>
       </div>
     </li>
     <li>
@@ -136,6 +167,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/genji.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/genji/">サイト</a>
+        <button class="b3" type="button" data-slug="genji" data-name="酒道場 源氏">QR</button>
       </div>
     </li>
     <li>
@@ -143,6 +175,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/uokatsu.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/uokatsu/">サイト</a>
+        <button class="b3" type="button" data-slug="uokatsu" data-name="食彩厨房 魚かつ">QR</button>
       </div>
     </li>
     <li>
@@ -150,6 +183,7 @@
       <div class="bt">
         <a class="b1" href="https://creative-works-plus.github.io/restaurant-sites/proposal/sobazen.html">提案書</a>
         <a class="b2" href="https://creative-works-plus.github.io/restaurant-sites/sobazen/">サイト</a>
+        <button class="b3" type="button" data-slug="sobazen" data-name="そば善">QR</button>
       </div>
     </li>
   </ul>
@@ -165,8 +199,46 @@
   <p class="tip">
     <b>ホーム画面に追加しておくと1タップで開けます。</b><br>
     iPhone：Safariで開く → 下の共有ボタン → 「ホーム画面に追加」<br>
-    Android：Chromeで開く → 右上の︙ → 「ホーム画面に追加」
+    Android：Chromeで開く → 右上の︙ → 「ホーム画面に追加」<br><br>
+    <b>「QR」ボタン</b>は、お店の方のスマホで提案書を開いてもらうためのものです。
+    読み取りにくいときは<b>画面の明るさを上げて</b>ください。
   </p>
 </div>
+
+<div class="qrv" id="qrv" hidden>
+  <div class="qrbox" role="dialog" aria-modal="true" aria-label="提案書のQRコード">
+    <p class="qname" id="qname"></p>
+    <p class="qsub">ホームページのご提案</p>
+    <img id="qrimg" alt="提案書を開くQRコード">
+    <p class="qtip">お店の方のスマートフォンの<br><b>カメラで読み取ってください</b></p>
+    <button class="qclose" id="qclose" type="button">閉じる</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var QR = {"nagomidokoro-syu": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAD8UlEQVR4nO2dQY7jOAxFH0cCaikDfYAcxb5aH2luYB8lByjAXgawwV6ItOVk1z2ZJA1yEdCVPMQCCIoiv1Oi/J5N//wmCEEGGWSQd+QiZsOSkaFeZoBNZABk2D2z/Lq7DfLtSFTnpKqqSq8rUNS2t35OqjofXlJ61erp+FnrDPLZpKWWJaN6FaFXVabLTSykyk2YOqhJa3jx3Qb5xmRZEbms6Fivk3rkfHmW+s+/M8i/jExKPycFNqGfob5QbvK07wzy08kMgFVAS4eydND/+0Op3oj9rVpRYPmz7wzy7yO3etgCkspAqhFl3pKrJ8OSYRIRke6Vdxvku5HZUku1m+h0sbKnevslU5doG5Kftc4gn0rWTAM1v/RXESgeSOOS0Z8d1FP+1EHNSJ+3ziCfRGYvmLes0/ClQFoFtqwseRUAgc2d8tK7DfIdSVRrZ3GlNhBH8LN9ObUcKar1w330GINsrfaoR2y38o617qf81Hj+uYihIBurM4waKjVyALD5h44k1bGoTT0sGWnEUJCHqepKEyqjRwm9rlZJm5dUxxJ7WZD3duQXr318BEuxDU3H4tEEeMB91jqDfB7p+YV9Rq+WjOrWtm9yR50dMRTk2Y6amn72tNQ3cWWejc80YijIe7PT2Axe7PjhrMk5nM77UQ8F2VqduUo/rllqA7GsWSjfGfAJPmUGyre1Iacuvehug3xH0lOQ10O2tXln0dWLK35gi70syEeyrMiAz8t2uWIVnU2XmzC5ylGkS3qQr7jbIN+ObBrTVjqrjzSsMb23qPfRR9RDQZ7MRmAeNFZJF9u8amN6dE2RaxsjhoJs7L4rhLeG7IGP+dTAHsEqo4ihIBvykCtuoiOb6M/O3z80aPUjRZX+GvqhIM+kBY1tWcuXaWHlchNYMrXENl3aJg35irsN8t1I7yce5fR8tBxVj8rouIQ42wfZmk3p56QPneiyF0VNmK1RDwV5Z64HsoN7q+44iYj80L8H3GetM8jnke1szPrU6y4YovG8gR196iDv7RjUe9XsXisdOnmRh4I8mRc7e8d6l8Ye+tizUjbqoSDP1uah0+VJnLZX3IQmP8h708bmVkQEPuFwEdEpriKGgnQ7dNKHjvGYa/i8DEtVMS8L8sEykOo4QygK0wDSXwWlzEg/blkhrVKft1/8QfwPW2eQzyNNx2iBtGUoMzJd1gyLjzV63QQbc6SV/prXT1tnkP8XmbTOXMf9gD/Jl9aX/V0iDwXZWm4vlg7trxlTVi9fKpRv0frCJtrPHRJ5KMiT3f0u7KOUeu8Pzf5QbO1Yf9Y6g3we+XguOyZiu4Sx+W3hOfpDQd6ZxP9aCDLIIF9M/gIM+sr3t75eZgAAAABJRU5ErkJggg==", "konchiki": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAD50lEQVR4nO2dQW7jOhBEq0wB8k6+gXwTZfePJelm1kEGsG8g7WzAcv1Fk7T981czDJx4WkAQOOJLKKBBdXUXGQq/d02b3wQBJ5100slvQK5M134ldyJJnMhhqYBlg2mLhzskyd3rZuvku5G9JElAkGagk9hJ3K0cmpX9QiBoANDZwOGls3XyzciF5BYAMDJoJHGqgEYiNwCgqUI/A7iQrF49Wyffk1ypGejOkC7UvFKSDrXYXTHuvuZvOvn3kpCutqzVQnsFmptF3xVAkHQDatPFdgcIGhrp8LOe08nvSzaSzvaDZQPU4h7odeGwBMnyPs0AallcvnS2Tr4VOZqSBYB+pkZLAbHUYrvyA9ARGHfAZAOHl87WybchocfravL3DHsJSwOoQ63/ufzN6+Qfk0ghd0jZnXK4zTaiO+PxYyvP+5wsQ+a172Dv136m9Kg6LBiPAJDv9L72OVmCjNFkyraVpBs6Ce0V/RykmSkuYS9hG+TR52QZMog76nChpgpYrNqMILZW5MtllpX9Qk2uOpwsRNo7trkBMKlh71cAQJMrgbm9Fl/Cnvc5WYLM0ddJlveZzDgCn4p8TGrY8z4ni5BRddjal9oYtXQM0hyy0IVZEQ42yPM+J4uQuZjSnaFjyPI3lf5mG3QEgChAPPqcLEeuHJobEL0EJPvzp2HtFYD4Ucusfq+brZPvRQaRIddVGmncgvsgskrFZ+7tjhZmV8KPe04nvyNptqppC5LUiewl8/fFBe9idj+zOeNUu7vUyacrK9fzUwkFgClXSoodC2R569mbkyXIGHJRlMKaF3j2CtwFBqKm9ehzsgSJXJBTNuB1ph0e+mUAUoh6t9bJwmSzkiYY4gqX+mWA+IGoXAEApGdvTpYjbdMZrFs7ttLhQh0BLBXGna2KaW9QKuC9brZOvhGJJ2PovUj82aU3AOhs86S79JwsQsa9QU/NiOTSa2R535NLz/tlThYjH/3xSegegOzS04Malrv0nPwCctlgInUMdzdUEHd2UkZvfdwBSMnhi2fr5BuRK9mu7GUNssV+16lC8klNjdBeSJIfAPere0SdLENWQBAA+1rZp3PRVtp33qZ/wPYX0MzAZZvPTftZz+nkdySR93gD6UQCpG1CQUP8KGlI7TjP+5wsSfZRdTyeRHU1f/wpSNE6YE033xPuZGEynUS1ktxg2uaa8hgP5WuvT8dV7V46WyffkwxmK7jYzrTk0rMFL/XgWj+Fz8mvJcncWktnVKUtkqfKPaJOliHvnTYpddq6ZOi77wmPDZG4Y9I9Lk4WIf+reaO/L3XahjTouenmfV4nS5D0/3vgpJNO/oXkv38hUZoxKYRJAAAAAElFTkSuQmCC", "wagaya": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAADwUlEQVR4nO2dTY6bTBCGnzJIzA6kHIC5CXMz8M3sm9g3wDsjYb/forsBT5JN0p884xQrMDyikUr132UTf3Ycd38IgpNOOunkFyBvlo73mw2XHYBZCRez4bLj+Ia938waLQ82z1utk69G9pIkQaEBYDJpMmsKWXuz/kq604UHh6eu1skXIy9m9gbAvr3ZRyWzSkM9BVU4mY4l/QhMZlY+e7VOviZ5swFgMtqZfgxacV/Lupl98/+808l/lyx/9WMlO5czlx8C7ajgbFDneqeTTm7JWtL155s3GzDpYlBII1BJmvO800knWaQJgrk1HSqF00JDfae7olM4TUctHb7Xdzr5FUm0PYKzB9DOhEDXdKj0i8Olz8m/JpFmekmHSgD9aJKkUzS1QHcNIhovW2lw3edkDjJa3qDhToU0mnQNv9Yz1HeopBPAcqd33edkDjJK051OwdkLp8EIB2E8QJK+QyVat7xOZiIXv+8QTjeO3lCvl6dNAILrPifzkNHG3iH6fXqIbDU+lteiEXa/z8kcZAwoLMW8AF1K/X1K8pl0DWkZ131O5iAXcxu7DBZHr5DGNe4lmluAwv0+J3OS9Z3jGzrdLDa1WDfZUMdoOEQde9tBCkCeulonX4VcLe/GqK5ZwCE9FAsiwTl0v8/JLGSQs2huYwCyhBnRxobCWywGe77PyWzkIn1a831UodG01kNxl9UjdOlzcnNsSrRL8SL5aKFaq+visnWSZ+2czEaWUIgLAEYhLo0BtHNJPS6PtYJLw/HtCsX8tNU6+VrkNm8S1Np90XBjkWoZQAgYcO/NyXzkYnmXRPGSwBvqTXvKnKTPs3ZO5iRj+2cqhd05mgFwKdk3QSumvUGetXMyI/lQsUgNeLEfZYSoClO1tlu1ous+J/+afAx0Y70slmdrLZcnSNVat7xOZiSXmqx1k1l7h8nsHfpzGXpY4qXuHOuQPn7iap18OTL5fYsg6lTIGtibWR/3BkHaHr5vnrpaJ1+FfOjSi9VarQMw+pGHzZDgltfJbOTnnWmbdtGlbepTtVYufU5mIzeTqIC1tNaPsA9uYLC8so/nr9bJVyP7oM6gkM5m9oZ1YWdafzbrJc4lMTA2szCy5Rt+p5NfkkyTqG5mjX0ejXE0o50fxlU1Gd7ppJOPZCGNso/JoJBZmcprZmZxowatT+FzMhO5dlhtBGuzO2PTI8pS6/Cow8mMZK3V3Jp0jQNvgTgD8hQmZRwmW0b1fcfvdPJrkb+ZRJUqbUN66LHo5nVeJ3OQ5v974KSTTv6D5H843m76HkoglgAAAABJRU5ErkJggg==", "bonne-qualite": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEDElEQVR4nO2dTa7iWAxGjwlSmIVaQd5OeLNeT60gYQW9JbKTsIIOMyIRvh743sAr1agqJX7KGSWQo9wrWTb2ZwcTv3Z0q18EIcgggwzyCcjJ8vExWXtawZiu14DsE+wDQPON28etNsh3IxtJksfg6kq3gfoCTG5nowHst7DzG9uHrjbINyNPZrbxD04rKKWulAa/7CpxXNMMuFdcP3q1Qb4nWci2sk+gHs22hVpMh9FmN/gHnhlkkH5M1laSzpiVaplMmqyR1Bcebv/AM4P8e0kPo1WquxTiZABiMqqBvZk6Q/XFbyhvBZrX2meQz0giXebz+kIzmA6l/LRQW13ZnVHvp/mopMNr7TPIZyTXUNwVnLWvJwMDoBqtGRAjBkZlXyrTr7XPIJ+UnKy9lfJ0XLE7w7GU2Zr9FgD1eDY8Gseo9wW5EIl0oVGKr3hQvcXjRtf8Y68ZTAc3xEYReYNchixkW+gq2U5e5Cu9wCepPa0gG2OSPfz+19tnkE9Huu8bTDrjQsaV3TlpHYXy0QNeiwEi6whyGTK5NXOlrZh9353lScrhmVLUUhvWF+RiZDNAt0E97Lc3cSN1GSQNbm+FdDKYTMMjVxvk25BI7st0Jju8Q+niRpViskfeZoBdRN4glyab44qukvrJbCv7dN+nYymrvcRcS1Zf6arQOoJcjvRUY5jdWjNw+913mVONWi57JMk3fF+QS5DktOJQ6t4Q61R8ySZH1uDUp/D8WvsM8hlJz3nvJFxS8SWpv/5NvgzfF+RPycIrw2WqzV0BzNY0ung49UKxJO3NbHd56GqDfCPy5qtye4rliNpWcwlZ/Q2oFfEzyGXI+9whh9Kdl1BayL4vS7Q6h1ob5KJkan0vZR9zH7L6ydqk41JqnkxzSTfU2iCXI5vB5L3IpmOhvdtYC143OdncHz8ax5gNCnIh8kvmWucfe14oSVW7w10zleZaXkTeIH+bTIaVbMwrw5S3rGNgzoa9ojKLaq+1zyCfkUQ3D5dTjVmTTYrFnVorUYfvC3JJMhmWem9C6Sq5YlGoTZ0qaTKt28AxTYu/4D6DfEoyvYJll9zaaD6Osc7tKXNb8mjeUPDQ1Qb5LmSaTEszGJN/WJ6N4rJvMar/AHQ0qAYYNwBN+6DVBvle5I9TuTBPAFFd7htX8oCuokM5yIXIOedVTig85+2LuVMFyKmGwvqCXJD00vFpC6VnuqdC3T9pCFwA6j7RcU16UwZMa6oHrTbI9yYbTdYkceNk1n79difFe9CCXIxcf7kqxGkLYGCNu76VX9J8/3Zl3FD37P/9rWcGGeQ9mWeD/Og2Po6xTYNqSfrwmXB1ySO+4j6DfC7yZ2+iSuMYd9MZsyASU7lBLkha/O9BkEEG+ReS/wOV9BJ3IL42VAAAAABJRU5ErkJggg==", "nagi": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEAElEQVR4nO2dQa6jOhBF740jkRnZAdkJ2RlkZ8lOyAK+PsyCFHJ7UAXkqVt/0N+t5KXLI8zjBCOVyq6qaz8Kv9cum98EgSCDDDLINyAnzu0wsR3I4+iXW5z2wGUHXLc47bU8uH/daIP8IBLSHY0kSajudq8QkCTdgfJhD0lt+UBtD7aldP5e3xnk+5IDyR2ApNZuq8NzlyTVAxhJbvO8M8ggv5ITW1BngPUdJze5+gZUmg0x+zuD/HvJ7Zde0qkFAOhKoPxni2G/dv/N9M4gg3wmS0k3AEDTi0cASFIPnKoHUIi1+77CVoOvHW2Qn0JisSYA1R1NT50L2WWyUOMGdXY5t4g6gsxBQs9tsT6zySTpARRSB3OQawvrCzIHuSb5WNj8OhLXLRqNJDeob7DwVzwCPEyR7wsyD2mpPGBe0jU9JVn5rZQ0T8RSi3VODt8XZA5yyTYvhuWruyT1PvP69NxTZ0Bdipk3yGxkErlBPVAXy7/UFv6iHNmCkqzEtveZ97WjDfKzyIktRO7AQxL31BlANZL7JDe5udU3ALHuCzIvSenmyRfxWEiXLZp+oq4bYCQqK/ledmvZ41t+Z5DvRza9eCxE0iptI1FJVtG1xd6lkK5JukEXL/l+w+8M8s1Id3iL72vWjF6LJFkIrA5zPGLKl4g6gsxAriY3Z/VcVrBWQGrXXlm22XLQYX1B5iGThbSlVTRAnUrP9/lij5Z8tgqwuog6gsxELjPveb1V36AOaHqsXjFm3iD/m3TxcQc0PXWy+JR7AFYkk6R22KC+gQezrm/5nUG+F+laAStT+BptKZCZVgqF1CW5ejT08UHmJBdZsmVHNjZ/TlQ/kZUsjXKfHSQPU+RNgsxDulbAV2/J3BoWNzh353C1CJ1UkPnIJRZ4FuC5jfWwnWm+Ua3nGkaE9QWZh0xqhw0wC/DEZvD9Z7buqwdaiVbkDuqSIm8SZEaynEhSl0KtZ+2qkS2AE9efNn08DxPb1442yE8hl3Wf5j3hpgT11th0q24tnSk0okHmIydK5vs6E4XWa+GWe+BiBQw/D8MuXzfaID+IXPJ9tYTKww53drqj6X8q3gJRsQgyK+nSd4stjoU7uyRWj/ksIN+6a4nn1442yM8hn06iAjAknXarCn7YLAcAwcXKEXUEmYn81UlU9aqGaudM4H3xfRF1BJmXXE+iUk+dR0p3YNiiuW5s5i3U2kOxNyjIP0ROZDXxWMgOfXQ9ntV5PQCJbHOQf470skc9Un2S5n0bX06sCoVVkBnJctXH+5GjHWCuUNLAWXRw8vD3taMN8lPIn0+iwnr4z9MBBUvZA0Dk+4LMQ26B9PSvDwRYr5J3uf7V5S7/+51BBhlkkK8mfwCcOzSIqijWLwAAAABJRU5ErkJggg==", "sumikichi": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEAUlEQVR4nO2cW2rrSBCGvzoyyG/yDhSYhSg7k7wzeyED1g6kNxkk//NQrUsOMy8nCk481RCI7f5QC4q6d5n4s3X99YcgBBlkkEF+A3Kyeb1N1gDczewAvZmd4HqE9sD5pGXj6XmnDfLVyFqSJICzmVkhaYRCapC9341yBKDyjc1TTxvki5G9mR2BTA1Q9UZ7AFwVVgNmZupYtOJzTxvkq5CHD5+mA0XH9Qjl3SATyD/ednxmkEH+G5lJ7fJNrbs1/S+qAV2Ts/cFzwzy/04Wkgb/opisHrC3TE1/4Fw+IJdVydnL3SN87mmDfBWSRZqAcqTuTJdc/m+mpnhQDejm/86rkC4/6z2D/I4k2q6RuvPI9gaQSXpA7h+LD1tD+oLcg5ys6c3e72aWy0rpfHTLy2RmmdvkzJMvYG9T5PuC3JE8l9K5WF26u7nu83U9YtUIfabzEYC6+/wzgwxy9vtMkpac8oAb4cXZkyR1pgvoloXlDXI3MpM6mZnpmrJ/uewNKO6mziTPNtspWd7nnjbIFyKZK2fVnHGRNOBhxgjFg0pLH8xmU+i+ID9NfjCqGqn1mGPeeg6BByhdEAFKqQnpC3IP8gDTAbBKWHnT+dSJ+5FS0J/mXWpz0WfiflRrEXUEuQ+55vuGZIRTtllSl0kdqypMAcgYljfIfUgXuU2lDcClrymWENgtb2rDipg3yJ3IVZd5RSPVOmbvblNe23iEofuC3IVcY15Xa00SRCXLu/adhuUN8j/WbD8vuXRL7lrKm7CqLWn+hXKkDvsZ5B7kopFSxaKW1vLsJnbIPKrYSOvPes8gvyPpNYreIB8Eoj9BLpgMJqMQV0PlCEVHJaz8+xB5kyB3IVOieNV93Wpfu+TMwRKu5tEnFeR+ZLK8qRcv8+LFJm/iHqGXdG1OroTfF+RepHt3gFV3s3Ky2q9jeM5YVg/AZHaS2RHdMkWXXpC7kEveBPC6hObYYumgmhsEoj8+yK8gXbCsWm5+A5xtuTSpWya12SyTEXUEuQuZukFT+yfAh07Q5AZ6xiXtj6gjyJ3Iba8ApSStLcm/9UnNK4t8X5B7k7l082s/1YDPw8hk5WOeBbTtHn3+aYN8EXIziQrqNtMldcH3B9K9DQ9NZO8wz2j5ee8Z5Pck52xzWle/f3Y+AVuRM11gTkn/xPcM8luSHydRAdLdpJG69cuQba7GN8XdoCC/iJzMfPyKD31Mt799Cl8KQCLbHOSXkXVrXtzIpDZ3Zy+X2Yd5aWF5g9yFdKkqks+Xid4e12OqbkxWC9d9Nyh8IF/71/i00wb5WuTvk6jSNVzvPRjntmSAutsU3SLfF+QO5MHnjM5L6S99K7D1V/cIP//MIIMMMshnk/8A3zU3njpj0gUAAAAASUVORK5CYII=", "ikkaku": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEEUlEQVR4nO2dTQ7iOBCFv0ciwS605gDpm9C7OVbCCeZKcJCW4AAjJTuQAm8Wdgi0WrPoyYifLq/A8UdsyXL5VZWNzK+V/eIXQQgyyCCDfAHyorF8vajtpW/AsYReavsF+xX6epHWvjVcP6+3QX4a2di2DYVbgLMAtuvCqi9qToxPNqlh+9TeBvkxZAlAv4blCWD713WxrywQ1d/KP+1jOTSN4byCYnhab4P8ZPKiFtj0orbdpVVxB9oMbNf/zzuD/H3J8meVS+tYDvR/GLxgeeIoqOZ6Z5BB3pOV7RMAzfHuty5qkd0LCrsDlraHed4ZZJALgG1SsqlG3q6gPqulsNbWN/ABtmvYp4btU3sb5MeQ+L4MUF2nFa5wi7xb+idl917jDPIVSewhaYtljnooGeFsaoHNKU3R/LW22ypmX5Azk2lRu7JfYZ+leoDK3lbmKGkt+4QPF7l7gd4G+f5kWvs62Tb1gxFuusLu5F3a95GM8Ngo1r4g/zN52/ft0scWjTVtNX09FG6rK5sTPmQv4HuNM8hXJLl5UJamHmh8vT2qPLlZcnhtaR/Sk5h9Qc5BPtrXfsHGSYD0d67om+tPm4Gme15vg/wg8t7cQpHk7NI+FHZX2NNSmINuUMS+L8h5yMnjMmqL7GJJtT+qDvAhZl+QM5E5x+XLFVA9lKArZ1R/B2DbIoB6KMFieUrZL927jTPI1yVzgONQuK0uUmUfCktlEiFL6ytJhPRKvpin9jbITyEnGzv6+66wvG0B22qSwGF5g/wXspckeS9JCza9fLio7UvoiyQlAKzGHlP53nKcQb4WWUJhegBUG/ov1/0qbdeqLrU5y7WhX7NfnSJDOcjZyOwzznEJ4C4u0RVjLANIjuI7pfte4wzyFcnsFrY2u6RRkTkjimFbD6Ompf4++o9F4af1NsiPI4tRIYxeu/0qBy9Ktut0HG1fJrk6NXq/cQb5ciQ3PwikaG0ytfWYlpeSo3K0dnMX1nivcQb5iuRDxCJn6W1scoaeO02ad8oejX1fkHOQtykHjMuaT2kZfFQdjR1ZekHOSk5ZeuMZjOtY247XEJwmR3HyGYflDXIW8iFLj3w1xnQBRtPxcBgSwvIGORuZvM2pmEuZDoFbXATFQK/r/s+UOlB1cF7d7k17r3EG+Yok98vaKDXy8fAu29hsiLMferTU7zXOIF+WHHMFKOzOUpU170BzlBqbY0nOFYgz4UHOTPaSVqQL+Yr7dFGAvUQ9TI3S5QRvOc4gX5lMa1/TS19Tll4O7kpSPiZEHbfwBTkTOcU67iZWzsUb/X3pzBrcYh2x7wtyRnKSGrmkC2+BfgFnpZQXeXdW5PcFORv5o+ZtcmjNSf62Y6PHoFt4m4Ocg1T870GQQQb5G5L/AJX+TAuQvlSiAAAAAElFTkSuQmCC", "izakaya-japan": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAD8UlEQVR4nO2dTW6rQBCEq4wlsoMb4Jvgm4FvBjexbwA7WzKut+iZgWzzJvJPmpWd8IVBas1MVReEws+OcfdDEHDSSSedfAFyYTwOC3sAI8kDcOIegHgEeAAApRPr543WyU8jO0lSWIPF7gpgYQ8rxnCcaqC1E/sM13TSyUDOJL/sB3OhoZTGPboJwLwDbsQlfL2R3D97tE5+JlmINTBaIZ7qQqypAQAWW25/4ZpOOmnHQumBdiYPhTQtlBYeS+lc2HL7C9d08q+TlaQrgEL9TLISmhv7SiJ3GEk0dzu9lHR/9mid/CjyZErWpEZYagHMe6B6oL0CF9vsjXZi/9TROvkx5B4oNoazMIsoISwAFnaTAIAAUfGbM/1e9+nki5IL++9WXnsFWcpkBjUAOmOVv+73OZmbbK+IW7qRRHMLXp/ISjwA3ZTUcDfluaaTThamLSrxUEh6oJX5fTLVgRutLkPbw2yZ97tPJ1+OhHRHN9ncdwY6mcxo7gAKa23Yb5Iwto/De92nk69I2nJbWaetkTQBKGWVd489OPv4AEqhkXqvPidzkGHuo4boKVNDGcStLcTJ5KNks2Inrz4nM5CIk9tgE15fyfy+Qn0V1mRJZ8TlGYCvvE5mIxf2ZqbobObLEdB5oS6l2FgxNhKbB8ZKW/IZo3Xys8jQwi3NV7ns4r6vr27UtMn3BWlSeMLKyTzkuvKapxzX1yhATI/Yb9LmUL7vczIHGTTvw74E1YFkPHdb1RG2gIVrXie/HSlxHCpl9ea6UF1xQlPayHkNOZmFTHMVzCzpJsYVta+CVRe6teGIhfhe9+nki5KFNAHtTOmOU7PwCJB7y0nN6U93oXkxek7KyZzkqYYp15RDNgsl5ONN08bYQCvv1jqZhzTlOjH2ZLvN7i5YyDKzRFoFhu/7nMxBBt8kNWK/FaKJkCE01UKGJf70ve7TyVckU1ZgCPK3CkaJKVtFqw6I3Vq4a+fkL5AmNQoNt/AMxsI+OC4Aukk8lkJz84Syk3lIbNNQ5+S4mK8S3GRzArsJa4LK5z4ns5GWFWBr5TaS9jjGPrbPUizZAgU+9zmZhUzd2pQEXXNSgPU6bFZElL/wlJ6T2cjNm6iw2ssL++qO7rLD+AVzAsUjLDJVP2+0Tn4Qud33oUkbvdgBiSmCJnWAoxr2uc/J/ybtTQNzDZQhfUyNR+pyICoBEADosgdm2gnLHtWTRuvkZ5PdZRdlRj9z+xY+AGglfw+ak79E2u6OX7CXUim2fe2ZcGq40XpwGa/p5F8n11AfkBLKrIGTpQysEO25Dc+4OJmLXPN9sEceJ2zjpDFlENtx/lSukxlJ+v89cNJJJ/8g+Q+EQBA+2E0eBgAAAABJRU5ErkJggg==", "torattoriya": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAD00lEQVR4nO2dQW6rQAyGP4dIdAc3IDehNwNultyE3IDsEgnyv4UHkqhdVVRJ8zyrFvjEIFke+x97YuJn47D5IQhBBhlkkC9ATjaP3WQt8r+3cNrCacPhA9tNZqWWB8vnzTbIdyMbSZIgk5UASCNdOZlVkzUng0wtUPuD7VNnG+SbkScz+1iu1ZLZFooRThvIpcOWZgAu7hWfO9sg35OcTMdM+4sBNIN7xe4Dq0e68nfeGeT/S26/XJHVe8FkkAm0IYejQbHWO4MM8p4sJJ0B6CqpM7MdNMNkLSZ53KcByCWNz55tkG9Fdp7JAjTHDeRJBMxkpewT1ENXwsEfbJ862yDfhkT3Y6TRlfoM1QiF1GLa5/pm7P/Wdwb5iiRuctI+Obzi6rrK6Dkvi8yiwYFKaouwviDXIdP6ejH10BwzdR+4wJepLa4cPuBoZqVJZ9RPpuF5sw3yjUjmLKJW8n3SHjzNyHzl9bgPX4SpYuUNciUyxX1XyKX+0dwKSUNyeO4G6zPqXQUM6wtyDdJ1lT1YPXrcl7IO0rZvISrf9jgUAk9//953BvlypPu+IWW2i/Wph2bIFq+oETDJ7TJ8X5CrkB73zcEe93FfS+Z26Tca3SLCsL4g1yCZa1YWXSXlFmOK+/yhHpgjwrC+IFciF9+nOdizWU9ui1RLdUuM512Q0PuCXINkEZJzzcKz5L6PJe5bXOH5pk7/re8M8hXJm1sDKjfE+rx4xLa43rZ9Y+UN8tuxJKUPg0r3uYNHbx7i9aHaBbkSmXIHTxjmBTONVCug88MiGx4syLXIxfo0Fwh4jNbDopCkJ11RiegtyNXIx+htpBnS+vqo2lXjwz5uWF+Q65K5dMjnzjTb+cWulDW69QbdQsA/+51BvhjZuIezHe7hLkZ1sba42F1pnplZI9kudmuDXIlk3qIl93R2SFfvcl6/M+/Wxsob5IpkNldDLZUq3pXbDNBVV7h4q5CuHFLRyhNnG+QbkTcxhVSL95jzDi4h90v6G3pfkGuSk1l1hVSl58PqZafWHd7FzMw+wXbp0Iw/951Bvhz5XWcac6CXfSlcOS/Ph+8Lcg3y7iQq4LShPtl8O8V9Lv/JPtd6Z5BBwm3vIm3uPhQr+79K4rP7Poi4L8hVyfkkqhQCXvwAjOOWzo/e8+6M5biq0PuC/AUykwbZZy6YzEqXWQAzs1RlEIpLkL9GdpYt7RgDLK24fg5afYZjrugJD3JF8j6ku3rWkcnKydrTxrOOtB13Me+WfOpsg3wX8kuNi65zDel8GguPzZM90Z0R5Dqkxe8eBBlkkP8h+Q8PH130K7mONQAAAABJRU5ErkJggg==", "kyu": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAD8ElEQVR4nO2dT86jOBDF3wuRyI5IfQAizUH4dn0s4ARznt6Fm4QTDOxACnmzKGPy9cyq25/yp8srE/MTRiq5XFXPhMKvtW73iyDgpJNOOvkE5MK1nRbyCHQkepLHhTyKHzN5AgDFG4+Pm62T70bWkqTogyuJJwDjHvUAIBcAtEegshubh87WyTcjR5IHAEA9iB+ALpk0ABjthj4Y4kxyn+aZTjr5mczEI9WSwEIe7fI8h8uveaaTTlpb2Iw7VBNYSRoWSgs/cumSmbv9gmc6+aeThaQJgNlYdwB6sikkMlNLorza7bmk66Nn6+Rbka1FssBCDQByobwC4x4oFtYT0Ntmr7Mbm4fO1sm3IaHPrQFQTdDFRmuFVRG2QG7t/Frv6eQzkpCuqHXbfqAlXzLZiLVLGAl2Wbj1OZmGzERmZmMhzTJTmknmaiDyAJ6AerAdIaz7eu/p5JOSxQ2d2RggfgDkHrVmkjvAFsh15JTJax1OJiE3z5ubjx1CRSNEtoV0RnS3d1tA97xO/jYZoo6w7zMHfM61dmOLJopSatz6nExKVpI0W0XDihvNuL+vwbXMpHFLy7zoezr5RKRt6YobKm3LWh4DkHowu7yErnteJ9OTVHuw3d1I1hN4WqzWUZpPLq3bFfqZfMRsnXwfMlNjShaS1BAMMZNdAkCIhkMeOnOFlZNpSMSc8hRlVZX+0y5APTD6ZK91OJmCjDFv3NIFV2sZl5iLscvKUtIe8zp536J5TFsKxSTJdYgqAKAMJVrrug05mYQ0/zlYibbUqsWTpKaIddxVOgBshvha7+nk05JteUN3gDpGnVS/N53U1tYtXuc6KSfTkZnU086fZWKpVRAvSeQOyBVPphViJa/WOpmGtOWtuO2QT8DCetAO+YRSwPjtiuKfXfWD6v+y3eFM9Pvrw2br5HuRW+SqEGrctvj0GrUCoVq7qgg86nAyBRljXuSxKgZgDUBiqg4IGtEoKHit93TyGUmsa5nCmfDC0nQhN/cpZwwr6fra52RKcj0Ivi6DAKuZGhYGhfKaQu4OQJ97vczJlOS4Q0fyBNS9/dLnakLGpZo2WfJMXVwn5WQi8vPJtK24ge0QeNBJBYWyLpb6c8/r5G+T9+42bum20RB1AJma4raW47zS5mQSEnenH+N3B4D1XOS9dCCsfW59TqYlNxU8wgp3WdiMuTRQZ0DdnVR+8Uqbk19FUm0hkyRf0R7Fj22skuysbuJnOunkKlaupngIPDS7tE+ilf4tICcTkaHOe/cFcBH5hH5/bf8eAFDdd5OPjmL1A+oJFA+arZPvRf5fzBukfmt8oSkWRM5+KtfJhCT9fw+cdNLJP5D8F4o7J8XsVe4AAAAAAElFTkSuQmCC", "genji": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAD30lEQVR4nO2dTY6jMBCF3wuRyI7cgL4JvZtjQU4w55lduAm5AeyIFPJmUbYhLc1mxq10Z8qr0PEXG6lU/3ZT+LvR7/4SBJx00kknvwC5MI63hd20A64EFvK4kEfxHeAbAChNPD5vt06+GtlKkswGVwvfS/s47dGOMGEETkegsYndU3fr5IuRE8kDAODEHXqSDJI37dBXwiUJIrl/9m6dfE2yUFfdgVKSxGMhHqlzNMSfs6aTTtpY2IHSRGChxoXSwlbSUJi5/YQ1nfzfyUrSDKCQLjv0lchSXSXRDDHqm00vJd2evVsnX4o8WSRrus9GfWU37YHqjmYGLubs9Taxe+punXwlslAcQyEegWYiUIjHhRqpM8C3YJPDGJ+3WydfiIR0Q6t7eq6kcykNhewbSTM0AADTx0o6f6/3dPIrkpBuZl+lJFjhrygk3QFL/7WmBjVYftClz8kcZKFu2qE/hIoG0EjkHq2uJHdAFMZQ9jDz/P3e08kvR5rlHZNRjWWPGORGQ4w1MIZbXifzkLDKGXUuFU1tM8P8PhvnUsk5LIVa6lz6nMxBwiTMChwhpxxcwHYsLLqNST5KM1Df3O9zMg+ZYt5GIbZA0n1jeIzCCDRueZ3MTk6FTgfEfF9/sARfJbGWzgBqifUdfaUP5DN26+SrkCHjEjqsCinmVUJhN4QatdTFtEzhfp+TeUhsAopobkOPS/QIk+Xlmod26XMyA7nqPnPpoiDGXoLq4dF1n5N/INvLzjQYgMl+67JHq5s1hlqiWJJOJBvvVHEyE4lNbs68t7ULvtKaxFuBWm4/ncxDpmotVlMaBLEDou5LtYzZq7VOZiWDwptBltJlZ8puoWTJEpRKJ9MqsZFXa53MQ1q9bD2S0cVOFUmjHdZI5bPQTOWxg5OZyLVaC1iDAGMCr6tu27apUNZI5vl7vaeTX5RcGNSa+lJddUd/MBdwMkOMUrjscWKh85Vk6R3KTuYhH0KNWinmHVbdp021NnRQue5zMgf5sWKxMcLtpoclpv5iM5VLn5MZyIdOlaj7Np0q6zddmD94xsXJTGTKNksfNVwXZoRqbSiqufQ5mZPc3ESFlHge7IBuO4a2qUKdnc5A7fk+J3OS5uGlBrwmXE6gG061dL4S9ZXRI8y0ppNOxrNBsIMX660XQ+iPl+JhyM18j3md/CTSriBoJNbXdD1GGI3snpbcazrppJnbhe926WM7FtrcQNqOdiVa7R1WTmYi7Y6f6vEG8HLGZX87/RwBUP0Pax+dxOYXdCFQ/dOaTjoZRupFxppinhETMDHN8lgQ8S4DJ7OQ9P974KSTTv6H5G9CrHXutwhNLgAAAABJRU5ErkJggg==", "uokatsu": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEAklEQVR4nO2cTa6jOhCFz4mRyAx2QO+EbOmtANhZ2EmyA5gFCXLeoGzIvU9v0s1Vfro8cmJ/wpasKtePi8Lvtf7wmyDgpJNOOvkC5MLUfi1kCWAimQFjBgDoj8A1Q1dqnVg+b7VOfhrZSJIEAM31gL4QsLAtZnSleJqIagYA1DaxfepqnfwY0sTbWAL5DQgCFta3OLhkKADkNwJoBgHTEQjz01br5CeTpnn7I3QJIjM0A4CJqKLA+4FvOumktSAN1BlgPaNRVLc3qI+XvR/4ppN/O1lIMnXbkWxuMFskQ1cCyMU6yr5cimfyLffp5AuSnVmywEINVHcEADRDsCM3UX00f21i+9TVOvkxJPTY5lUMVumvO5BLF9jI1s7vtU8nX5Rc2I7kaSKZqx0P6Aupz4CRbMdgOjmohXgCVqfg2+3TyZcjTfYN1r0EE2vWbdOUXGbzUudcqGY0Lvuc3INEsiJqCQirqtWMZog/0xFlOpeueZ3ciwyb7DOlmrzNxUSW5oAhyTJq3ueu1skPIlexJgnVDBR3ILfEl+LrTzycS5d9Tu5A/kepWhcAUMxodEd9w3ouAVRS66fPyT3IDFiy5h/RorkEQORRxC0AKEzQNRfGIExHXWnxt/fap5OvSEarg5uhyy9uPdPJugBNMkBm17xO7kOuHpdaX253ldQWmzVczcnbbIaxnz4ndyAhmf9ON+sO1DmPWXzBbng2sdEdtdawh58+J/+Y3E7f5u+Lsk9DSPoXcM3r5P+2NSa7BW7PaeybzxjJiPWIhZP7kV1JnXNZIFY85bLw7MJ2PKCW7HUG1cXs0fKZq3XyY8jvlqukFJO1ZiMyV110LLvsc3IX8tFnjGo2h1zMCBjMjXIGVnM19zwpJ3clF7JaeAJSJigm6hLEamL7EC8bD6hHzxF1clcyqB2D3fvsCqgbcCU1WGpeSpcvRfq9z8kdye9Zei3Wt7fmxHtIELivkPtNnNyNjAKPtZkavb3O6Jjh0R65hscz+Y77dPL1yIUaxBNgwQjzGV8zNLLnaH0hAKkeBuCa18mdyAwIwsh7X2itOwCwmpFyWOqRqCZGgF6RwMl9SRN40oyOByCZv0Gs7qkWUHyzpsvTV+vkB5EPlahiTHYif8EqUVmsw1IHxBMALO5xcXJHcs0VADAGMzNg1QiSobswOZ4rtzqc3JUcSR6xGhQA64nSbGXRjsA1V2uT/G2Qk7uRWD0o+ZoJek4lCLYI8JbjkkK+7u9z8mfIiUCQrrld9nKR2eO4a14ndyTNnLW0KqCWVv1aSBqZpGIXzd/nrtbJjyK/VKKCFX2cyGqiBpFH4EpL9bt5NRYn9yPN27w26+aKXQHcRr88D3+zfTrppJNOPrZ/AY3rHWmVJX9+AAAAAElFTkSuQmCC", "sobazen": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEDklEQVR4nO2dTa6rSAxGj0Mk7oy0egFE6oWQnUF2FnaSrKBhFiTI1wMX3KR79pqr/DzXKCF1RJVklfFnm5j4tdFufhGEIIMMMsgXICebx94/HoBLurSTHcD2AFom7p632iA/jawlSQKoO9NpMDe3NAYDOO6g8onNCvcMMshE9mb2BcCxvEEuyKQO6De0X3DZUnfAYGbbZ682yM8kM+ni5lYO7l8x6QpM6ev69wwySB+TWXmjusIllzqoO9khl86Zu9sfuGeQvztZyE84d7etmTRYU0hW3mjNKEefnksan73aID+KPHokC5M1/QZy2R7o/QmvusLFP7Y+sXnqaoP8GHIL2Z3gLHoZmEDHHVZ3AjAwCntQpt9rn0G+Iok0Uuu2fC+kUy5KyX+RdEVnSAGIzmnSe+0zyBclMzV9Jl2RpKbfuMA3LdpKW8j2UHfQuixTd89bbZAfRLrJFTcqV5spbpBL56RBd8yhRt0lIlMTZ1+Qa5DMMWyVzj4Pf/2q25mk2d3q6lBYX5BrkIvJnYBSajCdQOdMDyM9HPoTYZx9Qa5I9huqdMIhq6/YfrKm3z7k4CyTeoPJ1D11tUF+CokkqbPFqeICXxKea91mu6y79AvheYNcjZzMyskOLLrKKRdMnuvY+bQypT0K3ZPPWG2Qn0Vmuk9wIHe1mZasxnfBVXVlSfm+3T6DfDmS+9DinEm6zeGvNEJx53lNp1xzPBKeN8j/TS6KC0DpAl+l71qCJP/NsoybaMS8Qd6P+ZyaleGkjgD1XSat9CPt5B/DhoJcnfRnNA9iy++4obqiVKJy8CuRLwtyLdJjgao3tVuOtqE1U7td6qTmFG0qG2ijTirIVcl+Q1vIqhGKyWoJJpMks8eYtpBV6VR8x30G+VrkFqYtxd8bBhMTdYMASkH/50jRwWC6/OXBw2BctuPTVhvkh5KVZHuX6sxb0Y7lYOqgLUQ5WEOKaYfwvEGuQ6YmR1P7ddVluxx25Qh9Lvo/bgCXPcejieFrqWh+r30G+bpkv6HqzarBdNlALi5bKAZritucok1NakvH5DvuM8gXJFPx8VypYl9YNZi6TLbz9FnqTGu/4JJHvizIdUj+JTHP3RmPlSpev+fzI18W5FrkQ7ZWI6lS5b4JfK7fK5Y2oTqsL8g1yMds7Ti/FsidcLIzPwrTI+BS0fxe+wzyZclkcoCXJJvZPpM0ctwBg7niYjq9wmqD/BiSpeksF+Xoz31eLlp3XjbFXD26zI8K5SB/hKw7F54ryZLEfDcqySxi3iB/hMzUIDsMNp99qc7Fe8JNp+H7tUDPX22Q706yvPVCS8tjeilVU4yzAOMNRKk+nvC8Qa5D/ifm7exegrlvES+W97REzBvkKqTF/x4EGWSQvyH5D7IBAR++KEtdAAAAAElFTkSuQmCC"};
+  var v = document.getElementById('qrv');
+  var img = document.getElementById('qrimg');
+  var nm = document.getElementById('qname');
+
+  function open(slug, name) {
+    img.src = QR[slug]; nm.textContent = name + ' 様';
+    v.hidden = false; document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    v.hidden = true; document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.b3').forEach(function (b) {
+    b.addEventListener('click', function () {
+      open(b.dataset.slug, b.dataset.name);
+    });
+  });
+  document.getElementById('qclose').addEventListener('click', close);
+  v.addEventListener('click', function (e) { if (e.target === v) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
 </body>
 </html>
