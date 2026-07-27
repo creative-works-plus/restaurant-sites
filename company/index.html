@@ -1413,6 +1413,23 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   const timers = [];
   let finished = false;
 
+  /* 演出中はページのスクロールを止めている(overflow:hidden)。
+     このとき縦スクロールバーが一時的に消える環境では、その幅ぶん表示領域が広がり、
+     演出が終わってバーが戻った瞬間に中身が左へガクッとずれる。
+     消えるバーと同じ幅の余白を右に足しておき、解除と同時に外すことでズレを打ち消す。
+     (Macの重ねて表示されるバーなど、幅を取らない環境では0になるので何も起きない) */
+  function scrollbarWidth() {
+    const probe = document.createElement('div');
+    probe.style.cssText =
+      'position:absolute;top:-9999px;width:100px;height:100px;overflow:scroll;visibility:hidden';
+    document.body.appendChild(probe);
+    const w = probe.offsetWidth - probe.clientWidth;
+    probe.remove();
+    return w;
+  }
+  const gutter = scrollbarWidth();
+  if (gutter > 0) document.body.style.paddingRight = gutter + 'px';
+
   function finish() {
     if (finished) return;
     finished = true;
@@ -1422,7 +1439,9 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
     root.classList.add('opening-landed');   // ここで本物のヘッダーロゴを出す(受け取る側)
     setTimeout(function () {
       opening.remove();
-      root.classList.remove('is-opening');  // スクロール禁止も解除
+      // スクロール禁止の解除と余白の削除は必ず同時に行う(片方だけだと横にずれる)
+      root.classList.remove('is-opening');
+      document.body.style.paddingRight = '';
     }, 200);
   }
 
