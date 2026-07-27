@@ -154,6 +154,27 @@ tr.ours th,tr.ours td{
 .pricebox .sub{font-size:13px; color:var(--mute); margin-top:8px}
 .pricebox hr{border:0; border-top:1px solid var(--line); margin:16px 0}
 
+/* ---- monthly list / callout ---- */
+.mlist{border-top:1px solid var(--line); margin-bottom:6px}
+.mrow{
+  display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+  padding:12px 4px; border-bottom:1px solid var(--line); font-size:14px;
+}
+.mrow span{color:var(--mute)}
+.mrow b{color:var(--ink); white-space:nowrap; font-weight:700}
+.mrow.ours{
+  background:#6f4e371f; padding-inline:12px;
+  border-bottom:1px solid var(--accent);
+}
+.mrow.ours span,.mrow.ours b{color:var(--ink)}
+.mrow.ours b{font-size:16.5px}
+.callout{
+  border-left:3px solid var(--accent); background:var(--panel);
+  padding:15px 17px; border-radius:0 8px 8px 0; margin:16px 0 18px;
+  font-size:13.5px; line-height:1.95; color:var(--mute);
+}
+.callout b{color:var(--ink)}
+
 /* ---- flow ---- */
 .flow{list-style:none; display:grid; gap:0}
 .flow li{
@@ -237,7 +258,8 @@ footer a{color:var(--accent)}
   body{background:#fff; color:#111; font-size:10.5pt; line-height:1.7}
   .hero,.cta{background:none}
   section{padding:14pt 0; break-inside:avoid}
-  .card,.pricebox{background:none; border:1px solid #bbb; break-inside:avoid}
+  .card,.pricebox,.callout{background:none; border:1px solid #bbb; break-inside:avoid}
+  .mrow.ours{background:none}
   .btn{display:none}
   .rv{opacity:1;transform:none}
   p,td,.check li{color:#333}
@@ -380,34 +402,28 @@ footer a{color:var(--accent)}
     </p>
     <div class="tablewrap">
       <table>
-        <caption>ホームページを持つ方法と、5年間の総額の目安</caption>
+        <caption>つくるときの費用と、5年間の総額の目安</caption>
         <thead>
           <tr><th scope="col">方法</th><th scope="col">初期費用</th><th scope="col">月額</th><th scope="col">5年総額の目安</th></tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">制作会社に頼む</th>
-            <td data-l="初期費用">30〜80万円</td>
-            <td data-l="月額">1〜3万円</td>
-            <td data-l="5年総額の目安">90〜260万円</td>
+            <th scope="row">大手の制作会社</th>
+            <td data-l="初期費用">300万円〜</td>
+            <td data-l="月額">5千〜2万円</td>
+            <td data-l="5年総額の目安">330万円〜</td>
+          </tr>
+          <tr>
+            <th scope="row">中小の制作会社</th>
+            <td data-l="初期費用">80〜150万円</td>
+            <td data-l="月額">5千〜2万円</td>
+            <td data-l="5年総額の目安">110〜270万円</td>
           </tr>
           <tr>
             <th scope="row">フリーランスに頼む</th>
-            <td data-l="初期費用">10〜30万円</td>
-            <td data-l="月額">更新のたび1〜3万円</td>
-            <td data-l="5年総額の目安">20〜60万円</td>
-          </tr>
-          <tr>
-            <th scope="row">グルメサイトの有料プラン</th>
-            <td data-l="初期費用">0円</td>
-            <td data-l="月額">1〜10万円</td>
-            <td data-l="5年総額の目安">60〜600万円</td>
-          </tr>
-          <tr>
-            <th scope="row">自分で無料ツールを使う</th>
-            <td data-l="初期費用">0円</td>
-            <td data-l="月額">1,000〜3,000円</td>
-            <td data-l="5年総額の目安">6〜18万円<span class="note-s">＋ご自身の時間</span></td>
+            <td data-l="初期費用">10〜50万円</td>
+            <td data-l="月額">都度見積り</td>
+            <td data-l="5年総額の目安">10〜50万円<span class="note-s">＋更新のたびの費用</span></td>
           </tr>
           <tr class="ours">
             <th scope="row">creative works+</th>
@@ -418,9 +434,25 @@ footer a{color:var(--accent)}
         </tbody>
       </table>
     </div>
+
+    <h3 style="margin:30px 0 12px">毎月の保守・管理費は、どのくらいが普通か。</h3>
+    <div class="mlist">
+      <div class="mrow"><span>実際の発注でいちばん多い価格帯</span><b>月 5,000円〜2万円</b></div>
+      <div class="mrow"><span>実際の発注の中央値</span><b>月 11,000円</b></div>
+      <div class="mrow"><span>実際の発注の平均</span><b>月 41,000円</b></div>
+      <div class="mrow ours"><span>creative works+</span><b>月 5,000円</b></div>
+    </div>
+    <div class="callout">
+      相場では、<b>月5,000円台のプランは「サーバーとドメインの維持・バックアップ」だけ</b>で、
+      更新の代行は含まれないのが一般的です。営業時間やメニューの修正を頼めるようにすると、月1万円〜が目安になります。<br>
+      creative works+ の月5,000円には、<b>営業時間・価格の修正、写真の差し替え、お知らせの掲載（月1回まで）が含まれます</b>。
+    </div>
+
     <p class="note">
-      ※ 当社以外の金額は、業界一般に見られる相場をもとにした目安です。実際の金額は依頼先や内容によって変わります。<br>
-      ※ グルメサイトの有料プランは掲載をやめると何も残りませんが、自社ホームページは解約後もお店の資産として残ります。
+      ※ 当社以外の金額は、freee「ホームページ作成はいくらかかる?」（2025年）、
+      Web幹事が公開している<b>実際の発注データ</b>（ホームページ保守・管理費）、
+      PRONIアイミツ（2025年）をもとにした目安です。実際の金額は依頼先や作業範囲によって変わります。<br>
+      ※ グルメサイトの有料プランは、掲載をやめると何も残りません。自社ホームページは、解約後もお店の資産として残ります。
     </p>
 
     <div class="pricebox">
