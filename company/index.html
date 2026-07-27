@@ -832,9 +832,199 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   .br-sp { display: inline; }
   .br-pc { display: none; }
 }
+
+/* ==========================================================================
+   オープニング演出(ロゴアニメーション)
+   画面いっぱいのロゴ → そのまま縮んでヘッダー左上のロゴ位置に着地する。
+   ・出るのは1日1回まで(<head>のインラインscriptでlocalStorageを見て判定)
+   ・全体で約1.8秒。クリック・Esc・スキップボタンでいつでも中断できる
+   ・prefers-reduced-motion(動きを減らす設定)の人には最初から出さない
+   ・JSが動かない環境では .opening は display:none のまま = LPがそのまま出る
+   ========================================================================== */
+.opening { display: none; }
+
+.is-opening .opening {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+/* 下地(濃緑)。最後にこれだけを消すとLP本体が現れる */
+.opening-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 44%, #1c4a3e 0%, #12312a 58%, #0b1e1a 100%);
+  opacity: 1;
+  transition: opacity 0.52s ease;
+}
+
+/* ロゴを入れる箱。画面中央に置き、最後にJSがtransformでヘッダー位置へ送る */
+.opening-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 50%;
+  white-space: nowrap;
+  opacity: 0;                 /* フォント読み込み待ちの間は隠しておく */
+  will-change: transform;
+  /* ロゴ本体と、上に重ねる光の層で同じ字組みを使う */
+  --op-size: clamp(34px, 10.5vw, 128px);
+}
+.opening.play .opening-stage { opacity: 1; }
+
+.opening-logo,
+.opening-sheen {
+  font-family: var(--font-latin);
+  font-weight: 600;
+  /* ヘッダーのロゴと同じ字面。サイズだけを画面いっぱいまで大きくする */
+  font-size: var(--op-size);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+.opening-logo {
+  display: inline-block;
+  color: #fbfaf6;
+  transform-origin: 50% 50%;
+}
+.opening-logo .plus {
+  color: var(--gold);
+  font-weight: 700;
+  display: inline-block;
+  transform-origin: 50% 55%;
+}
+
+/* 金色の光が文字の上を左から右へ抜ける。
+   ロゴと同じ文字を透明で重ね、グラデーションを文字の形に切り抜いて動かす
+   (四角い板を重ねると縁が見えてしまうため) */
+.opening-sheen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  background-image: linear-gradient(100deg,
+    rgba(255, 255, 255, 0) 44%,
+    rgba(255, 236, 190, 0.9) 50%,
+    rgba(255, 255, 255, 0) 56%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.opening.play .opening-logo { animation: op-logo 0.62s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.opening.play .opening-logo .plus { animation: op-plus 0.58s cubic-bezier(0.34, 1.4, 0.5, 1) 0.1s both; }
+.opening.play .opening-sheen { animation: op-sheen 0.46s ease-out 0.6s both; }
+
+@keyframes op-logo {
+  from { opacity: 0; transform: scale(1.16); filter: blur(7px); letter-spacing: 0.16em; }
+  to   { opacity: 1; transform: scale(1);    filter: blur(0);   letter-spacing: 0.02em; }
+}
+@keyframes op-plus {
+  from { transform: rotate(-170deg) scale(0.3); opacity: 0; }
+  to   { transform: rotate(0deg) scale(1);      opacity: 1; }
+}
+@keyframes op-sheen {
+  from { opacity: 0; background-position: 0% 0; }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
+  to   { opacity: 0; background-position: 100% 0; }
+}
+
+/* 縮んでヘッダーへ吸い込まれる(移動先はJSが実測して transform に入れる) */
+.opening.land .opening-stage { transition: transform 0.6s cubic-bezier(0.66, 0, 0.24, 1); }
+/* 光の層は文字の形だけを見せる(色は下のロゴが持つ) */
+.opening-sheen .plus { color: transparent; font-weight: 700; }
+.opening.land .opening-bg { opacity: 0; transition-delay: 0.16s; }
+/* 幕(濃緑)が消えると背景が明るくなるので、飛んでいる文字の色もヘッダーのロゴと同じ濃緑へ移す
+   (白のままだと着地の途中で明るい背景に溶けて見えなくなる) */
+.opening.land .opening-logo { color: var(--green-deep); transition: color 0.34s ease 0.2s; }
+.opening.done { opacity: 0; pointer-events: none; transition: opacity 0.18s ease; }
+
+/* 着地するまで、本物のヘッダーのロゴは見えないようにしておく */
+.is-opening .site-header .logo { opacity: 0; }
+/* 受け取った瞬間の小さな弾み。演出の後片づけで is-opening が外れても最後まで再生されるよう、
+   opening-landed だけを条件にする */
+.opening-landed .site-header .logo {
+  opacity: 1;
+  animation: op-catch 0.26s cubic-bezier(0.34, 1.5, 0.5, 1) both;
+}
+@keyframes op-catch {
+  from { transform: scale(1.07); }
+  to   { transform: scale(1); }
+}
+
+/* 演出中は背後のLPを動かさない */
+.is-opening body { overflow: hidden; }
+
+.opening-skip {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(251, 250, 246, 0.72);
+  background: transparent;
+  border: 1px solid rgba(251, 250, 246, 0.28);
+  border-radius: 999px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.opening-skip:hover { color: #fff; border-color: rgba(251, 250, 246, 0.6); }
+.opening-skip:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.opening.land .opening-skip { opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .opening { display: none !important; }
+}
 </style>
+<script>
+/* オープニングを出すかどうかの判定。
+   本文が描かれる前に <html> に is-opening を付けたいので、ここ(head内)で実行する。
+   ・1日1回まで(日付をlocalStorageに記録)
+   ・動きを減らす設定の人には出さない
+   ・URLの末尾に ?opening=1 を付けると何度でも再生(商談デモ用)、?opening=0 で必ずスキップ */
+(function () {
+  var force = null;
+  try {
+    var q = new URLSearchParams(location.search).get('opening');
+    if (q === '1' || q === '0') force = q;
+  } catch (e) {}
+
+  if (force === '0') return;
+  if (force !== '1' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  if (force !== '1') {
+    var d = new Date();
+    var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    try {
+      if (localStorage.getItem('cwp-opening-seen') === today) return;
+      localStorage.setItem('cwp-opening-seen', today);
+    } catch (e) {} /* プライベートモード等で保存できない時は、そのまま再生する */
+  }
+  document.documentElement.classList.add('is-opening');
+})();
+</script>
 </head>
 <body>
+
+<!-- オープニング演出。JSが動かない環境ではCSSの display:none のまま何も起きない -->
+<div class="opening" id="opening">
+  <div class="opening-bg" aria-hidden="true"></div>
+  <!-- 読み上げには不要な飾りなので aria-hidden。スキップボタンだけは操作できるように残す -->
+  <div class="opening-stage" id="opening-stage" aria-hidden="true">
+    <span class="opening-logo" id="opening-logo">creative works<span class="plus">+</span></span>
+    <span class="opening-sheen">creative works<span class="plus">+</span></span>
+  </div>
+  <button type="button" class="opening-skip" id="opening-skip" aria-label="オープニング演出をスキップして本文へ">スキップ</button>
+</div>
 
 <header class="site-header">
   <div class="container">
@@ -1209,6 +1399,71 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 </footer>
 
 <script>
+// ---------- オープニング演出 ----------
+// <head>のscriptが <html> に is-opening を付けた時だけ動く。
+// 流れ: 画面いっぱいのロゴが出る → 金の光が抜ける → 縮んでヘッダーのロゴ位置へ着地 → 幕が消える
+(function () {
+  const root = document.documentElement;
+  if (!root.classList.contains('is-opening')) return;
+
+  const opening = document.getElementById('opening');
+  const stage = document.getElementById('opening-stage');
+  const headerLogo = document.querySelector('.site-header .logo');
+  const skipBtn = document.getElementById('opening-skip');
+  const timers = [];
+  let finished = false;
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    timers.forEach(clearTimeout);
+    document.removeEventListener('keydown', onKey);
+    opening.classList.add('done');
+    root.classList.add('opening-landed');   // ここで本物のヘッダーロゴを出す(受け取る側)
+    setTimeout(function () {
+      opening.remove();
+      root.classList.remove('is-opening');  // スクロール禁止も解除
+    }, 200);
+  }
+
+  function onKey(e) { if (e.key === 'Escape') finish(); }
+
+  // ヘッダーのロゴの実際の位置と大きさを測って、そこへ移動・縮小する
+  function land() {
+    if (finished) return;
+    opening.classList.add('land');
+    const from = stage.getBoundingClientRect();
+    const to = headerLogo.getBoundingClientRect();
+    if (from.width > 0 && to.width > 0) {
+      const scale = to.width / from.width;
+      const dx = (to.left + to.width / 2) - (from.left + from.width / 2);
+      const dy = (to.top + to.height / 2) - (from.top + from.height / 2);
+      stage.style.transform =
+        'translate(-50%, -50%) translate(' + dx + 'px, ' + dy + 'px) scale(' + scale + ')';
+    }
+    timers.push(setTimeout(finish, 620));
+  }
+
+  let started = false;
+  function start() {
+    if (started || finished) return;
+    started = true;
+    opening.classList.add('play');
+    timers.push(setTimeout(land, 1020));
+  }
+
+  opening.addEventListener('click', finish);
+  skipBtn.addEventListener('click', finish);
+  document.addEventListener('keydown', onKey);
+
+  // Outfitの読み込みを待ってから始める(演出の途中で字面が入れ替わるのを防ぐ)。ただし最大650msで見切る
+  timers.push(setTimeout(start, 650));
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(start); } else { start(); }
+
+  // 万一止まっても必ず消えるようにする保険
+  timers.push(setTimeout(finish, 4000));
+})();
+
 // スクロール出現演出(一度だけ)
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (!reduced) {
