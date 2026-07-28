@@ -190,9 +190,9 @@
                 position: fixed; inset: 0; z-index: 90;
                 background: rgba(16, 12, 9, 0.97);
                 display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;
-                opacity: 0; pointer-events: none; transition: opacity .35s ease;
+                opacity: 0; pointer-events: none; visibility: hidden; transition: opacity .35s ease, visibility .35s;
             }
-            .mobile-menu.is-open { opacity: 1; pointer-events: auto; }
+            .mobile-menu.is-open { opacity: 1; pointer-events: auto; visibility: visible; }
             .mobile-menu a { font-size: 1.15rem; letter-spacing: 0.28em; font-family: "Shippori Mincho B1", serif; }
         }
         @media (min-width: 861px) { .mobile-menu { display: none; } }
@@ -1205,10 +1205,16 @@
             toggle.setAttribute('aria-expanded', open);
             toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
         });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        const closeMobileMenu = () => {
             menu.classList.remove('is-open');
             toggle.setAttribute('aria-expanded', 'false');
-        }));
+            toggle.setAttribute('aria-label', 'メニューを開く');
+        };
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+        // Escキーでも閉じる（キーボード操作の人が閉じられなくなるのを防ぐ）
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMobileMenu();
+        });
 
         // 御品書きモーダル
         const menuModal = document.getElementById('menuModal');
