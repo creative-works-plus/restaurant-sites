@@ -75,6 +75,7 @@
                     <li><a href="index.html#concept">お店について</a></li>
                     <li><a href="index.html#access">店舗情報</a></li>
                 </ul>
+                <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
             </nav>
 
         </div>
@@ -406,13 +407,58 @@
     <script>
         document.body.classList.remove('no-js');
 
-        const hamburger = document.getElementById('hamburger');
-        const nav = document.getElementById('nav');
+        // モバイルメニュー：ハンバーガー再タップ・「閉じる」ボタン・背景タップ・Escで閉じられる
+        (function () {
+            var hamburger = document.getElementById('hamburger');
+            var nav = document.getElementById('nav');
+            var navClose = document.getElementById('nav-close');
+            if (!hamburger || !nav) return;
 
-        hamburger.addEventListener('click', () => {
-            const isOpen = nav.classList.toggle('active');
-            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
+            function setOpen(open) {
+                nav.classList.toggle('active', open);
+                document.body.classList.toggle('nav-open', open);
+                hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+                hamburger.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+                hamburger.textContent = open ? '✕' : '☰';
+            }
+
+            hamburger.addEventListener('click', function (e) {
+                e.stopPropagation();
+                setOpen(!nav.classList.contains('active'));
+            });
+
+            if (navClose) {
+                navClose.addEventListener('click', function () {
+                    setOpen(false);
+                    hamburger.focus();
+                });
+            }
+
+            // メニュー内のリンクを選んだときも閉じる
+            Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) {
+                a.addEventListener('click', function () { setOpen(false); });
+            });
+
+            // 背景（暗くなっている部分）をタップしたら閉じる
+            document.addEventListener('click', function (e) {
+                if (!nav.classList.contains('active')) return;
+                if (nav.contains(e.target) || hamburger.contains(e.target)) return;
+                setOpen(false);
+            });
+
+            // Escキーで閉じる
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && nav.classList.contains('active')) {
+                    setOpen(false);
+                    hamburger.focus();
+                }
+            });
+
+            // PC幅に戻したら開いた状態を解除する
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768 && nav.classList.contains('active')) setOpen(false);
+            });
+        })();
 
         // スクロール出現演出（reduced-motion 尊重）
         (function () {

@@ -1,4 +1,19 @@
 /* ==========================
+Tokens
+========================== */
+
+:root {
+    /* 固定ヘッダーの高さ。body の padding-top と nav の位置がこの値に連動する */
+    --header-h: 74px;
+}
+
+@media(max-width:768px) {
+    :root {
+        --header-h: 64px;
+    }
+}
+
+/* ==========================
 Reset
 ========================== */
 
@@ -28,6 +43,14 @@ body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    /* 固定ヘッダーの分だけ本文を下げる（ヘッダーがトップの写真に重ならないように） */
+    padding-top: var(--header-h);
+}
+
+/* ページ内リンクの着地点が固定ヘッダーに隠れないように */
+section[id],
+[id] {
+    scroll-margin-top: calc(var(--header-h) + 12px);
 }
 
 /* ==========================
@@ -170,12 +193,13 @@ Header
     left: 0;
 
     width: 100%;
+    height: var(--header-h);
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    padding: 16px 50px;
+    padding: 0 50px;
 
     background: rgba(243, 238, 231, 0.97);
     backdrop-filter: blur(12px);
@@ -308,7 +332,7 @@ Hero
     position: relative;
     overflow: hidden;
 
-    min-height: 100svh;
+    min-height: calc(100svh - var(--header-h));
 
     background-color: #faf8f3;
 
@@ -554,18 +578,28 @@ Quick Nav（写真付きメニュー導線カード）
 Gallery Mosaic（人気メニュー：写真モザイク）
 ========================== */
 
+/* PC・タブレット：大きさの揃った正方形グリッド（バラバラに見えないように）
+   スマホ側は下の @media で従来のモザイク（縦横まちまち）のまま */
 .gallery-mosaic {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: 90px;
-    grid-auto-flow: dense;
-    gap: 12px;
-    max-width: 1100px;
-    margin: 56px auto 0;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    max-width: 1000px;
+    margin: 48px auto 0;
+}
+
+.gallery-mosaic__label {
+    max-width: 1000px;
+    margin: 64px auto 0;
+    text-align: center;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    color: #8b6f47;
 }
 
 .gallery-mosaic__item {
     position: relative;
+    aspect-ratio: 1 / 1;
     border-radius: 14px;
     overflow: hidden;
 }
@@ -585,27 +619,22 @@ Gallery Mosaic（人気メニュー：写真モザイク）
     }
 }
 
-.gallery-mosaic__item--lg {
-    grid-column: span 3;
-    grid-row: span 3;
-}
-
-.gallery-mosaic__item--md {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
-.gallery-mosaic__item--sm {
-    grid-column: span 2;
-    grid-row: span 1;
-}
-
 @media(max-width:768px) {
     .gallery-mosaic {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: 130px;
+        grid-auto-flow: dense;
         gap: 8px;
-        margin-top: 32px;
+        margin-top: 28px;
+    }
+
+    .gallery-mosaic__item {
+        aspect-ratio: auto;
+    }
+
+    .gallery-mosaic__label {
+        margin-top: 44px;
+        font-size: 0.9rem;
     }
 
     .gallery-mosaic__item--lg {
@@ -1309,61 +1338,61 @@ Subpage
 ========================== */
 
 .page-header {
-    padding: 150px 0 60px;
+    padding: 80px 0 60px;
     text-align: center;
     background: #f3eee7;
 }
 
 .page-header--menu {
-    padding: 180px 0 100px;
+    padding: 104px 0 96px;
     background-color: #f3eee7;
     background-image: url("../images/menuimage.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    min-height: 400px;
+    min-height: 360px;
 }
 
 .page-header--lunch {
-    padding: 180px 0 100px;
+    padding: 104px 0 96px;
     background-color: #f3eee7;
     background-image: url("../images/lunchimage.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    min-height: 400px;
+    min-height: 360px;
 }
 
 .page-header--dinner {
-    padding: 180px 0 100px;
+    padding: 104px 0 96px;
     background-color: #f3eee7;
     background-image: url("../images/dinnerimage.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    min-height: 400px;
+    min-height: 360px;
 }
 
 .page-header--wine {
-    padding: 180px 0 100px;
+    padding: 104px 0 96px;
     /* 専用の実写素材が無いため、背景写真ではなくブランドカラーのグラデーションで構成 */
     background: linear-gradient(135deg, #6f4e37 0%, #8b6f47 55%, #b68d40 100%);
     position: relative;
-    min-height: 400px;
+    min-height: 360px;
 }
 
 .page-header--drink {
-    padding: 180px 0 100px;
+    padding: 104px 0 96px;
     background-color: #f3eee7;
     background-image: url("../images/drinkimage.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    min-height: 400px;
+    min-height: 360px;
 }
 
 .page-header--lunch::before,
@@ -1843,22 +1872,24 @@ Responsive
 
 @media(max-width:768px) {
 
+    /* ロゴとハンバーガーを1段（横並び）に収め、ヘッダーの高さを固定する */
     .header {
-        flex-direction: column;
+        flex-direction: row;
         gap: 12px;
-        padding: 12px 16px;
+        padding: 0 14px;
     }
 
     .logo {
         align-items: center;
+        min-width: 0;
     }
 
     .logo-main {
-        font-size: 1.8rem;
+        font-size: 1.25rem;
     }
 
     .logo-sub {
-        font-size: 0.7rem;
+        font-size: 0.62rem;
     }
 
     .nav-list {
@@ -1892,7 +1923,7 @@ Responsive
     }
 
     .fv {
-        min-height: 88svh;
+        min-height: calc(92svh - var(--header-h));
     }
 
     .fv-media {
@@ -1944,7 +1975,16 @@ Responsive
     }
 
     .page-header {
-        padding: 140px 0 60px;
+        padding: 72px 0 52px;
+    }
+
+    .page-header--menu,
+    .page-header--lunch,
+    .page-header--dinner,
+    .page-header--wine,
+    .page-header--drink {
+        padding: 72px 0 64px;
+        min-height: 260px;
     }
 
     .page-header h1 {
@@ -2056,35 +2096,71 @@ Responsive
     display: none;
     background: none;
     border: none;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    line-height: 1;
     color: #6f4e37;
     cursor: pointer;
 }
 
+/* PCではメニュー内の「閉じる」ボタンは不要（スマホ幅で display:flex に切り替える） */
+.nav-close {
+    display: none;
+}
+
 @media(max-width:768px){
 
-    .header{
-        padding:16px 20px;
+    .hamburger{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        /* タップ領域を44×44px以上確保する */
+        width:46px;
+        height:46px;
+        flex-shrink:0;
+        margin-right:-6px;
+        border-radius:12px;
+        transition:background .2s ease;
     }
 
-    .hamburger{
-        display:block;
+    .hamburger[aria-expanded="true"]{
+        background:rgba(111,78,55,.09);
+    }
+
+    /* 開いている間だけ背面を覆う。ここをタップしても閉じられる */
+    body.nav-open::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        z-index:900;
+        background:rgba(20,15,10,.38);
+    }
+
+    /* 追従バーも覆いの下に入れる（誤タップで電話が発信されないように） */
+    body.nav-open .mobile-reserve-bar{
+        z-index:899;
     }
 
     .nav{
         position: fixed;
-        top: 70px;
-        right: -100%;
-        width: 260px;
-        height: calc(100vh - 70px);
+        top: var(--header-h);
+        right: 0;
+        width: min(78vw, 280px);
+        height: calc(100dvh - var(--header-h));
         background: #faf8f3;
-        transition: .3s;
-        box-shadow: -5px 0 20px rgba(0,0,0,.08);
-        padding-top: 30px;
+        box-shadow: -5px 0 20px rgba(0,0,0,.12);
+        padding-top: 20px;
+
+        /* 閉じている間は Tab 移動・読み上げからも外す */
+        transform: translateX(100%);
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform .3s ease, visibility .3s ease;
     }
 
     .nav.active{
-        right: 0;
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
     }
 
     .nav-list{
@@ -2102,5 +2178,30 @@ Responsive
         display:block;
         padding:18px 0;
         border-bottom:1px solid #e5ddd2;
+    }
+
+    /* メニュー内の「閉じる」ボタン */
+    .nav-close{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:6px;
+        width:calc(100% - 40px);
+        margin:22px 20px 0;
+        padding:13px 0;
+        background:none;
+        border:1px solid rgba(111,78,55,.28);
+        border-radius:999px;
+        color:#6f4e37;
+        font-family:inherit;
+        font-size:0.88rem;
+        letter-spacing:0.06em;
+        cursor:pointer;
+    }
+}
+
+@media(prefers-reduced-motion: reduce){
+    .nav{
+        transition:none;
     }
 }
