@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f1113">
+<title>営業マン用マニュアル｜creative works+</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%23231a0f'/%3E%3Cpath d='M52 128V52h34M52 90h30' fill='none' stroke='%23d9a13b' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='118' cy='106' r='22' fill='none' stroke='%23d9a13b' stroke-width='11'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23231a0f'/%3E%3Cpath d='M19 46V19h12M19 32h11' fill='none' stroke='%23d9a13b' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='42' cy='38' r='8' fill='none' stroke='%23d9a13b' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:      #0f1113;
+    --card:    #191c1f;
+    --card2:   #14171a;
+    --line:    #2c3034;
+    --tx:      #e9e7e2;
+    --mut:     #8e938f;
+    --gold:    #d9a13b;
+    --green:   #1c4a3e;
+    --green2:  #2c6353;
+    --greentx: #a8d8c4;
+    --ngbg:    #2a1c1a;
+    --ngln:    #6b3b33;
+    --ngtx:    #f0c9c2;
+    --okbg:    #14211c;
+    --okln:    #2c5145;
+  }
+  * { box-sizing: border-box; margin: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    background: var(--bg); color: var(--tx);
+    font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    line-height: 1.85; padding-bottom: 60px;
+    word-break: auto-phrase; text-wrap: pretty;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 620px; margin-inline: auto; padding: 0 16px; }
+
+  /* ---------- ヘッダー ---------- */
+  header {
+    background: linear-gradient(160deg, #1a1408 0%, #0f1113 70%);
+    border-bottom: 1px solid #2a2318;
+    padding: 30px 0 26px;
+  }
+  header .wrap { padding-top: 0; }
+  .kicker {
+    font-size: .68rem; letter-spacing: .18em; color: var(--gold);
+    font-weight: 700; margin-bottom: 8px;
+  }
+  h1 { font-size: 1.42rem; font-weight: 700; letter-spacing: .02em; line-height: 1.5; }
+  .sub { font-size: .82rem; color: var(--mut); margin-top: 10px; line-height: 1.8; }
+
+  .warn {
+    background: var(--ngbg); border: 1px solid var(--ngln); color: var(--ngtx);
+    border-radius: 9px; padding: 12px 14px; font-size: .78rem;
+    line-height: 1.8; margin-top: 18px;
+  }
+  .warn b { color: #ffdcd4; }
+
+  /* ---------- 目次 ---------- */
+  nav.toc { margin-top: 22px; }
+  nav.toc h2 {
+    font-size: .7rem; color: var(--mut); letter-spacing: .12em;
+    font-weight: 600; margin-bottom: 10px;
+  }
+  nav.toc ol {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-wrap: wrap; gap: 7px;
+  }
+  nav.toc a {
+    display: block; text-decoration: none; color: var(--tx);
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 999px; padding: 8px 13px; font-size: .78rem;
+    min-height: 36px; display: flex; align-items: center;
+  }
+  nav.toc a:active { opacity: .65; }
+  nav.toc a i { font-style: normal; color: var(--gold); font-weight: 700; margin-right: 6px; font-size: .72rem; }
+
+  /* ---------- 今日やる3つ ---------- */
+  .today {
+    background: linear-gradient(150deg, #1d1206 0%, #191c1f 60%);
+    border: 1px solid #4a3a1c; border-radius: 12px;
+    padding: 18px 17px 16px; margin-top: 26px;
+  }
+  .today h2 { font-size: .98rem; font-weight: 700; color: var(--gold); letter-spacing: .03em; }
+  .today p.n { font-size: .74rem; color: var(--mut); margin-top: 3px; }
+  .today ol { margin: 13px 0 0; padding: 0; list-style: none; counter-reset: t; }
+  .today li {
+    counter-increment: t; position: relative; padding-left: 34px;
+    font-size: .92rem; line-height: 1.75; margin-bottom: 11px;
+  }
+  .today li:last-child { margin-bottom: 0; }
+  .today li::before {
+    content: counter(t); position: absolute; left: 0; top: 3px;
+    width: 23px; height: 23px; border-radius: 50%;
+    background: var(--gold); color: #1a1408;
+    font-size: .74rem; font-weight: 700;
+    display: grid; place-items: center; line-height: 1;
+  }
+  .today b { color: #f2d79c; }
+
+  /* ---------- セクション ---------- */
+  section {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 20px 17px 18px; margin-top: 16px;
+    scroll-margin-top: 14px;
+  }
+  section > .no {
+    display: inline-block; font-size: .66rem; font-weight: 700;
+    letter-spacing: .14em; color: var(--gold);
+    border: 1px solid #4a3a1c; background: #1d1608;
+    border-radius: 5px; padding: 3px 8px; margin-bottom: 11px;
+  }
+  section h2 { font-size: 1.13rem; font-weight: 700; line-height: 1.55; letter-spacing: .01em; }
+  .lead {
+    font-size: .88rem; color: #c3c7c2; margin-top: 10px;
+    padding-left: 11px; border-left: 2px solid var(--green2);
+    line-height: 1.8;
+  }
+
+  h3 {
+    font-size: .82rem; font-weight: 700; color: var(--greentx);
+    letter-spacing: .04em; margin: 20px 0 9px;
+    display: flex; align-items: center; gap: 7px;
+  }
+  h3::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--green2); flex: none; }
+
+  ul.do { list-style: none; padding: 0; margin: 11px 0 0; }
+  ul.do li {
+    position: relative; padding-left: 20px; font-size: .89rem;
+    line-height: 1.8; margin-bottom: 9px;
+  }
+  ul.do li:last-child { margin-bottom: 0; }
+  ul.do li::before {
+    content: ""; position: absolute; left: 3px; top: .72em;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+  }
+  ul.do b { color: #f2d79c; font-weight: 700; }
+  ul.do .sm { display: block; font-size: .78rem; color: var(--mut); line-height: 1.75; margin-top: 2px; }
+
+  /* NG / OK */
+  .talk { margin-top: 13px; display: flex; flex-direction: column; gap: 9px; }
+  .ng, .ok {
+    border-radius: 9px; padding: 12px 13px; font-size: .86rem; line-height: 1.8;
+  }
+  .ng { background: var(--ngbg); border: 1px solid var(--ngln); color: var(--ngtx); }
+  .ok { background: var(--okbg); border: 1px solid var(--okln); color: #cfe8dc; }
+  .ng .lbl, .ok .lbl {
+    display: block; font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+    margin-bottom: 5px; opacity: .8;
+  }
+  .ok b { color: #eafff5; }
+  .ng b { color: #ffdcd4; }
+
+  /* 数字バッジ */
+  .stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .stat {
+    flex: 1 1 130px; background: var(--card2); border: 1px solid var(--line);
+    border-radius: 9px; padding: 11px 12px 10px;
+  }
+  .stat .v { font-size: 1.28rem; font-weight: 700; color: var(--gold); line-height: 1.25; letter-spacing: -.01em; }
+  .stat .l { font-size: .71rem; color: var(--mut); line-height: 1.6; margin-top: 3px; }
+
+  /* 根拠（折りたたみ） */
+  details.ev {
+    margin-top: 14px; background: var(--card2);
+    border: 1px solid var(--line); border-radius: 9px;
+  }
+  details.ev summary {
+    cursor: pointer; list-style: none; padding: 11px 13px;
+    font-size: .76rem; color: var(--mut); font-weight: 600; letter-spacing: .05em;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    min-height: 42px;
+  }
+  details.ev summary::-webkit-details-marker { display: none; }
+  details.ev summary::after { content: "＋"; color: var(--gold); font-size: .9rem; flex: none; }
+  details.ev[open] summary::after { content: "−"; }
+  details.ev .in {
+    padding: 0 13px 13px; font-size: .78rem; color: #b0b4af; line-height: 1.9;
+    border-top: 1px solid var(--line); padding-top: 11px;
+  }
+  details.ev .in p { margin-bottom: 9px; }
+  details.ev .in p:last-child { margin-bottom: 0; }
+  details.ev a {
+    color: var(--gold); display: inline-block; padding: 6px 0;
+    text-underline-offset: 3px;
+  }
+
+  /* 台本ボックス */
+  .script {
+    background: #101315; border: 1px solid var(--line); border-left: 3px solid var(--gold);
+    border-radius: 8px; padding: 14px 14px; margin-top: 12px;
+    font-size: .87rem; line-height: 1.95;
+  }
+  .script .who {
+    font-size: .68rem; letter-spacing: .1em; color: var(--gold);
+    font-weight: 700; display: block; margin-bottom: 6px;
+  }
+  .script + .script { margin-top: 9px; }
+  .script .pt { display: block; font-size: .76rem; color: var(--mut); margin-top: 9px; line-height: 1.8; }
+
+  /* 表 */
+  .tb { margin-top: 13px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; width: 100%; min-width: 320px; font-size: .82rem; }
+  th, td { border: 1px solid var(--line); padding: 9px 10px; text-align: left; line-height: 1.65; }
+  th { background: var(--card2); color: var(--mut); font-weight: 600; font-size: .74rem; white-space: nowrap; }
+  td b { color: #f2d79c; }
+  .tb .no-w { white-space: nowrap; }
+
+  /* 時間帯 */
+  .hours { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; }
+  .hr { display: flex; align-items: center; gap: 11px; font-size: .85rem; }
+  .hr .t {
+    flex: none; width: 92px; font-variant-numeric: tabular-nums;
+    font-size: .8rem; color: #c3c7c2;
+  }
+  .hr .bar { flex: 1; height: 26px; border-radius: 5px; display: flex; align-items: center; padding: 0 10px; font-size: .74rem; font-weight: 700; }
+  .hr.bad .bar { background: #2a1c1a; border: 1px solid var(--ngln); color: var(--ngtx); }
+  .hr.mid .bar { background: #201f18; border: 1px solid #4a4530; color: #d3ceb0; }
+  .hr.good .bar { background: linear-gradient(90deg, #d9a13b, #b8862c); color: #1a1408; }
+
+  /* CTA */
+  .back {
+    display: flex; gap: 9px; margin-top: 26px;
+  }
+  .back a {
+    flex: 1; display: grid; place-items: center; text-decoration: none;
+    min-height: 50px; border-radius: 8px; font-size: .87rem; font-weight: 700;
+    letter-spacing: .04em; background: var(--card); border: 1px solid var(--line); color: var(--tx);
+  }
+  .back a.pri { background: var(--green); border-color: var(--green2); color: #eae7de; }
+  .back a:active { opacity: .7; }
+
+  footer { margin-top: 30px; font-size: .74rem; color: #6f746f; line-height: 1.9; text-align: center; }
+
+  .toTop {
+    position: fixed; right: 14px; bottom: 14px; z-index: 30;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: rgba(30,34,37,.92); border: 1px solid var(--line);
+    color: var(--tx); font-size: 1rem; cursor: pointer;
+    display: grid; place-items: center; backdrop-filter: blur(6px);
+    opacity: 0; visibility: hidden; transition: opacity .25s, visibility .25s;
+  }
+  .toTop.on { opacity: 1; visibility: visible; }
+
+  @media (min-width: 560px) {
+    h1 { font-size: 1.6rem; }
+    section { padding: 24px 22px 21px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="kicker">SALES MANUAL</p>
+    <h1>営業マン用マニュアル<br>HPを「先に作ってある」強みの活かし方</h1>
+    <p class="sub">
+      うちの商品は<b>もう完成しているHP</b>です。<br>
+      これは他社にない武器ですが、<b>渡す順番を間違えるとゼロになります</b>。
+      その順番と言い方をまとめました。
+    </p>
+    <div class="warn">
+      社内用のページです。<b>お店の中では開かないでください。</b><br>
+      営業のやり方が書いてあるので、店主様の目に入ると信頼を失います。
+    </div>
+
+    <nav class="toc">
+      <h2>もくじ（タップで移動）</h2>
+      <ol>
+        <li><a href="#s1"><i>01</i>断られるのは腕のせいじゃない</a></li>
+        <li><a href="#s2"><i>02</i>順番を逆にする</a></li>
+        <li><a href="#s3"><i>03</i>どこから接触するか</a></li>
+        <li><a href="#s4"><i>04</i>いつ・誰に</a></li>
+        <li><a href="#s5"><i>05</i>電話で何て言うか</a></li>
+        <li><a href="#s6"><i>06</i>お金の話し方</a></li>
+        <li><a href="#s7"><i>07</i>紹介をもらう</a></li>
+        <li><a href="#s8"><i>08</i>数字をつける</a></li>
+        <li><a href="#s9"><i>09</i>写真の注意</a></li>
+      </ol>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="today">
+    <h2>今日から変える3つ</h2>
+    <p class="n">これだけでも数字が動きます</p>
+    <ol>
+      <li><b>電話の前にInstagramのDMでURLを送る。</b>電話は2日後に「送った件の確認」としてかける。</li>
+      <li><b>電話は14時〜16時だけ。</b>それ以外の時間は訪問と手紙にまわす。</li>
+      <li><b>契約したお店に「2軒だけ」紹介を聞く。</b>いちばん安くて、いちばん決まりやすい。</li>
+    </ol>
+  </div>
+
+  <!-- 01 -->
+  <section id="s1">
+    <span class="no">01</span>
+    <h2>断られるのは、あなたの腕のせいじゃない</h2>
+    <p class="lead">電話という手段が、そもそもそういう数字になっている。</p>
+
+    <div class="stats">
+      <div class="stat"><div class="v">5〜10%</div><div class="l">1本かけて<br>相手が電話に出る率</div></div>
+      <div class="stat"><div class="v">40〜45件</div><div class="l">アポ1件を取るのに<br>必要な架電数（平均）</div></div>
+      <div class="stat"><div class="v">24.5%</div><div class="l">同じ店に<br><b>何度も</b>かけた場合の接触率</div></div>
+    </div>
+
+    <h3>ここから分かること</h3>
+    <ul class="do">
+      <li>1本かけて断られたのは<b>ふつう</b>。落ち込む必要はない。</li>
+      <li>ただし<b>この分母を根性で埋めるのは無理</b>。だから手段を変える（02〜04）。</li>
+      <li><b>1回で諦めない。</b>同じ店に手を変えて4〜8回。それだけで接触率が3〜4倍になる。</li>
+    </ul>
+
+    <details class="ev">
+      <summary>根拠となる数字を見る</summary>
+      <div class="in">
+        <p>米国のBtoB営業3億件超の通話分析で、1本あたりの接触率は平均5.4%（上位層13.3%）。アポ化は1本あたり2.3〜2.5%＝40〜45件で1アポ。／同じ相手に複数回かけると最終的に24.5%が応答。</p>
+        <p>※これは米国BtoBのデータで、日本の飲食店にそのままの数字が当てはまるわけではありません。「電話単体だと分母が異常に要る」という構造の話として読んでください。</p>
+        <p><a href="https://belkins.io/blog/cold-calling-benchmarks" target="_blank" rel="noopener">Belkins（2026）</a>／<a href="https://prospeo.io/s/b2b-cold-calling-conversion-rate" target="_blank" rel="noopener">Prospeo（2026）</a></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 02 -->
+  <section id="s2">
+    <span class="no">02</span>
+    <h2>順番を逆にする<br>「電話→見せる」ではなく「見せる→電話」</h2>
+    <p class="lead">いちばん効く改善はここ。ほかを全部飛ばしてもいいくらい重要。</p>
+
+    <div class="talk">
+      <div class="ng">
+        <span class="lbl">いままで</span>
+        電話でアポを取る → 訪問して<b>そこで初めてHPを見せる</b><br>
+        → 電話の時点では「よくある営業電話」でしかない
+      </div>
+      <div class="ok">
+        <span class="lbl">これから</span>
+        <b>先にHPそのものを届ける</b> → 2日後に「送った件の確認」で電話<br>
+        → 電話が<b>営業電話ではなく確認の連絡</b>に変わる
+      </div>
+    </div>
+
+    <h3>なぜこれが効くのか</h3>
+    <ul class="do">
+      <li>一度でも接点があった相手は、<b>まったくの新規より10〜40倍</b>反応する。</li>
+      <li>うちの武器は「<b>もう完成している</b>」こと。これは提案ではなく<b>プレゼント</b>として渡せる。
+        <span class="sm">人は先に何かをもらうと、返したくなる。だから話を聞く義理が生まれる。</span></li>
+      <li>逆に<b>電話で口頭説明した瞬間、この武器はゼロになる。</b>
+        <span class="sm">HPは「見せた瞬間に売れる商品」。電話で説明するのは、料理を電話で味見させようとするのと同じ。</span></li>
+      <li>送る道具はもう全部そろっている。<b>営業用リンク集の「提案書」「サイト」「QR」</b>をそのまま使う。</li>
+    </ul>
+
+    <details class="ev">
+      <summary>根拠となる数字を見る</summary>
+      <div class="in">
+        <p>紹介・一度接点のある相手（ウォーム）は、完全な新規（コールド）に比べて初回連絡への反応が10〜40倍。返信後の商談化も3〜6倍。</p>
+        <p><a href="https://www.rhythmof.business/blog/warm-referral-conversion-gap/" target="_blank" rel="noopener">Rhythm of Business</a></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 03 -->
+  <section id="s3">
+    <span class="no">03</span>
+    <h2>どこから接触するか<br>電話は「本人に届かない」</h2>
+    <p class="lead">お店の電話は、ほぼ確実にパートさん・ホールの人が出る。決まる相手（オーナー）に届かない経路で戦っている。</p>
+
+    <h3>① InstagramのDM ／ いちばん効率がいい</h3>
+    <div class="stats">
+      <div class="stat"><div class="v">79.1%</div><div class="l">飲食店が<br>Instagramを運用</div></div>
+      <div class="stat"><div class="v">71.2%</div><div class="l">そのうち<br><b>店主本人</b>が運用</div></div>
+      <div class="stat"><div class="v">74%</div><div class="l">外注しておらず<br>今後も予定なし</div></div>
+    </div>
+    <ul class="do">
+      <li>つまり<b>DMは店主のスマホに直接届く</b>。取次ぎが存在しない。</li>
+      <li>相手が<b>自分の都合のいい時間に読める</b>ので、じゃまにならない。</li>
+      <li>送る中身は営業文ではなく「<b>もう作ったので見てください</b>」＋URL1本。それだけ。</li>
+    </ul>
+
+    <h3>② 手紙（紙）＋ QRコード</h3>
+    <div class="stats">
+      <div class="stat"><div class="v">4.4%</div><div class="l">紙のDMの反応率<br>（平均）</div></div>
+      <div class="stat"><div class="v">0.12%</div><div class="l">メールの反応率<br>＝紙の約37分の1</div></div>
+      <div class="stat"><div class="v">17日</div><div class="l">紙が捨てられずに<br>手元に残る平均日数</div></div>
+    </div>
+    <ul class="do">
+      <li>A4一枚＋<b>そのお店のHPに飛ぶQRコード</b>。QRは<b>会社/QRコード/</b>に全店分そろっている。</li>
+      <li>宛名は「店長様」ではなく<b>オーナーの実名</b>で書く。開封率が変わる。
+        <span class="sm">名前の調べ方＝Googleクチコミの返信者名／食べログの店主コメント／Instagramのプロフィール／地元の取材記事。</span></li>
+      <li>面識ゼロの相手（新規リスト）だけに絞っても、紙は<b>2〜4.4%</b>反応する。メールより桁が違う。</li>
+    </ul>
+
+    <h3>③ 訪問（電話でアポを取らず、直接行く）</h3>
+    <ul class="do">
+      <li>アイドルタイムに、<b>そのお店のHPを開いた状態のスマホ／iPadを持って</b>入る。</li>
+      <li>第一声は<b>「これ、〇〇さんのお店のホームページです」</b>。説明より先に画面を見せる。</li>
+      <li>その場でQRを出せば、店主のスマホに提案書を移せる。<b>お互い自分の画面を見ながら</b>話す。</li>
+    </ul>
+
+    <details class="ev">
+      <summary>根拠となる数字を見る</summary>
+      <div class="in">
+        <p><b>Instagram：</b>飲食店のSNS運用調査で、定期運用中のSNSはInstagramが79.1%で最多。運用体制は「自身で運用」が71.2%、外部委託は74%が「していないし今後も予定なし」。<br>
+        <a href="https://www.inshokuten.com/foodist/article/7590/" target="_blank" rel="noopener">飲食店ドットコム調査</a></p>
+        <p><b>紙のDM：</b>米国ANA/DMAの2025年 Response Rate Report で、紙のDMの平均反応率4.4%に対しメールは0.12%（約37倍）。新規リストのみでも2〜4.4%。紙は平均17日間手元に残る。<br>
+        <a href="https://www.mailpro.org/post/direct-mail-response-rates/" target="_blank" rel="noopener">Mailpro（ANA/DMA集計）</a></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 04 -->
+  <section id="s4">
+    <span class="no">04</span>
+    <h2>いつ・誰にかけるか</h2>
+    <p class="lead">時間を間違えると、内容がどれだけ良くても永久にその店を失う。</p>
+
+    <h3>電話をかけていい時間</h3>
+    <div class="hours">
+      <div class="hr bad"><span class="t">11:00–14:00</span><span class="bar">絶対NG／ランチで手一杯</span></div>
+      <div class="hr mid"><span class="t">13:00–14:00</span><span class="bar">避ける／片付けが残っている</span></div>
+      <div class="hr good"><span class="t">14:00–16:00</span><span class="bar">◎ ここに全振りする</span></div>
+      <div class="hr mid"><span class="t">16:00–17:00</span><span class="bar">仕込みが佳境。ギリギリ可</span></div>
+      <div class="hr bad"><span class="t">17:00–21:00</span><span class="bar">絶対NG／かけた時点で心証が最悪</span></div>
+    </div>
+    <ul class="do">
+      <li><b>14〜16時＝飲食店営業のゴールデンタイム。</b>ランチが終わって仕込み中、客はほぼいない。</li>
+      <li><b>定休日の前日の夕方</b>と<b>月曜</b>も狙い目。
+        <span class="sm">週末の売上を見て「今月どうしよう」と考えているタイミング。</span></li>
+      <li>それ以外の時間は電話をやめて、<b>訪問・DM・手紙</b>にまわす。</li>
+    </ul>
+
+    <h3>誰を出してもらうか</h3>
+    <div class="talk">
+      <div class="ng">
+        <span class="lbl">NG</span>
+        「<b>オーナー様</b>はいらっしゃいますか？」<br>
+        → 営業だとバレて取り次いでもらえない
+      </div>
+      <div class="ok">
+        <span class="lbl">OK</span>
+        「<b>〇〇さん</b>、お願いできますか？」<br>
+        → 名前で指名する。知り合いに聞こえるので取次ぎ率が上がる
+      </div>
+    </div>
+    <ul class="do">
+      <li>かける前に<b>必ず名前を調べる</b>。Googleクチコミの返信・Instagram・食べログの店主コメントに出ている。</li>
+    </ul>
+
+    <details class="ev">
+      <summary>根拠となる数字を見る</summary>
+      <div class="in">
+        <p>14時〜16時のアイドルタイムは「飲食店営業のゴールデンタイム」と呼ばれ、ここに集中するだけで接触率が大きく改善する。11〜14時／17〜21時は電話に出る余裕がゼロ。13時台はランチの片付けが残るため避ける。</p>
+        <p><a href="https://pass-gate.co.jp/column/articles/industry-inshoku-sales" target="_blank" rel="noopener">Selldig｜飲食店への営業開拓ガイド</a>／<a href="https://r-reserve.com/column/restaurant-reserve-calltime/" target="_blank" rel="noopener">アールリザーブ</a></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 05 -->
+  <section id="s5">
+    <span class="no">05</span>
+    <h2>電話で何て言うか<br>「アポをください」と言わない</h2>
+    <p class="lead">売り込みだと分かった瞬間に切られる。だから<b>時間を求めず、確認を求める</b>。</p>
+
+    <div class="talk">
+      <div class="ng">
+        <span class="lbl">NG</span>
+        「ホームページ制作のご提案でお電話しました。<br>一度お時間をいただけませんでしょうか」<br>
+        → <b>相手に「時間」を要求している。</b>断る理由しかない
+      </div>
+      <div class="ok">
+        <span class="lbl">OK</span>
+        「〇〇さんのお店のホームページを<b>もう作ってしまいまして</b>、<br>
+        住所と営業時間が合っているか<b>確認だけ</b>させていただきたくて。<br>
+        URLをお送りしてもよろしいですか？」<br>
+        → <b>相手に「事実確認」を求めている。</b>断る理由がない
+      </div>
+    </div>
+
+    <h3>この言い方が効く理由</h3>
+    <ul class="do">
+      <li><b>自分の店の情報が間違っていて困る人はいない。</b>だから「見る」しか選択肢がない。</li>
+      <li>「もう作った」で相手の中に<b>「見たい」</b>が生まれる。</li>
+      <li>アポを求めていないので、<b>断りようがない</b>。アポは見てもらったあとに自然に出る。</li>
+    </ul>
+
+    <h3>DM・手紙の文面もこれと同じ</h3>
+    <div class="script">
+      <span class="who">Instagram DM ／ そのまま使える型</span>
+      突然のご連絡すみません。〇〇（地域）でホームページを作っている△△と申します。<br><br>
+      〇〇さんのお店、Googleの評価がすごく高いのに公式ホームページが無かったので、<br>
+      <b>勝手ながら作ってしまいました。</b><br><br>
+      ▶ （URL）<br><br>
+      住所・営業時間・メニューが合っているか<b>見ていただくだけ</b>で大丈夫です。<br>
+      使う／使わないは、見てから決めていただければと思います。
+      <span class="pt">ポイント：営業文を書かない。長文にしない。「見るだけ」で終わらせる。</span>
+    </div>
+
+    <h3>刺さる言い方＝「得」ではなく「損」で言う</h3>
+    <div class="talk">
+      <div class="ng">
+        <span class="lbl">弱い</span>
+        「HPがあると<b>集客が増えます</b>」
+      </div>
+      <div class="ok">
+        <span class="lbl">強い</span>
+        「いま『店名』で検索したお客様が、<b>公式の情報が無いので他のお店に流れています</b>」
+      </div>
+    </div>
+    <ul class="do">
+      <li>人は<b>得より損を約2.25倍強く感じる</b>。得の話より損の話のほうが動く。</li>
+      <li>根拠も言える。<b>お店探しでいちばん信頼されるのはGoogleマップ30.4%、次が食べログ24.4%。</b>
+        <span class="sm">Googleで店名を調べた人が最後に見るのが公式HP。そこが空白＝取りこぼし。</span></li>
+    </ul>
+
+    <details class="ev">
+      <summary>根拠となる数字を見る</summary>
+      <div class="in">
+        <p><b>損失回避：</b>カーネマン＆トベルスキーのプロスペクト理論。同じ額でも、失ったときの痛みは得たときの喜びの約2.25倍。<br>
+        <a href="https://www.nissay.co.jp/enjoy/keizai/152.html" target="_blank" rel="noopener">日本生命｜損失回避性とは</a></p>
+        <p><b>お店探しの情報源：</b>飲食店を探すとき「最も信頼する情報源」1位＝Googleマップ30.4%、2位＝食べログ24.4%（2025年）。<br>
+        <a href="https://ixyas.co.jp/news/hAu1rGSw" target="_blank" rel="noopener">イクシアス 2025年調査</a></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 06 -->
+  <section id="s6">
+    <span class="no">06</span>
+    <h2>お金の話し方<br>「安さ」で押さない</h2>
+    <p class="lead">初期15万・月5,000円は本当に安い。でも安さで押すと安く見られる。<b>比べる相手を変える。</b></p>
+
+    <h3>① グルメサイトの費用と並べる</h3>
+    <div class="tb">
+      <table>
+        <thead>
+          <tr><th>　</th><th>グルメサイト</th><th>うち</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="no-w">毎月の固定費</td><td>月 1万〜10万円</td><td><b>月 5,000円</b></td></tr>
+          <tr><td class="no-w">予約1人ごと</td><td>ディナー200円<br>ランチ50〜100円</td><td><b>0円</b></td></tr>
+          <tr><td class="no-w">お客様の名簿</td><td>サイト側のもの</td><td><b>お店のもの</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="script">
+      <span class="who">そのまま言える一言</span>
+      「<b>20名の宴会を1件、自分のホームページから直接取れたら、それだけで4,000円浮きます。</b><br>
+      月に2件で、うちの月額はもう消えます。」
+      <span class="pt">ポイント：店主が電卓を叩ける言い方にする。抽象的な「集客が増える」は動かない。</span>
+    </div>
+
+    <h3>② 補助金を必ず出す</h3>
+    <ul class="do">
+      <li><b>小規模事業者持続化補助金</b>の第20回（2026年5月27日〜）から、
+        「ウェブ関連費は申請額の4分の1まで」という<b>縛りが撤廃</b>された。ウェブサイト関連費は<b>上限30万円</b>。</li>
+      <li>ただし<b>ウェブ費だけの単独申請はできない</b>。チラシ・看板・のぼりなどと組み合わせる必要がある。
+        <span class="sm">ここまで正確に言えると「詳しい人」に見える。うろ覚えで言うと逆効果なので、この2行を暗記する。</span></li>
+      <li>申請書類の下書きを手伝えると、それ自体が他社との差になる。</li>
+    </ul>
+
+    <details class="ev">
+      <summary>根拠となる数字を見る</summary>
+      <div class="in">
+        <p><b>グルメサイト費用：</b>食べログの有料掲載は月1万〜10万円、送客手数料はランチ100円・ディナー200円／人。ぐるなびはランチ50円・ディナー200円／人。いずれも月額掲載料とは<b>別途</b>請求。<br>
+        <a href="https://4byss.co.jp/hirakulog/nettesuryo/" target="_blank" rel="noopener">HIRAKULOG｜ネット予約手数料まとめ</a></p>
+        <p><b>補助金：</b>第20回公募で「ウェブ関連費は交付申請額の1/4」の制限が撤廃され、広報費・ウェブサイト関連費はそれぞれ上限30万円に変更。ウェブ費のみの単独申請は不可。<br>
+        <a href="https://goto-g.com/jizokuka-hojo-dai20kai-henkouten/" target="_blank" rel="noopener">ごとう行政書士事務所｜第20回の変更点</a></p>
+        <p>※制度は公募回ごとに変わります。<b>商談で金額や条件を断言する前に、必ず最新の公募要領を確認してください。</b></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 07 -->
+  <section id="s7">
+    <span class="no">07</span>
+    <h2>紹介をもらう<br>やらないのが一番もったいない</h2>
+    <p class="lead">飛び込みを100件やるより、紹介を2件もらうほうが早い。数字がはっきり出ている。</p>
+
+    <div class="stats">
+      <div class="stat"><div class="v">50〜70%</div><div class="l">紹介からの<br>成約率</div></div>
+      <div class="stat"><div class="v">10〜20%</div><div class="l">飛び込みからの<br>成約率</div></div>
+      <div class="stat"><div class="v">69%</div><div class="l">紹介のほうが<br>決まるまでが速い</div></div>
+    </div>
+
+    <h3>飲食店は紹介が効きやすい業界</h3>
+    <ul class="do">
+      <li>店主同士の横のつながりが<b>異常に濃い</b>。同業仲間・酒屋・食材の卸・不動産屋・商工会・商店街組合。</li>
+      <li><b>契約した直後</b>（いちばん満足度が高い瞬間）に必ず聞く。後日だと熱が冷めている。</li>
+    </ul>
+
+    <div class="script">
+      <span class="who">紹介を聞くときの言い方</span>
+      「同じように、<b>いいお店なのにホームページが無いところ</b>、<br>
+      <b>お一人か、お二人</b>、思い浮かびませんか？」
+      <span class="pt">ポイント：「誰か紹介してください」だと出てこない。<b>人数を指定する</b>と出てくる。</span>
+    </div>
+
+    <h3>仕組みにする</h3>
+    <ul class="do">
+      <li><b>紹介料を決めておく。</b>例＝紹介1件成約で月額を数ヶ月無料、または現金1万円。
+        <span class="sm">15万円の案件が4倍の確率で取れるなら、圧倒的に安い投資。</span></li>
+      <li><b>酒屋・食材卸との提携。</b>彼らは毎週何十軒も回っていて、全店主と顔見知り。
+        <span class="sm">1人と組めば、その人のルート全部が見込み客になる。</span></li>
+    </ul>
+
+    <details class="ev">
+      <summary>根拠となる数字を見る</summary>
+      <div class="in">
+        <p>紹介経由の商談の成約率は50〜70%、新規開拓は10〜20%。紹介は成約までの期間が69%短く、平均単価も15%大きい。BtoB企業はパイプラインの54%を紹介・口コミ由来と回答。</p>
+        <p><a href="https://www.rhythmof.business/blog/warm-referral-conversion-gap/" target="_blank" rel="noopener">Rhythm of Business</a>／<a href="https://growsurf.com/statistics/b2b-referral-marketing-statistics/" target="_blank" rel="noopener">GrowSurf（2026）</a></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 08 -->
+  <section id="s8">
+    <span class="no">08</span>
+    <h2>数字をつける<br>「断られた」だけでは直せない</h2>
+    <p class="lead">どこが壊れているか分からないと、直しようがない。記録するのは6つだけ。</p>
+
+    <div class="tb">
+      <table>
+        <thead>
+          <tr><th>記録する数</th><th>これが低いときの原因</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="no-w">① かけた数</td><td>行動量。ここは根性の話</td></tr>
+          <tr><td class="no-w">② 誰かが出た数</td><td><b>時間帯</b>が悪い → 04を見る</td></tr>
+          <tr><td class="no-w">③ 店主に繋がった数</td><td><b>経路</b>が悪い → 03を見る</td></tr>
+          <tr><td class="no-w">④ URLを見てもらえた数</td><td><b>言い方</b>が悪い → 05を見る</td></tr>
+          <tr><td class="no-w">⑤ 商談した数</td><td>見せ方・タイミング</td></tr>
+          <tr><td class="no-w">⑥ 契約した数</td><td><b>お金の話し方</b> → 06を見る</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul class="do">
+      <li><b>いちばん落ち込んでいる1か所だけ</b>を直す。全部いっぺんに直そうとしない。</li>
+      <li>たぶん<b>③（店主に繋がった数）</b>が最悪のはず。<b>それなら電話をやめてDM・手紙に替えるだけで解決する。</b></li>
+      <li>ノートでもスマホのメモでもいい。<b>正の字でいい。</b>大事なのは続けること。</li>
+    </ul>
+  </section>
+
+  <!-- 09 -->
+  <section id="s9">
+    <span class="no">09</span>
+    <h2>写真の注意<br>ここを突かれると一発で終わる</h2>
+    <p class="lead">サイトの写真は食べログなどから取り込んだ「仮」の写真です。<b>これを黙っていると詐欺師に見えます。</b></p>
+
+    <div class="talk">
+      <div class="ng">
+        <span class="lbl">起きること</span>
+        「<b>うちの写真を勝手に使ってるのか？</b>」<br>
+        → クチコミの写真は撮った一般のお客様のもので、<b>お店のものですらない</b>ことが多い
+      </div>
+      <div class="ok">
+        <span class="lbl">対策：見せる前に自分から言う</span>
+        「<b>写真はいまのところ仮です。</b><br>
+        ご契約いただいたら、こちらで<b>撮り直して差し替えます。</b>」
+      </div>
+    </div>
+
+    <ul class="do">
+      <li><b>先に自分から言えば誠実さになる。後から突かれると詐欺師になる。</b>順番が全て。</li>
+      <li>むしろ<b>「撮影込み」を売りにする</b>と、15万円の価値が跳ね上がる。</li>
+      <li>ロゴ・店名の表記ミス、営業時間のズレも同じ。<b>「間違っていたら教えてください」を先に言う。</b></li>
+    </ul>
+  </section>
+
+  <div class="back">
+    <a class="pri" href="./">営業用リンク集にもどる</a>
+    <a href="https://creative-works-plus.github.io/restaurant-sites/company/">自社サイト</a>
+  </div>
+
+  <footer>
+    creative works+ ／ 社内用マニュアル<br>
+    数字の出典は各セクションの「根拠となる数字を見る」から確認できます。
+  </footer>
+</div>
+
+<button class="toTop" id="toTop" type="button" aria-label="ページの先頭にもどる">↑</button>
+
+<script>
+(function () {
+  var btn = document.getElementById('toTop');
+  var tick = false;
+  function upd() {
+    btn.classList.toggle('on', window.scrollY > 500);
+    tick = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!tick) { tick = true; window.requestAnimationFrame(upd); }
+  }, { passive: true });
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // 目次からのジャンプをなめらかに
+  document.querySelectorAll('nav.toc a').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
