@@ -11,17 +11,35 @@
     <meta property="og:title" content="居酒屋 こんちき｜古河市下辺見の隠れ家">
     <meta property="og:description" content="地養鶏の串焼きと手作りのおつまみ、季節の地酒が楽しめる古河市の隠れ家居酒屋。">
     <meta property="og:type" content="restaurant">
-    <!-- og:image は公開URL基準の絶対URL（公開先を変える場合は差し替える） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/konchiki/gallery-tsukune-sumibi.jpg">
+    <!-- og:image は公開URL基準の絶対URL（公開先を変える場合は差し替える）。
+         LINE・メールのカードで潰れないよう、縦位置ではなく横位置の写真を使う -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/konchiki/gallery-sashimi.jpg">
+    <meta property="og:image:width" content="640">
+    <meta property="og:image:height" content="480">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%230d0d0d' stroke='%23b33939' stroke-width='4'/%3E%3Ctext x='50' y='66' font-size='46' text-anchor='middle' fill='%23e8dcc4' font-family='serif'%3E%E3%81%93%3C/text%3E%3C/svg%3E">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
       "name": "居酒屋 こんちき",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/konchiki/gallery-tsukune-sumibi.jpg",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/konchiki/gallery-sashimi.jpg",
       "servesCuisine": "Japanese",
+      "priceRange": "￥2,000〜￥4,000",
       "telephone": "+81-280-33-7762",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Sunday"],
+          "opens": "18:00",
+          "closes": "00:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Friday", "Saturday"],
+          "opens": "18:00",
+          "closes": "01:00"
+        }
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "下辺見2789",
@@ -52,6 +70,12 @@
             --warm-accent: #c9a063;
             --warm-soft: rgba(201, 160, 99, 0.35);
             --line-soft: rgba(232, 220, 196, 0.22);
+            /* セクションに「面」を与えるための炭色サーフェス。
+               背景写真の上に置くことで、純黒の空白ではなく輪郭のある版面になる */
+            --surface: rgba(36, 28, 22, 0.9);
+            --surface-hair: rgba(201, 160, 99, 0.2);
+            /* PCの内容幅。全セクションでこの1本に揃える（左基準線を1本にする） */
+            --content-max: 1180px;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
@@ -64,15 +88,24 @@
             * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
 
-        body, html {
+        /* スクロールコンテナは html（ビューポート）側に持たせる。
+           body に height:100% と overflow-x:hidden を同時に指定すると body 自身が
+           スクロールコンテナになり、window.scrollY が常に0になる（＝openPage/closePage の
+           位置復元が効かない・position:sticky が使えない）ため、html 側だけに指定する。 */
+        html {
+            overflow-x: hidden;
+            /* メニューを開くとbodyがfixedになりスクロールバーが消えるため、
+               その分の横ズレ（約15px）が出ないよう幅を確保しておく */
+            scrollbar-gutter: stable;
+        }
+
+        body {
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%;
-            background-color: #000;
+            background-color: #0b0806;
             color: var(--text-color);
             font-family: 'Noto Serif JP', serif;
-            overflow-x: hidden;
         }
 
         a:focus-visible, button:focus-visible {
@@ -113,7 +146,10 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(180deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.42) 32%, rgba(0,0,0,0.42) 62%, rgba(0,0,0,0.88) 100%);
+            /* 純黒ではなく炭色。同じ暗さでも「消灯した画面」ではなく「炭のぬくもり」に見える。
+               スマホは背景の上に文字（ナビ）が直接乗るため、濃度は従来どおり保つ。
+               薄くするのはPCだけ（→ min-width:901px のブロック） */
+            background: linear-gradient(180deg, rgba(12,8,6,0.86) 0%, rgba(24,17,13,0.52) 30%, rgba(24,17,13,0.60) 62%, rgba(12,8,6,0.90) 100%);
             z-index: 1;
         }
 
@@ -274,7 +310,8 @@
             margin-bottom: 1.3rem;
         }
 
-        .right-info .info-title {
+        /* 見出しラベル。店舗情報カードのほか、ご予約ページ・フッターでも使う */
+        .info-title {
             font-weight: 500;
             display: inline-block;
             margin-bottom: 0.5rem;
@@ -448,11 +485,11 @@
         }
         .gallery-item:hover img { transform: scale(1.04); }
 
-        /* モザイク配置：写真1枚を大きく見せる（縦横比は変えず、コマの面積だけ変える） */
-        .gallery-item--wide { grid-column: span 2; }
-        .gallery-item--wide img { aspect-ratio: 3 / 2; }
-        .gallery-item--full { grid-column: 1 / -1; }
-        .gallery-item--full img { aspect-ratio: 2 / 1; }
+        /* 写真は素材の向きどおりに置く（同じ行の中では必ず縦横比を揃える）。
+           素材は縦480×640・横640×480しかないので、これを超えて拡大表示しない。
+           --v = 縦位置の素材／--h = 横位置の素材 */
+        .gallery-item--h { grid-column: span 2; }
+        .gallery-item--h img { aspect-ratio: 3 / 2; }
 
         .gallery-item figcaption {
             margin-top: 0.7rem;
@@ -586,13 +623,23 @@
             }
         }
 
-        @media screen and (min-width: 900px) {
-            .jizake-row {
-                grid-template-columns: 1.1fr 0.9fr;
-                gap: 2.6rem;
+        /* PCでは左右ジグザグをやめ、3枚を横並びのカードにする。
+           ジグザグは1行あたり写真1枚＋一文だけで上下350pxの空洞ができ、
+           セクション全体が2200px超（＝ページ全長の4割）を占めていたため。 */
+        @media screen and (min-width: 601px) {
+            .jizake-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.6rem;
+                align-items: start;
             }
-            .jizake-row--reverse .photo-frame { order: 2; }
-            .jizake-row--reverse .jizake-text { order: 1; }
+            .jizake-row { display: block; }
+            .jizake-row .photo-frame img { aspect-ratio: 3 / 4; }
+            .jizake-text { margin-top: 0.9rem; text-align: center; }
+            .jizake-text p { font-size: 0.95rem; }
+        }
+        @media screen and (min-width: 901px) {
+            .jizake-grid { gap: 2rem; }
         }
 
         @media screen and (max-width: 900px) {
@@ -672,7 +719,9 @@
             width: 100vw;
             height: 100vh;
             height: 100dvh; /* モバイルのアドレスバー増減に追従（末尾が隠れる問題を防ぐ） */
-            background-color: rgba(10, 10, 10, 0.98);
+            /* 半透明だと背後のトップページ（縦書きナビ・店舗情報カード）が透けて
+               「バグ」に見えるため、不透明にする */
+            background-color: #0f0b09;
             z-index: 10;
             pointer-events: none;
             overflow-y: auto;
@@ -688,7 +737,7 @@
 
         /* 背景画像を持つページは、本体の背景色を透明にして疑似要素の画像を見せる
            （画像側に暗いグラデーションを重ねているため暗さは保たれる） */
-        #food-view, #drink-view, #course-view {
+        #food-view, #drink-view, #course-view, #reserve-view {
             background-color: transparent;
         }
 
@@ -699,7 +748,7 @@
             inset: 0;
             z-index: -1;
             background-image:
-                linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
+                linear-gradient(180deg, rgba(11,8,6,0.90) 0%, rgba(11,8,6,0.80) 35%, rgba(11,8,6,0.86) 70%, rgba(11,8,6,0.95) 100%),
                 url('kontiki.yakitori.jpg');
             background-size: cover;
             background-position: center 30%;
@@ -715,7 +764,7 @@
             inset: 0;
             z-index: -1;
             background-image:
-                linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
+                linear-gradient(180deg, rgba(11,8,6,0.90) 0%, rgba(11,8,6,0.80) 35%, rgba(11,8,6,0.86) 70%, rgba(11,8,6,0.95) 100%),
                 url('nomimono_konntiki.jpg');
             background-size: cover;
             background-position: center 30%;
@@ -729,10 +778,24 @@
             inset: 0;
             z-index: -1;
             background-image:
-                linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.68) 35%, rgba(10,10,10,0.72) 70%, rgba(10,10,10,0.94) 100%),
+                linear-gradient(180deg, rgba(11,8,6,0.90) 0%, rgba(11,8,6,0.80) 35%, rgba(11,8,6,0.86) 70%, rgba(11,8,6,0.95) 100%),
                 url('enkai_konntiki.jpg');
             background-size: cover;
             background-position: center 30%;
+            background-repeat: no-repeat;
+        }
+
+        /* ご予約ページ専用の背景（利き酒セットの実写）。他3ページと同じトーンで統一 */
+        #reserve-view::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(180deg, rgba(11,8,6,0.93) 0%, rgba(11,8,6,0.87) 35%, rgba(11,8,6,0.90) 70%, rgba(11,8,6,0.96) 100%),
+                url('gallery-kikizake-set.jpg');
+            background-size: cover;
+            background-position: center 62%;
             background-repeat: no-repeat;
         }
 
@@ -817,8 +880,8 @@
             box-shadow: 0 6px 18px rgba(0,0,0,0.45);
         }
         .hero-strip img {
-            flex: 1 1 50%;
-            width: 50%;
+            flex: 1 1 25%;
+            width: 25%;
             height: 100%;
             object-fit: cover;
         }
@@ -912,18 +975,23 @@
             margin: -2rem auto 3.5rem;
             padding: 0 0.5rem;
         }
+        /* 背景写真の明暗でコントラストが変動しないよう、pill自身に不透明な面を持たせる
+           （明るい瓶ラベルの上では 4.26:1 まで落ちてWCAG AA不適合になっていた） */
         .category-nav button {
             appearance: none;
             -webkit-appearance: none;
-            background: rgba(201, 160, 99, 0.06);
-            border: 1px solid var(--warm-soft);
+            background: rgba(18, 13, 10, 0.78);
+            border: 1px solid rgba(201, 160, 99, 0.5);
             border-radius: 30px;
-            color: var(--text-mute);
+            color: var(--text-color);
             font-family: inherit;
             font-size: 0.86rem;
             letter-spacing: 0.12em;
             padding: 0.42rem 1.05rem;
+            min-height: 44px;
             cursor: pointer;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
         }
         .category-nav button:hover,
@@ -981,12 +1049,9 @@
             padding-right: 6px;
             position: relative;
             z-index: 2;
-            text-shadow:
-                0 0 2px var(--bg-color),
-                0 0 4px var(--bg-color),
-                0 0 6px var(--bg-color),
-                0 0 9px var(--bg-color),
-                0 0 12px var(--bg-color);
+            /* 5枚重ねの黒グローは明るい背景の上で「煤けた汚れ」に見えるため、
+               背景側を沈めたうえで影は最小限にする */
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 7px rgba(0,0,0,0.7);
         }
 
         .item-price {
@@ -1003,12 +1068,7 @@
             text-align: right;
             font-variant-numeric: tabular-nums;
             letter-spacing: 0.04em;
-            text-shadow:
-                0 0 2px var(--bg-color),
-                0 0 4px var(--bg-color),
-                0 0 6px var(--bg-color),
-                0 0 9px var(--bg-color),
-                0 0 12px var(--bg-color);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 7px rgba(0,0,0,0.7);
         }
 
         /* 点線リーダーを品名と金額の「間」に敷き、金額を右端へ寄せる */
@@ -1018,7 +1078,7 @@
             flex-grow: 1;
             min-width: 1.2em;
             margin: 0 0.2em;
-            border-bottom: 1px dotted var(--line-soft);
+            border-bottom: 1px dotted rgba(232, 220, 196, 0.32);
             position: relative;
             top: -4px;
             z-index: 1;
@@ -1104,10 +1164,202 @@
 
         .notice-box {
             text-align: center;
-            padding: 4rem 0;
+            padding: 3rem 0 2.5rem;
             font-size: 1.15rem;
             letter-spacing: 0.12em;
             line-height: 2;
+        }
+        .reserve-tel { font-size: 1.7rem; font-weight: bold; margin: 1.5rem 0; }
+
+        /* ご予約ページの実務情報（電話をかける前に確認したいことを同じ画面に置く） */
+        .reserve-facts {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.6rem 2.6rem;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 2rem 1.8rem;
+            background: rgba(14, 10, 8, 0.72);
+            border: 1px solid var(--surface-hair);
+            border-radius: 6px;
+        }
+        .reserve-fact p {
+            margin: 0;
+            font-size: 0.98rem;
+            line-height: 1.75;
+        }
+
+        /* =========================================
+           フッター（末尾に店名・連絡先・営業時間を置いて締める）
+        ========================================= */
+        .site-footer {
+            margin-top: 3.5rem;
+            padding: 2.8rem 1.8rem calc(3rem + env(safe-area-inset-bottom, 0px));
+            background: var(--surface);
+            border-top: 1px solid var(--surface-hair);
+            border-radius: 6px 6px 0 0;
+            text-align: center;
+        }
+        .footer-name {
+            margin: 0;
+            font-size: 1.25rem;
+            letter-spacing: 0.24em;
+        }
+        .footer-sub {
+            margin: 0.4rem 0 0;
+            font-size: 0.82rem;
+            letter-spacing: 0.24em;
+            color: var(--text-mute);
+        }
+        .footer-col { margin-top: 2rem; }
+        .footer-col p {
+            margin: 0 0 0.4rem;
+            font-size: 0.92rem;
+            line-height: 1.8;
+            color: var(--text-mute);
+        }
+        .footer-copy {
+            margin: 2.4rem 0 0;
+            font-size: 0.78rem;
+            letter-spacing: 0.16em;
+            color: var(--text-mute);
+        }
+
+        /* =========================================
+           PC専用レイアウト（901px以上）
+           従来はモバイル用の部品をそのまま広い画面に置いていたため、
+           純黒の空白が画面の8割を占め、ナビもファーストビューの外にあった。
+        ========================================= */
+        @media screen and (min-width: 901px) {
+            /* 背景は1000px素材。1440〜1920pxでは1.4〜1.9倍に伸びて輪郭が甘くなるので、
+               わずかにぼかして「奥行き」として見せる（静止。常時アニメーションはしない） */
+            .bg-image {
+                filter: blur(2px) saturate(1.08) brightness(1.5);
+                transform: scale(1.04);
+            }
+            /* PCは文字が背景の上に直接乗らない（すべて面の上に載る）ので、
+               覆いを薄くして店の外観そのものを見せる */
+            .bg-overlay {
+                background: linear-gradient(180deg, rgba(12,8,6,0.72) 0%, rgba(24,17,13,0.38) 30%, rgba(24,17,13,0.46) 62%, rgba(12,8,6,0.86) 100%);
+            }
+
+            /* 内容幅を1本に統一し、全セクションの左右基準線を揃える */
+            .wrapper { padding: 5.6rem 0 0; }
+            header.main-header,
+            .main-content,
+            .food-gallery,
+            .jizake-section,
+            .gallery-cta,
+            .site-footer {
+                max-width: var(--content-max);
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 2rem;
+                padding-right: 2rem;
+                box-sizing: border-box;
+            }
+
+            /* ナビを固定ヘッダーバーへ昇格。従来は上から982pxの位置にあり、
+               1440×900のファーストビューに1文字も入っていなかった */
+            .left-nav {
+                position: fixed;
+                top: 0; left: 0; right: 0;
+                z-index: 40;
+                justify-content: center;
+                padding: 0.5rem 1rem;
+                background: rgba(14, 10, 8, 0.9);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--line-soft);
+            }
+            .left-nav nav ul { gap: 2.8rem; }
+            .left-nav nav ul li button {
+                writing-mode: horizontal-tb;
+                text-orientation: mixed;
+                font-size: 1rem;
+                letter-spacing: 0.18em;
+                padding: 10px 4px;
+                min-height: 44px;
+            }
+            .left-nav nav ul li button::before {
+                top: auto; bottom: 2px; right: auto; left: 0;
+                width: 0; height: 2px;
+            }
+            .left-nav nav ul li button:hover::before,
+            .left-nav nav ul li button:focus-visible::before { width: 100%; }
+
+            /* ナビ176px : 情報カード1242px という左右分割そのものをやめる */
+            .main-content { display: block; flex: none; }
+
+            /* ヒーロー直下の写真：640px幅・高さ100pxの細切れでは何が写っているか判別できない */
+            .hero-strip { max-width: 1040px; height: 210px; gap: 6px; }
+
+            /* 店舗情報は幅380pxの細い柱ではなく、横長の情報帯にする */
+            .right-info {
+                max-width: none;
+                margin-top: 3.5rem;
+                display: grid;
+                grid-template-columns: 0.82fr 1.18fr;
+                gap: 0 3rem;
+                padding: 2.6rem 3rem;
+                background: var(--surface);
+                border-color: var(--surface-hair);
+            }
+            .right-info h2 { grid-column: 1 / -1; }
+            .map-wrapper { height: 320px; }
+            .info-cols { columns: 2; column-gap: 2.4rem; }
+            .info-cols .info-block {
+                break-inside: avoid;
+                -webkit-column-break-inside: avoid;
+            }
+
+            /* セクションに「面」を与える。純黒の空白ではなく輪郭のある版面にする */
+            .food-gallery,
+            .jizake-section {
+                background: var(--surface);
+                border: 1px solid var(--surface-hair);
+                border-radius: 6px;
+                padding: 3.4rem 3rem;
+                box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+            }
+            .food-gallery { margin-top: 3.5rem; margin-bottom: 2rem; }
+            .jizake-section { margin-top: 0; margin-bottom: 1.5rem; }
+
+            /* ギャラリー：1行の中では必ず縦横比を揃える（従来は同じ行で16pxずれていた）。
+               素材は最大640pxなので、拡大ではなく縮小して置く */
+            .gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+            .gallery-item--h img { aspect-ratio: 4 / 3; }
+
+            /* 価格表：明るい背景イラストの上に直置きせず、読むための面を敷く */
+            .menu-grid {
+                display: block;
+                columns: 2;
+                column-gap: 4rem;
+                background: rgba(14, 10, 8, 0.74);
+                border: 1px solid var(--surface-hair);
+                border-radius: 6px;
+                padding: 2.4rem 2.6rem;
+            }
+            .menu-grid > .category {
+                break-inside: avoid;
+                -webkit-column-break-inside: avoid;
+                display: block;
+                width: 100%;
+                margin-bottom: 2.6rem;
+            }
+
+            .reserve-facts { grid-template-columns: 1fr 1fr; padding: 2.4rem 2.6rem; }
+
+            .site-footer {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 0 3rem;
+                text-align: left;
+                padding: 3rem 3rem 3.4rem;
+            }
+            .footer-brand { align-self: center; }
+            .footer-col { margin-top: 0; }
+            .footer-copy { grid-column: 1 / -1; text-align: center; margin-top: 2.6rem; }
         }
 
         /* =========================================
@@ -1137,6 +1389,11 @@
             .food-gallery h2 { font-size: 1.3rem; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
             .gallery-item figcaption { font-size: 0.8rem; }
+
+            /* ヒーロー直下の写真は2枚まで（4枚だと1枚97pxの細切れになる） */
+            .hero-strip img:nth-child(n+3) { display: none; }
+
+            .site-footer { margin-left: -1.5rem; margin-right: -1.5rem; border-radius: 0; }
 
             /* メニューページの写真は横スクロールでめくれるようにする */
             .photo-strip {
@@ -1182,6 +1439,9 @@
             <div class="hero-strip" aria-hidden="true">
                 <img src="gallery-kushimori.jpg" alt="" loading="eager" decoding="async" width="480" height="640">
                 <img src="gallery-sashimi.jpg" alt="" loading="eager" decoding="async" width="640" height="480">
+                <!-- 3枚目以降はPC専用（スマホでは細くなりすぎるため非表示） -->
+                <img src="gallery-tsukune-sumibi.jpg" alt="" loading="lazy" decoding="async" width="480" height="640">
+                <img src="gallery-dashimaki.jpg" alt="" loading="lazy" decoding="async" width="640" height="480">
             </div>
             <div class="quick-info">
                 <span class="quick-info-item"><strong>営業時間</strong>18:00〜</span>
@@ -1220,6 +1480,7 @@
                         <span aria-hidden="true">➤</span>地図アプリで道順を見る
                     </a>
                 </div>
+                <div class="info-cols">
                 <div class="info-block">
                     <span class="info-title">営業時間</span>
                     <div class="business-hours">
@@ -1265,6 +1526,7 @@
                         <span class="insta-text"><strong>@_konchiki_</strong>最新情報はこちら</span>
                     </a>
                 </div>
+                </div>
             </section>
         </main>
 
@@ -1273,21 +1535,29 @@
             <h2>こんちきの味</h2>
             <p class="gallery-lead">炭火の焼き場から、揚げたて・作りたてをお届けします。</p>
             <div class="gallery-grid">
-                <figure class="gallery-item gallery-item--wide reveal">
+                <figure class="gallery-item gallery-item--v reveal">
                     <span class="photo-frame"><img src="gallery-kushimori.jpg" alt="長皿に盛られたおすすめ串盛り5点セット" loading="lazy" decoding="async" width="480" height="640"></span>
                     <figcaption>おすすめ串盛り 5点set</figcaption>
                 </figure>
-                <figure class="gallery-item reveal">
+                <figure class="gallery-item gallery-item--v reveal">
                     <span class="photo-frame"><img src="gallery-tsukune-sumibi.jpg" alt="炭火の焼き台で煙を上げながら焼かれるつくねの串" loading="lazy" decoding="async" width="480" height="640"></span>
                     <figcaption>炭火でじっくり焼き上げるつくね</figcaption>
                 </figure>
-                <figure class="gallery-item reveal">
+                <figure class="gallery-item gallery-item--v reveal">
                     <span class="photo-frame"><img src="gallery-yakidai-kushi.jpg" alt="炭火の焼き台に並ぶ焼き上げ中の串" loading="lazy" decoding="async" width="480" height="640"></span>
                     <figcaption>ご注文ごとに炭火で焼き上げます</figcaption>
                 </figure>
-                <figure class="gallery-item gallery-item--full reveal">
+                <figure class="gallery-item gallery-item--v reveal">
+                    <span class="photo-frame"><img src="gallery-tare-kushi.jpg" alt="照り艶よく仕上げたタレの串焼き" loading="lazy" decoding="async" width="480" height="640"></span>
+                    <figcaption>照り艶よく仕上げるタレ串</figcaption>
+                </figure>
+                <figure class="gallery-item gallery-item--h reveal">
                     <span class="photo-frame"><img src="gallery-sashimi.jpg" alt="まぐろ・サーモン・かつおのたたきの刺身盛り合わせ" loading="lazy" decoding="async" width="640" height="480"></span>
                     <figcaption>日替わりのおすすめも豊富に</figcaption>
+                </figure>
+                <figure class="gallery-item gallery-item--h reveal">
+                    <span class="photo-frame"><img src="gallery-dashimaki.jpg" alt="黒皿に盛られたこんちきのだし巻き卵" loading="lazy" decoding="async" width="640" height="480"></span>
+                    <figcaption>こんちき だし巻き卵</figcaption>
                 </figure>
             </div>
         </section>
@@ -1322,6 +1592,29 @@
             <p class="cta-note">ご予約・お問い合わせはお電話にて</p>
             <p class="cta-tel"><a href="tel:0280337762" class="tel-link-large">TEL: 0280-33-7762</a></p>
         </div>
+
+        <footer class="site-footer">
+            <div class="footer-brand">
+                <p class="footer-name">居酒屋 こんちき</p>
+                <p class="footer-sub">茨城県古河市の隠れ家</p>
+            </div>
+            <div class="footer-col">
+                <span class="info-title">所在地・ご連絡先</span>
+                <p>〒306-0235<br>茨城県古河市下辺見2789</p>
+                <p>TEL: <a href="tel:0280337762" class="tel-link">0280-33-7762</a></p>
+                <a class="google-review-link" href="https://www.google.com/maps?q=茨城県古河市下辺見2789" target="_blank" rel="noopener">
+                    <span aria-hidden="true">➤</span>地図アプリで道順を見る
+                </a>
+            </div>
+            <div class="footer-col">
+                <span class="info-title">営業時間</span>
+                <p>月・水・木・日　18:00 - 0:00<br>金・土　18:00 - 1:00<br>定休日　火曜日</p>
+                <a class="google-review-link" href="https://www.instagram.com/_konchiki_/?hl=ja" target="_blank" rel="noopener">
+                    <span aria-hidden="true">◎</span>Instagram @_konchiki_
+                </a>
+            </div>
+            <p class="footer-copy">&copy; 居酒屋 こんちき</p>
+        </footer>
     </div>
 
 
@@ -1681,10 +1974,40 @@
             </header>
             <div class="notice-box">
                 <p>ご予約はお電話にて承っております。</p>
-                <p style="font-size: 1.7rem; font-weight: bold; margin: 1.5rem 0;">
+                <p class="reserve-tel">
                     <a href="tel:0280337762" class="tel-link-large">TEL: 0280-33-7762</a>
                 </p>
                 <p style="font-size: 0.92rem; color: var(--text-mute);">※混雑時など、お電話に繋がりにくい場合がございます。<br>あらかじめご了承ください。</p>
+            </div>
+
+            <div class="reserve-facts">
+                <div class="reserve-fact">
+                    <span class="info-title">営業時間</span>
+                    <p>月・水・木・日　18:00 - 0:00<br>金・土　18:00 - 1:00</p>
+                </div>
+                <div class="reserve-fact">
+                    <span class="info-title">定休日</span>
+                    <p>火曜日</p>
+                </div>
+                <div class="reserve-fact">
+                    <span class="info-title">お席</span>
+                    <p>カウンター・円卓のお座敷　全25席<br>貸切は20名様までご相談ください</p>
+                </div>
+                <div class="reserve-fact">
+                    <span class="info-title">駐車場</span>
+                    <p>店舗前・隣接地に15台ございます</p>
+                </div>
+                <div class="reserve-fact">
+                    <span class="info-title">お持ち帰り</span>
+                    <p>お弁当・オードブル承ります（要予約）</p>
+                </div>
+                <div class="reserve-fact">
+                    <span class="info-title">所在地</span>
+                    <p>〒306-0235　茨城県古河市下辺見2789</p>
+                    <a class="google-review-link" href="https://www.google.com/maps?q=茨城県古河市下辺見2789" target="_blank" rel="noopener">
+                        <span aria-hidden="true">➤</span>地図アプリで道順を見る
+                    </a>
+                </div>
             </div>
 
         </div>
