@@ -648,50 +648,6 @@
         }
 
         /* =========================================
-           メニューページ内の写真ストリップ
-        ========================================= */
-        .photo-strip {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.1rem;
-            max-width: 880px;
-            margin: -1.2rem auto 3.2rem;
-        }
-        .photo-strip.two-col {
-            grid-template-columns: repeat(2, 1fr);
-            max-width: 620px;
-        }
-
-        .photo-strip figure { margin: 0; }
-
-        .photo-strip .photo-frame {
-            display: block;
-            overflow: hidden;
-            border: 1px solid var(--line-soft);
-            border-radius: 4px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-        }
-
-        .photo-strip img {
-            display: block;
-            width: 100%;
-            height: auto; /* width/height属性の高さ指定を打ち消し、aspect-ratioを効かせる */
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        .photo-strip figure:hover img { transform: scale(1.04); }
-
-        .photo-strip figcaption {
-            margin-top: 0.6rem;
-            text-align: center;
-            font-size: 0.82rem;
-            letter-spacing: 0.1em;
-            color: var(--text-mute);
-            line-height: 1.6;
-        }
-
-        /* =========================================
            電話番号リンク
         ========================================= */
         .tel-link {
@@ -737,7 +693,7 @@
 
         /* 背景画像を持つページは、本体の背景色を透明にして疑似要素の画像を見せる
            （画像側に暗いグラデーションを重ねているため暗さは保たれる） */
-        #food-view, #drink-view, #course-view, #reserve-view {
+        #food-view, #drink-view, #course-view {
             background-color: transparent;
         }
 
@@ -747,6 +703,10 @@
             position: fixed;
             inset: 0;
             z-index: -1;
+            /* これが無いと、本文の左右の空白でホイールの当たり先がこの擬似要素になる。
+               position:fixed の要素はスクロール連鎖の起点がビューポートになるため、
+               親の .page-view ではなくロック中のページ本体へスクロールが流れて何も動かなくなる */
+            pointer-events: none;
             background-image:
                 linear-gradient(180deg, rgba(11,8,6,0.90) 0%, rgba(11,8,6,0.80) 35%, rgba(11,8,6,0.86) 70%, rgba(11,8,6,0.95) 100%),
                 url('kontiki.yakitori.jpg');
@@ -763,6 +723,10 @@
             position: fixed;
             inset: 0;
             z-index: -1;
+            /* これが無いと、本文の左右の空白でホイールの当たり先がこの擬似要素になる。
+               position:fixed の要素はスクロール連鎖の起点がビューポートになるため、
+               親の .page-view ではなくロック中のページ本体へスクロールが流れて何も動かなくなる */
+            pointer-events: none;
             background-image:
                 linear-gradient(180deg, rgba(11,8,6,0.90) 0%, rgba(11,8,6,0.80) 35%, rgba(11,8,6,0.86) 70%, rgba(11,8,6,0.95) 100%),
                 url('nomimono_konntiki.jpg');
@@ -777,6 +741,10 @@
             position: fixed;
             inset: 0;
             z-index: -1;
+            /* これが無いと、本文の左右の空白でホイールの当たり先がこの擬似要素になる。
+               position:fixed の要素はスクロール連鎖の起点がビューポートになるため、
+               親の .page-view ではなくロック中のページ本体へスクロールが流れて何も動かなくなる */
+            pointer-events: none;
             background-image:
                 linear-gradient(180deg, rgba(11,8,6,0.90) 0%, rgba(11,8,6,0.80) 35%, rgba(11,8,6,0.86) 70%, rgba(11,8,6,0.95) 100%),
                 url('enkai_konntiki.jpg');
@@ -785,19 +753,17 @@
             background-repeat: no-repeat;
         }
 
-        /* ご予約ページ専用の背景（利き酒セットの実写）。他3ページと同じトーンで統一 */
-        #reserve-view::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
+        /* ご予約ページは背景写真を持たない（唯一空いていた利き酒セットの写真は
+           地酒セクションで使っており、1サイト内で同じ写真を二度使わないため）。
+           代わりに、電話番号のうしろへ提灯のような暖色の灯りをCSSだけで置く。 */
+        #reserve-view {
+            background-color: #0f0b09;
             background-image:
-                linear-gradient(180deg, rgba(11,8,6,0.93) 0%, rgba(11,8,6,0.87) 35%, rgba(11,8,6,0.90) 70%, rgba(11,8,6,0.96) 100%),
-                url('gallery-kikizake-set.jpg');
-            background-size: cover;
-            background-position: center 62%;
+                radial-gradient(ellipse 70% 46% at 50% 30%, rgba(201, 160, 99, 0.13) 0%, rgba(201, 160, 99, 0.04) 45%, transparent 72%);
             background-repeat: no-repeat;
+            background-attachment: local;
         }
+        #reserve-view .notice-box { padding-top: 0.5rem; }
 
         .close-fab {
             position: fixed;
@@ -863,27 +829,6 @@
             /* 極小幅では番号を隠しアイコンのみの円形に戻す（はみ出し防止） */
             .phone-fab-num { display: none; }
             .phone-fab { width: 46px; padding: 0; justify-content: center; }
-        }
-
-        /* =========================================
-           ヒーロー直下の写真ストリップ（0秒で「炭火の串の店」を伝える）
-        ========================================= */
-        .hero-strip {
-            display: flex;
-            gap: 4px;
-            width: 100%;
-            max-width: 640px;
-            height: 100px;
-            margin: 1.6rem auto 0;
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-        }
-        .hero-strip img {
-            flex: 1 1 25%;
-            width: 25%;
-            height: 100%;
-            object-fit: cover;
         }
 
         /* =========================================
@@ -1291,9 +1236,6 @@
             /* ナビ176px : 情報カード1242px という左右分割そのものをやめる */
             .main-content { display: block; flex: none; }
 
-            /* ヒーロー直下の写真：640px幅・高さ100pxの細切れでは何が写っているか判別できない */
-            .hero-strip { max-width: 1040px; height: 210px; gap: 6px; }
-
             /* 店舗情報は幅380pxの細い柱ではなく、横長の情報帯にする */
             .right-info {
                 max-width: none;
@@ -1390,28 +1332,7 @@
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
             .gallery-item figcaption { font-size: 0.8rem; }
 
-            /* ヒーロー直下の写真は2枚まで（4枚だと1枚97pxの細切れになる） */
-            .hero-strip img:nth-child(n+3) { display: none; }
-
             .site-footer { margin-left: -1.5rem; margin-right: -1.5rem; border-radius: 0; }
-
-            /* メニューページの写真は横スクロールでめくれるようにする */
-            .photo-strip {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                gap: 0.9rem;
-                margin: -1rem -2rem 2.8rem;
-                padding: 0 2rem 0.6rem;
-                max-width: none;
-            }
-            .photo-strip figure {
-                flex: 0 0 68%;
-                scroll-snap-align: center;
-            }
-            .photo-strip.two-col { max-width: none; }
-            .photo-strip.two-col figure { flex: 0 0 68%; }
         }
     </style>
 </head>
@@ -1436,13 +1357,6 @@
             <p>茨城県古河市の隠れ家</p>
             <h1>居酒屋 こんちき</h1>
             <p class="tagline">地養鶏の炭火串焼きと、選りすぐりの地酒。</p>
-            <div class="hero-strip" aria-hidden="true">
-                <img src="gallery-kushimori.jpg" alt="" loading="eager" decoding="async" width="480" height="640">
-                <img src="gallery-sashimi.jpg" alt="" loading="eager" decoding="async" width="640" height="480">
-                <!-- 3枚目以降はPC専用（スマホでは細くなりすぎるため非表示） -->
-                <img src="gallery-tsukune-sumibi.jpg" alt="" loading="lazy" decoding="async" width="480" height="640">
-                <img src="gallery-dashimaki.jpg" alt="" loading="lazy" decoding="async" width="640" height="480">
-            </div>
             <div class="quick-info">
                 <span class="quick-info-item"><strong>営業時間</strong>18:00〜</span>
                 <span class="quick-info-item"><strong>定休日</strong>火曜日</span>
@@ -1638,21 +1552,6 @@
                 <button onclick="jumpToCategory('food-view', 6)">甘味</button>
             </nav>
 
-            <div class="photo-strip">
-                <figure>
-                    <span class="photo-frame"><img src="gallery-yakidai-kushi.jpg" alt="炭火の焼き台に並ぶ焼き上げ中の串" loading="lazy" decoding="async" width="480" height="640"></span>
-                    <figcaption>ご注文ごとに炭火で焼き上げます</figcaption>
-                </figure>
-                <figure>
-                    <span class="photo-frame"><img src="gallery-tare-kushi.jpg" alt="照りよくタレをまとった串焼き二本" loading="lazy" decoding="async" width="480" height="640"></span>
-                    <figcaption>照り艶よく仕上げるタレ串</figcaption>
-                </figure>
-                <figure>
-                    <span class="photo-frame"><img src="gallery-dashimaki.jpg" alt="大根おろしを添えたこんちきのだし巻き卵" loading="lazy" decoding="async" width="640" height="480"></span>
-                    <figcaption>こんちき だし巻き卵</figcaption>
-                </figure>
-            </div>
-
             <div class="menu-grid">
                 <!-- 肴 -->
                 <section class="category">
@@ -1777,17 +1676,6 @@
                 <button onclick="jumpToCategory('drink-view', 5)">ワイン・果実酒</button>
                 <button onclick="jumpToCategory('drink-view', 6)">ソフトドリンク</button>
             </nav>
-
-            <div class="photo-strip two-col">
-                <figure>
-                    <span class="photo-frame"><img src="gallery-jizake.jpg" alt="栄光冨士・豊盃など地酒の一升瓶三本とグラス" loading="lazy" decoding="async" width="480" height="640"></span>
-                    <figcaption>全国の蔵から届く地酒</figcaption>
-                </figure>
-                <figure>
-                    <span class="photo-frame"><img src="gallery-jizake-ginsei.jpg" alt="銀星など季節の日本酒の四合瓶とグラス" loading="lazy" decoding="async" width="480" height="640"></span>
-                    <figcaption>季節の限定酒も入荷します</figcaption>
-                </figure>
-            </div>
 
             <div class="menu-grid">
                 <!-- 麦酒 -->
