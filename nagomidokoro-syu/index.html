@@ -255,10 +255,10 @@
         .gallery-note { text-align: center; color: var(--ink-mute); font-size: 0.82rem; margin-top: 26px; }
 
         /* --------------------------------------------------------------------------
-           おすすめの一品：店内で撮影した縦位置の写真。
-           上の 4:3 グリッドと同じ見せ方にすると10枚が一様に並んで散らかるため、
-           「縦長・キャプションは写真の下・枠は細い金線だけ」と別のリズムにして、
-           同じパネルの中の"二段目"として読ませる。
+           おすすめの一品：店内で撮影した実写。
+           上の6枚と同じ見せ方にすると10枚が一様に並んで散らかるため、
+           「1枚を小さく・4列・キャプションは写真の下・枠は細い金線だけ」と
+           別のリズムにして、同じパネルの中の"二段目"として読ませる。
            スマホでは横スクロール（scroll-snap）に切り替え、ページを縦に伸ばさない。
            -------------------------------------------------------------------------- */
         .pick-head { text-align: center; margin-bottom: 26px; }
@@ -267,7 +267,7 @@
         .pick-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
         .pick-card { min-width: 0; margin: 0; }
         .pick-card img {
-            display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover;
+            display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
             border: 1px solid var(--gold-line); border-radius: 8px; background: #0a0a0a;
             filter: brightness(0.94) saturate(1.04) contrast(1.03);
             transition: transform 0.45s ease, filter 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
@@ -476,7 +476,7 @@
                 margin: 0 -20px; padding: 0 20px 4px; scrollbar-width: none;
             }
             .pick-row::-webkit-scrollbar { display: none; }
-            .pick-card { flex: 0 0 32%; scroll-snap-align: center; }
+            .pick-card { flex: 0 0 40%; scroll-snap-align: center; }
             .pick-card figcaption { font-size: 0.8rem; margin-top: 10px; }
             .tel-link { text-decoration: underline; }
             .float-reserve span.float-label { display: none; }
@@ -508,10 +508,10 @@
             .float-reserve, .to-top { display: none; }
         }
 
-        /* スマホ実機幅では1枚あたりを大きく（2.5枚ぶんが見える）。
-           タブレット幅（〜850px）は上の 32% のまま小さく並べる */
+        /* スマホ実機幅では1枚あたりを大きく。
+           タブレット幅（〜850px）は上の 40% のまま小さく並べる */
         @media (max-width: 520px) {
-            .pick-card { flex: 0 0 56%; }
+            .pick-card { flex: 0 0 70%; }
         }
     </style>
 </head>
@@ -596,19 +596,19 @@
                 </div>
                 <div class="pick-row" role="group" aria-label="おすすめの一品の写真（横にスクロールできます）" tabindex="0">
                     <figure class="pick-card">
-                        <img src="dish-shiromi.jpg" alt="ガラスの器に盛りつけた旬の白身魚のお造り" loading="lazy" decoding="async" width="825" height="1100">
-                        <figcaption>旬の白身 お造り</figcaption>
+                        <img src="dish-shiromi.jpg" alt="ガラスの器に大葉とわさびを添えて盛りつけた鯛のお造り" loading="lazy" decoding="async" width="1100" height="825">
+                        <figcaption>鯛のお造り</figcaption>
                     </figure>
                     <figure class="pick-card">
-                        <img src="dish-ebi.jpg" alt="頭付きの海老を並べたお造り" loading="lazy" decoding="async" width="825" height="1100">
-                        <figcaption>海老のお造り</figcaption>
+                        <img src="dish-ebi.jpg" alt="ガラスの器に頭付きのボタンエビを三尾並べたお造り" loading="lazy" decoding="async" width="1100" height="825">
+                        <figcaption>ボタンエビのお造り</figcaption>
                     </figure>
                     <figure class="pick-card">
-                        <img src="dish-ponzu.jpg" alt="青ねぎともみじおろしを添えたポン酢仕立ての一品" loading="lazy" decoding="async" width="825" height="1100">
-                        <figcaption>ポン酢仕立ての一品</figcaption>
+                        <img src="dish-ponzu.jpg" alt="青ねぎともみじおろしを添えたあん肝ポン酢" loading="lazy" decoding="async" width="1100" height="825">
+                        <figcaption>あん肝ポン酢</figcaption>
                     </figure>
                     <figure class="pick-card">
-                        <img src="dish-chahan.jpg" alt="スープを添えたチャーハン" loading="lazy" decoding="async" width="825" height="1100">
+                        <img src="dish-chahan.jpg" alt="スープを添えたチャーハン" loading="lazy" decoding="async" width="1100" height="825">
                         <figcaption>チャーハン</figcaption>
                     </figure>
                 </div>
