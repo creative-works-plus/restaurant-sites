@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>creative works+ | 飲食店・小規模事業者のためのホームページ制作</title>
-<meta name="description" content="食べログやGoogleに情報はあるのに、自社ホームページがない。そんなお店のための、ホームページ制作サービスです。">
-<meta name="theme-color" content="#1c4a3e">
+<meta name="description" content="食べログやGoogleに情報はあるのに、自社ホームページがない。そんなお店のためのホームページ制作です。先に叩き台をお作りし、実物をご覧いただいてから決めていただけます。">
+<meta name="theme-color" content="#f6f6f4">
 <link rel="canonical" href="https://creative-works-plus.github.io/restaurant-sites/company/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231c4a3e'/%3E%3Cpath d='M50 26v48M26 50h48' stroke='%23d9a13b' stroke-width='12' stroke-linecap='round'/%3E%3C/svg%3E">
 <!-- OGP: URLを送ったときに出るリンクカードの設定。og:imageは専用画像(1200x630)ができたら差し替える -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="creative works+">
 <meta property="og:title" content="creative works+ | 飲食店・小規模事業者のためのホームページ制作">
-<meta property="og:description" content="食べログやGoogleに情報はあるのに、自社ホームページがない。そんなお店のための、ホームページ制作サービスです。">
+<meta property="og:description" content="食べログやGoogleに情報はあるのに、自社ホームページがない。そんなお店のためのホームページ制作です。先に叩き台をお作りし、実物をご覧いただいてから決めていただけます。">
 <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/company/">
 <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/company/works/bunpuku-hanten.jpg">
 <meta property="og:locale" content="ja_JP">
@@ -33,24 +33,36 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ==========================================================================
+   カラートークン
+   地は無彩色寄りの紙。緑と金は「ロゴ・ボタン・小さな罫」だけに使う。
+   理由: 制作事例(29軒)の色を主役にするため。地に色を持たせると、
+         並べた店の色と喧嘩して「和食が得意な業者」に見えてしまう。
+   ========================================================================== */
 :root {
-  --green: #1c4a3e;
+  --paper:      #f6f6f4;   /* 地(無彩色寄りの紙) */
+  --paper-2:    #edece9;   /* 一段沈めた帯 */
+  --card:       #ffffff;
+  --ink:        #191a18;
+  --ink-2:      #3b3d39;
+  --muted:      #6f716c;
+  --line:       #dcdcd7;
+  --line-2:     #c6c6c0;
+  --dark:       #16181a;   /* CTA帯・フッター(墨。緑にしない) */
+  --dark-2:     #0e1011;
+
+  --green:      #1c4a3e;   /* ロゴ・主ボタン・見出しの罫のみ */
   --green-deep: #12312a;
-  --gold: #d9a13b;
-  --gold-dark: #b9832a;
-  --ink: #24261f;
-  --paper: #fbfaf6;
-  --tint: #eef2ec;
-  --line: #e3e2d9;
-  --muted: #6e7168;
-  --radius: 14px;
+  --gold:       #c9902c;   /* 数字と細い罫のアクセント */
+  --gold-soft:  #e7c98a;
+
+  --radius: 12px;
   --font-display: "Zen Old Mincho", serif;
   --font-body: "Zen Kaku Gothic New", sans-serif;
   --font-latin: "Outfit", sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -58,32 +70,28 @@ body {
   color: var(--ink);
   background: var(--paper);
   line-height: 1.9;
-  font-size: 16px;
+  font-size: 17px;
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
-
+img { max-width: 100%; display: block; height: auto; }
 a { color: inherit; }
 
 /* ---------- 日本語の折り返し ----------
    word-break: auto-phrase … 「ページ」「大切な」のような語のまん中で改行させない
-   text-wrap: balance / pretty … 見出しの行の長さをそろえ、最終行に1〜2文字だけ取り残されるのを防ぐ
+   text-wrap: pretty … 最終行に1〜2文字だけ取り残されるのを防ぐ
    .nw … 「ここはひとかたまり」の指定(入りきらない時だけ中で折り返す)
    .br-pc / .br-sp … パソコンだけ・スマホだけで効かせる改行           */
-h1, h2, h3, p, dd, dt, li, summary,
-.hero-eyebrow, .eyebrow, .plan-for, .plan-name, .mock-note, .price-note, .genre {
+h1, h2, h3, p, dd, dt, li, summary, figcaption,
+.hero-eyebrow, .eyebrow, .plan-for, .plan-name, .mock-note, .price-note, .genre, .stat-label {
   word-break: auto-phrase;
 }
 h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 .nw { display: inline-block; }
 .br-sp { display: none; }
 
-.container {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.narrow { max-width: 760px; }
 
 /* ---------- ボタン ---------- */
 .btn {
@@ -91,743 +99,475 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   font-weight: 700;
   text-decoration: none;
   border-radius: 999px;
-  padding: 14px 36px;
-  font-size: 15px;
-  letter-spacing: 0.06em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  padding: 15px 36px;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 .btn-primary {
-  background: var(--gold);
-  color: var(--green-deep);
-  box-shadow: 0 4px 16px rgba(217, 161, 59, 0.35);
-}
-.btn-primary:hover {
-  background: var(--gold-dark);
-  transform: translateY(-2px);
-}
-.btn-ghost {
-  border: 1.5px solid var(--green);
-  color: var(--green);
-}
-.btn-ghost:hover {
   background: var(--green);
   color: #fff;
+  box-shadow: 0 4px 18px rgba(28, 74, 62, 0.24);
 }
-.btn:focus-visible {
-  outline: 3px solid var(--gold);
-  outline-offset: 3px;
+.btn-primary:hover { background: var(--green-deep); transform: translateY(-2px); }
+.btn-ghost { border: 1.5px solid var(--line-2); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+/* 公式LINE(主導線)。墨色の帯の上に置くので、緑ではなく金地にする
+   （緑のボタンは暗い地に沈んで、一番押してほしいものが見えなくなるため） */
+.btn-line {
+  background: var(--gold);
+  color: #17140d;
+  font-size: 17px;
+  padding: 17px 42px;
+  box-shadow: 0 8px 26px rgba(201, 144, 44, 0.32);
 }
+.btn-line:hover { background: #dda63d; transform: translateY(-2px); }
+.btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
 /* ---------- ヘッダー ---------- */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(251, 250, 246, 0.88);
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(246, 246, 244, 0.9);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
 .site-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 68px;
+  display: flex; align-items: center; justify-content: space-between; height: 66px;
 }
 .logo {
-  font-family: var(--font-latin);
-  font-weight: 600;
-  font-size: 19px;
-  letter-spacing: 0.02em;
-  color: var(--green-deep);
-  text-decoration: none;
+  font-family: var(--font-latin); font-weight: 600; font-size: 19px;
+  letter-spacing: 0.02em; color: var(--green-deep); text-decoration: none;
 }
 .logo .plus { color: var(--gold); font-weight: 700; }
-.global-nav { display: flex; align-items: center; gap: 28px; }
-.global-nav a {
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink);
-}
-.global-nav a:hover { color: var(--green); }
-.global-nav .btn { padding: 9px 22px; font-size: 13px; }
+.global-nav { display: flex; align-items: center; gap: 26px; }
+.global-nav a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--ink-2); }
+.global-nav a:not(.btn):hover { color: var(--green); }
+/* .global-nav a のほうが詳しい指定なので、ボタンの文字色をここで取り戻す */
+.global-nav a.btn { padding: 10px 22px; font-size: 14px; }
+.global-nav a.btn-primary, .global-nav a.btn-primary:hover { color: #fff; }
 
-/* ---------- 共通セクション ---------- */
-.section { padding: 96px 0; }
-.section.tinted { background: var(--tint); }
+/* ---------- 共通セクション（カードを減らし、罫線と余白で組む） ---------- */
+.section { padding: 92px 0; }
+.section.tinted { background: var(--paper-2); }
+.section.ruled { border-top: 1px solid var(--line); }
 .eyebrow {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: var(--green);
-  border-left: 3px solid var(--gold);
-  padding-left: 12px;
-  margin-bottom: 18px;
+  display: inline-block; font-size: 12.5px; font-weight: 700;
+  letter-spacing: 0.22em; color: var(--green);
+  border-left: 3px solid var(--gold); padding-left: 12px; margin-bottom: 18px;
 }
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(26px, 3.4vw, 36px);
-  font-weight: 700;
-  line-height: 1.5;
+  font-size: clamp(27px, 3.8vw, 42px);
+  font-weight: 700; line-height: 1.45; letter-spacing: 0.01em;
   margin-bottom: 20px;
 }
-.section-lead {
-  color: var(--muted);
-  max-width: 620px;
-  margin-bottom: 48px;
-}
+.section-lead { color: var(--muted); max-width: 640px; margin-bottom: 48px; font-size: 16px; }
 
 /* ---------- ヒーロー ---------- */
-.hero { padding: 88px 0 100px; overflow: hidden; }
+.hero { padding: 76px 0 84px; overflow: hidden; }
 .hero .container {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 56px;
-  align-items: center;
+  display: grid; grid-template-columns: 1.08fr 1fr; gap: 56px; align-items: center;
 }
 .hero-eyebrow {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--green);
-  margin-bottom: 22px;
+  font-size: 12.5px; font-weight: 700; letter-spacing: 0.2em;
+  color: var(--muted); margin-bottom: 20px;
 }
 .hero h1 {
-  font-family: var(--font-display);
-  font-weight: 900;
-  /* 1行目「食べログの中の一軒から、」がパソコンで1行に収まる上限が42px */
-  font-size: clamp(32px, 4.6vw, 42px);
-  line-height: 1.55;
-  letter-spacing: 0.02em;
-  margin-bottom: 26px;
+  font-family: var(--font-display); font-weight: 900;
+  /* 1行目「食べログの中の一軒から、」がパソコンで1行に収まる上限が44px */
+  font-size: clamp(31px, 4.6vw, 44px);
+  line-height: 1.5; letter-spacing: 0.02em; margin-bottom: 24px;
 }
 .hero h1 em {
-  font-style: normal;
-  color: var(--green);
-  background: linear-gradient(transparent 68%, rgba(217, 161, 59, 0.4) 68%);
+  font-style: normal; color: var(--green);
+  background: linear-gradient(transparent 68%, rgba(201, 144, 44, 0.32) 68%);
 }
-.hero p.lead {
-  color: var(--muted);
-  margin-bottom: 36px;
-  max-width: 460px;
-}
-.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero p.lead { color: var(--ink-2); margin-bottom: 32px; max-width: 470px; font-size: 16px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 
-/* ---------- ヒーローの切り替えモック ---------- */
-.mock-switch {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+/* ---------- ヒーローの実物スクリーンショット（スマホ枠） ---------- */
+.shot-switch { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.shot-switch button {
+  font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  padding: 9px 18px; border-radius: 999px;
+  border: 1.5px solid var(--line-2); background: var(--card); color: var(--muted);
+  cursor: pointer; min-height: 44px; transition: all 0.2s ease;
 }
-.mock-switch button {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 8px 18px;
-  border-radius: 999px;
-  border: 1.5px solid var(--line);
-  background: #fff;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.2s ease;
+.shot-switch button[aria-pressed="true"] {
+  background: var(--green); border-color: var(--green); color: #fff;
 }
-.mock-switch button[aria-pressed="true"] {
-  background: var(--green);
-  border-color: var(--green);
-  color: #fff;
+.shot-switch button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.phone {
+  position: relative; width: 268px; margin: 0 auto;
+  border-radius: 30px; padding: 9px;
+  background: linear-gradient(150deg, #2b2d2f, #131415);
+  box-shadow: 0 26px 54px rgba(25, 26, 24, 0.28);
 }
-.mock-switch button:focus-visible {
-  outline: 3px solid var(--gold);
-  outline-offset: 2px;
+.phone::before {   /* 受話口まわりの黒帯 */
+  content: ""; position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+  width: 86px; height: 17px; border-radius: 0 0 11px 11px; background: #131415; z-index: 2;
 }
-.mock-stage {
-  position: relative;
-  min-height: 400px;
+.phone-screen {
+  position: relative; border-radius: 22px; overflow: hidden;
+  background: var(--paper-2); aspect-ratio: 516 / 936;
 }
-.mock-panel {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
-  pointer-events: none;
+.phone-screen img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top;
+  opacity: 0; transition: opacity 0.45s ease;
 }
-.mock-panel.active {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
+.phone-screen img.active { opacity: 1; }
+.shot-note { font-size: 12.5px; color: var(--muted); margin-top: 16px; text-align: center; }
+
+/* ---------- 数字帯 ---------- */
+.stats { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stats .container {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
 }
-.mock-note {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 14px;
+.stat { padding: 34px 20px; text-align: center; border-left: 1px solid var(--line); }
+.stat:first-child { border-left: none; }
+.stat-num {
+  font-family: var(--font-latin); font-weight: 600; color: var(--ink);
+  font-size: clamp(30px, 4.4vw, 46px); line-height: 1.1; letter-spacing: -0.01em;
+}
+.stat-num small { font-size: 0.44em; font-weight: 500; margin-left: 2px; color: var(--muted); }
+.stat-num .u { color: var(--gold); font-size: 0.5em; margin-left: 3px; }
+.stat-label { font-size: 12.5px; color: var(--muted); margin-top: 6px; letter-spacing: 0.04em; }
+
+/* ---------- お約束 ---------- */
+.promise-list { counter-reset: pr; display: grid; gap: 0; max-width: 880px; }
+.promise {
+  counter-increment: pr;
+  display: grid; grid-template-columns: 56px 1fr; gap: 22px;
+  padding: 26px 4px; border-bottom: 1px solid var(--line);
+}
+.promise:first-child { border-top: 1px solid var(--line); }
+.promise::before {
+  content: "0" counter(pr);
+  font-family: var(--font-latin); font-size: 22px; font-weight: 600;
+  color: var(--gold); line-height: 1.7;
+}
+.promise h3 {
+  font-family: var(--font-display); font-size: 19px; font-weight: 700;
+  line-height: 1.6; margin-bottom: 4px;
+}
+.promise p { font-size: 15px; color: var(--muted); }
+.promise-note {
+  margin-top: 26px; font-size: 14px; color: var(--muted); max-width: 880px;
+  border-left: 2px solid var(--line-2); padding-left: 16px;
 }
 
-/* ポータル風モック(Before) */
-.mock-portal {
-  background: #f1f1ee;
-  border: 1px solid #dcdcd4;
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: 0 18px 40px rgba(36, 38, 31, 0.12);
+/* ---------- 制作事例：29軒の壁 ---------- */
+.wall {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 8px; margin-bottom: 18px;
 }
-.portal-search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #fff;
-  border: 1px solid #d5d5cc;
-  border-radius: 8px;
-  padding: 9px 14px;
-  font-size: 13px;
-  color: #8a8a80;
-  margin-bottom: 14px;
-}
-.portal-row {
-  display: flex;
-  gap: 12px;
-  background: #fff;
-  border: 1px solid #e2e2da;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 10px;
-}
-.portal-row .thumb {
-  flex: 0 0 64px;
-  height: 64px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #cfcfc6, #bcbcb2);
-}
-.portal-row .info { flex: 1; min-width: 0; }
-.portal-row .name { font-size: 14px; font-weight: 700; line-height: 1.4; }
-.portal-row .meta { font-size: 12px; color: #8a8a80; }
-.portal-row .stars { color: #e0902c; font-size: 12px; letter-spacing: 1px; }
-.portal-row.ad { border-color: #e9d9b8; background: #fdf8ec; }
-.badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  border-radius: 4px;
-  padding: 1px 7px;
-  margin-right: 6px;
-  vertical-align: 1px;
-}
-.badge.pr { background: #e0c27a; color: #5c4a1d; }
-.badge.you { background: var(--green); color: #fff; }
-.portal-row.yours { border: 1.5px dashed var(--green); }
-
-/* 自社サイト風モック(After) */
-.mock-site {
-  background: #fff;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 22px 48px rgba(18, 49, 42, 0.22);
+.wall figure {
+  margin: 0; border-radius: 6px; overflow: hidden; background: var(--paper-2);
   border: 1px solid var(--line);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.browser-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #eceae3;
-  padding: 9px 14px;
+.wall figure:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(25,26,24,0.16); }
+.wall img { width: 100%; aspect-ratio: 160 / 283; object-fit: cover; object-position: top; }
+.wall figcaption {
+  font-size: 10.5px; color: var(--muted); text-align: center;
+  padding: 5px 2px 6px; background: var(--card); line-height: 1.4;
 }
-.browser-bar .dots { display: flex; gap: 5px; }
-.browser-bar .dots span {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: #c9c7be;
-}
-.browser-bar .url {
-  flex: 1;
-  background: #fff;
-  border-radius: 6px;
-  font-family: var(--font-latin);
-  font-size: 11px;
-  color: #8a8a80;
-  padding: 4px 12px;
-}
-.mock-site-header {
-  background: #26211c;
-  color: #f4efe6;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 20px;
-}
-.mock-site-header .shop-name {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-}
-.mock-site-header nav { display: flex; gap: 14px; font-size: 11px; opacity: 0.85; }
-.mock-site-hero {
-  position: relative;
-  height: 190px;
-  background:
-    radial-gradient(ellipse at 25% 110%, rgba(224, 144, 44, 0.75), transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(120, 60, 20, 0.6), transparent 60%),
-    linear-gradient(160deg, #3a2c20, #1d150e);
-  display: flex;
-  align-items: flex-end;
-  padding: 20px;
-}
-.mock-site-hero .copy {
-  color: #f8f3e8;
-  font-family: var(--font-display);
-  font-size: 16px;
-  letter-spacing: 0.2em;
-  line-height: 1.8;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-.mock-site-body {
-  display: flex;
-  gap: 10px;
-  padding: 16px 20px 20px;
-}
-.mock-site-body .chip {
-  flex: 1;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 700;
-  border-radius: 8px;
-  padding: 10px 0;
-}
-.chip.reserve { background: var(--green); color: #fff; }
-.chip.menu { background: #f0ece2; color: #4a4438; }
-.chip.access { background: #f0ece2; color: #4a4438; }
+.wall-note { font-size: 13.5px; color: var(--muted); margin-bottom: 56px; }
 
-/* ---------- お悩み ---------- */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+/* ---------- 配色チップ ---------- */
+.chips-block { border-top: 1px solid var(--line); padding-top: 44px; margin-bottom: 56px; }
+.chips-block h3 {
+  font-family: var(--font-display); font-size: 21px; font-weight: 700; margin-bottom: 8px;
 }
-.pain-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 32px 28px;
+.chips-block p { font-size: 15px; color: var(--muted); max-width: 640px; margin-bottom: 24px; }
+.chips { display: flex; flex-wrap: wrap; gap: 9px; }
+.chip-c {
+  width: 46px; height: 46px; border-radius: 8px;
+  border: 1px solid var(--line); overflow: hidden;
+  display: flex; flex-direction: column;
 }
-.pain-card .icon {
-  font-size: 15px;
-  font-weight: 700;
-  font-family: var(--font-latin);
-  color: var(--gold-dark);
-  letter-spacing: 0.08em;
-  margin-bottom: 14px;
-}
-.pain-card h3 {
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  line-height: 1.6;
-}
-.pain-card p { font-size: 14px; color: var(--muted); }
+.chip-c .b { flex: 1; }
+.chip-c .a { height: 11px; }
 
-/* ---------- 自社HPで変わること ---------- */
-.merit-list { display: grid; gap: 20px; }
-.merit-item {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 28px;
-  align-items: baseline;
-  background: #fff;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-  padding: 30px 34px;
-}
-.merit-item h3 {
-  font-family: var(--font-display);
-  font-size: 19px;
-  font-weight: 700;
-  color: var(--green);
-  line-height: 1.6;
-}
-.merit-item p { font-size: 15px; color: var(--muted); }
-
-/* ---------- 制作事例 ---------- */
+/* ---------- 制作事例：大きいカード ---------- */
+.work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .work-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.work-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 22px 44px rgba(18, 49, 42, 0.14);
-}
+.work-card:hover { transform: translateY(-5px); box-shadow: 0 22px 44px rgba(25, 26, 24, 0.13); }
 .work-card .frame-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #eceae3;
-  padding: 8px 12px;
+  display: flex; align-items: center; gap: 8px; background: var(--paper-2); padding: 8px 12px;
 }
 .work-card .frame-bar .dots { display: flex; gap: 4px; }
 .work-card .frame-bar .dots span {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #c9c7be;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--line-2);
 }
 .work-card .frame-bar .url {
-  flex: 1;
-  background: #fff;
-  border-radius: 5px;
-  font-family: var(--font-latin);
-  font-size: 10.5px;
-  color: #8a8a80;
-  padding: 3px 10px;
+  flex: 1; background: var(--card); border-radius: 5px;
+  font-family: var(--font-latin); font-size: 10.5px; color: var(--muted); padding: 3px 10px;
 }
-.work-card .shot {
-  height: 180px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #dfe4dc, #cbd3c8);
-}
+.work-card .shot { height: 180px; overflow: hidden; background: var(--paper-2); }
 .work-card .shot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
+  width: 100%; height: 100%; object-fit: cover; object-position: top;
   transition: transform 0.5s ease;
 }
 .work-card:hover .shot img { transform: scale(1.05); }
 .work-card .body { padding: 20px 22px 24px; }
 .work-card .genre {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--gold-dark);
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+  display: inline-block; font-size: 11px; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.08em; margin-bottom: 8px;
 }
 .work-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-.work-card p { font-size: 13px; color: var(--muted); }
+.work-card p { font-size: 13.5px; color: var(--muted); }
+
+/* ---------- 一軒ができるまで（掘り下げ） ---------- */
+.case { display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: start; }
+.case-body p { margin-bottom: 20px; color: var(--ink-2); font-size: 16px; }
+.case-body p:last-child { margin-bottom: 0; }
+.case-body strong { font-weight: 700; color: var(--ink); }
+.case-steps { counter-reset: cs; display: grid; gap: 0; }
+.case-step {
+  counter-increment: cs; padding: 18px 0; border-bottom: 1px solid var(--line);
+  display: grid; grid-template-columns: 30px 1fr; gap: 14px;
+}
+.case-step:first-child { border-top: 1px solid var(--line); }
+.case-step::before {
+  content: counter(cs); font-family: var(--font-latin); font-weight: 600;
+  color: var(--gold); font-size: 15px; line-height: 1.9;
+}
+.case-step h4 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.case-step p { font-size: 13.5px; color: var(--muted); }
+.case-swatches { display: flex; gap: 8px; margin: 22px 0 8px; }
+.case-swatch { flex: 1; border-radius: 6px; height: 52px; border: 1px solid var(--line); }
+.case-swatch-note { font-size: 12.5px; color: var(--muted); }
+
+/* ---------- ポータルとの違い ---------- */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); }
+.compare-col { padding: 30px 28px; border-bottom: 1px solid var(--line); }
+.compare-col.right { background: var(--card); border-left: 1px solid var(--line); }
+.compare-head {
+  font-size: 12.5px; font-weight: 700; letter-spacing: 0.14em;
+  color: var(--muted); margin-bottom: 20px;
+}
+.compare-col.right .compare-head { color: var(--green); }
+.compare-item { margin-bottom: 22px; }
+.compare-item:last-child { margin-bottom: 0; }
+.compare-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 5px; line-height: 1.6; }
+.compare-item p { font-size: 14px; color: var(--muted); }
+
+/* ポータル風モック（検索結果に埋もれる図） */
+.mock-portal {
+  background: var(--paper-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 16px; max-width: 460px; margin-top: 28px;
+}
+.portal-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--card); border: 1px solid var(--line-2); border-radius: 8px;
+  padding: 9px 14px; font-size: 13px; color: var(--muted); margin-bottom: 12px;
+}
+.portal-row {
+  display: flex; gap: 12px; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 11px; margin-bottom: 9px;
+}
+.portal-row:last-child { margin-bottom: 0; }
+.portal-row .thumb {
+  flex: 0 0 56px; height: 56px; border-radius: 8px;
+  background: linear-gradient(135deg, #d3d3ce, #bcbcb6);
+}
+.portal-row .info { flex: 1; min-width: 0; }
+.portal-row .name { font-size: 13.5px; font-weight: 700; line-height: 1.4; }
+.portal-row .meta { font-size: 11.5px; color: var(--muted); }
+.portal-row .stars { color: var(--gold); font-size: 11.5px; letter-spacing: 1px; }
+.portal-row.ad { border-color: var(--gold-soft); background: #fdf9f0; }
+.badge {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  border-radius: 4px; padding: 1px 7px; margin-right: 6px; vertical-align: 1px;
+}
+.badge.pr { background: var(--gold-soft); color: #5c4a1d; }
+.badge.you { background: var(--green); color: #fff; }
+.portal-row.yours { border: 1.5px dashed var(--green); }
+.mock-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
 
 /* ---------- 料金 ---------- */
 .price-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  align-items: stretch;
-  max-width: 780px;
-  margin: 0 auto;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  align-items: stretch; max-width: 800px;
 }
 .price-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 36px 30px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 34px 30px; display: flex; flex-direction: column;
 }
 .price-card .plan-name {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--green);
-  margin-bottom: 6px;
+  font-family: var(--font-display); font-size: 20px; font-weight: 700;
+  color: var(--green); margin-bottom: 4px;
 }
-.price-card .plan-for { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+.price-card .plan-for { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
 .price-card .price {
-  font-family: var(--font-latin);
-  font-size: 34px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.2;
+  font-family: var(--font-latin); font-size: 36px; font-weight: 600;
+  color: var(--ink); line-height: 1.2;
 }
 .price-card .price small { font-size: 13px; font-weight: 500; color: var(--muted); }
 .price-card ul {
-  list-style: none;
-  margin: 24px 0 28px;
-  text-align: left;
-  font-size: 14px;
-  color: var(--muted);
-  flex: 1;
+  list-style: none; margin: 22px 0 0; text-align: left;
+  font-size: 14px; color: var(--muted); flex: 1;
 }
 .price-card li {
-  padding: 8px 0 8px 26px;
-  border-bottom: 1px dashed var(--line);
-  position: relative;
+  padding: 8px 0 8px 22px; border-bottom: 1px dashed var(--line); position: relative;
 }
+.price-card li:last-child { border-bottom: none; }
 .price-card li::before {
-  content: "◆";
-  position: absolute;
-  left: 4px;
-  color: var(--gold);
-  font-size: 10px;
-  top: 12px;
+  content: ""; position: absolute; left: 2px; top: 18px;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
 }
-.price-note {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 24px;
-  text-align: center;
-}
-.price-cta {
-  text-align: center;
-  margin-top: 36px;
-}
+.price-note { font-size: 14px; color: var(--muted); margin-top: 26px; max-width: 800px; }
 .scope-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 780px;
-  margin: 40px auto 0;
-  align-items: start;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  max-width: 800px; margin: 36px 0 0; align-items: start;
 }
 .scope-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 26px 28px;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 24px 26px;
 }
-.scope-card h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--green);
-  margin-bottom: 10px;
-}
-.scope-card ul {
-  list-style: none;
-  font-size: 14px;
-  color: var(--muted);
-}
-.scope-card li {
-  padding: 7px 0 7px 24px;
-  position: relative;
-}
+.scope-card h3 { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.scope-card ul { list-style: none; font-size: 14px; color: var(--muted); }
+.scope-card li { padding: 6px 0 6px 20px; position: relative; }
 .scope-card li::before {
-  content: "◆";
-  position: absolute;
-  left: 2px;
-  top: 11px;
-  color: var(--gold);
-  font-size: 10px;
+  content: ""; position: absolute; left: 2px; top: 16px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
 }
+.price-cta { margin-top: 36px; }
 
 /* ---------- 制作の流れ ---------- */
-.flow-list {
-  counter-reset: step;
-  display: grid;
-  gap: 0;
-}
+.flow-list { counter-reset: step; display: grid; gap: 0; max-width: 880px; }
 .flow-item {
-  counter-increment: step;
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  gap: 26px;
-  padding: 26px 8px;
-  border-bottom: 1px solid var(--line);
+  counter-increment: step; display: grid; grid-template-columns: 66px 1fr; gap: 24px;
+  padding: 24px 4px; border-bottom: 1px solid var(--line);
 }
 .flow-item:first-child { border-top: 1px solid var(--line); }
 .flow-item::before {
-  content: "0" counter(step);
-  font-family: var(--font-latin);
-  font-size: 30px;
-  font-weight: 600;
-  color: var(--gold);
-  line-height: 1.3;
+  content: "0" counter(step); font-family: var(--font-latin);
+  font-size: 28px; font-weight: 600; color: var(--gold); line-height: 1.4;
 }
-.flow-item h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-.flow-item p { font-size: 14px; color: var(--muted); }
+.flow-item h3 { font-size: 17px; font-weight: 700; margin-bottom: 3px; }
+.flow-item p { font-size: 14.5px; color: var(--muted); }
 .flow-item .duration {
-  display: inline-block;
-  font-size: 12px;
-  color: var(--green);
-  font-weight: 700;
-  margin-left: 10px;
+  display: inline-block; font-size: 12px; color: var(--green);
+  font-weight: 700; margin-left: 10px;
 }
 
 /* ---------- FAQ ---------- */
-.faq-list { display: grid; gap: 14px; max-width: 780px; }
-.faq-list details {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 0;
-  overflow: hidden;
-}
+.faq-list { display: grid; gap: 0; max-width: 800px; }
+.faq-list details { border-bottom: 1px solid var(--line); }
+.faq-list details:first-child { border-top: 1px solid var(--line); }
 .faq-list summary {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 15px;
-  padding: 20px 52px 20px 24px;
-  position: relative;
-  list-style: none;
+  cursor: pointer; font-weight: 700; font-size: 16px;
+  padding: 20px 48px 20px 30px; position: relative; list-style: none; min-height: 44px;
 }
 .faq-list summary::-webkit-details-marker { display: none; }
 .faq-list summary::before {
-  content: "Q";
-  font-family: var(--font-latin);
-  color: var(--gold-dark);
-  font-weight: 700;
-  margin-right: 12px;
+  content: "Q"; font-family: var(--font-latin); color: var(--gold);
+  font-weight: 700; position: absolute; left: 2px; top: 20px;
 }
 .faq-list summary::after {
-  content: "+";
-  position: absolute;
-  right: 22px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--font-latin);
-  font-size: 22px;
-  color: var(--green);
+  content: "+"; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-latin); font-size: 22px; color: var(--green);
 }
 .faq-list details[open] summary::after { content: "−"; }
-.faq-list details p {
-  padding: 0 24px 22px 24px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-/* ---------- CTAバンド ---------- */
-.cta-band {
-  background: var(--green-deep);
-  color: #f4f2ea;
-  padding: 88px 0;
-  text-align: center;
-}
-.cta-band h2 {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 3.2vw, 34px);
-  font-weight: 700;
-  line-height: 1.7;
-  margin-bottom: 18px;
-}
-.cta-band p {
-  color: rgba(244, 242, 234, 0.75);
-  max-width: 560px;
-  margin: 0 auto 36px;
-  font-size: 15px;
-}
-.cta-band .btn-primary { padding: 16px 48px; font-size: 16px; }
-.cta-band .cta-note {
-  margin: 20px auto 0;
-  font-size: 13px;
-}
-.line-cta {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-}
-.line-cta-divider {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  max-width: 260px;
-  color: rgba(244, 242, 234, 0.45);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-}
-.line-cta-divider::before,
-.line-cta-divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: rgba(244, 242, 234, 0.22);
-}
-.line-qr-card {
-  background: var(--paper);
-  padding: 10px;
-  border-radius: 12px;
-}
-.line-qr-card img { width: 108px; height: 108px; display: block; }
-.btn-outline-gold {
-  border: 1.5px solid var(--gold);
-  color: #f4f2ea;
-  background: transparent;
-}
-.btn-outline-gold:hover {
-  background: var(--gold);
-  color: var(--green-deep);
-}
+.faq-list details p { padding: 0 30px 22px 30px; font-size: 15px; color: var(--muted); }
+.faq-list summary:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
 
 /* ---------- 会社概要 ---------- */
 .company-table {
-  max-width: 720px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 8px 32px;
+  max-width: 720px; background: var(--card);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 30px;
 }
 .company-row {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 14px;
+  display: grid; grid-template-columns: 118px 1fr; gap: 16px;
+  padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 14.5px;
 }
 .company-row:last-child { border-bottom: none; }
-.company-row dt {
-  font-weight: 700;
-  color: var(--green);
-}
+.company-row dt { font-weight: 700; color: var(--green); }
 .company-row dd { color: var(--muted); }
+
+/* ---------- CTA帯 ---------- */
+.cta-band { background: var(--dark); color: #f1f1ee; padding: 84px 0; text-align: center; }
+.cta-band h2 {
+  font-family: var(--font-display); font-size: clamp(24px, 3.4vw, 36px);
+  font-weight: 700; line-height: 1.65; margin-bottom: 18px;
+}
+.cta-band p {
+  color: rgba(241, 241, 238, 0.74); max-width: 580px; margin: 0 auto 34px; font-size: 15.5px;
+}
+.line-block { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.line-qr-card { background: var(--paper); padding: 10px; border-radius: 12px; }
+.line-qr-card img { width: 116px; height: 116px; }
+.cta-note { margin: 16px auto 0; font-size: 13.5px; }
+.cta-sub {
+  margin-top: 40px; padding-top: 30px;
+  border-top: 1px solid rgba(241, 241, 238, 0.16);
+  font-size: 14.5px; color: rgba(241, 241, 238, 0.66);
+}
+.cta-sub a { color: var(--gold-soft); }
 
 /* ---------- フッター ---------- */
 .site-footer {
-  background: #0d241f;
-  color: rgba(244, 242, 234, 0.7);
-  padding: 48px 0 36px;
-  font-size: 13px;
+  background: var(--dark-2); color: rgba(241, 241, 238, 0.68);
+  padding: 44px 0 34px; font-size: 13px;
 }
 .site-footer .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 24px;
-  flex-wrap: wrap;
+  display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;
 }
-.site-footer .logo { color: #f4f2ea; display: block; margin-bottom: 10px; }
+.site-footer .logo { color: #f1f1ee; display: block; margin-bottom: 8px; }
 .site-footer .copyright { font-family: var(--font-latin); letter-spacing: 0.04em; }
 
 /* ---------- 出現演出 ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.in {
-  opacity: 1;
-  transform: none;
-}
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .mock-panel, .btn { transition: none; }
+  .reveal, .btn, .phone-screen img, .work-card { transition: none; }
   .reveal { opacity: 1; transform: none; }
 }
 
 /* ---------- レスポンシブ ---------- */
-@media (max-width: 900px) {
-  .section { padding: 72px 0; }
-  .hero { padding: 56px 0 72px; }
-  .hero .container { grid-template-columns: 1fr; gap: 48px; }
-  .card-grid, .price-grid, .scope-grid { grid-template-columns: 1fr; }
-  .merit-item { grid-template-columns: 1fr; gap: 8px; padding: 26px 24px; }
-  .company-row { grid-template-columns: 88px 1fr; gap: 12px; }
+@media (max-width: 920px) {
+  .section { padding: 68px 0; }
+  .hero { padding: 48px 0 64px; }
+  .hero .container { grid-template-columns: 1fr; gap: 44px; }
+  .work-grid, .price-grid, .scope-grid { grid-template-columns: 1fr; }
+  .case { grid-template-columns: 1fr; gap: 32px; }
+  .compare { grid-template-columns: 1fr; }
+  .compare-col.right { border-left: none; }
   .global-nav a:not(.btn) { display: none; }
-  .mock-stage { min-height: 380px; }
 }
 
 @media (max-width: 600px) {
   /* スマホでは左右の余白と見出しを少しつめて、1文が途中で折り返さないようにする */
+  body { font-size: 16px; }
   .container { padding: 0 20px; }
-  .section-title { font-size: 23px; }
-  .cta-band h2 { font-size: 22px; }
+  .section { padding: 56px 0; }
+  .section-title { font-size: 24px; }
+  .cta-band h2 { font-size: 23px; }
+  /* 数字帯: 4列だと数字がつぶれるので2列2段に */
+  .stats .container { grid-template-columns: repeat(2, 1fr); }
+  .stat { padding: 24px 12px; }
+  .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .stat:nth-child(odd) { border-left: none; }
+  /* 29軒の壁: 画面が狭いので1枚あたりを小さくして枚数の多さを見せる */
+  .wall { grid-template-columns: repeat(auto-fill, minmax(74px, 1fr)); gap: 6px; }
+  .wall figcaption { font-size: 9.5px; }
+  .chip-c { width: 38px; height: 38px; }
   /* 中央ぞろえだと行末がバラバラに見えるので、長い注記は左ぞろえに */
   .price-note, .cta-band p:not(.cta-note) { text-align: left; }
-  /* 制作の流れ: 番号を左に置くと本文が細長くなるので、スマホでは番号を上に */
-  .flow-item { grid-template-columns: 1fr; gap: 2px; padding: 22px 4px; }
-  .flow-item::before { font-size: 24px; }
+  /* 制作の流れ・お約束: 番号を左に置くと本文が細長くなるので、スマホでは番号を上に */
+  .flow-item, .promise { grid-template-columns: 1fr; gap: 2px; padding: 20px 2px; }
+  .flow-item::before { font-size: 23px; }
+  .promise::before { font-size: 19px; line-height: 1.4; }
   /* 会社概要: 見出しを左に置くと本文の幅が足りず、メールアドレスがはみ出すので上下に */
-  .company-table { padding: 8px 22px; }
+  .company-table { padding: 6px 20px; }
   .company-row { grid-template-columns: 1fr; gap: 2px; }
   .br-sp { display: inline; }
   .br-pc { display: none; }
@@ -842,84 +582,43 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
    ・JSが動かない環境では .opening は display:none のまま = LPがそのまま出る
    ========================================================================== */
 .opening { display: none; }
-
-.is-opening .opening {
-  display: block;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-}
+.is-opening .opening { display: block; position: fixed; inset: 0; z-index: 9999; }
 
 /* 下地(濃緑)。最後にこれだけを消すとLP本体が現れる */
 .opening-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 50% 44%, #1c4a3e 0%, #12312a 58%, #0b1e1a 100%);
-  opacity: 1;
-  transition: opacity 0.52s ease;
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 44%, #1c4a3e 0%, #12312a 58%, #0b1e1a 100%);
+  opacity: 1; transition: opacity 0.52s ease;
 }
-
 /* ロゴを入れる箱。画面中央に置き、最後にJSがtransformでヘッダー位置へ送る */
 .opening-stage {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transform-origin: 50% 50%;
-  white-space: nowrap;
-  opacity: 0;                 /* フォント読み込み待ちの間は隠しておく */
-  will-change: transform;
-  /* ロゴ本体と、上に重ねる光の層で同じ字組みを使う */
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%); transform-origin: 50% 50%;
+  white-space: nowrap; opacity: 0; will-change: transform;
   --op-size: clamp(34px, 10.5vw, 128px);
 }
 .opening.play .opening-stage { opacity: 1; }
-
-.opening-logo,
-.opening-sheen {
-  font-family: var(--font-latin);
-  font-weight: 600;
-  /* ヘッダーのロゴと同じ字面。サイズだけを画面いっぱいまで大きくする */
-  font-size: var(--op-size);
-  line-height: 1.1;
-  letter-spacing: 0.02em;
+.opening-logo, .opening-sheen {
+  font-family: var(--font-latin); font-weight: 600;
+  font-size: var(--op-size); line-height: 1.1; letter-spacing: 0.02em;
 }
-.opening-logo {
-  display: inline-block;
-  color: #fbfaf6;
-  transform-origin: 50% 50%;
-}
+.opening-logo { display: inline-block; color: #fbfaf6; transform-origin: 50% 50%; }
 .opening-logo .plus {
-  color: var(--gold);
-  font-weight: 700;
-  display: inline-block;
-  transform-origin: 50% 55%;
+  color: var(--gold-soft); font-weight: 700; display: inline-block; transform-origin: 50% 55%;
 }
-
 /* 金色の光が文字の上を左から右へ抜ける。
-   ロゴと同じ文字を透明で重ね、グラデーションを文字の形に切り抜いて動かす
-   (四角い板を重ねると縁が見えてしまうため) */
+   ロゴと同じ文字を透明で重ね、グラデーションを文字の形に切り抜いて動かす */
 .opening-sheen {
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: transparent;
+  position: absolute; left: 0; top: 0; color: transparent;
   background-image: linear-gradient(100deg,
-    rgba(255, 255, 255, 0) 44%,
-    rgba(255, 236, 190, 0.9) 50%,
-    rgba(255, 255, 255, 0) 56%);
+    rgba(255,255,255,0) 44%, rgba(255,236,190,0.9) 50%, rgba(255,255,255,0) 56%);
   background-size: 300% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  opacity: 0;
-  pointer-events: none;
-  user-select: none;
+  -webkit-background-clip: text; background-clip: text;
+  opacity: 0; pointer-events: none; user-select: none;
 }
-
 .opening.play .opening-logo { animation: op-logo 0.62s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .opening.play .opening-logo .plus { animation: op-plus 0.58s cubic-bezier(0.34, 1.4, 0.5, 1) 0.1s both; }
 .opening.play .opening-sheen { animation: op-sheen 0.46s ease-out 0.6s both; }
-
 @keyframes op-logo {
   from { opacity: 0; transform: scale(1.16); filter: blur(7px); letter-spacing: 0.16em; }
   to   { opacity: 1; transform: scale(1);    filter: blur(0);   letter-spacing: 0.02em; }
@@ -930,60 +629,35 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 }
 @keyframes op-sheen {
   from { opacity: 0; background-position: 0% 0; }
-  25%  { opacity: 1; }
-  75%  { opacity: 1; }
+  25%  { opacity: 1; } 75% { opacity: 1; }
   to   { opacity: 0; background-position: 100% 0; }
 }
-
 /* 縮んでヘッダーへ吸い込まれる(移動先はJSが実測して transform に入れる) */
 .opening.land .opening-stage { transition: transform 0.6s cubic-bezier(0.66, 0, 0.24, 1); }
-/* 光の層は文字の形だけを見せる(色は下のロゴが持つ) */
 .opening-sheen .plus { color: transparent; font-weight: 700; }
 .opening.land .opening-bg { opacity: 0; transition-delay: 0.16s; }
-/* 幕(濃緑)が消えると背景が明るくなるので、飛んでいる文字の色もヘッダーのロゴと同じ濃緑へ移す
-   (白のままだと着地の途中で明るい背景に溶けて見えなくなる) */
+/* 幕が消えると背景が明るくなるので、飛んでいる文字の色もヘッダーのロゴと同じ濃緑へ移す */
 .opening.land .opening-logo { color: var(--green-deep); transition: color 0.34s ease 0.2s; }
 .opening.done { opacity: 0; pointer-events: none; transition: opacity 0.18s ease; }
-
 /* 着地するまで、本物のヘッダーのロゴは見えないようにしておく */
 .is-opening .site-header .logo { opacity: 0; }
-/* 受け取った瞬間の小さな弾み。演出の後片づけで is-opening が外れても最後まで再生されるよう、
-   opening-landed だけを条件にする */
 .opening-landed .site-header .logo {
-  opacity: 1;
-  animation: op-catch 0.26s cubic-bezier(0.34, 1.5, 0.5, 1) both;
+  opacity: 1; animation: op-catch 0.26s cubic-bezier(0.34, 1.5, 0.5, 1) both;
 }
-@keyframes op-catch {
-  from { transform: scale(1.07); }
-  to   { transform: scale(1); }
-}
-
-/* 演出中は背後のLPを動かさない */
+@keyframes op-catch { from { transform: scale(1.07); } to { transform: scale(1); } }
 .is-opening body { overflow: hidden; }
-
 .opening-skip {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: rgba(251, 250, 246, 0.72);
-  background: transparent;
-  border: 1px solid rgba(251, 250, 246, 0.28);
-  border-radius: 999px;
-  padding: 8px 20px;
-  cursor: pointer;
+  position: absolute; right: 20px; bottom: 20px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  color: rgba(251, 250, 246, 0.72); background: transparent;
+  border: 1px solid rgba(251, 250, 246, 0.28); border-radius: 999px;
+  padding: 10px 22px; cursor: pointer; min-height: 44px;
   transition: opacity 0.3s ease, color 0.2s ease, border-color 0.2s ease;
 }
 .opening-skip:hover { color: #fff; border-color: rgba(251, 250, 246, 0.6); }
 .opening-skip:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 .opening.land .opening-skip { opacity: 0; pointer-events: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .opening { display: none !important; }
-}
+@media (prefers-reduced-motion: reduce) { .opening { display: none !important; } }
 </style>
 <script>
 /* オープニングを出すかどうかの判定。
@@ -997,10 +671,8 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
     var q = new URLSearchParams(location.search).get('opening');
     if (q === '1' || q === '0') force = q;
   } catch (e) {}
-
   if (force === '0') return;
   if (force !== '1' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
   if (force !== '1') {
     var d = new Date();
     var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
@@ -1030,7 +702,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   <div class="container">
     <a class="logo" href="#">creative works<span class="plus">+</span></a>
     <nav class="global-nav" aria-label="グローバルナビゲーション">
-      <a href="#pains">お悩み</a>
+      <a href="#promise">お約束</a>
       <a href="#works">制作事例</a>
       <a href="#price">料金</a>
       <a href="#flow">制作の流れ</a>
@@ -1050,120 +722,89 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
         <p class="lead">グルメサイトやGoogleに情報はある。でも、お店の"顔"になる<span class="nw">ページはまだない</span>——。<span class="nw">creative works+</span> は、先に完成イメージのホームページをおつくりし、実物をご覧いただいてから仕上げる制作サービスです。</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">無料で相談する</a>
-          <a href="#price" class="btn btn-ghost">料金プランを見る</a>
+          <a href="#works" class="btn btn-ghost">制作事例を見る</a>
         </div>
       </div>
 
-      <div class="hero-mock">
-        <div class="mock-switch" role="group" aria-label="ポータルサイトと自社ホームページの比較">
-          <button type="button" id="btn-before" aria-pressed="true">ポータルサイトでは</button>
-          <button type="button" id="btn-after" aria-pressed="false">自社ホームページなら</button>
+      <div class="hero-shots">
+        <div class="shot-switch" role="group" aria-label="制作したホームページの実物を業態で切り替える">
+          <button type="button" data-shot="0" aria-pressed="true">大衆食堂</button>
+          <button type="button" data-shot="1" aria-pressed="false">鮮魚・釜めし</button>
+          <button type="button" data-shot="2" aria-pressed="false">カフェ</button>
         </div>
-        <div class="mock-stage">
-          <!-- Before: ポータルの検索結果に埋もれる -->
-          <div class="mock-panel active" id="panel-before">
-            <div class="mock-portal" aria-label="グルメサイトの検索結果のイメージ">
-              <div class="portal-search">🔍 渋谷 焼鳥 個室</div>
-              <div class="portal-row ad">
-                <div class="thumb"></div>
-                <div class="info">
-                  <div class="name"><span class="badge pr">PR</span>近隣の大手チェーン店</div>
-                  <div class="stars">★★★☆☆ 3.2</div>
-                  <div class="meta">広告枠・常に最上位に表示</div>
-                </div>
-              </div>
-              <div class="portal-row yours">
-                <div class="thumb"></div>
-                <div class="info">
-                  <div class="name"><span class="badge you">あなたのお店</span>炭火焼鳥 とり匠</div>
-                  <div class="stars">★★★☆☆ 3.4</div>
-                  <div class="meta">競合と横並び・比較されて終わることも</div>
-                </div>
-              </div>
-              <div class="portal-row">
-                <div class="thumb"></div>
-                <div class="info">
-                  <div class="name">駅前の競合店</div>
-                  <div class="stars">★★★★☆ 3.6</div>
-                  <div class="meta">評価0.2の差で、お客様はこちらへ</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- After: 自社ホームページ -->
-          <div class="mock-panel" id="panel-after">
-            <div class="mock-site" aria-label="自社ホームページのイメージ">
-              <div class="browser-bar">
-                <div class="dots"><span></span><span></span><span></span></div>
-                <div class="url">torisho.jp</div>
-              </div>
-              <div class="mock-site-header">
-                <div class="shop-name">炭火焼鳥 とり匠</div>
-                <nav>
-                  <span>お品書き</span><span>店主のこだわり</span><span>ご予約</span>
-                </nav>
-              </div>
-              <div class="mock-site-hero">
-                <div class="copy">備長炭の火加減、<br>一串にこめて。</div>
-              </div>
-              <div class="mock-site-body">
-                <div class="chip reserve">ご予約はこちら</div>
-                <div class="chip menu">お品書き</div>
-                <div class="chip access">アクセス</div>
-              </div>
-            </div>
+        <div class="phone">
+          <div class="phone-screen" id="phone-screen">
+            <img class="active" src="works/hero/hero-shokudo.jpg" alt="大衆食堂の店舗サイト 制作事例のスマートフォン表示" width="516" height="936" fetchpriority="high">
+            <img src="works/hero/hero-izakaya.jpg" alt="鮮魚と釜めしの店の店舗サイト 制作事例のスマートフォン表示" width="516" height="936" loading="lazy">
+            <img src="works/hero/hero-cafe.jpg" alt="カフェの店舗サイト 制作事例のスマートフォン表示" width="516" height="936" loading="lazy">
           </div>
         </div>
-        <p class="mock-note">※ 画面はイメージです。掲載店舗は架空のものです。</p>
+        <p class="shot-note">実際におつくりしたホームページの画面です。<br class="br-sp">お電話番号は伏せて掲載しています。</p>
       </div>
     </div>
   </section>
 
-  <!-- お悩み -->
-  <section class="section tinted" id="pains">
+  <!-- 数字帯 -->
+  <section class="stats" aria-label="creative works+ の概要">
     <div class="container">
-      <span class="eyebrow">よくあるお悩み</span>
-      <h2 class="section-title">ポータルサイトだけに、<br>お店の集客を預けていませんか?</h2>
-      <p class="section-lead">グルメサイトもGoogleマップも、お客様との大切な接点です。ただし、そこは「あなたのお店のページ」ではなく「みんなの検索結果」。こんな課題を感じたことはありませんか。</p>
-      <div class="card-grid">
-        <div class="pain-card reveal">
-          <div class="icon">CASE 1</div>
-          <h3>すぐ隣に、競合店が並ぶ</h3>
-          <p>検索結果ではライバル店と常に横並び。せっかく見つけてもらっても、評価の数字だけで比較されて他店に流れてしまうことがあります。</p>
-        </div>
-        <div class="pain-card reveal">
-          <div class="icon">CASE 2</div>
-          <h3>広告が他店へ誘導する</h3>
-          <p>店名で検索したお客様の画面にも、他店の広告が表示されます。自分のお店のページのはずが、他店への入り口にもなっているのです。</p>
-        </div>
-        <div class="pain-card reveal">
-          <div class="icon">CASE 3</div>
-          <h3>お店の雰囲気が伝えきれない</h3>
-          <p>載せられる写真や文章のかたちが決まっていて、内装のこだわりや店主の想いまでは届きません。どの店も同じ見た目になってしまいます。</p>
-        </div>
+      <div class="stat">
+        <div class="stat-num">29<span class="u">軒</span></div>
+        <div class="stat-label">おつくりしたお店</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7<span class="u">日</span></div>
+        <div class="stat-label">ご依頼から公開まで</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><small>¥</small>150,000</div>
+        <div class="stat-label">制作費(税込・一度きり)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><small>¥</small>5,000</div>
+        <div class="stat-label">月額(税込・保守と更新代行)</div>
       </div>
     </div>
   </section>
 
-  <!-- 自社HPで変わること -->
-  <section class="section" id="merits">
+  <!-- お約束（最初に不安をなくす） -->
+  <section class="section" id="promise">
     <div class="container">
-      <span class="eyebrow">自社ホームページで変わること</span>
-      <h2 class="section-title">「あなたのお店だけのページ」が、<br>看板であり、受け皿になる。</h2>
-      <div class="merit-list">
-        <div class="merit-item reveal">
-          <h3>指名検索の受け皿に</h3>
-          <p>店名で検索してくれたお客様を、他店の広告が一切ない自分のページで迎えられます。一度来てくれたお客様との再会の場所にもなります。</p>
+      <span class="eyebrow">5つのお約束</span>
+      <h2 class="section-title">売り込みの前に、<br>お断りの仕方からお伝えします。</h2>
+      <p class="section-lead">ホームページの話は、頼んでから「思っていたものと違う」となりやすいものです。そうならないように、こちらが先に約束していることを最初に並べておきます。</p>
+      <div class="promise-list">
+        <div class="promise reveal">
+          <div>
+            <h3>見てから、お断りいただけます</h3>
+            <p>叩き台の制作とご提案は無料です。正式にご依頼いただくまで、費用は一切かかりません。お断りの場合は、おつくりした叩き台のデータも削除します。</p>
+          </div>
         </div>
-        <div class="merit-item reveal">
-          <h3>お店の世界観をそのまま</h3>
-          <p>写真の大きさも、メニューの見せ方も、言葉づかいも自由。カウンターに座ったときの空気感まで伝わるページをつくれます。</p>
+        <div class="promise reveal">
+          <div>
+            <h3>お支払いは、納品のあとです</h3>
+            <p>前金はいただきません。完成したホームページを実際にご確認いただいてから、銀行振込または現金で一括のお支払いです。</p>
+          </div>
         </div>
-        <div class="merit-item reveal">
-          <h3>情報はいつでも最新に</h3>
-          <p>営業時間の変更、季節のメニュー、臨時休業のお知らせもすぐに反映。Googleビジネスプロフィールと連携し、地図検索からの導線も整えます。</p>
+        <div class="promise reveal">
+          <div>
+            <h3>違約金は、ありません</h3>
+            <p>月額の保守はいつでも解約できます。最低契約期間も、解約にともなう費用もいただきません。</p>
+          </div>
+        </div>
+        <div class="promise reveal">
+          <div>
+            <h3>やめても、ホームページはお店のものです</h3>
+            <p>解約されるときは、サイトのデータを一式お渡しします。ドメイン(インターネット上の住所)はお店の名義で取得しますので、そのままご自身や他の会社で使い続けられます。保守契約書にも明記しています。</p>
+          </div>
+        </div>
+        <div class="promise reveal">
+          <div>
+            <h3>しつこい営業は、いたしません</h3>
+            <p>一度お断りいただいたお店に、何度もお伺いすることはありません。ご検討の時間が必要な場合は、こちらからは追いかけずにお待ちします。</p>
+          </div>
         </div>
       </div>
+      <p class="promise-note">この5つは、口約束ではなく契約書に書いてあることです。ご契約前に、契約書のひな形をそのままお渡ししてお読みいただけます。</p>
     </div>
   </section>
 
@@ -1171,9 +812,86 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   <section class="section tinted" id="works">
     <div class="container">
       <span class="eyebrow">制作事例</span>
-      <h2 class="section-title">つくったのは、ページではなく<br>「お店の顔」です。</h2>
-      <p class="section-lead">業態や価格帯に合わせて、お店ごとの世界観をひとつずつ設計しています。いずれもご契約前のお店で、まずはこの状態までお作りしてお持ちしています。</p>
-      <div class="card-grid">
+      <h2 class="section-title">同じ形のものは、<br>ひとつもありません。</h2>
+      <p class="section-lead">これまでにおつくりした29軒です。決まった型に写真と名前を差し替えたものではなく、業態・価格帯・お店の雰囲気に合わせて、一軒ずつ設計しています。いずれもご契約前のお店で、まずはこの状態までお作りしてお持ちしています。</p>
+
+      <!-- 29軒の壁（店名は出さず、業態のみ） -->
+      <div class="wall" role="list" aria-label="制作した29軒のホームページ">
+        <!-- wall:auto:start -->
+        <figure role="listitem"><img src="works/tiles/00.jpg" alt="カフェの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>カフェ</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/01.jpg" alt="炭火串焼の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>炭火串焼</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/02.jpg" alt="ラーメン・餃子の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>ラーメン・餃子</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/03.jpg" alt="そばの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>そば</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/04.jpg" alt="うなぎ・川魚の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>うなぎ・川魚</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/05.jpg" alt="炭火ダイニングの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>炭火ダイニング</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/06.jpg" alt="和食・炭火の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>和食・炭火</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/07.jpg" alt="とんかつの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>とんかつ</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/08.jpg" alt="ラーメンの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>ラーメン</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/09.jpg" alt="和食・おにぎりの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>和食・おにぎり</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/10.jpg" alt="イタリアンの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>イタリアン</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/11.jpg" alt="とんかつの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>とんかつ</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/12.jpg" alt="居酒屋の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>居酒屋</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/13.jpg" alt="町中華の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>町中華</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/14.jpg" alt="居酒屋の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>居酒屋</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/15.jpg" alt="居酒屋の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>居酒屋</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/16.jpg" alt="居酒屋の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>居酒屋</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/17.jpg" alt="大衆食堂の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>大衆食堂</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/18.jpg" alt="四川料理の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>四川料理</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/19.jpg" alt="中華料理の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>中華料理</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/20.jpg" alt="海鮮居酒屋の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>海鮮居酒屋</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/21.jpg" alt="炭火焼きの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>炭火焼き</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/22.jpg" alt="武蔵野うどんの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>武蔵野うどん</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/23.jpg" alt="串焼きの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>串焼き</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/24.jpg" alt="定食・居酒屋の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>定食・居酒屋</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/25.jpg" alt="そば・地酒の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>そば・地酒</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/26.jpg" alt="タンメンの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>タンメン</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/27.jpg" alt="鮮魚・釜めしの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>鮮魚・釜めし</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/28.jpg" alt="炉端焼きの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>炉端焼き</figcaption></figure>
+        <!-- wall:auto:end -->
+      </div>
+      <p class="wall-note">※ お店のお名前は伏せ、業態のみを記しています。お電話番号も画面上で伏せています。</p>
+
+      <!-- 配色チップ -->
+      <div class="chips-block reveal">
+        <h3>29軒ぶんの、29とおりの色</h3>
+        <p>それぞれのホームページで使っている色です。上の面が地の色、下の帯がアクセントの色。看板の色、器の色、店内の照明の色から起こしているので、同じ組み合わせは出てきません。「型を使っていない」というのは、つまりこういうことです。</p>
+        <div class="chips" aria-hidden="true">
+          <!-- chips:auto:start -->
+          <div class="chip-c"><div class="b" style="background:#faf7f1"></div><div class="a" style="background:#1fa09a"></div></div>
+          <div class="chip-c"><div class="b" style="background:#271912"></div><div class="a" style="background:#b33939"></div></div>
+          <div class="chip-c"><div class="b" style="background:#ffffff"></div><div class="a" style="background:#c62828"></div></div>
+          <div class="chip-c"><div class="b" style="background:#efeae0"></div><div class="a" style="background:#9c4e53"></div></div>
+          <div class="chip-c"><div class="b" style="background:#0e1c1a"></div><div class="a" style="background:#c2453a"></div></div>
+          <div class="chip-c"><div class="b" style="background:#120d0a"></div><div class="a" style="background:#d9642b"></div></div>
+          <div class="chip-c"><div class="b" style="background:#0c0b0a"></div><div class="a" style="background:#c9a063"></div></div>
+          <div class="chip-c"><div class="b" style="background:#25313b"></div><div class="a" style="background:#3e7a99"></div></div>
+          <div class="chip-c"><div class="b" style="background:#e5ded0"></div><div class="a" style="background:#a06b3e"></div></div>
+          <div class="chip-c"><div class="b" style="background:#17100f"></div><div class="a" style="background:#b3303f"></div></div>
+          <div class="chip-c"><div class="b" style="background:#7b7260"></div><div class="a" style="background:#8b734f"></div></div>
+          <div class="chip-c"><div class="b" style="background:#d0cbca"></div><div class="a" style="background:#d45f38"></div></div>
+          <div class="chip-c"><div class="b" style="background:#122238"></div><div class="a" style="background:#b33b2a"></div></div>
+          <div class="chip-c"><div class="b" style="background:#e9f0ea"></div><div class="a" style="background:#c2352a"></div></div>
+          <div class="chip-c"><div class="b" style="background:#191815"></div><div class="a" style="background:#c73b2a"></div></div>
+          <div class="chip-c"><div class="b" style="background:#272725"></div><div class="a" style="background:#c8a25c"></div></div>
+          <div class="chip-c"><div class="b" style="background:#191512"></div><div class="a" style="background:#c8343d"></div></div>
+          <div class="chip-c"><div class="b" style="background:#552c33"></div><div class="a" style="background:#8e2f2c"></div></div>
+          <div class="chip-c"><div class="b" style="background:#e3e6e7"></div><div class="a" style="background:#009c89"></div></div>
+          <div class="chip-c"><div class="b" style="background:#31211b"></div><div class="a" style="background:#9bb23f"></div></div>
+          <div class="chip-c"><div class="b" style="background:#5e5a55"></div><div class="a" style="background:#d98a3d"></div></div>
+          <div class="chip-c"><div class="b" style="background:#1c1512"></div><div class="a" style="background:#e0501f"></div></div>
+          <div class="chip-c"><div class="b" style="background:#241b2e"></div><div class="a" style="background:#b8332e"></div></div>
+          <div class="chip-c"><div class="b" style="background:#14110e"></div><div class="a" style="background:#c4372b"></div></div>
+          <div class="chip-c"><div class="b" style="background:#f2e9d6"></div><div class="a" style="background:#d98e1f"></div></div>
+          <div class="chip-c"><div class="b" style="background:#15171d"></div><div class="a" style="background:#b3382d"></div></div>
+          <div class="chip-c"><div class="b" style="background:#f7f8f5"></div><div class="a" style="background:#a8604b"></div></div>
+          <div class="chip-c"><div class="b" style="background:#68332c"></div><div class="a" style="background:#b23a26"></div></div>
+          <div class="chip-c"><div class="b" style="background:#17110e"></div><div class="a" style="background:#d9541e"></div></div>
+        <!-- chips:auto:end -->
+        </div>
+      </div>
+
+      <!-- 大きく見せる3軒 -->
+      <div class="work-grid">
         <div class="work-card reveal">
           <div class="frame-bar">
             <div class="dots"><span></span><span></span><span></span></div>
@@ -1214,6 +932,135 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
     </div>
   </section>
 
+  <!-- 一軒ができるまで -->
+  <section class="section ruled" id="case">
+    <div class="container">
+      <span class="eyebrow">一軒ができるまで</span>
+      <h2 class="section-title">色は、その店の<br>どこかに必ずあります。</h2>
+      <p class="section-lead">上の「文福飯店」を例に、一軒ぶんの叩き台がどうやってできるかをお見せします。</p>
+      <div class="case">
+        <div class="case-body reveal">
+          <p>最初にするのは、デザインを考えることではありません。食べログ・Googleマップ・ホットペッパー、そのお店のSNSまで、公開されているものを一通り読みます。何が名物で、どの時間に人が入っていて、お客様が何を書き残しているのか。ここに一番時間をかけます。</p>
+          <p>文福飯店は、国道沿いの平屋の食堂でした。写真の中でいちばん目を引いたのは料理ではなく、<strong>屋根の上の看板</strong>です。長く陽に灼けて色の落ちた、えび茶色の大きな看板。この店の前を通ったことがある人なら、まずこれを覚えているはずだと思いました。</p>
+          <p>そこで、その看板の色をそのまま画面の地の色にしました。写真から色を拾い、少しだけ沈めて文字が読める明るさに調整したものが下の3色です。新しく決めた色ではなく、<strong>もともとお店にあった色</strong>です。</p>
+          <div class="case-swatches" aria-hidden="true">
+            <div class="case-swatch" style="background:#47232A"></div>
+            <div class="case-swatch" style="background:#552C33"></div>
+            <div class="case-swatch" style="background:#F3ECDD"></div>
+          </div>
+          <p class="case-swatch-note">左から、地の色・一段明るい面・文字の色。屋根看板と、店内の壁から取っています。</p>
+          <p style="margin-top:20px">構成で迷ったのは、何の店として見せるかでした。中華そばもとんかつもオムライスもある。ふつうは「これ一本」に絞るほうがきれいにまとまりますが、この店の場合はそこが値打ちです。<strong>一軒でぜんぶそろう</strong>ことが伝わるように、あえて絞らず並べました。昼だけの営業であることも、探して来られた方が困らないよう最初の画面に置いています。</p>
+          <p>ここまでで、お店にお声がけする前の状態です。お会いしたあとは、実際のメニューや値段、写真を伺いながら直していきます。</p>
+        </div>
+        <div class="case-steps reveal">
+          <div class="case-step">
+            <div>
+              <h4>掲載ページを探す</h4>
+              <p>食べログ・Googleマップ・ホットペッパーを必ず見て、住所と電話番号が一致することを確かめます。同じ名前の別のお店と取り違えないためです。</p>
+            </div>
+          </div>
+          <div class="case-step">
+            <div>
+              <h4>写真をそろえる</h4>
+              <p>掲載されている写真とお店のSNSから、使えるものを集めます。同じ写真が1ページに二度出ないように確認します。</p>
+            </div>
+          </div>
+          <div class="case-step">
+            <div>
+              <h4>色と文字を決める</h4>
+              <p>看板・器・照明から色を起こします。書体もお店の雰囲気に合わせて選びます。</p>
+            </div>
+          </div>
+          <div class="case-step">
+            <div>
+              <h4>組み立てる</h4>
+              <p>スマートフォンで見たときを基準に組みます。飲食店をお探しの方は、ほとんどが携帯電話でご覧になるためです。</p>
+            </div>
+          </div>
+          <div class="case-step">
+            <div>
+              <h4>見直す</h4>
+              <p>お店の立場・お客様の立場・デザインの3方向から見直して直します。ここで直すのは毎回20か所ほどです。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ポータルとの違い -->
+  <section class="section tinted" id="why">
+    <div class="container">
+      <span class="eyebrow">ポータルサイトとの違い</span>
+      <h2 class="section-title">グルメサイトは出会いの場、<br>自社ページは決め手の場。</h2>
+      <p class="section-lead">食べログもGoogleマップも、お客様との大切な接点です。やめる必要はありません。ただ、そこは「あなたのお店のページ」ではなく「みんなの検索結果」です。役割が違います。</p>
+      <div class="compare">
+        <div class="compare-col">
+          <div class="compare-head">グルメサイト・地図検索</div>
+          <div class="compare-item">
+            <h3>すぐ隣に、競合店が並ぶ</h3>
+            <p>検索結果ではライバル店と常に横並びです。せっかく見つけてもらっても、評価の数字だけで比較されて他店に流れてしまうことがあります。</p>
+          </div>
+          <div class="compare-item">
+            <h3>広告が他店へ誘導する</h3>
+            <p>店名で検索したお客様の画面にも、他店の広告が表示されます。自分のお店のページのはずが、他店への入り口にもなっています。</p>
+          </div>
+          <div class="compare-item">
+            <h3>見せ方のかたちが決まっている</h3>
+            <p>載せられる写真や文章の型が決まっていて、内装のこだわりや店主の想いまでは届きません。どのお店も同じ見た目になります。</p>
+          </div>
+          <div class="mock-portal" aria-label="グルメサイトの検索結果のイメージ">
+            <div class="portal-search">🔍 古河 焼鳥 個室</div>
+            <div class="portal-row ad">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name"><span class="badge pr">PR</span>近隣の大手チェーン店</div>
+                <div class="stars">★★★☆☆ 3.2</div>
+                <div class="meta">広告枠・常に最上位に表示</div>
+              </div>
+            </div>
+            <div class="portal-row yours">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name"><span class="badge you">あなたのお店</span>炭火焼鳥 とり匠</div>
+                <div class="stars">★★★☆☆ 3.4</div>
+                <div class="meta">競合と横並び・比較されて終わることも</div>
+              </div>
+            </div>
+            <div class="portal-row">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name">駅前の競合店</div>
+                <div class="stars">★★★★☆ 3.6</div>
+                <div class="meta">評価0.2の差で、お客様はこちらへ</div>
+              </div>
+            </div>
+          </div>
+          <p class="mock-note">※ 画面はイメージです。掲載店舗は架空のものです。</p>
+        </div>
+        <div class="compare-col right">
+          <div class="compare-head">自社ホームページ</div>
+          <div class="compare-item">
+            <h3>指名検索の受け皿になる</h3>
+            <p>店名で検索してくれたお客様を、他店の広告が一切ない自分のページで迎えられます。一度来てくれたお客様との再会の場所にもなります。</p>
+          </div>
+          <div class="compare-item">
+            <h3>お店の世界観をそのまま出せる</h3>
+            <p>写真の大きさも、お品書きの見せ方も、言葉づかいも自由です。カウンターに座ったときの空気感まで伝わるページをつくれます。</p>
+          </div>
+          <div class="compare-item">
+            <h3>情報をいつでも最新にできる</h3>
+            <p>営業時間の変更、季節のメニュー、臨時休業のお知らせもすぐに反映します。Googleビジネスプロフィールと連携し、地図検索からの導線も整えます。</p>
+          </div>
+          <div class="compare-item">
+            <h3>ご予約の入り口を一本にできる</h3>
+            <p>お電話・ネット予約・LINEなど、すでにお使いの窓口へまとめてご案内します。お客様が迷わずに予約までたどり着けます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 料金 -->
   <section class="section" id="price">
     <div class="container">
@@ -1246,7 +1093,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
           </ul>
         </div>
       </div>
-      <p class="price-note">※ お支払いは、納品時に初期費用を<span class="nw">一括(銀行振込・現金)</span>、公開後は月額費用のみ。<br>※ 月1回を超える変更は<span class="nw">1回3,000円〜</span>。ページの追加や大きなリニューアルは、内容に応じて別途お見積りいたします。</p>
+      <p class="price-note">※ お支払いは、納品時に初期費用を<span class="nw">一括(銀行振込・現金)</span>、公開後は月額費用のみ。<br>※ 月1回を超える変更は<span class="nw">1回3,000円〜</span>。ページの追加や大きなリニューアルは、内容に応じて別途お見積りいたします。<br>※ 月額5,000円ほどの保守は、サーバーとドメインを維持するだけで更新の代行が付かないことが一般的です。当方は月1回の更新代行を含みます。</p>
       <div class="scope-grid">
         <div class="scope-card reveal">
           <h3>標準で対応できること(料金内)</h3>
@@ -1333,20 +1180,16 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
           <p>月額5,000円(税込)の保守費のみです。サーバー・ドメインの管理と、営業時間やメニューの変更といった軽微な修正(月1回まで)が含まれます。月1回を超える変更は1回3,000円〜、ページの追加や大きなリニューアルは別途お見積りです。</p>
         </details>
         <details class="reveal">
-          <summary>見せてもらったホームページを、断ってもいいのですか?</summary>
-          <p>もちろんです。叩き台の制作とご提案は無料で、正式にご依頼いただくまで費用は一切かかりません。お断りの場合は、おつくりした叩き台のデータも削除します。</p>
-        </details>
-        <details class="reveal">
-          <summary>途中でやめたら、ホームページはどうなりますか?</summary>
-          <p>いつでも解約でき、違約金はありません。サイトのデータは一式お渡しします。ドメインはお店の名義で取得するので、解約後もご自身や他の会社で同じアドレスのまま運用を続けられます。</p>
-        </details>
-        <details class="reveal">
           <summary>支払い方法を教えてください。</summary>
           <p>銀行振込または現金で、納品時に一括でお支払いいただきます。完成したホームページを実際にご確認いただいてからのお支払いなので、安心です。</p>
         </details>
         <details class="reveal">
           <summary>ネット予約やSNSとの連携はできますか?</summary>
           <p>すでにお使いの予約ページ(食べログ・ホットペッパー・LINEなど)へのリンク設置、Googleマップ、InstagramなどSNSへの導線づくりは標準で対応します。英語などの多言語ページは、内容に応じて別途ご相談ください。</p>
+        </details>
+        <details class="reveal">
+          <summary>制作事例のお店は、お客さんなのですか?</summary>
+          <p>いいえ。掲載しているものは、いずれもご契約前におつくりした叩き台です。まずこの状態までお作りしてお持ちする、というやり方をしているためで、お取引のあるお店という意味ではありません。</p>
         </details>
       </div>
     </div>
@@ -1362,7 +1205,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
         <div class="company-row"><dt>代表</dt><dd>丸藤 啓太</dd></div>
         <div class="company-row"><dt>拠点</dt><dd>茨城県</dd></div>
         <div class="company-row"><dt>事業内容</dt><dd>飲食店・小規模事業者向けホームページの制作・運用</dd></div>
-        <div class="company-row"><dt>連絡先</dt><dd><a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a><br><span class="nw">(24時間以内にお返事します)</span></dd></div>
+        <div class="company-row"><dt>連絡先</dt><dd>公式LINE、または <a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a><br><span class="nw">(24時間以内にお返事します)</span></dd></div>
         <div class="company-row"><dt>お支払い</dt><dd><span class="nw">銀行振込・現金</span><span class="nw">(納品時に一括)</span></dd></div>
       </dl>
     </div>
@@ -1373,16 +1216,16 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
     <div class="container">
       <h2>まずは、あなたのお店の<br>完成イメージを見てみませんか。</h2>
       <p>食べログやGoogleの情報をもとに、ホームページの叩き台を無料でおつくりします。続けるかどうかは、実物を見てから決めてください。しつこい営業はいたしません。</p>
-      <a href="mailto:creativeworks.plus@gmail.com" class="btn btn-primary">無料相談を申し込む</a>
-      <p class="cta-note">メールには24時間以内にお返事します。</p>
 
-      <div class="line-cta">
-        <div class="line-cta-divider"><span>または</span></div>
+      <div class="line-block">
         <div class="line-qr-card">
-          <img src="line/line-qr.png" alt="公式LINE 友だち追加QRコード" loading="lazy">
+          <img src="line/line-qr.png" alt="公式LINE 友だち追加QRコード" loading="lazy" width="116" height="116">
         </div>
-        <a href="https://lin.ee/nFu0bnO" class="btn btn-outline-gold" target="_blank" rel="noopener">公式LINEで相談する</a>
+        <a href="https://lin.ee/nFu0bnO" class="btn btn-line" target="_blank" rel="noopener">公式LINEで相談する</a>
+        <p class="cta-note">QRコードを読み取るか、ボタンから友だち追加してください。<br class="br-sp">そのままメッセージを送っていただけます。</p>
       </div>
+
+      <p class="cta-sub">メールでのご相談も承ります —— <a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a></p>
     </div>
   </section>
 
@@ -1416,8 +1259,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   /* 演出中はページのスクロールを止めている(overflow:hidden)。
      このとき縦スクロールバーが一時的に消える環境では、その幅ぶん表示領域が広がり、
      演出が終わってバーが戻った瞬間に中身が左へガクッとずれる。
-     消えるバーと同じ幅の余白を右に足しておき、解除と同時に外すことでズレを打ち消す。
-     (Macの重ねて表示されるバーなど、幅を取らない環境では0になるので何も起きない) */
+     消えるバーと同じ幅の余白を右に足しておき、解除と同時に外すことでズレを打ち消す。 */
   function scrollbarWidth() {
     const probe = document.createElement('div');
     probe.style.cssText =
@@ -1483,15 +1325,12 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   timers.push(setTimeout(finish, 4000));
 })();
 
-// スクロール出現演出(一度だけ)
+// ---------- スクロール出現演出(一度だけ) ----------
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (!reduced) {
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
@@ -1499,35 +1338,32 @@ if (!reduced) {
   document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
 }
 
-// ヒーローのビフォーアフター切り替え
-const btnBefore = document.getElementById('btn-before');
-const btnAfter = document.getElementById('btn-after');
-const panelBefore = document.getElementById('panel-before');
-const panelAfter = document.getElementById('panel-after');
-let userInteracted = false;
+// ---------- ヒーローの実物スクリーンショット切り替え ----------
+// 切り替えボタンは押されないことのほうが多いので、初回に一度だけ自動で送り、
+// 「これは切り替わるものだ」と気づいてもらう。触られたら自動送りは止める。
+(function () {
+  const btns = Array.from(document.querySelectorAll('.shot-switch button'));
+  const imgs = Array.from(document.querySelectorAll('#phone-screen img'));
+  if (!btns.length || !imgs.length) return;
+  let touched = false;
 
-function showPanel(which) {
-  const isAfter = which === 'after';
-  panelBefore.classList.toggle('active', !isAfter);
-  panelAfter.classList.toggle('active', isAfter);
-  btnBefore.setAttribute('aria-pressed', String(!isAfter));
-  btnAfter.setAttribute('aria-pressed', String(isAfter));
-}
-btnBefore.addEventListener('click', () => { userInteracted = true; showPanel('before'); });
-btnAfter.addEventListener('click', () => { userInteracted = true; showPanel('after'); });
+  function show(i) {
+    imgs.forEach((im, k) => im.classList.toggle('active', k === i));
+    btns.forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
+  }
+  btns.forEach((b, i) => b.addEventListener('click', () => { touched = true; show(i); }));
 
-// 初回表示時に一度だけ Before → After を自動で見せる(商談用の演出)
-if (!reduced) {
-  const heroIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        heroIO.disconnect();
-        setTimeout(() => { if (!userInteracted) showPanel('after'); }, 2600);
-      }
-    });
-  }, { threshold: 0.4 });
-  heroIO.observe(document.querySelector('.mock-stage'));
-}
+  if (!reduced) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        setTimeout(() => { if (!touched) show(1); }, 2600);
+      });
+    }, { threshold: 0.4 });
+    io.observe(document.getElementById('phone-screen'));
+  }
+})();
 </script>
 
 </body>
