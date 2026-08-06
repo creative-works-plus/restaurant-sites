@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>めん処 蔵屋 - 公式サイト｜古河市柳橋 手打ちそば・うどん・ラーメン</title>
+    <meta name="description" content="茨城県古河市柳橋、国道4号バイパス沿いの手打ち麺の店。そば・うどん・ラーメンを店の奥で粉から打っております。名物のそばラーメンは900円。昼11時から14時半まで、麺が無くなり次第終いです。お電話 0280-93-0059。">
+
+    <meta property="og:title" content="めん処 蔵屋｜古河市柳橋の手打ちそば・うどん・ラーメン">
+    <meta property="og:description" content="ラーメンのおつゆに、店で打ったそば。名物そばラーメン900円。昼だけの三時間半、麺が無くなるまで。">
+    <meta property="og:type" content="restaurant">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/mendokoro-kuraya/">
+    <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/mendokoro-kuraya/img/sobaramen.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
+    <meta name="theme-color" content="#E6DFD1">
+
+    <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho:wght@400;700&family=Kaisei+HarunoUmi:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- favicon：海鼠壁（なまこ壁）の菱格子。店名「蔵屋」の意匠をそのまま紋にした -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E6DFD1'/%3E%3Cg stroke='%238A5A32' stroke-width='2.1' fill='none' stroke-linejoin='round'%3E%3Cpath d='M16 4 28 16 16 28 4 16Z'/%3E%3Cpath d='M16 11.5 20.5 16 16 20.5 11.5 16Z'/%3E%3C/g%3E%3C/svg%3E">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "めん処 蔵屋",
+      "alternateName": "蔵屋",
+      "servesCuisine": ["Soba", "Udon", "Ramen", "Japanese"],
+      "priceRange": "￥800〜￥1,200",
+      "telephone": "+81-280-93-0059",
+      "paymentAccepted": "Cash",
+      "currenciesAccepted": "JPY",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/mendokoro-kuraya/",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/mendokoro-kuraya/img/sobaramen.jpg",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "11:00",
+          "closes": "14:30"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "柳橋582-6",
+        "addressLocality": "古河市",
+        "addressRegion": "茨城県",
+        "postalCode": "306-0203",
+        "addressCountry": "JP"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 36.178313,
+        "longitude": 139.777376
+      },
+      "hasMap": "https://maps.google.com/maps?q=茨城県古河市柳橋582-6",
+      "acceptsReservations": "False"
+    }
+    </script>
+
+    <style>
+    :root {
+        /* --- 面（背景）3段。打ち粉と漆喰の色 ---------------------------------- */
+        --bg:          #E6DFD1;   /* 石臼の打ち粉と漆喰のグレージュ */
+        --surface:     #F3EEE4;   /* お品書きの紙。カード・帯の面 */
+        --surface-2:   #DCD3C1;   /* 入れ子の面・短冊の地 */
+
+        /* --- 文字（--bg 上のコントラスト比を実測して決めた） -------------------- */
+        --ink:         #26221C;   /* 黒瓦の墨。11.9:1 */
+        --muted:       #5D564A;   /* 5.1:1 */
+        --dim:         #837A6B;   /* 3.3:1。★小さい文字には使わない */
+
+        /* --- 差し色＝焙じた蕎麦の実の色 ---------------------------------------- */
+        --accent:      #8A5A32;   /* 4.4:1。見出し・罫・帯・CTAの面。本文には使わない */
+        --accent-hi:   #A06B3E;
+        --accent-deep: #6B4526;
+        --accent-2:    #26364A;   /* 暖簾の紺。反転セクションの面・引用の罫 */
+
+        /* --- 罫線 -------------------------------------------------------------- */
+        --line:        rgba(38, 34, 28, 0.14);
+        --line-strong: rgba(38, 34, 28, 0.24);
+
+        /* --- 影（明るい地なのでアクセント色で薄く落とす） ----------------------- */
+        --shadow:      0 16px 40px rgba(107, 69, 38, 0.13);
+        --shadow-sm:   0 6px 18px rgba(107, 69, 38, 0.10);
+
+        /* --- 営業状況バッジ ----------------------------------------------------- */
+        --open:        #5C7F4E;
+        --closed:      #A8624F;
+
+        /* --- 書体（どちらも全25店で未使用。見出しも本文も明朝で通す） ----------- */
+        --font-head:   'Kaisei HarunoUmi', 'Hiragino Mincho ProN', serif;
+        --font-body:   'BIZ UDPMincho', 'Hiragino Mincho ProN', serif;
+
+        /* --- 余白のスケール（ブリーフ 7-a。素の px を書かない） ----------------- */
+        --sp-1: 4px;  --sp-2: 8px;   --sp-3: 16px;
+        --sp-4: 26px; --sp-5: 44px;  --sp-6: 72px;
+        --sec-y: clamp(60px, 9.5vw, 118px);
+        --blk-y: clamp(22px, 3.4vw, 38px);
+
+        /* --- タイポの階層比（ブリーフ 7-b） ------------------------------------- */
+        --fz-hero: clamp(34px, 8.4vw, 62px);
+        --fz-h2:   clamp(23px, 4.6vw, 34px);
+        --fz-h3:   clamp(19px, 3.3vw, 23px);
+        --fz-body: 17px;
+        --fz-cap:  13.5px;
+
+        /* --- 形・間 ------------------------------------------------------------- */
+        --radius:      8px;
+        --maxw:        1120px;
+        --gap:         clamp(16px, 4vw, 40px);
+        --pad-section: var(--sec-y);
+        --pad-inner:   clamp(20px, 5vw, 40px);
+
+        /* --- 署名：海鼠壁（なまこ壁）の菱格子 ----------------------------------- */
+        --komon-line:  rgba(38, 34, 28, 0.11);
+        --komon-size:  27px;
+    }
+
+    /* --- リセット ------------------------------------------------------------- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: var(--fz-body);
+        line-height: 1.95;
+        letter-spacing: 0.01em;
+        overflow-x: hidden;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+
+    /* --- 固定ヘッダーの高さ --------------------------------------------------- */
+    :root { --header-h: 74px; }
+    @media (max-width: 768px) { :root { --header-h: 64px; } }
+
+    body { padding-top: var(--header-h); }
+    .site-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: var(--header-h);
+    }
+    .header-inner { display: flex; align-items: center; height: 100%; }
+    .hero { min-height: calc(100svh - var(--header-h)); }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; }
+
+    /* --- 日本語の折り返し ----------------------------------------------------- */
+    h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption {
+        word-break: auto-phrase;
+        text-wrap: pretty;
+    }
+    .nw { display: inline-block; }
+    .br-sp { display: none; }
+    @media (max-width: 600px) {
+        .br-sp { display: inline; }
+        .br-pc { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    /* --- レイアウト ----------------------------------------------------------- */
+    .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .section   { padding-block: var(--pad-section); }
+
+    /* --- スクロール出現演出（220ms。ブリーフ 5） ------------------------------- */
+    .reveal {
+        opacity: 0; transform: translateY(12px);
+        transition: opacity 0.22s cubic-bezier(0.2, 0.7, 0.2, 1),
+                    transform 0.22s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .reveal.in-view       { opacity: 1; transform: none; }
+    .reveal-delay-1       { transition-delay: 0.06s; }
+    .reveal-delay-2       { transition-delay: 0.12s; }
+    .reveal-delay-3       { transition-delay: 0.18s; }
+    .no-js .reveal        { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* --- 写真枠 --------------------------------------------------------------- */
+    .photo-frame {
+        position: relative; overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        background: var(--surface-2);
+        aspect-ratio: 4 / 3;
+    }
+    .photo-frame.tate { aspect-ratio: 3 / 4; }
+    .photo-frame.yoko { aspect-ratio: 16 / 9; }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* --- 地図枠 --------------------------------------------------------------- */
+    .map-wrapper {
+        position: relative; width: 100%; aspect-ratio: 16 / 10;
+        border-radius: var(--radius); overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+    @media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+    @media (min-width: 900px) { .map-wrapper { aspect-ratio: 21 / 9; } }
+
+    /* --- 追従予約バー --------------------------------------------------------- */
+    .sticky-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+        display: none; gap: 1px; background: var(--line-strong);
+        transform: translateY(100%); transition: transform 0.3s ease;
+        box-shadow: 0 -10px 30px rgba(38, 34, 28, 0.20);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar a {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: var(--sp-2);
+        padding: var(--sp-3) 10px; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.03em;
+        min-height: 52px;
+    }
+    .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sticky-bar .bar-tel { background: var(--accent); color: #fff; }
+    .sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
+
+    /* --- お品書き内サブナビ（骨格側で高さ44pxを確定） -------------------------- */
+    .subnav a {
+        min-height: 44px;
+        display: inline-flex; align-items: center;
+        padding-inline: var(--sp-3);
+    }
+
+    /* --- 営業状況バッジ ------------------------------------------------------- */
+    .status-chip {
+        display: inline-flex; align-items: center; flex-wrap: wrap; gap: 3px 9px;
+        padding: 7px 16px; border-radius: 999px;
+        border: 1px solid var(--line-strong);
+        font-size: 0.84rem; letter-spacing: 0.04em; line-height: 1.5;
+    }
+    .status-chip .status-next { color: var(--muted); }
+    .status-chip::before {
+        content: ''; width: 7px; height: 7px; border-radius: 50%;
+        background: var(--dim); flex-shrink: 0;
+    }
+    .status-chip.is-open::before   { background: var(--open); }
+    .status-chip.is-closed::before { background: var(--closed); }
+    .status-chip.is-break::before  { background: var(--accent); }
+
+    /* --- モバイルナビの「閉じている状態」 ------------------------------------- */
+    .mobile-nav {
+        position: fixed; z-index: 200;
+        visibility: hidden; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    body.nav-open .mobile-nav {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+    .nav-toggle {
+        width: 44px; height: 44px;
+        flex: 0 0 44px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 5px; background: none; border: 0; cursor: pointer;
+    }
+    .nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+    body.nav-open { overflow: hidden; }
+
+    /* ========================================================================== */
+    @media (max-width: 620px) {
+        .sticky-bar { display: flex; }
+        body { padding-bottom: 68px; }
+    }
+    @media (min-width: 621px) {
+        .sticky-bar { display: none; }
+        body { padding-bottom: 0; }
+    }
+
+
+    /* ══════════════════════════════════════════════════════════════════
+       ここから下が、めん処 蔵屋 だけのCSS
+       署名的な仕掛け＝海鼠壁（なまこ壁）の菱格子。店名「蔵屋」の意匠そのもの
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* --- 署名：菱格子の地紋（写真ではなくCSSで組む。常時アニメーションさせない） */
+    .komon {
+        background-image:
+            repeating-linear-gradient( 45deg, transparent 0 calc(var(--komon-size) - 2px),
+                                       var(--komon-line) calc(var(--komon-size) - 2px) var(--komon-size)),
+            repeating-linear-gradient(-45deg, transparent 0 calc(var(--komon-size) - 2px),
+                                       var(--komon-line) calc(var(--komon-size) - 2px) var(--komon-size));
+    }
+
+    /* 見出しの左に置く小さな菱形 */
+    .section-title {
+        font-family: var(--font-head);
+        font-size: var(--fz-h2);
+        font-weight: 700;
+        line-height: 1.32;
+        letter-spacing: 0.06em;
+        display: flex; align-items: baseline; gap: 14px;
+        margin-bottom: var(--blk-y);
+    }
+    .section-title::before {
+        content: ''; flex: 0 0 11px; width: 11px; height: 11px;
+        border: 1.6px solid var(--accent);
+        transform: rotate(45deg);
+        translate: 0 -2px;
+    }
+    .section-lead {
+        max-width: 46em; color: var(--muted);
+        margin-bottom: var(--blk-y);
+    }
+    .yomi-en {
+        display: block; font-family: var(--font-body);
+        font-size: 0.66rem; letter-spacing: 0.34em; color: var(--accent);
+        margin-bottom: var(--sp-2); font-weight: 700;
+    }
+
+    /* --- ヘッダー ------------------------------------------------------------- */
+    .site-header {
+        background: rgba(230, 223, 209, 0.90);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+    }
+    .header-inner { gap: var(--sp-3); }
+    .brand {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: clamp(17px, 3.6vw, 21px); letter-spacing: 0.1em;
+        margin-right: auto;
+    }
+    .header-tel {
+        display: inline-flex; align-items: center; gap: 7px;
+        font-weight: 700; font-size: clamp(13px, 3vw, 15px);
+        letter-spacing: 0.02em; color: var(--accent-deep);
+        padding: 8px 12px; min-height: 44px;
+        border: 1px solid var(--line-strong); border-radius: 999px;
+        background: var(--surface);
+    }
+    .header-tel svg { width: 15px; height: 15px; }
+    .nav-toggle span {
+        display: block; width: 21px; height: 1.6px; background: var(--ink);
+        transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    body.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6.6px) rotate(45deg); }
+    body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+    body.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6.6px) rotate(-45deg); }
+    @media (min-width: 900px) { .nav-toggle { display: none; } }
+
+    /* --- モバイルナビ --------------------------------------------------------- */
+    .mobile-nav {
+        top: 0; right: 0; bottom: 0; width: min(84vw, 340px);
+        background: var(--accent-2);
+        color: #F3EEE4;
+        transform: translateX(100%);
+        padding: calc(var(--header-h) + var(--sp-4)) var(--sp-5) var(--sp-5);
+        display: flex; flex-direction: column; gap: var(--sp-1);
+        overflow-y: auto;
+    }
+    body.nav-open .mobile-nav { transform: translateX(0); }
+    .mobile-nav a {
+        font-family: var(--font-head); font-size: 1.06rem; letter-spacing: 0.08em;
+        padding: 13px 0; min-height: 44px; display: flex; align-items: center;
+        border-bottom: 1px solid rgba(243, 238, 228, 0.20);
+    }
+    .nav-close {
+        margin-top: var(--sp-4); color: rgba(243, 238, 228, 0.80);
+        font-family: var(--font-body); font-size: 0.9rem; text-align: left;
+    }
+    .nav-tel {
+        margin-top: var(--sp-4); border: 0 !important;
+        background: var(--surface); color: var(--accent-deep) !important;
+        border-radius: 999px; justify-content: center; font-weight: 700;
+    }
+
+    /* --- ヒーロー A-5改（文字主体／菱格子の地紋＋暖簾の帯） -------------------- */
+    .hero {
+        position: relative;
+        display: flex; align-items: center;
+        padding-block: var(--sp-6) var(--sp-5);
+        background-color: var(--bg);
+    }
+    .hero-grid {
+        display: grid; grid-template-columns: 1fr; gap: var(--sp-5);
+        align-items: center;
+    }
+    @media (min-width: 900px) {
+        /* 右の写真が小さいと、左カラムとの丈の差がそのまま死んだ余白になる（新楽飯店で発覚）。
+           右をやや広く取って、写真の高さを左の塊に近づける */
+        .hero-grid { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: var(--sp-6); }
+    }
+
+    /* 暖簾に見立てた帯（紺）。掛け棒つき */
+    .noren-plate {
+        position: relative;
+        background: var(--accent-2);
+        color: #F5F1E8;
+        padding: var(--sp-5) var(--sp-4) var(--sp-4);
+        border-radius: 3px;
+        box-shadow: var(--shadow);
+        --komon-line: rgba(245, 241, 232, 0.17);
+        --komon-size: 30px;
+        text-align: center;
+    }
+    .noren-plate::before {          /* 掛け棒 */
+        content: ''; position: absolute; left: -10px; right: -10px; top: -9px;
+        height: 7px; border-radius: 4px;
+        background: var(--accent-deep);
+    }
+    .hero-yago {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: var(--fz-hero); line-height: 1.22; letter-spacing: 0.14em;
+        margin-bottom: var(--sp-3);
+    }
+    .hero-yago small {
+        display: block; font-size: 0.28em; letter-spacing: 0.5em;
+        color: rgba(245, 241, 232, 0.72); margin-top: var(--sp-3); font-weight: 400;
+    }
+    .hero-kicker {
+        font-size: clamp(15px, 3.4vw, 18px); letter-spacing: 0.06em;
+        color: rgba(245, 241, 232, 0.92);
+        border-top: 1px solid rgba(245, 241, 232, 0.28);
+        padding-top: var(--sp-3);
+    }
+    .hero-copy { display: flex; flex-direction: column; gap: var(--sp-4); }
+    .hero-lead { color: var(--muted); max-width: 34em; }
+    .hero-note {
+        display: inline-flex; align-items: center; gap: var(--sp-2);
+        align-self: flex-start;
+        background: var(--surface); border: 1px solid var(--accent);
+        color: var(--accent-deep); font-weight: 700;
+        padding: 9px 16px; border-radius: 4px; font-size: 0.92rem;
+        letter-spacing: 0.03em;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+    .chips li {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: 999px; padding: 6px 14px;
+        font-size: 0.83rem; color: var(--muted); letter-spacing: 0.02em;
+    }
+    .chips li b { color: var(--ink); font-weight: 700; }
+
+    .hero-media { display: grid; gap: var(--sp-3); }
+    .hero-media figcaption {
+        font-size: var(--fz-cap); color: var(--muted); letter-spacing: 0.02em;
+        margin-top: var(--sp-2);
+    }
+
+    /* --- ボタン --------------------------------------------------------------- */
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+    .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+        min-height: 52px; padding: 13px 24px; border-radius: 4px;
+        font-weight: 700; letter-spacing: 0.04em; font-size: 0.98rem;
+        transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+    }
+    .btn svg { width: 17px; height: 17px; }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: var(--shadow-sm); }
+    .btn-primary:hover { background: var(--accent-hi); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
+    .btn-ghost:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .btn-block { width: 100%; }
+    @media (min-width: 700px) { .btn-block { max-width: 420px; margin-inline: auto; } }
+
+    /* --- 反転セクション（紺）＝店主の掲示 ------------------------------------- */
+    .invert {
+        background: var(--accent-2);
+        color: #F3EEE4;
+        --komon-line: rgba(243, 238, 228, 0.17);
+        --komon-size: 34px;
+    }
+    .invert .section-title::before { border-color: #D9BE99; }
+    .invert .section-lead { color: rgba(243, 238, 228, 0.86); }
+    .invert .yomi-en { color: #D9BE99; }
+    .kakejiku {
+        display: grid; grid-template-columns: 1fr; gap: var(--sp-5); align-items: center;
+    }
+    @media (min-width: 900px) {
+        .kakejiku { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--sp-6); }
+    }
+    .kakejiku-body p + p { margin-top: var(--sp-3); }
+    .kakejiku-quote {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: clamp(21px, 4.4vw, 30px); line-height: 1.5; letter-spacing: 0.05em;
+        color: #F5F1E8;
+        border-left: 3px solid #D9BE99; padding-left: var(--sp-4);
+        margin-bottom: var(--sp-4);
+    }
+    .kakejiku figcaption {
+        font-size: var(--fz-cap); color: rgba(243, 238, 228, 0.72); margin-top: var(--sp-2);
+    }
+
+    /* --- 名物（そばラーメン） ------------------------------------------------- */
+    .meibutsu-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); }
+    @media (min-width: 760px) {
+        .meibutsu-grid { grid-template-columns: repeat(3, 1fr); }
+        .meibutsu-grid figure:first-child { grid-column: span 3; }
+        .meibutsu-grid figure:first-child .photo-frame { aspect-ratio: 16 / 9; }
+    }
+    .meibutsu-grid figcaption {
+        font-size: var(--fz-cap); color: var(--muted); margin-top: var(--sp-2);
+    }
+    .price-tag {
+        display: inline-flex; align-items: baseline; gap: var(--sp-2);
+        font-family: var(--font-head); font-weight: 700;
+        font-size: clamp(26px, 5.6vw, 40px); letter-spacing: 0.04em;
+        color: var(--accent-deep);
+    }
+    .price-tag span { font-size: 0.42em; letter-spacing: 0.1em; color: var(--muted); }
+
+    /* --- 2枚並びの節 ----------------------------------------------------------
+       ★同じ組の2枚は必ず同じアスペクト比にする。片方だけ 3/4 にすると、
+         PCで一方の下に写真1枚ぶんの空白ができる（site-qa で実際に出た）。
+         縦位置の写真は object-position で主題を残したまま 4/3 に収める。 */
+    .pair {
+        display: grid; grid-template-columns: 1fr; gap: var(--sp-4);
+        align-items: start;
+    }
+    @media (min-width: 700px) { .pair { grid-template-columns: 1fr 1fr; gap: var(--sp-4); } }
+    .pair .photo-frame      { aspect-ratio: 4 / 3; }
+    .pair.wide .photo-frame { aspect-ratio: 16 / 9; }
+    .pair figcaption { font-size: var(--fz-cap); color: var(--muted); margin-top: var(--sp-2); }
+
+    /* 縦位置の写真を 4/3 に収めるときの見せどころ */
+    .op-tempura img { object-position: center 45%; }
+    .op-chashu  img { object-position: center 42%; }
+    .op-kanban  img { object-position: center 46%; }
+
+    /* --- 1枚だけ大きく見せる枠（写真が足りない節は枠を減らす） ----------------- */
+    .solo { max-width: 720px; }
+    .solo figcaption { font-size: var(--fz-cap); color: var(--muted); margin-top: var(--sp-2); }
+
+    .split { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); align-items: center; }
+    @media (min-width: 900px) { .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-6); } }
+    .split-body p + p { margin-top: var(--sp-3); }
+
+    /* --- 電話の使いどころ（3ペルソナとも「電話で何を聞けるか」が読めなかった） -- */
+    .tel-hint {
+        font-size: 0.9rem; color: var(--muted); letter-spacing: 0.02em;
+        margin-top: calc(var(--sp-3) * -1 + var(--sp-2));
+    }
+
+    /* --- 看板三品の短冊（B-3。節内の独立した行として立てる） ------------------- */
+    .tanzaku-row {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3);
+        max-width: 620px; margin-block: var(--blk-y);
+    }
+    .tanzaku {
+        background: var(--surface);
+        border: 1px solid var(--line-strong);
+        border-top: 4px solid var(--accent);
+        border-radius: 2px;
+        padding: var(--sp-4) var(--sp-2) var(--sp-3);
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+    .tanzaku:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .tanzaku .tz-name {
+        font-family: var(--font-head); font-weight: 700;
+        writing-mode: vertical-rl; text-orientation: upright;
+        font-size: clamp(17px, 3.8vw, 22px); letter-spacing: 0.22em;
+        line-height: 1.1; margin-inline: auto;
+        height: 7.6em;
+    }
+    .tanzaku .tz-price {
+        display: block; margin-top: var(--sp-3);
+        font-weight: 700; color: var(--accent-deep); letter-spacing: 0.03em;
+        font-size: 0.98rem;
+    }
+
+    /* --- お品書き（build_menu.py の共通クラスを、この店の見た目で飾る） -------- */
+    .oshinagaki { background: var(--surface); }
+    .oshinagaki [id] { scroll-margin-top: calc(var(--header-h) + 76px); }
+    /* build_menu.py が出す <section class="section"> は上下 --sec-y を持つため、
+       見出し→サブナビ→本文の間だけ他節の3倍空いてしまう。上だけ --blk-y に詰める。
+       （目印の外なので再生成しても消えない） */
+    .oshinagaki .section { padding-block: var(--blk-y) var(--sec-y); }
+    .subnav {
+        position: sticky; top: var(--header-h); z-index: 60;
+        background: rgba(243, 238, 228, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+    }
+    .subnav-inner {
+        width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+        display: flex; flex-wrap: wrap; gap: var(--sp-1); padding-block: var(--sp-1);
+    }
+    .subnav a {
+        font-size: 0.88rem; letter-spacing: 0.04em; color: var(--muted);
+        border-bottom: 2px solid transparent;
+    }
+    .subnav a:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
+    .lead-box {
+        background: var(--bg); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: var(--sp-4);
+        margin-bottom: var(--sp-5); color: var(--muted);
+    }
+    .lead-box strong, .lead-box span { color: var(--ink); font-weight: 700; }
+    .menu-block + .menu-block { margin-top: var(--sp-6); }
+    .menu-head {
+        display: flex; align-items: baseline; gap: var(--sp-3);
+        border-bottom: 1px solid var(--line-strong); padding-bottom: var(--sp-2);
+        margin-bottom: var(--sp-3);
+    }
+    .menu-head h2 {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: var(--fz-h3); letter-spacing: 0.1em; line-height: 1.32;
+    }
+    .menu-head .yomi {
+        font-size: 0.6rem; letter-spacing: 0.24em; color: var(--accent);
+        font-weight: 700;
+    }
+    .menu-note { color: var(--muted); font-size: 0.94rem; margin-bottom: var(--sp-3); }
+    .menu-grid { display: grid; grid-template-columns: 1fr; gap: 0 var(--sp-6); }
+    @media (min-width: 760px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
+    .menu-list li {
+        display: flex; align-items: baseline; gap: var(--sp-2);
+        padding: 9px 0; border-bottom: 1px dotted var(--line-strong);
+        line-height: 1.6;
+    }
+    .menu-list .name { flex: 0 1 auto; }
+    .menu-list .name .desc {
+        display: block; font-size: 0.82rem; color: var(--accent-deep); letter-spacing: 0.02em;
+    }
+    .menu-list .dots { flex: 1 1 auto; min-width: 12px; }
+    .menu-list .price {
+        flex: 0 0 auto; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap;
+    }
+    .menu-list .price small { display: block; font-weight: 400; color: var(--muted); font-size: 0.78rem; }
+
+    /* --- お客様の声 ----------------------------------------------------------- */
+    .voice-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); align-items: start; }
+    @media (min-width: 760px) { .voice-grid { grid-template-columns: repeat(3, 1fr); } }
+    .voice {
+        background: var(--surface); border: 1px solid var(--line);
+        border-left: 3px solid var(--accent-2);
+        border-radius: var(--radius); padding: var(--sp-4);
+    }
+    .voice p { font-size: 0.96rem; }
+    .voice cite {
+        display: block; margin-top: var(--sp-3);
+        font-style: normal; font-size: var(--fz-cap); color: var(--muted); letter-spacing: 0.04em;
+    }
+
+    /* --- 目印の図（署名の仕掛けを道案内に使う） -------------------------------- */
+    .mejirushi {
+        display: grid; grid-template-columns: 1fr; gap: var(--sp-4);
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: var(--sp-4);
+        margin-bottom: var(--blk-y);
+        align-items: center;
+    }
+    @media (min-width: 700px) { .mejirushi { grid-template-columns: 210px 1fr; gap: var(--sp-5); } }
+    .mejirushi-fig {
+        border: 1px solid var(--line-strong); border-radius: 4px;
+        background: #FBF8F2; padding: var(--sp-3); text-align: center;
+    }
+    .mejirushi-wall {
+        height: 96px; border-radius: 0 0 2px 2px;
+        border: 1px solid var(--line-strong); border-top: 0;
+        background-color: #FBF8F2;
+        --komon-line: rgba(38, 34, 28, 0.32);
+        --komon-size: 20px;
+    }
+    /* 切妻屋根。壁より少し張り出させて軒に見せる（幅は%なので画面幅に追従する） */
+    .mejirushi-roof {
+        height: 38px; width: 114%; margin: 0 -7% -1px;
+        background: var(--ink);
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    }
+    .mejirushi-road {
+        margin-top: var(--sp-3); height: 15px; border-radius: 2px;
+        background: var(--surface-2);
+        display: flex; align-items: center; justify-content: center; gap: 7px;
+    }
+    .mejirushi-road i { display: block; width: 15px; height: 2px; background: var(--dim); }
+    .mejirushi-cap { font-size: var(--fz-cap); color: var(--muted); margin-top: var(--sp-2); }
+    .mejirushi-body p + p { margin-top: var(--sp-3); }
+
+    /* --- 店舗情報の表 --------------------------------------------------------- */
+    .info-table { width: 100%; margin-bottom: var(--blk-y); }
+    .info-table th, .info-table td {
+        text-align: left; padding: 13px var(--sp-3);
+        border-bottom: 1px solid var(--line); vertical-align: top;
+        font-size: 0.96rem;
+    }
+    .info-table th {
+        width: 8.5em; white-space: nowrap; color: var(--muted); font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+    .tel-link { font-weight: 700; color: var(--accent-deep); letter-spacing: 0.04em; }
+
+    /* --- お席のグリッド（C-1・3枚＝3列で割り切れる） --------------------------- */
+    .grid3 { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); }
+    @media (min-width: 700px) { .grid3 { grid-template-columns: repeat(3, 1fr); } }
+    .grid3 figcaption { font-size: var(--fz-cap); color: var(--muted); margin-top: var(--sp-2); }
+
+    /* --- フッター（紺は「暖簾」と「店主の掲示」だけに残し、ここは墨にする） ----- */
+    .site-footer {
+        background: var(--ink); color: rgba(243, 238, 228, 0.86);
+        padding-block: var(--sp-5);
+        --komon-line: rgba(243, 238, 228, 0.08);
+        --komon-size: 30px;
+        text-align: center;
+    }
+    .footer-tel { color: #E4CBA8; font-weight: 700; letter-spacing: 0.04em; }
+    .footer-name {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: 1.24rem; letter-spacing: 0.16em; color: #F5F1E8;
+        margin-bottom: var(--sp-2);
+    }
+    .footer-addr { font-size: 0.9rem; }
+    .footer-copy { font-size: var(--fz-cap); margin-top: var(--sp-3); color: rgba(243, 238, 228, 0.6); }
+    </style>
+</head>
+<body class="no-js">
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="#hero" class="brand">めん処 蔵屋</a>
+
+        <a href="tel:0280930059" class="header-tel" aria-label="お電話でお問い合わせ 0280-93-0059">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+            <span class="tel-label">0280-93-0059</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<nav class="mobile-nav komon" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="#kakejiku" data-nav-link>そばとうどんのこと</a>
+    <a href="#sobaramen" data-nav-link>そばラーメン</a>
+    <a href="#uchitate" data-nav-link>粉から、その都度</a>
+    <a href="#soba-udon" data-nav-link>そばと、うどん</a>
+    <a href="#ramen" data-nav-link>ラーメン</a>
+    <a href="#tempura" data-nav-link>天ぷらと、一品</a>
+    <a href="#menu" data-nav-link>お品書き</a>
+    <a href="#seki" data-nav-link>お席</a>
+    <a href="#info" data-nav-link>アクセス・店舗情報</a>
+    <a href="tel:0280930059" class="nav-tel" data-nav-link>お電話する　0280-93-0059</a>
+    <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ヒーロー ＝ A-5改（文字主体）。海鼠壁の菱格子を地紋に、暖簾に見立てた帯を掛ける
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="hero komon" id="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-copy">
+                <div class="noren-plate komon">
+                    <h1 class="hero-yago">めん処 蔵屋<small>MENDOKORO KURAYA</small></h1>
+                    <p class="hero-kicker">ラーメンの汁に、打ちたてのそば。</p>
+                </div>
+
+                <span class="status-chip" id="status-chip"><span class="status-text">11:00〜14:30（日・月定休）</span><span class="status-next nw"></span></span>
+
+                <p class="hero-lead">そば・うどん・ラーメン、いずれの麺も店の奥で粉から打っております。名物のそばラーメンは900円。昼だけの三時間半、麺が無くなるまでお出ししております。</p>
+
+                <p class="hero-note">麺が無くなり次第、その日は終いとさせていただきます</p>
+
+                <ul class="chips">
+                    <li><b>古河市柳橋</b>／国道4号バイパス沿い</li>
+                    <li><b>11:00〜14:30</b>／火〜土</li>
+                    <li>日曜・月曜 <b>定休</b></li>
+                    <li><b>小上がりのお座敷</b>あり</li>
+                    <li>打ちたて／<span class="nw">お時間をいただきます</span></li>
+                    <li>お支払いは <b>現金のみ</b></li>
+                    <li>ご予約は承っておりません</li>
+                    <li>駐車場あり</li>
+                </ul>
+
+                <div class="hero-actions">
+                    <a href="tel:0280930059" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                        0280-93-0059｜お電話する
+                    </a>
+                    <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+                </div>
+                <p class="tel-hint">麺の残り・お席の空き具合は、<span class="nw">お電話でお確かめください。</span></p>
+            </div>
+
+            <figure class="hero-media">
+                <div class="photo-frame">
+                    <img src="img/hero-kabe.jpg" alt="白い漆喰と菱形の格子模様の腰壁に、めん処蔵屋の看板を掲げた平屋の外観"
+                         width="1018" height="764" loading="eager" fetchpriority="high" decoding="async">
+                </div>
+                <figcaption>国道4号バイパス沿い。白い菱格子の壁が目印でございます。</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     D-2 物語先行 ＝ 店主が壁に掲げている一枚から始める（紺の反転セクション）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section invert komon" id="kakejiku">
+    <div class="container">
+        <span class="yomi-en">O U R   P R O M I S E</span>
+        <h2 class="section-title">そばとうどんのこと</h2>
+
+        <div class="kakejiku">
+            <div class="kakejiku-body">
+                <p class="kakejiku-quote">増量材も、防腐剤も、<br>一切使っておりません。</p>
+                <p>そばとうどんには、増量材も防腐剤も使っておりません。おつゆもかつお節だけで、昔ながらのやり方でこしらえております。</p>
+                <p>お子さまにも安心してお召し上がりいただけるものを、と思ってやってまいりました。店内にも同じことを書いて掲げております。</p>
+            </div>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/haritsuke.jpg" alt="店内の壁に貼られた手書きの紙。そば・うどんは増量材・防腐剤を一切使用しておりません、おつゆもかつお節だけで作っています、と書かれている"
+                         width="1100" height="825" loading="lazy" decoding="async">
+                </div>
+                <figcaption>店内の壁に掲げております。</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     名物1点先行 ＝ そばラーメン
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="sobaramen">
+    <div class="container">
+        <span class="yomi-en">S O B A   R A M E N</span>
+        <h2 class="section-title">そばラーメン</h2>
+
+        <div class="split" style="margin-bottom: var(--blk-y);">
+            <div class="split-body">
+                <p class="price-tag">900<span>円</span></p>
+                <p>ラーメンのおつゆに、店で打ったそばを入れた一杯でございます。麺は中華麺ではなく、そのままのそば。</p>
+                <p>太さの揃わない手打ちのそばが、和風のおつゆをよく持ち上げます。当店のお品書きにも「是非一度どうぞ」と添えております。</p>
+            </div>
+            <figure class="reveal">
+                <div class="photo-frame">
+                    <img src="img/sobaramen.jpg" alt="そばラーメン。醤油色のスープにそばの麺が沈み、チャーシュー2枚とメンマ、白ねぎがのっている"
+                         width="705" height="540" loading="lazy" decoding="async">
+                </div>
+                <figcaption>そばラーメン 900円</figcaption>
+            </figure>
+        </div>
+
+        <div class="tanzaku-row reveal">
+            <div class="tanzaku">
+                <span class="tz-name">そばラーメン</span>
+                <span class="tz-price">900円</span>
+            </div>
+            <div class="tanzaku">
+                <span class="tz-name">もりそば</span>
+                <span class="tz-price">850円</span>
+            </div>
+            <div class="tanzaku">
+                <span class="tz-name">ラーメン</span>
+                <span class="tz-price">800円</span>
+            </div>
+        </div>
+
+        <div class="pair wide reveal">
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/sobaramen-lift.jpg" alt="箸で持ち上げたそばの麺。太さが不揃いで、スープをまとっている"
+                         width="754" height="565" loading="lazy" decoding="async">
+                </div>
+                <figcaption>麺はそのままのそばでございます。</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/sobaramen-ue.jpg" alt="木のテーブルに置かれたそばラーメンを真上から見たところ。丼の縁に赤い模様がある"
+                         width="1000" height="562" loading="lazy" decoding="async">
+                </div>
+                <figcaption>おつゆは和風に仕立てております。</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     手打ちの仕事
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="uchitate" style="background: var(--surface);">
+    <div class="container">
+        <span class="yomi-en">T E U C H I</span>
+        <h2 class="section-title">粉から、その都度。</h2>
+
+        <p class="section-lead">そば・うどん・ラーメン、いずれの麺も店の製麺室で打っております。そばは二八、粉からその都度こしらえて、ご注文をいただいてから茹でてお出しします。<br>
+        そのぶんお時間をいただきます。打ちたてをお召し上がりいただきたく、<span class="nw">どうぞ</span>お待ちくださいませ。製麺室は入口のそばにございます。</p>
+
+        <div class="pair wide reveal">
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/seimen.jpg" alt="製麺室の作業台。打ち粉をふった台の上に麺棒と麺板、切り出したそばが置かれている"
+                         width="1024" height="576" loading="lazy" decoding="async">
+                </div>
+                <figcaption>店の奥の製麺室。</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/noren.jpg" alt="入口に掛かる紺の暖簾。白抜きで「味自慢 うどん そば」と染め抜かれている"
+                         width="1024" height="576" loading="lazy" decoding="async">
+                </div>
+                <figcaption>入口の暖簾。</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     そばと、うどん
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="soba-udon">
+    <div class="container">
+        <span class="yomi-en">S O B A ・ U D O N</span>
+        <h2 class="section-title">そばと、うどん</h2>
+        <p class="section-lead">もりそばは850円、天ぷらそばは1,200円でございます。そばとうどんはどちらも同じお値段でお作りします。大盛りは150円増し、合盛りは950円で承ります。</p>
+
+        <figure class="solo reveal">
+            <div class="photo-frame">
+                <img src="img/morisoba.jpg" alt="お盆にのせたもりそば。せいろに盛った手打ちそばと、つゆの入った器、刻みねぎとわさびの小鉢、赤い急須"
+                     width="720" height="540" loading="lazy" decoding="async">
+            </div>
+            <figcaption>もりそば 850円</figcaption>
+        </figure>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ラーメン
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="ramen" style="background: var(--surface);">
+    <div class="container">
+        <span class="yomi-en">R A M E N</span>
+        <h2 class="section-title">ラーメン</h2>
+        <p class="section-lead">手打ちの和風ラーメンでございます。ラーメンは800円、チャーシューを重ねたチャーシューメンは1,000円で承ります。</p>
+
+        <div class="pair reveal">
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/ramen.jpg" alt="ラーメン。醤油色のスープに縮れた中華麺、チャーシューとねぎがのっている"
+                         width="738" height="554" loading="lazy" decoding="async">
+                </div>
+                <figcaption>ラーメン 800円</figcaption>
+            </figure>
+            <figure class="op-chashu">
+                <div class="photo-frame">
+                    <img src="img/chashu.jpg" alt="厚みのあるチャーシュー2枚を箸で持ち上げたところ。下にメンマと麺が見える"
+                         width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+                <figcaption>チャーシューメン 1,000円</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     天ぷらと、一品
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="tempura">
+    <div class="container">
+        <span class="yomi-en">I P P I N</span>
+        <h2 class="section-title">天ぷらと、一品</h2>
+        <p class="section-lead">天ぷら盛合わせは一人前900円。ほかにもつ煮、つまみチャーシューを各500円でご用意しております。ビール大瓶と日本酒もございます。</p>
+
+        <div class="pair reveal">
+            <figure class="op-tempura">
+                <div class="photo-frame">
+                    <img src="img/tempura.jpg" alt="絵付けの皿に盛った野菜の天ぷら。かぼちゃ、さつまいも、ちくわなど数種"
+                         width="576" height="1024" loading="lazy" decoding="async">
+                </div>
+                <figcaption>天ぷら盛合わせ（一人前）900円</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/nasu-tempura.jpg" alt="紙を敷いた白い皿にのせた、切れ目を入れて揚げたなすの天ぷら"
+                         width="921" height="691" loading="lazy" decoding="async">
+                </div>
+                <figcaption>揚げたてをお出しします。</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お品書き（B-1）。ここから下は build_menu.py が index.json から生成する
+     ══════════════════════════════════════════════════════════════════════ -->
+<div class="oshinagaki" id="menu">
+    <div class="container" style="padding-top: var(--sec-y);">
+        <span class="yomi-en">O S H I N A G A K I</span>
+        <h2 class="section-title">お品書き</h2>
+    </div>
+
+<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#oshina-soba">そば・うどん</a>
+        <a href="#oshina-ramen">ラーメン</a>
+        <a href="#oshina-ippin">一品・お飲物</a>
+        <a href="#oshina-mochikaeri">お持ち帰り</a>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+
+        <div class="lead-box reveal">こちらのお値段は、店内に掲げているお品書きのとおりでございます。<br>そば・うどんは大盛りを150円増しで承ります。<span>お支払いは現金のみ</span>でお願いしております。</div>
+
+        <div class="menu-block reveal" id="oshina-soba">
+            <div class="menu-head"><h2>そば・うどん</h2><span class="yomi">S O B A ・ U D O N</span></div>
+            <p class="menu-note">そばとうどん、どちらでも同じお値段でお作りします。大盛りは150円増しでございます。</p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">もりそば／うどん</span><span class="dots"></span><span class="price">850円</span></li>
+                    <li><span class="name">かけそば／うどん</span><span class="dots"></span><span class="price">850円</span></li>
+                    <li><span class="name">ざるそば／うどん</span><span class="dots"></span><span class="price">900円</span></li>
+                    <li><span class="name">たぬきそば／うどん</span><span class="dots"></span><span class="price">900円</span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">天ぷらそば／うどん</span><span class="dots"></span><span class="price">1,200円</span></li>
+                    <li><span class="name">けんちんそば／うどん</span><span class="dots"></span><span class="price">1,200円</span></li>
+                    <li><span class="name">合盛り</span><span class="dots"></span><span class="price">950円</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="oshina-ramen">
+            <div class="menu-head"><h2>ラーメン</h2><span class="yomi">R A M E N</span></div>
+            <p class="menu-note">そばラーメンには、店で打ったそばを入れております。ラーメンとチャーシューメンは中華麺でお作りします。</p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">そばラーメン<span class="desc">是非一度どうぞ</span></span><span class="dots"></span><span class="price">900円</span></li>
+                    <li><span class="name">ラーメン</span><span class="dots"></span><span class="price">800円</span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">チャーシューメン</span><span class="dots"></span><span class="price">1,000円</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="oshina-ippin">
+            <div class="menu-head"><h2>一品料理・お飲物</h2><span class="yomi">I P P I N ・ D R I N K</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">天ぷら盛合わせ<span class="desc">一人前</span></span><span class="dots"></span><span class="price">900円</span></li>
+                    <li><span class="name">もつ煮</span><span class="dots"></span><span class="price">500円</span></li>
+                    <li><span class="name">つまみチャーシュー</span><span class="dots"></span><span class="price">500円</span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">ビール大瓶</span><span class="dots"></span><span class="price">700円</span></li>
+                    <li><span class="name">日本酒</span><span class="dots"></span><span class="price">500円</span></li>
+                    <li><span class="name">コーラ</span><span class="dots"></span><span class="price">300円</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="oshina-mochikaeri">
+            <div class="menu-head"><h2>お持ち帰り</h2><span class="yomi">T A K E   O U T</span></div>
+            <p class="menu-note">打った麺をそのままお持ち帰りいただけます。つゆは別売りで承ります。</p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">ゆでそば・うどん</span><span class="dots"></span><span class="price">750円</span></li>
+                    <li><span class="name">生そば・うどん</span><span class="dots"></span><span class="price">600円</span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">つゆ<span class="desc">別売り</span></span><span class="dots"></span><span class="price">100円</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- menu:auto:end -->
+
+    <div class="container" style="padding-bottom: var(--sec-y);">
+        <div class="pair reveal">
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/oshinagaki.jpg" alt="店内のお品書き。そば・うどんとラーメンの品名と価格が縦書きで並んでいる"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <figcaption>店内のお品書き（そば・うどん／ラーメン）</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/oshinagaki-ura.jpg" alt="お品書きの裏面。一品料理、お飲物、お持ち帰りの品名と価格が縦書きで並んでいる"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <figcaption>お品書き（一品料理／お飲物／お持ち帰り）</figcaption>
+            </figure>
+        </div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お席（C-1 グリッド3枚）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="seki">
+    <div class="container">
+        <span class="yomi-en">S E A T S</span>
+        <h2 class="section-title">お席</h2>
+        <p class="section-lead">全部で20席、カウンターとテーブル、小上がりのお座敷をご用意しております。全席禁煙です。おひとりさまも、どうぞお気軽に<span class="nw">お立ち寄り</span>くださいませ。</p>
+
+        <div class="grid3 reveal">
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/counter.jpg" alt="窓に沿って伸びる白いカウンター席。木の椅子が並び、卓上に調味料と楊枝入れが置かれている"
+                         width="1000" height="562" loading="lazy" decoding="async">
+                </div>
+                <figcaption>カウンター席</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/zashiki.jpg" alt="一段上がった小上がりの座敷。木の座卓が2つ並び、臙脂の座布団が敷いてある"
+                         width="1000" height="562" loading="lazy" decoding="async">
+                </div>
+                <figcaption>一段上がった小上がりのお座敷</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/iriguchi.jpg" alt="店内から見た入口の引き戸。左手にカウンター、右手に小上がりの座敷が見える"
+                         width="1000" height="750" loading="lazy" decoding="async">
+                </div>
+                <figcaption>入口から店内へ</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お客様の声
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="voice" style="background: var(--surface);">
+    <div class="container">
+        <span class="yomi-en">V O I C E</span>
+        <h2 class="section-title">お客様の声</h2>
+
+        <div class="voice-grid reveal">
+            <blockquote class="voice">
+                <p>「安いです。しかしきちんと手打ちです。店主さん、かなり頑張っていらっしゃいます。とても心の温まるお蕎麦屋さんでした。」</p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice">
+                <p>「そばラーメンがあると聞き来店、想像以上に美味しく、また食べたくなる味でした。一度食べてみる価値ありのラーメンです。」</p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice">
+                <p>「そばラーメンなる物を頂きました。蕎麦好きには、たまらない一品でした。次回は、もりそばを食べたいです。」</p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     アクセス・店舗情報（署名の菱格子を、そのまま道案内に使う）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="info">
+    <div class="container">
+        <span class="yomi-en">A C C E S S</span>
+        <h2 class="section-title">アクセス・店舗情報</h2>
+
+        <div class="mejirushi reveal">
+            <div class="mejirushi-fig" aria-hidden="true">
+                <div class="mejirushi-roof"></div>
+                <div class="mejirushi-wall komon"></div>
+                <div class="mejirushi-road"><i></i><i></i><i></i></div>
+                <p class="mejirushi-cap">白い菱格子の壁 ／ 国道4号バイパス</p>
+            </div>
+            <div class="mejirushi-body">
+                <p>国道4号バイパス沿いでございます。小さな平屋ですので、走っていると通り過ぎてしまうことがあるかもしれません。</p>
+                <p><strong>白い菱形の格子模様の壁と、紺の暖簾</strong>を目印になさってください。お車は店の前にお停めいただけます。</p>
+            </div>
+        </div>
+
+        <div class="pair reveal" style="margin-bottom: var(--blk-y);">
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/gaikan-michi.jpg" alt="道路から見た店の外観。白い壁の平屋に、めん処蔵屋とそばうどんの看板が掛かっている"
+                         width="1300" height="975" loading="lazy" decoding="async">
+                </div>
+                <figcaption>道路から見たところ</figcaption>
+            </figure>
+            <figure class="op-kanban">
+                <div class="photo-frame">
+                    <img src="img/kanban.jpg" alt="入口横の看板。めん処蔵屋と書かれた白い看板と、紺の暖簾、木のベンチ"
+                         width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+                <figcaption>入口の看板と暖簾</figcaption>
+            </figure>
+        </div>
+
+        <table class="info-table reveal">
+            <tr><th>店名</th><td>めん処 蔵屋（めんどころ くらや）</td></tr>
+            <tr><th>住所</th><td>〒306-0203 茨城県古河市柳橋582-6</td></tr>
+            <tr><th>電話</th><td><a href="tel:0280930059" class="tel-link">0280-93-0059</a></td></tr>
+            <tr><th>営業時間</th><td>火曜日〜土曜日　11:00〜14:30<br>※麺が無くなり次第、終いとさせていただきます</td></tr>
+            <tr><th>定休日</th><td>日曜日・月曜日</td></tr>
+            <tr><th>お席</th><td>20席（カウンター・テーブル・小上がりのお座敷）／全席禁煙</td></tr>
+            <tr><th>駐車場</th><td>あり</td></tr>
+            <tr><th>お支払い</th><td>現金のみ</td></tr>
+            <tr><th>ご予約</th><td>承っておりません。空いているお席へどうぞ</td></tr>
+        </table>
+
+        <div class="map-wrapper reveal">
+            <iframe
+                src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9F%B3%E6%A9%8B582-6&z=16&output=embed"
+                allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="めん処 蔵屋 の地図"></iframe>
+        </div>
+
+        <div class="hero-actions" style="margin-top: var(--sp-4);">
+            <a href="tel:0280930059" class="btn btn-primary btn-block">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                お電話する　0280-93-0059
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<footer class="site-footer komon">
+    <div class="container">
+        <p class="footer-name">めん処 蔵屋</p>
+        <p class="footer-addr">〒306-0203 茨城県古河市柳橋582-6／<a href="tel:0280930059" class="nw footer-tel">0280-93-0059</a></p>
+        <p class="footer-copy">&copy; めん処 蔵屋</p>
+    </div>
+</footer>
+
+
+<div class="sticky-bar" id="sticky-bar">
+    <a href="#info" class="bar-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス・地図
+    </a>
+    <a href="tel:0280930059" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        お電話する
+    </a>
+</div>
+
+
+<script>
+document.body.classList.remove('no-js');
+
+
+/* --------------------------------------------------------------------------
+   1. ヘッダー縮小・追従バーの表示切り替え
+   -------------------------------------------------------------------------- */
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+        stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
+    }
+}, { passive: true });
+
+
+/* --------------------------------------------------------------------------
+   2. モバイルナビ開閉（閉じ方4通り）
+   -------------------------------------------------------------------------- */
+var navToggle = document.getElementById('nav-toggle');
+var navPanel = document.getElementById('mobile-nav');
+function closeNav() {
+    document.body.classList.remove('nav-open');
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'メニューを開く');
+    }
+}
+if (navToggle) {
+    navToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+}
+document.querySelectorAll('[data-nav-link]').forEach(function (a) {
+    a.addEventListener('click', closeNav);
+});
+var navClose = document.getElementById('nav-close');
+if (navClose) {
+    navClose.addEventListener('click', function () {
+        closeNav();
+        if (navToggle) navToggle.focus();
+    });
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (navPanel && navPanel.contains(e.target)) return;
+    if (navToggle && navToggle.contains(e.target)) return;
+    closeNav();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+});
+
+
+/* --------------------------------------------------------------------------
+   3. スクロール出現演出
+   -------------------------------------------------------------------------- */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+
+
+/* --------------------------------------------------------------------------
+   4. 営業状況バッジ（★この店は「次はいつ開くか」まで出す）
+
+   昼だけの三時間半・日月定休なので、**訪問者の大半は閉店している時間帯に見る**。
+   共通の 06-script.js は「本日の営業は終了しました」で止まるが、それだと
+   「じゃあ、いつ行けばいいのか」が分からないまま画面を閉じられてしまう。
+   次に開く曜日と開店時刻まで計算して出す。
+   （さかさ食堂と同じ考え方。共通パーツ側にも反映すべき改善なので引き継ぎメモに残した）
+   -------------------------------------------------------------------------- */
+var LUNCH = { open: 11 * 60, close: 14 * 60 + 30, label: '11:00〜14:30' };
+var BUSINESS = {
+    /* 0=日 1=月 2=火 3=水 4=木 5=金 6=土 */
+    shiftsByDay: {
+        0: [], 1: [],
+        2: [LUNCH], 3: [LUNCH], 4: [LUNCH], 5: [LUNCH], 6: [LUNCH]
+    },
+    closedText: '本日は定休日です'
+};
+var DAY_JA = ['日', '月', '火', '水', '木', '金', '土'];
+
+function shiftsForDay(day) {
+    return BUSINESS.shiftsByDay[day] || [];
+}
+
+/* 次に開く時刻を探す。今日の残りシフト → 明日以降7日ぶんを見る */
+function nextOpening(day, minutes) {
+    var rest = shiftsForDay(day).filter(function (s) { return minutes < s.open; });
+    if (rest.length) return { when: '本日', shift: rest[0] };
+    for (var i = 1; i <= 7; i++) {
+        var d = (day + i) % 7;
+        var sh = shiftsForDay(d);
+        if (sh.length) {
+            return { when: (i === 1 ? '明日' : DAY_JA[d] + '曜'), shift: sh[0] };
+        }
+    }
+    return null;
+}
+
+function updateStatus() {
+    var el = document.getElementById('status-chip');
+    if (!el) return;
+    var now = new Date();
+    var day = now.getDay();
+    var minutes = now.getHours() * 60 + now.getMinutes();
+    var shifts = shiftsForDay(day);
+    var cls = '', text = '';
+
+    var inShift = null;
+    for (var i = 0; i < shifts.length; i++) {
+        if (minutes >= shifts[i].open && minutes < shifts[i].close) { inShift = shifts[i]; break; }
+    }
+
+    /* ★2つに分けて出す。「次は 明日 11:00 から」を1かたまり（.nw）にしないと、
+       390px で「から」だけが2行目に落ちてピルの形が崩れる（デザインレビュー指摘） */
+    var next = '';
+    if (inShift) {
+        cls = 'is-open';
+        text = 'ただいま営業中　' + inShift.label;
+        next = '麺が無くなり次第 終い';
+    } else {
+        var nx = nextOpening(day, minutes);
+        if (nx && nx.when === '本日') {
+            cls = '';
+            text = '本日 ' + nx.shift.label + ' に開けます';
+        } else {
+            cls = 'is-closed';
+            text = shifts.length ? '本日の営業は終了しました' : (BUSINESS.closedText || '本日は定休日です');
+            if (nx) next = '次は ' + nx.when + ' ' + nx.shift.label.split('〜')[0] + ' から';
+        }
+    }
+    el.className = 'status-chip' + (cls ? ' ' + cls : '');
+    el.querySelector('.status-text').textContent = text;
+    var nextEl = el.querySelector('.status-next');
+    if (nextEl) {
+        nextEl.textContent = next ? '▸ ' + next : '';
+        nextEl.style.display = next ? '' : 'none';
+    }
+}
+updateStatus();
+setInterval(updateStatus, 60000);
+</script>
+</body>
+</html>
