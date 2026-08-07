@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 社内用。検索エンジンに出さない -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#12312a">
+<title>商談前チェックリスト｜creative works+</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231c4a3e'/%3E%3Cpath d='M18 33l9 9 19-21' fill='none' stroke='%23d9a13b' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    background: #0f1113; color: #e9e7e2;
+    font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    line-height: 1.6; padding: 20px 16px 64px;
+  }
+  .wrap { max-width: 560px; margin-inline: auto; }
+
+  h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: .04em; }
+  .lead { font-size: .8rem; color: #8e938f; margin-top: 6px; line-height: 1.8; }
+  .warn {
+    background: #2a1c1a; border: 1px solid #6b3b33; color: #f0c9c2;
+    border-radius: 8px; padding: 11px 13px; font-size: .78rem;
+    line-height: 1.75; margin: 14px 0 4px;
+  }
+  .back {
+    display: inline-block; margin-top: 16px; font-size: .78rem;
+    color: #8e938f; text-decoration: none; border-bottom: 1px solid #2c3034;
+  }
+
+  /* ---- 進み具合 ---- */
+  .bar {
+    position: sticky; top: 0; z-index: 10; margin: 18px -16px 0; padding: 10px 16px;
+    background: rgba(15,17,19,.94); backdrop-filter: blur(8px);
+    border-bottom: 1px solid #24282b;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .bar .track { flex: 1; height: 5px; border-radius: 3px; background: #24282b; overflow: hidden; }
+  .bar .fill { height: 100%; width: 0; background: #d9a13b; transition: width .2s; }
+  .bar .num { font-size: .74rem; color: #8e938f; font-variant-numeric: tabular-nums; }
+  .bar button {
+    border: 1px solid #3c4146; background: transparent; color: #8e938f;
+    font-family: inherit; font-size: .72rem; border-radius: 6px;
+    padding: 6px 9px; cursor: pointer;
+  }
+
+  /* ---- 章 ---- */
+  section { margin-top: 26px; }
+  .ttl { display: flex; align-items: baseline; gap: 9px; margin-bottom: 4px; }
+  .ttl .no {
+    font-size: .68rem; font-weight: 700; letter-spacing: .1em; color: #12100c;
+    background: #d9a13b; border-radius: 4px; padding: 3px 6px;
+  }
+  .ttl h2 { font-size: 1rem; font-weight: 700; }
+  .when { font-size: .74rem; color: #7e837f; margin-bottom: 11px; }
+
+  ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  li {
+    background: #191c1f; border: 1px solid #2c3034; border-radius: 10px;
+  }
+  label {
+    display: grid; grid-template-columns: 22px 1fr; gap: 11px;
+    padding: 13px 14px; cursor: pointer; align-items: start;
+  }
+  input[type="checkbox"] {
+    appearance: none; width: 22px; height: 22px; margin: 1px 0 0;
+    border: 1.5px solid #4a5055; border-radius: 6px; background: #0f1113;
+    display: grid; place-items: center; cursor: pointer; flex: none;
+  }
+  input[type="checkbox"]::after {
+    content: ""; width: 11px; height: 6px; margin-top: -3px;
+    border-left: 2.5px solid #12100c; border-bottom: 2.5px solid #12100c;
+    transform: rotate(-45deg) scale(0); transition: transform .12s;
+  }
+  input[type="checkbox"]:checked { background: #d9a13b; border-color: #d9a13b; }
+  input[type="checkbox"]:checked::after { transform: rotate(-45deg) scale(1); }
+  input[type="checkbox"]:checked ~ .tx { color: #6e7377; }
+  input[type="checkbox"]:checked ~ .tx b { color: #868b8f; }
+  .tx { font-size: .89rem; line-height: 1.72; }
+  .tx b { color: #f2d79c; font-weight: 700; }
+  .tx .sub { display: block; font-size: .76rem; color: #7e837f; margin-top: 4px; line-height: 1.8; }
+  .tx .say {
+    display: block; margin-top: 7px; padding: 9px 11px;
+    background: #12312a; border-left: 3px solid #2c6353; border-radius: 0 6px 6px 0;
+    font-size: .82rem; color: #cfe0d6; line-height: 1.8;
+  }
+  .tx .ng {
+    display: block; margin-top: 7px; padding: 9px 11px;
+    background: #2a1c1a; border-left: 3px solid #6b3b33; border-radius: 0 6px 6px 0;
+    font-size: .82rem; color: #f0c9c2; line-height: 1.8;
+  }
+
+  /* ---- 紹介の章だけ別扱い ---- */
+  .push { border: 1px solid #6b5320; border-radius: 12px; padding: 15px 14px 16px; background: #1a1509; }
+  .push .ttl .no { background: #f2d79c; }
+  .push li { background: #221b0c; border-color: #4a3a1c; }
+  .push .why {
+    font-size: .8rem; color: #d8c79e; line-height: 1.85;
+    background: #12100c; border-radius: 8px; padding: 11px 12px; margin-bottom: 12px;
+  }
+  .push .why b { color: #f2d79c; }
+  .stats { display: flex; gap: 8px; margin-bottom: 12px; }
+  .stats div {
+    flex: 1; background: #12100c; border-radius: 8px; padding: 10px 8px; text-align: center;
+  }
+  .stats strong { display: block; font-size: 1.15rem; color: #f2d79c; font-variant-numeric: tabular-nums; }
+  .stats span { display: block; font-size: .66rem; color: #9a8f74; line-height: 1.5; margin-top: 3px; }
+
+  .tip { font-size: .76rem; color: #7e837f; line-height: 1.9; margin-top: 26px; }
+  .tip b { color: #b9bdb8; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>商談前チェックリスト</h1>
+  <p class="lead">
+    手紙 → 電話でアポ → LINE友だち登録、まで進んだお店に使います。<br>
+    上から順に、その場で押しながら進めてください（チェックはこの端末に残ります）。
+  </p>
+
+  <div class="warn">
+    <b>お店の中では開かないでください。</b>社内用のページです。<br>
+    チェックは駐車場・車の中で済ませてから入店してください。
+  </div>
+
+  <div class="bar">
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <span class="num" id="num">0 / 0</span>
+    <button type="button" id="reset">リセット</button>
+  </div>
+
+  <!-- ============ 01 ============ -->
+  <section>
+    <div class="ttl"><span class="no">01</span><h2>LINEが繋がった、その日のうち</h2></div>
+    <p class="when">電話を切ってから、なるべく早く。時間が空くほど熱が下がります</p>
+    <ul>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>サイトのURLを1本だけ送る</b>
+          <span class="sub">営業文は書かない。長文にしない。URLが店主のスマホの中に残ることが目的です</span>
+          <span class="say">先ほどはありがとうございました。こちらが、お作りしたページです。<br>▶（サイトURL）</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>「間違いがないか見ておいてください」と添える</b>
+          <span class="sub">手紙・電話と同じ「確認のお願い」のままにする。ここで売り込みに変わると、当日の空気が変わります</span>
+          <span class="say">住所・営業時間・メニューが合っているかだけ、お時間のあるときに見ておいていただけますか。</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>訪問の日時をLINEの文章で残す</b>
+          <span class="sub">口約束のままにしない。「◯月◯日（◯）◯時に伺います」と一度文字にしておくと、当日すっぽかされません</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>提案書のURLは、まだ送らない</b>
+          <span class="sub">料金が書いてあります。当日、目の前で開いて説明するもの。先に送ると金額だけを見て断る理由を探されます</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>営業用リンク集・メモのURLは、絶対に送らない</b>
+          <span class="ng">リンク集には他店の名前が並び、メモには触れてはいけない話題と悪いクチコミが書いてあります。送信先を一度間違えたら終わりです。</span>
+        </span></label></li>
+    </ul>
+  </section>
+
+  <!-- ============ 02 ============ -->
+  <section>
+    <div class="ttl"><span class="no">02</span><h2>訪問の前日までに（社内で）</h2></div>
+    <p class="when">当日その場では調べられません。前日に潰しておく</p>
+    <ul>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>そのお店の「メモ」を読む</b>
+          <span class="sub">とくに <b>地雷</b>（触れない話題）と <b>もう言ってあること</b>。手紙に書いた話を商談でもう一度したら、読んでいないと思われます</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>サイトの中身と、いまの実際を突き合わせる</b>
+          <span class="sub">営業時間・定休日・電話番号・メニューの値段。グルメサイトから作っているので古いことがあります。<b>店主が見た瞬間に気づく場所を、先にこちらから言えるようにしておく</b></span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>サイトを最新にして公開しておく</b>
+          <span class="sub">当日、古い画面を開かないため</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>紹介のお礼の条件を、社内で確認しておく</b>
+          <span class="sub">当日その場で聞かれます。決まっていなければ「必ずお礼をします」までに留め、金額を口にしない</span>
+        </span></label></li>
+    </ul>
+  </section>
+
+  <!-- ============ 03 ============ -->
+  <section>
+    <div class="ttl"><span class="no">03</span><h2>入店の直前（車の中で）</h2></div>
+    <p class="when">ここまでを済ませてからドアを開ける</p>
+    <ul>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>そのお店の提案書を開いた状態にしておく</b>
+          <span class="sub">店内でリンク集を開かない。他店の名前が並びます</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>メモを閉じる。ブラウザのタブごと消す</b>
+          <span class="sub">画面を見せる場面が必ずあります。横から見えたら終わりです</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>スマホの充電と、画面の明るさを上げる</b>
+          <span class="sub">QRを読み取ってもらうときに暗いと読めません</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>時間を確認する（14時〜16時）</b>
+          <span class="sub">11〜14時と17時以降は、どれだけ内容が良くても心証が悪くなります</span>
+        </span></label></li>
+    </ul>
+  </section>
+
+  <!-- ============ 04 ============ -->
+  <section>
+    <div class="ttl"><span class="no">04</span><h2>商談中（この順番で）</h2></div>
+    <p class="when">説明より先に、画面を出す</p>
+    <ul>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>まず画面を見せる</b>
+          <span class="say">これ、〇〇さんのお店のホームページです。</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>事実確認をしてもらう</b>
+          <span class="sub">住所・営業時間・メニュー・値段。<b>ここで出た訂正はその場でメモする</b>——そのまま制作の直し指示になります</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>写真の話を必ずする</b>
+          <span class="sub">いま載っているのはグルメサイトから借りた仮の写真であること、<b>お作りするときはお店の写真に入れ替える</b>ことを、こちらから先に言う。あとから言うと隠していたことになります</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>料金を言い切る</b>
+          <span class="say">制作が150,000円（税込）、納品のときに一度きりです。<br>あとは月々5,000円（税込）、お使いいただいている間だけです。</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>高いと言われたら、数字を変えずに比べる相手を変える</b>
+          <span class="sub">グルメサイトの有料掲載は月1万〜10万円。5年で60万〜600万円、しかも予約1人ごとの手数料が別。<b>日割りにして小さく見せない</b>（総額を正直に出したから信用されているので、その場で失います）</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>効果を約束しない</b>
+          <span class="ng">「〇人来ればペイします」は言わない。来なかったときに「話が違う」になり、法律の問題にもなり得ます。<br>代わりに「何人来るかは約束できません。約束したら嘘になります。ただ、いま起きていることならお見せできます」と言って、店主のスマホでGoogleの検索された回数を一緒に見る。</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>自社の紹介ページに載せてよいか聞く</b>
+          <span class="sub">ご契約いただいたお店は、お名前を出して大きく載せられます</span>
+        </span></label></li>
+    </ul>
+  </section>
+
+  <!-- ============ 05 紹介 ============ -->
+  <section class="push">
+    <div class="ttl"><span class="no">05</span><h2>★ 紹介を聞く</h2></div>
+    <p class="when">ここが今いちばん伸びるところ。飛ばさない</p>
+
+    <div class="stats">
+      <div><strong>50〜70%</strong><span>紹介からの<br>成約率</span></div>
+      <div><strong>10〜20%</strong><span>飛び込みからの<br>成約率</span></div>
+      <div><strong>69%</strong><span>紹介のほうが<br>決まるまで速い</span></div>
+    </div>
+
+    <p class="why">
+      飲食店は<b>店主同士の横のつながりが異常に濃い</b>業界です。同業仲間・酒屋・食材の卸・不動産屋・商工会・商店街組合。
+      ここに1本入れば、飛び込みを100件やるより早く回ります。<br><br>
+      そして<b>契約書を後日お持ちする形にしたので、聞ける場面が2回あります。</b>
+      1回目は商談で「やります」と言われた瞬間、2回目は契約書に署名をいただいた瞬間。
+      <b>どちらも、その店主がいちばんこちらを信用している瞬間です。</b>後日あらためて聞くと、もう熱が冷めています。
+    </p>
+
+    <ul>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>「やります」と言われた、その場で聞く</b>
+          <span class="sub">お礼を言ったあと、間を置かずに。話題を変えてから戻ると切り出しにくくなります</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>人数を指定して聞く</b>
+          <span class="sub"><b>「誰か紹介してください」だと、まず出てきません。</b>人数を区切ると、頭の中で数え始めます</span>
+          <span class="say">同じように、いいお店なのにホームページが無いところ、<br>お一人か、お二人、思い浮かびませんか？</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>出てこなければ、範囲を狭めて聞き直す</b>
+          <span class="sub">漠然と考えると出ません。場所や関係で区切ると出ます</span>
+          <span class="say">この通りだと、どちらになりますか？<br>お酒の卸さんや、組合でよく会われる方だと？</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>店名が出たら、その場で「お名前だけ出してよいか」を確認する</b>
+          <span class="sub">「〇〇さんからご紹介いただきまして」と言えるかどうかで、次の1軒の入りやすさがまったく変わります</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>★ その場で、店主のスマホから一言送ってもらう</b>
+          <span class="sub"><b>これがいちばん効きます。</b>こちらから連絡するより、店主本人のLINEで一言入るほうが桁違いに繋がります。「あとで伝えておくよ」は、ほぼ伝わりません</span>
+          <span class="say">もしよろしければ、いま一言だけ送っていただけませんか。<br>「ホームページ作ってもらった人がいるから、話だけ聞いてみて」で大丈夫です。</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>お礼の条件を伝える</b>
+          <span class="sub">前日に確認した条件どおりに。決まっていなければ金額を言わず「必ずお礼をさせてください」まで</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>断られても、食い下がらない</b>
+          <span class="sub">「また思いつかれたら教えてください」で引く。ここで粘ると、決まった契約のほうが揺らぎます</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>聞いた店名を、その日のうちに社内へ渡す</b>
+          <span class="sub">紹介先のサイトを先に作ってから伺えば、そこも「もうできています」で入れます</span>
+        </span></label></li>
+    </ul>
+  </section>
+
+  <!-- ============ 06 ============ -->
+  <section>
+    <div class="ttl"><span class="no">06</span><h2>「やります」と言われたら</h2></div>
+    <p class="when">契約書は後日お持ちする。だから今日は口頭で条件を揃えておく</p>
+    <ul>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>契約書は2本になる、と伝える</b>
+          <span class="sub">制作の契約と、公開後の保守の契約。<b>次にお持ちして、ご署名をいただきます</b></span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>次に伺う日を、その場で決める</b>
+          <span class="sub">「近いうちに」で帰らない。日にちが決まらないまま帰ると、ほぼ流れます</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>ご契約者のお名前と、ご住所を確認する</b>
+          <span class="sub">契約書に書いて持って行くため。屋号か個人名か、法人かも聞いておく</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>支払いのしかたを伝えておく</b>
+          <span class="sub">制作費は納品のとき、月額は毎月末に当月分。当日はじめて聞かされると止まります</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>アドレス（ドメイン）の候補を2つ出して、選んでもらう</b>
+          <span class="sub"><b>「どうしますか」と丸投げしない。</b>選択肢が多いと決まりません。取得も更新も、こちらで代行して月額に含みます</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>写真をどうするか決める</b>
+          <span class="sub">撮影に伺うのか、お店にある写真をいただくのか。日にちまで決める</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>直しの範囲を、ここで一度はっきり言う</b>
+          <span class="sub">公開するまでの直しは何度でも無料。公開したあとは月1回まで（文章も写真もまとめて1回）。<b>あとで揉める唯一の場所なので、必ず口に出しておく</b></span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>今日の話を、帰ってからLINEで文字にして送る</b>
+          <span class="sub">決めたこと（次に伺う日・料金・写真・アドレス）を短く箇条書きで。言った言わないが消えます</span>
+        </span></label></li>
+    </ul>
+  </section>
+
+  <!-- ============ 07 ============ -->
+  <section>
+    <div class="ttl"><span class="no">07</span><h2>その場で決まらなかったとき</h2></div>
+    <p class="when">追いかけない。引き際で次が決まる</p>
+    <ul>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>サイトはこのまま置いておく、と伝えて引く</b>
+          <span class="say">ページはこのまま置いておきますので、<br>気が変わられたらLINEをください。</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>何が引っかかったのかを1行だけメモする</b>
+          <span class="sub">金額なのか、時期なのか、必要性なのか。次の1軒の言い方が変わります</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>断られても、紹介だけは聞いてよい</b>
+          <span class="sub">「うちは要らないけど、あそこは欲しがるかも」は普通に出ます。断った後ろめたさがある分、むしろ出ます</span>
+        </span></label></li>
+      <li><label><input type="checkbox">
+        <span class="tx"><b>次に声をかけるのは、季節の変わり目に1回だけ</b>
+          <span class="sub">手紙・電話・訪問・LINEで4〜8回の接触までは、繋がる確率がむしろ上がります。詰めるのではなく、間隔をあけて続ける</span>
+        </span></label></li>
+    </ul>
+  </section>
+
+  <p class="tip">
+    <b>チェックはこの端末の中にだけ残ります。</b>次のお店に行く前に「リセット」を押してください。<br>
+    このページはホーム画面に追加しておくと1タップで開けます。
+  </p>
+
+  <a class="back" href="index.html">← 営業用リンク集にもどる</a>
+</div>
+
+<script>
+(function () {
+  var KEY = 'cwp-shodan-check-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]'));
+  var fill = document.getElementById('fill');
+  var num  = document.getElementById('num');
+
+  function paint() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    fill.style.width = (done / boxes.length * 100) + '%';
+    num.textContent = done + ' / ' + boxes.length;
+  }
+  function save() {
+    try {
+      localStorage.setItem(KEY, boxes.map(function (b) { return b.checked ? 1 : 0; }).join(''));
+    } catch (e) {}
+  }
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved && saved.length === boxes.length) {
+      boxes.forEach(function (b, i) { b.checked = saved[i] === '1'; });
+    }
+  } catch (e) {}
+  paint();
+
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () { paint(); save(); });
+  });
+
+  document.getElementById('reset').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    paint(); save();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
