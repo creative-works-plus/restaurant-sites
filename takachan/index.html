@@ -43,6 +43,7 @@
           "currenciesAccepted": "JPY",
           "url": "https://creative-works-plus.github.io/restaurant-sites/takachan/",
           "image": "https://creative-works-plus.github.io/restaurant-sites/takachan/photos/p19.jpg",
+          "logo": "https://creative-works-plus.github.io/restaurant-sites/takachan/photos/logo.png",
           "sameAs": ["https://x.com/soreiketakachan"],
           "openingHoursSpecification": [
             { "@type": "OpeningHoursSpecification",
@@ -70,6 +71,7 @@
           "paymentAccepted": "Cash",
           "currenciesAccepted": "JPY",
           "url": "https://creative-works-plus.github.io/restaurant-sites/takachan/",
+          "logo": "https://creative-works-plus.github.io/restaurant-sites/takachan/photos/logo.png",
           "sameAs": ["https://x.com/soreiketakachan"],
           "openingHoursSpecification": [
             { "@type": "OpeningHoursSpecification",
@@ -97,6 +99,7 @@
           "paymentAccepted": "Cash",
           "currenciesAccepted": "JPY",
           "url": "https://creative-works-plus.github.io/restaurant-sites/takachan/",
+          "logo": "https://creative-works-plus.github.io/restaurant-sites/takachan/photos/logo.png",
           "sameAs": ["https://x.com/soreiketakachan"],
           "openingHoursSpecification": [
             { "@type": "OpeningHoursSpecification",
@@ -323,13 +326,17 @@
         -webkit-backdrop-filter: blur(8px);
         border-bottom: 1px solid var(--line);
     }
+    /* ★ヘッダーの店名も三軒共通の看板にした（2026-08-08）。
+       ロゴの黒フチが濃い地に沈むので、実物と同じ黄色の板に載せてから置く。 */
     .brand {
-        font-family: var(--font-head);
-        font-size: clamp(1rem, 3vw, 1.2rem);
-        color: var(--ink);
+        display: inline-flex; align-items: center;
         margin-right: auto;
-        white-space: nowrap;
+        background: #FFE800;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+        padding: 6px 9px;
     }
+    .brand img { width: clamp(100px, 24vw, 120px); height: auto; }
     .header-x {
         display: inline-flex; align-items: center; justify-content: center; gap: 7px;
         min-width: 44px; min-height: 44px; padding: 0 16px;
@@ -412,29 +419,65 @@
         gap: 20px;
     }
     .status-chip { align-self: flex-start; }
-    .hero-photo {
-        width: 100%;
-        aspect-ratio: 4 / 5;
-        max-height: clamp(230px, 36svh, 600px);
+
+    /* --- 三軒共通の看板（h1）----------------------------------------------------
+       店頭に掲げている黄色の板をそのまま持ってきた造作。
+       ロゴは画像、下の「まぜそば／たれそば」は文字なので、どの倍率でも輪郭が甘くならない。 */
+    .signboard { margin: 0; }
+    .signboard-board {
+        display: block;
+        width: min(100%, 640px);
+        background: #FFE800;
+        border: 1px solid rgba(0, 0, 0, 0.28);
+        border-radius: 4px;                       /* 貼り紙の角札と同じ角。丸ピルは押せるものに取ってある */
+        padding: clamp(18px, 4.4vw, 30px) clamp(20px, 5vw, 38px) clamp(14px, 3.2vw, 22px);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
     }
-    .hero-photo img { object-position: 50% 24%; }
+    .signboard-board img { width: 100%; height: auto; }
+    .signboard-sub {
+        display: flex; justify-content: center; gap: clamp(24px, 8vw, 64px);
+        margin-top: clamp(8px, 2vw, 14px);
+        font-family: var(--font-head);
+        font-size: clamp(1.02rem, 4.4vw, 1.62rem);
+        line-height: 1.2; letter-spacing: 0.06em;
+        color: #15140C;
+    }
+    /* 写真を外したぶん縦が余るので、上下の余りを均等に割って中央に置く。
+       画面が低いときは中身がはみ出して上が切れるので、高さも条件に入れる */
+    @media (min-width: 700px) and (min-height: 620px) {
+        .hero .container { justify-content: center; }
+    }
     @media (min-width: 900px) {
-        .hero-photo { aspect-ratio: 21 / 9; max-height: 520px; }
-        .hero-photo img { object-position: 50% 62%; }
+        .signboard-board { width: min(100%, 700px); }
     }
-    /* スマホでは主CTA（X導線）を1画面目に収めるため、写真に加えて縦の余白も詰める */
+    /* 画面が広いところでは、看板を左・ことばとボタンを右に並べる。
+       縦一列のままだと看板の右がまるごと空いて、板だけが浮いて見える */
+    @media (min-width: 1000px) {
+        .hero .container {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+            grid-template-areas:
+                "status status"
+                "note   note"
+                "sign   band"
+                "sign   actions";
+            align-content: center;
+            column-gap: clamp(36px, 5vw, 64px);
+            row-gap: 18px;
+        }
+        .hero-status   { grid-area: status; }
+        .hero-chipnote { grid-area: note; }
+        .signboard     { grid-area: sign; align-self: center; }
+        .hero-band     { grid-area: band; align-self: end; }
+        .hero-actions  { grid-area: actions; align-self: start; margin-top: 0; }
+        .signboard-board { width: 100%; }
+    }
+    /* スマホでは主CTA（X導線）を1画面目に収めるため、縦の余白も詰める */
     @media (max-width: 620px) {
         .hero .container { gap: 10px; padding-block: 14px; }
-        .hero h1 { margin-top: 4px; }
         .hero-lead { margin-top: 6px; }
         .hero-chips { margin-top: 10px; }
         .hero-actions { margin-top: 10px; }
-    }
-    .hero h1 {
-        font-family: var(--font-head);
-        font-size: clamp(2.2rem, 8vw, 3.5rem);
-        line-height: 1.28;
-        margin-top: 10px;
     }
     .hero-lead {
         color: var(--muted); margin-top: 12px; font-size: 1.08rem; max-width: 42ch;
@@ -741,7 +784,9 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <header class="site-header">
     <div class="container header-inner">
-        <a href="#hero" class="brand">それいけ!たかちゃんラーメン</a>
+        <a href="#hero" class="brand" aria-label="それいけ!たかちゃんラーメン">
+            <img src="photos/logo.png" alt="" width="1400" height="501" decoding="async">
+        </a>
 
         <!-- 電話番号が確認できたらここを tel: に戻す（現在は非公開のためXへの導線にしている） -->
         <a href="https://x.com/soreiketakachan" class="header-x" target="_blank" rel="noopener" aria-label="Xで最新情報を見る（別タブで開きます）">
@@ -780,18 +825,21 @@
         </div>
         <p class="hero-chipnote">表示は曜日で切り替わります。<b>祝日は土日と同じ時間</b>ですので、<a href="#shops">三軒のご案内</a>の時間表をご覧ください。</p>
 
-        <div class="hero-photo photo-frame">
-            <picture>
-                <source media="(min-width: 900px)" srcset="photos/p33.jpg">
-                <img src="photos/p19.jpg" alt="具材をのせたまぜそば"
-                     width="1400" height="1750"
+        <!-- ★2026-08-08：ヒーローの丼の写真（p19／p33）を、三軒共通の看板に差し替えた。
+             「たかちゃんのHPだと一目で分かるようにしたい」というご要望。
+             ロゴは公式X @soreiketakachan のプロフィール画像（＝店主本人が掲げている三軒共通のマーク）。
+             黄色の板・下の「まぜそば／たれそば」まで含めて、実際の店頭看板と同じ構成にしている。 -->
+        <h1 class="signboard">
+            <span class="signboard-board">
+                <img src="photos/logo.png" alt="それいけ!たかちゃんラーメン"
+                     width="1400" height="501"
                      loading="eager" fetchpriority="high" decoding="async">
-            </picture>
-        </div>
+                <span class="signboard-sub"><span class="nw">まぜそば</span> <span class="nw">たれそば</span></span>
+            </span>
+        </h1>
 
         <div class="hero-band reveal">
             <span class="eyebrow">古河本店・守谷店・群馬千代田店｜<span class="nw">まぜそば・ラーメン</span></span>
-            <h1>それいけ!たかちゃんラーメン</h1>
             <p class="hero-lead">極太の平打ち麺と、無料でのせられるもの。<br><span class="hero-sub">三軒とも<span class="nw">年中無休</span>でお待ちしております。</span></p>
             <ul class="hero-chips">
                 <li>券売機で食券を先に</li>

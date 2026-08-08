@@ -229,13 +229,17 @@
         -webkit-backdrop-filter: blur(8px);
         border-bottom: 1px solid var(--line);
     }
+    /* ★ヘッダーの店名も三軒共通の看板にした（2026-08-08）。
+       ロゴの黒フチが濃い地に沈むので、実物と同じ黄色の板に載せてから置く。 */
     .brand {
-        font-family: var(--font-head);
-        font-size: clamp(1rem, 3vw, 1.2rem);
-        color: var(--ink);
+        display: inline-flex; align-items: center;
         margin-right: auto;
-        white-space: nowrap;
+        background: #FFE800;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+        padding: 6px 9px;
     }
+    .brand img { width: clamp(100px, 24vw, 120px); height: auto; }
     .header-x {
         display: inline-flex; align-items: center; justify-content: center; gap: 7px;
         min-width: 44px; min-height: 44px; padding: 0 16px;
@@ -710,7 +714,9 @@
 
 <header class="site-header">
     <div class="container header-inner">
-        <a href="index.html" class="brand">それいけ!たかちゃんラーメン</a>
+        <a href="index.html" class="brand" aria-label="それいけ!たかちゃんラーメン">
+            <img src="photos/logo.png" alt="" width="1400" height="501" decoding="async">
+        </a>
 
         <a href="https://x.com/soreiketakachan" class="header-x" target="_blank" rel="noopener" aria-label="Xで最新情報を見る（別タブで開きます）">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.36 2H21.5l-7.19 8.21L22.75 22h-6.62l-5.18-6.78L4.99 22H1.85l7.7-8.8L1 2h6.78l4.68 6.2zm-1.16 18h1.83L7.03 4h-1.96z"/></svg>
