@@ -16,7 +16,18 @@
         padding: 40px 20px;
     }
     .wrap { max-width: 520px; width: 100%; }
-    h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 28px; text-align: center; letter-spacing: 0.04em; }
+    h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 8px; text-align: center; letter-spacing: 0.04em; }
+    .total { margin: 0 0 30px; text-align: center; font-size: 0.82rem; color: #7c7a75; letter-spacing: 0.06em; }
+
+    /* 地域ごとの見出し。新しい地域はこの h2 + ul を1組ずつ足す */
+    h2 {
+        font-size: 0.86rem; font-weight: 600; letter-spacing: 0.1em; color: #c9a063;
+        margin: 34px 0 14px; padding-bottom: 9px; border-bottom: 1px solid #2a2a2e;
+        display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+    }
+    h2:first-of-type { margin-top: 0; }
+    h2 .count { font-size: 0.74rem; font-weight: 400; color: #6f6d69; letter-spacing: 0.06em; flex: none; }
+
     ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
     a {
         display: block; text-decoration: none; color: #e8e6e1;
@@ -24,6 +35,10 @@
         padding: 18px 20px; font-size: 1.05rem; transition: 0.2s;
     }
     a:hover, a:focus-visible { border-color: #c9a063; color: #e8c98f; }
+
+    .own { margin-top: 34px; padding-top: 22px; border-top: 1px solid #26262a; }
+    .own a { background: #1b1a16; border-color: #35322a; }
+
     .sales {
         margin-top: 26px; padding-top: 22px; border-top: 1px solid #26262a;
         display: flex; flex-direction: column; gap: 12px;
@@ -39,6 +54,21 @@
 <body>
 <div class="wrap">
     <h1>制作サイト一覧</h1>
+    <p class="total">全35軒</p>
+
+    <!-- ================================================================
+         新しい地域を足すときは、この形の h2 + ul を1組そのまま複製する。
+         並び順は「制作を始めた地域の順」。既存の行は書き換えない。
+
+           <h2>栃木県 野木町<span class="count">◯軒</span></h2>
+           <ul>
+               <li><a href="＜スラッグ＞/">＜店名＞</a></li>
+           </ul>
+
+         あわせて上の <p class="total"> の総軒数も直すこと。
+         ================================================================ -->
+
+    <h2>茨城県 古河市<span class="count">35軒</span></h2>
     <ul>
         <li><a href="nagi/">居酒屋 凪</a></li>
         <li><a href="nagomidokoro-syu/">なごみ処 秀</a></li>
@@ -47,7 +77,6 @@
         <li><a href="bonne-qualite/">イタリアン Bonne Qualité(ボンヌカリテ)</a></li>
         <li><a href="sumikichi/">炭きち</a></li>
         <li><a href="ikkaku/">食彩酒 一鶴</a></li>
-        <li><a href="company/">creative works+（自社サイト）</a></li>
         <li><a href="izakaya-japan/">居酒屋ジャパン</a></li>
         <li><a href="torattoriya/">とらっ鳥屋</a></li>
         <li><a href="kyu/">海鮮居酒屋 玖 -kyu-</a></li>
@@ -70,13 +99,18 @@
         <li><a href="minowa/">とんかつ みの和</a></li>
         <li><a href="mendokoro-kuraya/">めん処 蔵屋</a></li>
         <li><a href="shoryu/">昇龍</a></li>
-    <li><a href="fujiya/">藤屋</a></li>
-<li><a href="ikki/">らーめん壱輝</a></li>
-<li><a href="takachan/">それいけ!たかちゃんラーメン</a></li>
-<li><a href="nagase/">ラーメン長瀬</a></li>
-<li><a href="nanokura/">しょうがラーメン 七の庫</a></li>
-      <li><a href="mendo-inaba/">麺堂 稲葉（古河本店・INABASTYLE）</a></li>
-</ul>
+        <li><a href="fujiya/">藤屋</a></li>
+        <li><a href="ikki/">らーめん壱輝</a></li>
+        <li><a href="takachan/">それいけ!たかちゃんラーメン</a></li>
+        <li><a href="nagase/">ラーメン長瀬</a></li>
+        <li><a href="nanokura/">しょうがラーメン 七の庫</a></li>
+        <li><a href="mendo-inaba/">麺堂 稲葉（古河本店・INABASTYLE）</a></li>
+    </ul>
+
+    <div class="own">
+        <a href="company/">creative works+（自社サイト）</a>
+    </div>
+
     <div class="sales">
         <a href="sales/"><span>営業用リンク集</span><span class="tag">社内用</span></a>
         <a href="sales/manual.html"><span>営業マン用マニュアル</span><span class="tag">社内用</span></a>
