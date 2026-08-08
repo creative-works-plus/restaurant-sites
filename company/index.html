@@ -748,7 +748,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   <section class="stats" aria-label="creative works+ の概要">
     <div class="container">
       <div class="stat">
-        <div class="stat-num">29<span class="u">軒</span></div>
+        <div class="stat-num">35<span class="u">軒</span></div>
         <div class="stat-label">おつくりしたお店</div>
       </div>
       <div class="stat">
@@ -1351,26 +1351,35 @@ if (!reduced) {
 }
 
 // ---------- ヒーローの実物スクリーンショット切り替え ----------
-// 切り替えボタンは押されないことのほうが多いので、初回に一度だけ自動で送り、
-// 「これは切り替わるものだ」と気づいてもらう。触られたら自動送りは止める。
+// 切り替えボタンは押されないことのほうが多いので、画面に入ったら自動で最後の1枚まで
+// 順に送り、「これは切り替わるものだ」と気づいてもらう。
+// 最後まで送ったら止める（延々と回し続けない＝テンプレの自動スライドにしない）。
+// 触られた時点で自動送りは打ち切り、以後はお客様の操作だけで動かす。
 (function () {
   const btns = Array.from(document.querySelectorAll('.shot-switch button'));
   const imgs = Array.from(document.querySelectorAll('#phone-screen img'));
   if (!btns.length || !imgs.length) return;
-  let touched = false;
+  const STEP = 2600;   // 1枚あたりの表示時間（ms）
+  let timer = null;
 
   function show(i) {
     imgs.forEach((im, k) => im.classList.toggle('active', k === i));
     btns.forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
   }
-  btns.forEach((b, i) => b.addEventListener('click', () => { touched = true; show(i); }));
+  function stopAuto() { clearTimeout(timer); timer = null; }
+
+  btns.forEach((b, i) => b.addEventListener('click', () => { stopAuto(); show(i); }));
 
   if (!reduced) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
         io.disconnect();
-        setTimeout(() => { if (!touched) show(1); }, 2600);
+        // 現在の1枚から最後の1枚まで、1枚ずつ送る
+        (function next(i) {
+          if (i >= imgs.length) return;    // 最後まで来たら止める
+          timer = setTimeout(() => { show(i); next(i + 1); }, STEP);
+        })(1);
       });
     }, { threshold: 0.4 });
     io.observe(document.getElementById('phone-screen'));
