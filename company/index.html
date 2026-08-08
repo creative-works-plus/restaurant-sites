@@ -45,7 +45,7 @@
   --card:       #ffffff;
   --ink:        #191a18;
   --ink-2:      #3b3d39;
-  --muted:      #6f716c;
+  --muted:      #696b66;   /* 薄い地(--paper-2)の上でもAA 4.5:1を満たす濃さ。#6f716c だと4.18:1で未達 */
   --line:       #dcdcd7;
   --line-2:     #c6c6c0;
   --dark:       #16181a;   /* CTA帯・フッター(墨。緑にしない) */
@@ -83,7 +83,8 @@ a { color: inherit; }
    .nw … 「ここはひとかたまり」の指定(入りきらない時だけ中で折り返す)
    .br-pc / .br-sp … パソコンだけ・スマホだけで効かせる改行           */
 h1, h2, h3, p, dd, dt, li, summary, figcaption,
-.hero-eyebrow, .eyebrow, .plan-for, .plan-name, .mock-note, .price-note, .genre, .stat-label {
+.hero-eyebrow, .eyebrow, .plan-for, .plan-name, .mock-note, .price-note, .genre, .stat-label,
+.portal-row .name, .portal-row .meta {
   word-break: auto-phrase;
 }
 h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
@@ -216,9 +217,12 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 }
 .phone-screen img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top;
-  opacity: 0; transition: opacity 0.45s ease;
+  opacity: 0;
+  /* 消える側だけ遅らせる。両方が同時に半透明になると合成の不透明度が1を割り、
+     下地の紙色が透けて画面が一瞬白っぽくなる（実測: 中間点の明るさが両端より明るくなる） */
+  transition: opacity 0.45s ease 0.3s;
 }
-.phone-screen img.active { opacity: 1; }
+.phone-screen img.active { opacity: 1; transition-delay: 0s; z-index: 1; }
 .shot-note { font-size: 12.5px; color: var(--muted); margin-top: 16px; text-align: center; }
 
 /* ---------- 数字帯 ---------- */
@@ -339,7 +343,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   content: counter(cs); font-family: var(--font-latin); font-weight: 600;
   color: var(--gold); font-size: 15px; line-height: 1.9;
 }
-.case-step h4 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.case-step h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
 .case-step p { font-size: 13.5px; color: var(--muted); }
 .case-swatches { display: flex; gap: 8px; margin: 22px 0 8px; }
 .case-swatch { flex: 1; border-radius: 6px; height: 52px; border: 1px solid var(--line); }
@@ -759,7 +763,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
       </div>
       <div class="stat">
         <div class="stat-num"><small>¥</small>150,000</div>
-        <div class="stat-label">制作費(税込・一度きり)</div>
+        <div class="stat-label">制作費(税込・<span class="nw">一度きり)</span></div>
       </div>
       <div class="stat">
         <div class="stat-num"><small>¥</small>5,000</div>
@@ -823,7 +827,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
         <figure role="listitem"><img src="works/tiles/00.jpg" alt="カフェの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>カフェ</figcaption></figure>
         <figure role="listitem"><img src="works/tiles/01.jpg" alt="炭火串焼の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>炭火串焼</figcaption></figure>
         <figure role="listitem"><img src="works/tiles/02.jpg" alt="ラーメン・餃子の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>ラーメン・餃子</figcaption></figure>
-        <figure role="listitem"><img src="works/tiles/03.jpg" alt="佐野系生姜らーめんの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>佐野系生姜らーめん</figcaption></figure>
+        <figure role="listitem"><img src="works/tiles/03.jpg" alt="生姜らーめんの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>生姜らーめん</figcaption></figure>
         <figure role="listitem"><img src="works/tiles/04.jpg" alt="そばの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>そば</figcaption></figure>
         <figure role="listitem"><img src="works/tiles/05.jpg" alt="まぜそばの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>まぜそば</figcaption></figure>
         <figure role="listitem"><img src="works/tiles/06.jpg" alt="うなぎ・川魚の店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>うなぎ・川魚</figcaption></figure>
@@ -969,31 +973,31 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
         <div class="case-steps reveal">
           <div class="case-step">
             <div>
-              <h4>掲載ページを探す</h4>
+              <h3>掲載ページを探す</h3>
               <p>食べログ・Googleマップ・ホットペッパーを必ず見て、住所と電話番号が一致することを確かめます。同じ名前の別のお店と取り違えないためです。</p>
             </div>
           </div>
           <div class="case-step">
             <div>
-              <h4>写真をそろえる</h4>
+              <h3>写真をそろえる</h3>
               <p>掲載されている写真とお店のSNSから、使えるものを集めます。同じ写真が1ページに二度出ないように確認します。</p>
             </div>
           </div>
           <div class="case-step">
             <div>
-              <h4>色と文字を決める</h4>
+              <h3>色と文字を決める</h3>
               <p>看板・器・照明から色を起こします。書体もお店の雰囲気に合わせて選びます。</p>
             </div>
           </div>
           <div class="case-step">
             <div>
-              <h4>組み立てる</h4>
+              <h3>組み立てる</h3>
               <p>スマートフォンで見たときを基準に組みます。飲食店をお探しの方は、ほとんどが携帯電話でご覧になるためです。</p>
             </div>
           </div>
           <div class="case-step">
             <div>
-              <h4>見直す</h4>
+              <h3>見直す</h3>
               <p>お店の立場・お客様の立場・デザインの3方向から見直して直します。ここで直すのは毎回20か所ほどです。</p>
             </div>
           </div>
@@ -1097,7 +1101,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
         </div>
         <div class="price-card reveal">
           <div class="plan-name">月額費用</div>
-          <div class="plan-for">公開後の保守・管理</div>
+          <div class="plan-for">公開後の保守・管理(<span class="nw">1店舗につき</span>)</div>
           <div class="price">¥5,000<small> /月(税込)</small></div>
           <ul>
             <li>軽微な変更に月1回まで対応<br>(営業時間・価格の修正、写真の差し替え、お知らせの掲載など)</li>
@@ -1107,7 +1111,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
           </ul>
         </div>
       </div>
-      <p class="price-note">※ お支払いは、納品時に初期費用を<span class="nw">一括(銀行振込・現金)</span>、公開後は月額費用のみ。<br>※ 月1回を超える変更は<span class="nw">1回3,000円〜</span>。ページの追加や大きなリニューアルは、内容に応じて別途お見積りいたします。<br>※ 月額5,000円ほどの保守は、サーバーとドメインを維持するだけで更新の代行が付かないことが一般的です。当方は月1回の更新代行を含みます。</p>
+      <p class="price-note">※ お支払いは、納品時に初期費用を<span class="nw">一括(銀行振込・現金)</span>、公開後は月額費用のみ。<br>※ 月1回を超える変更は<span class="nw">1回3,000円〜</span>。ページの追加や大きなリニューアルは、内容に応じて別途お見積りいたします。<br>※ 月額は、更新を代行するお店<span class="nw">1店舗につき5,000円</span>です。1つのサイトに複数のお店を載せる場合も、初期費用はサイト<span class="nw">1本ぶんのまま</span>で、月額だけが店舗数ぶんとなります。<br>※ 月額5,000円ほどの保守は、サーバーとドメインを維持するだけで更新の代行が付かないことが一般的です(出典: <span class="nw">whitch.jp</span>／<span class="nw">PRONIアイミツ</span>)。当方は月1回の更新代行を含みます。</p>
       <div class="scope-grid">
         <div class="scope-card reveal">
           <h3>標準で対応できること(料金内)</h3>
@@ -1298,6 +1302,9 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
       // スクロール禁止の解除と余白の削除は必ず同時に行う(片方だけだと横にずれる)
       root.classList.remove('is-opening');
       document.body.style.paddingRight = '';
+      // 幕が明けたことを知らせる。ヒーローの自動送りはこれを待ってから数え始める
+      // (待たないと、幕の裏で時間が進み、1枚目が0.75秒しか見えないまま2枚目になる)
+      document.dispatchEvent(new CustomEvent('cwp:opening-done'));
     }, 200);
   }
 
@@ -1372,7 +1379,7 @@ if (!reduced) {
 
   btns.forEach((b, i) => b.addEventListener('click', () => { stopAuto(); show(i); }));
 
-  if (!reduced) {
+  function startAuto() {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
@@ -1385,6 +1392,18 @@ if (!reduced) {
       });
     }, { threshold: 0.4 });
     io.observe(document.getElementById('phone-screen'));
+  }
+
+  if (!reduced) {
+    // オープニングの幕が出ている間は数え始めない。幕が明けてから1枚目をきちんと見せる
+    if (document.documentElement.classList.contains('is-opening')) {
+      let started = false;
+      const go = () => { if (!started) { started = true; startAuto(); } };
+      document.addEventListener('cwp:opening-done', go, { once: true });
+      setTimeout(go, 4000);   // 万一そのイベントが来なくても自動送りが死なないようにする
+    } else {
+      startAuto();
+    }
   }
 })();
 </script>
