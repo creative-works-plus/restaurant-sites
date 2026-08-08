@@ -707,13 +707,17 @@
         background: var(--surface); border: 1px solid var(--line);
         padding: 24px 22px; font-size: 0.92rem; color: var(--muted);
     }
-    /* 上辺3pxの線はどこにでもある形なので使わず、店の目印（鍵括弧）で受ける */
-    .voice-grid blockquote::before {
-        content: '「'; display: block; font-family: var(--font-head);
-        font-size: 2.4rem; line-height: 0.8; color: var(--accent); margin-bottom: 10px;
-    }
+    /* 引用符は本文にすでに「」で入っているので、飾りでは足さない（「「 と二重になる）。
+       受けるのは店のロゴの二重丸。お名乗りの前に小さく置き、頭ではなく足元で締める */
     .voice-grid blockquote:first-child { font-size: 1rem; padding: 30px 26px; }
-    .voice-grid cite { display: block; margin-top: 14px; font-style: normal; font-size: 0.76rem; color: var(--dim); }
+    .voice-grid cite {
+        display: flex; align-items: center; gap: 9px;
+        margin-top: 14px; font-style: normal; font-size: 0.76rem; color: var(--dim);
+    }
+    .voice-grid cite::before {
+        content: ''; flex: 0 0 auto; width: 19px; height: 11px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 30'%3E%3Ccircle cx='17' cy='15' r='12' fill='none' stroke='%231E50A2' stroke-width='3'/%3E%3Ccircle cx='33' cy='15' r='12' fill='none' stroke='%231E50A2' stroke-width='3'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
     @media (max-width: 780px) { .voice-grid { grid-template-columns: 1fr; } }
 
     /* --- アクセス --------------------------------------------------------------*/
