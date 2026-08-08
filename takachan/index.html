@@ -19,15 +19,15 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
-    <meta name="theme-color" content="#16171A">
+    <meta name="theme-color" content="#14110E">
 
     <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Reggae+One&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- favicon：丼と極太麺のうねりを --accent（#F5C518）で -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%2316171A' stroke='%23F5C518' stroke-width='4'/%3E%3Cpath d='M18 56 Q34 40 50 56 T82 56' fill='none' stroke='%23F5C518' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M21 62 Q50 84 79 62' fill='none' stroke='%23F5C518' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+    <!-- favicon：丼と極太麺のうねりを --yellow（#FFE800）で -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%2314110E' stroke='%23FFE800' stroke-width='4'/%3E%3Cpath d='M18 56 Q34 40 50 56 T82 56' fill='none' stroke='%23FFE800' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M21 62 Q50 84 79 62' fill='none' stroke='%23FFE800' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
 
     <script type="application/ld+json">
     {
@@ -84,10 +84,10 @@
               "dayOfWeek": ["Saturday","Sunday"],
               "opens": "11:00", "closes": "22:00" }
           ],
-          "address": { "@type": "PostalAddress", "streetAddress": "美園4-1-5 美園ビル1F",
+          "address": { "@type": "PostalAddress", "streetAddress": "美園4-1-15 美園ビル1F",
             "addressLocality": "守谷市", "addressRegion": "茨城県",
             "postalCode": "302-0118", "addressCountry": "JP" },
-          "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-5",
+          "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-15",
           "acceptsReservations": "False"
         },
         {
@@ -124,43 +124,69 @@
 
     <style>
     :root {
-        /* --- 面（背景） 3段。明るい店なら明度の向きを逆にする ----------------- */
-        --bg:          #16171A;   /* ニュートラルの墨 */
-        --surface:     #1F2126;   /* カード・帯の面 */
-        --surface-2:   #2A2D33;   /* さらに手前の面・入れ子のカード */
+        /* --- 面（背景）＝看板と同じ、赤み・茶みのある濃色 3段 ------------------ */
+        --bg:          #14110E;   /* 地 */
+        --surface:     #211A12;   /* カード・帯の面 */
+        --surface-2:   #2C2418;   /* 券売機の盤面・さらに手前の面 */
 
-        /* --- 文字（--bg 上でのコントラスト比を必ず確認） ------------------------ */
-        --ink:         #F4F3EF;
-        --muted:       #B6B8B4;
-        --dim:         #8A8D89;
+        /* --- 濃地の上の文字（--bg 上のコントラスト比を実測して決めた） --------- */
+        --ink:         #F6F0E4;   /* 16.4:1 */
+        --muted:       #BFB4A3;   /* 9.2:1 */
+        --dim:         #948A7B;   /* 5.5:1 */
 
-        /* --- 差し色＝予約CTA・見出し罫。店の1色 -------------------------------- */
-        --accent:      #F5C518;   /* 彩度の高いレモンイエロー */
-        --accent-hi:   #FFD84A;   /* ホバー時の明るい版 */
-        --accent-deep: #C79A0C;   /* 押下・影の暗い版 */
-        --accent-2:    #E24B2E;   /* 朱。面に敷かない。点だけ */
+        /* --- 看板の3色。黄は実物の #FFE800 に統一する ------------------------- */
+        --yellow:      #FFE800;   /* 看板・貼り紙・札・価格 */
+        --yellow-hi:   #FFF04D;   /* ホバー */
+        --yellow-deep: #D9C500;   /* 押下・影 */
+        --red:         #D6281C;   /* 貼り紙の品名・章番号。19px太字以上でだけ使う */
+        --red-deep:    #B01E13;   /* バッジの地・押下（白文字 6.9:1） */
+
+        /* --- 紙（貼り紙・食券・手書き札） -------------------------------------- */
+        --paper:       #F3EBD8;
+        --ink-paper:   #241C12;   /* 紙上 14.2:1 */
+        --muted-paper: #6E6049;   /* 紙上 5.2:1 */
+
+        /* 旧トークン名は別名として残す（部品側の記述を一斉に書き換えないため） */
+        --accent:      var(--yellow);
+        --accent-hi:   var(--yellow-hi);
+        --accent-deep: var(--yellow-deep);
+        --accent-2:    var(--red);
 
         /* --- 罫線 -------------------------------------------------------------- */
-        --line:        rgba(244, 243, 239, 0.14);
-        --line-strong: rgba(244, 243, 239, 0.24);
+        --line:        rgba(246, 240, 228, 0.14);
+        --line-strong: rgba(246, 240, 228, 0.26);
+        --line-paper:  rgba(36, 28, 18, 0.22);
 
         /* --- 影 ------------------------------------------------------------------ */
-        --shadow:      0 24px 60px rgba(0, 0, 0, 0.55);
+        --shadow:      0 24px 60px rgba(0, 0, 0, 0.6);
 
-        /* --- 営業状況バッジ（06-script.js が使う。全店ほぼ共通でよい） ---------- */
+        /* --- 営業状況バッジ（06-script.js が使う） ------------------------------ */
         --open:        #7fc383;
         --closed:      #d98a7e;
 
-        /* --- 書体：★世界観の一部なので店ごとに選び直す ------------------------- */
-        --font-head:   "Yusei Magic", sans-serif;   /* 券売機の貼り紙のような手書き感 */
+        /* --- 書体：看板の極太文字と、手書き札だけの Yusei ---------------------- */
+        /* 貼り紙・章見出し・店名札。太いのに漢字の中が潰れない筆書体。
+           Dela Gothic One は「無料」「群馬千代田店」が塊になって読めなかった（実測） */
+        --font-fuda:   "Reggae One", sans-serif;
+        --font-display:"Dela Gothic One", sans-serif;   /* 数字（お値段・番号）専用 */
+        --font-head:   "Dela Gothic One", sans-serif;
         --font-body:   "Zen Kaku Gothic New", sans-serif;
+        --font-tegaki: "Yusei Magic", sans-serif;   /* 手書き札コンポーネント専用 */
 
-        /* --- 形・間（ここは共通でよい） ---------------------------------------- */
+        /* --- 文字の大きさ 7段 --------------------------------------------------- */
+        --fz-display:  clamp(40px, 9.6vw, 72px);
+        --fz-h2:       clamp(30px, 7.2vw, 50px);
+        --fz-h3:       clamp(19px, 4.4vw, 24px);
+        --fz-h4:       clamp(17px, 3.8vw, 20px);
+        --fz-small:    14px;
+        --fz-cap:      12.5px;
+
+        /* --- 形・間 ------------------------------------------------------------- */
         --radius:      10px;
         --maxw:        1120px;
         --gap:         clamp(16px, 4vw, 40px);
-        --stack:       34px;   /* 見出し・導入文の下から、最初のかたまりまでの間隔 */
-        --pad-section: clamp(64px, 10vw, 120px);
+        --stack:       clamp(24px, 4vw, 44px);   /* 見出しの下から中身まで */
+        --pad-section: clamp(64px, 10vw, 128px);
         --pad-inner:   clamp(20px, 5vw, 40px);
     }
 
@@ -216,27 +242,38 @@
     .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
     .section   { padding-block: var(--pad-section); }
 
-    /* --- スクロール出現演出 ----------------------------------------------------- */
+    /* --- スクロール出現演出（0.4s。この店は勢いのある店なので、ゆっくりだと合わない）
+           ★0.55s だと、スクロールを止めてから字が出そろうまで待たされる感じが出た */
     .reveal {
-        opacity: 0; transform: translateY(26px);
-        transition: opacity 0.8s cubic-bezier(0.16, 0.7, 0.3, 1),
-                    transform 0.8s cubic-bezier(0.16, 0.7, 0.3, 1);
+        opacity: 0; transform: translateY(18px);
+        transition: opacity 0.4s cubic-bezier(0.22, 0.9, 0.3, 1),
+                    transform 0.4s cubic-bezier(0.22, 0.9, 0.3, 1);
     }
     .reveal.in-view       { opacity: 1; transform: none; }
-    .reveal-delay-1       { transition-delay: 0.08s; }
-    .reveal-delay-2       { transition-delay: 0.16s; }
-    .reveal-delay-3       { transition-delay: 0.24s; }
+    .reveal-delay-1       { transition-delay: 0.05s; }
+    .reveal-delay-2       { transition-delay: 0.10s; }
+    .reveal-delay-3       { transition-delay: 0.15s; }
     .no-js .reveal        { opacity: 1; transform: none; }
+    /* 貼り紙・札だけは、少し戻ってから壁に落ち着く動きにする＝この店の署名の動き */
+    .fuda.reveal, .tegaki.reveal {
+        transform: translateY(14px) rotate(0deg);
+        transition: opacity 0.5s cubic-bezier(0.34, 1.4, 0.5, 1),
+                    transform 0.5s cubic-bezier(0.34, 1.4, 0.5, 1);
+    }
+    .fuda.reveal.in-view   { transform: rotate(var(--tilt, -1deg)); }
+    .tegaki.reveal.in-view { transform: rotate(0.6deg); }
+    .no-js .fuda.reveal    { transform: rotate(var(--tilt, -1deg)); }
+    .no-js .tegaki.reveal  { transform: rotate(0.6deg); }
     @media (prefers-reduced-motion: reduce) {
         .reveal { opacity: 1; transform: none; transition: none; }
+        /* 傾きは装飾ではなく造作なので、動かさずに最初から傾けたまま出す */
+        .fuda.reveal   { transform: rotate(var(--tilt, -1deg)); }
+        .tegaki.reveal { transform: rotate(0.6deg); }
     }
 
-    /* --- 写真枠 --------------------------------------------------------------- */
+    /* --- 写真枠：枠も角丸も影も付けない。丼をそのまま出す --------------------- */
     .photo-frame {
         position: relative; overflow: hidden;
-        border-radius: var(--radius);
-        border: 1px solid var(--line-strong);
-        box-shadow: var(--shadow);
         background: var(--surface-2);
     }
     .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
@@ -380,36 +417,87 @@
     }
     .nav-close { margin-top: 22px; text-align: left; font-size: 0.88rem; color: var(--muted); }
 
-    /* --- 共通の見出し ----------------------------------------------------------- */
-    .eyebrow {
-        font-size: 0.8rem; letter-spacing: 0.16em; color: var(--accent);
-        font-weight: 700; display: block;
+    /* --- 共通の見出し＝壁の貼り紙（この店の署名的な造作） ------------------------
+       店内の壁は、黄色い紙に赤い品名の貼り紙で埋まっている（同じページに実物の
+       写真も出している）。章見出しをその造作そのものにする。四隅の画鋲と、
+       章ごとに変える傾きで「貼ってある」ことを出す。 */
+    .fuda {
+        display: inline-block; position: relative;
+        background: var(--yellow); color: var(--red);
+        font-family: var(--font-fuda);
+        font-size: var(--fz-h2); line-height: 1.3;
+        letter-spacing: 0.07em;
+        padding: 15px 26px 17px;
+        border-radius: 2px;
+        transform: rotate(var(--tilt, -1deg));
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        margin-bottom: var(--stack);
+        max-width: 100%;
     }
-    .section-title {
-        font-family: var(--font-head);
-        font-size: clamp(1.9rem, 5.4vw, 2.7rem);
-        color: var(--ink);
-        position: relative;
-        padding-bottom: 16px;
-        margin-bottom: 24px;
+    /* 画鋲を左上・右上に2つ */
+    .fuda::before, .fuda::after {
+        content: ''; position: absolute; top: 7px; width: 11px; height: 11px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #d7d9dc, #85888e 55%, #3c3e42);
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
     }
-    .section-title::after {
-        content: ''; position: absolute; left: 0; bottom: 0;
-        width: 56px; height: 4px; background: var(--accent); border-radius: 2px;
+    .fuda::before { left: 10px; }
+    .fuda::after  { right: 10px; }
+    /* 貼り紙の肩の小さな注記（章番号＋その章が何の話か） */
+    .fuda-no {
+        display: block;
+        font-family: var(--font-body); font-weight: 700;
+        font-size: var(--fz-cap); letter-spacing: 0.1em;
+        color: #1A1408;
+        margin-bottom: 6px;
     }
-    /* お品書きページの黄色い貼り紙見出しと同じ造作を、この節だけに置く。
-       2ページが同じ署名でつながり、黄色が細線しか無い index 中盤に面が1つ立つ */
-    #toppings .section-title {
-        display: inline-block;
-        background: var(--accent); color: var(--bg);
-        padding: 6px 18px 9px; border-radius: 4px;
-        transform: rotate(-0.8deg);
+    /* 広い画面では5枚の貼り紙が全部同じ左端から始まり、等間隔に印刷したものに見える。
+       2枚だけ右へ寄せて「あとから貼り足した壁」にする。本文は左のまま（読む列は動かさない） */
+    @media (min-width: 1000px) {
+        #ramen .fuda, #first-time .fuda { display: table; margin-left: auto; margin-right: 0; }
     }
-    #toppings .section-title::after { display: none; }
     .section-lead {
         color: var(--muted); max-width: 58ch; font-size: 1.03rem;
     }
     .section-alt { background: var(--surface); }
+
+    /* 紙の壁＝サイトで唯一の明るい全幅の面。暗い章が続く流れをここで断ち切る */
+    .section-paper { background: var(--paper); color: var(--ink-paper); }
+    .section-paper .section-lead { color: var(--muted-paper); }
+    .section-paper .fuda { box-shadow: 0 6px 16px rgba(36, 28, 18, 0.22); }
+
+    /* 手書きの札（券売機の上に立っている段ボールの札）。3か所だけに使う */
+    .tegaki {
+        position: relative; display: block;
+        background: var(--paper); color: var(--ink-paper);
+        font-family: var(--font-tegaki);
+        font-size: 1.02rem; line-height: 1.9;
+        padding: clamp(20px, 4vw, 28px);
+        border-radius: 2px;
+        transform: rotate(0.6deg);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .tegaki::before, .tegaki::after {
+        content: ''; position: absolute; top: -9px; width: 64px; height: 18px;
+        background: rgba(255, 232, 0, 0.55);
+    }
+    .tegaki::before { left: 14px;  transform: rotate(-3deg); }
+    .tegaki::after  { right: 14px; transform: rotate(2.5deg); }
+    .section-paper .tegaki { box-shadow: 0 4px 12px rgba(36, 28, 18, 0.2); background: #FFFBF0; }
+
+    /* 券売機のボタン（この店は食券を買うところから始まる。UIを注文体験に寄せる） */
+    .ticket-btn {
+        background: linear-gradient(180deg, #FFFDF4, #EFE7D2);
+        border: 1px solid #C9BFA8;
+        border-radius: 6px;
+        box-shadow: 0 3px 0 #B8AD93, inset 0 1px 0 #fff;
+        color: var(--ink-paper);
+        min-height: 44px;
+        transition: filter 0.15s ease, transform 0.08s ease, box-shadow 0.08s ease;
+    }
+    .ticket-btn:hover  { filter: brightness(1.04); }
+    .ticket-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #B8AD93, inset 0 1px 0 #fff; }
+    .ticket-btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
 
     /* --- ヒーロー（A-2：写真＋情報帯） ------------------------------------------- */
     .hero { display: flex; flex-direction: column; }
@@ -431,7 +519,7 @@
         border: 1px solid rgba(0, 0, 0, 0.28);
         border-radius: 4px;                       /* 貼り紙の角札と同じ角。丸ピルは押せるものに取ってある */
         padding: clamp(18px, 4.4vw, 30px) clamp(20px, 5vw, 38px) clamp(14px, 3.2vw, 22px);
-        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
     }
     .signboard-board img { width: 100%; height: auto; }
     .signboard-sub {
@@ -442,13 +530,16 @@
         line-height: 1.2; letter-spacing: 0.06em;
         color: #15140C;
     }
-    /* 写真を外したぶん縦が余るので、上下の余りを均等に割って中央に置く。
-       画面が低いときは中身がはみ出して上が切れるので、高さも条件に入れる */
-    @media (min-width: 700px) and (min-height: 620px) {
-        .hero .container { justify-content: center; }
+    /* 写真を外したぶん縦が余る。営業状況ピルと注記はヘッダー直下に付けたまま、
+       看板〜ボタンのかたまりだけを残りの高さの中央に置く（全体を中央寄せにすると
+       ピルの上に100px超の空きができる。2026-08-08 オーナー指摘）。
+       auto マージンは余りが無ければ 0 になるので、低い画面で上が切れる心配もない */
+    @media (min-width: 700px) and (max-width: 999.98px) and (min-height: 620px) {
+        .signboard { margin-top: auto; }
+        .hero-actions { margin-bottom: auto; }
     }
     @media (min-width: 900px) {
-        .signboard-board { width: min(100%, 700px); }
+        .signboard-board { width: min(100%, 800px); }
     }
     /* 画面が広いところでは、看板を左・ことばとボタンを右に並べる。
        縦一列のままだと看板の右がまるごと空いて、板だけが浮いて見える */
@@ -456,12 +547,14 @@
         .hero .container {
             display: grid;
             grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+            grid-template-rows: auto auto 1fr auto auto 1fr;
             grid-template-areas:
                 "status status"
                 "note   note"
+                ".      ."
                 "sign   band"
-                "sign   actions";
-            align-content: center;
+                "sign   actions"
+                ".      .";
             column-gap: clamp(36px, 5vw, 64px);
             row-gap: 18px;
         }
@@ -475,41 +568,90 @@
     /* スマホでは主CTA（X導線）を1画面目に収めるため、縦の余白も詰める */
     @media (max-width: 620px) {
         .hero .container { gap: 10px; padding-block: 14px; }
+        /* 狭い画面では看板を最初に。営業状況のピルはそのすぐ下に置く
+           （ピルが先だと、開いた瞬間に見えるのが文字だけの帯になってしまう） */
+        .signboard     { order: 1; }
+        .hero-status   { order: 2; margin-bottom: 0; }
+        .hero-chipnote { order: 3; }
+        .hero-band     { order: 4; }
+        .hero-actions  { order: 5; }
         .hero-lead { margin-top: 6px; }
         .hero-chips { margin-top: 10px; }
         .hero-actions { margin-top: 10px; }
     }
+    /* 看板のとなりに置くことば。大小の差をはっきりつける
+       （店名の並びのほうが大きいと、何の店かより先に支店名が読まれてしまう） */
+    .hero-band .eyebrow {
+        display: block;
+        font-size: 13px; font-weight: 700; letter-spacing: 0.09em;
+        color: var(--yellow);
+    }
     .hero-lead {
-        color: var(--muted); margin-top: 12px; font-size: 1.08rem; max-width: 42ch;
+        color: var(--ink); margin-top: 14px; max-width: 30ch;
+        font-size: clamp(1.24rem, 2.4vw, 1.75rem);
+        font-weight: 700; line-height: 1.6;
     }
     .hero-chips {
         display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;
     }
     /* ★丸みは「押せるもの（営業状況ピル・ボタン）」に取っておく。
-       ただ読ませるだけのこの3つは、店の貼り紙と同じ角札にして形で区別する
-       （デザインレビュー：ヒーローに丸ピルが9個並んで役割が読めない） */
+       ただ読ませるだけのこの4つは、罫線を外して左に黄色の目印だけを付ける。
+       罫線＋角丸のままだと、すぐ下の「お品書きを見る」（.btn-ghost）と
+       見分けがつかず、7つとも押せるように見えてしまう */
     .hero-chips li {
-        background: var(--surface);
-        border: 1px solid var(--line-strong);
-        border-radius: 4px;
-        padding: 7px 13px;
-        font-size: 0.8rem;
+        background: rgba(246, 240, 228, 0.07);
+        border: 0; border-left: 3px solid var(--yellow);
+        border-radius: 0 3px 3px 0;
+        padding: 6px 11px;
+        font-size: 0.78rem;
+        color: var(--muted);
     }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    /* ヒーローの下端。店頭の黄色い板がそのまま画面を横切って終わる。
+       動かさない（写真ではないが、常時アニメーションはこの店の作法に合わない） */
+    .hero-edge {
+        height: clamp(40px, 7vw, 90px);
+        background: var(--yellow);
+        transform: skewY(-1.6deg);
+        transform-origin: center;
+    }
 
     /* --- ボタン共通 ------------------------------------------------------------- */
     .btn {
         display: inline-flex; align-items: center; justify-content: center; gap: 9px;
         min-height: 52px; padding: 0 26px;
-        border-radius: 999px;
+        border-radius: 6px;
         font-weight: 700; font-size: 0.98rem; letter-spacing: 0.02em;
-        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, filter 0.15s ease;
     }
     .btn svg { width: 19px; height: 19px; flex-shrink: 0; }
-    .btn-primary { background: var(--accent); color: var(--bg); }
-    .btn-primary:hover { background: var(--accent-hi); }
+    .btn-primary { background: var(--yellow); color: #1A1408; box-shadow: 0 3px 0 var(--yellow-deep); }
+    .btn-primary:hover { background: var(--yellow-hi); }
+    .btn-primary:active { transform: translateY(3px); box-shadow: none; }
     .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line-strong); }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
+    /* 紙の面の上では、濃地用の淡い文字と淡い罫線が消えてしまう */
+    .section-paper .btn-ghost, .ticket-note .btn-ghost {
+        color: var(--ink-paper); border-color: rgba(36, 28, 18, 0.35);
+    }
+    .section-paper .btn-ghost:hover, .ticket-note .btn-ghost:hover {
+        border-color: var(--red); color: var(--red);
+    }
+    /* 紙の面の上では、濃地用の淡い文字と淡い罫線が消えてしまう */
+    .section-paper .btn-ghost, .ticket-note .btn-ghost {
+        color: var(--ink-paper); border-color: rgba(36, 28, 18, 0.35);
+    }
+    .section-paper .btn-ghost:hover, .ticket-note .btn-ghost:hover {
+        border-color: var(--red); color: var(--red);
+    }
+    /* ページで唯一の赤いボタン。お品書きへ送り出すところだけに使う */
+    .btn-red {
+        background: var(--red); color: #fff;
+        font-size: 1.06rem; min-height: 56px;
+        box-shadow: 0 3px 0 var(--red-deep);
+    }
+    .btn-red:hover { background: var(--red-deep); }
+    .btn-red:active { transform: translateY(3px); box-shadow: none; }
     .btn-block { width: 100%; }
 
     /* --- 料理カード（B-2：カードグリッド。価格は書かない） ------------------------- */
@@ -520,7 +662,19 @@
     .dish-grid figure { display: flex; flex-direction: column; gap: 12px; }
     .dish-grid .photo-frame { aspect-ratio: 1 / 1; }
     .dish-grid figcaption { font-size: 0.9rem; color: var(--muted); }
-    @media (max-width: 620px) { .dish-grid { grid-template-columns: 1fr; } }
+    .dish-grid .yen { color: var(--yellow); font-family: var(--font-display); font-size: 15px; }
+    /* スマホでは丼を画面いっぱいに出す（枠に収めると圧が消える） */
+    @media (max-width: 620px) {
+        .dish-grid { grid-template-columns: 1fr; gap: 26px; }
+        .dish-grid .photo-frame { margin-inline: calc(50% - 50vw); width: 100vw; }
+        .dish-grid figcaption { padding-inline: 2px; }
+    }
+    /* ラーメンの節だけ、まぜそばと同じ2枚並びに見えないよう段違いにする */
+    @media (min-width: 621px) {
+        #ramen .dish-grid { grid-template-columns: 1.35fr 1fr; align-items: start; }
+        #ramen .dish-grid figure:nth-child(1) .photo-frame { aspect-ratio: 4 / 3; }
+        #ramen .dish-grid figure:nth-child(2) { margin-top: clamp(28px, 4vw, 48px); }
+    }
 
     /* 貼り紙は横長（1026×536）。1:1 で切ると三枚のうち真ん中しか写らないので、
        この2枚だけは写真ごとに縦横比を変える */
@@ -529,97 +683,168 @@
         gap: var(--gap); margin-top: var(--stack);
     }
     .topping-media figure { display: flex; flex-direction: column; gap: 12px; }
-    .topping-media figcaption { font-size: 0.9rem; color: var(--muted); }
+    .topping-media figcaption { font-size: 0.9rem; color: var(--muted-paper); }
     .topping-media .m-pork .photo-frame { aspect-ratio: 4 / 3; }
     .topping-media .m-wall .photo-frame { aspect-ratio: 1026 / 536; }
     @media (min-width: 760px) {
-        .topping-media { grid-template-columns: 0.85fr 1.15fr; align-items: start; }
+        /* 4:3 と 1026:536 を横に並べると、右が先に終わって6%ほど下が空く。
+           列幅で高さをそろえる */
+        .topping-media { grid-template-columns: 0.82fr 1.18fr; align-items: start; }
     }
 
     /* --- 麺のこと（1枚・全幅・キャプション重ね。他節と型を変える） --------------------- */
     .noodle-feature { margin-top: var(--stack); }
-    .noodle-feature .photo-frame { aspect-ratio: 21 / 9; }
+    .noodle-feature .photo-frame {
+        margin-inline: calc(50% - 50vw); width: 100vw;
+        height: clamp(300px, 52vh, 560px);
+    }
     .noodle-feature .photo-frame img { object-position: 50% 78%; }
+    /* 写真の上に暗い膜をかけて字を載せると、見せたい麺が沈む。字は紙片に載せる */
     .noodle-caption {
-        position: absolute; left: 0; right: 0; bottom: 0; margin: 0;
-        padding: 26px var(--pad-inner) 18px;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0));
-        color: #fff; font-size: 0.98rem; font-weight: 500;
+        display: block; margin: -22px 0 0 auto; position: relative; z-index: 1;
+        max-width: 46ch;
+        background: var(--paper); color: var(--ink-paper);
+        padding: 18px 22px; border-radius: 2px;
+        transform: rotate(0.5deg);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+        font-size: 0.98rem; font-weight: 500; line-height: 1.9;
     }
 
     /* --- お客様の声 -------------------------------------------------------------- */
     .voice-list { display: flex; flex-direction: column; gap: 16px; margin-top: var(--stack); }
     .voice {
-        background: var(--surface-2);
-        border-left: 4px solid var(--accent);
-        border-radius: 0 var(--radius) var(--radius) 0;
-        padding: 20px 24px;
+        position: relative;
+        background: var(--paper); color: var(--ink-paper);
+        border-radius: 2px;
+        padding: 26px 24px 20px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
     }
-    .voice p { font-size: 1.01rem; color: var(--ink); }
-    .voice cite { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--dim); font-style: normal; }
+    .voice::before {
+        content: ''; position: absolute; top: 9px; left: 50%; margin-left: -6px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #d7d9dc, #85888e 55%, #3c3e42);
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+    }
+    .voice:nth-child(1) { transform: rotate(-1deg); }
+    .voice:nth-child(2) { transform: rotate(0.8deg); }
+    .voice:nth-child(3) { transform: rotate(-0.6deg); }
+    .voice p { font-size: 1.01rem; color: var(--ink-paper); }
+    .voice cite { display: block; margin-top: 10px; font-size: var(--fz-cap); color: var(--muted-paper); font-style: normal; }
     /* 引用は1行ずつなので、広い画面では横に3枚並べる（縦に3枚だと面ばかりが目立つ） */
     @media (min-width: 900px) {
         .voice-list { flex-direction: row; }
         .voice { flex: 1; }
     }
 
-    /* --- 無料でのせられるもの（券売機の貼り紙風） --------------------------------- */
-    /* ★2026-08-08 修正：以前は「五つ（ニンニク・アブラ・エビマヨ・ローストポーク・チーズ）」
-       と1組だけ出していたが、店内の貼り紙は3枚あり、お品ごとに中身が違う。
-       ローストポークは「味玉・ローストポーク・豚のうち一つ」の別枠だった。 */
+    /* --- 無料でのせられるもの＝紙の壁（ページで唯一の明るい全幅の面） -------------
+       実物の貼り紙は「黄色い紙に赤い品名」。以前は黒地に黄枠で明暗が逆だったので、
+       実物どおりに直した（同じ節に貼り紙の写真も出しているので、並べて見比べられる）。
+       ★2026-08-08：有料でのせられるものも、値段つきでここに出す（オーナー指摘）。 */
     .topping-cols {
         display: grid; grid-template-columns: 1fr;
         gap: clamp(26px, 5vw, 40px); margin-top: var(--stack);
     }
     @media (min-width: 860px) { .topping-cols { grid-template-columns: repeat(3, 1fr); } }
     .topping-col h3 {
-        font-family: var(--font-head); font-size: 1.02rem; color: var(--accent);
-        padding-bottom: 10px; border-bottom: 1px solid var(--line);
+        font-family: var(--font-body); font-weight: 700;
+        font-size: var(--fz-h4); color: var(--ink-paper);
+        padding-bottom: 10px; border-bottom: 1px solid var(--line-paper);
     }
-    .topping-plus {
-        margin-top: clamp(28px, 5vw, 40px);
-        background: var(--surface-2); border: 1px solid var(--line);
-        border-left: 4px solid var(--accent-2); border-radius: var(--radius);
-        padding: clamp(16px, 3.4vw, 22px);
-        color: var(--muted); font-size: 0.93rem; line-height: 1.95;
-    }
-    .topping-plus b { color: var(--ink); }
     .topping-tags {
         display: flex; flex-wrap: wrap; gap: 20px 18px;
-        margin-top: 36px;
+        margin-top: 32px;
     }
-    .topping-col .topping-tags { margin-top: 26px; gap: 18px 14px; }
+    .topping-col .topping-tags { margin-top: 26px; gap: 20px 14px; }
     .topping-tag {
         position: relative;
-        background: var(--surface-2);
-        border: 2px solid var(--accent);
-        border-radius: 6px;
-        padding: 16px 24px;
-        font-family: var(--font-head);
-        font-size: 1.18rem;
-        color: var(--ink);
-        box-shadow: var(--shadow);
+        background: var(--yellow); color: var(--red);
+        border-radius: 2px;
+        padding: 14px 22px 15px;
+        font-family: var(--font-fuda);
+        font-size: clamp(18px, 4vw, 24px); line-height: 1.2;
+        box-shadow: 0 4px 10px rgba(36, 28, 18, 0.18);
     }
-    .topping-tag::before {
-        content: '無料';
-        position: absolute; top: -11px; left: 16px;
-        background: var(--accent); color: var(--bg);
-        font-family: var(--font-body);
-        font-size: 0.66rem; font-weight: 700;
-        padding: 3px 9px; border-radius: 999px; letter-spacing: 0.06em;
+    /* 画鋲を2つ。貼り紙の見出しと同じ造作でそろえる */
+    .topping-tag::after, .topping-tag::before {
+        content: ''; position: absolute; top: 5px; width: 8px; height: 8px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #d7d9dc, #85888e 55%, #3c3e42);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
     }
+    .topping-tag::before { left: 7px; }
+    .topping-tag::after  { right: 7px; }
     .topping-tag:nth-child(1) { transform: rotate(-1.4deg); }
     .topping-tag:nth-child(2) { transform: rotate(1.1deg); }
     .topping-tag:nth-child(3) { transform: rotate(-0.7deg); }
     .topping-tag:nth-child(4) { transform: rotate(1.4deg); }
     .topping-tag:nth-child(5) { transform: rotate(-1.1deg); }
     @media (min-width: 900px) {
-        .topping-tag { font-size: 1.5rem; padding: 22px 36px; }
-        .topping-tags { gap: 28px 24px; }
-        /* 3列に並ぶときは1枚あたりが狭いので、札は本文サイズのままにする */
-        .topping-col .topping-tag { font-size: 1.12rem; padding: 15px 20px; }
-        .topping-col .topping-tags { gap: 18px 14px; }
+        .topping-tags { gap: 26px 22px; }
+        .topping-col .topping-tag { font-size: 1.1rem; padding: 13px 18px 14px; }
+        .topping-col .topping-tags { gap: 20px 14px; }
     }
+
+    /* 有料でのせられるもの＝値札の並び。値段は券売機の数字のように黄で出す */
+    .paid-head {
+        margin-top: clamp(44px, 7vw, 68px);
+        font-family: var(--font-body); font-weight: 700;
+        font-size: var(--fz-h3); color: var(--ink-paper);
+        /* この節で唯一の素の見出しだった。紙の面なので貼り紙にはできないが、
+           蛍光ペンを引いた形にして章の見出しとの差をつける */
+        display: inline-block;
+        background: linear-gradient(transparent 56%, rgba(255, 232, 0, 0.6) 56% 88%, transparent 88%);
+        padding: 0 6px;
+    }
+    .paid-lead { margin-top: 8px; color: var(--muted-paper); font-size: 0.97rem; max-width: 62ch; }
+    .paid-list {
+        list-style: none; margin-top: 22px;
+        display: grid; grid-template-columns: 1fr; gap: 0;
+        column-gap: clamp(28px, 5vw, 56px);
+    }
+    @media (min-width: 620px) { .paid-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (min-width: 980px) { .paid-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .paid-list li {
+        display: flex; align-items: baseline; gap: 8px;
+        padding: 11px 0;
+        border-bottom: 1px dashed var(--line-paper);
+    }
+    .paid-list .p-name { font-weight: 700; color: var(--ink-paper); font-size: var(--fz-h4); }
+    .paid-list .p-note { font-size: var(--fz-small); color: var(--muted-paper); font-weight: 400; }
+    .paid-list .p-dots { flex: 1; border-bottom: 1px dotted rgba(36, 28, 18, 0.3); transform: translateY(-4px); }
+    .paid-list .p-price {
+        font-family: var(--font-display); font-size: 18px; color: var(--red);
+        white-space: nowrap;
+    }
+    .paid-fig {
+        display: flex; flex-direction: column; gap: 12px;
+        margin-top: clamp(26px, 4vw, 36px);
+        max-width: 420px;
+    }
+    .paid-fig .photo-frame { aspect-ratio: 3 / 4; }
+    .paid-fig figcaption { font-size: 0.9rem; color: var(--muted-paper); }
+    @media (min-width: 980px) {
+        .paid-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(30px, 4vw, 52px); align-items: start; }
+        .paid-wrap .paid-fig { margin-top: 0; max-width: none; }
+        .paid-wrap .paid-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .paid-shops {
+        display: grid; grid-template-columns: 1fr; gap: 16px;
+        margin-top: clamp(26px, 4vw, 36px);
+    }
+    @media (min-width: 860px) { .paid-shops { grid-template-columns: repeat(3, 1fr); } }
+    .paid-shop {
+        background: rgba(36, 28, 18, 0.05);
+        border: 1px solid var(--line-paper);
+        border-radius: 4px;
+        padding: 16px 18px 18px;
+    }
+    .paid-shop h4 {
+        display: inline-block;
+        background: var(--yellow); color: #1A1408;
+        font-family: var(--font-fuda); font-size: 1rem;
+        padding: 5px 12px; border-radius: 3px;
+    }
+    .paid-shop p { margin-top: 12px; font-size: var(--fz-small); line-height: 1.95; color: var(--ink-paper); }
 
     /* --- 券売機・店内のようす（2026-08-08 追加） ----------------------------------- */
     /* ★お一人様一品・両替は「行けるかどうか」が決まる情報なので、
@@ -630,12 +855,22 @@
         grid-template-columns: 1fr;
     }
     @media (min-width: 760px) { .steps-note { grid-template-columns: repeat(2, 1fr); } }
+    /* ★2枚とも手書きの札。あとから来る .steps-note > div に上書きされないよう、
+       札の指定のほうを後ろに（同じ詳細度なら後勝ちのため）書く */
     .steps-note > div {
         background: var(--surface-2); border: 1px solid var(--line);
         border-left: 4px solid var(--accent); border-radius: var(--radius);
         padding: clamp(14px, 3vw, 20px);
         color: var(--muted); font-size: 0.95rem; line-height: 1.9;
     }
+    .steps-note > div.tegaki {
+        background: var(--paper); color: var(--ink-paper);
+        border: 0; border-radius: 2px;
+        padding: clamp(20px, 4vw, 28px);
+        transform: rotate(0.6deg);
+    }
+    .steps-note > div.tegaki:nth-child(2) { transform: rotate(-0.7deg); }
+    .steps-note > div.tegaki b { color: var(--red); }
     .steps-note b { color: var(--ink); font-size: 1.02rem; }
     .interior-grid {
         display: grid; grid-template-columns: repeat(2, 1fr);
@@ -647,21 +882,41 @@
     .interior-grid figcaption { font-size: 0.86rem; color: var(--muted); }
 
     /* --- お品書きへの導線（2026-08-08 追加） --------------------------------------- */
+    /* 券売機の盤面。ボタンを押すと3px沈む＝店で食券を買うときの手ざわり */
+    .ticket-panel {
+        margin-top: var(--stack);
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: clamp(16px, 3.4vw, 30px);
+    }
     .teaser-grid {
         display: grid; grid-template-columns: repeat(2, 1fr);
-        gap: clamp(12px, 2.6vw, 22px); margin-top: var(--stack);
+        gap: clamp(12px, 2.6vw, 20px);
     }
     @media (min-width: 760px) { .teaser-grid { grid-template-columns: repeat(3, 1fr); } }
-    .teaser { display: flex; flex-direction: column; gap: 11px; text-decoration: none; color: inherit; }
-    .teaser .photo-frame { aspect-ratio: 4 / 3; transition: border-color .25s ease; }
-    .teaser:hover .photo-frame { border-color: var(--accent); }
-    .teaser-name {
-        font-family: var(--font-head); font-size: 1rem; line-height: 1.5;
+    /* ★色は紙の上の文字。inherit にすると券売機ボタン（紙）の上に
+       濃地用の淡い文字が乗って、品名がほとんど読めなくなる */
+    .teaser {
+        display: flex; flex-direction: column; text-decoration: none;
+        color: var(--ink-paper);
+        overflow: hidden; padding: 0 0 12px;
     }
-    .teaser:hover .teaser-name { color: var(--accent); }
+    .teaser .photo-frame { aspect-ratio: 4 / 3; border-radius: 5px 5px 0 0; }
+    .teaser .photo-frame img { transition: transform 0.3s ease-out; }
+    .teaser:hover .photo-frame img { transform: scale(1.03); }
+    .teaser-name {
+        font-family: var(--font-body); font-weight: 700;
+        font-size: var(--fz-h4); line-height: 1.45;
+        padding: 12px 14px 0;
+    }
     .teaser-name small {
-        display: block; margin-top: 4px; font-family: var(--font-body);
-        font-size: .74rem; color: var(--dim);
+        display: block; margin-top: 4px; font-family: var(--font-body); font-weight: 400;
+        font-size: var(--fz-cap); color: var(--muted-paper);
+    }
+    .teaser-name .yen {
+        display: block; margin-top: 6px;
+        font-family: var(--font-display); font-size: 17px; color: var(--red);
     }
 
     /* --- はじめての方へ（3ステップ） ----------------------------------------------- */
@@ -670,22 +925,30 @@
         display: grid; grid-template-columns: repeat(3, 1fr);
         gap: var(--gap); margin-top: var(--stack);
     }
+    /* 食券の半券。左辺のミシン目と切り欠きで「券」に見せる */
     .step {
-        background: var(--surface-2);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        padding: 28px 22px;
+        position: relative;
+        background: var(--paper); color: var(--ink-paper);
+        border-radius: 4px;
+        padding: 26px 22px 26px 30px;
+        border-left: 2px dashed rgba(36, 28, 18, 0.35);
+        overflow: hidden;
+    }
+    .step::after {
+        content: ''; position: absolute; left: -9px; top: -9px;
+        width: 18px; height: 18px; border-radius: 50%;
+        background: var(--bg);
+        box-shadow: 0 calc(100% + 9px) 0 var(--bg);
     }
     .step::before {
         counter-increment: step; content: counter(step);
-        display: flex; align-items: center; justify-content: center;
-        width: 38px; height: 38px; border-radius: 50%;
-        background: var(--accent); color: var(--bg);
-        font-weight: 700; font-family: var(--font-head);
-        margin-bottom: 16px;
+        display: block;
+        font-family: var(--font-display); font-size: 40px; line-height: 1;
+        color: var(--red);
+        margin-bottom: 12px;
     }
-    .step h3 { font-size: 1.05rem; margin-bottom: 8px; }
-    .step p { color: var(--muted); font-size: 0.94rem; }
+    .step h3 { font-size: var(--fz-h4); margin-bottom: 8px; color: var(--ink-paper); }
+    .step p { color: var(--muted-paper); font-size: 0.94rem; }
     @media (max-width: 768px) { .steps { grid-template-columns: 1fr; } }
 
     /* --- アクセス・店舗情報 ------------------------------------------------------ */
@@ -717,13 +980,13 @@
         border-top: 1px solid var(--line);
     }
     .site-footer p { margin-block: 4px; color: var(--muted); font-size: 0.85rem; }
-    .footer-name { font-family: var(--font-head); font-size: 1.1rem; color: var(--ink); }
+    .footer-name { font-family: var(--font-fuda); font-size: 1.1rem; color: var(--ink); }
 
 
     /* ── 三軒のご案内（2026-08-07 に古河本店の1軒から3軒に増やした）────────
        型・配色は完成済みのものを触らない。増えたのは「店ごとのカード」だけ。
        ★店ごとに営業時間が違うので、営業中バッジも店ごとに別判定にしてある。 */
-    .hero-sub { display: block; font-size: .84em; margin-top: 6px; opacity: .92; }
+    .hero-sub { display: block; font-size: .62em; font-weight: 400; color: var(--muted); margin-top: 10px; }
     .shops-lead { font-size: clamp(14px, 3.4vw, 16px); line-height: 2; color: var(--muted);
                   max-width: 44em; margin-bottom: clamp(22px, 4vw, 34px); }
     .shop-list { display: grid; gap: clamp(20px, 4vw, 30px); }
@@ -731,7 +994,13 @@
     .shop-card { background: var(--surface); border: 1px solid var(--line);
                  border-radius: var(--radius); padding: clamp(16px, 3.4vw, 24px); }
     .shop-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
-    .shop-head h3 { font-size: clamp(18px, 4.4vw, 22px); letter-spacing: .06em; }
+    .shop-head h3 {
+        display: inline-block;
+        background: var(--yellow); color: #1A1408;
+        font-family: var(--font-fuda);
+        font-size: var(--fz-h3); letter-spacing: 0;
+        padding: 6px 14px 7px; border-radius: 3px;
+    }
     .shop-card .info-table { margin-bottom: 14px; }
     .shop-card .map-wrapper { margin-bottom: 12px; }
     .shop-card .status-chip { margin: 0; }
@@ -743,9 +1012,16 @@
     .hero-status { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
     .hstat { display: inline-flex; align-items: center; gap: 8px;
              text-decoration: none; color: inherit;
-             background: var(--surface-2); border: 1px solid var(--line);
+             background: var(--surface-2); border: 1px solid var(--line-strong);
              border-radius: 999px; padding: 5px 12px 5px 12px; min-height: 44px; }
-    .hstat-shop { font-family: var(--font-head); font-size: 13px; letter-spacing: .04em; white-space: nowrap; }
+    /* ★「営業中かどうかの表示」にしか見えず、押せることが伝わっていなかった
+       （お客様レビューで2人が同じ指摘）。行き先を字で出す */
+    .hstat::after {
+        content: '地図 ▸'; margin-left: auto; padding-left: 12px;
+        font-size: 11.5px; font-weight: 700; color: var(--accent); white-space: nowrap;
+    }
+    .hstat:hover { border-color: var(--accent); }
+    .hstat-shop { font-family: var(--font-body); font-weight: 700; font-size: 13px; letter-spacing: .04em; white-space: nowrap; }
     .hstat .status-chip { margin: 0; border: 0; background: none; padding: 0; font-size: 12.5px; }
     @media (max-width: 620px) { .hstat { width: 100%; } .hstat .status-chip { font-size: 12px; } }
     .closing { display: block; font-size: 12px; color: var(--accent); margin-top: 4px; }
@@ -791,7 +1067,7 @@
         <!-- 電話番号が確認できたらここを tel: に戻す（現在は非公開のためXへの導線にしている） -->
         <a href="https://x.com/soreiketakachan" class="header-x" target="_blank" rel="noopener" aria-label="Xで最新情報を見る（別タブで開きます）">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.36 2H21.5l-7.19 8.21L22.75 22h-6.62l-5.18-6.78L4.99 22H1.85l7.7-8.8L1 2h6.78l4.68 6.2zm-1.16 18h1.83L7.03 4h-1.96z"/></svg>
-            <span>X</span>
+            <span>最新情報</span>
         </a>
 
         <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
@@ -840,7 +1116,7 @@
 
         <div class="hero-band reveal">
             <span class="eyebrow">古河本店・守谷店・群馬千代田店｜<span class="nw">まぜそば・ラーメン</span></span>
-            <p class="hero-lead">極太の平打ち麺と、無料でのせられるもの。<br><span class="hero-sub">三軒とも<span class="nw">年中無休</span>でお待ちしております。</span></p>
+            <p class="hero-lead">極太の平打ち麺と、無料でのせられるもの。<br><span class="hero-sub">お一杯ずつ茹でて、盛り付けてお出ししております。</span></p>
             <ul class="hero-chips">
                 <li>券売機で食券を先に</li>
                 <li>三軒とも年中無休</li>
@@ -859,6 +1135,7 @@
             </a>
         </div>
     </div>
+    <div class="hero-edge" aria-hidden="true"></div>
 </section>
 
 
@@ -867,8 +1144,7 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="mazesoba">
     <div class="container">
-        <span class="eyebrow reveal">当店の看板</span>
-        <h2 class="section-title reveal">まぜそば</h2>
+        <h2 class="fuda reveal" style="--tilt: -1deg;"><span class="fuda-no">其の一　当店の看板</span>まぜそば</h2>
         <p class="section-lead reveal">
             自家製の極太平打ち麺に、特製のタレをよく絡めてお出ししています。
             無料でのせられるものは、このあとご紹介いたします。
@@ -912,10 +1188,9 @@
 <!-- ══════════════════════════════════════════════════════════════════════
      無料でのせられる五つ（券売機の貼り紙風。署名的な仕掛け）
      ══════════════════════════════════════════════════════════════════════ -->
-<section class="section section-alt" id="toppings">
+<section class="section section-paper" id="toppings">
     <div class="container">
-        <span class="eyebrow reveal">券売機のわきに、貼り紙でご案内</span>
-        <h2 class="section-title reveal">無料でのせられるもの</h2>
+        <h2 class="fuda reveal" style="--tilt: 0.8deg;"><span class="fuda-no">其の二　券売機のわきに、貼り紙でご案内</span>無料でのせられるもの</h2>
         <p class="section-lead reveal">
             食券をお渡しになるときに、お好みをお申し付けください。
             <b>おすすめは全増し</b>です。のせられるものは、お品によって違います。
@@ -953,10 +1228,56 @@
             </div>
         </div>
 
-        <p class="topping-plus reveal">
-            このほかに <b>味玉・ローストポーク・豚</b> のうち、どれか一つをおのせできます。
-            全増しとお申し付けいただいてもこちらは入りませんので、別にお申し付けください。
+        <p class="tegaki reveal" style="max-width: 62ch; margin-top: clamp(30px, 5vw, 42px);">
+            味玉・ローストポーク・豚は有料です。全増しとお申し付けいただいても入りませんので、
+            別にお申し付けください。
         </p>
+
+        <h3 class="paid-head reveal">有料でのせられるもの</h3>
+        <p class="paid-lead reveal">
+            券売機のボタンでお求めください。ここにあるものは<b>三軒とも同じお値段</b>です。
+            お会計のあとに追加なさるときは、お席で現金にて承ります。お値段はすべて税込です。
+            まぜそば・冷やしまぜそばのチーズは、無料でおのせしております。
+        </p>
+        <div class="paid-wrap">
+            <ul class="paid-list reveal">
+                <li><span class="p-name">生姜</span><span class="p-dots"></span><span class="p-price">50円</span></li>
+                <li><span class="p-name">味玉</span><span class="p-dots"></span><span class="p-price">150円</span></li>
+                <li><span class="p-name">うずら <span class="p-note">5個</span></span><span class="p-dots"></span><span class="p-price">150円</span></li>
+                <li><span class="p-name">チーズ</span><span class="p-dots"></span><span class="p-price">150円</span></li>
+                <li><span class="p-name">魚盛り <span class="p-note">カツオとサバの魚粉</span></span><span class="p-dots"></span><span class="p-price">150円</span></li>
+                <li><span class="p-name">ほうれん草</span><span class="p-dots"></span><span class="p-price">150円</span></li>
+                <li><span class="p-name">スキヤキ <span class="p-note">生卵</span></span><span class="p-dots"></span><span class="p-price">150円</span></li>
+                <li><span class="p-name">アックマン <span class="p-note">背アブラ＋生卵</span></span><span class="p-dots"></span><span class="p-price">150円</span></li>
+                <li><span class="p-name">豚増し</span><span class="p-dots"></span><span class="p-price">300円</span></li>
+                <li><span class="p-name">ローストポーク <span class="p-note">4枚</span></span><span class="p-dots"></span><span class="p-price">300円</span></li>
+                <li><span class="p-name">おい飯</span><span class="p-dots"></span><span class="p-price">100円</span></li>
+                <li><span class="p-name">お持ち帰り豚 <span class="p-note">数量限定</span></span><span class="p-dots"></span><span class="p-price">3,000円</span></li>
+            </ul>
+
+            <figure class="paid-fig reveal">
+                <div class="photo-frame">
+                    <img src="photos/wall-topping-plus.jpg" alt="券売機のわきに貼られた有料トッピングの一覧表"
+                         width="1000" height="1333" loading="lazy" decoding="async">
+                </div>
+                <figcaption>券売機のわきにも、同じご案内を貼り出しております。</figcaption>
+            </figure>
+        </div>
+
+        <div class="paid-shops">
+            <div class="paid-shop reveal">
+                <h4>古河本店</h4>
+                <p>ネギまみれ 50円／のり（4枚） 100円／バター 100円／ライス 150円／禁断のバタご飯 200円／ガーリックライス 200円</p>
+            </div>
+            <div class="paid-shop reveal reveal-delay-1">
+                <h4>守谷店</h4>
+                <p>ねぎざんまい・玉ねぎ・バター・辛い味に変更 各100円／極上焼き岩海苔・背脂LOVE・ヤサイ増量・タルタルソース・キムチ・辛魚盛り 各150円／おい飯 100円／ライス 180円／プレミアムすきやき 250円／肉ざんまい 550円／豚タルタル丼 350円／絶品ローストポーク丼 500円／缶ビール 400円</p>
+            </div>
+            <div class="paid-shop reveal reveal-delay-2">
+                <h4>群馬千代田店</h4>
+                <p>ネギまみれ・玉ねぎ・辛い味に変更 各100円／極上焼き岩海苔・背脂LOVE・ヤサイ増量・キャベチャー・Wバター 各150円／ライス 180円／のりたま丼 300円／キャベチャー丼 350円／カモネギ 400円／肉増しキング 550円／缶ビール 400円／男梅サワー・酎ハイ 各350円</p>
+            </div>
+        </div>
 
         <div class="topping-media">
             <figure class="reveal m-pork">
@@ -983,8 +1304,7 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="noodle">
     <div class="container">
-        <span class="eyebrow reveal">自家製・極太平打ち麺</span>
-        <h2 class="section-title reveal">麺のこと</h2>
+        <h2 class="fuda reveal" style="--tilt: -0.6deg;"><span class="fuda-no">其の三　自家製・極太平打ち麺</span>麺のこと</h2>
         <p class="section-lead reveal">
             厨房で仕込んだ自家製の麺を、一つずつ茹でてお出ししています。
             太く平たい麺は、タレをしっかりと持ち上げます。
@@ -994,8 +1314,8 @@
             <div class="photo-frame">
                 <img src="photos/p24.jpg" alt="盛り付けたばかりの極太平打ち麺"
                      width="1080" height="1080" loading="lazy" decoding="async">
-                <p class="noodle-caption">混ぜる前から、太さがひと目でわかります。</p>
             </div>
+            <figcaption class="noodle-caption">混ぜる前から、太さがひと目でわかります。</figcaption>
         </figure>
     </div>
 </section>
@@ -1006,8 +1326,7 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section section-alt" id="ramen">
     <div class="container">
-        <span class="eyebrow reveal">まぜそばのほかに</span>
-        <h2 class="section-title reveal">ラーメン</h2>
+        <h2 class="fuda reveal" style="--tilt: 1.1deg;"><span class="fuda-no">其の四　まぜそばのほかに</span>ラーメン</h2>
         <p class="section-lead reveal">
             まぜそばだけでなく、ラーメン・つけ麺もご用意しております。
             ヤサイ・ニンニク・アブラ・ネギを、無料でおのせします。
@@ -1039,60 +1358,61 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="menu-teaser">
     <div class="container">
-        <span class="eyebrow reveal">まぜそば・ラーメンのほかにも</span>
-        <h2 class="section-title reveal">お品書き</h2>
+        <h2 class="fuda reveal" style="--tilt: -0.9deg;"><span class="fuda-no">其の五　まぜそば・ラーメンのほかにも</span>お品書き</h2>
         <p class="section-lead reveal">
-            たれそば、つけ麺、古河本店だけの酸辣湯麺やビビンバ丼、夏の冷やしまぜそば。
-            そのときどきの限定のお品も、あわせてご案内しております。
+            たれそば、つけ麺、古河本店だけの酸辣湯麺やビビンバ丼、いまの限定。
+            お値段は<b>すべて税込</b>で、お支払いは<b>現金のみ</b>です。
         </p>
 
-        <div class="teaser-grid">
-            <a class="teaser reveal" href="menu.html#teiban">
-                <div class="photo-frame">
-                    <img src="photos/m-taresoba.jpg" alt="魚粉と卵黄をのせたたれそば"
-                         width="1024" height="768" loading="lazy" decoding="async">
-                </div>
-                <span class="teaser-name">たれそば</span>
-            </a>
-            <a class="teaser reveal reveal-delay-1" href="menu.html#teiban">
-                <div class="photo-frame">
-                    <img src="photos/m-tsukemen.jpg" alt="麺とつけダレを別の器に盛ったつけ麺"
-                         width="1024" height="768" loading="lazy" decoding="async">
-                </div>
-                <span class="teaser-name">つけ麺</span>
-            </a>
-            <a class="teaser reveal reveal-delay-2" href="menu.html#gentei">
-                <div class="photo-frame">
-                    <img src="photos/m-suratan.jpg" alt="溶き卵とミンチをのせた酸辣湯麺"
-                         width="852" height="410" loading="lazy" decoding="async">
-                </div>
-                <span class="teaser-name">酸辣湯麺<small>古河本店限定</small></span>
-            </a>
-            <a class="teaser reveal" href="menu.html#natsu">
-                <div class="photo-frame">
-                    <img src="photos/m-hiyashi.jpg" alt="水菜とレタスをのせた冷やしまぜそば"
-                         width="1024" height="768" loading="lazy" decoding="async">
-                </div>
-                <span class="teaser-name">冷やしまぜそば<small>夏のお品</small></span>
-            </a>
-            <a class="teaser reveal reveal-delay-1" href="menu.html#gentei">
-                <div class="photo-frame">
-                    <img src="photos/m-bibimba.jpg" alt="卵黄と豚バラをのせたビビンバ丼"
-                         width="902" height="554" loading="lazy" decoding="async">
-                </div>
-                <span class="teaser-name">ビビンバ丼<small>古河本店限定</small></span>
-            </a>
-            <a class="teaser reveal reveal-delay-2" href="menu.html#takeout">
-                <div class="photo-frame">
-                    <img src="photos/m-takeout.jpg" alt="麺とスープを分けて詰めたお持ち帰りのラーメン"
-                         width="1127" height="589" loading="lazy" decoding="async">
-                </div>
-                <span class="teaser-name">お持ち帰り<small>古河本店</small></span>
-            </a>
+        <div class="ticket-panel">
+            <div class="teaser-grid">
+                <a class="teaser ticket-btn reveal" href="menu.html#teiban">
+                    <div class="photo-frame">
+                        <img src="photos/m-taresoba.jpg" alt="魚粉と卵黄をのせたたれそば"
+                             width="1024" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <span class="teaser-name">たれそば<span class="yen">1,100円</span></span>
+                </a>
+                <a class="teaser ticket-btn reveal reveal-delay-1" href="menu.html#teiban">
+                    <div class="photo-frame">
+                        <img src="photos/m-tsukemen.jpg" alt="麺とつけダレを別の器に盛ったつけ麺"
+                             width="1024" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <span class="teaser-name">つけ麺<span class="yen">1,150円</span></span>
+                </a>
+                <a class="teaser ticket-btn reveal reveal-delay-2" href="menu.html#gentei">
+                    <div class="photo-frame">
+                        <img src="photos/m-suratan.jpg" alt="溶き卵とミンチをのせた酸辣湯麺"
+                             width="852" height="410" loading="lazy" decoding="async">
+                    </div>
+                    <span class="teaser-name">酸辣湯麺<small>古河本店だけのお品</small><span class="yen">1,200円</span></span>
+                </a>
+                <a class="teaser ticket-btn reveal" href="menu.html#natsu">
+                    <div class="photo-frame">
+                        <img src="photos/m-hiyashi.jpg" alt="水菜とレタスをのせた冷やしまぜそば"
+                             width="1024" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <span class="teaser-name">冷やしまぜそば<small>群馬千代田店の限定</small><span class="yen">1,400円</span></span>
+                </a>
+                <a class="teaser ticket-btn reveal reveal-delay-1" href="menu.html#gentei">
+                    <div class="photo-frame">
+                        <img src="photos/m-bibimba.jpg" alt="卵黄と豚バラをのせたビビンバ丼"
+                             width="902" height="554" loading="lazy" decoding="async">
+                    </div>
+                    <span class="teaser-name">ビビンバ丼<small>古河本店だけのお品</small><span class="yen">350円</span></span>
+                </a>
+                <a class="teaser ticket-btn reveal reveal-delay-2" href="menu.html#takeout">
+                    <div class="photo-frame">
+                        <img src="photos/m-takeout.jpg" alt="麺とスープを分けて詰めたお持ち帰りのラーメン"
+                             width="1127" height="589" loading="lazy" decoding="async">
+                    </div>
+                    <span class="teaser-name">お持ち帰り<small>容器代を含みます</small><span class="yen">1,150円</span></span>
+                </a>
+            </div>
         </div>
 
         <div class="hero-actions">
-            <a href="menu.html" class="btn btn-primary">お品書きをすべて見る</a>
+            <a href="menu.html" class="btn btn-red">お品書きをすべて見る</a>
         </div>
     </div>
 </section>
@@ -1101,10 +1421,9 @@
 <!-- ══════════════════════════════════════════════════════════════════════
      はじめての方へ（3ステップ・写真なし）
      ══════════════════════════════════════════════════════════════════════ -->
-<section class="section" id="first-time">
+<section class="section section-alt" id="first-time">
     <div class="container">
-        <span class="eyebrow reveal">ご来店がはじめての方へ</span>
-        <h2 class="section-title reveal">はじめての方へ</h2>
+        <h2 class="fuda reveal" style="--tilt: 0.7deg;"><span class="fuda-no">其の六　ご来店がはじめての方へ</span>はじめての方へ</h2>
         <p class="section-lead reveal">
             当店は券売機での食券制です。はじめての方も迷わないよう、順番をご案内いたします。
         </p>
@@ -1124,9 +1443,9 @@
             </div>
         </div>
 
-        <div class="steps-note reveal">
-            <div><b>中学生以上のお客様は、お一人様一品</b><br>麺類をお一つずつご注文いただいております。小学生以下のお子様はその限りではございませんので、ご家族でお分けになってお召し上がりください。</div>
-            <div><b>両替はスタッフへお声がけください</b><br>券売機は現金のみです。大きなお札しかお持ちでないときも、遠慮なくお申し付けください。</div>
+        <div class="steps-note">
+            <div class="tegaki reveal"><b>中学生以上のお客様は、お一人様一品</b><br>麺類をお一つずつご注文いただいております。小学生以下のお子様はその限りではございませんので、ご家族でお分けになってお召し上がりください。</div>
+            <div class="tegaki reveal reveal-delay-1"><b>両替はスタッフへお声がけください</b><br>券売機は現金のみです。大きなお札しかお持ちでないときも、遠慮なくお申し付けください。</div>
         </div>
 
         <div class="interior-grid">
@@ -1135,7 +1454,7 @@
                     <img src="photos/ticket-vender.jpg" alt="入口に置かれた券売機と、その上の貼り紙"
                          width="498" height="1024" loading="lazy" decoding="async">
                 </div>
-                <figcaption>入口の券売機</figcaption>
+                <figcaption>入口の券売機。お品と有料トッピングのボタンが並んでおります。</figcaption>
             </figure>
             <figure class="reveal reveal-delay-1">
                 <div class="photo-frame">
@@ -1166,10 +1485,9 @@
 <!-- ══════════════════════════════════════════════════════════════════════
      アクセス・店舗情報
      ══════════════════════════════════════════════════════════════════════ -->
-<section class="section section-alt" id="shops">
+<section class="section" id="shops">
     <div class="container">
-        <span class="eyebrow reveal">お近くの一軒へ</span>
-        <h2 class="section-title reveal">三軒のご案内</h2>
+        <h2 class="fuda reveal" style="--tilt: -1.2deg;"><span class="fuda-no">其の七　お近くの一軒へ</span>三軒のご案内</h2>
         <p class="section-lead reveal shops-lead">
             古河本店・守谷店・群馬千代田店の三軒でお待ちしております。
             <b>三軒とも年中無休</b>ですが、お昼と夜の時間はお店によって違います。
@@ -1216,7 +1534,7 @@
                          width="1024" height="1024" loading="lazy" decoding="async">
                 </div>
                 <table class="info-table">
-                    <tr><th>住所</th><td>〒302-0118 茨城県守谷市美園4-1-5 美園ビル1F</td></tr>
+                    <tr><th>住所</th><td>〒302-0118 茨城県守谷市美園4-1-15 美園ビル1F</td></tr>
                     <tr><th>営業時間</th><td>月〜金　11:00〜14:30／18:00〜<b>22:00</b><span class="break-note">（14:30〜18:00 は中休みです）</span><br>土日祝　11:00〜<b>22:00</b>（<b>通し営業</b>・中休みなし）</td></tr>
                     <tr><th>定休日</th><td>年中無休</td></tr>
                     <tr><th>アクセス</th><td>関東鉄道常総線 南守谷駅から1.1km</td></tr>
@@ -1224,12 +1542,12 @@
                     <tr><th>お支払い</th><td>現金のみ（券売機で食券をお求めください）</td></tr>
                 </table>
                 <div class="map-wrapper">
-                    <iframe src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-5&z=16&output=embed"
+                    <iframe src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-15&z=16&output=embed"
                             allowfullscreen loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"
                             title="それいけ!たかちゃんラーメン 守谷店 の地図"></iframe>
                 </div>
-                <a href="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-5" target="_blank" rel="noopener noreferrer"
+                <a href="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-15" target="_blank" rel="noopener noreferrer"
                    class="btn btn-ghost btn-block">守谷店の経路を見る</a>
             </div>
 
@@ -1291,7 +1609,7 @@
 <footer class="site-footer">
     <div class="container">
         <p class="footer-name">それいけ!たかちゃんラーメン</p>
-        <p class="footer-addr">古河本店　茨城県古河市大山564-5<br>守谷店　茨城県守谷市美園4-1-5 美園ビル1F<br>群馬千代田店　群馬県邑楽郡千代田町上中森1005-1</p>
+        <p class="footer-addr">古河本店　茨城県古河市大山564-5<br>守谷店　茨城県守谷市美園4-1-15 美園ビル1F<br>群馬千代田店　群馬県邑楽郡千代田町上中森1005-1</p>
         <p class="footer-copy">&copy; それいけ!たかちゃんラーメン</p>
     </div>
 </footer>
@@ -1299,11 +1617,11 @@
 
 <!-- スマホ用 追従予約バー（電話非公開のためXへの導線にしている） -->
 <div class="sticky-bar" id="sticky-bar">
-    <a href="#shops" class="bar-alt">
+    <a href="#shops" class="bar-tel">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         三軒のご案内
     </a>
-    <a href="https://x.com/soreiketakachan" class="bar-tel" target="_blank" rel="noopener">
+    <a href="https://x.com/soreiketakachan" class="bar-alt" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.36 2H21.5l-7.19 8.21L22.75 22h-6.62l-5.18-6.78L4.99 22H1.85l7.7-8.8L1 2h6.78l4.68 6.2zm-1.16 18h1.83L7.03 4h-1.96z"/></svg>
         Xで見る
     </a>
@@ -1470,7 +1788,7 @@ function updateStatus() {
         } else if (minutes < shifts[0].open) {
             // 開店前は開店時刻だけを出す。本日の全時間はこのすぐ下の時間表にある
             //（長い文言だとヒーローの丸ピルが2行に折れて最初の画面が崩れる）
-            text = '本日は ' + shifts[0].label.split('〜')[0] + ' 開店';
+            cls = 'is-closed'; text = '本日は ' + shifts[0].label.split('〜')[0] + ' 開店';
         } else if (shifts[1] && minutes < shifts[1].open) {
             cls = 'is-break'; text = '休憩中（' + shifts[1].label + ' 営業）';
         } else {
