@@ -8,10 +8,10 @@
     <meta name="robots" content="noindex, nofollow">
 
     <title>それいけ!たかちゃんラーメン - 公式サイト｜古河・守谷・群馬千代田 まぜそば／ラーメン</title>
-    <meta name="description" content="それいけ!たかちゃんラーメンの公式サイト。古河本店・守谷店・群馬千代田店の三軒で、極太の平打ち麺のまぜそばをお出ししております。三軒とも年中無休・現金のみ。無料でのせられる五つと、はじめての方への三つの手順をご案内しています。">
+    <meta name="description" content="それいけ!たかちゃんラーメンの公式サイト。古河本店・守谷店・群馬千代田店の三軒で、極太の平打ち麺のまぜそば・たれそば・ラーメン・つけ麺をお出ししております。三軒とも年中無休・現金のみ。お品書き、無料でのせられるもの、はじめての方への手順をご案内しています。">
 
     <meta property="og:title" content="それいけ!たかちゃんラーメン｜古河・守谷・群馬千代田の三軒">
-    <meta property="og:description" content="極太の平打ち麺のまぜそばと、無料でのせられる五つ。三軒とも年中無休です。">
+    <meta property="og:description" content="極太の平打ち麺のまぜそばと、無料でのせられるもの。三軒とも年中無休です。">
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/takachan/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
@@ -82,10 +82,10 @@
               "dayOfWeek": ["Saturday","Sunday"],
               "opens": "11:00", "closes": "22:00" }
           ],
-          "address": { "@type": "PostalAddress", "streetAddress": "美園4-1-15 美園ビル1F",
+          "address": { "@type": "PostalAddress", "streetAddress": "美園4-1-5 美園ビル1F",
             "addressLocality": "守谷市", "addressRegion": "茨城県",
             "postalCode": "302-0118", "addressCountry": "JP" },
-          "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-15",
+          "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-5",
           "acceptsReservations": "False"
         },
         {
@@ -109,10 +109,10 @@
               "dayOfWeek": ["Saturday","Sunday"],
               "opens": "11:00", "closes": "21:00" }
           ],
-          "address": { "@type": "PostalAddress", "streetAddress": "上中森1056",
+          "address": { "@type": "PostalAddress", "streetAddress": "上中森1005-1",
             "addressLocality": "邑楽郡千代田町", "addressRegion": "群馬県",
             "postalCode": "370-0725", "addressCountry": "JP" },
-          "hasMap": "https://maps.google.com/maps?q=%E7%BE%A4%E9%A6%AC%E7%9C%8C%E9%82%91%E6%A5%BD%E9%83%A1%E5%8D%83%E4%BB%A3%E7%94%B0%E7%94%BA%E4%B8%8A%E4%B8%AD%E6%A3%AE1056",
+          "hasMap": "https://maps.google.com/maps?q=%E7%BE%A4%E9%A6%AC%E7%9C%8C%E9%82%91%E6%A5%BD%E9%83%A1%E5%8D%83%E4%BB%A3%E7%94%B0%E7%94%BA%E4%B8%8A%E4%B8%AD%E6%A3%AE1005-1",
           "acceptsReservations": "False"
         }
       ]
@@ -156,6 +156,7 @@
         --radius:      10px;
         --maxw:        1120px;
         --gap:         clamp(16px, 4vw, 40px);
+        --stack:       34px;   /* 見出し・導入文の下から、最初のかたまりまでの間隔 */
         --pad-section: clamp(64px, 10vw, 120px);
         --pad-inner:   clamp(20px, 5vw, 40px);
     }
@@ -389,6 +390,15 @@
         content: ''; position: absolute; left: 0; bottom: 0;
         width: 56px; height: 4px; background: var(--accent); border-radius: 2px;
     }
+    /* お品書きページの黄色い貼り紙見出しと同じ造作を、この節だけに置く。
+       2ページが同じ署名でつながり、黄色が細線しか無い index 中盤に面が1つ立つ */
+    #toppings .section-title {
+        display: inline-block;
+        background: var(--accent); color: var(--bg);
+        padding: 6px 18px 9px; border-radius: 4px;
+        transform: rotate(-0.8deg);
+    }
+    #toppings .section-title::after { display: none; }
     .section-lead {
         color: var(--muted); max-width: 58ch; font-size: 1.03rem;
     }
@@ -432,12 +442,15 @@
     .hero-chips {
         display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;
     }
+    /* ★丸みは「押せるもの（営業状況ピル・ボタン）」に取っておく。
+       ただ読ませるだけのこの3つは、店の貼り紙と同じ角札にして形で区別する
+       （デザインレビュー：ヒーローに丸ピルが9個並んで役割が読めない） */
     .hero-chips li {
         background: var(--surface);
         border: 1px solid var(--line-strong);
-        border-radius: 999px;
-        padding: 8px 15px;
-        font-size: 0.82rem;
+        border-radius: 4px;
+        padding: 7px 13px;
+        font-size: 0.8rem;
     }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 
@@ -459,15 +472,29 @@
     /* --- 料理カード（B-2：カードグリッド。価格は書かない） ------------------------- */
     .dish-grid {
         display: grid; grid-template-columns: repeat(2, 1fr);
-        gap: var(--gap); margin-top: 34px;
+        gap: var(--gap); margin-top: var(--stack);
     }
     .dish-grid figure { display: flex; flex-direction: column; gap: 12px; }
     .dish-grid .photo-frame { aspect-ratio: 1 / 1; }
     .dish-grid figcaption { font-size: 0.9rem; color: var(--muted); }
     @media (max-width: 620px) { .dish-grid { grid-template-columns: 1fr; } }
 
+    /* 貼り紙は横長（1026×536）。1:1 で切ると三枚のうち真ん中しか写らないので、
+       この2枚だけは写真ごとに縦横比を変える */
+    .topping-media {
+        display: grid; grid-template-columns: 1fr;
+        gap: var(--gap); margin-top: var(--stack);
+    }
+    .topping-media figure { display: flex; flex-direction: column; gap: 12px; }
+    .topping-media figcaption { font-size: 0.9rem; color: var(--muted); }
+    .topping-media .m-pork .photo-frame { aspect-ratio: 4 / 3; }
+    .topping-media .m-wall .photo-frame { aspect-ratio: 1026 / 536; }
+    @media (min-width: 760px) {
+        .topping-media { grid-template-columns: 0.85fr 1.15fr; align-items: start; }
+    }
+
     /* --- 麺のこと（1枚・全幅・キャプション重ね。他節と型を変える） --------------------- */
-    .noodle-feature { margin-top: 34px; }
+    .noodle-feature { margin-top: var(--stack); }
     .noodle-feature .photo-frame { aspect-ratio: 21 / 9; }
     .noodle-feature .photo-frame img { object-position: 50% 78%; }
     .noodle-caption {
@@ -478,7 +505,7 @@
     }
 
     /* --- お客様の声 -------------------------------------------------------------- */
-    .voice-list { display: flex; flex-direction: column; gap: 16px; margin-top: 36px; }
+    .voice-list { display: flex; flex-direction: column; gap: 16px; margin-top: var(--stack); }
     .voice {
         background: var(--surface-2);
         border-left: 4px solid var(--accent);
@@ -487,12 +514,38 @@
     }
     .voice p { font-size: 1.01rem; color: var(--ink); }
     .voice cite { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--dim); font-style: normal; }
+    /* 引用は1行ずつなので、広い画面では横に3枚並べる（縦に3枚だと面ばかりが目立つ） */
+    @media (min-width: 900px) {
+        .voice-list { flex-direction: row; }
+        .voice { flex: 1; }
+    }
 
-    /* --- 無料でのせられる五つ（券売機の貼り紙風） --------------------------------- */
+    /* --- 無料でのせられるもの（券売機の貼り紙風） --------------------------------- */
+    /* ★2026-08-08 修正：以前は「五つ（ニンニク・アブラ・エビマヨ・ローストポーク・チーズ）」
+       と1組だけ出していたが、店内の貼り紙は3枚あり、お品ごとに中身が違う。
+       ローストポークは「味玉・ローストポーク・豚のうち一つ」の別枠だった。 */
+    .topping-cols {
+        display: grid; grid-template-columns: 1fr;
+        gap: clamp(26px, 5vw, 40px); margin-top: var(--stack);
+    }
+    @media (min-width: 860px) { .topping-cols { grid-template-columns: repeat(3, 1fr); } }
+    .topping-col h3 {
+        font-family: var(--font-head); font-size: 1.02rem; color: var(--accent);
+        padding-bottom: 10px; border-bottom: 1px solid var(--line);
+    }
+    .topping-plus {
+        margin-top: clamp(28px, 5vw, 40px);
+        background: var(--surface-2); border: 1px solid var(--line);
+        border-left: 4px solid var(--accent-2); border-radius: var(--radius);
+        padding: clamp(16px, 3.4vw, 22px);
+        color: var(--muted); font-size: 0.93rem; line-height: 1.95;
+    }
+    .topping-plus b { color: var(--ink); }
     .topping-tags {
         display: flex; flex-wrap: wrap; gap: 20px 18px;
         margin-top: 36px;
     }
+    .topping-col .topping-tags { margin-top: 26px; gap: 18px 14px; }
     .topping-tag {
         position: relative;
         background: var(--surface-2);
@@ -520,13 +573,59 @@
     @media (min-width: 900px) {
         .topping-tag { font-size: 1.5rem; padding: 22px 36px; }
         .topping-tags { gap: 28px 24px; }
+        /* 3列に並ぶときは1枚あたりが狭いので、札は本文サイズのままにする */
+        .topping-col .topping-tag { font-size: 1.12rem; padding: 15px 20px; }
+        .topping-col .topping-tags { gap: 18px 14px; }
+    }
+
+    /* --- 券売機・店内のようす（2026-08-08 追加） ----------------------------------- */
+    /* ★お一人様一品・両替は「行けるかどうか」が決まる情報なので、
+       灰色の小さな注記ではなくカードで出す（お客様レビューで3人中2人が見落とした） */
+    .steps-note {
+        margin-top: clamp(24px, 4vw, 34px);
+        display: grid; gap: 12px;
+        grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px) { .steps-note { grid-template-columns: repeat(2, 1fr); } }
+    .steps-note > div {
+        background: var(--surface-2); border: 1px solid var(--line);
+        border-left: 4px solid var(--accent); border-radius: var(--radius);
+        padding: clamp(14px, 3vw, 20px);
+        color: var(--muted); font-size: 0.95rem; line-height: 1.9;
+    }
+    .steps-note b { color: var(--ink); font-size: 1.02rem; }
+    .interior-grid {
+        display: grid; grid-template-columns: repeat(2, 1fr);
+        gap: clamp(12px, 2.6vw, 22px); margin-top: clamp(24px, 4vw, 34px);
+    }
+    @media (min-width: 860px) { .interior-grid { grid-template-columns: repeat(4, 1fr); } }
+    .interior-grid figure { display: flex; flex-direction: column; gap: 10px; }
+    .interior-grid .photo-frame { aspect-ratio: 3 / 4; }
+    .interior-grid figcaption { font-size: 0.86rem; color: var(--muted); }
+
+    /* --- お品書きへの導線（2026-08-08 追加） --------------------------------------- */
+    .teaser-grid {
+        display: grid; grid-template-columns: repeat(2, 1fr);
+        gap: clamp(12px, 2.6vw, 22px); margin-top: var(--stack);
+    }
+    @media (min-width: 760px) { .teaser-grid { grid-template-columns: repeat(3, 1fr); } }
+    .teaser { display: flex; flex-direction: column; gap: 11px; text-decoration: none; color: inherit; }
+    .teaser .photo-frame { aspect-ratio: 4 / 3; transition: border-color .25s ease; }
+    .teaser:hover .photo-frame { border-color: var(--accent); }
+    .teaser-name {
+        font-family: var(--font-head); font-size: 1rem; line-height: 1.5;
+    }
+    .teaser:hover .teaser-name { color: var(--accent); }
+    .teaser-name small {
+        display: block; margin-top: 4px; font-family: var(--font-body);
+        font-size: .74rem; color: var(--dim);
     }
 
     /* --- はじめての方へ（3ステップ） ----------------------------------------------- */
     .steps {
         counter-reset: step;
         display: grid; grid-template-columns: repeat(3, 1fr);
-        gap: var(--gap); margin-top: 36px;
+        gap: var(--gap); margin-top: var(--stack);
     }
     .step {
         background: var(--surface-2);
@@ -601,7 +700,7 @@
     .hero-status { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
     .hstat { display: inline-flex; align-items: center; gap: 8px;
              text-decoration: none; color: inherit;
-             background: var(--panel); border: 1px solid var(--line);
+             background: var(--surface-2); border: 1px solid var(--line);
              border-radius: 999px; padding: 5px 12px 5px 12px; min-height: 44px; }
     .hstat-shop { font-family: var(--font-head); font-size: 13px; letter-spacing: .04em; white-space: nowrap; }
     .hstat .status-chip { margin: 0; border: 0; background: none; padding: 0; font-size: 12.5px; }
@@ -617,6 +716,8 @@
                   値が3行に割れ、上だけ間延びしていた。
        B-6【推奨】バッジが2行に折れて丸ピルが歪んでいた。 */
     .shop-card { display: flex; flex-direction: column; background: var(--surface-2); }
+    /* ★2026-08-08：店の外観が1枚も無く、はじめての方が入口を見つけられなかった */
+    .shop-photo { aspect-ratio: 4 / 3; margin-top: 16px; }
     .shop-card .map-wrapper { margin-top: auto; }
     .shop-card .info-table { margin-top: 16px; }
     .shop-card .info-table th { width: 88px; }
@@ -656,6 +757,7 @@
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
     <a href="#mazesoba"   data-nav-link>まぜそば</a>
+    <a href="menu.html"   data-nav-link>お品書き</a>
     <a href="#toppings"   data-nav-link>無料トッピング</a>
     <a href="#first-time" data-nav-link>はじめての方へ</a>
     <a href="#shops"      data-nav-link>三軒のご案内</a>
@@ -672,11 +774,11 @@
              通し営業中の守谷店・群馬千代田店ごと諦められる、とお客様レビューの3人全員に指摘された。
              三軒ぶんを最初の画面に並べる。 -->
         <div class="hero-status">
-            <a class="hstat" href="#shops"><span class="hstat-shop">古河本店</span><span class="status-chip" id="chip-koga-hero"><span class="status-text">営業時間を確認中</span></span></a>
-            <a class="hstat" href="#shops"><span class="hstat-shop">守谷店</span><span class="status-chip" id="chip-moriya-hero"><span class="status-text">営業時間を確認中</span></span></a>
-            <a class="hstat" href="#shops"><span class="hstat-shop">群馬千代田店</span><span class="status-chip" id="chip-chiyoda-hero"><span class="status-text">営業時間を確認中</span></span></a>
+            <a class="hstat" href="#shop-koga"><span class="hstat-shop">古河本店</span><span class="status-chip" id="chip-koga-hero"><span class="status-text">営業時間を確認中</span></span></a>
+            <a class="hstat" href="#shop-moriya"><span class="hstat-shop">守谷店</span><span class="status-chip" id="chip-moriya-hero"><span class="status-text">営業時間を確認中</span></span></a>
+            <a class="hstat" href="#shop-chiyoda"><span class="hstat-shop">群馬千代田店</span><span class="status-chip" id="chip-chiyoda-hero"><span class="status-text">営業時間を確認中</span></span></a>
         </div>
-        <p class="hero-chipnote">時間の詳しいご案内は<a href="#shops">三軒のご案内</a>をご覧ください。</p>
+        <p class="hero-chipnote">表示は曜日で切り替わります。<b>祝日は土日と同じ時間</b>ですので、<a href="#shops">三軒のご案内</a>の時間表をご覧ください。</p>
 
         <div class="hero-photo photo-frame">
             <picture>
@@ -690,20 +792,23 @@
         <div class="hero-band reveal">
             <span class="eyebrow">古河本店・守谷店・群馬千代田店｜<span class="nw">まぜそば・ラーメン</span></span>
             <h1>それいけ!たかちゃんラーメン</h1>
-            <p class="hero-lead">極太の平打ち麺と、無料でのせられる五つ。<br><span class="hero-sub">三軒とも<span class="nw">年中無休</span>でお待ちしております。</span></p>
+            <p class="hero-lead">極太の平打ち麺と、無料でのせられるもの。<br><span class="hero-sub">三軒とも<span class="nw">年中無休</span>でお待ちしております。</span></p>
             <ul class="hero-chips">
                 <li>券売機で食券を先に</li>
                 <li>三軒とも年中無休</li>
                 <li>現金のみ</li>
+                <li>三軒とも駐車場あり</li>
             </ul>
         </div>
 
+        <!-- ★いま来ようとしている方には道順が主導線。X は追従バーで黄色のまま出している -->
         <div class="hero-actions">
-            <a href="https://x.com/soreiketakachan" class="btn btn-primary" target="_blank" rel="noopener">
+            <a href="#shops" class="btn btn-primary">三軒のご案内・地図</a>
+            <a href="menu.html" class="btn btn-ghost">お品書きを見る</a>
+            <a href="https://x.com/soreiketakachan" class="btn btn-ghost" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.36 2H21.5l-7.19 8.21L22.75 22h-6.62l-5.18-6.78L4.99 22H1.85l7.7-8.8L1 2h6.78l4.68 6.2zm-1.16 18h1.83L7.03 4h-1.96z"/></svg>
                 Xで今日のご案内を見る
             </a>
-            <a href="#shops" class="btn btn-ghost">三軒のご案内</a>
         </div>
     </div>
 </section>
@@ -718,7 +823,7 @@
         <h2 class="section-title reveal">まぜそば</h2>
         <p class="section-lead reveal">
             自家製の極太平打ち麺に、特製のタレをよく絡めてお出ししています。
-            無料でのせられるトッピングは、このあとご紹介いたします。
+            無料でのせられるものは、このあとご紹介いたします。
         </p>
 
         <div class="dish-grid">
@@ -762,35 +867,63 @@
 <section class="section section-alt" id="toppings">
     <div class="container">
         <span class="eyebrow reveal">券売機のわきに、貼り紙でご案内</span>
-        <h2 class="section-title reveal">無料でのせられる五つ</h2>
+        <h2 class="section-title reveal">無料でのせられるもの</h2>
         <p class="section-lead reveal">
-            ニンニク、アブラ、エビマヨ、ローストポーク、チーズ。
-            この五つは、無料でおのせすることができます。食券をお渡しになる際に、
-            お好みをお申し付けください。
+            食券をお渡しになるときに、お好みをお申し付けください。
+            <b>おすすめは全増し</b>です。のせられるものは、お品によって違います。
         </p>
 
-        <div class="topping-tags reveal">
-            <span class="topping-tag">ニンニク</span>
-            <span class="topping-tag">アブラ</span>
-            <span class="topping-tag">エビマヨ</span>
-            <span class="topping-tag">ローストポーク</span>
-            <span class="topping-tag">チーズ</span>
+        <div class="topping-cols">
+            <div class="topping-col reveal">
+                <h3>まぜそば・冷やしまぜそばに</h3>
+                <div class="topping-tags">
+                    <span class="topping-tag">ニンニク</span>
+                    <span class="topping-tag">アブラ</span>
+                    <span class="topping-tag">エビマヨ</span>
+                    <span class="topping-tag">辛味</span>
+                    <span class="topping-tag">チーズ</span>
+                </div>
+            </div>
+            <div class="topping-col reveal reveal-delay-1">
+                <h3>たれそば・台湾まぜそばに</h3>
+                <div class="topping-tags">
+                    <span class="topping-tag">ニンニク</span>
+                    <span class="topping-tag">アブラ</span>
+                    <span class="topping-tag">エビマヨ</span>
+                    <span class="topping-tag">辛味</span>
+                    <span class="topping-tag">山椒</span>
+                </div>
+            </div>
+            <div class="topping-col reveal reveal-delay-2">
+                <h3>ラーメン・つけ麺に</h3>
+                <div class="topping-tags">
+                    <span class="topping-tag">ヤサイ</span>
+                    <span class="topping-tag">ニンニク</span>
+                    <span class="topping-tag">アブラ</span>
+                    <span class="topping-tag">ネギ</span>
+                </div>
+            </div>
         </div>
 
-        <div class="dish-grid">
-            <figure class="reveal">
+        <p class="topping-plus reveal">
+            このほかに <b>味玉・ローストポーク・豚</b> のうち、どれか一つをおのせできます。
+            全増しとお申し付けいただいてもこちらは入りませんので、別にお申し付けください。
+        </p>
+
+        <div class="topping-media">
+            <figure class="reveal m-pork">
                 <div class="photo-frame">
                     <img src="photos/p34.jpg" alt="厚切りのローストポークを箸で持ち上げたところ"
                          width="1024" height="768" loading="lazy" decoding="async">
                 </div>
-                <figcaption>ローストポークも、無料でおのせできます。量はお好みでお申し付けください。</figcaption>
+                <figcaption>ローストポークは、味玉・豚とあわせて一つお選びいただけます。</figcaption>
             </figure>
-            <figure class="reveal reveal-delay-1">
+            <figure class="reveal reveal-delay-1 m-wall">
                 <div class="photo-frame">
-                    <img src="photos/p35.jpg" alt="半分に切った味付け玉子"
-                         width="1024" height="768" loading="lazy" decoding="async">
+                    <img src="photos/wall-topping.jpg" alt="壁に貼られた三枚の無料トッピング表"
+                         width="1026" height="536" loading="lazy" decoding="async">
                 </div>
-                <figcaption>味付け玉子も、たっぷりのせております。</figcaption>
+                <figcaption>店内の壁にも、お品ごとの貼り紙を出しております。</figcaption>
             </figure>
         </div>
     </div>
@@ -828,8 +961,8 @@
         <span class="eyebrow reveal">まぜそばのほかに</span>
         <h2 class="section-title reveal">ラーメン</h2>
         <p class="section-lead reveal">
-            まぜそばだけでなく、ラーメンもご用意しております。
-            無料でのせられる五つのトッピングは、ラーメンにもお使いいただけます。
+            まぜそばだけでなく、ラーメン・つけ麺もご用意しております。
+            ヤサイ・ニンニク・アブラ・ネギを、無料でおのせします。
         </p>
 
         <div class="dish-grid">
@@ -847,6 +980,71 @@
                 </div>
                 <figcaption>チャーシューも、しっかりお付けします。</figcaption>
             </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お品書きへの導線（2026-08-08 追加）
+     まぜそば・ラーメンしか出ていなかったので、他のお品もここから見ていただく
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="menu-teaser">
+    <div class="container">
+        <span class="eyebrow reveal">まぜそば・ラーメンのほかにも</span>
+        <h2 class="section-title reveal">お品書き</h2>
+        <p class="section-lead reveal">
+            たれそば、つけ麺、古河本店だけの酸辣湯麺やビビンバ丼、夏の冷やしまぜそば。
+            そのときどきの限定のお品も、あわせてご案内しております。
+        </p>
+
+        <div class="teaser-grid">
+            <a class="teaser reveal" href="menu.html#teiban">
+                <div class="photo-frame">
+                    <img src="photos/m-taresoba.jpg" alt="魚粉と卵黄をのせたたれそば"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <span class="teaser-name">たれそば</span>
+            </a>
+            <a class="teaser reveal reveal-delay-1" href="menu.html#teiban">
+                <div class="photo-frame">
+                    <img src="photos/m-tsukemen.jpg" alt="麺とつけダレを別の器に盛ったつけ麺"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <span class="teaser-name">つけ麺</span>
+            </a>
+            <a class="teaser reveal reveal-delay-2" href="menu.html#gentei">
+                <div class="photo-frame">
+                    <img src="photos/m-suratan.jpg" alt="溶き卵とミンチをのせた酸辣湯麺"
+                         width="852" height="410" loading="lazy" decoding="async">
+                </div>
+                <span class="teaser-name">酸辣湯麺<small>古河本店限定</small></span>
+            </a>
+            <a class="teaser reveal" href="menu.html#natsu">
+                <div class="photo-frame">
+                    <img src="photos/m-hiyashi.jpg" alt="水菜とレタスをのせた冷やしまぜそば"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <span class="teaser-name">冷やしまぜそば<small>夏のお品</small></span>
+            </a>
+            <a class="teaser reveal reveal-delay-1" href="menu.html#gentei">
+                <div class="photo-frame">
+                    <img src="photos/m-bibimba.jpg" alt="卵黄と豚バラをのせたビビンバ丼"
+                         width="902" height="554" loading="lazy" decoding="async">
+                </div>
+                <span class="teaser-name">ビビンバ丼<small>古河本店限定</small></span>
+            </a>
+            <a class="teaser reveal reveal-delay-2" href="menu.html#takeout">
+                <div class="photo-frame">
+                    <img src="photos/m-takeout.jpg" alt="麺とスープを分けて詰めたお持ち帰りのラーメン"
+                         width="1127" height="589" loading="lazy" decoding="async">
+                </div>
+                <span class="teaser-name">お持ち帰り<small>古河本店</small></span>
+            </a>
+        </div>
+
+        <div class="hero-actions">
+            <a href="menu.html" class="btn btn-primary">お品書きをすべて見る</a>
         </div>
     </div>
 </section>
@@ -874,8 +1072,44 @@
             </div>
             <div class="step reveal reveal-delay-2">
                 <h3>お好みのトッピングをお伝えください</h3>
-                <p>ニンニク、アブラ、エビマヨ、ローストポーク、チーズ。お好みの無料トッピングをお申し付けください。</p>
+                <p>お品ごとに、無料でのせられるものが違います。おすすめは全増しです。券売機のわきと店内の壁に貼り紙を出しておりますので、そちらもご覧ください。</p>
             </div>
+        </div>
+
+        <div class="steps-note reveal">
+            <div><b>中学生以上のお客様は、お一人様一品</b><br>麺類をお一つずつご注文いただいております。小学生以下のお子様はその限りではございませんので、ご家族でお分けになってお召し上がりください。</div>
+            <div><b>両替はスタッフへお声がけください</b><br>券売機は現金のみです。大きなお札しかお持ちでないときも、遠慮なくお申し付けください。</div>
+        </div>
+
+        <div class="interior-grid">
+            <figure class="reveal">
+                <div class="photo-frame">
+                    <img src="photos/ticket-vender.jpg" alt="入口に置かれた券売機と、その上の貼り紙"
+                         width="498" height="1024" loading="lazy" decoding="async">
+                </div>
+                <figcaption>入口の券売機</figcaption>
+            </figure>
+            <figure class="reveal reveal-delay-1">
+                <div class="photo-frame">
+                    <img src="photos/shop-koga-in.jpg" alt="古河本店のテーブル席"
+                         width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+                <figcaption>古河本店の店内</figcaption>
+            </figure>
+            <figure class="reveal reveal-delay-2">
+                <div class="photo-frame">
+                    <img src="photos/shop-moriya-in.jpg" alt="守谷店の赤いカウンター席"
+                         width="1030" height="772" loading="lazy" decoding="async">
+                </div>
+                <figcaption>守谷店の店内</figcaption>
+            </figure>
+            <figure class="reveal">
+                <div class="photo-frame">
+                    <img src="photos/shop-chiyoda-in.jpg" alt="群馬千代田店の赤いカウンター席と丸椅子"
+                         width="1080" height="1080" loading="lazy" decoding="async">
+                </div>
+                <figcaption>群馬千代田店の店内</figcaption>
+            </figure>
         </div>
     </div>
 </section>
@@ -896,10 +1130,14 @@
 
         <div class="shop-list">
             <!-- 古河本店 -->
-            <div class="shop-card reveal">
+            <div class="shop-card reveal" id="shop-koga">
                 <div class="shop-head">
                     <h3>古河本店</h3>
                     <span class="status-chip" id="chip-koga"><span class="status-text">営業時間を確認中</span></span>
+                </div>
+                <div class="shop-photo photo-frame">
+                    <img src="photos/shop-koga-out.jpg" alt="国道沿いに立つ古河本店の黄色い看板と店舗"
+                         width="1280" height="1600" loading="lazy" decoding="async">
                 </div>
                 <table class="info-table">
                     <tr><th>住所</th><td>〒306-0052 茨城県古河市大山564-5</td></tr>
@@ -920,48 +1158,57 @@
             </div>
 
             <!-- 守谷店 -->
-            <div class="shop-card reveal">
+            <div class="shop-card reveal" id="shop-moriya">
                 <div class="shop-head">
                     <h3>守谷店</h3>
                     <span class="status-chip" id="chip-moriya"><span class="status-text">営業時間を確認中</span></span>
                 </div>
+                <div class="shop-photo photo-frame">
+                    <img src="photos/shop-moriya-out.jpg" alt="美園ビル1階にある守谷店の外観"
+                         width="1024" height="1024" loading="lazy" decoding="async">
+                </div>
                 <table class="info-table">
-                    <tr><th>住所</th><td>〒302-0118 茨城県守谷市美園4-1-15 美園ビル1F</td></tr>
+                    <tr><th>住所</th><td>〒302-0118 茨城県守谷市美園4-1-5 美園ビル1F</td></tr>
                     <tr><th>営業時間</th><td>月〜金　11:00〜14:30／18:00〜<b>22:00</b><span class="break-note">（14:30〜18:00 は中休みです）</span><br>土日祝　11:00〜<b>22:00</b>（<b>通し営業</b>・中休みなし）</td></tr>
                     <tr><th>定休日</th><td>年中無休</td></tr>
                     <tr><th>アクセス</th><td>関東鉄道常総線 南守谷駅から1.1km</td></tr>
+                    <tr><th>駐車場</th><td>共用駐車場33台</td></tr>
                     <tr><th>お支払い</th><td>現金のみ（券売機で食券をお求めください）</td></tr>
                 </table>
                 <div class="map-wrapper">
-                    <iframe src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-15&z=16&output=embed"
+                    <iframe src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-5&z=16&output=embed"
                             allowfullscreen loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"
                             title="それいけ!たかちゃんラーメン 守谷店 の地図"></iframe>
                 </div>
-                <a href="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-15" target="_blank" rel="noopener noreferrer"
+                <a href="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%AE%88%E8%B0%B7%E5%B8%82%E7%BE%8E%E5%9C%924-1-5" target="_blank" rel="noopener noreferrer"
                    class="btn btn-ghost btn-block">守谷店の経路を見る</a>
             </div>
 
             <!-- 群馬千代田店 -->
-            <div class="shop-card reveal">
+            <div class="shop-card reveal" id="shop-chiyoda">
                 <div class="shop-head">
                     <h3>群馬千代田店</h3>
                     <span class="status-chip" id="chip-chiyoda"><span class="status-text">営業時間を確認中</span></span>
                 </div>
+                <div class="shop-photo photo-frame">
+                    <img src="photos/shop-chiyoda-out.jpg" alt="夕暮れに灯りをともした群馬千代田店の外観"
+                         width="972" height="972" loading="lazy" decoding="async">
+                </div>
                 <table class="info-table">
-                    <tr><th>住所</th><td>〒370-0725 群馬県邑楽郡千代田町上中森1056</td></tr>
+                    <tr><th>住所</th><td>〒370-0725 群馬県邑楽郡千代田町上中森1005-1</td></tr>
                     <tr><th>営業時間</th><td>月〜金　<b>10:30</b>〜14:30／17:30〜<b>21:00</b><span class="break-note">（14:30〜17:30 は中休みです）</span><br>土日祝　11:00〜<b>21:00</b>（<b>通し営業</b>・中休みなし）<br><span class="closing">三軒でいちばん早い <b>10:30</b> から</span></td></tr>
                     <tr><th>定休日</th><td>年中無休</td></tr>
-                    <tr><th>駐車場</th><td>40台</td></tr>
+                    <tr><th>駐車場</th><td>敷地内40台</td></tr>
                     <tr><th>お支払い</th><td>現金のみ（券売機で食券をお求めください）</td></tr>
                 </table>
                 <div class="map-wrapper">
-                    <iframe src="https://maps.google.com/maps?q=%E7%BE%A4%E9%A6%AC%E7%9C%8C%E9%82%91%E6%A5%BD%E9%83%A1%E5%8D%83%E4%BB%A3%E7%94%B0%E7%94%BA%E4%B8%8A%E4%B8%AD%E6%A3%AE1056&z=16&output=embed"
+                    <iframe src="https://maps.google.com/maps?q=%E3%81%9D%E3%82%8C%E3%81%84%E3%81%91%21%E3%81%9F%E3%81%8B%E3%81%A1%E3%82%83%E3%82%93%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3%20%E7%BE%A4%E9%A6%AC%E5%8D%83%E4%BB%A3%E7%94%B0%E5%BA%97%20%E7%BE%A4%E9%A6%AC%E7%9C%8C%E9%82%91%E6%A5%BD%E9%83%A1%E5%8D%83%E4%BB%A3%E7%94%B0%E7%94%BA%E4%B8%8A%E4%B8%AD%E6%A3%AE1005-1&z=16&output=embed"
                             allowfullscreen loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"
                             title="それいけ!たかちゃんラーメン 群馬千代田店 の地図"></iframe>
                 </div>
-                <a href="https://maps.google.com/maps?q=%E7%BE%A4%E9%A6%AC%E7%9C%8C%E9%82%91%E6%A5%BD%E9%83%A1%E5%8D%83%E4%BB%A3%E7%94%B0%E7%94%BA%E4%B8%8A%E4%B8%AD%E6%A3%AE1056" target="_blank" rel="noopener noreferrer"
+                <a href="https://maps.google.com/maps?q=%E7%BE%A4%E9%A6%AC%E7%9C%8C%E9%82%91%E6%A5%BD%E9%83%A1%E5%8D%83%E4%BB%A3%E7%94%B0%E7%94%BA%E4%B8%8A%E4%B8%AD%E6%A3%AE1005-1" target="_blank" rel="noopener noreferrer"
                    class="btn btn-ghost btn-block">群馬千代田店の経路を見る</a>
             </div>
         </div>
@@ -996,7 +1243,7 @@
 <footer class="site-footer">
     <div class="container">
         <p class="footer-name">それいけ!たかちゃんラーメン</p>
-        <p class="footer-addr">古河本店　茨城県古河市大山564-5<br>守谷店　茨城県守谷市美園4-1-15 美園ビル1F<br>群馬千代田店　群馬県邑楽郡千代田町上中森1056</p>
+        <p class="footer-addr">古河本店　茨城県古河市大山564-5<br>守谷店　茨城県守谷市美園4-1-5 美園ビル1F<br>群馬千代田店　群馬県邑楽郡千代田町上中森1005-1</p>
         <p class="footer-copy">&copy; それいけ!たかちゃんラーメン</p>
     </div>
 </footer>
@@ -1173,9 +1420,9 @@ function updateStatus() {
         } else if (!shifts.length) {
             cls = 'is-closed'; text = '本日はお休みです';
         } else if (minutes < shifts[0].open) {
-            // 開店前は「◯◯ 開店」を先頭に出す（長い時刻の列から開店時刻を探させない）
-            text = shifts[0].label.split('〜')[0] + ' 開店（本日 '
-                 + shifts.map(function (s) { return s.label; }).join('／') + '）';
+            // 開店前は開店時刻だけを出す。本日の全時間はこのすぐ下の時間表にある
+            //（長い文言だとヒーローの丸ピルが2行に折れて最初の画面が崩れる）
+            text = '本日は ' + shifts[0].label.split('〜')[0] + ' 開店';
         } else if (shifts[1] && minutes < shifts[1].open) {
             cls = 'is-break'; text = '休憩中（' + shifts[1].label + ' 営業）';
         } else {
