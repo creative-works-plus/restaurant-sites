@@ -394,14 +394,23 @@
         /* 画面の4割が余白になっていた指摘（B3）：画面いっぱいに伸ばさず上限を持たせる */
         min-height: min(640px, calc(100svh - var(--header-h)));
     }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: var(--bg); }
+    /* 外観写真は薄めない（透過させると建物の紺色まで抜けて何も見えなくなる）。
+       代わりに下の ::after で「文字の乗る側だけ」を地色で塗りつぶす */
     .hero-bg img {
-        width: 100%; height: 100%; object-fit: cover; object-position: right center;
-        opacity: .3; filter: grayscale(20%);
+        width: 100%; height: 100%; object-fit: cover; object-position: 64% 52%;
+        opacity: 1; filter: saturate(.94);
     }
+    /* 900px超＝文字は左半分にしか来ないので、右へ向かって地色を抜き、写真をそのまま見せる */
     .hero-bg::after {
         content: ''; position: absolute; inset: 0;
-        background: linear-gradient(105deg, var(--bg) 0%, rgba(239,236,242,.82) 45%, rgba(239,236,242,.45) 100%);
+        background: linear-gradient(96deg,
+            var(--bg) 0%,
+            var(--bg) 48%,
+            rgba(239,236,242,.94) 58%,
+            rgba(239,236,242,.66) 70%,
+            rgba(239,236,242,.24) 84%,
+            rgba(239,236,242,0) 96%);
     }
     .hero-inner { position: relative; z-index: 1; padding-block: clamp(48px, 9vw, 90px); }
     .hero-kicker {
@@ -425,6 +434,26 @@
         color: var(--accent); font-weight: 700; font-size: .92rem;
     }
     .hero-access-link:hover { color: var(--accent-hi); }
+
+    /* 900px以下＝文字が画面幅いっぱいに広がるので、横に抜けない。
+       写真そのものを下端の帯に置き、その中で建物が見える位置に切る。
+       （ヒーロー全面に敷いたまま下だけ抜くと、帯に入るのは写真の一番下＝駐車場になる）
+       文字は帯の高さぶんの下余白で必ず帯の外に出す。
+       ★このブロックは .hero-inner の padding-block より後に置くこと。
+         先に置くと padding-block の一括指定に下余白を上書きされる */
+    @media (max-width: 900px) {
+        .hero { --hero-photo-h: clamp(250px, 48vw, 340px); }
+        .hero-bg { top: auto; height: var(--hero-photo-h); }
+        .hero-bg img { object-position: 50% 52%; }
+        .hero-bg::after {
+            background: linear-gradient(to top,
+                rgba(239,236,242,0)   0%,
+                rgba(239,236,242,.14) 30%,
+                rgba(239,236,242,.68) 70%,
+                var(--bg)             99%);
+        }
+        .hero-inner { padding-bottom: calc(var(--hero-photo-h) + 16px); }
+    }
 
     /* --- 見出し共通 ---------------------------------------------------------- */
     .section-title {
