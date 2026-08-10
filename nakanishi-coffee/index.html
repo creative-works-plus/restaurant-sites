@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>中西珈琲 - 公式サイト｜野木町 自家焙煎珈琲・カフェ</title>
+    <meta name="description" content="栃木県野木町の自家焙煎珈琲店。町の名を付けたハウスブレンド「ノギマチブレンド」と、店で焼いた豆で一杯ずつお淹れするコーヒー。サンドイッチや米粉のワッフルもご用意しております。1階カウンター・2階お座敷。ご予約・お問い合わせは 0280-23-6403。">
+
+    <meta property="og:title" content="中西珈琲｜野木町の自家焙煎珈琲店">
+    <meta property="og:description" content="ブラジル・グアテマラ・エチオピア。三つを合わせて、ノギマチブレンド。">
+    <meta property="og:type" content="restaurant">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/nakanishi-coffee/">
+    <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/nakanishi-coffee/img/exterior-dusk.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
+    <meta name="theme-color" content="#CBCFCD">
+
+    <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- favicon：店のロゴのモチーフ（ドリッパーとサーバー）を、看板のセピアで描く -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23CBCFCD'/%3E%3Cg fill='none' stroke='%235B341F' stroke-width='3.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M17 19h30l-7 13H24z'/%3E%3Cpath d='M24 38h16v10a5 5 0 0 1-5 5h-6a5 5 0 0 1-5-5z'/%3E%3Cpath d='M40 41h4a4 4 0 0 1 0 8h-4'/%3E%3C/g%3E%3C/svg%3E">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "中西珈琲",
+      "servesCuisine": "Cafe",
+      "priceRange": "¥",
+      "telephone": "+81-280-23-6403",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/nakanishi-coffee/",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/nakanishi-coffee/img/exterior-dusk.jpg",
+      <!-- 第2・第4土曜の定休は schema.org で表現できないため、表示側（営業中バッジ）を正とする -->
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "10:00",
+          "closes": "19:00"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "丸林675-5",
+        "addressLocality": "下都賀郡野木町",
+        "addressRegion": "栃木県",
+        "postalCode": "329-0111",
+        "addressCountry": "JP"
+      },
+      "hasMap": "https://maps.google.com/maps?q=%E6%A0%83%E6%9C%A8%E7%9C%8C%E4%B8%8B%E9%83%BD%E8%B3%80%E9%83%A1%E9%87%8E%E6%9C%A8%E7%94%BA%E4%B8%B8%E6%9E%97675-5"
+    }
+    </script>
+
+    <style>
+    :root {
+        /* --- 面（背景） 3段 ------------------------------------------------------
+           地は店の外壁そのもの＝白いガルバリウム波板の銀灰。中明度・寒色寄りの無彩。 */
+        --bg:          #CBCFCD;
+        --surface:     #FFFFFF;
+        --surface-2:   #DDE0DE;
+
+        /* --- 文字（--bg 上でのコントラスト比） ---------------------------------- */
+        --ink:         #17150F;   /* 11.0:1 */
+        --muted:       #45433C;   /*  7.5:1 */
+        --dim:         #5E5B53;   /*  5.3:1 */
+
+        /* --- 差し色＝店頭の縦看板に描かれた線のセピア。★線にしか使わない -------- */
+        --accent:      #7B4A2E;   /*  5.2:1 */
+        --accent-hi:   #96603F;
+        --accent-deep: #5B341F;
+        /* --accent-2 は置かない（差し色はセピア1色のみ。しかも線にしか使わない） */
+
+        /* --- 罫線 -------------------------------------------------------------- */
+        --line:        rgba(23, 21, 15, 0.16);
+        --line-strong: rgba(23, 21, 15, 0.28);
+
+        /* --- 影：明るい地なので黒0.55は使わない -------------------------------- */
+        --shadow:      0 18px 44px rgba(23, 21, 15, 0.14);
+
+        /* --- 反転面（ページ全体で1面だけ＝焙煎の章） --------------------------- */
+        --rev-bg:      #17150F;
+        --rev-ink:     #EFEDE7;
+        --rev-muted:   #AEABA2;
+        --rev-accent:  #C08A5E;
+
+        /* --- 営業状況バッジ ---------------------------------------------------- */
+        --open:        #3F7A4A;
+        --closed:      #9C4B3D;
+
+        /* --- 書体 -------------------------------------------------------------- */
+        --font-head:   "Jost", "Zen Old Mincho", serif;
+        --font-body:   "Zen Kaku Gothic New", sans-serif;
+        --font-ja-head:"Zen Old Mincho", serif;
+
+        /* --- 形・間 ------------------------------------------------------------ */
+        --radius:      10px;
+        --maxw:        1120px;
+        --gap:         clamp(16px, 4vw, 40px);
+        --pad-section: clamp(64px, 10vw, 120px);
+        --pad-inner:   clamp(20px, 5vw, 40px);
+
+        /* --- 余白のスケール（実装では素の px を書かない） ---------------------- */
+        --sp-1: 4px; --sp-2: 8px; --sp-3: 16px;
+        --sp-4: 24px; --sp-5: 44px; --sp-6: 72px;
+        --sec-y: clamp(64px, 10vw, 120px);
+        --blk-y: clamp(24px, 4vw, 44px);
+
+        /* --- タイポの階層比 ---------------------------------------------------- */
+        --fz-hero: clamp(32px, 7.4vw, 60px);
+        --fz-h2:   clamp(24px, 4.8vw, 36px);
+        --fz-h3:   clamp(18px, 3.2vw, 21px);
+        --fz-body: 16px;
+        --fz-cap:  13px;
+    }
+
+    /* --- リセット ------------------------------------------------------------- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: var(--fz-body);
+        line-height: 1.85;
+        letter-spacing: 0.01em;
+        overflow-x: hidden;              /* 横スクロール事故の保険 */
+    }
+    img, svg, video { display: block; max-width: 100%; }
+
+    /* --- 固定ヘッダーの高さ（全店必須・世界観に関係しない仕組み） -------------- */
+    :root { --header-h: 74px; }
+    @media (max-width: 768px) { :root { --header-h: 64px; } }
+
+    body { padding-top: var(--header-h); }
+    .site-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: var(--header-h);
+    }
+    .header-inner { display: flex; align-items: center; height: 100%; }
+    .brand { text-decoration: none; color: inherit; white-space: nowrap;
+             font-size: clamp(16px, 4.2vw, 20px); line-height: 1; }
+    .header-tel { margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+                  min-height: 44px; padding: 0 8px; text-decoration: none; color: inherit;
+                  white-space: nowrap; }
+    .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
+    .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
+    .nav-toggle { margin-left: 6px; }
+    .hero { min-height: calc(100svh - var(--header-h)); }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; }
+
+    /* --- 日本語の折り返し（全店必須） ----------------------------------------- */
+    h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption {
+        word-break: auto-phrase;
+        text-wrap: pretty;
+    }
+    .nw { display: inline-block; }
+    .br-sp { display: none; }
+    @media (max-width: 600px) {
+        .br-sp { display: inline; }
+        .br-pc { display: none; }
+    }
+
+    /* 動きを減らす設定の人には演出を止める */
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    /* --- レイアウト ----------------------------------------------------------- */
+    .btn svg { width: 1.1em; height: 1.1em; flex: 0 0 auto; }
+
+    .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .section   { padding-block: var(--sec-y); }
+
+    /* --- スクロール出現演出 --------------------------------------------------- */
+    .reveal {
+        opacity: 0; transform: translateY(14px);
+        transition: opacity 0.24s cubic-bezier(0.2, 0.7, 0.2, 1),
+                    transform 0.24s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .reveal.in-view       { opacity: 1; transform: none; }
+    .reveal-delay-1       { transition-delay: 0.08s; }
+    .reveal-delay-2       { transition-delay: 0.16s; }
+    .reveal-delay-3       { transition-delay: 0.24s; }
+    .no-js .reveal        { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* --- 写真枠 --------------------------------------------------------------- */
+    .photo-frame {
+        position: relative; overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        background: var(--surface-2);
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* --- 地図枠 --------------------------------------------------------------- */
+    .map-wrapper {
+        position: relative; width: 100%; aspect-ratio: 16 / 10;
+        border-radius: var(--radius); overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+    @media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+    .map-actions { margin-top: var(--sp-3); text-align: center; }
+
+    /* --- 追従予約バー（スマホのみ） ------------------------------------------- */
+    .sticky-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+        display: none; gap: 1px; background: var(--line-strong);
+        transform: translateY(100%); transition: transform 0.35s ease;
+        box-shadow: 0 -10px 30px rgba(23, 21, 15, 0.22);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar a {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 16px 10px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sticky-bar .bar-tel { background: var(--accent); color: #FFFFFF; }
+    .sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
+
+    /* --- お品書き内サブナビ（骨格が持つのは高さの下限だけ） ------------------- */
+    .subnav a {
+        min-height: 44px;
+        display: inline-flex; align-items: center;
+        padding-inline: 16px;
+    }
+    .subnav { transition: transform .25s ease, opacity .25s ease; }
+    .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+
+    /* --- 電話番号を入れたボタン（番号を絶対に折り返させない） ----------------- */
+    .btn-tel .tel-num { white-space: nowrap; }
+    .btn-tel .tel-cap { font-weight: 500; }
+    .btn-tel .tel-cap::before { content: '｜'; }
+    @media (max-width: 460px) {
+        .btn-tel { flex-wrap: wrap; padding: 12px 18px; line-height: 1.45; }
+        .btn-tel .tel-cap { flex-basis: 100%; text-align: center; font-size: .82rem; }
+        .btn-tel .tel-cap::before { content: none; }
+    }
+
+    /* --- 営業状況バッジ ------------------------------------------------------- */
+    .status-chip {
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 5px 13px; border-radius: 999px;
+        border: 1px solid var(--line-strong);
+        font-size: 0.8rem; letter-spacing: 0.04em;
+    }
+    .status-chip::before {
+        content: ''; width: 7px; height: 7px; border-radius: 50%;
+        background: var(--dim);
+    }
+    .status-chip.is-open::before   { background: var(--open); }
+    .status-chip.is-closed::before { background: var(--closed); }
+    .status-chip.is-break::before  { background: var(--accent); }
+
+    /* --- モバイルナビの「閉じている状態」 ------------------------------------- */
+    .mobile-nav {
+        position: fixed; z-index: 200;
+        visibility: hidden; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    body.nav-open .mobile-nav {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+    .nav-toggle {
+        width: 44px; height: 44px;
+        flex: 0 0 44px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 5px; background: none; border: 0; cursor: pointer;
+    }
+    .nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+    body.nav-open { overflow: hidden; }
+
+    /* ========================================================================== */
+    @media (max-width: 620px) {
+        .sticky-bar { display: flex; }
+        body { padding-bottom: 68px; }
+    }
+    @media (min-width: 621px) {
+        .sticky-bar { display: none; }
+        body { padding-bottom: 0; }
+    }
+
+
+    /* ══════════════════════════════════════════════════════════════════
+       ここから下が、中西珈琲だけのCSS
+
+       世界観 …「白いガルバリウム波板の小さな箱に、黒い線で描かれた
+                 ドリップスタンドがひとつ」。銀灰の地に白い箱を並べる。
+       ヒーロー … A-11「配合の図」（新設）
+       お品書き … B-1（価格右寄せ＝豆）＋ B-2（カード＝店内のお品書き）
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* --- ヘッダー ------------------------------------------------------------- */
+    .site-header {
+        background: rgba(203, 207, 205, 0.82);
+        -webkit-backdrop-filter: saturate(1.2) blur(12px);
+        backdrop-filter: saturate(1.2) blur(12px);
+        border-bottom: 1px solid transparent;
+        transition: border-color .25s ease, background .25s ease;
+    }
+    body.scrolled .site-header {
+        background: rgba(203, 207, 205, 0.94);
+        border-bottom-color: var(--line);
+    }
+    .brand { display: inline-flex; flex-direction: column; gap: 3px; }
+    .brand .brand-en {
+        font-family: var(--font-head); font-weight: 400;
+        font-size: 0.62rem; letter-spacing: 0.24em; color: var(--dim);
+        line-height: 1;
+    }
+    .brand .brand-ja {
+        font-family: var(--font-ja-head); font-weight: 600;
+        letter-spacing: 0.14em; line-height: 1;
+    }
+    .header-tel { color: var(--muted); font-weight: 500; }
+    .header-tel:hover { color: var(--ink); }
+    .nav-toggle span {
+        display: block; width: 22px; height: 1.5px; background: var(--ink);
+        transition: transform .3s ease, opacity .3s ease;
+    }
+    body.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+    body.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* 広い画面では横並びのナビを出す（ハンバーガーは隠す） */
+    .desk-nav { display: none; }
+    @media (min-width: 901px) {
+        .desk-nav {
+            display: flex; align-items: center; gap: var(--sp-4);
+            margin-left: auto; font-size: 0.9rem; letter-spacing: 0.06em;
+        }
+        .desk-nav a { color: var(--muted); padding: 6px 0; border-bottom: 1px solid transparent; }
+        .desk-nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+        .header-tel { margin-left: var(--sp-4); }
+        .nav-toggle { display: none; }
+    }
+
+    /* --- モバイルナビ（上から降りてくる面） ----------------------------------- */
+    .mobile-nav {
+        top: 0; left: 0; right: 0;
+        padding: calc(var(--header-h) + var(--sp-5)) var(--pad-inner) var(--sp-5);
+        background: var(--bg);
+        border-bottom: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        transform: translateY(-14px);
+        display: flex; flex-direction: column; gap: var(--sp-1);
+    }
+    body.nav-open .mobile-nav { transform: translateY(0); }
+    .mobile-nav a {
+        font-family: var(--font-ja-head); font-size: 1.08rem; letter-spacing: 0.1em;
+        min-height: 52px; display: flex; align-items: center;
+        border-bottom: 1px solid var(--line);
+    }
+    .mobile-nav a .en {
+        font-family: var(--font-head); font-size: 0.62rem; letter-spacing: 0.2em;
+        color: var(--dim); margin-left: auto;
+    }
+    .nav-close { margin-top: var(--sp-3); color: var(--dim); font-size: 0.86rem;
+                 letter-spacing: 0.08em; font-family: var(--font-body); }
+
+    /* --- ボタン --------------------------------------------------------------- */
+    .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        padding: 14px 26px; border-radius: 999px;
+        font-family: var(--font-body); font-weight: 700; font-size: 0.94rem;
+        letter-spacing: 0.03em; line-height: 1.4;
+        border: 1px solid transparent;
+        transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .btn-primary { background: var(--accent); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--accent-hi); transform: translateY(-2px); }
+    .btn-ghost { border-color: var(--line-strong); color: var(--ink); background: transparent; }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--ink); }
+    .btn-block { width: 100%; max-width: 460px; margin-inline: auto; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+
+    /* --- 見出し --------------------------------------------------------------- */
+    .section-title {
+        font-family: var(--font-ja-head); font-weight: 600;
+        font-size: var(--fz-h2); line-height: 1.3; letter-spacing: 0.04em;
+        margin-bottom: var(--blk-y);
+    }
+    .section-title .en {
+        display: block;
+        font-family: var(--font-head); font-weight: 400;
+        font-size: 0.7rem; letter-spacing: 0.28em; color: var(--dim);
+        margin-bottom: var(--sp-2);
+    }
+    .lede { color: var(--muted); max-width: 44em; }
+    .lede + .lede { margin-top: var(--sp-3); }
+
+    /* --- ヒーロー ＝ A-11「配合の図」 ------------------------------------------ */
+    .hero {
+        display: flex; align-items: center;
+        padding-block: var(--sp-6);
+        background:
+            linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,0) 42%),
+            var(--bg);
+    }
+    .hero .container {
+        display: grid; grid-template-columns: 1.05fr 1fr;
+        gap: clamp(28px, 5vw, 64px); align-items: center;
+    }
+    .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
+    .hero-title { line-height: 1; }
+    .hero-title .en {
+        display: block; font-family: var(--font-head); font-weight: 300;
+        font-size: clamp(26px, 5.6vw, 44px); letter-spacing: 0.16em;
+        color: var(--ink);
+    }
+    .hero-title .ja {
+        display: block; font-family: var(--font-ja-head); font-weight: 600;
+        font-size: var(--fz-hero); letter-spacing: 0.1em;
+        margin-top: var(--sp-3);
+    }
+    .hero-sub {
+        font-family: var(--font-ja-head); font-size: var(--fz-h3);
+        line-height: 1.9; letter-spacing: 0.06em; color: var(--muted);
+    }
+    .hero-note { font-size: var(--fz-cap); color: var(--dim); letter-spacing: 0.04em; }
+
+    /* 配合の図（静止。ホバーで輪郭だけ濃くなる） */
+    .blend { width: 100%; max-width: 460px; margin-inline: auto; }
+    .blend svg { width: 100%; height: auto; overflow: visible; }
+    .blend .ring { fill: #FFFFFF; stroke: var(--accent);
+                   stroke-width: 1.4; stroke-opacity: .55;
+                   transition: stroke-opacity .2s ease, fill-opacity .2s ease; }
+    .blend .ring-1 { fill-opacity: .10; }   /* 浅い（エチオピア） */
+    .blend .ring-2 { fill-opacity: .17; }   /* 中（グアテマラ） */
+    .blend .ring-3 { fill-opacity: .26; }   /* 深い（ブラジル） */
+    .blend:hover .ring { stroke-opacity: .9; }
+    .blend:hover .ring-1 { fill-opacity: .15; }
+    .blend:hover .ring-2 { fill-opacity: .23; }
+    .blend:hover .ring-3 { fill-opacity: .33; }
+    .blend .origin {
+        font-family: var(--font-ja-head); font-size: 15px; letter-spacing: .08em;
+        fill: var(--muted);
+    }
+    .blend .origin-en {
+        font-family: var(--font-head); font-size: 9.5px; letter-spacing: .2em;
+        fill: var(--dim);
+    }
+    .blend .cup-ring { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-opacity: .85; }
+    .blend-cap {
+        text-align: center; margin-top: var(--sp-3);
+        font-family: var(--font-ja-head); letter-spacing: .14em; font-size: 1.02rem;
+    }
+    .blend-cap span {
+        display: block; font-family: var(--font-head); font-size: .7rem;
+        letter-spacing: .28em; color: var(--dim); margin-top: 4px;
+    }
+    @media (max-width: 900px) {
+        .hero .container { grid-template-columns: 1fr; }
+        .hero-copy { order: 1; }
+        .blend-wrap { order: 2; }
+        .blend { max-width: 340px; }
+    }
+
+    /* --- 全幅の帯（写真） ----------------------------------------------------- */
+    .band {
+        position: relative; width: 100%;
+        aspect-ratio: 16 / 9; max-height: 62vh; overflow: hidden;
+        border-block: 1px solid var(--line);
+        background: var(--surface-2);
+    }
+    .band img { width: 100%; height: 100%; object-fit: cover; }
+    .band-sign img { object-position: 50% 38%; }
+    .band figcaption {
+        position: absolute; left: 0; right: 0; bottom: 0;
+        padding: var(--sp-5) var(--pad-inner) var(--sp-3);
+        font-size: var(--fz-cap); letter-spacing: .06em; color: #F4F2EC;
+        background: linear-gradient(180deg, rgba(23,21,15,0), rgba(23,21,15,.6));
+        text-align: center;
+    }
+
+    /* --- 反転面（ページ全体で1面だけ） ---------------------------------------- */
+    .reverse {
+        background: var(--rev-bg); color: var(--rev-ink);
+    }
+    .reverse .section-title { color: var(--rev-ink); }
+    .reverse .section-title .en { color: var(--rev-accent); }
+    .reverse .lede { color: var(--rev-muted); }
+    .reverse .photo-frame { border-color: rgba(239,237,231,.18); box-shadow: none; background: #221F17; }
+    .reverse figcaption {
+        margin-top: var(--sp-2); font-size: var(--fz-cap);
+        color: var(--rev-muted); letter-spacing: .06em;
+    }
+    .reverse-grid {
+        display: grid; grid-template-columns: 1.1fr .9fr;
+        gap: clamp(28px, 5vw, 64px); align-items: start;
+    }
+    .roast-figs { display: grid; grid-template-columns: 1.25fr 1fr; gap: var(--sp-4); align-items: start; }
+    .roast-figs .fig-roast .photo-frame { aspect-ratio: 1 / 1; }
+    .roast-figs .fig-drip { margin-top: var(--sp-5); }
+    .roast-figs .fig-drip .photo-frame { aspect-ratio: 3 / 4; }
+    @media (max-width: 620px) {
+        .roast-figs { grid-template-columns: 1fr; max-width: 320px; margin-inline: auto; }
+        .roast-figs .fig-drip { margin-top: var(--sp-3); }
+    }
+    .pull {
+        margin-top: var(--blk-y); padding-left: var(--sp-4);
+        border-left: 2px solid var(--rev-accent);
+        font-family: var(--font-ja-head); font-size: var(--fz-h3);
+        line-height: 1.9; letter-spacing: .04em; color: var(--rev-ink);
+    }
+    @media (max-width: 900px) {
+        .reverse-grid { grid-template-columns: 1fr; }
+    }
+
+    /* --- お品書き ------------------------------------------------------------- */
+    #menu { background: var(--surface-2); }
+    #menu > .section-title { padding-top: var(--sec-y); text-align: center; }
+    .subnav { display: flex; justify-content: center; }
+    .subnav-inner {
+        display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2);
+        padding: 0 var(--pad-inner);
+    }
+    .subnav a {
+        border: 1px solid var(--line-strong); border-radius: 999px;
+        background: var(--surface); color: var(--muted);
+        font-size: .88rem; letter-spacing: .06em;
+        transition: color .18s ease, border-color .18s ease;
+    }
+    .subnav a:hover { color: var(--accent); border-color: var(--accent); }
+
+    #menu .section { padding-top: var(--blk-y); }
+    .menu-block + .menu-block { margin-top: var(--sp-6); }
+    .menu-head { display: flex; align-items: baseline; gap: var(--sp-3); margin-bottom: var(--sp-3);
+                 padding-bottom: var(--sp-2); border-bottom: 1px solid var(--accent); }
+    .menu-head h2 {
+        font-family: var(--font-ja-head); font-weight: 600;
+        font-size: var(--fz-h2); line-height: 1.3; letter-spacing: .06em;
+    }
+    .menu-head .yomi {
+        font-family: var(--font-head); font-size: .7rem; letter-spacing: .28em;
+        color: var(--dim);
+    }
+    .menu-note { color: var(--dim); font-size: .88rem; margin-bottom: var(--sp-3); }
+    .menu-note a, .menu-after a { color: var(--ink); text-decoration: underline;
+                                  text-decoration-color: var(--accent); text-underline-offset: 3px; }
+    .menu-note b { color: var(--ink); font-weight: 700;
+                   border-bottom: 1px solid var(--accent); }
+    .menu-after { margin-top: var(--sp-3); color: var(--dim); font-size: .88rem; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                 gap: 0 clamp(24px, 5vw, 56px); }
+    .menu-list li {
+        display: flex; align-items: baseline; gap: var(--sp-2);
+        padding: 13px 0; border-bottom: 1px dashed var(--line);
+    }
+    .menu-list .name { font-weight: 500; }
+    .menu-list .desc {
+        display: block; margin-top: 3px; font-weight: 400;
+        font-size: .84rem; line-height: 1.75; color: var(--dim);
+    }
+    .menu-list .dots { flex: 1 1 18px; min-width: 18px; align-self: flex-start;
+                       margin-top: .78em; border-bottom: 1px dotted var(--line-strong); }
+    .menu-list .price {
+        white-space: nowrap; font-family: var(--font-head); font-weight: 500;
+        font-size: 1.02rem; letter-spacing: .04em;
+    }
+    .menu-list .price small {
+        display: block; text-align: right; margin-top: 2px;
+        font-family: var(--font-body); font-size: .68rem; color: var(--dim); letter-spacing: 0;
+    }
+    .menu-list.no-price .dots  { display: none; }
+    .menu-list.no-price .price { display: none; }
+    .menu-list.no-price .name  { flex: 1; }
+
+    .menu-photos { display: grid; grid-template-columns: repeat(3, 1fr);
+                   gap: var(--sp-3); margin-top: var(--sp-5); }
+    .menu-photos .photo-frame { aspect-ratio: 1 / 1; }
+    .menu-photos figcaption {
+        margin-top: var(--sp-2); text-align: center;
+        font-size: var(--fz-cap); color: var(--dim); letter-spacing: .06em;
+    }
+    /* 豆は1列。全幅だと品名と価格が離れすぎて目が迷うので、読める幅で止める */
+    #beans .menu-grid   { max-width: 880px; margin-inline: auto; }
+    #drink .menu-grid   { max-width: 880px; margin-inline: auto; }
+    #beans .menu-photos { grid-template-columns: repeat(2, 1fr); max-width: 620px; margin-inline: auto; }
+    @media (max-width: 620px) {
+        .menu-photos { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* --- 店内 ----------------------------------------------------------------- */
+    .pair { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4);
+            margin-top: var(--blk-y); }
+    .pair .photo-frame { aspect-ratio: 3 / 4; }
+    .pair figcaption { margin-top: var(--sp-2); font-size: var(--fz-cap);
+                       color: var(--dim); letter-spacing: .06em; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px);
+               align-items: center; }
+    @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; } }
+    /* 目印の2枚は縦位置なので、全幅に広げると画面が写真だけで埋まる */
+    #info .pair { max-width: 720px; margin-inline: auto; }
+
+    /* --- お持ち帰りとオンラインショップ --------------------------------------- */
+    .shop-card {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); box-shadow: var(--shadow);
+        padding: clamp(24px, 5vw, 48px);
+        display: flex; flex-direction: column; gap: var(--sp-4); align-items: flex-start;
+        max-width: 820px; margin-inline: auto;
+    }
+
+    /* --- お客様の声 ----------------------------------------------------------- */
+    #voices { background: var(--surface-2); }
+    .voices { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+              gap: var(--sp-4); }
+    .voices blockquote {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: var(--sp-4) var(--sp-4) var(--sp-3);
+        position: relative;
+        display: flex; flex-direction: column;      /* 出典を必ずカードの下端に揃える */
+    }
+    .voices blockquote p { font-family: var(--font-ja-head); letter-spacing: .03em; line-height: 1.95; }
+    .voices cite {
+        display: block; margin-top: auto; padding-top: var(--sp-3); font-style: normal;
+        font-size: var(--fz-cap); color: var(--dim); letter-spacing: .08em;
+    }
+    .voices cite::before { content: '— '; }
+
+    /* --- 店舗情報 ------------------------------------------------------------- */
+    .info-table { width: 100%; margin-bottom: var(--blk-y); }
+    .info-table th, .info-table td {
+        text-align: left; vertical-align: top;
+        padding: 14px var(--sp-3); border-bottom: 1px solid var(--line);
+    }
+    .info-table th {
+        width: 8.5em; white-space: nowrap; font-weight: 500; color: var(--dim);
+        font-family: var(--font-ja-head); letter-spacing: .08em;
+    }
+    .info-table .tel-link { color: var(--ink); font-weight: 700;
+                            text-decoration: underline; text-decoration-color: var(--accent);
+                            text-decoration-thickness: 1px; text-underline-offset: 4px;
+                            font-family: var(--font-head); font-size: 1.06rem; letter-spacing: .04em; }
+    .info-table small { display: block; color: var(--dim); font-size: .82rem; }
+    @media (max-width: 520px) {
+        .info-table th, .info-table td { display: block; border-bottom: 0; padding: 4px var(--sp-2); }
+        .info-table th { width: auto; padding-top: 14px; font-size: .82rem; }
+        .info-table tr { display: block; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+    }
+    .ext::after {
+        content: ''; display: inline-block; width: .62em; height: .62em; margin-left: .45em;
+        border: 1.4px solid currentColor; border-left: 0; border-bottom: 0;
+        transform: rotate(45deg) translateY(-.1em);
+    }
+
+    /* --- フッター ------------------------------------------------------------- */
+    .site-footer {
+        background: var(--rev-bg); color: var(--rev-ink);
+        padding-block: var(--sp-6); text-align: center;
+    }
+    .footer-name {
+        font-family: var(--font-ja-head); font-size: var(--fz-h3);
+        letter-spacing: .18em; margin-bottom: var(--sp-2);
+    }
+    .footer-en { font-family: var(--font-head); font-size: .62rem; letter-spacing: .3em;
+                 color: var(--rev-accent); margin-bottom: var(--sp-3); }
+    .footer-addr { color: var(--rev-muted); font-size: .88rem; }
+    .footer-copy { margin-top: var(--sp-4); color: var(--rev-muted);
+                   font-family: var(--font-head); font-size: .68rem; letter-spacing: .16em; }
+    </style>
+</head>
+<body class="no-js">
+<!-- no-js クラスは下の script が消す -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ヘッダー（固定）
+     ══════════════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="#hero" class="brand">
+            <span class="brand-en">NAKANISHI COFFEE</span>
+            <span class="brand-ja">中西珈琲</span>
+        </a>
+
+        <nav class="desk-nav" aria-label="ページ内ナビゲーション">
+            <a href="#about">ノギマチブレンド</a>
+            <a href="#menu">お品書き</a>
+            <a href="#shop">店内のこと</a>
+            <a href="#online">豆の通販</a>
+            <a href="#info">アクセス</a>
+        </nav>
+
+        <a href="tel:0280236403" class="header-tel" aria-label="電話でお問い合わせ 0280-23-6403">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+            <span class="tel-label">0280-23-6403</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="#about"  data-nav-link>ノギマチブレンド<span class="en">BLEND</span></a>
+    <a href="#menu"   data-nav-link>お品書き<span class="en">MENU</span></a>
+    <a href="#shop"   data-nav-link>店内のこと<span class="en">IN THE SHOP</span></a>
+    <a href="#online" data-nav-link>豆の通販<span class="en">ONLINE SHOP</span></a>
+    <a href="#info"   data-nav-link>アクセス<span class="en">ACCESS</span></a>
+    <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ヒーロー ＝ A-11「配合の図」（新設）
+     三つの円が重なって、真ん中が一杯になる
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+    <div class="container">
+        <div class="hero-copy">
+            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+
+            <h1 class="hero-title">
+                <span class="en">NAKANISHI COFFEE</span>
+                <span class="ja">中西珈琲</span>
+            </h1>
+
+            <p class="hero-sub">野木町の、自家焙煎の珈琲店です。<br>
+                ブラジル・グアテマラ・エチオピア。<br class="br-sp">三つを合わせて、ノギマチブレンド。</p>
+
+            <div class="hero-actions">
+                <a href="tel:0280236403" class="btn btn-primary btn-tel">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    <span class="tel-num">0280-23-6403</span><span class="tel-cap">お問い合わせ</span>
+                </a>
+                <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+            </div>
+
+            <p class="hero-note">10:00〜19:00／日曜・第2・第4土曜は定休<span class="nw">（栃木県下都賀郡野木町丸林675-5）</span></p>
+        </div>
+
+        <div class="blend-wrap">
+            <div class="blend">
+                <svg viewBox="0 0 400 330" role="img" aria-labelledby="blend-title blend-desc">
+                    <title id="blend-title">ノギマチブレンドの配合</title>
+                    <desc id="blend-desc">ブラジル・グアテマラ・エチオピアの三つが重なる中心に、一杯の珈琲があります。</desc>
+                    <circle class="ring ring-3" cx="150" cy="130" r="110"/>
+                    <circle class="ring ring-2" cx="250" cy="130" r="110"/>
+                    <circle class="ring ring-1" cx="200" cy="205" r="110"/>
+                    <clipPath id="cup-clip"><circle cx="200" cy="155" r="50"/></clipPath>
+                    <image href="img/hero-cup.jpg" x="150" y="105" width="100" height="100"
+                           preserveAspectRatio="xMidYMid slice" clip-path="url(#cup-clip)"></image>
+                    <circle class="cup-ring" cx="200" cy="155" r="50"/>
+                    <text class="origin"    x="110" y="58"  text-anchor="middle">ブラジル</text>
+                    <text class="origin-en" x="110" y="74"  text-anchor="middle">BRAZIL</text>
+                    <text class="origin"    x="292" y="58"  text-anchor="middle">グアテマラ</text>
+                    <text class="origin-en" x="292" y="74"  text-anchor="middle">GUATEMALA</text>
+                    <text class="origin"    x="200" y="283" text-anchor="middle">エチオピア</text>
+                    <text class="origin-en" x="200" y="299" text-anchor="middle">ETHIOPIA</text>
+                </svg>
+                <p class="blend-cap">ノギマチブレンド<span>NOGIMACHI BLEND</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 全幅の帯：夕暮れの外観 -->
+<figure class="band reveal">
+    <img src="img/exterior-dusk.jpg" alt="日が暮れた通りに面した中西珈琲の外観。灯りのついた店内に焙煎機が見える"
+         width="640" height="360" loading="lazy" decoding="async">
+    <figcaption>栃木県下都賀郡野木町丸林675-5</figcaption>
+</figure>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     反転面（ページ全体で1面だけ）＝ ノギマチブレンドと自家焙煎
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section reverse" id="about">
+    <div class="container">
+        <div class="reverse-grid">
+            <div>
+                <h2 class="section-title reveal"><span class="en">NOGIMACHI BLEND</span>町の名を付けた、ハウスブレンド</h2>
+                <p class="lede reveal">野木町をはじめ、多くの方に親しんでいただきたい。その思いから、当店のハウスブレンドに「ノギマチブレンド」と名前をつけました。ブラジル・グアテマラ・エチオピアの三つを合わせております。バランスが良く、毎日お飲みいただける珈琲です。</p>
+                <p class="lede reveal">豆は店で焼いております。焼き上がりはすぐに冷まし、店頭とオンラインショップでお分けしております。深煎りがお好きな方には、同じ三つの産地を深く焼いた「クラシックブレンド」もご用意しております。</p>
+                <p class="pull reveal">一杯ずつ、お湯を注いでお淹れします。<br>お待ちいただくぶん、香りの立ったところをお出しします。</p>
+            </div>
+
+            <div class="roast-figs">
+                <figure class="fig-roast reveal">
+                    <div class="photo-frame">
+                        <img src="img/roast-cooling.jpg" alt="焙煎機の冷却盤の上で、焼き上がった珈琲豆をかき混ぜているところ"
+                             width="900" height="900" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>焼き上げた豆を冷ます</figcaption>
+                </figure>
+                <figure class="fig-drip reveal reveal-delay-1">
+                    <div class="photo-frame">
+                        <img src="img/drip.jpg" alt="ドリッパーに挽いた珈琲を入れ、湯を注いで蒸らしているところ"
+                             width="300" height="400" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>お湯を注いで蒸らす</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お品書き（中身は index.json から build_menu.py が展開する）
+     ══════════════════════════════════════════════════════════════════════ -->
+<div id="menu">
+    <h2 class="section-title reveal"><span class="en">MENU</span>お品書き</h2>
+<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#beans">珈琲豆</a>
+        <a href="#drink">お飲みもの</a>
+        <a href="#food">軽食とおやつ</a>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="menu-block reveal" id="beans">
+            <div class="menu-head"><h2>珈琲豆</h2><span class="yomi">BEANS</span></div>
+            <p class="menu-note">店内とオンラインショップでお分けしております。下のお値段はオンラインショップのもので、<b>2026年8月現在</b>です。</p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">ノギマチブレンド<span class="desc">ブラジル・グアテマラ・エチオピアのブレンドです。バランスが良く、毎日お飲みいただける珈琲です。</span></span><span class="dots"></span><span class="price">850円<small>100g</small></span></li>
+                    <li><span class="name">ノギマチブレンド ドリップバッグ<span class="desc">ご自宅はもちろん、外でのお仕事や行楽先でも。マグカップの上にのせ、130ccほどのお湯を注いでお召し上がりください。</span></span><span class="dots"></span><span class="price">900円<small>5杯分・1袋10g</small></span></li>
+                    <li><span class="name">クラシックブレンド<span class="desc">ブラジル・グアテマラ・エチオピアの深煎りです。カフェオレやアイスコーヒーにしても、しっかりと珈琲を感じていただけます。</span></span><span class="dots"></span><span class="price">930円<small>100g</small></span></li>
+                    <li><span class="name">グァテマラ ファンシー サンタロッサ SHB<span class="desc">柑橘系の酸味のある、クリーンで飲みやすい中深煎りです。</span></span><span class="dots"></span><span class="price">940円</span></li>
+                    <li><span class="name">夏のブレンド<span class="desc">コロンビア・グァテマラ・インドネシアの中深煎りです。ホットでもアイスでもお楽しみいただけます。</span></span><span class="dots"></span><span class="price">960円</span></li>
+                    <li><span class="name">インドネシア マンデリン ビンタンリマ<span class="desc">中深煎り。二ハゼに入った瞬間に煎り止めしております。</span></span><span class="dots"></span><span class="price">950円<small>100g</small></span></li>
+                    <li><span class="name">エチオピア イルガチャフィー ベレカ G1<span class="desc">フルーティーで華やかな一杯になります。</span></span><span class="dots"></span><span class="price">980円<small>100g</small></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dripbag.jpg" alt="ノギマチブレンドのドリップバッグとマグカップ"
+                             width="800" height="800" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>ノギマチブレンド ドリップバッグ</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/beans-classic.jpg" alt="深煎りに焼き上げたクラシックブレンドの珈琲豆"
+                             width="800" height="800" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>クラシックブレンド</figcaption>
+                </figure>
+            </div>
+            <p class="menu-after">豆のままでも、お使いの器具に合わせてお挽きしてもお渡しできます。<a href="https://nakanishi226.thebase.in/" class="ext" target="_blank" rel="noopener">オンラインショップ</a>からもお求めいただけます。</p>
+        </div>
+
+        <div class="menu-block reveal" id="drink">
+            <div class="menu-head"><h2>お飲みもの</h2><span class="yomi">DRINKS</span></div>
+            <p class="menu-note">焙煎したての豆で、一杯ずつお淹れします。お品書きに載せていないお値段は、店内のお品書きに掲げております。お電話でもお答えいたします。</p>
+            <div class="menu-grid">
+                <ul class="menu-list no-price">
+                    <li><span class="name">ドリップコーヒー</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">アイスコーヒー</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">カフェラテ</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">季節のフラッペ<span class="desc">内容は季節ごとに変わります。</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">お持ち帰りのコーヒー<span class="desc">蓋つきのカップでお渡しします。</span></span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/drink-latte.jpg" alt="ラテアートを描いたカフェラテ"
+                             width="480" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>カフェラテ</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/drink-ice.jpg" alt="背の高いグラスに注いだアイスコーヒー"
+                             width="489" height="489" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>アイスコーヒー</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/drink-takeout.jpg" alt="中西珈琲のロゴが入った持ち帰り用の紙カップ"
+                             width="480" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>お持ち帰りのコーヒー</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="food">
+            <div class="menu-head"><h2>軽食とおやつ</h2><span class="yomi">FOOD</span></div>
+            <p class="menu-note">焼きたて・作りたてでお出しするため、売り切れの日もございます。季節のお品書きは<a href="https://www.instagram.com/nakanishicoffee/" class="ext" target="_blank" rel="noopener">Instagram</a>でもお知らせしております。</p>
+            <div class="menu-grid">
+                <ul class="menu-list no-price">
+                    <li><span class="name">たまごサンド</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">BLTサンド</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">ミックスサンド<span class="desc">フライドポテトを添えてお出しします。</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">トースト<span class="desc">ジャムを添えてお出しします。</span></span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+                <ul class="menu-list no-price">
+                    <li><span class="name">米粉のワッフル<span class="desc">ソフトクリームを添えてお出しします。</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">コーヒーゼリー<span class="desc">ソフトクリームと白玉をのせております。</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">ソフトクリーム</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/food-tamago.jpg" alt="四つに切ったたまごサンド"
+                             width="640" height="640" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>たまごサンド</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/food-blt.jpg" alt="ベーコンとレタスとトマトをはさんだBLTサンドの断面"
+                             width="486" height="486" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>BLTサンド</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/food-mix.jpg" alt="フライドポテトを添えたミックスサンド"
+                             width="480" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>ミックスサンド</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/food-toast.jpg" alt="ジャムを添えて焼き上げたトースト"
+                             width="640" height="640" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>トースト</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/sweet-waffle.jpg" alt="ソフトクリームを添えた米粉のワッフル"
+                             width="480" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>米粉のワッフル</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/sweet-jelly.jpg" alt="ソフトクリームと白玉をのせたコーヒーゼリー"
+                             width="480" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>コーヒーゼリー</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- menu:auto:end -->
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     店内のこと
+     ══════════════════════════════════════════════════════════════════════ -->
+<figure class="band reveal">
+    <img src="img/interior-hall.jpg" alt="木のカウンター席とテーブル席が並ぶ、白い壁の店内"
+         width="640" height="360" loading="lazy" decoding="async">
+</figure>
+
+<section class="section" id="shop">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="en">IN THE SHOP</span>店内のこと</h2>
+        <div class="two-col">
+            <div>
+                <p class="lede reveal">1階にローカウンターとテーブル席、2階にお座敷をご用意しております。お座敷ではお子さま連れのお客様にも、ごゆっくりお過ごしいただけます。</p>
+                <p class="lede reveal">おひとりでも、お連れさまとでも。豆をお求めになるだけのご来店も歓迎しております。お車は店舗の横と裏手にお停めいただけます。</p>
+            </div>
+            <div class="pair">
+                <figure class="reveal">
+                    <div class="photo-frame">
+                        <img src="img/interior-counter.jpg" alt="窓に沿ったローカウンターと黄色い椅子"
+                             width="409" height="545" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>1階のローカウンター</figcaption>
+                </figure>
+                <figure class="reveal reveal-delay-1">
+                    <div class="photo-frame">
+                        <img src="img/interior-shelf.jpg" alt="ドリップスタンドと器具を並べた棚のある一角"
+                             width="480" height="640" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>抽出の道具を並べた棚</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お持ち帰りとオンラインショップ
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="online">
+    <div class="container">
+        <div class="shop-card reveal">
+            <h2 class="section-title" style="margin-bottom:0;"><span class="en">TAKE OUT &amp; ONLINE</span>お持ち帰りと、オンラインショップ</h2>
+            <p class="lede">珈琲は蓋つきのカップでお持ち帰りいただけます。豆は店頭でお分けしているほか、オンラインショップからもお求めいただけます。ご自宅用にも、遠方のお客様にも。</p>
+            <p class="lede">オンラインショップでは、ノギマチブレンドのドリップバッグもお取り扱いしております。ご自宅用にも、贈りものにもお使いいただけます。</p>
+            <a href="https://nakanishi226.thebase.in/" class="btn btn-primary ext" target="_blank" rel="noopener">オンラインショップを見る</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お客様の声
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="voices">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="en">VOICES</span>お客様の声</h2>
+        <div class="voices">
+            <blockquote class="reveal">
+                <p>キャラメルラテを注文したら、こんなかわいいねこちゃんのラテアートしてくださいました</p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="reveal reveal-delay-1">
+                <p>靴を脱いで座敷形式のテーブル席へ。子供用の椅子もあり</p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="reveal reveal-delay-2">
+                <p>とっても素敵な雰囲気で癒されました</p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+        </div>
+    </div>
+</section>
+
+
+<!-- 全幅の帯：通りから見た外観（目印） -->
+<figure class="band band-sign reveal">
+    <img src="img/exterior-street.jpg" alt="通りに面した白い壁の建物。壁に NAKANISHI COFFEE の文字がある"
+         width="640" height="360" loading="lazy" decoding="async">
+</figure>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     アクセス・店舗情報
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="info">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="en">ACCESS</span>アクセス・店舗情報</h2>
+
+        <p class="lede reveal" style="margin-bottom:var(--blk-y);">JR宇都宮線 野木駅から歩いて10分ほど、丸林の通り沿いにございます。白い壁の建物に「NAKANISHI COFFEE」の看板を掲げております。お車でお越しの際は、店舗の横と裏手の駐車場をご利用ください。</p>
+
+        <div class="pair reveal" style="margin-bottom:var(--blk-y);">
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/sign-stand.jpg" alt="歩道際に置かれた「中西珈琲 NAKANISHI COFFEE」の立て看板"
+                         width="480" height="640" loading="lazy" decoding="async">
+                </div>
+                <figcaption>通り沿いの立て看板が目印です</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/entrance.jpg" alt="木の扉と OPEN の札が下がった入口"
+                         width="480" height="640" loading="lazy" decoding="async">
+                </div>
+                <figcaption>こちらが入口です</figcaption>
+            </figure>
+        </div>
+
+        <table class="info-table reveal">
+            <tr><th>住所</th><td>〒329-0111 栃木県下都賀郡野木町丸林675-5</td></tr>
+            <tr><th>電話</th><td><a href="tel:0280236403" class="tel-link">0280-23-6403</a></td></tr>
+            <tr><th>営業時間</th><td>10:00〜19:00</td></tr>
+            <tr><th>定休日</th><td>日曜日・第2・第4土曜日</td></tr>
+            <tr><th>お席</th><td>1階 ローカウンターとテーブル席／2階 お座敷</td></tr>
+            <tr><th>駐車場</th><td>店舗の横と裏手にご用意しております</td></tr>
+            <tr><th>Instagram</th><td><a href="https://www.instagram.com/nakanishicoffee/" class="ext" target="_blank" rel="noopener">@nakanishicoffee</a><small>季節のお品書きや焙煎の日は、こちらでもお知らせしております。</small></td></tr>
+            <tr><th>オンラインショップ</th><td><a href="https://nakanishi226.thebase.in/" class="ext" target="_blank" rel="noopener">nakanishi226.thebase.in</a></td></tr>
+        </table>
+
+        <div class="map-wrapper reveal">
+            <iframe
+                src="https://maps.google.com/maps?q=%E6%A0%83%E6%9C%A8%E7%9C%8C%E4%B8%8B%E9%83%BD%E8%B3%80%E9%83%A1%E9%87%8E%E6%9C%A8%E7%94%BA%E4%B8%B8%E6%9E%97675-5&z=16&output=embed"
+                allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="中西珈琲 の地図"></iframe>
+        </div>
+        <div class="map-actions">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%E6%A0%83%E6%9C%A8%E7%9C%8C%E4%B8%8B%E9%83%BD%E8%B3%80%E9%83%A1%E9%87%8E%E6%9C%A8%E7%94%BA%E4%B8%B8%E6%9E%97675-5+%E4%B8%AD%E8%A5%BF%E7%8F%88%E7%90%B2"
+               class="btn btn-ghost ext" target="_blank" rel="noopener">地図アプリで開く</a>
+        </div>
+
+        <!-- ★末尾の予約導線（必須） -->
+        <div class="hero-actions" style="margin-top:24px;">
+            <a href="tel:0280236403" class="btn btn-primary btn-block">お電話でお問い合わせする<span class="nw">（0280-23-6403）</span></a>
+        </div>
+    </div>
+</section>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <p class="footer-name">中西珈琲</p>
+        <p class="footer-en">NAKANISHI COFFEE</p>
+        <p class="footer-addr">〒329-0111 栃木県下都賀郡野木町丸林675-5／<span class="nw">0280-23-6403</span></p>
+        <p class="footer-copy">&copy; 中西珈琲</p>
+    </div>
+</footer>
+
+
+<!-- スマホ用 追従バー -->
+<div class="sticky-bar" id="sticky-bar">
+    <a href="https://nakanishi226.thebase.in/" class="bar-alt" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        豆の通販
+    </a>
+    <a href="tel:0280236403" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        お電話
+    </a>
+</div>
+
+
+<script>
+/* JS が動いた印。CSSの .no-js .reveal が外れて出現演出が有効になる */
+document.body.classList.remove('no-js');
+
+
+/* --------------------------------------------------------------------------
+   1. ヘッダー縮小・追従バーの表示切り替え
+   -------------------------------------------------------------------------- */
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+        stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
+    }
+}, { passive: true });
+
+
+/* --------------------------------------------------------------------------
+   2. モバイルナビ開閉（閉じ方は4通り）
+   -------------------------------------------------------------------------- */
+var navToggle = document.getElementById('nav-toggle');
+var navPanel = document.getElementById('mobile-nav');
+function closeNav() {
+    document.body.classList.remove('nav-open');
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'メニューを開く');
+    }
+}
+if (navToggle) {
+    navToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+}
+document.querySelectorAll('[data-nav-link]').forEach(function (a) {
+    a.addEventListener('click', closeNav);
+});
+var navClose = document.getElementById('nav-close');
+if (navClose) {
+    navClose.addEventListener('click', function () {
+        closeNav();
+        if (navToggle) navToggle.focus();
+    });
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (navPanel && navPanel.contains(e.target)) return;
+    if (navToggle && navToggle.contains(e.target)) return;
+    closeNav();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+});
+
+
+/* --------------------------------------------------------------------------
+   3. スクロール出現演出（IntersectionObserver）
+   -------------------------------------------------------------------------- */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+
+
+/* --------------------------------------------------------------------------
+   4. 営業状況バッジ
+   ★ここだけ店ごとに書き換える★
+
+   中西珈琲は 10:00〜19:00 の通し営業。定休は日曜日と、第2・第4土曜日。
+   「第◯土曜」は曜日番号だけでは表せないので、日付から
+   「その月の何回目の土曜か」を数える isClosedToday を足してある。
+   -------------------------------------------------------------------------- */
+var BUSINESS = {
+    closedDays: [0],                       /* 日曜定休 */
+    shifts: [
+        { open: 10 * 60, close: 19 * 60, label: '10:00〜19:00' }
+    ],
+    closedText: '本日は定休日です',
+    /* 第2・第4土曜も定休。日にちから何回目の土曜かを数える */
+    isClosedToday: function (d) {
+        if (d.getDay() === 0) { return true; }
+        if (d.getDay() === 6) {
+            var nth = Math.floor((d.getDate() - 1) / 7) + 1;
+            return nth === 2 || nth === 4;
+        }
+        return false;
+    }
+};
+
+/* その日のシフト配列を返す */
+function shiftsForToday(day, now) {
+    if (BUSINESS.isClosedToday && now && BUSINESS.isClosedToday(now)) { return []; }
+    if (BUSINESS.shiftsByDay) {
+        return BUSINESS.shiftsByDay[day] || [];
+    }
+    return BUSINESS.closedDays.indexOf(day) !== -1 ? [] : BUSINESS.shifts;
+}
+
+function updateStatus() {
+    var el = document.getElementById('status-chip');
+    if (!el) return;
+    var now = new Date();
+    var minutes = now.getHours() * 60 + now.getMinutes();
+    var shifts = shiftsForToday(now.getDay(), now);
+    var cls = '', text = '';
+
+    if (!shifts.length) {
+        cls = 'is-closed';
+        text = BUSINESS.closedText || '本日は定休日です';
+    } else {
+        var inShift = null;
+        for (var i = 0; i < shifts.length; i++) {
+            var s = shifts[i];
+            if (minutes >= s.open && minutes < s.close) { inShift = s; break; }
+        }
+        if (inShift) {
+            cls = 'is-open'; text = 'ただいま営業中 ' + inShift.label;
+        } else if (minutes < shifts[0].open) {
+            text = '本日 ' + shifts[0].label + ' 営業';
+        } else if (shifts[1] && minutes < shifts[1].open) {
+            cls = 'is-break';
+            text = '休憩中（' + shifts[1].label + ' 営業）';
+        } else {
+            cls = 'is-closed'; text = '本日の営業は終了しました';
+        }
+    }
+    el.className = 'status-chip' + (cls ? ' ' + cls : '');
+    el.querySelector('.status-text').textContent = text;
+}
+updateStatus();
+setInterval(updateStatus, 60000);
+</script>
+</body>
+</html>
