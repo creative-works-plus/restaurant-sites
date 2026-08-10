@@ -1269,8 +1269,14 @@ window.addEventListener('scroll', function () {
         stickyBar.classList.toggle('visible', y > heroBottom * 0.45);
     }
     if (subnavEl && lastMenuBlock) {
-        var r = lastMenuBlock.getBoundingClientRect();
-        subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        /* ★2026-08-11 追記：画面幅によって帯を追従させない作りの店があるので、
+           追従していないときは何もしない（骨格ライブラリ 06-script.js と同じ） */
+        if (window.getComputedStyle(subnavEl).position !== 'sticky') {
+            subnavEl.classList.remove('is-past');
+        } else {
+            var r = lastMenuBlock.getBoundingClientRect();
+            subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        }
     }
 }, { passive: true });
 

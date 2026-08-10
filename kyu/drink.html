@@ -389,7 +389,14 @@
         .page-hero { padding: 56px 0 48px; }
         section.section { padding: 60px 0; }
     }
-</style>
+
+        /* ★お品書きサブナビの引っ込め（2026-08-11 追加）
+           position: sticky の効き目は文書の最後まで続くので、お品書きを通り過ぎたあとも
+           帯が本文の上に貼り付いたままになっていた。最後の .menu-block を抜けたら引っ込める。
+           （追従しない作りの画面幅では、下のJSが自分で判断して何もしない） */
+        .subnav { transition: transform .3s ease, opacity .3s ease; }
+        .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+    </style>
 </head>
 <body class="no-js">
 
@@ -737,6 +744,24 @@
     }
     updateStatus();
     setInterval(updateStatus, 60000);
+
+/* ★お品書きサブナビの引っ込め（2026-08-11 追加。骨格ライブラリ 06-script.js と同じ動き）
+   .subnav.is-past を付け外しする実装が無く、帯が最後まで貼り付いたままだった。
+   追従しない作り（position が sticky でない画面幅）では何もしない。 */
+(function () {
+    var sn = document.querySelector('.subnav');
+    var blocks = document.querySelectorAll('.menu-block');
+    if (!sn || !blocks.length) return;
+    var last = blocks[blocks.length - 1];
+    function update() {
+        if (window.getComputedStyle(sn).position !== 'sticky') { sn.classList.remove('is-past'); return; }
+        var r = last.getBoundingClientRect();
+        sn.classList.toggle('is-past', r.bottom < sn.offsetHeight + 8);
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+})();
 </script>
 </body>
 </html>

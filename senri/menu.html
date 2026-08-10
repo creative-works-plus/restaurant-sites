@@ -951,7 +951,9 @@
 </section>
 <!-- menu:auto:end -->
 
-<!-- お飲みものへの導線（自動生成の外。build_menu.py は文字をエスケープするので、リンクはここに手で置く） -->
+<!-- お飲みものへの導線（自動生成の外。ボタンを並べたいのでここに手で置いている。
+     ※2026-08-11 に build_menu.py が同じサイトの中のリンクも通せるようになったので、
+       文中のリンクだけなら menu.json の after / note に書いてよい） -->
 <section class="section" style="padding-top:0;">
     <div class="container">
         <p class="cross-link reveal">お飲みものは <a href="drink.html">お飲みものの品書き</a> をご覧くださいませ。ワイン・生ビール・冷酒のほか、店の名を入れた焼酎のボトルもご用意しております。</p>
@@ -1050,8 +1052,14 @@ window.addEventListener('scroll', function () {
         stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
     }
     if (subnavEl && lastMenuBlock) {
-        var r = lastMenuBlock.getBoundingClientRect();
-        subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        /* ★2026-08-11 追記：画面幅によって帯を追従させない作りの店があるので、
+           追従していないときは何もしない（骨格ライブラリ 06-script.js と同じ） */
+        if (window.getComputedStyle(subnavEl).position !== 'sticky') {
+            subnavEl.classList.remove('is-past');
+        } else {
+            var r = lastMenuBlock.getBoundingClientRect();
+            subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        }
     }
 }, { passive: true });
 

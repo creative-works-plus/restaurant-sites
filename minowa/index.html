@@ -658,6 +658,13 @@
     }
     .footer-addr { color: var(--muted); font-size: 14px; }
     .footer-copy { color: var(--dim); font-size: 12px; margin-top: var(--sp-4); }
+    
+        /* ★お品書きサブナビの引っ込め（2026-08-11 追加）
+           position: sticky の効き目は文書の最後まで続くので、お品書きを通り過ぎたあとも
+           お客様の声・アクセス・フッターの上に帯が貼り付いたままになっていた。
+           最後の .menu-block を抜けたら引っ込める（骨格ライブラリ 04-base.css と同じ）。 */
+        .subnav { transition: transform .3s ease, opacity .3s ease; }
+        .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body class="no-js">
@@ -1274,6 +1281,22 @@ setInterval(updateStatus, 60000);
         desc.textContent = (m + 1) + '月のお休みは ' + restDays.join('・') + ' 日でございます。'
             + '（毎週月曜日と、第二・第四火曜日）';
     }
+})();
+
+/* ★お品書きサブナビの引っ込め（2026-08-11 追加。骨格ライブラリ 06-script.js と同じ動き）
+   .subnav.is-past を付け外しする実装が無く、帯が最後まで貼り付いたままだった。 */
+(function () {
+    var sn = document.querySelector('.subnav');
+    var blocks = document.querySelectorAll('.menu-block');
+    if (!sn || !blocks.length) return;
+    if (window.getComputedStyle(sn).position !== 'sticky') return;   /* 追従しない作りの店は何もしない */
+    var last = blocks[blocks.length - 1];
+    function update() {
+        var r = last.getBoundingClientRect();
+        sn.classList.toggle('is-past', r.bottom < sn.offsetHeight + 8);
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
 })();
 </script>
 </body>
