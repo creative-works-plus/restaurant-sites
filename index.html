@@ -58,6 +58,8 @@
     }
     .who.na { color: #c9a063; }   /* 営業マンA */
     .who.hi { color: #6fa8c9; }   /* 営業マンC */
+    /* 便の中で担当が切り替わる境目。ここから下が営業マンC */
+    li.split { margin-top: 8px; padding-top: 12px; border-top: 1px dashed #33333a; }
     li.done a { background: #121214; border-color: #232326; color: #7c7a75; }
     li.done .who { opacity: 0.55; }
     li.envelope .nm::after {
@@ -88,8 +90,10 @@
         <b>この並びは「手紙を送る順番」です。</b>上から順に送ってください。<br>
         1つの便＝1週ぶん（10通）。<b>同じ便の中に同じ町丁の店を入れていません</b>——
         隣同士に同じ手紙が同じ週に届くと「近所に同じものが回っている」と照合されるためです。<br>
+        <b>便の中は、上5軒が営業マンA・下5軒が営業マンC。</b>点線から下がCの担当です。
+        手紙の差出人＝電話をかけて訪問する人なので、自分の5軒だけ見れば足ります。<br>
         <b>古河市を全部送り終えてから野木町に入ります。</b>混ぜないでください。<br>
-        <b>✉</b> ＝ 封筒の宛名書きが済んでいる店。<b>A／C</b> ＝ 電話と訪問の担当（営業マンA・営業マンC）。町丁で割ってあります。
+        <b>✉</b> ＝ 封筒の宛名書きが済んでいる店。
     </p>
 
     <!-- ================================================================
@@ -104,14 +108,17 @@
          あわせて上の <p class="total"> の総軒数も直すこと。
 
          ★2026-08-10 から「発送順」に並べ替えてある（それ以前は制作順）。
-           新しい店を足すときは末尾に足すのではなく、
-           「その店の町丁が入っていない便」を探してそこへ入れる。
-           1便に同じ町丁を2軒入れない、が唯一の規則。
+           新しい店を足すときの規則は2つだけ。
+             ① その店の町丁が入っていない便を探して、そこへ入れる
+             ② 便の中は A を上・C を下にまとめ、C の1軒目に class="split" を付ける
+           担当（A / C）の割り当ては Claude/scripts/generate_letters.py の
+           SHOPS の staff= が唯一の正。ここは表示するだけなので、
+           変えるときは必ずあちらを直して手紙を刷り直してから、ここを合わせる。
          ================================================================ -->
 
     <h2>茨城県 古河市<span class="count">35軒</span></h2>
 
-    <p class="batch done"><b>送付済み</b>（営業マンA）<span class="n">5通</span></p>
+    <p class="batch done"><b>送付済み</b>／すべて営業マンA<span class="n">5通</span></p>
     <ul>
         <li class="done"><a href="nagi/"><span class="nm">居酒屋 凪</span><span class="area">北町</span><span class="who na">営業マンA</span></a></li>
         <li class="done"><a href="nagomidokoro-syu/"><span class="nm">なごみ処 秀</span><span class="area">坂間</span><span class="who na">営業マンA</span></a></li>
@@ -120,77 +127,77 @@
         <li class="done"><a href="bonne-qualite/"><span class="nm">イタリアン Bonne Qualité(ボンヌカリテ)</span><span class="area">大堤</span><span class="who na">営業マンA</span></a></li>
     </ul>
 
-    <p class="batch"><b>第2便</b>／今週<span class="n">10通</span></p>
+    <p class="batch"><b>第2便</b>／今週<span class="n">A 5通・C 5通</span></p>
     <ul>
         <li class="envelope"><a href="sumikichi/"><span class="nm">炭きち</span><span class="area">東本町</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="kyu/"><span class="nm">海鮮居酒屋 玖 -kyu-</span><span class="area">関戸</span><span class="who hi">営業マンC</span></a></li>
         <li class="envelope"><a href="izakaya-japan/"><span class="nm">居酒屋ジャパン</span><span class="area">東1</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="ryoka/"><span class="nm">良花</span><span class="area">高野</span><span class="who hi">営業マンC</span></a></li>
         <li class="envelope"><a href="sobazen/"><span class="nm">そば善</span><span class="area">古河</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="kuro-diamond/"><span class="nm">畑の黒ダイヤ</span><span class="area">上大野</span><span class="who hi">営業マンC</span></a></li>
         <li class="envelope"><a href="torattoriya/"><span class="nm">とらっ鳥屋</span><span class="area">横山町</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="bunpuku-hanten/"><span class="nm">文福飯店</span><span class="area">北山田</span><span class="who hi">営業マンC</span></a></li>
         <li class="envelope"><a href="uokatsu/"><span class="nm">食彩厨房 魚かつ</span><span class="area">上辺見</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="sangenya/"><span class="nm">三軒家</span><span class="area">下辺見</span><span class="who na">営業マンA</span></a></li>
+        <li class="split envelope"><a href="kyu/"><span class="nm">海鮮居酒屋 玖 -kyu-</span><span class="area">関戸</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="ryoka/"><span class="nm">良花</span><span class="area">高野</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="kuro-diamond/"><span class="nm">畑の黒ダイヤ</span><span class="area">上大野</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="bunpuku-hanten/"><span class="nm">文福飯店</span><span class="area">北山田</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="sangenya/"><span class="nm">三軒家</span><span class="area">下辺見</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
-    <p class="batch"><b>第3便</b><span class="n">10通</span></p>
+    <p class="batch"><b>第3便</b><span class="n">A 5通・C 5通</span></p>
     <ul>
         <li class="envelope"><a href="ikkaku/"><span class="nm">食彩酒 一鶴</span><span class="area">東本町</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="awaya/"><span class="nm">支那そば・横浜タンメン 阿波家</span><span class="area">久能</span><span class="who hi">営業マンC</span></a></li>
         <li class="envelope"><a href="genji/"><span class="nm">酒道場 源氏</span><span class="area">東1</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="fujiya/"><span class="nm">藤屋</span><span class="area">小堤</span><span class="who hi">営業マンC</span></a></li>
         <li class="envelope"><a href="ichi/"><span class="nm">いざかや 壱</span><span class="area">古河</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="ikki/"><span class="nm">らーめん壱輝</span><span class="area">大堤</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="ryubitei/"><span class="nm">串焼き居酒屋 竜美亭</span><span class="area">本町1</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="takachan/"><span class="nm">それいけ!たかちゃんラーメン</span><span class="area">大山</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="tatamiya/"><span class="nm">たたみ家</span><span class="area">中央町</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="sakasa-shokudo/"><span class="nm">さかさ食堂</span><span class="area">下辺見</span><span class="who na">営業マンA</span></a></li>
+        <li class="split"><a href="awaya/"><span class="nm">支那そば・横浜タンメン 阿波家</span><span class="area">久能</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="fujiya/"><span class="nm">藤屋</span><span class="area">小堤</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="ikki/"><span class="nm">らーめん壱輝</span><span class="area">大堤</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="takachan/"><span class="nm">それいけ!たかちゃんラーメン</span><span class="area">大山</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="sakasa-shokudo/"><span class="nm">さかさ食堂</span><span class="area">下辺見</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
-    <p class="batch"><b>第4便</b><span class="n">10通</span></p>
+    <p class="batch"><b>第4便</b><span class="n">A 5通・C 5通</span></p>
     <ul>
         <li><a href="rikuzen-koga/"><span class="nm">りくぜん 古河店</span><span class="area">東3</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="mendokoro-kuraya/"><span class="nm">めん処 蔵屋</span><span class="area">柳橋</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="shinraku-hanten/"><span class="nm">新楽飯店</span><span class="area">本町1</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="minowa/"><span class="nm">とんかつ みの和</span><span class="area">東山田</span><span class="who hi">営業マンC</span></a></li>
-        <li><a href="nanokura/"><span class="nm">しょうがラーメン 七の庫</span><span class="area">下辺見</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="shoryu/"><span class="nm">昇龍</span><span class="area">駒羽根</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="ocha-nova/"><span class="nm">Cafe 5438 Ocha-Nova</span><span class="area">本町4</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="nagase/"><span class="nm">ラーメン長瀬</span><span class="area">中田</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="kiraku-hanten/"><span class="nm">喜楽飯店</span><span class="area">東1</span><span class="who na">営業マンA</span></a></li>
+        <li><a href="nanokura/"><span class="nm">しょうがラーメン 七の庫</span><span class="area">下辺見</span><span class="who na">営業マンA</span></a></li>
+        <li class="split"><a href="mendokoro-kuraya/"><span class="nm">めん処 蔵屋</span><span class="area">柳橋</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="minowa/"><span class="nm">とんかつ みの和</span><span class="area">東山田</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="shoryu/"><span class="nm">昇龍</span><span class="area">駒羽根</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="nagase/"><span class="nm">ラーメン長瀬</span><span class="area">中田</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="mendo-inaba/"><span class="nm">麺堂 稲葉（古河本店・INABASTYLE）</span><span class="area">大山</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
     <h2>栃木県 野木町<span class="count">17軒</span></h2>
 
-    <p class="batch"><b>第5便</b>／古河市を送り終えてから<span class="n">6通</span></p>
+    <p class="batch"><b>第5便</b>／古河市を送り終えてから<span class="n">A 3通・C 3通</span></p>
     <ul>
         <li><a href="noodle-studio-story/"><span class="nm">NOODLE STUDIO STORY</span><span class="area">丸林150</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="kantaro/"><span class="nm">もつ煮屋 貫太郎</span><span class="area">友沼925</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="kobito-cafe/"><span class="nm">こびとカフェ</span><span class="area">野木3324</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="tenhachi/"><span class="nm">匠丼屋 てん八</span><span class="area">南赤塚</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="miyakoya/"><span class="nm">手打そば 美家古家</span><span class="area">丸林371</span><span class="who na">営業マンA</span></a></li>
+        <li class="split"><a href="kantaro/"><span class="nm">もつ煮屋 貫太郎</span><span class="area">友沼925</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="tenhachi/"><span class="nm">匠丼屋 てん八</span><span class="area">南赤塚</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="karin/"><span class="nm">cafeカリン</span><span class="area">友沼5898</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
-    <p class="batch"><b>第6便</b><span class="n">6通</span></p>
+    <p class="batch"><b>第6便</b><span class="n">A 3通・C 3通</span></p>
     <ul>
         <li><a href="tomoeya/"><span class="nm">そば処 巴屋</span><span class="area">丸林200</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="hidezushi/"><span class="nm">秀寿司</span><span class="area">友沼4708</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="fuan/"><span class="nm">CAFE＆GALLERY 風庵</span><span class="area">丸林389</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="tesoro/"><span class="nm">tesoro</span><span class="area">佐川野</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="pizza-kitchen/"><span class="nm">ピザキッチン</span><span class="area">野木544</span><span class="who na">営業マンA</span></a></li>
+        <li class="split"><a href="hidezushi/"><span class="nm">秀寿司</span><span class="area">友沼4708</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="tesoro/"><span class="nm">tesoro</span><span class="area">佐川野</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="hazuki/"><span class="nm">らーめん葉月</span><span class="area">友沼894</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
-    <p class="batch"><b>第7便</b><span class="n">5通</span></p>
+    <p class="batch"><b>第7便</b><span class="n">A 3通・C 2通</span></p>
     <ul>
         <li><a href="yakiniku-today/"><span class="nm">焼肉トゥデイ</span><span class="area">丸林223</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="sobakiri-watanabe/"><span class="nm">蕎麦切り わたなべ</span><span class="area">友沼4794</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="nanairo/"><span class="nm">七色の落書き</span><span class="area">丸林408</span><span class="who na">営業マンA</span></a></li>
-        <li><a href="wazen-ruri/"><span class="nm">和膳 瑠莉</span><span class="area">友沼6509</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="nakanishi-coffee/"><span class="nm">中西珈琲</span><span class="area">丸林675</span><span class="who na">営業マンA</span></a></li>
+        <li class="split"><a href="sobakiri-watanabe/"><span class="nm">蕎麦切り わたなべ</span><span class="area">友沼4794</span><span class="who hi">営業マンC</span></a></li>
+        <li><a href="wazen-ruri/"><span class="nm">和膳 瑠莉</span><span class="area">友沼6509</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
     <div class="own">
