@@ -15,9 +15,14 @@
         font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
         padding: 40px 20px;
     }
-    .wrap { max-width: 520px; width: 100%; }
+    .wrap { max-width: 560px; width: 100%; }
     h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 8px; text-align: center; letter-spacing: 0.04em; }
-    .total { margin: 0 0 30px; text-align: center; font-size: 0.82rem; color: #7c7a75; letter-spacing: 0.06em; }
+    .total { margin: 0 0 10px; text-align: center; font-size: 0.82rem; color: #7c7a75; letter-spacing: 0.06em; }
+    .note {
+        margin: 0 0 30px; padding: 14px 16px; border: 1px solid #2a2a2e; border-radius: 8px;
+        background: #131316; font-size: 0.76rem; line-height: 1.75; color: #9b9892;
+    }
+    .note b { color: #c9a063; font-weight: 600; }
 
     /* 地域ごとの見出し。新しい地域はこの h2 + ul を1組ずつ足す */
     h2 {
@@ -28,13 +33,36 @@
     h2:first-of-type { margin-top: 0; }
     h2 .count { font-size: 0.74rem; font-weight: 400; color: #6f6d69; letter-spacing: 0.06em; flex: none; }
 
-    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    /* 発送の便（1便＝1週ぶん）。この見出しの中では同じ町丁を2軒入れない */
+    .batch {
+        margin: 22px 0 10px; font-size: 0.74rem; letter-spacing: 0.08em; color: #8a8782;
+        display: flex; align-items: baseline; gap: 10px;
+    }
+    .batch:first-child { margin-top: 0; }
+    .batch b { color: #d9d5cc; font-weight: 600; font-size: 0.8rem; }
+    .batch.done b { color: #6f6d69; }
+    .batch .n { color: #6f6d69; flex: none; margin-left: auto; }
+
+    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
     a {
-        display: block; text-decoration: none; color: #e8e6e1;
+        display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: #e8e6e1;
         background: #17171a; border: 1px solid #2a2a2e; border-radius: 8px;
-        padding: 18px 20px; font-size: 1.05rem; transition: 0.2s;
+        padding: 14px 16px; font-size: 0.98rem; transition: 0.2s;
     }
     a:hover, a:focus-visible { border-color: #c9a063; color: #e8c98f; }
+    .nm { flex: 1; min-width: 0; }
+    .area { font-size: 0.72rem; color: #6f6d69; letter-spacing: 0.04em; flex: none; }
+    .who {
+        font-size: 0.7rem; letter-spacing: 0.06em; flex: none; padding: 3px 8px; border-radius: 4px;
+        border: 1px solid currentColor;
+    }
+    .who.na { color: #c9a063; }   /* 成田 */
+    .who.hi { color: #6fa8c9; }   /* 廣藤 */
+    li.done a { background: #121214; border-color: #232326; color: #7c7a75; }
+    li.done .who { opacity: 0.55; }
+    li.envelope .nm::after {
+        content: "✉"; margin-left: 7px; font-size: 0.78rem; color: #8f7a4e;
+    }
 
     .own { margin-top: 34px; padding-top: 22px; border-top: 1px solid #26262a; }
     .own a { background: #1b1a16; border-color: #35322a; }
@@ -56,9 +84,17 @@
     <h1>制作サイト一覧</h1>
     <p class="total">全52軒</p>
 
+    <p class="note">
+        <b>この並びは「手紙を送る順番」です。</b>上から順に送ってください。<br>
+        1つの便＝1週ぶん（10通）。<b>同じ便の中に同じ町丁の店を入れていません</b>——
+        隣同士に同じ手紙が同じ週に届くと「近所に同じものが回っている」と照合されるためです。<br>
+        <b>古河市を全部送り終えてから野木町に入ります。</b>混ぜないでください。<br>
+        <b>✉</b> ＝ 封筒の宛名書きが済んでいる店。<b>成田／廣藤</b> ＝ 電話と訪問の担当。町丁で割ってあります。
+    </p>
+
     <!-- ================================================================
          新しい地域を足すときは、この形の h2 + ul を1組そのまま複製する。
-         並び順は「制作を始めた地域の順」。既存の行は書き換えない。
+         並び順は「制作を始めた地域の順」。
 
            <h2>栃木県 野木町<span class="count">◯軒</span></h2>
            <ul>
@@ -66,70 +102,99 @@
            </ul>
 
          あわせて上の <p class="total"> の総軒数も直すこと。
+
+         ★2026-08-10 から「発送順」に並べ替えてある（それ以前は制作順）。
+           新しい店を足すときは末尾に足すのではなく、
+           「その店の町丁が入っていない便」を探してそこへ入れる。
+           1便に同じ町丁を2軒入れない、が唯一の規則。
          ================================================================ -->
 
     <h2>茨城県 古河市<span class="count">35軒</span></h2>
+
+    <p class="batch done"><b>送付済み</b>（成田）<span class="n">5通</span></p>
     <ul>
-        <li><a href="nagi/">居酒屋 凪</a></li>
-        <li><a href="nagomidokoro-syu/">なごみ処 秀</a></li>
-        <li><a href="konchiki/">こんちき</a></li>
-        <li><a href="wagaya/">和が家</a></li>
-        <li><a href="bonne-qualite/">イタリアン Bonne Qualité(ボンヌカリテ)</a></li>
-        <li><a href="sumikichi/">炭きち</a></li>
-        <li><a href="ikkaku/">食彩酒 一鶴</a></li>
-        <li><a href="izakaya-japan/">居酒屋ジャパン</a></li>
-        <li><a href="torattoriya/">とらっ鳥屋</a></li>
-        <li><a href="kyu/">海鮮居酒屋 玖 -kyu-</a></li>
-        <li><a href="genji/">酒道場 源氏</a></li>
-        <li><a href="uokatsu/">食彩厨房 魚かつ</a></li>
-        <li><a href="sobazen/">そば善</a></li>
-        <li><a href="ichi/">いざかや 壱</a></li>
-        <li><a href="ryubitei/">串焼き居酒屋 竜美亭</a></li>
-        <li><a href="rikuzen-koga/">りくぜん 古河店</a></li>
-        <li><a href="kiraku-hanten/">喜楽飯店</a></li>
-        <li><a href="ryoka/">良花</a></li>
-        <li><a href="bunpuku-hanten/">文福飯店</a></li>
-        <li><a href="tatamiya/">たたみ家</a></li>
-        <li><a href="ocha-nova/">Cafe 5438 Ocha-Nova</a></li>
-        <li><a href="sakasa-shokudo/">さかさ食堂</a></li>
-        <li><a href="kuro-diamond/">畑の黒ダイヤ</a></li>
-        <li><a href="awaya/">支那そば・横浜タンメン 阿波家</a></li>
-        <li><a href="sangenya/">三軒家</a></li>
-        <li><a href="shinraku-hanten/">新楽飯店</a></li>
-        <li><a href="minowa/">とんかつ みの和</a></li>
-        <li><a href="mendokoro-kuraya/">めん処 蔵屋</a></li>
-        <li><a href="shoryu/">昇龍</a></li>
-        <li><a href="fujiya/">藤屋</a></li>
-        <li><a href="ikki/">らーめん壱輝</a></li>
-        <li><a href="takachan/">それいけ!たかちゃんラーメン</a></li>
-        <li><a href="nagase/">ラーメン長瀬</a></li>
-        <li><a href="nanokura/">しょうがラーメン 七の庫</a></li>
-        <li><a href="mendo-inaba/">麺堂 稲葉（古河本店・INABASTYLE）</a></li>
+        <li class="done"><a href="nagi/"><span class="nm">居酒屋 凪</span><span class="area">北町</span><span class="who na">成田</span></a></li>
+        <li class="done"><a href="nagomidokoro-syu/"><span class="nm">なごみ処 秀</span><span class="area">坂間</span><span class="who na">成田</span></a></li>
+        <li class="done"><a href="konchiki/"><span class="nm">こんちき</span><span class="area">下辺見</span><span class="who na">成田</span></a></li>
+        <li class="done"><a href="wagaya/"><span class="nm">和が家</span><span class="area">下山町</span><span class="who na">成田</span></a></li>
+        <li class="done"><a href="bonne-qualite/"><span class="nm">イタリアン Bonne Qualité(ボンヌカリテ)</span><span class="area">大堤</span><span class="who na">成田</span></a></li>
+    </ul>
+
+    <p class="batch"><b>第2便</b>／今週<span class="n">10通</span></p>
+    <ul>
+        <li class="envelope"><a href="sumikichi/"><span class="nm">炭きち</span><span class="area">東本町</span><span class="who na">成田</span></a></li>
+        <li class="envelope"><a href="kyu/"><span class="nm">海鮮居酒屋 玖 -kyu-</span><span class="area">関戸</span><span class="who hi">廣藤</span></a></li>
+        <li class="envelope"><a href="izakaya-japan/"><span class="nm">居酒屋ジャパン</span><span class="area">東1</span><span class="who na">成田</span></a></li>
+        <li><a href="ryoka/"><span class="nm">良花</span><span class="area">高野</span><span class="who hi">廣藤</span></a></li>
+        <li class="envelope"><a href="sobazen/"><span class="nm">そば善</span><span class="area">古河</span><span class="who na">成田</span></a></li>
+        <li><a href="kuro-diamond/"><span class="nm">畑の黒ダイヤ</span><span class="area">上大野</span><span class="who hi">廣藤</span></a></li>
+        <li class="envelope"><a href="torattoriya/"><span class="nm">とらっ鳥屋</span><span class="area">横山町</span><span class="who na">成田</span></a></li>
+        <li><a href="bunpuku-hanten/"><span class="nm">文福飯店</span><span class="area">北山田</span><span class="who hi">廣藤</span></a></li>
+        <li class="envelope"><a href="uokatsu/"><span class="nm">食彩厨房 魚かつ</span><span class="area">上辺見</span><span class="who na">成田</span></a></li>
+        <li><a href="sangenya/"><span class="nm">三軒家</span><span class="area">下辺見</span><span class="who na">成田</span></a></li>
+    </ul>
+
+    <p class="batch"><b>第3便</b><span class="n">10通</span></p>
+    <ul>
+        <li class="envelope"><a href="ikkaku/"><span class="nm">食彩酒 一鶴</span><span class="area">東本町</span><span class="who na">成田</span></a></li>
+        <li><a href="awaya/"><span class="nm">支那そば・横浜タンメン 阿波家</span><span class="area">久能</span><span class="who hi">廣藤</span></a></li>
+        <li class="envelope"><a href="genji/"><span class="nm">酒道場 源氏</span><span class="area">東1</span><span class="who na">成田</span></a></li>
+        <li><a href="fujiya/"><span class="nm">藤屋</span><span class="area">小堤</span><span class="who hi">廣藤</span></a></li>
+        <li class="envelope"><a href="ichi/"><span class="nm">いざかや 壱</span><span class="area">古河</span><span class="who na">成田</span></a></li>
+        <li><a href="ikki/"><span class="nm">らーめん壱輝</span><span class="area">大堤</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="ryubitei/"><span class="nm">串焼き居酒屋 竜美亭</span><span class="area">本町1</span><span class="who na">成田</span></a></li>
+        <li><a href="takachan/"><span class="nm">それいけ!たかちゃんラーメン</span><span class="area">大山</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="tatamiya/"><span class="nm">たたみ家</span><span class="area">中央町</span><span class="who na">成田</span></a></li>
+        <li><a href="sakasa-shokudo/"><span class="nm">さかさ食堂</span><span class="area">下辺見</span><span class="who na">成田</span></a></li>
+    </ul>
+
+    <p class="batch"><b>第4便</b><span class="n">10通</span></p>
+    <ul>
+        <li><a href="rikuzen-koga/"><span class="nm">りくぜん 古河店</span><span class="area">東3</span><span class="who na">成田</span></a></li>
+        <li><a href="mendokoro-kuraya/"><span class="nm">めん処 蔵屋</span><span class="area">柳橋</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="shinraku-hanten/"><span class="nm">新楽飯店</span><span class="area">本町1</span><span class="who na">成田</span></a></li>
+        <li><a href="minowa/"><span class="nm">とんかつ みの和</span><span class="area">東山田</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="nanokura/"><span class="nm">しょうがラーメン 七の庫</span><span class="area">下辺見</span><span class="who na">成田</span></a></li>
+        <li><a href="shoryu/"><span class="nm">昇龍</span><span class="area">駒羽根</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="ocha-nova/"><span class="nm">Cafe 5438 Ocha-Nova</span><span class="area">本町4</span><span class="who na">成田</span></a></li>
+        <li><a href="nagase/"><span class="nm">ラーメン長瀬</span><span class="area">中田</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="kiraku-hanten/"><span class="nm">喜楽飯店</span><span class="area">東1</span><span class="who na">成田</span></a></li>
+        <li><a href="mendo-inaba/"><span class="nm">麺堂 稲葉（古河本店・INABASTYLE）</span><span class="area">大山</span><span class="who hi">廣藤</span></a></li>
     </ul>
 
     <h2>栃木県 野木町<span class="count">17軒</span></h2>
+
+    <p class="batch"><b>第5便</b>／古河市を送り終えてから<span class="n">6通</span></p>
     <ul>
-        <li><a href="nanairo/">七色の落書き</a></li>
-        <li><a href="miyakoya/">手打そば 美家古家</a></li>
-        <li><a href="wazen-ruri/">和膳 瑠莉</a></li>
-        <li><a href="kantaro/">もつ煮屋 貫太郎</a></li>
-        <li><a href="hazuki/">らーめん葉月</a></li>
-        <li><a href="tomoeya/">そば処 巴屋</a></li>
-        <li><a href="yakiniku-today/">焼肉トゥデイ</a></li>
-        <li><a href="hidezushi/">秀寿司</a></li>
-        <li><a href="tenhachi/">匠丼屋 てん八</a></li>
-        <li><a href="sobakiri-watanabe/">蕎麦切り わたなべ</a></li>
-        <li><a href="kobito-cafe/">こびとカフェ</a></li>
-        <li><a href="pizza-kitchen/">ピザキッチン</a></li>
-        <li><a href="karin/">cafeカリン</a></li>
-        <li><a href="noodle-studio-story/">NOODLE STUDIO STORY</a></li>
-        <li><a href="nakanishi-coffee/">中西珈琲</a></li>
-        <li><a href="fuan/">CAFE＆GALLERY 風庵</a></li>
-        <li><a href="tesoro/">tesoro</a></li>
+        <li><a href="noodle-studio-story/"><span class="nm">NOODLE STUDIO STORY</span><span class="area">丸林150</span><span class="who na">成田</span></a></li>
+        <li><a href="kantaro/"><span class="nm">もつ煮屋 貫太郎</span><span class="area">友沼925</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="kobito-cafe/"><span class="nm">こびとカフェ</span><span class="area">野木3324</span><span class="who na">成田</span></a></li>
+        <li><a href="tenhachi/"><span class="nm">匠丼屋 てん八</span><span class="area">南赤塚</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="miyakoya/"><span class="nm">手打そば 美家古家</span><span class="area">丸林371</span><span class="who na">成田</span></a></li>
+        <li><a href="karin/"><span class="nm">cafeカリン</span><span class="area">友沼5898</span><span class="who hi">廣藤</span></a></li>
+    </ul>
+
+    <p class="batch"><b>第6便</b><span class="n">6通</span></p>
+    <ul>
+        <li><a href="tomoeya/"><span class="nm">そば処 巴屋</span><span class="area">丸林200</span><span class="who na">成田</span></a></li>
+        <li><a href="hidezushi/"><span class="nm">秀寿司</span><span class="area">友沼4708</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="fuan/"><span class="nm">CAFE＆GALLERY 風庵</span><span class="area">丸林389</span><span class="who na">成田</span></a></li>
+        <li><a href="tesoro/"><span class="nm">tesoro</span><span class="area">佐川野</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="pizza-kitchen/"><span class="nm">ピザキッチン</span><span class="area">野木544</span><span class="who na">成田</span></a></li>
+        <li><a href="hazuki/"><span class="nm">らーめん葉月</span><span class="area">友沼894</span><span class="who hi">廣藤</span></a></li>
+    </ul>
+
+    <p class="batch"><b>第7便</b><span class="n">5通</span></p>
+    <ul>
+        <li><a href="yakiniku-today/"><span class="nm">焼肉トゥデイ</span><span class="area">丸林223</span><span class="who na">成田</span></a></li>
+        <li><a href="sobakiri-watanabe/"><span class="nm">蕎麦切り わたなべ</span><span class="area">友沼4794</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="nanairo/"><span class="nm">七色の落書き</span><span class="area">丸林408</span><span class="who na">成田</span></a></li>
+        <li><a href="wazen-ruri/"><span class="nm">和膳 瑠莉</span><span class="area">友沼6509</span><span class="who hi">廣藤</span></a></li>
+        <li><a href="nakanishi-coffee/"><span class="nm">中西珈琲</span><span class="area">丸林675</span><span class="who na">成田</span></a></li>
     </ul>
 
     <div class="own">
-        <a href="company/">creative works+（自社サイト）</a>
+        <a href="company/"><span class="nm">creative works+（自社サイト）</span></a>
     </div>
 
     <div class="sales">
