@@ -33,6 +33,7 @@
   "name": "文福飯店",
   "alternateName": "ぶんぷくはんてん",
   "servesCuisine": ["Japanese", "Chinese"],
+  "priceRange": "¥800〜¥2,700",
   "telephone": "+81-280-76-5090",
   "paymentAccepted": "Cash",
   "currenciesAccepted": "JPY",
@@ -419,8 +420,59 @@ body.nav-open .mobile-nav {
 .paper-section .section-title { color: var(--paper-ink); }
 .paper-section .lead { color: var(--paper-sub); }
 
+/* 定番のお品書き（罫線の価格表） */
+.menu-cols {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(26px, 4vw, 46px); margin-top: 36px; align-items: start;
+}
+.menu-block--wide { grid-column: 1 / -1; }
+@media (max-width: 760px) {
+    .menu-cols { grid-template-columns: 1fr; }
+    .menu-block--wide { grid-column: auto; }
+}
+.menu-h {
+    font-family: var(--font-head); font-weight: 400;
+    font-size: clamp(1.06rem, 3vw, 1.2rem); letter-spacing: 0.12em;
+    color: var(--tanzaku); padding-bottom: 9px;
+    border-bottom: 2px solid rgba(142,47,44,0.55);
+}
+.menu-list { list-style: none; margin: 0; padding: 0; }
+.menu-list--2col { columns: 2; column-gap: clamp(26px, 4vw, 46px); }
+@media (max-width: 560px) { .menu-list--2col { columns: 1; } }
+.menu-list li {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 11px 2px; break-inside: avoid;
+    border-bottom: 1px dotted rgba(120,90,70,0.4);
+}
+.menu-list .nm {
+    font-size: clamp(0.97rem, 2.7vw, 1.04rem); line-height: 1.5;
+    word-break: auto-phrase; text-wrap: pretty;
+}
+.menu-list .nm em {
+    display: block; font-style: normal;
+    font-size: 0.78rem; letter-spacing: 0.04em; color: var(--paper-sub); margin-top: 2px;
+}
+.menu-list .pr {
+    margin-left: auto; white-space: nowrap;
+    font-family: var(--font-head); font-size: clamp(1rem, 2.8vw, 1.08rem);
+    color: var(--tanzaku); font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+}
+.menu-add {
+    margin-top: 14px; font-size: 0.86rem; line-height: 1.8; color: var(--paper-sub);
+    word-break: auto-phrase; text-wrap: pretty;
+}
+.menu-add b { color: var(--paper-ink); font-weight: 700; }
+.menu-notes {
+    margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px 16px;
+}
+.menu-notes p {
+    flex: 1 1 260px; background: #FBF7EC; border-left: 4px solid var(--tanzaku);
+    padding: 13px 16px; border-radius: 0 3px 3px 0;
+    font-size: 0.93rem; line-height: 1.7; color: var(--paper-ink);
+}
+
 .tanzaku-wall {
-    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px;
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px;
 }
 .tanzaku {
     background: #FBF7EC; color: var(--tanzaku);
@@ -430,6 +482,11 @@ body.nav-open .mobile-nav {
     font-family: var(--font-head); font-size: clamp(0.98rem, 2.8vw, 1.14rem);
     letter-spacing: 0.06em; line-height: 1.5;
     box-shadow: 0 3px 10px rgba(90,50,40,0.10);
+}
+.tanzaku em {
+    display: block; font-style: normal; margin-top: 3px;
+    font-size: 0.82rem; letter-spacing: 0.04em;
+    color: var(--paper-sub); font-variant-numeric: tabular-nums;
 }
 .tanzaku:nth-child(3n)   { transform: rotate(-0.7deg); }
 .tanzaku:nth-child(4n+1) { transform: rotate(0.6deg); }
@@ -781,32 +838,90 @@ body.nav-open .mobile-nav {
 <section class="section paper-section" id="menu">
     <div class="container">
         <p class="eyebrow reveal">お品書き</p>
-        <h2 class="section-title reveal">壁いっぱいの短冊から。</h2>
-        <p class="lead reveal">店内の壁は、天井近くまで手書きの短冊で埋まっています。ここに出しているのは<b>そのうちの一部</b>です。品数はこれよりずっと多く、季節でも入れ替わります。</p>
-        <p class="price-note reveal"><b>お値段は、店内のお品書きにてご案内しております。</b>お電話でもお答えしますので、
-            <a href="tel:0280765090" class="inline-tel">0280-76-5090</a> までお気軽にどうぞ。</p>
+        <h2 class="section-title reveal">お品書きは、毎週書きかえております。</h2>
+        <p class="lead reveal">下の品はいつでもお出ししております。これに加えて、<b>その週かぎりの品</b>を毎週こしらえてお待ちしております。</p>
 
-        <div class="tanzaku-wall reveal reveal-delay-1">
-            <span class="tanzaku">中華そば</span>
-            <span class="tanzaku">チャーハン</span>
-            <span class="tanzaku">麻婆豆腐</span>
-            <span class="tanzaku">ニラ炒め</span>
-            <span class="tanzaku">シューマイ</span>
-            <span class="tanzaku">から揚げ</span>
-            <span class="tanzaku">から揚げ・カツ合い盛り</span>
-            <span class="tanzaku">エビフライ</span>
-            <span class="tanzaku">とんかつ</span>
-            <span class="tanzaku">ハンバーグ</span>
-            <span class="tanzaku">しょうが焼き定食</span>
-            <span class="tanzaku">オムライス</span>
-            <span class="tanzaku">うなぎ</span>
-            <span class="tanzaku">お刺身</span>
+        <div class="menu-cols reveal reveal-delay-1">
+            <div class="menu-block">
+                <h3 class="menu-h">ごはんもの</h3>
+                <ul class="menu-list">
+                    <li><span class="nm">チャーハン</span><span class="pr">1,100円</span></li>
+                    <li><span class="nm">オムライス</span><span class="pr">1,100円</span></li>
+                    <li><span class="nm">カレーライス</span><span class="pr">1,100円</span></li>
+                    <li><span class="nm">カツカレーライス</span><span class="pr">1,600円</span></li>
+                    <li><span class="nm">ドライカレー</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">中華丼</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">マーボー丼</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">ぶた肉ライス<em>しょうゆあんかけ</em></span><span class="pr">1,600円</span></li>
+                    <li><span class="nm">とり肉ライス<em>しおあんかけ</em></span><span class="pr">1,600円</span></li>
+                </ul>
+                <p class="menu-add">チャーハン・オムライス・カレーライスは<b>大盛り 2,200円</b>、カツカレーライスは<b>大盛り 2,700円</b>にてお出しします。</p>
+            </div>
+
+            <div class="menu-block">
+                <h3 class="menu-h">定食</h3>
+                <ul class="menu-list">
+                    <li><span class="nm">からあげ定食</span><span class="pr">2,000円</span></li>
+                    <li><span class="nm">やき肉定食</span><span class="pr">1,900円</span></li>
+                    <li><span class="nm">とんかつ定食</span><span class="pr">1,900円</span></li>
+                    <li><span class="nm">ハンバーグ定食</span><span class="pr">1,800円</span></li>
+                    <li><span class="nm">スブタ定食</span><span class="pr">1,800円</span></li>
+                    <li><span class="nm">ピーから定食</span><span class="pr">1,600円</span></li>
+                    <li><span class="nm">マーボー定食</span><span class="pr">1,500円</span></li>
+                    <li><span class="nm">肉やさいいため定食</span><span class="pr">1,500円</span></li>
+                </ul>
+                <p class="menu-add">定食にはごはん・味噌汁・小鉢をお付けします。ごはんの盛りは<b>下の九段</b>からお選びいただけます。</p>
+            </div>
+
+            <div class="menu-block menu-block--wide">
+                <h3 class="menu-h">麺・やきそば</h3>
+                <ul class="menu-list menu-list--2col">
+                    <li><span class="nm">ラーメン</span><span class="pr">800円</span></li>
+                    <li><span class="nm">ネギラーメン</span><span class="pr">1,100円</span></li>
+                    <li><span class="nm">塩タンメン</span><span class="pr">1,100円</span></li>
+                    <li><span class="nm">ミソラーメン</span><span class="pr">1,100円</span></li>
+                    <li><span class="nm">ネギミソラーメン</span><span class="pr">1,500円</span></li>
+                    <li><span class="nm">マーボーラーメン</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">うまにラーメン</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">汁なしマーボーめん</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">汁なしうまにめん</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">つけめん</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">冷し中華</span><span class="pr">1,500円</span></li>
+                    <li><span class="nm">やきそば</span><span class="pr">1,000円</span></li>
+                    <li><span class="nm">五目やきそば</span><span class="pr">1,300円</span></li>
+                    <li><span class="nm">五目あんかけやきそば</span><span class="pr">1,500円</span></li>
+                    <li><span class="nm">ガチやきそば<em>めんだけです</em></span><span class="pr">800円</span></li>
+                </ul>
+            </div>
         </div>
-        <p class="tanzaku-note reveal">※ 仕入れによってお出しできない日があります。詳しくは店内のお品書きをご覧ください。</p>
+
+        <div class="menu-notes reveal">
+            <p><b>大もり（ごはん1kg）は 500円</b>を頂戴しております。</p>
+            <p><b>お持ち帰り用のパックは1枚 50円</b>を頂戴しております。</p>
+        </div>
+        <p class="tanzaku-note reveal">※ 表示は2026年7月現在のお値段です。仕入れによってお出しできない日がございます。</p>
 
         <div class="scroller-head reveal">
-            <h3>写真で見るお品書き</h3>
-            <span class="scroller-hint">全11品　← 横にスクロールできます →</span>
+            <h3>その週かぎりの品</h3>
+            <span class="scroller-hint">2026年7月にお出ししていたもの</span>
+        </div>
+        <div class="tanzaku-wall reveal reveal-delay-1">
+            <span class="tanzaku">ポテ豚丼<em>1,800円</em></span>
+            <span class="tanzaku">ナスキムチーズ定食<em>1,800円</em></span>
+            <span class="tanzaku">にこみハンバーグ定食<em>1,800円</em></span>
+            <span class="tanzaku">なすしょうがやき定食<em>1,500円</em></span>
+            <span class="tanzaku">デミソースかけオムライス<em>1,300円</em></span>
+            <span class="tanzaku">そばめしLMAX<em>1,500円</em></span>
+            <span class="tanzaku">古河ダムミニ<em>1,500円</em></span>
+            <span class="tanzaku">おにぎり定食<em>1,000円</em></span>
+            <span class="tanzaku">子豚丼 1号・2号・V3<em>各1,000円</em></span>
+            <span class="tanzaku">TTC丼<em>2,000円</em></span>
+        </div>
+        <p class="tanzaku-note reveal">※ 週がわりの品は毎週入れ替わります。その週のお品書きは店内にご用意しております。</p>
+
+        <div class="scroller-head reveal">
+            <h3>お出ししてきた品から</h3>
+            <span class="scroller-hint">全10品　← 横にスクロールできます →</span>
         </div>
         <div class="scroller reveal">
             <figure class="s-card"><div class="shot"><img src="img/chahan.jpg" alt="赤い雷文の縁の中華皿に山盛りにされたチャーハン" width="436" height="581" loading="lazy" decoding="async"></div><figcaption>チャーハン</figcaption></figure>
@@ -818,13 +933,12 @@ body.nav-open .mobile-nav {
             <figure class="s-card"><div class="shot"><img src="img/ebi-fry.jpg" alt="尾を立てて並べた大ぶりのエビフライ3本。タルタルソースとレモンを添えている" width="391" height="522" loading="lazy" decoding="async"></div><figcaption>エビフライ</figcaption></figure>
             <figure class="s-card"><div class="shot"><img src="img/hamburg.jpg" alt="皿からはみ出すほど大きなハンバーグにデミグラスソースをかけたもの" width="921" height="691" loading="lazy" decoding="async"></div><figcaption>ハンバーグ</figcaption></figure>
             <figure class="s-card"><div class="shot"><img src="img/shogayaki.jpg" alt="豚肉と玉ねぎを炒めたしょうが焼き。ごはん・味噌汁・漬物がついた定食" width="1000" height="750" loading="lazy" decoding="async"></div><figcaption>しょうが焼き定食</figcaption></figure>
-            <figure class="s-card"><div class="shot"><img src="img/unagi.jpg" alt="たれをまとった うなぎの蒲焼きを一本のせた丼" width="640" height="360" loading="lazy" decoding="async"></div><figcaption>うなぎ</figcaption></figure>
             <figure class="s-card"><div class="shot"><img src="img/sashimi.jpg" alt="まぐろ・いか・貝などを大根のつまとともに盛り合わせた刺身" width="640" height="360" loading="lazy" decoding="async"></div><figcaption>お刺身</figcaption></figure>
         </div>
 
         <div class="paper-foot reveal">
             <p><span class="pay-chip">お支払いは現金のみ</span></p>
-            <p>お値段のおたずねは <a href="tel:0280765090" class="inline-tel">0280-76-5090</a> へ。</p>
+            <p>ご不明な点は <a href="tel:0280765090" class="inline-tel">0280-76-5090</a> までお気軽にどうぞ。</p>
         </div>
     </div>
 </section>
@@ -852,7 +966,7 @@ body.nav-open .mobile-nav {
 
             <div class="hand-note reveal reveal-delay-1">
                 <b>「大もり＆もっこり以上は金額が変わりますので聞いて下さい。」</b><br>
-                ご注文のときに、お気軽におたずねください。
+                <b>大もり（約1kg）は 500円</b>を頂戴しております。その先の盛りは、ご注文のときにお気軽におたずねください。
             </div>
 
             <p class="mori-close reveal reveal-delay-2">
