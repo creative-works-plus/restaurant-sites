@@ -569,15 +569,22 @@
     .menu-more b { color: var(--ink); font-weight: 700; }
 
     /* --- C-4 全幅の帯（夜への切り替え） ---------------------------------- */
-    .night-band { position: relative; height: clamp(220px, 40vw, 400px); overflow: hidden; }
-    .night-band img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+    /* ★元画像は768pxの縦位置写真。全幅に引き伸ばすとPCで1.9倍に拡大されて眠くなるので、
+       原寸までに留めて中央に置き、両脇は夜の地色で受ける（帯の上を覆う暗幕でつながって見える） */
+    .night-band { position: relative; height: clamp(220px, 40vw, 400px); overflow: hidden;
+        background: var(--night); }
+    .night-band img { position: relative; z-index: 1; display: block;
+        width: 100%; max-width: 768px; margin-inline: auto;
+        height: 100%; object-fit: cover; object-position: 50% 40%; }
     .night-band::after {
-        content: ''; position: absolute; inset: 0;
-        background: linear-gradient(to bottom, rgba(33,28,22,0.35), rgba(33,28,22,0.95));
+        content: ''; position: absolute; inset: 0; z-index: 2;
+        background:
+            radial-gradient(120% 100% at 50% 45%, transparent 30%, rgba(33,28,22,0.55) 100%),
+            linear-gradient(to bottom, rgba(33,28,22,0.35), rgba(33,28,22,0.95));
     }
     .night-band-text {
         position: absolute; left: 0; right: 0; bottom: clamp(18px, 4vw, 40px);
-        z-index: 2; text-align: center; color: #F6EEDD;
+        z-index: 3; text-align: center; color: #F6EEDD;
         font-family: var(--font-head);
         font-size: clamp(1.25rem, 5vw, 2.1rem); letter-spacing: 0.08em;
     }

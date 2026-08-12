@@ -290,9 +290,14 @@ body.nav-open .mobile-nav{
 /* --- 看板の帯（全幅） ------------------------------------------------------ */
 /* ★元画像は854px。全幅に引き伸ばすと1440pxで1.69倍に拡大され、
    下40%が手前の車のルーフで埋まる。原寸までに留めて、下を切る */
+/* PCでは854pxのまま中央に置くと左右が空くので、上下にも余白を取って「額」に見せる */
 .kanban-band{ background:var(--board); padding:0; }
-.kanban-band img{ width:min(100%,854px); margin-inline:auto;
+.kanban-band img{ display:block; width:min(100%,854px); margin-inline:auto;
     height:auto; aspect-ratio:854/290; object-fit:cover; object-position:50% 26%; }
+@media (min-width:900px){
+    .kanban-band{ padding-block:34px; }
+    .kanban-band img{ border-radius:10px; box-shadow:0 10px 34px rgba(0,0,0,.28); }
+}
 .kanban-note{ margin-top:10px; font-size:.86rem; color:var(--muted); }
 
 /* ==========================================================================
@@ -515,7 +520,7 @@ body.nav-open .mobile-nav{
 
 <header class="site-header">
     <div class="header-inner">
-        <a href="#" class="brand">
+        <a href="#hero" class="brand">
             <span class="brand-name">さかさ食堂</span>
             <span class="brand-sub">古河市下辺見｜ラーメン・餃子・定食</span>
         </a>

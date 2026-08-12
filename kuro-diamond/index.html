@@ -213,8 +213,11 @@
         border: 1px solid var(--line-strong);
         font-size: 0.8rem; letter-spacing: 0.04em;
     }
+    /* 2行になったときに「に開けま／す」と1字だけ送らない */
+    .status-chip .status-text { word-break: auto-phrase; text-wrap: pretty; }
     .status-chip::before {
-        content: ''; width: 7px; height: 7px; border-radius: 50%;
+        content: ''; flex: none;
+        width: 7px; height: 7px; border-radius: 50%;
         background: var(--dim);
     }
     .status-chip.is-open::before   { background: var(--open); }
@@ -611,6 +614,8 @@
        block にすると全50行が2行に割れ、お品書きの丈が倍になる */
     @media (max-width: 620px) {
         .menu-list li { flex-wrap: wrap; }
+        /* 品名が長くて価格が次の行に落ちたとき、価格を右端に寄せる */
+        .menu-list .price { margin-left: auto; }
     }
 
     /* --- 黒ダイヤ（ブラックベリー）の節 ---------------------------------- */
@@ -642,6 +647,8 @@
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
     .michi-grid .photo-frame { aspect-ratio: 4 / 3; }
+    /* 掲示の写真は原寸が横長。4/3に切ると右端の文が欠けるので原寸の比で見せる */
+    .michi-grid .frame-fuda { aspect-ratio: 1000 / 570; }
     .caution {
         margin-top: 24px; padding: 16px 18px;
         border-left: 3px solid var(--accent-2);
@@ -1218,7 +1225,7 @@
                 <figcaption>畑を抜けた先が当店です</figcaption>
             </figure>
             <figure class="reveal reveal-delay-3">
-                <div class="photo-frame"><img src="img/fuda-access.jpg" alt="店の掲示。住所・電話・営業時間・定休日・現金のみの表記と、赤字で「車がすれ違い出来ません！」と書かれている" width="1000" height="570" loading="lazy" decoding="async"></div>
+                <div class="photo-frame frame-fuda"><img src="img/fuda-access.jpg" alt="店の掲示。住所・電話・営業時間・定休日・現金のみの表記と、赤字で「車がすれ違い出来ません！」と書かれている" width="1000" height="570" loading="lazy" decoding="async"></div>
                 <figcaption>店内にもご案内を掲げております</figcaption>
             </figure>
         </div>

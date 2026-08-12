@@ -75,6 +75,8 @@ body{
 }
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,li,dt,dd,th,td,summary,figcaption{word-break:auto-phrase;text-wrap:pretty}
+.nw{display:inline-block}
 :focus-visible{outline:2px solid var(--kohaku);outline-offset:3px}
 
 /* ===== 背景の質感（コンクリート粒子） ===== */
@@ -148,6 +150,8 @@ main,header,footer{position:relative;z-index:1}
   width:100%;height:100%;object-fit:cover;object-position:50% 35%;
   opacity:.34;
 }
+/* 元画像は640px。PCでは2倍以上に拡大されるので、わずかにぼかして粗さを目立たせない */
+@media (min-width:1000px){ .hero-bg{ filter:blur(1.5px); transform:scale(1.03); } }
 .hero::after{
   content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background:
@@ -670,14 +674,15 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
         </div>
       </div>
       <div class="gallery-grid reveal">
+        <!-- 並びは4列グリッドを隙間なく埋める順序（横長=span2／縦位置の2枚=span1） -->
         <figure class="g-hero"><img src="maguro.jpg" alt="まぐろの刺身" loading="lazy" decoding="async" width="480" height="640"><figcaption>まぐろ刺し</figcaption></figure>
         <figure class="g-wide"><img src="yakitori-mori.jpg" alt="焼き鳥盛り合わせ" loading="lazy" decoding="async" width="640" height="360"><figcaption>焼き鳥</figcaption></figure>
-        <figure><img src="edamame.jpg" alt="枝豆" loading="lazy" decoding="async" width="640" height="360"><figcaption>枝豆 320円</figcaption></figure>
-        <figure><img src="sashimi.jpg" alt="白身魚の刺身" loading="lazy" decoding="async" width="640" height="360"><figcaption>お刺身</figcaption></figure>
+        <figure class="g-wide"><img src="edamame.jpg" alt="枝豆" loading="lazy" decoding="async" width="640" height="360"><figcaption>枝豆 320円</figcaption></figure>
+        <figure class="g-wide"><img src="sashimi.jpg" alt="白身魚の刺身" loading="lazy" decoding="async" width="640" height="360"><figcaption>お刺身</figcaption></figure>
         <figure><img src="otsumami.jpg" alt="瓶ビールとお通し" loading="lazy" decoding="async" width="480" height="640"><figcaption>お通しと一杯</figcaption></figure>
+        <figure><img src="yebisu.jpg" alt="カウンターとエビスビール" loading="lazy" decoding="async" width="360" height="640"><figcaption>カウンターにて</figcaption></figure>
         <figure class="g-wide"><img src="teppan.jpg" alt="豚肉ともやしの鉄板焼き" loading="lazy" decoding="async" width="640" height="360"><figcaption>鉄板焼き</figcaption></figure>
         <figure class="g-wide"><img src="nabe.jpg" alt="野菜と豚肉の鍋料理" loading="lazy" decoding="async" width="640" height="360"><figcaption>あったか鍋</figcaption></figure>
-        <figure><img src="yebisu.jpg" alt="カウンターとエビスビール" loading="lazy" decoding="async" width="360" height="640"><figcaption>カウンターにて</figcaption></figure>
       </div>
     </div>
   </section>
@@ -742,7 +747,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
   <!-- 締めCTA -->
   <section class="closing">
     <div class="wrap reveal">
-      <p class="catch">駅から三分、<br>のれんの向こうにいつもの味。</p>
+      <p class="catch">駅から三分、<br>のれんの向こうに<span class="nw">いつもの味。</span></p>
       <p>お席のご予約・宴会のご相談はお電話にてどうぞ。</p>
       <a class="tel-large" href="tel:0280-31-1707">
         <span class="num">0280-31-1707</span>
