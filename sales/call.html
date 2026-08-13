@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 社内用。検索エンジンに出さない -->
+<meta name="robots" content="noindex, nofollow">
+<title>架電スクリプト</title>
+<style>
+@page { size: A4 portrait; margin: 10mm 11mm; }
+* { box-sizing: border-box; }
+:root {
+  --ink: #1c1a17; --sub: #5b554c; --line: #d8d2c6;
+  --key: #8a6a13; --bg: #faf8f4; --ng: #9c2b2b;
+}
+body {
+  margin: 0; color: var(--ink); background: #fff;
+  font-family: -apple-system, "Hiragino Kaku Gothic ProN", sans-serif;
+  font-size: 7.9pt; line-height: 1.45;
+  word-break: auto-phrase; text-wrap: pretty;
+}
+.sheet { max-width: 188mm; margin: 0 auto; }
+/* ★2段組み。1段だと367mmになり、どう詰めてもA4片面に入らない（2026-08-13 実測）。
+   左＝上から順に読む台本、右＝返し方と禁止事項（電話中に目で拾う側）。 */
+.body { display: grid; grid-template-columns: 1fr 1fr; gap: 0 6mm; align-items: start; }
+.body > div > section:last-child { margin-bottom: 0; }
+
+header { border-bottom: 1.6pt solid var(--ink); padding-bottom: 2.4mm; margin-bottom: 2.6mm; }
+header .row { display: flex; align-items: baseline; justify-content: space-between; gap: 6mm; }
+h1 { font-size: 13pt; font-weight: 800; letter-spacing: .04em; margin: 0; }
+.who { font-size: 8.4pt; font-weight: 700; white-space: nowrap; }
+.who span { color: var(--sub); font-weight: 400; }
+.lead { font-size: 7.6pt; color: var(--sub); margin: 1.4mm 0 0; }
+
+section { margin-bottom: 2.0mm; break-inside: avoid; }
+h2 {
+  font-size: 8.4pt; font-weight: 800; letter-spacing: .03em; margin: 0 0 1.0mm;
+  padding-left: 5.6mm; position: relative;
+}
+h2 .n {
+  position: absolute; left: 0; top: .1em;
+  width: 4.4mm; height: 4.4mm; border-radius: 50%;
+  background: var(--ink); color: #fff;
+  font-size: 6.6pt; font-weight: 700; line-height: 4.4mm; text-align: center;
+}
+h2 .t { color: var(--sub); font-weight: 600; font-size: 7.4pt; margin-left: .6em; }
+
+.say {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 9.0pt; line-height: 1.55;
+  background: var(--bg); border-left: 2.2pt solid var(--key);
+  padding: 1.3mm 2.2mm; margin: 0 0 1.0mm;
+}
+.say + .say { margin-top: -.4mm; }
+.say b { font-weight: 700; }
+.say .cue { font-family: -apple-system, sans-serif; font-size: 7.2pt; color: var(--key); font-weight: 700; }
+.step { display: flex; gap: 2mm; }
+.step .no {
+  font-family: -apple-system, sans-serif; font-size: 7.4pt; font-weight: 800;
+  color: var(--key); padding-top: .35em; white-space: nowrap;
+}
+.blank { color: var(--key); font-weight: 600; }
+
+.why { font-size: 7.3pt; color: var(--sub); margin: .6mm 0 0; padding-left: .4mm; }
+.why b { color: var(--ink); }
+
+table { width: 100%; border-collapse: collapse; }
+td { border-top: .5pt solid var(--line); padding: .9mm 1.4mm .9mm 0; vertical-align: top; }
+td.q { width: 21mm; font-weight: 700; font-size: 7.7pt; }
+td.a { font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; font-size: 8.3pt; line-height: 1.45; }
+td.a em { font-family: -apple-system, sans-serif; font-style: normal; font-size: 7.3pt; color: var(--sub); }
+
+ul { margin: 0; padding-left: 3.6mm; }
+li { margin-bottom: .5mm; }
+li b { font-weight: 700; }
+.ng li::marker { color: var(--ng); }
+.ng b { color: var(--ng); }
+
+footer {
+  margin-top: 2.2mm; border-top: .8pt solid var(--line); padding-top: 1.6mm;
+  font-size: 7.2pt; color: var(--sub); display: flex; justify-content: space-between; gap: 4mm;
+}
+footer div:last-child { white-space: nowrap; text-align: right;
+}
+footer b { color: var(--ink); }
+
+/* ============================================================
+   画面（スマホ）で読むとき。紙は上の指定のまま、画面だけ1段に開く。
+   ★寸法をすべて pt/mm で書いてあるので、body の文字を大きくしても子は追随しない。
+     読む所だけ px で上書きする。
+   ============================================================ */
+@media screen {
+  body { background: #f2f0ec; padding: 14px 10px 40px; }
+  .sheet { background: #fff; max-width: 760px; padding: 18px 16px 20px;
+           border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+}
+@media screen and (max-width: 780px) {
+  .body { grid-template-columns: 1fr; gap: 0; }
+  body { font-size: 13px; line-height: 1.7; }
+  h1 { font-size: 20px; }
+  .who { font-size: 12px; white-space: normal; }
+  .lead { font-size: 12px; }
+  section { margin-bottom: 14px; }
+  h2 { font-size: 15px; padding-left: 22px; margin-bottom: 6px; }
+  h2 .n { width: 17px; height: 17px; line-height: 17px; font-size: 11px; }
+  h2 .t { font-size: 12px; display: block; margin-left: 0; }
+  .say { font-size: 15.5px; line-height: 1.8; padding: 9px 11px; margin-bottom: 7px; }
+  .say .cue { font-size: 12px; }
+  .step .no { font-size: 12px; }
+  .why { font-size: 12px; margin-top: 6px; }
+  /* 表は2列だと潰れるので、画面では「見出し→答え」の縦積みにする */
+  table, tbody, tr, td { display: block; width: auto; }
+  tr { border-top: 1px solid var(--line); padding: 7px 0; }
+  td { border: 0; padding: 0; }
+  td.q { width: auto; font-size: 12px; color: var(--key); margin-bottom: 2px; }
+  td.q br { display: none; }
+  td.q::after { content: "："; }
+  td.a { font-size: 15px; line-height: 1.75; }
+  td.a em { font-size: 12px; display: block; margin-top: 2px; }
+  li { margin-bottom: 5px; }
+  footer { flex-direction: column; gap: 5px; font-size: 12px; margin-top: 14px; padding-top: 10px; }
+  footer div:last-child { text-align: left; }
+}
+</style></head><body>
+<div class="sheet">
+
+<header>
+  <div class="row">
+    <h1>架電スクリプト</h1>
+    <div class="who"><span>氏名と携帯は、お手元の紙のとおり</span></div>
+  </div>
+  <p class="lead">手紙を出したお店へ、<b>一度だけ</b>かける電話。上から順に、そのまま読む。
+  〔　〕は、かける前に自分で埋める。<b>営業マニュアル 05「電話で何て言うか」は、この紙に置き換える。</b></p>
+</header>
+
+<div class="body">
+<div>
+
+<section>
+  <h2><span class="n">0</span>かける前の30秒</h2>
+  <ul>
+    <li><b>自分が手紙を出したお店にだけかける。</b>手紙に「この私がお電話を差し上げます（別の者からはかけません）」と書いてある。</li>
+    <li><b>14時から16時。</b>11時〜14時と17時以降はかけない。〔中休みの時間が分かっている店は、その時間に合わせる〕</li>
+    <li>手元に開く——<b>そのお店のサイト</b>と、<b>手紙に載せた営業時間・定休日</b>。探しながら話さない。</li>
+    <li>お名前が分かっていれば「<b>〔お名前〕さん、お願いできますか</b>」と指名する。「オーナー様はいらっしゃいますか」は使わない。</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">1</span>第一声<span class="t">会社名は3文目。名乗りから入らない</span></h2>
+  <div class="step"><div class="no">①</div><div class="say">お忙しいところ、失礼いたします。</div></div>
+  <div class="step"><div class="no">②</div><div class="say">先日お手紙と一緒に、勝手ながら<b class="blank">〔店名〕</b>さんのホームページを作ってお送りした者です。
+    <span class="cue">← ここで一度止めて、相手の言葉を待つ</span></div></div>
+  <div class="step"><div class="no">③</div><div class="say">古河市で飲食店のホームページを作っております、creative works+ の<b class="blank">〔自分の名前〕</b>と申します。</div></div>
+  <p class="why"><b>なぜ：</b>会社名から入ると、用件の前に「業者の電話」だと分かって切られる。先に渡すのは
+  <b>相手がすでに知っている事実</b>——届いた手紙と、自分の店の名前——だけにする。</p>
+</section>
+
+<section>
+  <h2><span class="n">2</span>用件<span class="t">「いる／いらない」を聞かない</span></h2>
+  <div class="say">本日は、<b>営業時間と定休日に間違いがないか、そこだけ確認</b>させていただきたくお電話しました。<b>1分で終わります。</b></div>
+  <div class="say"><span class="cue">そのまま読み上げる →</span> <b class="blank">〔昼11時から14時、夜5時から10時。定休日は水曜日〕</b>。
+  こちらで間違いございませんでしょうか。</div>
+  <table>
+    <tr><td class="q">違っていたら</td><td class="a">ありがとうございます。今日中に直します。ほかにも違うところがございましたら、あわせて教えていただけませんでしょうか。</td></tr>
+    <tr><td class="q">合っていたら</td><td class="a">安心いたしました。お手を止めさせてしまい、失礼いたしました。</td></tr>
+  </table>
+  <p class="why"><b>なぜ：</b>手紙で断り文句を先に渡してある。そこへ「いかがでしょうか」と聞けば、
+  <b>その言葉を使わせるだけ</b>になる。確認なら、答えるほうが早い。</p>
+</section>
+
+<section>
+  <h2><span class="n">3</span>「お宅は何の会社？」<span class="t">20秒。売り込みで終えず、質問で返す</span></h2>
+  <div class="say">古河市で、<b>飲食店のホームページだけ</b>を作っております。<b class="blank">〔店名〕</b>さんの公式のページが見当たらず、勝手ながら先に作ってお送りしました。
+  <b>ご覧いただくのも、間違いを教えていただくのも無料です。</b>——<b>お手紙は届いておりましたでしょうか。</b></div>
+  <table>
+    <tr><td class="q">見ていない<br>QRが読めない<br>届いていない</td><td class="a">封筒に、お店のページを<b>紙で1枚</b>入れております。そのままの見た目ですので、<b>スマートフォンをお使いにならなくてもご覧いただけます。</b>お手元になければ、もう一度お送りいたします。</td></tr>
+  </table>
+  <p class="why"><b>なぜ：</b>言い切って黙ると、相手はその間に「で、何を売りたいのか」を組み立てる。
+  <b>質問で返せば、次に話すのは相手になる。</b></p>
+</section>
+
+</div>
+<div>
+
+<section>
+  <h2><span class="n">4</span>返し方<span class="t">そのまま読む。食い下がらない</span></h2>
+  <table>
+    <tr><td class="q">いらない</td><td class="a">承知いたしました。それでは、これで終わりにいたします。二度はおかけしません。ページは消しておきましょうか。
+      <em>／ 引き止めない。「消してほしい」と言われたら、その日のうちに本当に消す。</em></td></tr>
+    <tr><td class="q">今は忙しい</td><td class="a">失礼いたしました。営業時間と定休日だけ、お手すきのときに見ていただければ十分です。
+      <em>／ かけ直す約束はしない（手紙で「一度だけ」と書いている）。</em></td></tr>
+    <tr><td class="q">いくらかかるの</td><td class="a">制作が150,000円、そのあと月々5,000円です。いずれも税込みで、期間の縛りも解約金もございません。</td></tr>
+    <tr><td class="q">高い</td><td class="a">5年お使いになった場合は、合わせて450,000円です。隠さず申し上げます。
+      <em>／ 電話でその場の金額を下げない。お金の相談は、会ってからにする。</em></td></tr>
+    <tr><td class="q">写真はどこから</td><td class="a">ネット上にあったものを、仮のものとして使わせていただきました。ご不快でしたら、すぐ取り下げます。お使いいただくことになりましたら、こちらが伺って撮り直します。</td></tr>
+    <tr><td class="q">勝手に載せるな<br>検索に出ているのか</td><td class="a">検索には出ないようにしてあります。いまご覧になれるのは、あのQRとURLをお持ちの方だけです。ご不要でしたら、この電話で消します。</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2><span class="n">5</span>出なかったとき</h2>
+  <ul>
+    <li>呼び出しは<b>6回まで</b>。留守番電話に切り替わったら<b>何も残さずに切る</b>——吹き込むと、約束した「一度だけ」を、話さないまま使い切ることになる。</li>
+    <li><b>出ないのは「かけた」に入らない。</b>日を変えて、同じ時間帯にもう一度。</li>
+    <li>3回続けて出ないお店は、電話をやめて<b>訪問</b>にまわす。</li>
+    <li><b>断られたお店には、二度とかけない。</b>紙に書いた約束なので、ここを破ると手紙が全部嘘になる。</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">6</span>言わない</h2>
+  <ul class="ng">
+    <li><b>会社名から始める</b>／「ご提案が」「一度お時間を」「オーナー様はいらっしゃいますか」</li>
+    <li><b>「いかがでしょうか」「ご興味ありませんか」</b>＝いる／いらないを聞く言い方</li>
+    <li><b>「〇人来ればもとが取れます」</b>——約束できないうえ、手紙にも「お約束できません」と書いてある</li>
+    <li><b>ほかのお店の名前</b>——近所に同じ手紙が回っていると受け取られる</li>
+    <li><b>「もったいない」「本当はもっと売れるはずです」</b>——初対面の相手の商売を評価しない</li>
+    <li><b>「作ってしまいまして」</b>——何十時間もかけた仕事が、軽い仕事に聞こえる</li>
+  </ul>
+</section>
+
+</div>
+</div>
+
+<footer>
+  <div><b>切ったら3つだけ書く：</b>つながった／不通／断り　・　直しを言われた箇所　・　次の一手</div>
+  <div>creative works+</div>
+</footer>
+
+</div></body></html>
