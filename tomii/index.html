@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>麺処とみい - 公式サイト｜古河市 ラーメン</title>
+    <meta name="description" content="茨城県古河市本町、古河駅西口から徒歩4分のラーメン店。鶏と貝の金の中華そば、蛤塩そば、濃香煮干しそば、海老そばを、出汁を替えてお出ししております。木曜定休、夜は22時30分まで。ご注文は入口の券売機で。">
+
+    <meta property="og:title" content="麺処とみい｜古河市のラーメン">
+    <meta property="og:description" content="出汁を替えて、澄んだ一杯を。古河駅西口から歩いて4分。夜は22時30分まで灯しております。">
+    <meta property="og:type" content="restaurant">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/tomii/">
+    <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/tomii/img/kanban-day.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
+    <meta name="theme-color" content="#DCEAE4">
+
+    <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Opti:wght@400;500;700&family=M+PLUS+1:wght@400;500;700&family=Yuji+Mai&display=swap" rel="stylesheet">
+
+    <!-- favicon：掛け板（一枚板の看板）と、それを照らす一灯の弧 -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='11' fill='%23DCEAE4'/%3E%3Cpath d='M13 24a19 19 0 0 1 38 0' fill='none' stroke='%231F6F86' stroke-width='3.4' stroke-linecap='round'/%3E%3Crect x='9' y='32' width='46' height='20' rx='3' fill='%23BE9663'/%3E%3Cpath d='M18 42h28' stroke='%23134E5F' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "麺処とみい",
+      "servesCuisine": "Ramen",
+      "priceRange": "¥",
+      "telephone": "+81-80-7184-3900",
+      "paymentAccepted": "Cash, Credit Card, Electronic Money, QR Code Payment",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/tomii/",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/tomii/img/kanban-day.jpg",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Friday","Saturday","Sunday"],
+          "opens": "11:00",
+          "closes": "14:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Friday","Saturday","Sunday"],
+          "opens": "17:30",
+          "closes": "22:30"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "本町2-5-39",
+        "addressLocality": "古河市",
+        "addressRegion": "茨城県",
+        "postalCode": "306-0023",
+        "addressCountry": "JP"
+      },
+      "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9C%AC%E7%94%BA2-5-39",
+      "acceptsReservations": "False"
+    }
+    </script>
+
+    <style>
+    :root {
+        /* --- 面（背景） --------------------------------------------------------
+           蛤の殻の内側の、うすい青磁。明るい地。 */
+        --bg:          #DCEAE4;
+        --surface:     #FFFFFF;   /* 白磁の丼 */
+        --surface-2:   #C9DED6;
+
+        /* --- 文字（--bg 上のコントラスト実測：ink 12.5 / muted 5.8 / dim 3.4） -- */
+        --ink:         #13272C;
+        --muted:       #3D5C63;
+        --dim:         #647F86;
+
+        /* --- 差し色＝鉄浅葱。のぼりの藍を、貝殻の地に合わせて青緑へ寄せた1色 ---- */
+        --accent:      #1F6F86;   /* 対 --bg 4.61:1 */
+        --accent-hi:   #2A8AA4;
+        --accent-deep: #134E5F;   /* 対 --bg 7.42:1 */
+        /* --accent-2 は置かない。差し色は鉄浅葱の1色で通す */
+
+        /* --- 罫線 -------------------------------------------------------------- */
+        --line:        rgba(19, 39, 44, 0.14);
+        --line-strong: rgba(19, 39, 44, 0.26);
+
+        /* --- 影：明るい地なので黒0.55は使わず、差し色を薄く落とす ---------------- */
+        --shadow:      0 18px 44px rgba(19, 73, 86, 0.13);
+
+        /* --- 営業状況バッジ ----------------------------------------------------- */
+        --open:        #7fc383;
+        --closed:      #d98a7e;
+
+        /* --- 書体 --------------------------------------------------------------- */
+        --font-head:   'Kaisei Opti', 'Hiragino Mincho ProN', serif;
+        --font-body:   'M PLUS 1', 'Hiragino Sans', sans-serif;
+        --font-sign:   'Yuji Mai', 'Kaisei Opti', serif;   /* 掛け板の屋号だけに使う */
+
+        /* --- この店だけの材料の色（トークンではない） --------------------------- */
+        --wood-hi:     #DCB57F;
+        --wood:        #C2985F;
+        --wood-lo:     #8C6538;
+        --wood-ink:    #4A3116;
+        --tile:        #EFF2F2;
+        --grout:       #D2DBDB;
+        --panel:       #1A5F72;   /* ページ唯一の反転面（夜の章） */
+
+        /* --- 形・間 ------------------------------------------------------------- */
+        --radius:      10px;
+        --maxw:        1120px;
+        --gap:         clamp(16px, 4vw, 40px);
+        --pad-section: clamp(64px, 10vw, 120px);
+        --pad-inner:   clamp(20px, 5vw, 40px);
+    }
+
+    /* --- リセット ------------------------------------------------------------- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.85;
+        overflow-x: hidden;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+
+    :root { --header-h: 74px; }
+    @media (max-width: 768px) { :root { --header-h: 64px; } }
+
+    body { padding-top: var(--header-h); }
+    .site-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: var(--header-h);
+        background: rgba(220, 234, 228, 0.82);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid transparent;
+        transition: border-color .3s ease, background .3s ease;
+    }
+    body.scrolled .site-header { border-bottom-color: var(--line); background: rgba(220, 234, 228, 0.94); }
+    .header-inner { display: flex; align-items: center; height: 100%; }
+    .brand { text-decoration: none; color: inherit; white-space: nowrap;
+             font-family: var(--font-head); font-weight: 700; letter-spacing: .04em;
+             font-size: clamp(16px, 4.2vw, 20px); line-height: 1; }
+    .header-tel { margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+                  min-height: 44px; padding: 0 8px; text-decoration: none; color: var(--accent-deep);
+                  white-space: nowrap; font-weight: 700; }
+    .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
+    .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
+    .nav-toggle { margin-left: 6px; }
+    .hero { min-height: calc(100svh - var(--header-h)); }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; }
+
+    h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption {
+        word-break: auto-phrase;
+        text-wrap: pretty;
+    }
+    .nw { display: inline-block; }
+    .br-sp { display: none; }
+    @media (max-width: 600px) {
+        .br-sp { display: inline; }
+        .br-pc { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    .btn svg { width: 1.1em; height: 1.1em; flex: 0 0 auto; }
+
+    .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .section   { padding-block: var(--pad-section); }
+
+    .reveal {
+        opacity: 0; transform: translateY(26px);
+        transition: opacity 0.8s cubic-bezier(0.16, 0.7, 0.3, 1),
+                    transform 0.8s cubic-bezier(0.16, 0.7, 0.3, 1);
+    }
+    .reveal.in-view       { opacity: 1; transform: none; }
+    .reveal-delay-1       { transition-delay: 0.08s; }
+    .reveal-delay-2       { transition-delay: 0.16s; }
+    .reveal-delay-3       { transition-delay: 0.24s; }
+    .no-js .reveal        { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    .photo-frame {
+        position: relative; overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        background: var(--surface-2);
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .map-wrapper {
+        position: relative; width: 100%; aspect-ratio: 16 / 10;
+        border-radius: var(--radius); overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; position: relative; z-index: 1; }
+    @media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+    /* 地図が読み込めなくても、真っ白な箱にしない */
+    .map-wrapper { background: var(--surface-2); }
+    .map-wrapper::before {
+        content: attr(data-map-fallback); position: absolute; inset: 0; z-index: 0;
+        display: grid; place-items: center; font-size: .84rem; color: var(--muted);
+    }
+
+    .sticky-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+        display: none; gap: 1px; background: var(--line);
+        transform: translateY(100%); transition: transform 0.35s ease;
+        box-shadow: 0 -10px 30px rgba(19, 73, 86, 0.22);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar a {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 16px 10px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sticky-bar .bar-tel { background: var(--accent); color: #FFFFFF; }
+    .sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
+
+    .subnav a {
+        min-height: 44px;
+        display: inline-flex; align-items: center;
+        padding-inline: 16px;
+    }
+    .subnav { transition: transform .25s ease, opacity .25s ease; }
+    .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+
+    .btn-tel .tel-num { white-space: nowrap; }
+    .btn-tel .tel-cap { font-weight: 500; }
+    .btn-tel .tel-cap::before { content: '｜'; }
+    @media (max-width: 460px) {
+        .btn-tel { flex-wrap: wrap; padding: 12px 18px; line-height: 1.45; }
+        .btn-tel .tel-cap { flex-basis: 100%; text-align: center; font-size: .82rem; }
+        .btn-tel .tel-cap::before { content: none; }
+    }
+
+    .status-chip {
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 5px 13px; border-radius: 999px;
+        border: 1px solid var(--line-strong);
+        background: var(--surface);
+        font-size: 0.8rem; letter-spacing: 0.04em;
+    }
+    .status-chip::before {
+        content: ''; width: 7px; height: 7px; border-radius: 50%;
+        background: var(--dim);
+    }
+    .status-chip.is-open::before   { background: var(--open); }
+    .status-chip.is-closed::before { background: var(--closed); }
+    .status-chip.is-break::before  { background: var(--accent); }
+
+    .mobile-nav {
+        position: fixed; z-index: 200;
+        visibility: hidden; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    body.nav-open .mobile-nav {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+    .nav-toggle {
+        width: 44px; height: 44px;
+        flex: 0 0 44px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 5px; background: none; border: 0; cursor: pointer;
+    }
+    .nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+    body.nav-open { overflow: hidden; }
+
+    @media (max-width: 620px) {
+        .sticky-bar { display: flex; }
+        body { padding-bottom: 68px; }
+    }
+    @media (min-width: 621px) {
+        .sticky-bar { display: none; }
+        body { padding-bottom: 0; }
+    }
+
+
+    /* ══════════════════════════════════════════════════════════════════
+       ここから下が、麺処とみい だけのCSS
+
+       ヒーロー＝A-13「掛け板」。この店の看板は、壁に掛かった無垢の一枚板に
+       筆で屋号を書いたもの（img/kanban-day.jpg・img/kanban-night.jpg）なので、
+       板の形と、板が掛かっている白い正方形タイルの壁を CSS で起こしてある。
+
+       署名の軸＝「灯（あかり）」。夜、外灯がその板だけを照らしている店で、
+       夜の部が二十二時三十分まで続く。次の4か所で同じ「灯」を繰り返す。
+         ① ヒーローの壁に落ちる光だまり（読み込み時に1度だけひらく）
+         ② 章見出しの上の弧（笠の縁）
+         ③ ページ唯一の反転面「夜も、灯しております」の大きな光
+         ④ favicon（板＋弧）
+       背景写真の常時アニメーションは使わない。
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* --- 共通の見出し ---------------------------------------------------- */
+    .section-kicker {
+        display: block; font-size: .74rem; letter-spacing: .28em;
+        color: var(--accent-deep); font-weight: 700; margin-bottom: 10px;
+    }
+    .mark-lamp {
+        display: block; width: 34px; height: 17px; margin-bottom: 12px;
+        border: 1.5px solid var(--accent);
+        border-bottom: 0;
+        border-radius: 34px 34px 0 0;
+        position: relative;
+    }
+    .mark-lamp::after {
+        content: ''; position: absolute; left: 50%; top: 100%;
+        width: 3px; height: 3px; margin-left: -1.5px; margin-top: 4px;
+        border-radius: 50%; background: var(--accent);
+    }
+    .section-title {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: clamp(1.5rem, 5.2vw, 2.3rem); line-height: 1.4;
+        letter-spacing: .04em; margin-bottom: 10px;
+    }
+    .section-lead {
+        max-width: 40em; color: var(--muted);
+        font-size: clamp(.94rem, 2.5vw, 1.02rem); margin-bottom: clamp(28px, 5vw, 44px);
+    }
+    .body-p { max-width: 40em; margin-bottom: 1.1em; }
+    .body-p:last-child { margin-bottom: 0; }
+
+    /* --- ボタン ---------------------------------------------------------- */
+    .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        min-height: 52px; padding: 12px 26px; border-radius: 999px;
+        font-weight: 700; letter-spacing: .03em; font-size: .95rem;
+        transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+    }
+    .btn-primary { background: var(--accent); color: #FFFFFF; box-shadow: 0 10px 24px rgba(19, 73, 86, .22); }
+    .btn-primary:hover, .btn-primary:focus-visible { background: var(--accent-deep); transform: translateY(-2px); }
+    .btn-ghost { border: 1.5px solid var(--accent); color: var(--accent-deep); background: transparent; }
+    .btn-ghost:hover, .btn-ghost:focus-visible { background: var(--accent); color: #FFFFFF; }
+    .btn-block { width: 100%; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* --- ヘッダー・モバイルナビの見た目 ---------------------------------- */
+    /* ★骨格（04-base.css）の .brand は高さ指定が無く、390pxで 85×16px の
+       タップ領域になる（44px未満）。ここで上書きしている。骨格側の修正が要る */
+    .brand { display: inline-flex; align-items: center; min-height: 44px; }
+    .nav-toggle span {
+        display: block; width: 22px; height: 1.5px; background: var(--ink); border-radius: 2px;
+        transition: transform .3s ease, opacity .3s ease;
+    }
+    body.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+    body.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-nav {
+        inset: 0; background: var(--panel); color: #EAF3F1;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 6px; transform: translateY(-12px);
+    }
+    body.nav-open .mobile-nav { transform: none; }
+    .mobile-nav a {
+        font-family: var(--font-head); font-size: 1.35rem; letter-spacing: .1em;
+        min-height: 56px; display: flex; align-items: center;
+    }
+    .mobile-nav .nav-close { margin-top: 22px; color: #A9CBD3; font-size: .9rem; letter-spacing: .08em; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       ヒーロー A-13「掛け板」
+       ══════════════════════════════════════════════════════════════════ */
+    .hero {
+        display: flex; align-items: center;
+        padding-block: clamp(30px, 6vw, 70px);
+        position: relative; overflow: hidden;
+    }
+    .hero-grid {
+        display: grid; gap: clamp(24px, 4vw, 48px);
+        grid-template-columns: 1fr;
+        align-items: center;
+    }
+    @media (min-width: 900px) {
+        .hero-grid { grid-template-columns: 1.06fr .94fr; }
+    }
+
+    /* 白い正方形タイルの壁（実物の外壁）。目地は CSS の繰り返しで描く */
+    .wall {
+        position: relative;
+        border-radius: var(--radius);
+        padding: clamp(26px, 5vw, 54px) clamp(18px, 4vw, 44px);
+        background-color: var(--tile);
+        background-image:
+            repeating-linear-gradient(90deg, var(--grout) 0 1px, transparent 1px 46px),
+            repeating-linear-gradient(0deg,  var(--grout) 0 1px, transparent 1px 46px);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+    }
+    /* ① 一灯の光だまり。読み込み時に1度だけひらく（常時アニメーションではない） */
+    .wall::before {
+        content: ''; position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(120% 90% at 22% 0%,
+                    rgba(255, 226, 168, .72) 0%,
+                    rgba(255, 226, 168, .30) 34%,
+                    rgba(255, 226, 168, 0) 66%);
+        opacity: 0; transform: scale(.9);
+        transform-origin: 22% 0%;
+        animation: lampOn 1.1s cubic-bezier(.16,.7,.3,1) .15s forwards;
+    }
+    @keyframes lampOn { to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) {
+        .wall::before { opacity: 1; transform: none; animation: none; }
+    }
+    /* 外灯のかさ（壁の左上に1つだけ） */
+    .lamp {
+        position: absolute; top: 0; left: clamp(30px, 12%, 90px);
+        width: 46px; height: 30px; pointer-events: none;
+    }
+    .lamp i {
+        position: absolute; left: 50%; top: 0; width: 1.5px; height: 12px;
+        margin-left: -.75px; background: var(--line-strong);
+    }
+    .lamp b {
+        position: absolute; left: 0; top: 12px; width: 46px; height: 15px;
+        border-radius: 0 0 999px 999px;
+        background: linear-gradient(180deg, #5C6B6B, #37454A);
+    }
+    /* 「灯」はこの店の署名。スマホでも光源（笠）を消さない。
+       消すと光だまりが写真加工風のにじみにしか見えなくなる */
+    @media (max-width: 620px) { .lamp { left: 22px; transform: scale(.82); transform-origin: top left; } }
+
+    /* 掛け板そのもの（無垢の一枚板・金具4つ・壁から浮いた影） */
+    .board {
+        position: relative; z-index: 1;
+        margin: 0 auto;
+        max-width: 520px;
+        padding: clamp(22px, 4.4vw, 40px) clamp(20px, 4vw, 40px) clamp(26px, 4.6vw, 44px);
+        border-radius: 6px;
+        transform: rotate(-.5deg);
+        background:
+            linear-gradient(102deg, rgba(255,255,255,.30) 0 18%, rgba(255,255,255,0) 42%),
+            repeating-linear-gradient(96deg,
+                rgba(140, 101, 56, .16) 0 2px, rgba(140, 101, 56, 0) 2px 11px),
+            linear-gradient(180deg, var(--wood-hi), var(--wood) 58%, var(--wood-lo));
+        box-shadow: 0 2px 0 rgba(255,255,255,.35) inset,
+                    0 18px 34px rgba(30, 44, 40, .30),
+                    0 3px 8px rgba(30, 44, 40, .18);
+    }
+    /* 金具4つ（実物と同じく上下の縁に2つずつ） */
+    .board::before, .board::after {
+        content: ''; position: absolute; left: 12%; right: 12%; height: 0;
+        pointer-events: none;
+    }
+    .board::before { top: 8px; border-top: 0; }
+    .board .clip { position: absolute; width: 22px; height: 9px; border-radius: 2px;
+                   background: linear-gradient(180deg, #E4D9C2, #B9A986); }
+    .board .clip.tl { top: 7px;    left: 13%; }
+    .board .clip.tr { top: 7px;    right: 13%; }
+    .board .clip.bl { bottom: 7px; left: 13%; }
+    .board .clip.br { bottom: 7px; right: 13%; }
+
+    .board-kicker {
+        display: block; text-align: center;
+        font-family: var(--font-head); font-weight: 500;
+        font-size: clamp(.9rem, 3.6vw, 1.15rem); letter-spacing: .3em;
+        color: var(--wood-ink); text-indent: .3em;
+        text-shadow: 0 1px 0 rgba(255,255,255,.34);
+        margin-bottom: 2px;
+    }
+    /* 彫った文字（下に白のハイライト・上に影） */
+    .board-name {
+        display: block; text-align: center;
+        font-family: var(--font-sign); font-weight: 400;
+        font-size: clamp(3rem, 13vw, 5.1rem); line-height: 1.06;
+        letter-spacing: .06em; text-indent: .06em;
+        color: #3E2A12;
+        text-shadow: 0 1.5px 0 rgba(255, 246, 226, .42),
+                     0 -1px 1px rgba(52, 32, 10, .40);
+    }
+    .board-yomi {
+        display: block; text-align: center; margin-top: 6px;
+        font-size: .68rem; letter-spacing: .42em; text-indent: .42em;
+        color: rgba(62, 42, 18, .62);
+    }
+
+    .hero-copy { position: relative; z-index: 2; }
+    .hero-copy .status-chip { margin-bottom: 16px; }
+    .hero-eyebrow {
+        display: block; font-size: .76rem; letter-spacing: .22em;
+        color: var(--accent-deep); font-weight: 700; margin-bottom: 12px;
+    }
+    .hero-lead {
+        font-family: var(--font-head); font-weight: 700;
+        /* 下限は .section-title と揃える。h1 が下層の h2 より小さいと階層が逆転する */
+        font-size: clamp(1.5rem, 5.4vw, 2.05rem); line-height: 1.55;
+        letter-spacing: .03em; margin-bottom: 14px;
+    }
+    .hero-sub { color: var(--muted); max-width: 30em; margin-bottom: 22px; }
+    .hero-note { margin-top: 14px; font-size: .82rem; color: var(--dim); }
+    .hero-photo { border-radius: var(--radius); overflow: hidden; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    @media (min-width: 900px) {
+        .hero-photo { aspect-ratio: 3 / 4; }
+    }
+    @media (max-width: 899px) {
+        .hero-photo { aspect-ratio: 4 / 3; }
+    }
+    .hero-inner { display: grid; gap: clamp(20px, 3.5vw, 32px); }
+    /* PCでは電話ボタンがファーストビューから落ちるので、板と間を詰める */
+    @media (min-width: 900px) {
+        .hero { padding-block: clamp(24px, 3.2vw, 44px); }
+        .hero-inner { gap: 16px; }
+        .wall { padding-block: clamp(16px, 2vw, 26px); }
+        .board { max-width: 440px; padding: clamp(16px, 2.2vw, 26px) clamp(20px, 3vw, 34px) clamp(20px, 2.6vw, 30px); }
+        .board-name { font-size: clamp(2.4rem, 4.4vw, 3.7rem); }
+        .hero-lead { line-height: 1.45; font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+        .hero-sub { margin-bottom: 16px; }
+        .hero-copy .status-chip { margin-bottom: 12px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       ご案内の帯
+       ══════════════════════════════════════════════════════════════════ */
+    .band {
+        background: var(--surface);
+        border-block: 1px solid var(--line);
+        padding-block: clamp(30px, 5vw, 46px);
+    }
+    .band-grid {
+        display: grid; gap: clamp(16px, 3vw, 26px);
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+    @media (min-width: 760px) { .band-grid { grid-template-columns: 1.25fr 1fr; } }
+    .fact-list { display: grid; gap: 12px; }
+    .fact {
+        display: grid; grid-template-columns: 6.6em 1fr; gap: 12px;
+        padding-bottom: 12px; border-bottom: 1px dashed var(--line);
+        font-size: clamp(.9rem, 2.4vw, .98rem);
+    }
+    .fact:last-child { border-bottom: 0; padding-bottom: 0; }
+    .fact dt { color: var(--accent-deep); font-weight: 700; letter-spacing: .06em; }
+    .fact dd { color: var(--ink); }
+    .fact dd small { display: block; color: var(--muted); font-size: .84em; }
+    @media (max-width: 420px) { .fact { grid-template-columns: 5.6em 1fr; gap: 8px; } }
+    .band figure figcaption { margin-top: 8px; font-size: .8rem; color: var(--dim); }
+    .about-photo { margin-top: clamp(20px, 3vw, 28px); }
+    .about-photo .photo-frame { aspect-ratio: 4 / 3; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       看板の一杯
+       ══════════════════════════════════════════════════════════════════ */
+    .split {
+        display: grid; gap: clamp(24px, 4vw, 48px); align-items: center;
+        grid-template-columns: 1fr;
+    }
+    @media (min-width: 860px) { .split { grid-template-columns: 1fr 1fr; } }
+    .split.rev > :first-child { order: 2; }
+    @media (max-width: 859px) { .split.rev > :first-child { order: 0; } }
+    .stack-2 { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+    .stack-2 .photo-frame { aspect-ratio: 1 / 1; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       出汁を替えて（3枚のカード）
+       ══════════════════════════════════════════════════════════════════ */
+    .dashi-grid {
+        display: grid; gap: clamp(16px, 3vw, 26px);
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .dashi-card {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); overflow: hidden;
+        box-shadow: var(--shadow);
+        display: flex; flex-direction: column;
+    }
+    .dashi-card .photo-frame { border: 0; border-radius: 0; box-shadow: none; aspect-ratio: 4 / 3; }
+    .dashi-body { padding: 18px 20px 22px; }
+    .dashi-card h3 {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: 1.14rem; letter-spacing: .04em; margin-bottom: 6px;
+    }
+    .dashi-card h3 span { display: block; font-family: var(--font-body); font-weight: 500;
+                          font-size: .7rem; letter-spacing: .24em; color: var(--accent-deep); }
+    .dashi-card p { font-size: .92rem; color: var(--muted); }
+    .nobori-row { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; max-width: 380px; margin-top: clamp(24px, 4vw, 36px); }
+    /* PC・タブレットで左下に2枚だけ残ると、グリッドの「余りマス」に見える */
+    @media (min-width: 780px) {
+        .nobori-row { max-width: none; grid-template-columns: repeat(2, 190px); justify-content: center; margin-inline: auto; }
+    }
+    .nobori-row .photo-frame { aspect-ratio: 1 / 2; }
+    .nobori-row figcaption { margin-top: 8px; font-size: .8rem; color: var(--dim); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       ③ ページ唯一の反転面「夜も、灯しております」
+       ══════════════════════════════════════════════════════════════════ */
+    .night {
+        position: relative; overflow: hidden;
+        background: var(--panel); color: #E7F1EF;
+    }
+    .night::before {
+        content: ''; position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(88% 68% at 18% 0%,
+                    rgba(255, 224, 160, .30) 0%,
+                    rgba(255, 224, 160, .10) 38%,
+                    rgba(255, 224, 160, 0) 70%);
+    }
+    .night .container { position: relative; z-index: 1; }
+    .night .section-kicker { color: #F0D399; }
+    .night .mark-lamp { border-color: #F0D399; }
+    .night .mark-lamp::after { background: #F0D399; }
+    .night .section-lead, .night .body-p { color: #C6DCDC; }
+    .night .photo-frame { border-color: rgba(255,255,255,.18); box-shadow: 0 22px 48px rgba(0,0,0,.30); background: #14505F; }
+    .night figcaption { margin-top: 8px; font-size: .8rem; color: #9FC1C6; }
+    .night .hours-line {
+        display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: baseline;
+        font-family: var(--font-head); font-size: clamp(1.1rem, 4vw, 1.5rem);
+        letter-spacing: .06em; margin-bottom: 14px;
+    }
+    .night .hours-line em { font-style: normal; color: #F0D399; font-size: .72em; letter-spacing: .18em; }
+    /* 反転面では差し色（鉄浅葱）が地に沈むので、ボタンは灯の色で置く */
+    .night .btn-primary { background: #F2D9A4; color: #103F4C; box-shadow: 0 10px 26px rgba(0,0,0,.28); }
+    .night .btn-primary:hover, .night .btn-primary:focus-visible { background: #FFE9BF; color: #0D3540; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       お品書き（build_menu.py が出すクラスの見た目）
+       ══════════════════════════════════════════════════════════════════ */
+    .menu-zone { background: var(--surface); border-block: 1px solid var(--line); }
+    .subnav {
+        position: sticky; top: var(--header-h); z-index: 60;
+        background: rgba(255,255,255,.94); backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+    }
+    .subnav-inner {
+        width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+        display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+    }
+    .subnav-inner::-webkit-scrollbar { display: none; }
+    .subnav a {
+        white-space: nowrap; font-size: .88rem; color: var(--muted);
+        border-bottom: 2px solid transparent;
+    }
+    .subnav a:hover, .subnav a:focus-visible { color: var(--accent-deep); border-bottom-color: var(--accent); }
+    /* 右端が切れているだけだと「崩れ」と見分けが付かないので、続きがある印を出す */
+    @media (max-width: 899px) {
+        .subnav-inner { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 30px), transparent);
+                                mask-image: linear-gradient(90deg, #000 calc(100% - 30px), transparent); }
+    }
+    @media (min-width: 900px) { .subnav-inner { flex-wrap: wrap; overflow: visible; } }
+
+    .lead-box {
+        background: var(--bg); border: 1px solid var(--line);
+        border-left: 3px solid var(--accent);
+        border-radius: 4px; padding: 16px 20px;
+        font-size: .92rem; color: var(--muted);
+        margin-bottom: clamp(30px, 5vw, 48px);
+    }
+    .menu-block { margin-bottom: clamp(44px, 7vw, 76px); }
+    .menu-block:last-child { margin-bottom: 0; }
+    /* ★ページで一番長いこの区間にも「灯」の弧を出す。
+       出さないと、点線リスト＋下線見出しという既製の品書きに一番近づく */
+    .menu-block::before {
+        content: ''; display: block; width: 28px; height: 14px;
+        border: 1.5px solid var(--accent); border-bottom: 0; border-radius: 28px 28px 0 0;
+        margin-bottom: 12px;
+    }
+    .menu-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+                 border-bottom: 1px solid var(--line-strong); padding-bottom: 10px; margin-bottom: 8px; }
+    .menu-head h2 { font-family: var(--font-head); font-weight: 700; font-size: clamp(1.42rem, 4.8vw, 1.75rem); letter-spacing: .05em; }
+    .menu-head .yomi { font-size: .64rem; letter-spacing: .2em; color: var(--dim); }
+    .menu-note { font-size: .88rem; color: var(--muted); margin-bottom: 16px; }
+    .menu-after { font-size: .86rem; color: var(--muted); margin-top: 14px; }
+    .menu-grid { display: grid; gap: 0 clamp(24px, 4vw, 48px); grid-template-columns: 1fr; }
+    @media (min-width: 780px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
+    .menu-list li {
+        display: flex; align-items: baseline; gap: 6px;
+        padding: 12px 0; border-bottom: 1px dotted var(--line-strong);
+    }
+    .menu-list .name { flex: 1 1 auto; min-width: 0; font-weight: 500; }
+    .menu-list .desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; line-height: 1.7; margin-top: 2px; }
+    .menu-list .dots { flex: 1 1 auto; min-width: 12px; border-bottom: 1px dotted var(--line-strong); transform: translateY(-4px); }
+    /* 価格の無い品は点線リーダーを出さない（点線の先が空だと「載せ忘れ」に見える） */
+    .menu-list li:has(.price:empty) .dots { display: none; }
+    .menu-list .price { flex: 0 0 auto; font-weight: 700; color: var(--accent-deep); font-size: .98rem; max-width: 56%; text-align: right; }
+    .menu-list .price small { display: block; font-weight: 400; font-size: .68rem; color: var(--dim); letter-spacing: .02em; }
+    .menu-photos {
+        display: grid; gap: 14px; margin-top: clamp(20px, 3.5vw, 30px);
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+    .menu-photos .photo-frame { aspect-ratio: 4 / 3; }
+    .menu-photos figcaption { margin-top: 7px; font-size: .78rem; color: var(--dim); text-align: center; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       はじめての方へ
+       ══════════════════════════════════════════════════════════════════ */
+    .first-grid { display: grid; gap: clamp(20px, 3.5vw, 34px); grid-template-columns: 1fr; }
+    @media (min-width: 860px) { .first-grid { grid-template-columns: 1.1fr .9fr; } }
+    .step-list { display: grid; gap: 14px; }
+    .step {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 16px 20px; display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start;
+    }
+    .step .n {
+        width: 34px; height: 34px; border-radius: 50%;
+        display: grid; place-items: center;
+        background: var(--accent); color: #FFFFFF; font-weight: 700; font-size: .88rem;
+    }
+    .step h3 { font-family: var(--font-head); font-size: 1.02rem; font-weight: 700; letter-spacing: .04em; margin-bottom: 3px; }
+    .step p { font-size: .9rem; color: var(--muted); }
+    .first-photos { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; align-content: start; }
+    .first-photos .photo-frame { aspect-ratio: 3 / 4; }
+    .first-photos figure:first-child { grid-column: 1 / -1; }
+    .first-photos figure:first-child .photo-frame { aspect-ratio: 16 / 10; }
+    .first-photos figcaption { margin-top: 7px; font-size: .78rem; color: var(--dim); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       お客様の声
+       ══════════════════════════════════════════════════════════════════ */
+    .voice-grid { display: grid; gap: clamp(16px, 3vw, 24px); grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .voice {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 22px 24px; box-shadow: var(--shadow);
+    }
+    .voice blockquote { font-size: .94rem; line-height: 1.9; }
+    .voice blockquote::before { content: '「'; color: var(--accent); }
+    .voice blockquote::after  { content: '」'; color: var(--accent); }
+    .voice cite { display: block; margin-top: 12px; font-style: normal; font-size: .76rem; color: var(--dim); letter-spacing: .04em; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       アクセス・フッター
+       ══════════════════════════════════════════════════════════════════ */
+    .info-table { width: 100%; margin-bottom: clamp(24px, 4vw, 36px); font-size: clamp(.9rem, 2.4vw, .98rem); }
+    .info-table th, .info-table td { text-align: left; vertical-align: top; padding: 13px 0; border-bottom: 1px solid var(--line); }
+    .info-table th { width: 7.4em; color: var(--accent-deep); font-weight: 700; letter-spacing: .06em; white-space: nowrap; }
+    .info-table td small { display: block; color: var(--muted); font-size: .86em; }
+    .tel-link { color: var(--accent-deep); font-weight: 700; border-bottom: 1px solid var(--line-strong);
+                display: inline-flex; align-items: center; min-height: 44px; }
+    @media (max-width: 460px) { .info-table th { width: 6em; } }
+
+    /* 反転面は #night の1枚だけにしたいので、フッターは「夜より深い地」に落とす */
+    /* 予約を受けていない食券制の店なので、追従バーの主ボタンは「電話」ではなく
+       「アクセス・地図」。お客様の用事は圧倒的に "辿り着くこと" のほう */
+    .sticky-bar .bar-alt { background: var(--accent); color: #FFFFFF; }
+    .sticky-bar .bar-tel { background: var(--surface); color: var(--accent-deep); }
+
+    .site-footer {
+        background: var(--accent-deep); color: #D8E8E7;
+        padding-block: clamp(34px, 6vw, 54px); text-align: center;
+    }
+    .footer-name { font-family: var(--font-head); font-size: 1.24rem; letter-spacing: .14em; margin-bottom: 8px; }
+    .footer-addr { font-size: .86rem; color: #A9CBD3; }
+    .footer-copy { font-size: .74rem; color: #7FA9B2; margin-top: 16px; letter-spacing: .06em; }
+    </style>
+</head>
+<body class="no-js">
+<!-- no-js クラスは下の script が消す。JS無効の環境で出現演出のコンテンツが
+     見えなくなるのを防ぐ保険なので、必ず付けたまま公開する -->
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="#hero" class="brand">麺処とみい</a>
+
+        <a href="tel:08071843900" class="header-tel" aria-label="電話をかける 080-7184-3900">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+            <span class="tel-label">080-7184-3900</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="#about" data-nav-link>お店について</a>
+    <a href="#kin"   data-nav-link>金の中華そば</a>
+    <a href="#dashi" data-nav-link>出汁を替えて</a>
+    <a href="#night" data-nav-link>夜のご案内</a>
+    <a href="#menu"  data-nav-link>お品書き</a>
+    <a href="#first" data-nav-link>はじめての方へ</a>
+    <a href="#info"  data-nav-link>アクセス</a>
+    <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ヒーロー：A-13「掛け板」
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+    <div class="container">
+        <div class="hero-grid">
+
+            <div class="hero-inner">
+                <div class="wall">
+                    <span class="lamp" aria-hidden="true"><i></i><b></b></span>
+                    <div class="board">
+                        <span class="clip tl" aria-hidden="true"></span>
+                        <span class="clip tr" aria-hidden="true"></span>
+                        <span class="clip bl" aria-hidden="true"></span>
+                        <span class="clip br" aria-hidden="true"></span>
+                        <span class="board-kicker">麺処</span>
+                        <h1 class="board-name">とみい</h1>
+                        <span class="board-yomi">MENDOKORO TOMII</span>
+                    </div>
+                </div>
+
+                <div class="hero-copy">
+                    <!-- 初期値は事実を書く。JSが動かない環境でも損をしないように -->
+                    <span class="status-chip" id="status-chip"><span class="status-text">11:00〜14:30／17:30〜22:30・木曜定休</span></span>
+                    <span class="hero-eyebrow">茨城県古河市本町・古河駅西口</span>
+                    <p class="hero-lead">鶏と貝、煮干し、海老。<br class="br-sp">出汁を替えて、<br class="br-pc">澄んだ一杯をお出ししております。</p>
+                    <p class="hero-sub">古河駅の西口から歩いて4分ほど。ご注文は入口の券売機で承っております。夜は<span class="nw">22時30分</span>まで灯しておりますので、お仕事帰りにもどうぞ。</p>
+                    <div class="hero-actions">
+                        <a href="tel:08071843900" class="btn btn-primary btn-tel">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                            <span class="tel-num">080-7184-3900</span><span class="tel-cap">お問い合わせ</span>
+                        </a>
+                        <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+                    </div>
+                    <p class="hero-note">※ご予約は承っておりません。お席が空き次第ご案内いたします。</p>
+                </div>
+            </div>
+
+            <div class="hero-photo photo-frame">
+                <img src="img/kin-chuka.jpg"
+                     alt="白い丼に澄んだ金色のスープ。低温で仕上げた鶏むねのチャーシュー、メンマ、三つ葉、刻んだ紫玉ねぎがのった金の中華そば"
+                     width="952" height="1024" loading="eager" fetchpriority="high" decoding="async">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ご案内の帯
+     ══════════════════════════════════════════════════════════════════════ -->
+<div class="band" id="about">
+    <div class="container band-grid">
+        <div class="reveal">
+            <span class="mark-lamp" aria-hidden="true"></span>
+            <span class="section-kicker">ABOUT</span>
+            <h2 class="section-title">古河駅西口の通りに、<br class="br-sp">店を構えております。</h2>
+            <p class="body-p">二〇二二年十月、古河駅の西口から続く通りに店を開きました。昼と夜、二度のれんを掛けております。</p>
+            <p class="body-p">麺は細めのストレートで、スープに合わせて茹で加減を決めております。カウンターとテーブルの小さな店ですので、お一人でも気兼ねなくお過ごしいただけます。ご注文は入口の券売機で承っておりますので、お決まりでしたらそのままお席へどうぞ。</p>
+            <figure class="about-photo">
+                <div class="photo-frame">
+                    <img src="img/kanban-day.jpg"
+                         alt="白いタイルの壁に掛かった無垢の一枚板の看板。筆文字で「麺処 とみい」と書かれ、その下に白いのれんと煮干しそばののぼりが立っている"
+                         width="1127" height="1500" loading="lazy" decoding="async">
+                </div>
+                <figcaption>白いのれんと木の看板が目印です</figcaption>
+            </figure>
+        </div>
+        <div class="reveal reveal-delay-1">
+            <dl class="fact-list">
+                <div class="fact"><dt>営業時間</dt><dd>11:00〜14:30／17:30〜22:30<small>夜のご注文は22:00まで承ります</small></dd></div>
+                <div class="fact"><dt>定休日</dt><dd>木曜日</dd></div>
+                <div class="fact"><dt>ご注文</dt><dd>入口の券売機で食券をお求めください</dd></div>
+                <div class="fact"><dt>お支払い</dt><dd>現金・クレジットカード・電子マネー・QRコード決済</dd></div>
+                <div class="fact"><dt>ご予約</dt><dd>承っておりません<small>お席が空き次第、順にご案内いたします</small></dd></div>
+                <div class="fact"><dt>お車</dt><dd>店の真向かいのタイムズをご利用ください<small>駐車券をお持ちいただくと、当店から100円お戻しいたします</small></dd></div>
+                <div class="fact"><dt>お席</dt><dd>カウンター席とテーブル席</dd></div>
+            </dl>
+        </div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     看板の一杯
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="kin">
+    <div class="container">
+        <div class="split">
+            <div class="reveal">
+                <span class="mark-lamp" aria-hidden="true"></span>
+                <span class="section-kicker">KIN NO CHUKA SOBA</span>
+                <h2 class="section-title">金の中華そば</h2>
+                <p class="body-p">当店の看板は、金の中華そばでございます。鶏と貝からそれぞれ出汁をひき、白醤油で合わせております。</p>
+                <p class="body-p">具は、低温で仕上げた鶏むねのチャーシューにメンマ、三つ葉、そして刻んだ紫玉ねぎを少しばかり。細めのストレート麺を合わせております。</p>
+                <p class="body-p">はじめてお越しの方には、まずこの一杯をおすすめしております。</p>
+            </div>
+            <div class="reveal reveal-delay-1">
+                <div class="stack-2">
+                    <figure>
+                        <div class="photo-frame">
+                            <img src="img/men-lift.jpg" alt="箸で持ち上げた細いストレート麺"
+                                 width="1024" height="768" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption>細めのストレート麺</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="photo-frame">
+                            <img src="img/condiments.jpg" alt="煉瓦のカウンターに置かれた卓上の醤油差しと胡椒挽き"
+                                 width="1024" height="493" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption>卓上のご用意</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     出汁を替えて
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="dashi" style="background:var(--surface); border-block:1px solid var(--line);">
+    <div class="container">
+        <div class="reveal">
+            <span class="mark-lamp" aria-hidden="true"></span>
+            <span class="section-kicker">DASHI</span>
+            <h2 class="section-title">出汁を替えて、<br class="br-sp">もう一杯。</h2>
+            <p class="section-lead">蛤、煮干し、海老。素材ごとに出汁のひき方と塩梅を変えてお出ししております。季節には味噌や醤油の一杯、冷やしの一杯もご用意いたします。</p>
+        </div>
+
+        <div class="dashi-grid">
+            <article class="dashi-card reveal">
+                <div class="photo-frame">
+                    <img src="img/hamaguri.jpg" alt="透きとおった塩のスープに鶏チャーシュー、白髪ねぎ、メンマ、三つ葉をのせた蛤塩そば"
+                         width="1024" height="841" loading="lazy" decoding="async">
+                </div>
+                <div class="dashi-body">
+                    <h3>蛤塩そば 極み<span>HAMAGURI</span></h3>
+                    <p>蛤の出汁を塩で受けた一杯でございます。</p>
+                </div>
+            </article>
+            <article class="dashi-card reveal reveal-delay-1">
+                <div class="photo-frame">
+                    <img src="img/ebi.jpg" alt="海老のスープにむき海老と桜海老、白髪ねぎ、三つ葉、鶏チャーシューをのせた海老そば"
+                         width="1000" height="1000" loading="lazy" decoding="async">
+                </div>
+                <div class="dashi-body">
+                    <h3>海老そば<span>EBI</span></h3>
+                    <p>むき海老と桜海老で、海老の香りを立たせております。</p>
+                </div>
+            </article>
+            <article class="dashi-card reveal reveal-delay-2">
+                <div class="photo-frame">
+                    <img src="img/miso.jpg" alt="味噌のスープに鶏チャーシュー、白髪ねぎ、糸唐辛子、メンマをのせた一杯"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <div class="dashi-body">
+                    <h3>季節の一杯<span>SEASONAL</span></h3>
+                    <p>北海道熟成味噌、京の蔵出し醤油、冷やしの一杯など。その日の黒板でご案内しております。</p>
+                </div>
+            </article>
+        </div>
+
+        <div class="nobori-row reveal">
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/nobori-ebi.jpg" alt="藍色ののぼり旗に白抜きで「海老そば」と書かれている"
+                         width="481" height="1000" loading="lazy" decoding="async">
+                </div>
+                <figcaption>海老そば</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame">
+                    <img src="img/nobori-niboshi.jpg" alt="白いのぼり旗に墨文字で「煮干しそば」と書かれている"
+                         width="481" height="1000" loading="lazy" decoding="async">
+                </div>
+                <figcaption>煮干しそば</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ★ページ唯一の反転面：署名の核「灯」
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section night" id="night">
+    <div class="container">
+        <div class="split">
+            <div class="reveal">
+                <span class="mark-lamp" aria-hidden="true"></span>
+                <span class="section-kicker">YORU</span>
+                <h2 class="section-title">夜も、灯しております。</h2>
+                <p class="hours-line">17:30 — 22:30 <em>ご注文は 22:00 まで</em></p>
+                <p class="body-p">一日の終わりに、締めの一杯を召し上がっていただけましたら幸いです。</p>
+                <p class="body-p">生ビールとお酒、つまみも少しばかりご用意しております。お一人でも、お仕事帰りのお二人でも、どうぞお立ち寄りくださいませ。</p>
+                <div class="hero-actions" style="margin-top:20px;">
+                    <a href="#menu" class="btn btn-primary">お品書きを見る</a>
+                </div>
+            </div>
+            <div class="reveal reveal-delay-1">
+                <div class="stack-2">
+                    <figure>
+                        <div class="photo-frame">
+                            <img src="img/kanban-night.jpg" alt="夜、外灯に照らされて浮かび上がる木の一枚板の看板"
+                                 width="768" height="1024" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption>夜の看板</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="photo-frame">
+                            <img src="img/front-night.jpg" alt="夜の店構え。白いのれんが掛かり、入口の照明がついている"
+                                 width="768" height="1024" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption>夜の店構え</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お品書き（build_menu.py が index.json から生成する）
+     ══════════════════════════════════════════════════════════════════════ -->
+<div class="menu-zone" id="menu">
+    <section class="section" style="padding-bottom:0;">
+        <div class="container">
+            <span class="mark-lamp reveal" aria-hidden="true"></span>
+            <span class="section-kicker reveal">OSHINAGAKI</span>
+            <h2 class="section-title reveal">お品書き</h2>
+        </div>
+    </section>
+<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#m-ramen">一杯</a>
+        <a href="#m-tsuke">つけ麺・まぜそば</a>
+        <a href="#m-ippin">ごはん・一品</a>
+        <a href="#m-topping">お好みで</a>
+        <a href="#m-drink">お飲みもの</a>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+
+        <div class="lead-box reveal">お品書きに金額を添えていない品は、店内のお品書きと券売機に掲げております。お電話でもお答えいたしますので、どうぞお気軽にお尋ねください。季節の一杯は仕入れによって内容が変わりますので、その日の黒板をご覧いただければと存じます。</div>
+
+        <div class="menu-block reveal" id="m-ramen">
+            <div class="menu-head"><h2>一杯</h2><span class="yomi">R A M E N</span></div>
+            <p class="menu-note">麺は細めのストレート。スープに合わせて茹で加減を決めております。</p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">金の中華そば<span class="desc">鶏と貝の出汁を白醤油で合わせた、澄んだ一杯。低温で仕上げた鶏むねのチャーシュー、メンマ、三つ葉、紫玉ねぎ</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">蛤塩そば 極み<span class="desc">蛤の出汁を塩で受けた一杯</span></span><span class="dots"></span><span class="price">1,000円<small>2026年5月現在</small></span></li>
+                    <li><span class="name">濃香煮干しそば<span class="desc">煮干しを深く炊き出し、柚子の皮と三つ葉を添えて</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">海老そば<span class="desc">むき海老と桜海老。海老の香りを立たせた一杯</span></span><span class="dots"></span><span class="price">1,300円<small>2026年6月現在</small></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">淡麗煮干し<span class="desc">煮干しを澄んだ塩梅で</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">支那そば</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">天草塩そば 檸檬<span class="desc">檸檬をひと切れ添えて</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">季節の一杯<span class="desc">北海道熟成味噌、京の蔵出し醤油、壱岐のコク塩檸檬、冷やし中華 檸檬、冷やし担々麺など。その日の黒板でご案内しております</span></span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/hamaguri-2.jpg" alt="透きとおった塩のスープに鶏チャーシュー2枚、白髪ねぎ、メンマ、三つ葉が並ぶ一杯"
+                             width="1024" height="769" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>蛤塩そば 極み</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/niboshi.jpg" alt="琥珀色の煮干しのスープに鶏チャーシューと白髪ねぎ、貝割れがのった一杯"
+                             width="1024" height="671" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>濃香煮干しそば</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/ebi-2.jpg" alt="とろみのある海老のスープに、むき海老と桜海老、白髪ねぎ、三つ葉がのった一杯"
+                             width="1000" height="1000" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>海老そば</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="m-tsuke">
+            <div class="menu-head"><h2>つけ麺・まぜそば</h2><span class="yomi">T S U K E M E N</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">煮干しつけ麺</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">つけ麺 海老とまと</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">京のまぜそば</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">和え玉<span class="desc">一杯を召し上がったあとに、もう一玉</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">和え玉（ハーフ）</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/aedama.jpg" alt="黒い鉢に細麺を盛り、鶏チャーシュー、刻んだ紫玉ねぎ、青ねぎ、輪切りの檸檬を添えた和え玉"
+                             width="608" height="760" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>和え玉</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="m-ippin">
+            <div class="menu-head"><h2>ごはん・一品</h2><span class="yomi">G O H A N</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">鶏チャーシュー丼<span class="desc">低温で仕上げた鶏むねのチャーシューをごはんの上に。わさび醤油を添えて</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">餃子<span class="desc">厚めの皮で包んで焼き上げます</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">シュウマイ</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">メンマ</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">ライス</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/gyoza.jpg" alt="白い長皿に焼き目のついた餃子が5個並んでいる"
+                             width="1000" height="750" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>餃子</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/tori-don.jpg" alt="小丼のごはんに薄切りの鶏チャーシューを重ね、削り節と貝割れをのせ、醤油の小皿を添えた鶏チャーシュー丼"
+                             width="1024" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>鶏チャーシュー丼</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/shumai.jpg" alt="せいろに入った蒸したてのシュウマイ3個"
+                             width="1000" height="682" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>シュウマイ</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/menma.jpg" alt="白い小皿に盛った太めのメンマ"
+                             width="1000" height="682" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>メンマ</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="m-topping">
+            <div class="menu-head"><h2>お好みで</h2><span class="yomi">T O P P I N G</span></div>
+            <p class="menu-note">券売機のボタンでお選びいただけます。</p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">チャーシュー</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">背脂</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">白髪ネギ</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">味玉</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">メンマ</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">生玉子</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">大盛り</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="m-drink">
+            <div class="menu-head"><h2>お飲みもの</h2><span class="yomi">D R I N K</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name">生ビール</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name">アルコール各種</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name">ソフトドリンク</span><span class="dots"></span><span class="price"></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/beer.jpg" alt="木のカウンターに置かれた生ビールのグラスと、味玉とメンマを盛った黒い小皿"
+                             width="900" height="900" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>生ビールと、つまみを少し</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- menu:auto:end -->
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     はじめての方へ
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="first">
+    <div class="container">
+        <div class="reveal">
+            <span class="mark-lamp" aria-hidden="true"></span>
+            <span class="section-kicker">FIRST VISIT</span>
+            <h2 class="section-title">はじめての方へ</h2>
+            <p class="section-lead">ご予約は承っておりません。お席が空き次第、順にご案内いたします。</p>
+        </div>
+
+        <div class="first-grid">
+            <div class="step-list reveal">
+                <div class="step">
+                    <span class="n">1</span>
+                    <div>
+                        <h3>入口の券売機で食券を</h3>
+                        <p>お店に入ってすぐの券売機で食券をお求めください。そのまま席にお着きいただき、食券をお渡しくださいませ。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="n">2</span>
+                    <div>
+                        <h3>お支払い</h3>
+                        <p>現金のほか、クレジットカード・電子マネー・QRコード決済を承っております。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="n">3</span>
+                    <div>
+                        <h3>お車でお越しの方へ</h3>
+                        <p>店の真向かいのタイムズをご利用ください。駐車券をお持ちいただければ、当店から100円お戻しいたします。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="n">4</span>
+                    <div>
+                        <h3>お水とレモン水</h3>
+                        <p>カウンターの端にご用意しております。ご自由にお使いくださいませ。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="first-photos reveal reveal-delay-1">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/counter.jpg" alt="無垢の木のカウンター席。奥の壁は赤煉瓦"
+                             width="643" height="482" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>カウンターとテーブルの小さな店です</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/ticket.jpg" alt="券売機で購入した食券。「蛤塩そば極み 1000円」と印字されている"
+                             width="751" height="1000" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>食券をお渡しください</figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/parking.jpg" alt="店の真向かいにあるタイムズのコインパーキング"
+                             width="768" height="1024" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption>真向かいのタイムズ</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お客様の声（引用のみ。解釈は足さない）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="voice" style="background:var(--surface); border-block:1px solid var(--line);">
+    <div class="container">
+        <div class="reveal">
+            <span class="mark-lamp" aria-hidden="true"></span>
+            <span class="section-kicker">VOICE</span>
+            <h2 class="section-title">お客様の声</h2>
+        </div>
+        <div class="voice-grid">
+            <div class="voice reveal">
+                <blockquote>スープは海老の旨味があふれている濃厚タイプ。麺は細麺のややかため。トッピングには海老、チャーシュー、メンマ、ネギなど。全体的に海老の旨味があふれ、美味しいラーメンです</blockquote>
+                <cite>食べログ 2026年6月のクチコミより</cite>
+            </div>
+            <div class="voice reveal reveal-delay-1">
+                <blockquote>はまぐりの風味が穏やかに感じられる飲み口の良いスープ。麺は細めのストレート麺。パツっとした歯切れの麺は、スープとの絡みも良好</blockquote>
+                <cite>食べログ 2026年5月のクチコミより</cite>
+            </div>
+            <div class="voice reveal reveal-delay-2">
+                <blockquote>薬味の中にゆずがあり、ゆずの香りもしっかりして、おいしくいただけます。ご主人の明るい挨拶を受けました</blockquote>
+                <cite>食べログ 2026年5月のクチコミより</cite>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     アクセス・店舗情報
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="info">
+    <div class="container">
+        <span class="mark-lamp reveal" aria-hidden="true"></span>
+        <span class="section-kicker reveal">ACCESS</span>
+        <h2 class="section-title reveal">アクセス・店舗情報</h2>
+        <p class="section-lead reveal">JR古河駅の西口を出て、通りを南へ歩いて四分ほど。白いのれんと、木の看板が目印でございます。</p>
+
+        <table class="info-table reveal">
+            <tr><th>住所</th><td>〒306-0023 茨城県古河市本町2-5-39</td></tr>
+            <tr><th>電話</th><td><a href="tel:08071843900" class="tel-link">080-7184-3900</a></td></tr>
+            <tr><th>営業時間</th><td>11:00〜14:30／17:30〜22:30<small>夜のご注文は22:00まで承ります</small></td></tr>
+            <tr><th>定休日</th><td>木曜日</td></tr>
+            <tr><th>ご注文</th><td>入口の券売機（食券）</td></tr>
+            <tr><th>お席</th><td>カウンター席とテーブル席</td></tr>
+            <tr><th>ご予約</th><td>承っておりません<small>お席が空き次第、順にご案内いたします</small></td></tr>
+            <tr><th>駐車場</th><td>店の真向かいのタイムズをご利用ください<small>駐車券のご提示で100円お戻しいたします</small></td></tr>
+            <tr><th>お支払い</th><td>現金・クレジットカード・電子マネー・QRコード決済</td></tr>
+            <tr><th>アクセス</th><td>JR宇都宮線 古河駅 西口より徒歩約4分</td></tr>
+        </table>
+
+        <figure class="reveal" style="margin-bottom:clamp(24px,4vw,36px);">
+            <div class="photo-frame" style="aspect-ratio:16/10;">
+                <img src="img/noren.jpg" alt="白いのれんに「とみい」と染め抜かれ、赤い落款が入っている"
+                     width="1024" height="768" loading="lazy" decoding="async">
+            </div>
+            <figcaption style="margin-top:8px; font-size:.8rem; color:var(--dim);">白いのれんが目印です</figcaption>
+        </figure>
+
+        <div class="map-wrapper reveal" data-map-fallback="地図を読み込んでいます">
+            <iframe
+                src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9C%AC%E7%94%BA2-5-39&z=16&output=embed"
+                allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="麺処とみい の地図"></iframe>
+        </div>
+
+        <div class="hero-actions" style="margin-top:20px;">
+            <a href="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%9C%AC%E7%94%BA2-5-39"
+               class="btn btn-ghost" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Googleマップで開く
+            </a>
+            <a href="tel:08071843900" class="btn btn-primary">お電話でお問い合わせ 080-7184-3900</a>
+        </div>
+    </div>
+</section>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <p class="footer-name">麺処とみい</p>
+        <p class="footer-addr">〒306-0023 茨城県古河市本町2-5-39／<span class="nw">080-7184-3900</span></p>
+        <p class="footer-copy">&copy; 麺処とみい</p>
+    </div>
+</footer>
+
+
+<!-- スマホ用 追従バー -->
+<div class="sticky-bar" id="sticky-bar">
+    <a href="#info" class="bar-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス・地図
+    </a>
+    <a href="tel:08071843900" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        お問い合わせ
+    </a>
+</div>
+
+
+<script>
+/* JS が動いた印。CSSの .no-js .reveal が外れて出現演出が有効になる */
+document.body.classList.remove('no-js');
+
+
+/* --------------------------------------------------------------------------
+   1. ヘッダー縮小・追従バーの表示切り替え・お品書きサブナビの引っ込め
+   -------------------------------------------------------------------------- */
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+var subnavEl = document.querySelector('.subnav');
+var menuBlocks = document.querySelectorAll('.menu-block, .menu-section');
+var lastMenuBlock = menuBlocks.length ? menuBlocks[menuBlocks.length - 1] : null;
+
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+        stickyBar.classList.toggle('visible', y > heroBottom * 0.45);
+    }
+    if (subnavEl && lastMenuBlock) {
+        if (window.getComputedStyle(subnavEl).position !== 'sticky') {
+            subnavEl.classList.remove('is-past');
+        } else {
+            var r = lastMenuBlock.getBoundingClientRect();
+            subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        }
+    }
+}, { passive: true });
+
+
+/* --------------------------------------------------------------------------
+   2. モバイルナビ開閉（閉じ方は4通り）
+   -------------------------------------------------------------------------- */
+var navToggle = document.getElementById('nav-toggle');
+var navPanel = document.getElementById('mobile-nav');
+function closeNav() {
+    document.body.classList.remove('nav-open');
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'メニューを開く');
+    }
+}
+if (navToggle) {
+    navToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+}
+document.querySelectorAll('[data-nav-link]').forEach(function (a) {
+    a.addEventListener('click', closeNav);
+});
+var navClose = document.getElementById('nav-close');
+if (navClose) {
+    navClose.addEventListener('click', function () {
+        closeNav();
+        if (navToggle) navToggle.focus();
+    });
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (navPanel && navPanel.contains(e.target)) return;
+    if (navToggle && navToggle.contains(e.target)) return;
+    closeNav();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+});
+
+
+/* --------------------------------------------------------------------------
+   3. スクロール出現演出
+   -------------------------------------------------------------------------- */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+
+
+/* --------------------------------------------------------------------------
+   4. 営業状況バッジ
+   麺処とみい：木曜定休／昼 11:00〜14:30・夜 17:30〜22:30（L.O. 22:00）
+   出どころ＝店主の公式X（@Fb5r4G4iLUDeSH8）と公式Instagram（@mendokoro.tomii）の
+   プロフィール、ラーメンデータベース、食べログの3系統が一致
+   -------------------------------------------------------------------------- */
+var BUSINESS = {
+    closedDays: [4],
+    shifts: [
+        { open: 11 * 60,      close: 14 * 60 + 30, label: '11:00〜14:30' },
+        { open: 17 * 60 + 30, close: 22 * 60 + 30, label: '17:30〜22:30',
+          lo: 22 * 60, loLabel: '22:00' }
+    ]
+};
+
+function shiftsForToday(day) {
+    if (BUSINESS.shiftsByDay) {
+        return BUSINESS.shiftsByDay[day] || [];
+    }
+    return BUSINESS.closedDays.indexOf(day) !== -1 ? [] : BUSINESS.shifts;
+}
+
+function updateStatus() {
+    var el = document.getElementById('status-chip');
+    if (!el) return;
+    var now = new Date();
+    var minutes = now.getHours() * 60 + now.getMinutes();
+    var shifts = shiftsForToday(now.getDay());
+    var cls = '', text = '';
+
+    if (!shifts.length) {
+        cls = 'is-closed';
+        text = BUSINESS.closedText || '本日は定休日です';
+    } else {
+        var inShift = null;
+        for (var i = 0; i < shifts.length; i++) {
+            var s = shifts[i];
+            if (minutes >= s.open && minutes < s.close) { inShift = s; break; }
+        }
+        if (inShift) {
+            // ★閉店時刻より「注文の締切」のほうがお客様の行動を決める。
+            //   L.O.を過ぎていれば営業中と出さない／2時間前からは締切を出す
+            if (inShift.lo && minutes >= inShift.lo) {
+                cls = 'is-closed'; text = '本日のご注文受付は終了しました';
+            } else if (inShift.lo && minutes >= inShift.lo - 120) {
+                cls = 'is-open'; text = 'ただいま営業中 ご注文は' + inShift.loLabel + 'まで';
+            } else {
+                cls = 'is-open'; text = 'ただいま営業中 ' + inShift.label;
+            }
+        } else if (minutes < shifts[0].open) {
+            // 開店前は昼だけでなく夜の部も見せる（夜22:30までがこの店の売り）
+            text = '本日 ' + shifts.map(function (s) { return s.label; }).join('／') + ' 営業';
+        } else if (shifts[1] && minutes < shifts[1].open) {
+            cls = 'is-break';
+            text = '休憩中（' + shifts[1].label + ' 営業）';
+        } else {
+            cls = 'is-closed'; text = '本日の営業は終了しました';
+        }
+    }
+    el.className = 'status-chip' + (cls ? ' ' + cls : '');
+    el.querySelector('.status-text').textContent = text;
+}
+updateStatus();
+setInterval(updateStatus, 60000);
+</script>
+</body>
+</html>
