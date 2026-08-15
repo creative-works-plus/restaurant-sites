@@ -3,32 +3,237 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 自社LPだけは検索に出す。店舗サイトの「検索避けの2行」をここへコピーしないこと。
+     ★このファイルに検索避けの語を1文字でも書くと、公開前の全店一括チェック
+       （その語を含まないHTMLを探すコマンド）が company を見落とすようになる -->
+<!-- max-image-preview:large … 検索結果に制作事例の画像を大きく出させる指定 -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<!-- Google Search Console に登録したら、発行される確認用タグをこの下に貼る
+     <meta name="google-site-verification" content="（発行された文字列）"> -->
 <title>creative works+ | 飲食店・小規模事業者のためのホームページ制作</title>
 <meta name="description" content="食べログやGoogleに情報はあるのに、自社ホームページがない。そんなお店のためのホームページ制作です。先に叩き台をお作りし、実物をご覧いただいてから決めていただけます。">
 <meta name="theme-color" content="#f6f6f4">
 <link rel="canonical" href="https://creative-works-plus.github.io/restaurant-sites/company/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231c4a3e'/%3E%3Cpath d='M50 26v48M26 50h48' stroke='%23d9a13b' stroke-width='12' stroke-linecap='round'/%3E%3C/svg%3E">
-<!-- OGP: URLを送ったときに出るリンクカードの設定。og:imageは専用画像(1200x630)ができたら差し替える -->
+<!-- OGP: LINEやSNSにURLを送ったときに出るリンクカードの設定。
+     og:image は専用の 1200x630 (works/ogp.jpg)。店の写真そのままだと屋号も要件も伝わらないため -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="creative works+">
 <meta property="og:title" content="creative works+ | 飲食店・小規模事業者のためのホームページ制作">
 <meta property="og:description" content="食べログやGoogleに情報はあるのに、自社ホームページがない。そんなお店のためのホームページ制作です。先に叩き台をお作りし、実物をご覧いただいてから決めていただけます。">
 <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/company/">
-<meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/company/works/bunpuku-hanten.jpg">
+<meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/company/works/ogp.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="creative works+ 飲食店・小規模事業者のためのホームページ制作。制作事例のスマートフォン表示3点">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="creative works+ | 飲食店・小規模事業者のためのホームページ制作">
+<meta name="twitter:description" content="食べログやGoogleに情報はあるのに、自社ホームページがない。そんなお店のためのホームページ制作です。先に叩き台をお作りし、実物をご覧いただいてから決めていただけます。">
+<meta name="twitter:image" content="https://creative-works-plus.github.io/restaurant-sites/company/works/ogp.jpg">
+<meta name="twitter:image:alt" content="creative works+ 飲食店・小規模事業者のためのホームページ制作。制作事例のスマートフォン表示3点">
+<!-- 構造化データ: 検索エンジンに「何をいくらで提供しているか」を機械が読める形で渡す。
+     FAQ は画面に出ている <details> の文面をそのまま入れている（食い違うと無効になる）。
+     ★FAQ の文言を直したら、ここも必ず直す -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "creative works+",
-  "url": "https://creative-works-plus.github.io/restaurant-sites/company/",
-  "email": "creativeworks.plus@gmail.com",
-  "description": "食べログやGoogleに情報はあるのに自社ホームページがない飲食店・小規模事業者のための、ホームページ制作サービス",
-  "founder": { "@type": "Person", "name": "丸藤 啓太" },
-  "address": { "@type": "PostalAddress", "addressRegion": "茨城県", "addressCountry": "JP" }
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://creative-works-plus.github.io/restaurant-sites/company/#organization",
+      "name": "creative works+",
+      "alternateName": "クリエイティブ ワークス プラス",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/company/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://creative-works-plus.github.io/restaurant-sites/company/works/logo.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://creative-works-plus.github.io/restaurant-sites/company/works/ogp.jpg",
+      "email": "creativeworks.plus@gmail.com",
+      "description": "食べログやGoogleに情報はあるのに自社ホームページがない飲食店・小規模事業者のための、ホームページ制作サービス",
+      "founder": {
+        "@type": "Person",
+        "name": "丸藤 啓太"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "茨城県",
+        "addressCountry": "JP"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "日本"
+      },
+      "sameAs": [
+        "https://lin.ee/nFu0bnO"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "creativeworks.plus@gmail.com",
+        "url": "https://lin.ee/nFu0bnO",
+        "availableLanguage": [
+          "ja"
+        ]
+      },
+      "knowsAbout": [
+        "飲食店のホームページ制作",
+        "小規模事業者のホームページ制作",
+        "Googleビジネスプロフィールの運用",
+        "口コミへの返信文の作成"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://creative-works-plus.github.io/restaurant-sites/company/#website",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/company/",
+      "name": "creative works+",
+      "description": "食べログやGoogleに情報はあるのに自社ホームページがない飲食店・小規模事業者のための、ホームページ制作サービス",
+      "publisher": {
+        "@id": "https://creative-works-plus.github.io/restaurant-sites/company/#organization"
+      },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://creative-works-plus.github.io/restaurant-sites/company/#service",
+      "name": "飲食店・小規模事業者向けホームページ制作",
+      "serviceType": "ホームページ制作・運用",
+      "description": "食べログやGoogleの情報をもとに先に叩き台のホームページをおつくりし、実物をご覧いただいてから正式にご依頼いただく制作サービス。公開後は月額で、ホームページの書き換え・Googleビジネスプロフィールの運用・口コミへの返信文の作成・月1回の数字のご報告を行います。",
+      "provider": {
+        "@id": "https://creative-works-plus.github.io/restaurant-sites/company/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "日本"
+      },
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "飲食店・小規模事業者"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "ホームページ制作（初期費用・1サイトあたり）",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "150000",
+            "priceCurrency": "JPY",
+            "valueAddedTaxIncluded": true
+          },
+          "description": "1サイトあたりの制作費用。ご依頼から1週間以内の公開が目安です。"
+        },
+        {
+          "@type": "Offer",
+          "name": "運用・保守（月額・1店舗あたり）",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "5000",
+            "priceCurrency": "JPY",
+            "valueAddedTaxIncluded": true,
+            "unitCode": "MON",
+            "billingIncrement": 1
+          },
+          "description": "ホームページの書き換え（月1回まで）、Googleビジネスプロフィールの運用、口コミへの返信文の作成、月1回の数字のご報告。見つけていただきやすい状態に保つための作業であり、検索順位や来店客数をお約束するものではありません。"
+        }
+      ]
+    },
+    {
+      "@type": [
+        "WebPage",
+        "FAQPage"
+      ],
+      "@id": "https://creative-works-plus.github.io/restaurant-sites/company/#webpage",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/company/",
+      "name": "creative works+ | 飲食店・小規模事業者のためのホームページ制作",
+      "description": "食べログやGoogleに情報はあるのに、自社ホームページがない。そんなお店のためのホームページ制作です。先に叩き台をお作りし、実物をご覧いただいてから決めていただけます。",
+      "isPartOf": {
+        "@id": "https://creative-works-plus.github.io/restaurant-sites/company/#website"
+      },
+      "about": {
+        "@id": "https://creative-works-plus.github.io/restaurant-sites/company/#organization"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://creative-works-plus.github.io/restaurant-sites/company/works/ogp.jpg"
+      },
+      "inLanguage": "ja",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "パソコンが苦手でも、持てますか?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "はい。制作も公開後の更新も、こちらで代行できます。オーナー様にお願いするのは「お店のことを話していただくこと」だけです。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "食べログやGoogleはやめたほうがいいのでしょうか?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "いいえ、併用がおすすめです。ポータルは「新しいお客様との出会いの場」、自社ホームページは「お店を選んでもらう決め手」。役割が違います。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "完成までどのくらいかかりますか?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "正式にご依頼いただいてから、1週間以内の公開が目安です。先に叩き台ができているので、短期間で仕上がります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "制作後の費用はかかりますか?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "月額5,000円(税込)のみです。含まれるのは次の4つです。①ホームページの書き換え(営業時間やメニューの変更など・月1回まで)、②Googleビジネスプロフィール(Googleマップに出るお店の欄)の運用——写真の追加・最新情報の投稿・営業時間や臨時休業の手入れを毎月こちらから行います、③クチコミへの返信文の作成、④月に一度の数字のご報告(地図の表示回数・電話番号のタップ数・ルート検索数・サイトの閲覧数)。②〜④はご依頼がない月もこちらから毎月行います。このほかサーバー・ドメインの管理も含みます。月1回を超える書き換えは1回3,000円〜、ページの追加や大きなリニューアルは別途お見積りです。なお、これらは見つけていただきやすい状態に保つための作業であり、検索の順位や来店されるお客様の数をお約束するものではありません。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "支払い方法を教えてください。",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "銀行振込または現金で、納品時に一括でお支払いいただきます。完成したホームページを実際にご確認いただいてからのお支払いなので、安心です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ネット予約やSNSとの連携はできますか?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "すでにお使いの予約ページ(食べログ・ホットペッパー・LINEなど)へのリンク設置、Googleマップ、InstagramなどSNSへの導線づくりは標準で対応します。英語などの多言語ページは、内容に応じて別途ご相談ください。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "うちの写真を、断りなく使われるのですか?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "叩き台の段階では、食べログやGoogleに公開されている写真を仮に置かせていただいています。ただしこの叩き台は検索に出さない設定にしてあり、URLをお渡しした方以外はご覧になれません。正式に公開するときは、お店からお預かりした写真や、こちらで撮影した写真(撮影は無料でお手伝いします)にすべて差し替えますので、よそのページの写真がお店のホームページに残ることはありません。ご不要とのことでしたら、公開しないまま終わります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "制作事例のお店は、お客さんなのですか?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "いいえ。掲載しているものは、いずれもご契約前におつくりした叩き台です。まずこの状態までお作りしてお持ちする、というやり方をしているためで、お取引のあるお店という意味ではありません。"
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
+<!-- 最初に目に入る画像を先に取りに行かせる（表示速度の評価＝LCPがこの1枚で決まるため） -->
+<link rel="preload" as="image" href="works/hero/hero-shokudo.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
