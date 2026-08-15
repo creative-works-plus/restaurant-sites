@@ -117,16 +117,16 @@
            ★素材は「単色〜モノクロの透過PNG」で作らせ、色はCSS側で乗せる。
              ChatGPTは指定したHEXを守らないので、画像に色を焼き付けると配色がずれる。
            → 作り方・プロンプト・使ってよい範囲は 11-生成素材の作法.md */
-        --tex-paper:   none;      /* 地紋（url("art-tex-paper.png")）。body・章の背景に敷く */
-        --tex-size:    360px;     /* 地紋の繰り返し寸法（background-size） */
-        --tex-opacity: 0.06;      /* 地紋の濃さ。0.04〜0.10 が目安。これ以上は「柄物」になる */
+        --tex-paper:   url("art-tex-paper.webp");   /* 和紙の繊維。章の面に敷く（2026-08-15 差し込み） */
+        --tex-size:    clamp(360px, 33vw, 480px);  /* 地紋の繰り返し寸法。PC幅で同じ繊維が4枚並んで壁紙に見えたので可変にした（2026-08-15） */
+        --tex-opacity: 0.09;      /* 地紋の濃さ。0.04〜0.10 が目安。繊維が細いので上寄りにしてある */
         /* ★あしらいは mask で色を乗せる（11-生成素材の作法.md）。mask-image が none だと
            「マスク無し＝全面表示」になり、素材が無いのに色の面だけが出てしまう。
            そこで既定値は none ではなく「透明な1px」にしてある。差し込み方は同じで、
            ここの url() を art-orn-*.png に書き換えるだけでよい。 */
         --orn-rule:    url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==");  /* 章の区切りのあしらい */
-        --orn-mark:    url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==");  /* 小さな紋・アイコン */
-        --tex-tint:    var(--accent);   /* 素材に乗せる色。既定は店の差し色 */
+        --orn-mark:    url("art-orn-mark.webp");    /* 山盛りのごはん茶碗。フッターの紋（2026-08-15 差し込み） */
+        --tex-tint:    var(--paper-ink);  /* 素材に乗せる色。紋は黒漆のフッターの上に置くので生成りで抜く */
 
         /* --- 形・間（ここは共通でよい） ---------------------------------------- */
         --radius:      10px;
@@ -492,7 +492,7 @@
     }
     /* フッターの紋（素材が入ったときだけ見える） */
     .orn-mark {
-        width: 52px; height: 52px; margin: 0 auto var(--sp-3);
+        width: 64px; height: 64px; margin: 0 auto var(--sp-3);   /* 52pxだと山盛りの米粒が黒漆に潰れる */
         background-color: var(--tex-tint);
         -webkit-mask-image: var(--orn-mark);      mask-image: var(--orn-mark);
         -webkit-mask-repeat: no-repeat;           mask-repeat: no-repeat;
@@ -620,8 +620,11 @@
         margin-top: var(--sp-3);
     }
     .hero-badge {
+        /* ★押せない札なので、電話ボタンと同じ「赤いピル」にしない（2026-08-15 レビュー反映）。
+           ファーストビューで塗りの赤は主CTAの1つだけにする */
         display: inline-block; margin-top: var(--sp-4);
-        background: var(--accent); color: #fff; font-weight: 700;
+        background: var(--surface); color: var(--accent-deep); font-weight: 700;
+        border: 1.5px solid rgba(178, 58, 40, .5);
         padding: 9px 18px; border-radius: 999px; font-size: clamp(14px, 3.6vw, 16px);
     }
 
