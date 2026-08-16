@@ -445,7 +445,8 @@
         display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
         padding: 12px 0; border-bottom: 1px solid var(--line);
     }
-    .today-list dt { color: var(--muted); font-size: .92rem; }
+    /* 見出し側は幅が狭く「駐車／場」と割れるので、ここだけ折り返さない */
+    .today-list dt { color: var(--muted); font-size: .92rem; white-space: nowrap; }
     .today-list dd { font-weight: 700; color: var(--ink); text-align: right; }
     .today-photo { aspect-ratio: 4 / 3; }
     @media (max-width: 900px) { .today-grid { grid-template-columns: 1fr; } .today-photo { order: -1; } }
@@ -597,7 +598,7 @@
     <div class="container hero-inner">
         <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
-        <h1 class="hero-title"><ruby>静<rt>しづか</rt></ruby></h1>
+        <h1 class="hero-title"><ruby>静<rt><span class="nw">しづか</span></rt></ruby></h1>
 
         <svg class="thread thread-hero" viewBox="0 0 40 190" width="40" height="190" aria-hidden="true">
             <path class="thread-line" style="--len:230" stroke-dasharray="230"
@@ -606,7 +607,7 @@
             <circle class="thread-drop" cx="20" cy="180" r="3.6" fill="#FBF8F0"/>
         </svg>
 
-        <p class="hero-tagline">大和芋のとろろ一本で、御膳も、そばも、コロッケも。</p>
+        <p class="hero-tagline"><span class="nw">大和芋のとろろ</span><span class="nw">一本で、</span><span class="nw">御膳も、</span><span class="nw">そばも、</span><span class="nw">コロッケも。</span></p>
 
         <div class="hero-actions">
             <a href="tel:0280480251" class="btn btn-primary">
@@ -625,14 +626,14 @@
 <section class="section" id="today">
     <div class="container today-grid">
         <div class="today-info reveal">
-            <h2 class="section-title">本日のご案内</h2>
+            <h2 class="section-title"><span class="nw">本日の</span><span class="nw">ご案内</span></h2>
             <dl class="today-list">
-                <div><dt>昼のお時間</dt><dd>11:30〜14:30</dd></div>
-                <div><dt>夜のお時間</dt><dd>18:00〜21:30</dd></div>
-                <div><dt>定休日</dt><dd>水曜日・第3木曜日</dd></div>
-                <div><dt>駐車場</dt><dd>ございます（台数はお電話でご確認ください）</dd></div>
+                <div><dt><span class="nw">昼の</span><span class="nw">お時間</span></dt><dd>11:30〜14:30</dd></div>
+                <div><dt><span class="nw">夜の</span><span class="nw">お時間</span></dt><dd>18:00〜21:30</dd></div>
+                <div><dt><span class="nw">定休日</span></dt><dd><span class="nw">水曜日・</span>第<span class="nw">3木曜日</span></dd></div>
+                <div><dt><span class="nw">駐車場</span></dt><dd><span class="nw">ございます</span><span class="nw">（台数は</span><span class="nw">お電話で</span><span class="nw">ご確認ください）</span></dd></div>
             </dl>
-            <p class="lead" style="margin-bottom:clamp(20px,3.5vw,28px); font-size:.88rem;">お時間が前後する日がございます。ご来店前にお電話いただけますと確実でございます。</p>
+            <p class="lead" style="margin-bottom:clamp(20px,3.5vw,28px); font-size:.88rem;"><span class="nw">お時間が</span><span class="nw">前後する</span><span class="nw">日が</span><span class="nw">ございます。</span><span class="nw">ご来店前に</span><span class="nw">お電話いただけますと</span><span class="nw">確実で</span><span class="nw">ございます。</span></p>
             <a href="tel:0280480251" class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
                 0280-48-0251｜お電話でどうぞ
@@ -652,11 +653,11 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section section-tint" id="tororo">
     <div class="container">
-        <h2 class="section-title reveal">大和芋のこと</h2>
+        <h2 class="section-title reveal"><span class="nw">大和芋の</span><span class="nw">こと</span></h2>
         <p class="lead reveal">
-            とろろに使う大和芋は、千葉県多古町の鷹大和芋を仕入れております。
-            すり鉢でおろすほどに白く艶が増し、麦飯にかけた瞬間からとろりと糸を引きます。
-            御膳もそばも丼もコロッケも、当店の料理はこの一芋でひと通りまかなっております。
+            <span class="nw">とろろに</span><span class="nw">使う</span><span class="nw">大和芋は、</span><span class="nw">千葉県多古町の</span><span class="nw">鷹大和芋を</span><span class="nw">仕入れ</span><span class="nw">ております。</span>
+            <span class="nw">すり</span><span class="nw">鉢でおろすほどに</span><span class="nw">白く</span><span class="nw">艶が</span><span class="nw">増し、</span><span class="nw">麦飯にかけた</span><span class="nw">瞬間からとろりと</span><span class="nw">糸を</span><span class="nw">引きます。</span>
+            <span class="nw">御膳もそばも</span><span class="nw">丼も</span><span class="nw">コロッケも、</span><span class="nw">当店の</span><span class="nw">料理はこの</span><span class="nw">一芋でひと</span><span class="nw">通りまかなっ</span><span class="nw">ております。</span>
         </p>
         <div class="photo-duo reveal reveal-delay-1">
             <div class="photo-frame">
@@ -687,8 +688,8 @@
             <path d="M50 30 L50 68"/>
             <path d="M68 34 L56 66"/>
         </svg>
-        <h2 class="section-title is-center reveal">御膳</h2>
-        <p class="lead reveal" style="margin-inline:auto; text-align:center;">麦とろ御膳を軸に、6つの御膳をご用意しております。お値段は店内のお品書きに掲げております。お電話でもお答えいたします。</p>
+        <h2 class="section-title is-center reveal"><span class="nw">御膳</span></h2>
+        <p class="lead reveal" style="margin-inline:auto; text-align:center;"><span class="nw">麦とろ</span><span class="nw">御膳を</span><span class="nw">軸に、</span><span class="nw">6つの</span><span class="nw">御膳を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
 
         <div class="gozen-cards">
             <article class="gozen-card reveal">
@@ -697,8 +698,8 @@
                          alt="麦とろ御膳。黒い折敷に麦ご飯、とろろ、味噌汁、本まぐろの刺身、野菜天ぷら、サラダ、うずらの生卵を並べたもの"
                          width="968" height="544" loading="lazy" decoding="async">
                 </div>
-                <h3>麦とろ御膳</h3>
-                <p>当店一番人気。とろろに野菜天ぷらと本まぐろの刺身を添えた御膳です。</p>
+                <h3><span class="nw">麦とろ</span><span class="nw">御膳</span></h3>
+                <p><span class="nw">当店一番人気。</span><span class="nw">とろろに</span><span class="nw">野菜天ぷらと</span><span class="nw">本まぐろの</span><span class="nw">刺身を</span><span class="nw">添えた</span><span class="nw">御膳です。</span></p>
             </article>
             <article class="gozen-card reveal reveal-delay-1">
                 <div class="photo-frame">
@@ -706,8 +707,8 @@
                          alt="麦とろ花御膳。刺身3種、酢の物、海老と野菜の天ぷらを奥に、麦ご飯ととろろ、吸い物を手前に並べたもの"
                          width="1080" height="1080" loading="lazy" decoding="async">
                 </div>
-                <h3>麦とろ花御膳</h3>
-                <p>お刺身の盛り合わせに、海老と野菜の天ぷら、茶碗蒸し、もずく酢を添えた御膳です。</p>
+                <h3><span class="nw">麦とろ</span>花<span class="nw">御膳</span></h3>
+                <p><span class="nw">お刺身の</span><span class="nw">盛り</span><span class="nw">合わせに、</span><span class="nw">海老と</span><span class="nw">野菜の</span><span class="nw">天ぷら、</span><span class="nw">茶碗蒸し、</span><span class="nw">もずく</span><span class="nw">酢を</span><span class="nw">添えた</span><span class="nw">御膳です。</span></p>
             </article>
             <article class="gozen-card reveal reveal-delay-2">
                 <div class="photo-frame">
@@ -715,16 +716,16 @@
                          alt="麦とろ御膳。麦ご飯ととろろ、刺身、野菜天ぷら、煮物の小鉢を並べたもの"
                          width="995" height="559" loading="lazy" decoding="async">
                 </div>
-                <h3>麦とろ御膳（2025年12月）</h3>
-                <p>煮物の小鉢を添えて、少しずつ表情を変えてお出ししております。</p>
+                <h3><span class="nw">麦とろ</span><span class="nw">御膳</span><span class="nw">（2025年</span><span class="nw">12月）</span></h3>
+                <p><span class="nw">煮物の</span><span class="nw">小鉢を</span><span class="nw">添えて、</span><span class="nw">少しずつ</span><span class="nw">表情を</span><span class="nw">変えて</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
             </article>
         </div>
 
         <ul class="gozen-names reveal reveal-delay-2">
-            <li><strong>麦とろ静膳</strong>（しづかぜん）… 当店手作りの大和芋コロッケを添えた御膳です</li>
-            <li><strong>特製かき御膳</strong> … 大粒のカキフライ3個とざるそばを添えた御膳です</li>
-            <li><strong>麦とろ桃御膳</strong> … とろろとざるそばを合わせた御膳です</li>
-            <li><strong>麦とろ小町御膳</strong> … 季節の天ぷらと刺身を盛り合わせた、いちばん豪華な御膳です</li>
+            <li><strong><span class="nw">麦とろ</span><span class="nw">静膳</span></strong><span class="nw">（しづかぜん）…</span> <span class="nw">当店手作りの</span><span class="nw">大和芋コロッケを</span><span class="nw">添えた</span><span class="nw">御膳です</span></li>
+            <li><strong><span class="nw">特製かき</span><span class="nw">御膳</span></strong> … <span class="nw">大粒の</span><span class="nw">カキフライ</span><span class="nw">3個とざるそばを</span><span class="nw">添えた</span><span class="nw">御膳です</span></li>
+            <li><strong><span class="nw">麦とろ</span>桃<span class="nw">御膳</span></strong> … <span class="nw">とろろとざるそばを</span><span class="nw">合わせた</span><span class="nw">御膳です</span></li>
+            <li><strong><span class="nw">麦とろ</span><span class="nw">小町</span><span class="nw">御膳</span></strong> … <span class="nw">季節の</span><span class="nw">天ぷらと</span><span class="nw">刺身を</span><span class="nw">盛り</span><span class="nw">合わせた、</span><span class="nw">いちばん</span><span class="nw">豪華な</span><span class="nw">御膳です</span></li>
         </ul>
     </div>
 </section>
@@ -736,11 +737,11 @@
 <section class="section section-tint" id="korokke">
     <div class="container korokke-grid">
         <div class="korokke-text reveal">
-            <p class="tag-point">当店の名物</p>
-            <h2 class="section-title">大和芋コロッケ</h2>
+            <p class="tag-point"><span class="nw">当店の</span><span class="nw">名物</span></p>
+            <h2 class="section-title"><span class="nw">大和芋コロッケ</span></h2>
             <p class="lead">
-                大和芋をすりおろし、ひとつずつ丸めて手作りしております。
-                単品のほか、静膳や定食、テイクアウトでもお選びいただけます。
+                <span class="nw">大和芋をすりおろし、</span><span class="nw">ひとつずつ</span><span class="nw">丸めて</span><span class="nw">手作りし</span><span class="nw">ております。</span>
+                <span class="nw">単品のほか、</span><span class="nw">静膳や</span><span class="nw">定食、</span><span class="nw">テイクアウトでも</span><span class="nw">お選び</span><span class="nw">いただけます。</span>
             </p>
         </div>
         <div class="korokke-photos reveal reveal-delay-1">
@@ -764,8 +765,8 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="menu">
     <div class="container">
-        <h2 class="section-title reveal">そば・うどん／丼もの／定食</h2>
-        <p class="lead reveal">価格はお電話でもお答えいたします。</p>
+        <h2 class="section-title reveal"><span class="nw">そば・</span><span class="nw">うどん／</span><span class="nw">丼もの／</span><span class="nw">定食</span></h2>
+        <p class="lead reveal"><span class="nw">価格は</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
 
         <div class="menu-scroll reveal reveal-delay-1">
             <figure>
@@ -773,104 +774,104 @@
                     <img src="img/soba-zaru.jpg" alt="竹の丸ざるに盛ったざるそば。白ねぎとわさびを添えて"
                          width="635" height="476" loading="lazy" decoding="async">
                 </div>
-                <figcaption>ざるそば</figcaption>
+                <figcaption><span class="nw">ざるそば</span></figcaption>
             </figure>
             <figure>
                 <div class="photo-frame">
                     <img src="img/tororo-soba.jpg" alt="紫の縁取りの器に入ったとろろと、ざるそば、麦ご飯"
                          width="807" height="605" loading="lazy" decoding="async">
                 </div>
-                <figcaption>とろろそば</figcaption>
+                <figcaption><span class="nw">とろろそば</span></figcaption>
             </figure>
             <figure>
                 <div class="photo-frame">
                     <img src="img/soba-shichifuku-curry-udon.jpg" alt="七福カレーうどん。とろみのあるカレー汁に油揚げと野菜を合わせ、湯気の立つもの"
                          width="1400" height="1050" loading="lazy" decoding="async">
                 </div>
-                <figcaption>七福カレーうどん</figcaption>
+                <figcaption><span class="nw">七福カレーうどん</span></figcaption>
             </figure>
             <figure>
                 <div class="photo-frame">
                     <img src="img/don-honmaguro.jpg" alt="本まぐろ丼。朱塗りの丼に赤身の刺身を放射状に敷き詰め、食用菊とわさびを添えたもの"
                          width="1024" height="768" loading="lazy" decoding="async">
                 </div>
-                <figcaption>本まぐろ丼</figcaption>
+                <figcaption><span class="nw">本まぐろ</span>丼</figcaption>
             </figure>
             <figure>
                 <div class="photo-frame">
                     <img src="img/ippin-yasai-tenpura.jpg" alt="野菜天ぷらの盛り合わせ。かぼちゃ・なす・れんこん・まいたけなど"
                          width="1300" height="975" loading="lazy" decoding="async">
                 </div>
-                <figcaption>野菜天ぷら</figcaption>
+                <figcaption><span class="nw">野菜天ぷら</span></figcaption>
             </figure>
             <figure>
                 <div class="photo-frame">
                     <img src="img/ippin-sashimi-moriawase.jpg" alt="刺身盛り合わせ。まぐろ赤身・サーモン・白身を各3切れ、食用菊とわさびを添えて"
                          width="1024" height="1024" loading="lazy" decoding="async">
                 </div>
-                <figcaption>刺身盛り合わせ</figcaption>
+                <figcaption><span class="nw">刺身盛り</span><span class="nw">合わせ</span></figcaption>
             </figure>
         </div>
 
         <div class="menu-groups reveal reveal-delay-2">
             <div class="menu-group">
-                <h3>そば・うどん</h3>
+                <h3><span class="nw">そば・</span><span class="nw">うどん</span></h3>
                 <ul>
-                    <li>天ぷらそば・うどん</li>
-                    <li>かき揚げそば・うどん</li>
-                    <li>とろろそば・うどん（千葉県多古町の鷹大和芋を使用）</li>
-                    <li>鶏そば・うどん</li>
-                    <li>なめこそば・うどん</li>
-                    <li>七福カレーそば・うどん</li>
-                    <li>かけそば・うどん</li>
-                    <li>ざるそば・うどん</li>
+                    <li><span class="nw">天ぷらそば・</span><span class="nw">うどん</span></li>
+                    <li><span class="nw">かき</span><span class="nw">揚げそば・</span><span class="nw">うどん</span></li>
+                    <li><span class="nw">とろろそば・</span><span class="nw">うどん</span><span class="nw">（千葉県多古町の</span><span class="nw">鷹大和芋を</span><span class="nw">使用）</span></li>
+                    <li><span class="nw">鶏そば・</span><span class="nw">うどん</span></li>
+                    <li><span class="nw">なめこそば・</span><span class="nw">うどん</span></li>
+                    <li><span class="nw">七福カレーそば・</span><span class="nw">うどん</span></li>
+                    <li><span class="nw">かけそば・</span><span class="nw">うどん</span></li>
+                    <li><span class="nw">ざるそば・</span><span class="nw">うどん</span></li>
                 </ul>
             </div>
             <div class="menu-group">
-                <h3>丼もの</h3>
+                <h3><span class="nw">丼もの</span></h3>
                 <ul>
-                    <li>ぷりぷりぜいたく海老天丼</li>
-                    <li>海老天丼</li>
-                    <li>かき揚げ丼</li>
-                    <li>あなご丼</li>
-                    <li>野菜天丼</li>
-                    <li>本まぐろ丼</li>
-                    <li>ねばり丼（とろろ・納豆・めかぶ・オクラ・本まぐろ）</li>
-                    <li>うな重</li>
-                    <li>カツ丼</li>
-                    <li>親子丼</li>
-                    <li>焼肉丼</li>
+                    <li><span class="nw">ぷりぷりぜいたく</span><span class="nw">海老天丼</span></li>
+                    <li><span class="nw">海老天丼</span></li>
+                    <li><span class="nw">かき</span><span class="nw">揚げ</span>丼</li>
+                    <li><span class="nw">あな</span><span class="nw">ご丼</span></li>
+                    <li><span class="nw">野菜天丼</span></li>
+                    <li><span class="nw">本まぐろ</span>丼</li>
+                    <li><span class="nw">ねばり</span>丼<span class="nw">（とろろ・</span><span class="nw">納豆・</span><span class="nw">めかぶ・</span><span class="nw">オクラ・</span><span class="nw">本まぐろ）</span></li>
+                    <li><span class="nw">うな</span>重</li>
+                    <li><span class="nw">カツ</span>丼</li>
+                    <li><span class="nw">親子丼</span></li>
+                    <li><span class="nw">焼肉丼</span></li>
                 </ul>
             </div>
             <div class="menu-group">
-                <h3>定食</h3>
+                <h3><span class="nw">定食</span></h3>
                 <ul>
-                    <li>天ぷら定食</li>
-                    <li>刺身定食</li>
-                    <li>本まぐろ定食</li>
-                    <li>カキフライ定食</li>
-                    <li>大和芋コロッケ定食</li>
-                    <li>ヒレカツ定食</li>
-                    <li>野菜炒め定食</li>
-                    <li>エビフライ定食</li>
-                    <li>唐揚げ定食</li>
-                    <li>ハンバーグ定食</li>
-                    <li>お子様ランチ</li>
+                    <li><span class="nw">天ぷら</span><span class="nw">定食</span></li>
+                    <li><span class="nw">刺身定食</span></li>
+                    <li><span class="nw">本まぐろ</span><span class="nw">定食</span></li>
+                    <li><span class="nw">カキフライ</span><span class="nw">定食</span></li>
+                    <li><span class="nw">大和芋コロッケ</span><span class="nw">定食</span></li>
+                    <li><span class="nw">ヒレカツ</span><span class="nw">定食</span></li>
+                    <li><span class="nw">野菜炒め</span><span class="nw">定食</span></li>
+                    <li><span class="nw">エビフライ</span><span class="nw">定食</span></li>
+                    <li><span class="nw">唐揚げ</span><span class="nw">定食</span></li>
+                    <li><span class="nw">ハンバーグ</span><span class="nw">定食</span></li>
+                    <li><span class="nw">お子様ランチ</span></li>
                 </ul>
             </div>
             <div class="menu-group">
-                <h3>お持ち帰り</h3>
+                <h3><span class="nw">お持ち</span><span class="nw">帰り</span></h3>
                 <ul>
-                    <li>幕の内弁当</li>
-                    <li>天重</li>
-                    <li>かつ重</li>
-                    <li>うな重</li>
-                    <li>いなり寿司</li>
-                    <li>中華ちまき</li>
-                    <li>大和芋コロッケ</li>
-                    <li>おにぎり</li>
-                    <li>鶏の唐揚げ</li>
-                    <li>焼そば</li>
+                    <li><span class="nw">幕の</span><span class="nw">内弁当</span></li>
+                    <li><span class="nw">天重</span></li>
+                    <li><span class="nw">かつ</span>重</li>
+                    <li><span class="nw">うな</span>重</li>
+                    <li><span class="nw">いなり</span><span class="nw">寿司</span></li>
+                    <li><span class="nw">中華ちまき</span></li>
+                    <li><span class="nw">大和芋コロッケ</span></li>
+                    <li><span class="nw">おにぎり</span></li>
+                    <li><span class="nw">鶏の</span><span class="nw">唐揚げ</span></li>
+                    <li><span class="nw">焼そば</span></li>
                 </ul>
             </div>
         </div>
@@ -893,11 +894,11 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section section-tint" id="gathering">
     <div class="container">
-        <h2 class="section-title reveal">お集まりに</h2>
+        <h2 class="section-title reveal"><span class="nw">お集まりに</span></h2>
         <p class="lead reveal">
-            2階には、100名様までご利用いただけるお座敷がございます。
-            法事やお祝いの席にも、どうぞご利用ください。人数やご予算に合わせてご相談を承ります。
-            1階には個室もございます。お仕事の会食や少人数のお集まりにも、お使いいただけます。
+            <span class="nw">2階には、</span><span class="nw">100名様まで</span><span class="nw">ご利用いただける</span><span class="nw">お座敷が</span><span class="nw">ございます。</span>
+            <span class="nw">法事や</span><span class="nw">お祝いの</span><span class="nw">席にも、</span><span class="nw">どうぞ</span><span class="nw">ご利用ください。</span><span class="nw">人数や</span><span class="nw">ご予算に</span><span class="nw">合わせて</span><span class="nw">ご相談を</span><span class="nw">承ります。</span>
+            <span class="nw">1階には</span><span class="nw">個室も</span><span class="nw">ございます。</span><span class="nw">お仕事の</span><span class="nw">会食や</span><span class="nw">少人数の</span><span class="nw">お集まりにも、</span><span class="nw">お使い</span><span class="nw">いただけます。</span>
         </p>
         <div class="gathering-photos">
             <div class="photo-frame reveal">
@@ -931,18 +932,18 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="voice">
     <div class="container">
-        <h2 class="section-title reveal">お客様の声</h2>
+        <h2 class="section-title reveal"><span class="nw">お客様の</span>声</h2>
         <div class="voice-grid">
             <blockquote class="voice reveal">
-                <p>「ここ、何気に料理が旨いのです。一品一品手抜きなし。鮪が旨くてびっくり！蕎麦もコシがあって旨かった。」</p>
+                <p><span class="nw">「ここ、</span><span class="nw">何気に</span><span class="nw">料理が</span><span class="nw">旨い</span><span class="nw">のです。</span><span class="nw">一品一品手抜きなし。</span><span class="nw">鮪が</span><span class="nw">旨くてびっくり！</span><span class="nw">蕎麦も</span><span class="nw">コシがあって</span><span class="nw">旨かった。」</span></p>
                 <cite>2025年12月ご来店のお客様の声より</cite>
             </blockquote>
             <blockquote class="voice reveal reveal-delay-1">
-                <p>「蕎麦は田舎風の少し太いタイプで冷たく締められ腰が強く美味い！まぐろは新鮮で旨みが強く美味。」</p>
+                <p><span class="nw">「蕎麦は</span><span class="nw">田舎風の</span><span class="nw">少し</span><span class="nw">太い</span><span class="nw">タイプで</span><span class="nw">冷たく</span><span class="nw">締められ</span><span class="nw">腰が</span><span class="nw">強く</span><span class="nw">美味い！</span><span class="nw">まぐろは</span><span class="nw">新鮮で</span><span class="nw">旨みが</span><span class="nw">強く</span><span class="nw">美味。」</span></p>
                 <cite>2025年2月ご来店のお客様の声より</cite>
             </blockquote>
             <blockquote class="voice reveal reveal-delay-2">
-                <p>「同行の取引先と一緒にランチでお邪魔しました。とても美味しそうな麦とろを見つけて即予約。当日６人でしたが大丈夫ですよと。個室も取って頂き、麦とろ御膳を堪能。刺身、天ぷら、麦とろごはん！どれも美味い」</p>
+                <p><span class="nw">「同行の</span><span class="nw">取引先と</span><span class="nw">一緒に</span><span class="nw">ランチで</span><span class="nw">お邪魔しました。</span><span class="nw">とても</span><span class="nw">美味しそうな</span><span class="nw">麦とろを</span><span class="nw">見つけて</span><span class="nw">即予約。</span><span class="nw">当日</span><span class="nw">６人でしたが</span><span class="nw">大丈夫ですよと。</span><span class="nw">個室も</span><span class="nw">取って</span><span class="nw">頂き、</span><span class="nw">麦とろ</span><span class="nw">御膳を</span><span class="nw">堪能。</span><span class="nw">刺身、</span><span class="nw">天ぷら、</span><span class="nw">麦とろごはん！</span><span class="nw">どれも</span><span class="nw">美味い」</span></p>
                 <cite>2025年6月ご来店のお客様の声より</cite>
             </blockquote>
         </div>
@@ -955,15 +956,15 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="info">
     <div class="container">
-        <h2 class="section-title reveal">アクセス</h2>
+        <h2 class="section-title reveal"><span class="nw">アクセス</span></h2>
 
         <table class="info-table reveal">
-            <tr><th>住所</th><td>〒306-0044 茨城県古河市新久田289-2</td></tr>
-            <tr><th>営業時間</th><td>昼 11:30〜14:30／夜 18:00〜21:30</td></tr>
-            <tr><th>定休日</th><td>水曜日・第3木曜日</td></tr>
-            <tr><th>電話</th><td><a href="tel:0280480251" class="tel-link">0280-48-0251</a></td></tr>
-            <tr><th>駐車場</th><td>ございます（台数はお電話でご確認ください）</td></tr>
-            <tr><th>お支払い</th><td>現金・クレジットカード・電子マネー・QRコード決済</td></tr>
+            <tr><th><span class="nw">住所</span></th><td>〒306-0044 <span class="nw">茨城県古河市新久田</span>289-2</td></tr>
+            <tr><th><span class="nw">営業時間</span></th><td>昼 11:30〜14:30／夜 18:00〜21:30</td></tr>
+            <tr><th><span class="nw">定休日</span></th><td><span class="nw">水曜日・</span>第<span class="nw">3木曜日</span></td></tr>
+            <tr><th><span class="nw">電話</span></th><td><a href="tel:0280480251" class="tel-link">0280-48-0251</a></td></tr>
+            <tr><th><span class="nw">駐車場</span></th><td><span class="nw">ございます</span><span class="nw">（台数は</span><span class="nw">お電話で</span><span class="nw">ご確認ください）</span></td></tr>
+            <tr><th><span class="nw">お支払い</span></th><td><span class="nw">現金・</span><span class="nw">クレジットカード・</span><span class="nw">電子マネー・</span><span class="nw">QRコード</span><span class="nw">決済</span></td></tr>
         </table>
 
         <div class="map-wrapper reveal">
@@ -1003,9 +1004,9 @@
                   d="M10 0 C 12 16, 8 28, 10 44 C 11 50, 9 53, 10 56"
                   stroke="#F5F1E6" stroke-width="2"/>
         </svg>
-        <p class="footer-name"><ruby>静<rt>しづか</rt></ruby>／麦とろ和食 静</p>
-        <p class="footer-addr">〒306-0044 茨城県古河市新久田289-2／<a href="tel:0280480251" class="nw footer-tel">0280-48-0251</a></p>
-        <p class="footer-copy">&copy; 麦とろ和食 静</p>
+        <p class="footer-name"><ruby>静<rt><span class="nw">しづか</span></rt></ruby>／<span class="nw">麦とろ</span><span class="nw">和食</span> 静</p>
+        <p class="footer-addr">〒306-0044 <span class="nw">茨城県古河市新久田</span>289-2／<a href="tel:0280480251" class="nw footer-tel">0280-48-0251</a></p>
+        <p class="footer-copy">&copy; <span class="nw">麦とろ</span><span class="nw">和食</span> 静</p>
     </div>
 </footer>
 

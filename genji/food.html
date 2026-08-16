@@ -340,7 +340,12 @@ body::after{
            最後の .menu-block を抜けたら引っ込める（骨格ライブラリ 04-base.css と同じ）。 */
         .subnav { transition: transform .3s ease, opacity .3s ease; }
         .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
-    </style>
+    
+    /* 「ここで切らない」ひとかたまり。auto-phrase が効かないブラウザ
+       （iPhoneのSafari）でも語の途中で改行させないための箱。
+       inline-block は箱の境目では切られず、入りきらない時だけ中で折り返す */
+    .nw{display:inline-block}
+</style>
 </head>
 <body>
 <header class="nav" id="nav">
@@ -364,8 +369,8 @@ body::after{
   <div class="wrap">
     <div class="crumb"><a href="index.html">酒道場 源氏</a> ／ お食事</div>
     <span class="eyebrow" style="color:var(--kan)">FOOD ─ お食事</span>
-    <h1>一品入魂の、肴。</h1>
-    <p class="lead">馬刺し、骨付りぶ焼、宇和島産じゃこ天。全国各地から選んだ食材を、源氏の手で一品ずつ。お造りから〆の御飯物、デザートまで。</p>
+    <h1><span class="nw">一品入魂の、</span><span class="nw">肴。</span></h1>
+    <p class="lead"><span class="nw">馬刺し、</span><span class="nw">骨付りぶ</span><span class="nw">焼、</span><span class="nw">宇和島産じゃこ</span><span class="nw">天。</span><span class="nw">全国各地から</span><span class="nw">選んだ</span><span class="nw">食材を、</span><span class="nw">源氏の</span><span class="nw">手で</span><span class="nw">一品ずつ。</span><span class="nw">お造りから</span><span class="nw">〆の</span><span class="nw">御飯物、</span><span class="nw">デザートまで。</span></p>
   </div>
 </section>
 
@@ -378,13 +383,13 @@ body::after{
 
 <main class="menu-page">
   <div class="wrap">
-    <p class="lead-note">表示価格は税別です（店内メニュー表記に準じます）。お造りなど一部のお料理はその日の仕入れにより内容・お値段が変わります。気になる品はお気軽に店頭・お電話（0280-31-3859）でおたずねください。</p>
+    <p class="lead-note"><span class="nw">表示価格は</span><span class="nw">税別です</span><span class="nw">（店内メニュー</span><span class="nw">表記に</span><span class="nw">準じます）。</span><span class="nw">お造り</span><span class="nw">など</span><span class="nw">一部の</span><span class="nw">お料理はその</span><span class="nw">日の</span><span class="nw">仕入れにより</span><span class="nw">内容・</span><span class="nw">お値段が</span><span class="nw">変わります。</span><span class="nw">気になる</span><span class="nw">品は</span><span class="nw">お気軽に</span><span class="nw">店頭・</span><span class="nw">お電話</span><span class="nw">（0280-31-3859）でおたずね</span><span class="nw">ください。</span></p>
 
     <div class="dish-strip reveal">
-      <figure><img src="img/santen-mori.jpg" alt="本日の三点盛り（お造り）" width="640" height="480" loading="lazy" decoding="async"><figcaption>本日の三点盛り</figcaption></figure>
-      <figure><img src="img/basashi2.jpg" alt="馬刺し" width="640" height="480" loading="lazy" decoding="async"><figcaption>馬刺し</figcaption></figure>
-      <figure><img src="img/honetsuki-rib1.jpg" alt="骨付りぶ焼" width="640" height="480" loading="lazy" decoding="async"><figcaption>骨付りぶ焼</figcaption></figure>
-      <figure><img src="img/jakoten.jpg" alt="宇和島産 じゃこ天" width="640" height="480" loading="lazy" decoding="async"><figcaption>じゃこ天（宇和島産）</figcaption></figure>
+      <figure><img src="img/santen-mori2.jpg" alt="本日の三点盛り。まぐろ・かんぱち・炙りを大鉢に盛って" width="640" height="480" loading="lazy" decoding="async"><figcaption><span class="nw">本日の</span><span class="nw">三点盛り</span></figcaption></figure>
+      <figure><img src="img/basashi3.jpg" alt="馬刺し。大葉を敷いた大皿に赤身を並べ、おろし生姜とにんにくを添えて" width="640" height="480" loading="lazy" decoding="async"><figcaption><span class="nw">馬刺し</span></figcaption></figure>
+      <figure><img src="img/honetsuki-rib3.jpg" alt="骨付りぶ焼。タレをからめて焼き上げた骨付きの豚リブ" width="640" height="480" loading="lazy" decoding="async"><figcaption><span class="nw">骨付りぶ</span>焼</figcaption></figure>
+      <figure><img src="img/shumai.jpg" alt="手作りシューマイ。レタスを敷いた皿に9個、からしを添えて" width="640" height="480" loading="lazy" decoding="async"><figcaption><span class="nw">手作り</span><span class="nw">シューマイ</span></figcaption></figure>
     </div>
 
     <div class="menu-cat reveal">
@@ -407,10 +412,10 @@ body::after{
     </div>
 
     <div class="dish-strip reveal" style="margin-top:8px">
-      <figure><img src="img/basashi.jpg" alt="馬刺" width="640" height="480" loading="lazy" decoding="async"><figcaption>馬刺</figcaption></figure>
-      <figure><img src="img/carpaccio.jpg" alt="海鮮カルパッチョ" width="640" height="480" loading="lazy" decoding="async"><figcaption>海鮮カルパッチョ</figcaption></figure>
-      <figure><img src="img/otoshi2.jpg" alt="お通し ほうれん草胡麻和え" width="640" height="480" loading="lazy" decoding="async"><figcaption>お通し</figcaption></figure>
-      <figure><img src="img/sayori-himono.jpg" alt="愛媛・双海直送 さよりの干物" width="640" height="480" loading="lazy" decoding="async"><figcaption>さよりの干物</figcaption></figure>
+      <figure><img src="img/basashi.jpg" alt="馬刺" width="640" height="480" loading="lazy" decoding="async"><figcaption><span class="nw">馬刺</span></figcaption></figure>
+      <figure><img src="img/carpaccio2.jpg" alt="海鮮カルパッチョ。葉野菜を敷いた角皿にソースをかけて" width="640" height="480" loading="lazy" decoding="async"><figcaption><span class="nw">海鮮カルパッチョ</span></figcaption></figure>
+      <figure><img src="img/otoshi2.jpg" alt="お通し ほうれん草胡麻和え" width="640" height="480" loading="lazy" decoding="async"><figcaption><span class="nw">お通し</span></figcaption></figure>
+      <figure><img src="img/sayori-himono.jpg" alt="愛媛・双海直送 さよりの干物" width="640" height="480" loading="lazy" decoding="async"><figcaption><span class="nw">さよりの</span><span class="nw">干物</span></figcaption></figure>
     </div>
 
     <div class="menu-cat reveal">
@@ -451,7 +456,7 @@ body::after{
           <div class="mi"><span class="nm">手作りシューマイ</span></div>
         </div>
       </div>
-      <p class="menu-note">※ お料理はその日の仕入れにより内容・お値段が変わります。お気軽に店頭・お電話でおたずねください。</p>
+      <p class="menu-note">※ <span class="nw">お料理はその</span><span class="nw">日の</span><span class="nw">仕入れにより</span><span class="nw">内容・</span><span class="nw">お値段が</span><span class="nw">変わります。</span><span class="nw">お気軽に</span><span class="nw">店頭・</span><span class="nw">お電話でおたずね</span><span class="nw">ください。</span></p>
     </div>
 
     <div class="menu-cat reveal">
@@ -482,14 +487,14 @@ body::after{
           </div>
         </div>
       </div>
-      <p class="menu-note">※ 御飯物・デザートのお値段は店頭・お電話にてご案内します。</p>
+      <p class="menu-note">※ <span class="nw">御飯物・</span><span class="nw">デザートの</span><span class="nw">お値段は</span><span class="nw">店頭・</span><span class="nw">お電話にて</span><span class="nw">ご案内します。</span></p>
     </div>
   </div>
 </main>
 
 <section class="cross">
   <span class="eyebrow">お飲み物もどうぞ</span>
-  <h3>樽酒と地酒で、もう一献。</h3>
+  <h3><span class="nw">樽酒と</span><span class="nw">地酒で、</span><span class="nw">もう</span><span class="nw">一献。</span></h3>
   <div class="cta-row">
     <a class="btn btn-primary" href="drink.html">お飲み物を見る →</a>
     <a class="btn btn-ghost" href="tel:0280-31-3859">電話でご予約</a>

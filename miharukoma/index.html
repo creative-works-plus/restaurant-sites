@@ -549,6 +549,8 @@
         text-underline-offset: 3px; text-decoration-thickness: 1px;
     }
     .section-lead a:hover, .info-table .tel-link:hover { color: var(--accent); }
+    /* 見出し側は幅が狭く「営業／時間」と割れるので、ここだけ折り返さない */
+    .info-table th { white-space: nowrap; }
     .section-invert { background: var(--paper); color: var(--paper-ink); }
     .section-invert .section-title { color: var(--paper-ink); }
     .section-invert .section-lead { color: rgba(237,231,222,.72); }
@@ -722,9 +724,9 @@
             </svg>
 
             <p class="fuda-text" id="fuda-text">
-                名物のレバニラは、<strong>水曜日の夜・土曜日の夜・日曜日</strong>にご用意しております。<br>
-                月曜日・火曜日は、仕入れによりご用意できる日もございます。お電話でお確かめください。<br>
-                木曜日・金曜日は定休日をいただいております。
+                <span class="nw">名物の</span><span class="nw">レバニラは、</span><strong><span class="nw">水曜日の</span><span class="nw">夜・</span><span class="nw">土曜日の</span><span class="nw">夜・</span><span class="nw">日曜日</span></strong>に<span class="nw">ご用意し</span><span class="nw">ております。</span><br>
+                <span class="nw">月曜日・</span><span class="nw">火曜日は、</span><span class="nw">仕入れにより</span><span class="nw">ご用意できる</span><span class="nw">日も</span><span class="nw">ございます。</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span><br>
+                <span class="nw">木曜日・</span><span class="nw">金曜日は</span><span class="nw">定休日を</span><span class="nw">いただい</span><span class="nw">ております。</span>
             </p>
 
             <svg class="raimon" viewBox="0 0 240 12" aria-hidden="true" preserveAspectRatio="none">
@@ -733,14 +735,14 @@
 
             <!-- ★定休日は下の電話CTAごと隠す（かけても誰も出ないため）。
                  代わりに fuda-quiet-note を出す。両方とも updateFuda が hidden 属性で切り替える -->
-            <p class="fuda-caveat" id="fuda-caveat">売り切れ次第、終了とさせていただいております。お越しの前に、お電話でお確かめいただけますと確実です。</p>
+            <p class="fuda-caveat" id="fuda-caveat"><span class="nw">売り</span><span class="nw">切れ</span><span class="nw">次第、</span><span class="nw">終了とさせて</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">お越しの</span><span class="nw">前に、</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">いただけますと</span><span class="nw">確実です。</span></p>
 
             <a href="tel:0280483007" class="btn btn-tel btn-fuda-tel" id="fuda-tel-btn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
                 <span class="tel-num">0280-48-3007</span><span class="tel-cap">レバニラの確認・ご予約</span>
             </a>
 
-            <p class="fuda-caveat" id="fuda-quiet-note" hidden>お問い合わせは、営業日にお願いいたします。</p>
+            <p class="fuda-caveat" id="fuda-quiet-note" hidden><span class="nw">お問い</span><span class="nw">合わせは、</span><span class="nw">営業日に</span><span class="nw">お願い</span><span class="nw">いたします。</span></p>
         </div>
 
         <div class="hero-brand">
@@ -758,8 +760,8 @@
                 <circle cx="50" cy="47" r="6" fill="var(--accent)"/>
                 <circle cx="50" cy="47" r="2.4" fill="var(--fuda)"/>
             </svg>
-            <h1 class="hero-shop-name">三春駒</h1>
-            <p class="hero-hours">創業昭和45年・自家製の平打ち麺の中華料理店｜昼11:30〜14:00・夜17:30〜21:00｜木・金定休</p>
+            <h1 class="hero-shop-name"><span class="nw">三春駒</span></h1>
+            <p class="hero-hours"><span class="nw">創業昭和</span><span class="nw">45年・</span><span class="nw">自家製の</span><span class="nw">平打ち</span><span class="nw">麺の</span><span class="nw">中華料理店｜</span>昼<span class="nw">11:30〜14:00・</span>夜17:30〜21:00｜<span class="nw">木・</span><span class="nw">金定休</span></p>
         </div>
 
         <div class="hero-actions">
@@ -791,32 +793,32 @@
 <section class="section" id="info-today">
     <div class="container info-flex">
         <div>
-            <h2 class="section-title reveal">本日のご案内</h2>
+            <h2 class="section-title reveal"><span class="nw">本日の</span><span class="nw">ご案内</span></h2>
             <dl class="info-list reveal">
                 <div class="info-row">
-                    <dt>営業時間</dt>
-                    <dd>昼 11:30〜14:00（L.O. 13:30）<br>夜 17:30〜21:00（L.O. 20:00ごろ）</dd>
+                    <dt><span class="nw">営業時間</span></dt>
+                    <dd>昼 11:30〜14:00（L.O. 13:30）<br>夜 17:30〜21:00（L.O. <span class="nw">20:00ごろ）</span></dd>
                 </div>
                 <div class="info-row">
-                    <dt>定休日</dt>
-                    <dd>木曜日・金曜日</dd>
+                    <dt><span class="nw">定休日</span></dt>
+                    <dd><span class="nw">木曜日・</span><span class="nw">金曜日</span></dd>
                 </div>
                 <div class="info-row">
-                    <dt>ランチ</dt>
-                    <dd>平日のみ、日替わりでご用意しております。一例：チャーハン＋塩味2/3ラーメン 900円（2026年7月の一例）。その日の内容は、お電話でもご案内しております。</dd>
+                    <dt><span class="nw">ランチ</span></dt>
+                    <dd><span class="nw">平日のみ、</span><span class="nw">日替わりで</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">一例：チャーハン＋塩味</span>2/<span class="nw">3ラーメン</span> <span class="nw">900円</span><span class="nw">（2026年</span><span class="nw">7月の</span><span class="nw">一例）。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">内容は、</span><span class="nw">お電話でも</span><span class="nw">ご案内し</span><span class="nw">ております。</span></dd>
                 </div>
                 <div class="info-row">
-                    <dt>駐車場</dt>
-                    <dd>店の隣にございます。どうぞご利用ください。</dd>
+                    <dt><span class="nw">駐車場</span></dt>
+                    <dd><span class="nw">店の</span><span class="nw">隣に</span><span class="nw">ございます。</span><span class="nw">どうぞ</span><span class="nw">ご利用ください。</span></dd>
                 </div>
             </dl>
-            <p class="info-note reveal">日により営業時間が変わることがございます。恐れ入りますが、お越しの前にお電話でご確認いただけますと幸いです。</p>
+            <p class="info-note reveal"><span class="nw">日により</span><span class="nw">営業時間が</span><span class="nw">変わる</span><span class="nw">ことが</span><span class="nw">ございます。</span><span class="nw">恐れ</span><span class="nw">入りますが、</span><span class="nw">お越しの</span><span class="nw">前に</span><span class="nw">お電話で</span><span class="nw">ご確認いただけますと</span><span class="nw">幸いです。</span></p>
         </div>
         <figure class="info-photo reveal">
             <div class="photo-frame">
                 <img src="img/gaikan-fuda-jikan.jpg" width="750" height="1000" alt="店頭に掲げております、営業時間の案内札です。" loading="lazy">
             </div>
-            <figcaption>店頭に掲げております案内の札です。</figcaption>
+            <figcaption><span class="nw">店頭に</span><span class="nw">掲げ</span><span class="nw">ております</span><span class="nw">案内の</span><span class="nw">札です。</span></figcaption>
         </figure>
     </div>
 </section>
@@ -827,14 +829,14 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section section-invert" id="rebanira">
     <div class="container">
-        <h2 class="section-title reveal">レバニラのこと</h2>
-        <p class="section-lead reveal">分厚く切ったレバーと、たっぷりのニラを、甘辛いタレで炒めてお出ししております。仕入れの都合で、毎日はご用意できません。</p>
+        <h2 class="section-title reveal"><span class="nw">レバニラの</span><span class="nw">こと</span></h2>
+        <p class="section-lead reveal"><span class="nw">分厚く</span><span class="nw">切った</span><span class="nw">レバーと、</span><span class="nw">たっぷりの</span><span class="nw">ニラを、</span><span class="nw">甘辛い</span><span class="nw">タレで</span><span class="nw">炒めて</span><span class="nw">お出しし</span><span class="nw">ております。</span><span class="nw">仕入れの</span><span class="nw">都合で、</span><span class="nw">毎日は</span><span class="nw">ご用意できません。</span></p>
 
         <figure class="rebanira-lead reveal">
             <div class="photo-frame">
                 <img src="img/hero-rebanira.jpg" width="1024" height="1024" alt="厚く切ったレバーと、たっぷりのニラを甘辛いタレで炒めたレバニラでございます。" loading="lazy">
             </div>
-            <figcaption>厚く切ったレバーとニラで、お作りしております。</figcaption>
+            <figcaption><span class="nw">厚く</span><span class="nw">切った</span><span class="nw">レバーと</span><span class="nw">ニラで、</span><span class="nw">お作りし</span><span class="nw">ております。</span></figcaption>
         </figure>
 
         <div class="rebanira-layout">
@@ -843,28 +845,28 @@
                     <div class="photo-frame">
                         <img src="img/gaikan-fuda-rebanira.jpg" width="705" height="1000" alt="窓に貼っております、レバニラの提供日のご案内です。" loading="lazy">
                     </div>
-                    <figcaption>窓に貼っております提供日のご案内です。</figcaption>
+                    <figcaption><span class="nw">窓に</span><span class="nw">貼っ</span><span class="nw">ております</span><span class="nw">提供日の</span><span class="nw">ご案内です。</span></figcaption>
                 </figure>
                 <figure class="reveal">
                     <div class="photo-frame">
                         <img src="img/naikan-fuda-rebanira.jpg" width="243" height="318" alt="店内に貼っております「本日 レバニラ あります」の札です。" loading="lazy">
                     </div>
-                    <figcaption>ご用意がある日は、店内にこの札を出しております。</figcaption>
+                    <figcaption><span class="nw">ご用意がある</span><span class="nw">日は、</span><span class="nw">店内にこの</span><span class="nw">札を</span><span class="nw">出し</span><span class="nw">ております。</span></figcaption>
                 </figure>
             </div>
 
             <div class="rebanira-days reveal">
                 <table class="day-table">
-                    <tr><th>曜日</th><th>レバニラ</th></tr>
-                    <tr><td>日曜日</td><td>昼・夜ともにご用意しております</td></tr>
-                    <tr><td>月曜日</td><td>ご用意がございません</td></tr>
-                    <tr><td>火曜日</td><td>ご用意がございません</td></tr>
-                    <tr><td>水曜日</td><td>夜にご用意しております</td></tr>
-                    <tr><td>木曜日</td><td>定休日をいただいております</td></tr>
-                    <tr><td>金曜日</td><td>定休日をいただいております</td></tr>
-                    <tr><td>土曜日</td><td>夜にご用意しております</td></tr>
+                    <tr><th><span class="nw">曜日</span></th><th><span class="nw">レバニラ</span></th></tr>
+                    <tr><td><span class="nw">日曜日</span></td><td><span class="nw">昼・</span><span class="nw">夜ともに</span><span class="nw">ご用意し</span><span class="nw">ております</span></td></tr>
+                    <tr><td><span class="nw">月曜日</span></td><td><span class="nw">ご用意がございません</span></td></tr>
+                    <tr><td><span class="nw">火曜日</span></td><td><span class="nw">ご用意がございません</span></td></tr>
+                    <tr><td><span class="nw">水曜日</span></td><td><span class="nw">夜に</span><span class="nw">ご用意し</span><span class="nw">ております</span></td></tr>
+                    <tr><td><span class="nw">木曜日</span></td><td><span class="nw">定休日を</span><span class="nw">いただい</span><span class="nw">ております</span></td></tr>
+                    <tr><td><span class="nw">金曜日</span></td><td><span class="nw">定休日を</span><span class="nw">いただい</span><span class="nw">ております</span></td></tr>
+                    <tr><td><span class="nw">土曜日</span></td><td><span class="nw">夜に</span><span class="nw">ご用意し</span><span class="nw">ております</span></td></tr>
                 </table>
-                <p class="section-lead">売り切れ次第、終了とさせていただいております。ご来店の前に、お電話でご確認いただけますと確実です。</p>
+                <p class="section-lead"><span class="nw">売り</span><span class="nw">切れ</span><span class="nw">次第、</span><span class="nw">終了とさせて</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">ご来店の</span><span class="nw">前に、</span><span class="nw">お電話で</span><span class="nw">ご確認いただけますと</span><span class="nw">確実です。</span></p>
             </div>
         </div>
 
@@ -883,27 +885,27 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="men">
     <div class="container">
-        <h2 class="section-title reveal">自家製の平打ち麺</h2>
-        <p class="section-lead reveal">麺は、店で打っております。幅のある平打ちの生地は、ちゃんぽんや麻婆ラーメン、広東メンにお使いしております。昭和45年の創業から、変わらず続けてまいりました。</p>
+        <h2 class="section-title reveal"><span class="nw">自家製の</span><span class="nw">平打ち</span>麺</h2>
+        <p class="section-lead reveal"><span class="nw">麺は、</span><span class="nw">店で</span><span class="nw">打っ</span><span class="nw">ております。</span><span class="nw">幅のある</span><span class="nw">平打ちの</span><span class="nw">生地は、</span><span class="nw">ちゃんぽんや</span><span class="nw">麻婆ラーメン、</span><span class="nw">広東メンに</span><span class="nw">お使いし</span><span class="nw">ております。</span><span class="nw">昭和</span><span class="nw">45年の</span><span class="nw">創業から、</span><span class="nw">変わらず</span><span class="nw">続けてまいりました。</span></p>
 
         <div class="men-photos">
             <figure class="reveal">
                 <div class="photo-frame">
                     <img src="img/men-jikaseimen.jpg" width="1000" height="793" alt="湯気の立つ、自家製の平打ち麺でございます。" loading="lazy">
                 </div>
-                <figcaption>湯気の立つ麺でございます。</figcaption>
+                <figcaption><span class="nw">湯気の</span><span class="nw">立つ</span><span class="nw">麺で</span><span class="nw">ございます。</span></figcaption>
             </figure>
             <figure class="reveal">
                 <div class="photo-frame">
                     <img src="img/men-ramen-hashiage.jpg" width="753" height="1000" alt="幅のある平打ちの縮れ麺を、箸で持ち上げたところでございます。" loading="lazy">
                 </div>
-                <figcaption>ラーメンの麺でございます。</figcaption>
+                <figcaption><span class="nw">ラーメンの</span><span class="nw">麺で</span><span class="nw">ございます。</span></figcaption>
             </figure>
             <figure class="reveal">
                 <div class="photo-frame">
                     <img src="img/men-champon-hashiage.jpg" width="787" height="1000" alt="太めの平打ち麺を、箸で持ち上げたところでございます。" loading="lazy">
                 </div>
-                <figcaption>ちゃんぽんに使う、太めの麺でございます。</figcaption>
+                <figcaption><span class="nw">ちゃんぽんに</span><span class="nw">使う、</span><span class="nw">太めの</span><span class="nw">麺で</span><span class="nw">ございます。</span></figcaption>
             </figure>
         </div>
     </div>
@@ -915,8 +917,8 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="menu">
     <div class="container">
-        <h2 class="section-title reveal">お品書きから</h2>
-        <p class="section-lead reveal">写真のあるお品を、いくつかご紹介いたします。このほかのお品書きは、<a href="menu.html">お品書きのページ</a>にまとめてございます。</p>
+        <h2 class="section-title reveal"><span class="nw">お品書きから</span></h2>
+        <p class="section-lead reveal"><span class="nw">写真のある</span><span class="nw">お品を、</span><span class="nw">いくつか</span><span class="nw">ご紹介いたします。</span><span class="nw">このほかの</span><span class="nw">お品書きは、</span><a href="menu.html"><span class="nw">お品書きの</span><span class="nw">ページ</span></a><span class="nw">にまとめて</span><span class="nw">ございます。</span></p>
 
         <div class="dish-grid">
             <div class="dish-card dish-featured reveal">
@@ -957,19 +959,19 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="voice">
     <div class="container">
-        <h2 class="section-title reveal">お客様の声</h2>
+        <h2 class="section-title reveal"><span class="nw">お客様の</span>声</h2>
 
         <div class="voice-grid">
             <blockquote class="voice reveal">
-                <p>入口に「本日レバニラあります」の貼り紙が！（中略）そして私の注文でレバニラ終了、なんともラッキーでした</p>
+                <p><span class="nw">入口に</span><span class="nw">「本日レバニラあります」の</span><span class="nw">貼り</span><span class="nw">紙が！</span><span class="nw">（中略）そして</span><span class="nw">私の</span><span class="nw">注文で</span><span class="nw">レバニラ</span><span class="nw">終了、</span><span class="nw">なんとも</span><span class="nw">ラッキーでした</span></p>
                 <cite>2026年7月ご来店のお客様の声より</cite>
             </blockquote>
             <blockquote class="voice reveal">
-                <p>レバニラのレバーが一切れ一切れが分厚い上に弾けそうな弾力があって、こんなレバーは初めてです。しかもニラもシャキシャキと歯応えがあり新鮮さがハンパない。</p>
+                <p><span class="nw">レバニラの</span><span class="nw">レバーが</span><span class="nw">一切れ</span><span class="nw">一切れが</span><span class="nw">分厚い</span><span class="nw">上に</span><span class="nw">弾けそうな</span><span class="nw">弾力があって、</span><span class="nw">こんな</span><span class="nw">レバーは</span><span class="nw">初めてです。</span><span class="nw">しかも</span><span class="nw">ニラも</span><span class="nw">シャキシャキと</span><span class="nw">歯応えがあり</span><span class="nw">新鮮さが</span><span class="nw">ハンパない。</span></p>
                 <cite>2025年4月ご来店のお客様の声より</cite>
             </blockquote>
             <blockquote class="voice reveal">
-                <p>以前から店前を通って自家製麺 ちゃんぽんの看板が気になってたお店です。自家製麺は佐野ラーメンの様な平打ちの麺で喉越し良くまいうー</p>
+                <p><span class="nw">以前から</span><span class="nw">店前を</span><span class="nw">通って</span><span class="nw">自家製麺</span> <span class="nw">ちゃんぽんの</span><span class="nw">看板が</span><span class="nw">気になってた</span><span class="nw">お店です。</span><span class="nw">自家製麺は</span><span class="nw">佐野ラーメンの</span><span class="nw">様な</span><span class="nw">平打ちの</span><span class="nw">麺で</span><span class="nw">喉越し</span><span class="nw">良くまいうー</span></p>
                 <cite>2025年1月ご来店のお客様の声より</cite>
             </blockquote>
         </div>
@@ -982,27 +984,27 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="seat">
     <div class="container">
-        <h2 class="section-title reveal">お席</h2>
-        <p class="section-lead reveal">テーブル席のほか、奥に小上がりのお席もご用意しております。カウンター席もございますので、お一人でのご来店も歓迎いたしております。</p>
+        <h2 class="section-title reveal"><span class="nw">お席</span></h2>
+        <p class="section-lead reveal"><span class="nw">テーブル</span><span class="nw">席のほか、</span><span class="nw">奥に</span><span class="nw">小上がりの</span><span class="nw">お席も</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">カウンター</span><span class="nw">席も</span><span class="nw">ございます</span><span class="nw">ので、</span><span class="nw">お一人での</span><span class="nw">ご来店も</span><span class="nw">歓迎いたし</span><span class="nw">ております。</span></p>
 
         <div class="seat-photos">
             <figure class="reveal">
                 <div class="photo-frame">
                     <img src="img/naikan-zashiki.jpg" width="1300" height="975" alt="テーブル席と、奥の小上がりのお席でございます。" loading="lazy">
                 </div>
-                <figcaption>テーブル席と、奥の小上がりでございます。</figcaption>
+                <figcaption><span class="nw">テーブル</span><span class="nw">席と、</span><span class="nw">奥の</span><span class="nw">小上がりで</span><span class="nw">ございます。</span></figcaption>
             </figure>
             <figure class="reveal">
                 <div class="photo-frame">
                     <img src="img/naikan-kyakuseki.jpg" width="1300" height="975" alt="店内の様子でございます。" loading="lazy">
                 </div>
-                <figcaption>店内の様子でございます。</figcaption>
+                <figcaption><span class="nw">店内の</span><span class="nw">様子で</span><span class="nw">ございます。</span></figcaption>
             </figure>
             <figure class="reveal">
                 <div class="photo-frame">
                     <img src="img/naikan-counter.jpg" width="1000" height="1000" alt="カウンター席でございます。" loading="lazy">
                 </div>
-                <figcaption>カウンター席でございます。</figcaption>
+                <figcaption><span class="nw">カウンター</span><span class="nw">席で</span><span class="nw">ございます。</span></figcaption>
             </figure>
         </div>
     </div>
@@ -1014,23 +1016,23 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="info">
     <div class="container">
-        <h2 class="section-title reveal">アクセス・店舗情報</h2>
+        <h2 class="section-title reveal"><span class="nw">アクセス・</span><span class="nw">店舗情報</span></h2>
 
         <figure class="access-photo reveal">
             <div class="photo-frame">
                 <img src="img/gaikan-sodekanban.jpg" width="753" height="1000" alt="道路から見える、自家製麺の袖看板でございます。" loading="lazy">
             </div>
-            <figcaption>スーパー銭湯「いちの湯 古河店」の向かいにございます。</figcaption>
+            <figcaption><span class="nw">スーパー</span><span class="nw">銭湯</span><span class="nw">「いちの</span>湯 <span class="nw">古河店」の</span><span class="nw">向かいに</span><span class="nw">ございます。</span></figcaption>
         </figure>
 
         <table class="info-table reveal">
-            <tr><th>住所</th><td>〒306-0056 茨城県古河市坂間183-1</td></tr>
-            <tr><th>目印</th><td>スーパー銭湯「いちの湯 古河店」の向かいでございます。駐車場は店の横にございます。</td></tr>
-            <tr><th>電話</th><td><a href="tel:0280483007" class="tel-link">0280-48-3007</a></td></tr>
-            <tr><th>営業時間</th><td>昼 11:30〜14:00（L.O. 13:30）<br>夜 17:30〜21:00（L.O. 20:00ごろ）</td></tr>
-            <tr><th>定休日</th><td>木曜日・金曜日</td></tr>
-            <tr><th>駐車場</th><td>あり（店の隣）</td></tr>
-            <tr><th>お支払い</th><td>現金のみ</td></tr>
+            <tr><th><span class="nw">住所</span></th><td>〒306-0056 <span class="nw">茨城県古河市坂間</span>183-1</td></tr>
+            <tr><th><span class="nw">目印</span></th><td><span class="nw">スーパー</span><span class="nw">銭湯</span><span class="nw">「いちの</span>湯 <span class="nw">古河店」の</span><span class="nw">向かいで</span><span class="nw">ございます。</span><span class="nw">駐車場は</span><span class="nw">店の</span><span class="nw">横に</span><span class="nw">ございます。</span></td></tr>
+            <tr><th><span class="nw">電話</span></th><td><a href="tel:0280483007" class="tel-link">0280-48-3007</a></td></tr>
+            <tr><th><span class="nw">営業時間</span></th><td>昼 11:30〜14:00（L.O. 13:30）<br>夜 17:30〜21:00（L.O. <span class="nw">20:00ごろ）</span></td></tr>
+            <tr><th><span class="nw">定休日</span></th><td><span class="nw">木曜日・</span><span class="nw">金曜日</span></td></tr>
+            <tr><th><span class="nw">駐車場</span></th><td><span class="nw">あり</span><span class="nw">（店の</span><span class="nw">隣）</span></td></tr>
+            <tr><th><span class="nw">お支払い</span></th><td><span class="nw">現金のみ</span></td></tr>
         </table>
 
         <!-- 地図：APIキー不要。q= に住所をURLエンコードして入れるだけ -->
@@ -1066,9 +1068,9 @@
             <circle cx="50" cy="47" r="6" fill="var(--accent)"/>
             <circle cx="50" cy="47" r="2.4" fill="var(--fuda)"/>
         </svg>
-        <p class="footer-name">三春駒</p>
-        <p class="footer-addr">〒306-0056 茨城県古河市坂間183-1／<span class="nw">0280-48-3007</span></p>
-        <p class="footer-copy">&copy; 三春駒</p>
+        <p class="footer-name"><span class="nw">三春駒</span></p>
+        <p class="footer-addr">〒306-0056 <span class="nw">茨城県古河市坂間</span>183-1／0280-48-3007</p>
+        <p class="footer-copy">&copy; <span class="nw">三春駒</span></p>
     </div>
 </footer>
 
@@ -1315,20 +1317,22 @@ function updateFuda() {
     var day = new Date().getDay(); // 0=日 1=月 2=火 3=水 4=木 5=金 6=土
     var nextDay = NEXT_SERVE_DAY[day];
 
+    /* JSで後から入れる文字は fix_ja_breaks.py の対象外なので、
+       .nw をここで手で入れる（入れないと iPhone で「名物のレバニ／ラ」と割れる） */
     if (fudaBox) fudaBox.classList.remove('is-nashi', 'is-closed', 'is-uri');
     setFudaCTA(true);
 
     if (override === 'あり') {
-        el.innerHTML = '本日は<strong>名物のレバニラ</strong>のご用意がございます。';
+        el.innerHTML = '<span class="nw">本日は</span><strong><span class="nw">名物の</span><span class="nw">レバニラ</span></strong><span class="nw">のご用意が</span><span class="nw">ございます。</span>';
         return;
     }
     if (override === 'なし') {
-        el.innerHTML = '本日は<strong>名物のレバニラ</strong>のご用意がございません。次は<strong>' + nextDay + '</strong>でございます。';
+        el.innerHTML = '<span class="nw">本日は</span><strong><span class="nw">名物の</span><span class="nw">レバニラ</span></strong><span class="nw">のご用意が</span><span class="nw">ございません。</span><span class="nw">次は</span><strong><span class="nw">' + nextDay + '</span></strong><span class="nw">でございます。</span>';
         if (fudaBox) fudaBox.classList.add('is-nashi');
         return;
     }
     if (override === '売り切れ') {
-        el.innerHTML = '本日のレバニラは<strong>売り切れました</strong>。ありがとうございます。次は<strong>' + nextDay + '</strong>でございます。';
+        el.innerHTML = '<span class="nw">本日の</span><span class="nw">レバニラは</span><strong><span class="nw">売り切れました</span></strong>。<span class="nw">ありがとう</span><span class="nw">ございます。</span><span class="nw">次は</span><strong><span class="nw">' + nextDay + '</span></strong><span class="nw">でございます。</span>';
         if (fudaBox) fudaBox.classList.add('is-uri');
         return;
     }
@@ -1336,7 +1340,7 @@ function updateFuda() {
     /* ここから曜日・時刻の自動判定 */
     if (day === 4 || day === 5) {
         // 木・金：定休日。次の営業日へつなぎ、電話CTAは出さない
-        el.innerHTML = '本日は<strong>定休日</strong>をいただいております。レバニラは、次は<strong>' + nextDay + '</strong>でございます。';
+        el.innerHTML = '<span class="nw">本日は</span><strong><span class="nw">定休日</span></strong><span class="nw">をいただいて</span><span class="nw">おります。</span><span class="nw">レバニラは、</span><span class="nw">次は</span><strong><span class="nw">' + nextDay + '</span></strong><span class="nw">でございます。</span>';
         if (fudaBox) fudaBox.classList.add('is-closed');
         setFudaCTA(false);
         return;
@@ -1348,18 +1352,18 @@ function updateFuda() {
     var afterClose = shifts.length > 0 && minutes >= shifts[shifts.length - 1].close;
 
     if (afterClose) {
-        el.innerHTML = '本日の営業は終了いたしました。レバニラは、次は<strong>' + nextDay + '</strong>でございます。';
+        el.innerHTML = '<span class="nw">本日の</span><span class="nw">営業は</span><span class="nw">終了いたしました。</span><span class="nw">レバニラは、</span><span class="nw">次は</span><strong><span class="nw">' + nextDay + '</span></strong><span class="nw">でございます。</span>';
         if (fudaBox) fudaBox.classList.add('is-nashi');
         return;
     }
 
     if (day === 3 || day === 6) {
-        el.innerHTML = '本日は<strong>夜の部</strong>に、名物のレバニラをご用意して開店いたします。';
+        el.innerHTML = '<span class="nw">本日は</span><strong><span class="nw">夜の部</span></strong><span class="nw">に、</span><span class="nw">名物の</span><span class="nw">レバニラを</span><span class="nw">ご用意して</span><span class="nw">開店いたします。</span>';
     } else if (day === 0) {
-        el.innerHTML = '本日は<strong>昼・夜ともに</strong>、名物のレバニラをご用意して開店いたします。';
+        el.innerHTML = '<span class="nw">本日は</span><strong><span class="nw">昼・</span><span class="nw">夜ともに</span></strong>、<span class="nw">名物の</span><span class="nw">レバニラを</span><span class="nw">ご用意して</span><span class="nw">開店いたします。</span>';
     } else {
         // 月・火：仕入れ次第でご用意できる日もある。断言せず電話確認へ誘導する
-        el.innerHTML = '本日のご用意は、お電話でお確かめください。次に必ずご用意するのは<strong>水曜日の夜</strong>でございます。';
+        el.innerHTML = '<span class="nw">本日の</span><span class="nw">ご用意は、</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span><span class="nw">次に</span><span class="nw">必ず</span><span class="nw">ご用意するのは</span><strong><span class="nw">水曜日の</span><span class="nw">夜</span></strong><span class="nw">でございます。</span>';
         if (fudaBox) fudaBox.classList.add('is-nashi');
     }
 }
