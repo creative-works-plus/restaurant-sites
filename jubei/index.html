@@ -522,8 +522,14 @@
 
     /* ══════════════════════════════════════════════════════════════════
        ヒーロー ＝ この店の署名的な仕掛け「活（かつ）の窓」
-       店先の壁に水槽が窓のようにはめ込まれていて、夜は青く灯っている。
-       写真ではなくSVGで立面に起こし、実物と同じ位置に窓を1つ開ける。
+       店先の壁に水槽が窓のようにはめ込まれていて、夜はそこだけが青く灯っている。
+
+       ★2026-08-17 改訂：ここは店の立面をSVGで描き起こしていたが、
+         ベタ塗りの板壁・楕円の魚影・オレンジの矩形3つの暖簾が
+         「絵」にしか見えず、ファーストビューで店の格を下げていた。
+         外観・料理・店内は実写でしか出さない（絶対ルール⑫の趣旨）。
+         実物の夜の外観写真に差し替え、「窓」は写真を囲う灯った縁として残す。
+         ——描いてよいのは、定規とコンパスで引ける縁と札まで。
        ══════════════════════════════════════════════════════════════════ */
     .hero { display: flex; align-items: center; padding-block: var(--sp-6); }
     /* ★.container の width は絶対に上書きしない（04-base.css の注意書きのとおり）。
@@ -533,14 +539,38 @@
         gap: var(--sp-5); align-items: center;
     }
     /* 1カラムのときは左端を屋号・本文・ボタンと揃える（中央寄せにすると軸が2本になる） */
-    .hero-front { position: relative; max-width: 460px; width: 100%; }
-    .hero-front svg { width: 100%; height: auto; }
+    .hero-front { position: relative; max-width: 520px; width: 100%; }
+    .hero-front img { display: block; width: 100%; height: auto; }
+
+    /* 灯った縁＝水槽のガラスの厚みと、まわりに滲む青。写真の上に重ねるだけ */
+    .hero-front::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        border: 3px solid var(--accent);
+        box-shadow: 0 0 34px rgba(79,168,196,.28), inset 0 0 52px rgba(79,168,196,.10);
+    }
 
     /* 水槽の上辺の照明。読み込み時に1回だけ左から右へ伸びて、そこで止まる */
-    .tank-light { transform-origin: left center; transform: scaleX(0); animation: tank-on .8s cubic-bezier(.2,.7,.3,1) .35s forwards; }
+    .tank-light {
+        position: absolute; left: 0; top: 0; width: 100%; height: 4px; z-index: 1;
+        background: linear-gradient(90deg, var(--accent-hi), var(--accent));
+        box-shadow: 0 0 18px rgba(159,221,238,.55);
+        transform-origin: left center; transform: scaleX(0);
+        animation: tank-on .8s cubic-bezier(.2,.7,.3,1) .35s forwards;
+    }
     @keyframes tank-on { to { transform: scaleX(1); } }
     .no-js .tank-light { transform: none; animation: none; }
     @media (prefers-reduced-motion: reduce) { .tank-light { transform: none; animation: none; } }
+
+    /* 「活魚」の活。水槽のガラスに掛けた札のつもりで、縁をまたがせる */
+    .katsu {
+        position: absolute; left: -10px; bottom: -10px; z-index: 1;
+        width: clamp(48px, 12vw, 62px); aspect-ratio: 1;
+        display: grid; place-items: center;
+        font-family: var(--font-head); font-size: clamp(24px, 6vw, 31px); line-height: 1;
+        color: var(--accent-hi); background: var(--bg);
+        border: 1px solid var(--accent);
+        box-shadow: 0 0 22px rgba(79,168,196,.26);
+    }
 
     /* 名乗り（紋・駅・屋号）／説明／行動 の3つの塊に見えるよう、基本を詰めて切れ目だけ開ける */
     .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
@@ -739,71 +769,14 @@
 
         <!-- ★署名的な仕掛け「活（かつ）の窓」
              当店の店先には水槽がはめ込まれていて、夜はそこだけが青く灯っております。
-             写真ではなくSVGで店先の立面を起こし、実物と同じ位置に窓を1つ開けています。 -->
-        <div class="hero-front" aria-hidden="true">
-            <svg viewBox="0 0 400 470" role="presentation">
-                <defs>
-                    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0"   stop-color="#6FC2DA" stop-opacity=".92"/>
-                        <stop offset=".45" stop-color="#4FA8C4" stop-opacity=".70"/>
-                        <stop offset="1"   stop-color="#123742" stop-opacity=".95"/>
-                    </linearGradient>
-                    <g id="uo">
-                        <ellipse cx="0" cy="0" rx="20" ry="7"/>
-                        <path d="M-20 0 -31-7 -31 7Z"/>
-                    </g>
-                    <clipPath id="tank"><rect x="42" y="150" width="316" height="196" rx="3"/></clipPath>
-                </defs>
-
-                <!-- 腰板（黒い板張りの壁） -->
-                <rect x="0" y="0" width="400" height="470" fill="#161E22"/>
-                <g stroke="#0E1316" stroke-width="2">
-                    <path d="M50 0V470M100 0V470M150 0V470M200 0V470M250 0V470M300 0V470M350 0V470"/>
-                </g>
-                <!-- 軒（庇） -->
-                <rect x="0" y="0" width="400" height="34" fill="#0E1316"/>
-                <rect x="0" y="34" width="400" height="3" fill="#2B7893" opacity=".5"/>
-                <!-- 灯っている電飾看板。実物と同じく、丸に木瓜の紋と屋号が入っております -->
-                <rect x="42" y="60" width="316" height="58" rx="2" fill="#DDE7DE" opacity=".88"/>
-                <rect x="42" y="60" width="316" height="58" rx="2" fill="none" stroke="#0E1316" stroke-width="3"/>
-                <g transform="translate(80 89) scale(.52) translate(-32 -32)"
-                   fill="none" stroke="#1A2124" stroke-width="2.8">
-                    <circle cx="32" cy="32" r="23"/>
-                    <path d="M32 12c7 0 11 4 11 9s-4 8-11 8-11-3-11-8 4-9 11-9zM32 52c7 0 11-4 11-9s-4-8-11-8-11 3-11 8 4 9 11 9zM12 32c0-7 4-11 9-11s8 4 8 11-3 11-8 11-9-4-9-11zM52 32c0-7-4-11-9-11s-8 4-8 11 3 11 8 11 9-4 9-11z"/>
-                    <circle cx="32" cy="32" r="5" fill="#1A2124" stroke="none"/>
-                </g>
-                <g fill="#1A2124" font-family="'New Tegomin', serif">
-                    <text x="116" y="84" font-size="15" letter-spacing="4">活魚料理</text>
-                    <text x="116" y="112" font-size="29" letter-spacing="8">十兵衛</text>
-                </g>
-
-                <!-- 水槽の窓 -->
-                <rect x="42" y="150" width="316" height="196" rx="3" fill="url(#water)"/>
-                <g clip-path="url(#tank)">
-                    <!-- 魚影。静止したまま、動かさない -->
-                    <g fill="#123742" opacity=".55">
-                        <use href="#uo" transform="translate(150 218) scale(1.15)"/>
-                        <use href="#uo" transform="translate(268 268) scale(.85) rotate(8)"/>
-                        <use href="#uo" transform="translate(112 302) scale(.7) rotate(-6)"/>
-                    </g>
-                    <g fill="#DDE7DE" opacity=".18">
-                        <circle cx="212" cy="196" r="4"/><circle cx="228" cy="232" r="2.5"/>
-                        <circle cx="204" cy="252" r="3"/><circle cx="322" cy="206" r="2.5"/>
-                    </g>
-                    <!-- 上辺の照明。読み込み時に1回だけ左から右へ伸びて止まる -->
-                    <rect class="tank-light" x="42" y="150" width="316" height="9" fill="#9FDDEE"/>
-                </g>
-                <rect x="42" y="150" width="316" height="196" rx="3" fill="none" stroke="#2B7893" stroke-width="4"/>
-
-                <!-- 暖簾（腰板の下、入口の上に掛かっている） -->
-                <rect x="24" y="376" width="352" height="5" rx="2.5" fill="#3A4A50"/>
-                <g fill="#D4785C" opacity=".9">
-                    <rect x="34"  y="381" width="100" height="66" rx="1"/>
-                    <rect x="142" y="381" width="116" height="66" rx="1"/>
-                    <rect x="266" y="381" width="100" height="66" rx="1"/>
-                </g>
-                <rect x="0" y="447" width="400" height="23" fill="#0E1316"/>
-            </svg>
+             夜の店先そのものを出し、その写真を水槽の窓に見立てて縁で囲っています。
+             （縁の上辺は読み込み時に1度だけ灯り、そこで止まります） -->
+        <div class="hero-front">
+            <img src="img/gaikan-mae.webp"
+                 alt="夜の十兵衛の店先。うなぎ・天婦羅・活魚と記した看板が灯り、右手の壁に活魚の水槽がはめ込まれている"
+                 width="789" height="592" fetchpriority="high" decoding="async">
+            <span class="tank-light" aria-hidden="true"></span>
+            <span class="katsu" aria-hidden="true">活</span>
         </div>
 
         <div class="hero-copy">
@@ -855,15 +828,12 @@
         <p class="lead reveal"><span class="nw">古河駅の</span><span class="nw">東口を</span><span class="nw">出て、</span><span class="nw">まっすぐ</span><span class="nw">2分。</span><span class="nw">黒い</span><span class="nw">板張りの</span><span class="nw">店先に</span><span class="nw">暖簾を</span><span class="nw">掛け</span><span class="nw">ております。</span><br class="br-pc"><span class="nw">その</span><span class="nw">右手で</span><span class="nw">青く</span><span class="nw">灯っ</span><span class="nw">ておりますのが、</span><span class="nw">魚を</span><span class="nw">活かしている</span><span class="nw">水槽です。</span></p>
         <p class="lead reveal"><span class="nw">屋号の</span><span class="nw">上に</span><span class="nw">「活魚料理」と</span><span class="nw">掲げ</span><span class="nw">ておりますのは、</span><span class="nw">そういう</span><span class="nw">次第で</span><span class="nw">ございます。</span>夜<span class="nw">17時から、</span><span class="nw">お待ちし</span><span class="nw">ております。</span></p>
 
-        <figure class="reveal wide lead-photo" style="margin-bottom:var(--sp-3);">
-            <div class="photo-frame"><img src="img/noren.webp" alt="活魚料理 十兵衛と染め抜いた暖簾と、一枚板の看板" width="768" height="1024" loading="lazy"></div>
-            <figcaption><span class="nw">暖簾と、</span><span class="nw">一枚板の</span><span class="nw">看板</span></figcaption>
-        </figure>
-
+        <!-- 正面（gaikan-mae）はヒーローへ上げたので、ここでは出さない
+             ——1ページの中で同じ写真を2回使わない（絶対ルール⑦） -->
         <div class="grid g2">
             <figure class="reveal">
-                <div class="photo-frame"><img src="img/gaikan-mae.webp" alt="夜の十兵衛の正面。うなぎ・天婦羅・活魚と記した看板が灯る" width="789" height="592" loading="lazy"></div>
-                <figcaption><span class="nw">店の</span><span class="nw">正面</span></figcaption>
+                <div class="photo-frame"><img src="img/noren.webp" alt="活魚料理 十兵衛と染め抜いた暖簾と、一枚板の看板" width="768" height="1024" loading="lazy"></div>
+                <figcaption><span class="nw">暖簾と、</span><span class="nw">一枚板の</span><span class="nw">看板</span></figcaption>
             </figure>
             <figure class="reveal reveal-delay-1">
                 <div class="photo-frame"><img src="img/gaikan-andon.webp" alt="店先の行灯。御宴会・うなぎ・天ぷらの文字が並ぶ" width="768" height="1024" loading="lazy"></div>
