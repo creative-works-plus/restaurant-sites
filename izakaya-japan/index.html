@@ -75,6 +75,8 @@ body{
 }
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
+/* auto-phrase はChrome系だけの機能。iPhoneのSafariでは効かず語の途中で切れるので、
+   切られたくないかたまりは .nw（＝どのブラウザでも効く）で明示的に囲んでいる */
 h1,h2,h3,h4,p,li,dt,dd,th,td,summary,figcaption{word-break:auto-phrase;text-wrap:pretty}
 .nw{display:inline-block}
 :focus-visible{outline:2px solid var(--kohaku);outline-offset:3px}
@@ -119,6 +121,7 @@ main,header,footer{position:relative;z-index:1}
   background:var(--shu);color:#fff!important;
   padding:9px 18px;border-radius:4px;
   font-weight:700;font-size:.9rem;letter-spacing:.06em;
+  white-space:nowrap;
   transition:background .3s,transform .2s;
   box-shadow:0 3px 12px rgba(199,59,42,.35);
 }
@@ -218,7 +221,10 @@ main,header,footer{position:relative;z-index:1}
   writing-mode:vertical-rl;
   font-size:clamp(2rem,4.6vw,3.2rem);
   letter-spacing:.22em;line-height:1.6;
-  height:clamp(300px,44vh,430px);
+  /* 行の長さは文字の大きさで決める。vh で決めると窓が横長のとき
+     「ジャパ／ンで。」のように6文字が入りきらず勝手に3列目へ送られる */
+  height:8em;
+  white-space:nowrap;
   text-shadow:0 4px 24px rgba(0,0,0,.6);
 }
 .hero-catch .aka{color:var(--shu)}
@@ -551,8 +557,8 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
       <div class="hero-copy">
         <h1 class="hero-catch">今夜も、<br><span class="aka">ジャパン</span>で。</h1>
         <p class="hero-sub">
-          気取らず、旨い。つまみは三百円台から。<br>
-          古河駅東口から歩いて三分、仕事帰りの一杯はここで。
+          気取らず、旨い。つまみは<span class="nw">三百円台から。</span><br>
+          古河駅東口から<span class="nw">歩いて三分、</span>仕事帰りの<span class="nw">一杯はここで。</span>
         </p>
         <div class="hero-info">
           <span>古河駅東口 徒歩3分</span>
@@ -590,7 +596,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
           <div class="body">
             <span class="tag">醤油仕立て</span>
             <h3>もつ煮込み <span class="price">400円</span></h3>
-            <p>関東では珍しい醤油仕立て。じっくり煮込んだもつに味の染みた<span class="nw">こんにゃく。</span>まずはこれと一杯から。</p>
+            <p>関東では珍しい<span class="nw">醤油仕立て。</span><span class="nw">じっくり煮込んだ</span>もつに味の染みた<span class="nw">こんにゃく。</span>まずはこれと<span class="nw">一杯から。</span></p>
           </div>
         </article>
         <article class="meibutsu-card reveal">
@@ -598,7 +604,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
           <div class="body">
             <span class="tag">ねぎま・つくね</span>
             <h3>焼き鳥 <span class="price">一本から</span></h3>
-            <p>ねぎま、つくね、タレの照りも香ばしく。一本ずつ、お好きな串をお好きなだけ。</p>
+            <p>ねぎま、つくね、タレの照りも<span class="nw">香ばしく。</span>一本ずつ、お好きな串を<span class="nw">お好きなだけ。</span></p>
           </div>
         </article>
         <article class="meibutsu-card reveal">
@@ -606,7 +612,7 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
           <div class="body">
             <span class="tag">手包み</span>
             <h3>手作り焼き餃子 <span class="price">350円</span></h3>
-            <p>外はかりかり、中はふっくらジューシー。ビールのお供に迷ったらまずこの一皿。</p>
+            <p>外はかりかり、中はふっくら<span class="nw">ジューシー。</span>ビールのお供に迷ったら<span class="nw">まずこの一皿。</span></p>
           </div>
         </article>
       </div>
@@ -629,39 +635,39 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
           <ul class="menu-list">
             <li class="has-ph"><img class="item-ph" src="edamame.jpg" alt="居酒屋ジャパンの枝豆" loading="lazy" decoding="async" width="640" height="360"><span class="row"><span>枝豆</span><span class="dots"></span><span class="p">320円</span></span></li>
             <li><span>タコわさび</span><span class="dots"></span><span class="p">320円</span></li>
-            <li><span>もつ煮込み<span class="sub">醤油仕立て・名物</span></span><span class="dots"></span><span class="p">400円</span></li>
-            <li><span>手作り焼き餃子<span class="sub">外かりかり、中ジューシー</span></span><span class="dots"></span><span class="p">350円</span></li>
-            <li class="has-ph"><img class="item-ph" src="sashimi.jpg" alt="居酒屋ジャパンのお刺身" loading="lazy" decoding="async" width="640" height="360"><span class="row"><span>お刺身<span class="sub">まぐろ・その日の魚（日替り）</span></span></span></li>
+            <li><span>もつ煮込み<span class="sub"><span class="nw">醤油仕立て・名物</span></span></span><span class="dots"></span><span class="p">400円</span></li>
+            <li><span>手作り焼き餃子<span class="sub"><span class="nw">外かりかり、</span><span class="nw">中ジューシー</span></span></span><span class="dots"></span><span class="p">350円</span></li>
+            <li class="has-ph"><img class="item-ph" src="sashimi.jpg" alt="居酒屋ジャパンのお刺身" loading="lazy" decoding="async" width="640" height="360"><span class="row"><span>お刺身<span class="sub"><span class="nw">まぐろ・</span><span class="nw">その日の魚（日替り）</span></span></span></span></li>
           </ul>
         </div>
         <div class="menu-cat">
           <h3>串・鉄板</h3>
           <ul class="menu-list">
-            <li><span>ねぎま串<span class="sub">一本からどうぞ</span></span></li>
-            <li><span>つくね串<span class="sub">一本からどうぞ</span></span></li>
+            <li><span>ねぎま串<span class="sub"><span class="nw">一本からどうぞ</span></span></span></li>
+            <li><span>つくね串<span class="sub"><span class="nw">一本からどうぞ</span></span></span></li>
             <li><span>焼き鳥 盛り合わせ<span class="sub">迷ったらこれ</span></span></li>
-            <li class="has-ph"><img class="item-ph" src="teppan.jpg" alt="居酒屋ジャパンの鉄板焼き" loading="lazy" decoding="async" width="640" height="360"><span class="row"><span>鉄板焼き<span class="sub">豚肉ともやしの旨辛炒め ほか</span></span></span></li>
+            <li class="has-ph"><img class="item-ph" src="teppan.jpg" alt="居酒屋ジャパンの鉄板焼き" loading="lazy" decoding="async" width="640" height="360"><span class="row"><span>鉄板焼き<span class="sub"><span class="nw">豚肉ともやしの</span><span class="nw">旨辛炒め ほか</span></span></span></span></li>
           </ul>
         </div>
         <div class="menu-cat">
           <h3>鍋・食事</h3>
           <ul class="menu-list">
-            <li><span>韓国風チゲ<span class="sub">体の芯から温まる鍋</span></span></li>
+            <li><span>韓国風チゲ<span class="sub"><span class="nw">体の芯から温まる鍋</span></span></span></li>
             <li><span>季節の鍋<span class="sub">冬季限定・各種</span></span></li>
-            <li><span>定食・丼物<span class="sub">お酒を飲まない方にも</span></span></li>
+            <li><span>定食・丼物<span class="sub"><span class="nw">お酒を飲まない方にも</span></span></span></li>
           </ul>
         </div>
         <div class="menu-cat">
           <h3><img class="cat-lead" src="bottles.jpg" alt="" loading="lazy" decoding="async" width="640" height="360">お飲み物</h3>
           <ul class="menu-list">
             <li><span>生ビール</span></li>
-            <li class="has-ph"><img class="item-ph" src="yebisu.jpg" alt="居酒屋ジャパンのエビスビール" loading="lazy" decoding="async" width="360" height="640"><span class="row"><span>瓶ビール<span class="sub">エビス・サッポロ黒ラベル</span></span></span></li>
+            <li class="has-ph"><img class="item-ph" src="yebisu.jpg" alt="居酒屋ジャパンのエビスビール" loading="lazy" decoding="async" width="360" height="640"><span class="row"><span>瓶ビール<span class="sub"><span class="nw">エビス・</span><span class="nw">サッポロ黒ラベル</span></span></span></span></li>
             <li><span>焼酎<span class="sub">黒霧島 ほか</span></span></li>
             <li><span>日本酒・カクテル</span></li>
           </ul>
         </div>
       </div>
-      <p class="menu-note reveal">※ 価格の記載がない品は、店内のお品書きにてご確認ください。仕入れ状況により内容・価格が変わる場合があります。</p>
+      <p class="menu-note reveal">※ 価格の記載がない品は、店内のお品書きにて<span class="nw">ご確認ください。</span>仕入れ状況により内容・価格が<span class="nw">変わる場合があります。</span></p>
     </div>
   </section>
 
@@ -705,12 +711,12 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
         </div>
         <div class="seats-text">
           <p>
-            外観の高級感とは裏腹に、値段はいたって庶民派。畳の小上がりでゆっくり、カウンターでさくっと一杯、人目を気にせず個室で――その日の気分で選べます。
+            外観の高級感とは裏腹に、値段はいたって<span class="nw">庶民派。</span>畳の小上がりで<span class="nw">ゆっくり、</span>カウンターで<span class="nw">さくっと一杯、</span>人目を気にせず<span class="nw">個室で――</span>その日の気分で<span class="nw">選べます。</span>
           </p>
           <ul class="seat-types">
-            <li><span class="mark">座</span>小上がり座敷 ― 仲間とゆっくり</li>
-            <li><span class="mark">杯</span>カウンター ― おひとり様歓迎</li>
-            <li><span class="mark">室</span>個室 ― 接待・集まりに</li>
+            <li><span class="mark">座</span><span class="nw">小上がり座敷 ―</span> <span class="nw">仲間とゆっくり</span></li>
+            <li><span class="mark">杯</span><span class="nw">カウンター ―</span> <span class="nw">おひとり様歓迎</span></li>
+            <li><span class="mark">室</span><span class="nw">個室 ―</span> <span class="nw">接待・集まりに</span></li>
           </ul>
         </div>
       </div>
@@ -731,11 +737,11 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
         <div class="info-table">
           <dl>
             <dt>店名</dt><dd>居酒屋ジャパン</dd>
-            <dt>住所</dt><dd>〒306-0011 茨城県古河市<span style="white-space:nowrap">東1-4-6</span><small>JR宇都宮線 古河駅東口より徒歩3分</small></dd>
+            <dt>住所</dt><dd><span class="nw">〒306-0011</span> <span class="nw">茨城県古河市</span><span style="white-space:nowrap">東1-4-6</span><small><span class="nw">JR宇都宮線</span> <span class="nw">古河駅東口より徒歩3分</span></small></dd>
             <dt>電話</dt><dd><a href="tel:0280-31-1707">0280-31-1707</a><small>ご予約承ります</small></dd>
             <dt>営業時間</dt><dd>月〜土 18:00 − 24:00</dd>
             <dt>定休日</dt><dd>日曜日</dd>
-            <dt>お支払い</dt><dd>店舗へお問い合わせください</dd>
+            <dt>お支払い</dt><dd><span class="nw">店舗へお問い合わせください</span></dd>
           </dl>
         </div>
         <div class="info-side">
@@ -749,8 +755,8 @@ section{padding:clamp(72px,10vw,120px) 20px;position:relative;scroll-margin-top:
   <!-- 締めCTA -->
   <section class="closing">
     <div class="wrap reveal">
-      <p class="catch">駅から三分、<br>のれんの向こうに<span class="nw">いつもの味。</span></p>
-      <p>お席のご予約・宴会のご相談はお電話にてどうぞ。</p>
+      <p class="catch"><span class="nw">駅から三分、</span><br><span class="nw">のれんの向こうに</span><span class="nw">いつもの味。</span></p>
+      <p>お席のご予約・宴会のご相談は<span class="nw">お電話にてどうぞ。</span></p>
       <a class="tel-large" href="tel:0280-31-1707">
         <span class="num">0280-31-1707</span>
         <span class="cap">18:00 − 24:00（日曜定休）</span>
