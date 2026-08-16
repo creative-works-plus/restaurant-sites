@@ -402,29 +402,35 @@
         display: grid;
         grid-template-columns: minmax(0, 460px) 1fr;
         grid-template-areas:
-            "chip   mosaic"
-            "copy   mosaic"
+            "chip    mosaic"
+            "copy    mosaic"
+            "chips   mosaic"
             "actions mosaic";
         column-gap: var(--gap); row-gap: 22px;
         align-items: start;
-        width: 100%;
+        /* ★width は書かない（→ 十兵衛のコメント・2026-08-15 静／一平）。
+           .container の min(100% - 余白, --maxw) を消すと文字が画面の端に貼り付く。 */
     }
     #status-chip { grid-area: chip; justify-self: start; }
     .hero-copy { grid-area: copy; }
-    .hero-mosaic { grid-area: mosaic; }
+    .hero-chips { grid-area: chips; }
+    .hero-mosaic { grid-area: mosaic; align-self: center; }
     .hero-actions { grid-area: actions; }
 
     .hero-eyebrow { color: var(--muted); font-weight: 700; letter-spacing: 0.08em; font-size: 0.85rem; margin-bottom: 10px; }
     .hero-title { font-family: var(--font-head); font-weight: 900; font-size: clamp(2.3rem, 6vw, 3.6rem); line-height: 1.15; margin-bottom: 18px; }
-    .hero-lead { font-size: 1.05rem; color: var(--muted); margin-bottom: 22px; max-width: 34ch; }
-    .hero-chips { display: flex; flex-direction: column; gap: 9px; }
+    /* 下の余白は .hero .container の row-gap が持つ（chips は別の grid-area へ出した） */
+    .hero-lead { font-size: 1.05rem; color: var(--muted); max-width: 34ch; }
+    /* ★4つを縦に積むとスマホの1画面目が白い箱だけで埋まり、肝心の丼が下に流れる。
+       横に折り返す小さめの札にして、写真を1画面目へ上げる。 */
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .hero-chips li {
-        display: flex; align-items: flex-start; gap: 10px;
-        font-size: 0.9rem; color: var(--muted);
-        padding: 9px 14px; background: var(--surface); border: 1px solid var(--line);
-        border-radius: 10px;
+        display: flex; align-items: center; gap: 8px;
+        font-size: 0.84rem; color: var(--muted);
+        padding: 7px 15px; background: var(--surface); border: 1px solid var(--line);
+        border-radius: 999px;
     }
-    .hero-chips li::before { content: '○'; color: var(--accent-2); font-size: 0.7rem; margin-top: 3px; line-height: 1; }
+    .hero-chips li::before { content: '○'; color: var(--accent-2); font-size: 0.62rem; line-height: 1; }
     .hero-chips li.chip-warn { color: var(--ink); font-weight: 700; border-color: var(--line-strong); }
     .hero-chips li.chip-warn::before { content: '●'; color: var(--accent); }
 
@@ -445,7 +451,8 @@
     @media (max-width: 900px) {
         .hero .container {
             grid-template-columns: 1fr;
-            grid-template-areas: "chip" "copy" "mosaic" "actions";
+            /* ★写真を店の説明のすぐ下に置く。付帯情報（chips）はそのあと。 */
+            grid-template-areas: "chip" "copy" "mosaic" "chips" "actions";
         }
     }
     /* ★スマホは元々4枚の小さい写真が1枚あたり幅約90pxまで潰れていたため、
@@ -601,13 +608,14 @@
             <p class="hero-eyebrow"><span class="nw">茨城県古河市大堤</span>　<span class="nw">ラーメン・</span><span class="nw">つけ</span>麺</p>
             <h1 class="hero-title"><span class="nw">らーめん</span><span class="nw">壱輝</span></h1>
             <p class="hero-lead"><span class="nw">あっさりも、</span><span class="nw">濃厚も、</span><span class="nw">つけ</span><span class="nw">麺も。</span><br class="br-pc"><span class="nw">その</span><span class="nw">日の</span><span class="nw">気分で</span><span class="nw">お選び</span><span class="nw">いただけます。</span></p>
-            <ul class="hero-chips">
-                <li><span class="nwb"><span class="nw">敷地内駐車場</span><span class="nw">30台</span></span></li>
-                <li><span class="nwb"><span class="nw">4人掛け</span><span class="nw">小上がり</span><span class="nw">席あり</span></span></li>
-                <li><span class="nwb"><span class="nw">木曜定休</span><span class="nw">（祝日の</span><span class="nw">場合は</span><span class="nw">翌日）</span></span></li>
-                <li class="chip-warn"><span class="nwb"><span class="nw">スープが</span><span class="nw">無くなり</span><span class="nw">次第、</span><span class="nw">終了となる</span><span class="nw">場合が</span><span class="nw">ございます</span></span></li>
-            </ul>
         </div>
+
+        <ul class="hero-chips">
+            <li><span class="nwb"><span class="nw">敷地内駐車場</span><span class="nw">30台</span></span></li>
+            <li><span class="nwb"><span class="nw">4人掛け</span><span class="nw">小上がり</span><span class="nw">席あり</span></span></li>
+            <li><span class="nwb"><span class="nw">木曜定休</span><span class="nw">（祝日の</span><span class="nw">場合は</span><span class="nw">翌日）</span></span></li>
+            <li class="chip-warn"><span class="nwb"><span class="nw">スープが</span><span class="nw">無くなり</span><span class="nw">次第、</span><span class="nw">終了となる</span><span class="nw">場合が</span><span class="nw">ございます</span></span></li>
+        </ul>
 
         <div class="hero-mosaic">
             <div class="photo-frame mosaic-a">
