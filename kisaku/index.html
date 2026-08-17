@@ -576,8 +576,18 @@
         border-radius: var(--radius);
         outline-offset: 4px;
     }
-    .win svg { width: 100%; height: auto; color: var(--accent); }
-    .win-right svg { color: var(--accent-hi); }
+    /* ★2026-08-17：両脇の窓はSVGの線画で描いていたが、実際の入口と売店の窓口の
+       写真が残っていたので実写に差し替えた。かたちを図に置き換える必要が無いところで
+       線画を使うと「読み込みに失敗した写真の枠」に見えるうえ、この店でいちばん
+       伝わるのは赤いタイルの入口とショーケースそのものだった。
+       比率は 1/1 に揃える（縦の入口と横のショーケースを同じ大きさの窓として並べる） */
+    .win img {
+        width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: 0 14px 32px rgba(24, 20, 16, .16);
+    }
+    .win:hover img, .win:focus-visible img { box-shadow: 0 18px 40px rgba(24, 20, 16, .24); }
     .win-cap {
         display: block; margin-top: var(--sp-3);
         font-size: var(--fz-cap); color: var(--dim); letter-spacing: .02em;
@@ -786,26 +796,9 @@
 
         <div class="win-row reveal">
             <a href="#about" class="win win-left" aria-label="お食事はこちらから、11時30分から14時30分">
-                <!-- ★線だけで描くと「読み込みに失敗した写真の枠」に見える。
-                     暖簾を面で塗り、丸紋を1つ入れて「掛かっている布」だと分かるようにする。
-                     外枠は 4、内側の線は 2 で、建具と布の役割を太さで分ける -->
-                <svg viewBox="0 0 160 220" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <rect x="4" y="4" width="152" height="212" rx="2" stroke-width="4"/>
-                    <!-- 暖簾は入口の「上」に掛かる。下半分を空けて、くぐる引き戸を置く -->
-                    <path d="M12 18 H148 V96 H128 V110 H104 V96 H80 V110 H56 V96 H32 V110 H12 Z"
-                          fill="currentColor" fill-opacity=".10" stroke="none"/>
-                    <line x1="12" y1="18" x2="148" y2="18" stroke-width="3"/>
-                    <line x1="32" y1="18" x2="32" y2="96"/>
-                    <line x1="56" y1="18" x2="56" y2="110"/>
-                    <line x1="80" y1="18" x2="80" y2="96"/>
-                    <line x1="104" y1="18" x2="104" y2="110"/>
-                    <line x1="128" y1="18" x2="128" y2="96"/>
-                    <circle cx="80" cy="56" r="15" stroke-width="2.4"/>
-                    <circle cx="80" cy="56" r="4.5" fill="currentColor" stroke="none"/>
-                    <!-- 引き戸と敷居 -->
-                    <line x1="80" y1="126" x2="80" y2="202"/>
-                    <line x1="12" y1="202" x2="148" y2="202" stroke-width="3"/>
-                </svg>
+                <img src="img/ext-entrance.jpg"
+                     alt="お食事の入口。赤いタイルの壁に木の看板を掲げ、白い暖簾を掛けた引き戸"
+                     width="1000" height="1000" fetchpriority="high" decoding="async">
                 <span class="win-cap nwb">お食事の入口</span>
                 <span class="time-block">
                     <span class="lbl">お食事</span>
@@ -821,30 +814,10 @@
             </div>
 
             <a href="#baiten" class="win win-right" aria-label="売店はこちらから、9時から20時">
-                <!-- ショーケースの棚は、面を敷いて品物のかたちを1つずつ置く。
-                     上段＝しゅうまいの丸、下段＝お土産の箱と生麺の束 -->
-                <svg viewBox="0 0 160 220" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <rect x="4" y="4" width="152" height="212" rx="2" stroke-width="4"/>
-                    <!-- 頭に「お土産」の看板の帯。その下がガラスのショーケース2段 -->
-                    <rect x="6" y="6" width="148" height="40" fill="currentColor" fill-opacity=".14" stroke="none"/>
-                    <line x1="4" y1="46" x2="156" y2="46" stroke-width="3"/>
-                    <rect x="6" y="48" width="148" height="82" fill="currentColor" fill-opacity=".06" stroke="none"/>
-                    <rect x="6" y="132" width="148" height="72" fill="currentColor" fill-opacity=".06" stroke="none"/>
-                    <line x1="4" y1="130" x2="156" y2="130" stroke-width="3"/>
-                    <!-- 上段：しゅうまい -->
-                    <circle cx="42" cy="92" r="15"/>
-                    <circle cx="80" cy="92" r="15"/>
-                    <circle cx="118" cy="92" r="15"/>
-                    <!-- 下段：お土産の箱と、生麺の束 -->
-                    <rect x="20" y="158" width="52" height="38" rx="2"/>
-                    <line x1="20" y1="174" x2="72" y2="174"/>
-                    <rect x="88" y="162" width="52" height="34" rx="17"/>
-                    <line x1="101" y1="162" x2="101" y2="196"/>
-                    <line x1="114" y1="162" x2="114" y2="196"/>
-                    <line x1="127" y1="162" x2="127" y2="196"/>
-                    <line x1="12" y1="204" x2="148" y2="204" stroke-width="3"/>
-                </svg>
-                <span class="win-cap nwb">売店の入口</span>
+                <img src="img/baiten-case.jpg"
+                     alt="売店の窓口。ガラスのショーケースに生麺やしゅうまい、お土産の箱を並べて"
+                     width="1000" height="1000" decoding="async">
+                <span class="win-cap nwb">売店の窓口</span>
                 <span class="time-block">
                     <span class="lbl">売店</span>
                     <span class="hrs">9:00 — 20:00</span>

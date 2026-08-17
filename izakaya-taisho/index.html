@@ -499,11 +499,33 @@
     .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 
     /* ══════════════════════════════════════════════════════════════════
-       ヒーロー：「人数の段」
+       ヒーロー：★2026-08-17 改訂（A-36改「大皿のヒーロー」）
+       それまでは「人数の段」（ご予約の人数の図）を第1画面の主役に置いていたが、
+       この店がいちばん見ていただきたいのはお料理そのもの。**段の図は
+       「お席のこと」の頭へ移し、ヒーローは大皿の実写を主役にした。**
+       図はこの店の署名的な仕掛けとして残っている（場所が変わっただけ）。
        ══════════════════════════════════════════════════════════════════ */
     .hero { display: flex; align-items: center; padding-block: calc(var(--header-h) + var(--sp-5)) var(--sp-6); }
-    .hero .container { display: flex; flex-direction: column; gap: var(--sp-5); width: min(100% - 2 * var(--pad-inner), var(--maxw)); }
+    .hero .container { display: flex; flex-direction: column; gap: var(--sp-4); width: min(100% - 2 * var(--pad-inner), var(--maxw)); }
     #status-chip { color: var(--muted); }
+
+    /* 大皿の写真。★狭い画面では「写真 → 屋号」の順に積む（DOM順がそのまま縦の順）。
+       PC（900px以上）では左に屋号・右に写真の2列にして、屋号とご予約の導線が
+       写真と一緒に第1画面へ入るようにする */
+    .hero-photo { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow); }
+    .hero-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+    .hero-lede { color: var(--muted); max-width: 34em; }
+    @media (min-width: 900px) {
+        .hero .container { display: grid; grid-template-columns: 1fr 1.12fr; grid-template-rows: auto auto auto auto;
+            column-gap: var(--gap); align-items: center; }
+        /* 左の列（バッジ・題字・リード・ボタン）と、右の列に縦通しの写真 */
+        #status-chip  { grid-column: 1; grid-row: 1; }
+        .hero-head    { grid-column: 1; grid-row: 2; }
+        .hero-lede    { grid-column: 1; grid-row: 3; }
+        .hero-actions { grid-column: 1; grid-row: 4; margin-top: var(--sp-3); }
+        .hero-photo   { grid-column: 2; grid-row: 1 / -1; }
+    }
 
     .hero-head { max-width: 640px; }
     .hero-eyebrow { color: var(--muted); letter-spacing: .14em; font-size: var(--fz-cap); margin-bottom: var(--sp-2); }
@@ -556,12 +578,21 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════
-       お席のこと（2列×3段）
-       ══════════════════════════════════════════════════════════════════ */
-    .seat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
-    .seat-card .photo-frame { aspect-ratio: 3 / 4; margin-bottom: var(--sp-2); }
+       お席のこと（3列×2段）
+       ★2026-08-17：2列×3段・縦長（3/4）の枠をやめて、3列×2段・横長（4/3）にした。
+       お席の写真は食べログの原寸が 400×300／320×240 しか無く（原寸を実測して確認）、
+       これを 3/4 の枠に入れると **横を切り落としたうえ約2.4倍に引き伸ばす**ことになり、
+       6枚すべてがぼやけていた。写真のもとの比率（4/3）と同じ枠に入れ、
+       1枚の表示幅を約540px→約350pxに下げると、引き伸ばしがほぼ無くなる。
+       あわせて、原寸のある2枚（衝立の座卓・2階の客席）は公式サイトとInstagramの
+       投稿ページから 4032×3024／3024×4032 を取り直した */
+    .seat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+    .seat-card .photo-frame { aspect-ratio: 4 / 3; margin-bottom: var(--sp-2); }
     .seat-card h3 { font-family: var(--font-head); font-weight: 400; font-size: var(--fz-h3); margin-bottom: 4px; }
     .seat-card p { color: var(--muted); font-size: .92rem; }
+    /* 3列のまま900pxまで引っぱると1枚が約200pxになり、見出しと説明文が
+       「2文字で改行」の短冊になる。900pxで2列へ落とす（幅は約420px＝原寸とほぼ同じ） */
+    @media (max-width: 900px) { .seat-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 620px) { .seat-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-3); } }
 
     /* ══════════════════════════════════════════════════════════════════
@@ -581,7 +612,11 @@
     .hoji-section { background: var(--paper); color: var(--paper-ink); }
     .hoji-section .section-cap, .hoji-section h2 { color: var(--paper-ink); }
     .hoji-section .container { display: grid; grid-template-columns: 1fr 1.05fr; gap: var(--gap); align-items: center; }
-    .hoji-section .photo-frame { aspect-ratio: 4 / 3; border-color: rgba(35,32,26,.16); box-shadow: 0 18px 44px rgba(35,32,26,.14); }
+    /* ★2026-08-17：4/3 の横長の枠に縦長の写真（1440×1920）を入れていたため、
+       折詰めの上下が落ちて**真ん中を切り抜いた絵**になっていた。
+       写真のもとの比率（3/4）と同じ枠にして、折詰め全体が入るようにした */
+    .hoji-section .photo-frame { aspect-ratio: 3 / 4; border-color: rgba(35,32,26,.16); box-shadow: 0 18px 44px rgba(35,32,26,.14); }
+    @media (min-width: 901px) { .hoji-section .photo-frame { max-width: 420px; } }
     .hoji-card { background: rgba(35,32,26,.05); border: 1px solid rgba(35,32,26,.16); border-radius: var(--radius); padding: var(--sp-4); }
     .hoji-card .price { font-family: var(--font-body); font-weight: 700; font-size: 1.6rem; font-feature-settings: "tnum"; }
     .hoji-card .price small { font-size: 1rem; font-weight: 400; }
@@ -608,6 +643,10 @@
     .menu-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: var(--blk-y); }
     .menu-gallery .photo-frame { aspect-ratio: 4 / 3; border-color: rgba(35,32,26,.14); box-shadow: none; }
     @media (max-width: 620px) { .menu-gallery { grid-template-columns: repeat(2, 1fr); } }
+    /* ★2026-08-17：この写真の並びはお品書き（紙の面）の中にあったので罫線を墨色で
+       引いていた。ヒーローの直後＝暗い面へ移したので、罫線をこの面の色に戻す */
+    .dish-section .menu-gallery { margin-bottom: 0; }
+    .dish-section .menu-gallery .photo-frame { border-color: var(--line); }
 
     /* 章の区切りを節の区切り（--sec-y）と同じにすると、お品書きが5つの別の節に割れて見える。
        節間 --sec-y ＞ 章間 --sp-6 ＞ 見出しと本文 の3段で差をつける */
@@ -637,8 +676,13 @@
     .menu-list li:has(.price:empty) .dots { border-bottom-color: transparent; }
     /* お品書きに添える写真。コンテナ幅いっぱい（1120px）まで伸ばすと、
        寄りのスナップが引き伸ばされて生活感だけが目立つ */
+    /* ★2026-08-17：枠を 4/3 に固定していたので、縦位置の写真（鍋・ラーメンは
+       3024×4032）が上下を落として中央だけの絵になっていた。**枠の比率を
+       写真自身に決めさせる**（aspect-ratio: auto ＋ img の height:auto）。
+       章ごとに1枚しか置かないので、縦横が混ざっても並びは崩れない */
     .menu-photos { margin-top: var(--sp-3); padding-left: 40px; max-width: 660px; }
-    .menu-photos .photo-frame { aspect-ratio: 4 / 3; border-color: rgba(35,32,26,.14); }
+    .menu-photos .photo-frame { aspect-ratio: auto; max-width: 430px; border-color: rgba(35,32,26,.14); }
+    .menu-photos .photo-frame img { height: auto; }
     .menu-after { padding-left: 40px; margin-top: var(--sp-2); color: rgba(35,32,26,.6); font-size: .88rem; }
     @media (max-width: 620px) {
         .menu-grid { grid-template-columns: 1fr; padding-left: 0; }
@@ -709,6 +753,7 @@
 </header>
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="#dish"   data-nav-link>お料理のこと</a>
     <a href="#seats"  data-nav-link>お席のこと</a>
     <a href="#bus"    data-nav-link>送迎バス</a>
     <a href="#hoji"   data-nav-link>慶事・法事</a>
@@ -732,43 +777,15 @@
         <div class="hero-head reveal">
             <p class="hero-eyebrow"><span class="nw">古河市</span> <span class="nw">駒羽根｜</span><span class="nw">居酒屋・</span><span class="nw">宴会</span></p>
             <h1 class="hero-title"><span class="nw">大将</span></h1>
-            <p class="hero-catch"><span class="nw">今日は、</span><span class="nw">何人ですか。</span></p>
+            <p class="hero-catch"><span class="nw">大皿に、</span><span class="nw">たっぷりと。</span></p>
         </div>
 
-        <!-- 署名的な仕掛け：人数の段（にんずうのだん）。4名の個室から120名の宴会場まで、
-             人数のぶんだけ部屋がある、という差別化の核をそのまま絵にした図。
-             viewBox必須・fill=currentColor・aria-hidden=true。段のラベルはSVGの外のHTMLテキストで置く -->
-        <div class="steps-wrap reveal">
-            <div class="steps">
-                <svg class="steps-bg" viewBox="0 0 100 150" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
-                    <rect class="step-bar" x="0" y="132.79" width="30"   height="13" rx="1.4"/>
-                    <rect class="step-bar" x="0" y="111.36" width="33.5" height="13" rx="1.4"/>
-                    <rect class="step-bar" x="0" y="89.93"  width="36.5" height="13" rx="1.4"/>
-                    <rect class="step-bar" x="0" y="68.5"   width="44.6" height="13" rx="1.4"/>
-                    <rect class="step-bar" x="0" y="47.07"  width="53.5" height="13" rx="1.4"/>
-                    <rect class="step-bar" x="0" y="25.64"  width="60.6" height="13" rx="1.4"/>
-                    <rect class="step-bar" x="0" y="4.21"   width="100"  height="13" rx="1.4"/>
+        <p class="hero-lede reveal"><span class="nw">唐揚げ、</span><span class="nw">串もの、</span><span class="nw">ローストビーフ。</span><span class="nw">ご宴会の</span><span class="nw">お料理は、</span><span class="nw">大皿に</span><span class="nw">盛って</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
 
-                </svg>
-
-                <div class="steps-labels">
-                    <!-- 50名のところに細い縦罫（貸切の起点）。
-                         ★SVGの中に置かない。この図は preserveAspectRatio="none" で
-                         横に約11倍に引き伸ばしているので、stroke-width:1 の縦罫が
-                         11px幅に太り、破線が「黒い■が縦に4つ並んだ列」に化ける -->
-                    <span class="charter-rule" aria-hidden="true"></span>
-                    <a href="#seats" class="step-label" style="--y:88.53;--h:8.667"><span class="n">4名</span><span class="room">個室</span></a>
-                    <a href="#seats" class="step-label" style="--y:74.24;--h:8.667"><span class="n">6名</span><span class="room">個室</span></a>
-                    <a href="#seats" class="step-label" style="--y:59.95;--h:8.667"><span class="n">8名</span><span class="room">個室</span></a>
-                    <a href="#seats" class="step-label -has-bus" style="--y:45.67;--h:8.667"><svg class="bus-ic" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><rect x="1" y=".8" width="14" height="8.4" rx="1.6"/><rect x="2.4" y="2.4" width="11.2" height="3" rx=".7" fill="var(--accent)"/><circle cx="4.6" cy="10.4" r="1.3"/><circle cx="11.4" cy="10.4" r="1.3"/></svg><span class="n">10〜20名</span><span class="room">個室</span></a>
-                    <a href="#seats" class="step-label -has-bus" style="--y:31.38;--h:8.667"><svg class="bus-ic" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><rect x="1" y=".8" width="14" height="8.4" rx="1.6"/><rect x="2.4" y="2.4" width="11.2" height="3" rx=".7" fill="var(--accent)"/><circle cx="4.6" cy="10.4" r="1.3"/><circle cx="11.4" cy="10.4" r="1.3"/></svg><span class="n">20〜30名</span><span class="room">座敷</span></a>
-                    <a href="#seats" class="step-label -has-bus" style="--y:17.09;--h:8.667"><svg class="bus-ic" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><rect x="1" y=".8" width="14" height="8.4" rx="1.6"/><rect x="2.4" y="2.4" width="11.2" height="3" rx=".7" fill="var(--accent)"/><circle cx="4.6" cy="10.4" r="1.3"/><circle cx="11.4" cy="10.4" r="1.3"/></svg><span class="n">30名〜</span><span class="room">掘りごたつ</span></a>
-                    <a href="#seats" class="step-label -has-bus" style="--y:2.81;--h:8.667"><svg class="bus-ic" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><rect x="1" y=".8" width="14" height="8.4" rx="1.6"/><rect x="2.4" y="2.4" width="11.2" height="3" rx=".7" fill="var(--accent)"/><circle cx="4.6" cy="10.4" r="1.3"/><circle cx="11.4" cy="10.4" r="1.3"/></svg><span class="n">〜120名</span><span class="room">宴会場</span></a>
-
-                    <p class="step-note -bus" style="--x:0;--y:45.67;--h:8.667"><span class="nw">ここから</span><span class="nw">送迎バスが</span><span class="nw">無料で</span><span class="nw">参ります</span></p>
-                    <p class="step-note -charter" style="--x:41.667;--y:2.81"><span class="nw">ここから</span><span class="nw">貸切を</span><span class="nw">承ります</span><span class="nw">（50名〜）</span></p>
-                </div>
-            </div>
+        <!-- ★2026-08-17：ここには「人数の段」（ご予約の人数の図）を置いていたが、
+             第1画面の主役はこの店のお料理にした。図は「お席のこと」の頭へ移した -->
+        <div class="hero-photo reveal">
+            <img src="hero-oozara.jpg" alt="大皿に盛った唐揚げ・串カツ・海老フライ・ローストビーフ・フライドポテト・エビチリの盛り合わせ" width="1500" height="1125" fetchpriority="high" decoding="async">
         </div>
 
         <div class="hero-actions">
@@ -777,6 +794,30 @@
                 0280-92-4488｜ご予約はこちら
             </a>
             <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お料理のこと ★2026-08-17：この節はお品書きゾーンの先頭にあったが、
+     この店がいちばん見ていただきたいのはお料理なので、ヒーローの直後へ上げた
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section dish-section" id="dish">
+    <div class="container">
+        <p class="section-cap reveal"><span class="nw">お料理の</span><span class="nw">こと</span></p>
+        <h2 class="section-title reveal"><span class="nw">大皿で、</span><span class="nw">たっぷりと</span><span class="nw">お出しします</span></h2>
+        <p class="reveal" style="max-width:620px;color:var(--muted);margin-bottom:var(--sp-5)"><span class="nw">お造り、</span><span class="nw">揚げ</span><span class="nw">もの、</span><span class="nw">お鍋、</span><span class="nw">お食事。</span><span class="nw">ご宴会の</span><span class="nw">お料理は、</span><span class="nw">大皿に</span><span class="nw">盛り</span><span class="nw">合わせて</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+
+        <div class="menu-gallery reveal">
+            <div class="photo-frame"><img src="dish-gyoza.jpg" alt="焼き上がった手作り餃子" width="480" height="640" loading="lazy" decoding="async"></div>
+            <div class="photo-frame"><img src="dish-yakitori-kushi.jpg" alt="串に刺した焼き鳥の盛り合わせ" width="480" height="640" loading="lazy" decoding="async"></div>
+            <div class="photo-frame"><img src="dish-sashimi-kai.jpg" alt="刺身と貝類の盛り合わせ" width="480" height="640" loading="lazy" decoding="async"></div>
+            <div class="photo-frame"><img src="dish-cheese-potato.jpg" alt="じゃがいものチーズ焼き" width="640" height="512" loading="lazy" decoding="async"></div>
+            <div class="photo-frame"><img src="dish-nigiri.jpg" alt="いくら軍艦を含む握り寿司の盛り合わせ" width="640" height="524" loading="lazy" decoding="async"></div>
+            <div class="photo-frame"><img src="dish-inari.jpg" alt="俵型のいなり寿司" width="640" height="480" loading="lazy" decoding="async"></div>
+            <div class="photo-frame"><img src="dish-asari.jpg" alt="あさりの酒蒸し" width="640" height="480" loading="lazy" decoding="async"></div>
+            <div class="photo-frame"><img src="dish-katsu.jpg" alt="カツ料理の盛り合わせ" width="640" height="360" loading="lazy" decoding="async"></div>
         </div>
     </div>
 </section>
@@ -800,9 +841,48 @@
 <section class="section" id="seats">
     <div class="container">
         <p class="section-cap reveal"><span class="nw">お席の</span><span class="nw">こと</span></p>
-        <h2 class="section-title reveal"><span class="nw">人数に</span><span class="nw">合わせて、</span><span class="nw">お部屋が</span><span class="nw">ございます</span></h2>
+        <h2 class="section-title reveal"><span class="nw">今日は、</span><span class="nw">何人ですか。</span></h2>
+        <p class="reveal" style="margin-bottom:var(--blk-y);color:var(--muted)"><span class="nw">4名様の</span><span class="nw">個室から、</span><span class="nw">120名様の</span><span class="nw">宴会場まで。</span><span class="nw">人数に</span><span class="nw">合わせて</span><span class="nw">お部屋を</span><span class="nw">ご用意いたします。</span></p>
 
-        <div class="seat-grid">
+        <!-- 署名的な仕掛け：人数の段（にんずうのだん）。4名の個室から120名の宴会場まで、
+             人数のぶんだけ部屋がある、という差別化の核をそのまま絵にした図。
+             viewBox必須・fill=currentColor・aria-hidden=true。段のラベルはSVGの外のHTMLテキストで置く
+             ★2026-08-17：もとはヒーローに置いていた。第1画面はお料理の写真にしたので、
+             この図は「お席のこと」の頭＝いちばん役に立つ場所へ移した -->
+        <div class="steps-wrap reveal">
+            <div class="steps">
+                <svg class="steps-bg" viewBox="0 0 100 150" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
+                    <rect class="step-bar" x="0" y="132.79" width="30"   height="13" rx="1.4"/>
+                    <rect class="step-bar" x="0" y="111.36" width="33.5" height="13" rx="1.4"/>
+                    <rect class="step-bar" x="0" y="89.93"  width="36.5" height="13" rx="1.4"/>
+                    <rect class="step-bar" x="0" y="68.5"   width="44.6" height="13" rx="1.4"/>
+                    <rect class="step-bar" x="0" y="47.07"  width="53.5" height="13" rx="1.4"/>
+                    <rect class="step-bar" x="0" y="25.64"  width="60.6" height="13" rx="1.4"/>
+                    <rect class="step-bar" x="0" y="4.21"   width="100"  height="13" rx="1.4"/>
+
+                </svg>
+
+                <div class="steps-labels">
+                    <!-- 50名のところに細い縦罫（貸切の起点）。
+                         ★SVGの中に置かない。この図は preserveAspectRatio="none" で
+                         横に約11倍に引き伸ばしているので、stroke-width:1 の縦罫が
+                         11px幅に太り、破線が「黒い■が縦に4つ並んだ列」に化ける -->
+                    <span class="charter-rule" aria-hidden="true"></span>
+                    <a href="#seat-list" class="step-label" style="--y:88.53;--h:8.667"><span class="n">4名</span><span class="room">個室</span></a>
+                    <a href="#seat-list" class="step-label" style="--y:74.24;--h:8.667"><span class="n">6名</span><span class="room">個室</span></a>
+                    <a href="#seat-list" class="step-label" style="--y:59.95;--h:8.667"><span class="n">8名</span><span class="room">個室</span></a>
+                    <a href="#seat-list" class="step-label -has-bus" style="--y:45.67;--h:8.667"><svg class="bus-ic" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><rect x="1" y=".8" width="14" height="8.4" rx="1.6"/><rect x="2.4" y="2.4" width="11.2" height="3" rx=".7" fill="var(--accent)"/><circle cx="4.6" cy="10.4" r="1.3"/><circle cx="11.4" cy="10.4" r="1.3"/></svg><span class="n">10〜20名</span><span class="room">個室</span></a>
+                    <a href="#seat-list" class="step-label -has-bus" style="--y:31.38;--h:8.667"><svg class="bus-ic" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><rect x="1" y=".8" width="14" height="8.4" rx="1.6"/><rect x="2.4" y="2.4" width="11.2" height="3" rx=".7" fill="var(--accent)"/><circle cx="4.6" cy="10.4" r="1.3"/><circle cx="11.4" cy="10.4" r="1.3"/></svg><span class="n">20〜30名</span><span class="room">座敷</span></a>
+                    <a href="#seat-list" class="step-label -has-bus" style="--y:17.09;--h:8.667"><svg class="bus-ic" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><rect x="1" y=".8" width="14" height="8.4" rx="1.6"/><rect x="2.4" y="2.4" width="11.2" height="3" rx=".7" fill="var(--accent)"/><circle cx="4.6" cy="10.4" r="1.3"/><circle cx="11.4" cy="10.4" r="1.3"/></svg><span class="n">30名〜</span><span class="room">掘りごたつ</span></a>
+                    <a href="#seat-list" class="step-label -has-bus" style="--y:2.81;--h:8.667"><svg class="bus-ic" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><rect x="1" y=".8" width="14" height="8.4" rx="1.6"/><rect x="2.4" y="2.4" width="11.2" height="3" rx=".7" fill="var(--accent)"/><circle cx="4.6" cy="10.4" r="1.3"/><circle cx="11.4" cy="10.4" r="1.3"/></svg><span class="n">〜120名</span><span class="room">宴会場</span></a>
+
+                    <p class="step-note -bus" style="--x:0;--y:45.67;--h:8.667"><span class="nw">ここから</span><span class="nw">送迎バスが</span><span class="nw">無料で</span><span class="nw">参ります</span></p>
+                    <p class="step-note -charter" style="--x:41.667;--y:2.81"><span class="nw">ここから</span><span class="nw">貸切を</span><span class="nw">承ります</span><span class="nw">（50名〜）</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="seat-grid" id="seat-list" style="margin-top:var(--blk-y)">
             <div class="seat-card reveal">
                 <div class="photo-frame">
                     <img src="seat-kojima.jpg" alt="赤い座布団を敷いた個室風の座敷席" width="400" height="300" loading="lazy" decoding="async">
@@ -819,14 +899,14 @@
             </div>
             <div class="seat-card reveal">
                 <div class="photo-frame">
-                    <img src="seat-partition.jpg" alt="衝立で仕切られた座卓の客席" width="500" height="375" loading="lazy" decoding="async">
+                    <img src="seat-partition.jpg" alt="衝立で仕切られた座卓の客席" width="1400" height="1050" loading="lazy" decoding="async">
                 </div>
                 <h3><span class="nw">仕切りの</span><span class="nw">お席</span></h3>
                 <p><span class="nw">衝立で</span><span class="nw">仕切った</span><span class="nw">座卓で、</span><span class="nw">周りを</span><span class="nw">気にせず</span><span class="nw">お過ごし</span><span class="nw">いただけます。</span></p>
             </div>
             <div class="seat-card reveal">
                 <div class="photo-frame">
-                    <img src="seat-2f.jpg" alt="2階のフローリング客席。座布団とテーブルが並ぶ" width="640" height="640" loading="lazy" decoding="async">
+                    <img src="seat-2f.jpg" alt="2階のフローリング客席。座布団とテーブルが並ぶ" width="1400" height="1050" loading="lazy" decoding="async">
                 </div>
                 <h3><span class="nw">2階の</span><span class="nw">お席</span></h3>
                 <p><span class="nw">2026年</span><span class="nw">8月、</span><span class="nw">座敷から</span><span class="nw">フローリングへ</span><span class="nw">改装いたしました。</span></p>
@@ -885,7 +965,7 @@
 <section class="section hoji-section" id="hoji">
     <div class="container">
         <div class="photo-frame reveal">
-            <img src="dish-hoji.jpg" alt="折詰めに彩りよく盛り付けた個人盛りコースの料理" width="640" height="640" loading="lazy" decoding="async">
+            <img src="dish-hoji.jpg" alt="折詰めに彩りよく盛り付けた個人盛りコースの料理。焼き魚・ローストビーフ・海老天・煮物・エビチリ" width="1200" height="1600" loading="lazy" decoding="async">
         </div>
         <div class="reveal">
             <p class="section-cap reveal"><span class="nw">慶びの</span><span class="nw">席と、</span><span class="nw">お別れの</span>席</p>
@@ -915,19 +995,8 @@
 <section class="section">
     <div class="container">
         <p class="section-cap reveal"><span class="nw">お品書き</span></p>
-        <h2 class="section-title reveal"><span class="nw">大皿で、</span><span class="nw">たっぷりと</span><span class="nw">お出しします</span></h2>
-        <p class="reveal" style="max-width:620px;color:rgba(35,32,26,.72);margin-bottom:var(--sp-5)"><span class="nw">刺身・</span><span class="nw">鍋・</span><span class="nw">麺類まで、</span><span class="nw">幅広く</span><span class="nw">ご用意し</span><span class="nw">ております。</span><br><span class="nw">ここに</span><span class="nw">挙げたほかの</span><span class="nw">お品書きは</span><span class="nw">店内に</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お値段もあわせて、</span><a href="tel:0280924488" class="tel-link"><span class="nw">お電話で</span><span class="nw">ご案内いたします</span></a>。</p>
-
-        <div class="menu-gallery reveal">
-            <div class="photo-frame"><img src="dish-gyoza.jpg" alt="焼き上がった手作り餃子" width="480" height="640" loading="lazy" decoding="async"></div>
-            <div class="photo-frame"><img src="dish-yakitori-kushi.jpg" alt="串に刺した焼き鳥の盛り合わせ" width="480" height="640" loading="lazy" decoding="async"></div>
-            <div class="photo-frame"><img src="dish-sashimi-kai.jpg" alt="刺身と貝類の盛り合わせ" width="480" height="640" loading="lazy" decoding="async"></div>
-            <div class="photo-frame"><img src="dish-cheese-potato.jpg" alt="じゃがいものチーズ焼き" width="640" height="512" loading="lazy" decoding="async"></div>
-            <div class="photo-frame"><img src="dish-nigiri.jpg" alt="いくら軍艦を含む握り寿司の盛り合わせ" width="640" height="524" loading="lazy" decoding="async"></div>
-            <div class="photo-frame"><img src="dish-inari.jpg" alt="俵型のいなり寿司" width="640" height="480" loading="lazy" decoding="async"></div>
-            <div class="photo-frame"><img src="dish-asari.jpg" alt="あさりの酒蒸し" width="640" height="480" loading="lazy" decoding="async"></div>
-            <div class="photo-frame"><img src="dish-katsu.jpg" alt="カツ料理の盛り合わせ" width="640" height="360" loading="lazy" decoding="async"></div>
-        </div>
+        <h2 class="section-title reveal"><span class="nw">お造りから、</span><span class="nw">お鍋、</span><span class="nw">お食事まで</span></h2>
+        <p class="reveal" style="max-width:620px;color:rgba(35,32,26,.72)"><span class="nw">ここに</span><span class="nw">挙げたほかの</span><span class="nw">お品書きは</span><span class="nw">店内に</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お値段もあわせて、</span><a href="tel:0280924488" class="tel-link"><span class="nw">お電話で</span><span class="nw">ご案内いたします</span></a>。</p>
     </div>
 </section>
 
@@ -974,7 +1043,7 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="dish-yakitori.jpg" alt="串焼き数種の盛り合わせ"
-                             width="900" height="675" loading="lazy" decoding="async">
+                             width="1600" height="1200" loading="lazy" decoding="async">
                     </div>
                 </figure>
             </div>
@@ -992,7 +1061,7 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="dish-nabe.jpg" alt="魚介と野菜の海鮮寄せ鍋"
-                             width="375" height="500" loading="lazy" decoding="async">
+                             width="900" height="1200" loading="lazy" decoding="async">
                     </div>
                 </figure>
             </div>
@@ -1016,7 +1085,7 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="dish-ramen.jpg" alt="コーンと煮卵を乗せた大将ラーメン"
-                             width="375" height="500" loading="lazy" decoding="async">
+                             width="900" height="1200" loading="lazy" decoding="async">
                     </div>
                 </figure>
             </div>
@@ -1033,8 +1102,8 @@
             <div class="menu-photos">
                 <figure>
                     <div class="photo-frame">
-                        <img src="dish-oordoburu.jpg" alt="唐揚げ・刺身などを盛り合わせたオードブル"
-                             width="500" height="375" loading="lazy" decoding="async">
+                        <img src="dish-oordoburu.jpg" alt="巻き寿司・唐揚げ・ローストビーフ・エビチリなどを盛り合わせたオードブル"
+                             width="1200" height="900" loading="lazy" decoding="async">
                     </div>
                 </figure>
             </div>
@@ -1057,7 +1126,7 @@
         <div class="takeout-grid">
             <div class="takeout-card reveal">
                 <div class="photo-frame">
-                    <img src="bento-prehab.jpg" alt="プレハブ小屋に並んだお弁当・おつまみ各種" width="506" height="900" loading="lazy" decoding="async">
+                    <img src="bento-prehab.jpg" alt="プレハブ小屋に並んだお弁当・おつまみ各種" width="900" height="1600" loading="lazy" decoding="async">
                 </div>
                 <span class="time nw">11:30〜13:00</span>
                 <h3><span class="nw">昼の</span><span class="nw">お弁当</span></h3>
@@ -1065,7 +1134,7 @@
             </div>
             <div class="takeout-card reveal">
                 <div class="photo-frame">
-                    <img src="bento-bulk.jpg" alt="大量に並んだお弁当を俯瞰した様子" width="640" height="640" loading="lazy" decoding="async">
+                    <img src="bento-bulk.jpg" alt="お座敷に二列で並んだお弁当。ご飯・唐揚げ・ナポリタン・ポテト" width="1200" height="900" loading="lazy" decoding="async">
                 </div>
                 <span class="time nw">最大180個まで</span>
                 <h3><span class="nw">まとめての</span><span class="nw">ご注文</span></h3>

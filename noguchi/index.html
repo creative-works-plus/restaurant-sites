@@ -506,9 +506,11 @@
         font-size: var(--fz-cap); color: var(--dim); max-width: 68ch;
     }
 
-    /* --- ヒーロー：包みの中 ---------------------------------------------------
-       画面の高さの55%以上を、5つの包み（木の葉型／ラグビーボール型）が占める。
-       外形は5つとも同じ #wrap-shape。違うのは中の線と、上にかかるソースの筋だけ。 */
+    /* --- ヒーロー：看板のオムライス -------------------------------------------
+       ★2026-08-17 に作り替えた。もとは5つの包みをSVGの木の葉型で描いていたが、
+       中身（エビフライ・ポークカツ・ハヤシ・定番・納豆）を線画で描き分けても
+       何を表しているのか読めず、料理の実写に会うまで2画面ぶんスクロールが要った。
+       ヒーローは実写1枚に置き換え、五通りという事実はお品書きが受け持つ。 */
     .hero { background: var(--bg); padding-block: clamp(26px, 5vw, 44px); }
     .hero .container { display: flex; flex-direction: column; gap: var(--sp-5); height: 100%; }
 
@@ -525,22 +527,30 @@
     /* 場所と時間をファーストビューで言い切る（電話の前に知りたいのはこの2つ） */
     .hero-meta { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--dim); }
 
-    .wraps {
-        display: flex; gap: var(--sp-3); flex: 1;
-        align-items: center; justify-content: center;
-        padding-block: var(--sp-3);
+    .hero-plate { flex: 1; display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+    .hero-plate img {
+        width: 100%; height: auto; border-radius: var(--radius);
+        box-shadow: 0 14px 30px rgba(36, 28, 20, .18);
     }
-    .wraps > li { flex: 1 1 0; min-width: 0; list-style: none; }
-    .wrap-item { display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); }
-    .wrap-svg {
-        width: 100%; max-width: 118px; height: auto;
-        filter: drop-shadow(0 10px 18px rgba(36, 28, 20, .16));
-        transition: transform .3s cubic-bezier(.16, .7, .3, 1);
-    }
-    .wrap-item:hover .wrap-svg, .wrap-item:focus-visible .wrap-svg { transform: translateY(-6px); }
-    .wrap-label {
-        font-size: var(--fz-cap); font-weight: 500; color: var(--ink);
-        text-align: center; line-height: 1.4;
+    .hero-plate figcaption { font-size: var(--fz-cap); color: var(--dim); }
+
+    /* ★900px以上は屋号の右へ皿を置く。1列のまま縦に積むと、皿が本文幅いっぱい
+       （約1120px）に広がって高さ780pxになり、**その下のオーニングの帯＝電話の
+       ボタンが第1画面から押し出される**（ファーストビューに予約導線を置くという
+       決まりに反する）。2列なら皿は約580px＝原寸1024pxの範囲内で、拡大もしない */
+    @media (min-width: 900px) {
+        .hero .container {
+            display: grid; grid-template-columns: 1fr 1.15fr;
+            grid-template-rows: auto auto auto 1fr auto;
+            column-gap: var(--gap); row-gap: var(--sp-3); align-items: start;
+        }
+        /* grid では align-self:flex-start が効かないので justify-self で寄せる
+           （入れないとチップが左の列いっぱいに伸びて、ただの白い帯に見える） */
+        #status-chip  { grid-column: 1; grid-row: 1; justify-self: start; }
+        .hero-note    { grid-column: 1; grid-row: 2; margin-top: 0; }
+        .hero-brand   { grid-column: 1; grid-row: 3; }
+        .hero-plate   { grid-column: 2; grid-row: 1 / 5; align-self: center; }
+        .hero-actions { grid-column: 1 / -1; grid-row: 5; margin-top: var(--sp-3); }
     }
 
     /* --- ヒーロー下部：山吹のオーニングの帯＋電話CTA -------------------------
@@ -568,12 +578,6 @@
     .hero-actions .btn-primary:hover, .hero-actions .btn-ghost:hover { background: rgba(36, 28, 20, .08); }
 
     @media (max-width: 620px) {
-        /* ★縦に積まない。5つ積むとヒーローだけで3画面ぶんになり、
-           料理の実写までスクロールが遠すぎる。横1列のまま小さくする
-           （5つ並んでいることがこの店の看板なので、並びは崩さない） */
-        .wraps { gap: var(--sp-2); }
-        .wrap-svg { max-width: 58px; }
-        .wrap-label { font-size: 11px; }
         .hero-actions { flex-direction: column; align-items: stretch; }
     }
 
@@ -749,12 +753,7 @@
         <!-- ★不定休の店なので、チップの「営業中」だけを信じさせない。
              JSが差し込む文字は fix_ja_breaks の対象外なので、断りは静的なこの一行で持つ -->
         <p class="hero-note"><span class="nw">不定休の</span><span class="nw">ため、</span><span class="nw">臨時に</span><span class="nw">お休みを</span><span class="nw">いただく</span><span class="nw">ことが</span><span class="nw">ございます。</span><span class="nw">お越しの</span><span class="nw">前に</span><span class="nw">お電話で</span><span class="nw">ご確認ください。</span></p>
-
-        <!-- 共有シンボル：包みの外形。5つとも寸分たがわず同じ形（viewBox 0 0 120 190） -->
         <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-            <symbol id="wrap-shape" viewBox="0 0 120 190">
-                <path d="M60 6 C96 22 112 64 112 96 C112 142 92 178 60 184 C28 178 8 142 8 96 C8 64 24 22 60 6 Z"/>
-            </symbol>
             <!-- 絵皿の縁模様から起こした四弁の小紋。呉須の1色。章見出しの前と引用の頭に置く -->
             <symbol id="orn-plate-shape" viewBox="0 0 40 40">
                 <path d="M20 3 C25 9 25 17 20 20 C15 17 15 9 20 3 Z"></path>
@@ -772,57 +771,12 @@
             <p class="hero-meta"><span class="nw">茨城県古河市久能</span>　昼 11:00〜14:00　／　夜 17:00〜22:00</p>
         </div>
 
-        <ul class="wraps">
-            <li class="reveal">
-                <a class="wrap-item" href="#menu-omurice">
-                    <svg class="wrap-svg" viewBox="0 0 120 190" aria-hidden="true" fill="var(--accent-2)">
-                        <use href="#wrap-shape"></use>
-                        <path d="M60 24 L74 48 L46 48 Z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"></path>
-                    </svg>
-                    <span class="wrap-label nw">エビフライ</span>
-                </a>
-            </li>
-            <li class="reveal reveal-delay-1">
-                <a class="wrap-item" href="#menu-omurice">
-                    <svg class="wrap-svg" viewBox="0 0 120 190" aria-hidden="true" fill="var(--accent-2)">
-                        <use href="#wrap-shape"></use>
-                        <path d="M40 40 L56 82 M56 100 L74 138 M78 60 L96 96" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"></path>
-                    </svg>
-                    <span class="wrap-label nw">ポークカツ</span>
-                </a>
-            </li>
-            <li class="reveal reveal-delay-2">
-                <a class="wrap-item" href="#menu-omurice">
-                    <svg class="wrap-svg" viewBox="0 0 120 190" aria-hidden="true" fill="var(--accent-2)">
-                        <use href="#wrap-shape"></use>
-                        <path d="M18 70 C40 96 80 96 102 70 C96 108 80 148 60 168 C40 148 24 108 18 70 Z" fill="var(--ink)" opacity=".68"></path>
-                    </svg>
-                    <span class="wrap-label nw">ハヤシ</span>
-                </a>
-            </li>
-            <li class="reveal reveal-delay-3">
-                <a class="wrap-item" href="#menu-omurice">
-                    <svg class="wrap-svg" viewBox="0 0 120 190" aria-hidden="true" fill="var(--accent-2)">
-                        <use href="#wrap-shape"></use>
-                        <path d="M30 56 C48 40 46 66 62 60 C80 54 74 84 92 78 C78 100 78 74 62 82 C46 90 50 62 32 76" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                    <span class="wrap-label nw">定番</span>
-                </a>
-            </li>
-            <li class="reveal reveal-delay-3">
-                <a class="wrap-item" href="#menu-omurice">
-                    <svg class="wrap-svg" viewBox="0 0 120 190" aria-hidden="true" fill="var(--accent-2)">
-                        <use href="#wrap-shape"></use>
-                        <circle cx="38" cy="66" r="4" fill="var(--ink)"></circle>
-                        <circle cx="56" cy="82" r="4" fill="var(--ink)"></circle>
-                        <circle cx="70" cy="100" r="4" fill="var(--ink)"></circle>
-                        <circle cx="82" cy="120" r="4" fill="var(--ink)"></circle>
-                        <circle cx="90" cy="142" r="4" fill="var(--ink)"></circle>
-                    </svg>
-                    <span class="wrap-label nw">納豆</span>
-                </a>
-            </li>
-        </ul>
+        <figure class="hero-plate reveal">
+            <img src="img/dish-hayashi-omurice.jpg"
+                 alt="ハヤシオムライス。絵皿にのせた卵の包みに、ビーフシチューを用いたハヤシソースをかけて"
+                 width="1024" height="717" fetchpriority="high" decoding="async">
+            <figcaption><span class="nw">ハヤシオムライス</span></figcaption>
+        </figure>
 
         <div class="hero-actions">
             <a href="tel:0280-92-0295" class="btn btn-primary btn-tel">
