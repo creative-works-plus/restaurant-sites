@@ -598,7 +598,7 @@
     /* ══════════════════════════════════════════════════════════════════
        送迎バスのこと
        ══════════════════════════════════════════════════════════════════ */
-    .bus-section .container { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--gap); align-items: center; }
+    .bus-section .container { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--gap); align-items: center; }
     .bus-section .photo-frame { aspect-ratio: 3 / 2; }
     .bus-copy .lede { font-size: 1.15rem; font-weight: 700; margin-bottom: var(--sp-3); }
     .bus-conditions { display: grid; gap: 10px; margin-top: var(--sp-3); }
@@ -611,19 +611,23 @@
        ══════════════════════════════════════════════════════════════════ */
     .hoji-section { background: var(--paper); color: var(--paper-ink); }
     .hoji-section .section-cap, .hoji-section h2 { color: var(--paper-ink); }
-    .hoji-section .container { display: grid; grid-template-columns: 1fr 1.05fr; gap: var(--gap); align-items: center; }
-    /* ★2026-08-17：4/3 の横長の枠に縦長の写真（1440×1920）を入れていたため、
-       折詰めの上下が落ちて**真ん中を切り抜いた絵**になっていた。
-       写真のもとの比率（3/4）と同じ枠にして、折詰め全体が入るようにした */
-    .hoji-section .photo-frame { aspect-ratio: 3 / 4; border-color: rgba(35,32,26,.16); box-shadow: 0 18px 44px rgba(35,32,26,.14); }
-    @media (min-width: 901px) { .hoji-section .photo-frame { max-width: 420px; } }
+    /* ★2026-08-18：折詰めの写真を左へ90度回して横位置にした（お店の投稿では寝ていた）。
+       枠は写真と同じ 4/3 で、切り取りはゼロ。**縦位置のときの寸法のままにしない**——
+       420px幅・3/4（＝高さ560px）だった枠が 4/3 になると高さが395pxまで落ち、
+       右の段（695px）との差が300px開いて写真が宙に浮く。左の段を 1.3fr に広げ（458px）、
+       お品の並びを2列にして右の段を詰め（624px）、**差を166pxまで詰めた**。
+       ★これ以上は詰まらない——段をさらに広げると右の段が細くなって文が折り返し、
+       右が伸びたぶん差が戻る（1.4fr で実測182px）。中央そろえなので写真の上下は83pxずつ */
+    .hoji-section .container { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--gap); align-items: center; }
+    .hoji-section .photo-frame { aspect-ratio: 4 / 3; border-color: rgba(35,32,26,.16); box-shadow: 0 18px 44px rgba(35,32,26,.14); }
     .hoji-card { background: rgba(35,32,26,.05); border: 1px solid rgba(35,32,26,.16); border-radius: var(--radius); padding: var(--sp-4); }
     .hoji-card .price { font-family: var(--font-body); font-weight: 700; font-size: 1.6rem; font-feature-settings: "tnum"; }
     .hoji-card .price small { font-size: 1rem; font-weight: 400; }
-    .hoji-card ul { margin-top: var(--sp-3); display: grid; gap: 6px; color: rgba(35,32,26,.78); }
+    .hoji-card ul { margin-top: var(--sp-3); display: grid; grid-template-columns: 1fr 1fr; gap: 6px var(--sp-3); color: rgba(35,32,26,.78); }
     .hoji-section .btn-ghost { border-color: rgba(35,32,26,.3); color: var(--paper-ink); }
     .hoji-section .btn-ghost:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
     @media (max-width: 900px) { .hoji-section .container { grid-template-columns: 1fr; } }
+    @media (max-width: 420px) { .hoji-card ul { grid-template-columns: 1fr; } }
 
     /* ══════════════════════════════════════════════════════════════════
        お品書き（紙面が反転する節・2か所目）／章の紋
@@ -965,7 +969,7 @@
 <section class="section hoji-section" id="hoji">
     <div class="container">
         <div class="photo-frame reveal">
-            <img src="dish-hoji.jpg" alt="折詰めに彩りよく盛り付けた個人盛りコースの料理。焼き魚・ローストビーフ・海老天・煮物・エビチリ" width="1200" height="1600" loading="lazy" decoding="async">
+            <img src="dish-hoji.jpg" alt="折詰めに彩りよく盛り付けた個人盛りコースの料理。焼き魚・ローストビーフ・海老天・煮物・エビチリ" width="1600" height="1200" loading="lazy" decoding="async">
         </div>
         <div class="reveal">
             <p class="section-cap reveal"><span class="nw">慶びの</span><span class="nw">席と、</span><span class="nw">お別れの</span>席</p>
