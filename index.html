@@ -61,6 +61,11 @@
     .who.hi { color: #6fa8c9; }   /* 営業マンC */
     /* 便の中で担当が切り替わる境目。ここから下が営業マンC */
     li.split { margin-top: 8px; padding-top: 12px; border-top: 1px dashed #33333a; }
+    /* 便の中で地域が切り替わる境目（1つの便が2つの市町にまたがるとき） */
+    li.sub {
+        margin-top: 10px; padding: 9px 4px 0; border-top: 1px dashed #3d3a33;
+        font-size: 0.72rem; letter-spacing: 0.08em; color: #8a8782;
+    }
     li.done a { background: #121214; border-color: #232326; color: #7c7a75; }
     li.done .who { opacity: 0.55; }
     li.envelope .nm::after {
@@ -97,10 +102,12 @@
         <b>★2026-08-19から営業マンCは第3便で20通です。</b>
         営業マンAは第3便まで（宛名をAの名前で書いてあるぶん）。<b>第4便からは営業マンDに替わります。</b><br>
         <b>★第3便は35通（A 5・D 10・C 20）。</b>
-        <b>ただしCの20通は、古河市に17通・野木町に3通の2か所に分かれています</b>——
+        <b>Cの20通は、古河市17通のあとに野木町3通が続きます</b>——
         古河市の残りだけでは、同じ町丁を重ねずに20通を組めなかったためです。
-        地域ごとの軒数を正しく保つため、野木町の3通は野木町の見出しの下に「第3便」として置いてあります。
-        <b>Cの第3便を数えるときは、この2つを足してください。</b><br>
+        <b>1つの便が2つの市町にまたがるときは、地域で分けずにその便の中へ続けて並べます</b>
+        （数えるときに2か所を足さずに済むように）。境目に点線と「ここから野木町」を出し、
+        その行の町域には市町名を付けています。
+        <b>そのぶん野木町の見出しの17軒には、上の第3便に出ている3軒も含みます。</b><br>
         <b>★大徳・シェルブールは営業マンDから営業マンCへ移しました。</b>
         担当が替わったので、手紙の差出人も廣藤の名前で刷り直してあります。<br>
         <b>★野木町（第7便以降）は町域が5つしかなく、町丁を重複させずにD10通を組めません。</b>
@@ -156,7 +163,7 @@
         <li class="envelope"><a href="sakasa-shokudo/"><span class="nm">さかさ食堂</span><span class="area">下辺見</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
-    <p class="batch"><b>第3便</b>／来週まとめて投函。Cの残り3通は野木町<span class="n">A 5通・D 10通・C 17通</span></p>
+    <p class="batch"><b>第3便</b>／来週まとめて投函<span class="n">A 5通・D 10通・C 20通（古河市17・野木町3）</span></p>
     <ul>
         <li class="envelope"><a href="ikkaku/"><span class="nm">食彩酒 一鶴</span><span class="area">東本町</span><span class="who na">営業マンA</span></a></li>
         <li class="envelope"><a href="genji/"><span class="nm">酒道場 源氏</span><span class="area">東1</span><span class="who na">営業マンA</span></a></li>
@@ -190,6 +197,10 @@
         <li><a href="shogetsudo/"><span class="nm">昭月堂製パン</span><span class="area">東2</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="daitoku/"><span class="nm">大徳</span><span class="area">旭町</span><span class="who hi">営業マンC</span></a></li>
         <li><a href="cherbourg/"><span class="nm">レストラン シェルブール</span><span class="area">幸町</span><span class="who hi">営業マンC</span></a></li>
+        <li class="sub">ここから野木町（第3便・営業マンCの続き）</li>
+        <li data-area="栃木県 野木町"><a href="kantaro/"><span class="nm">もつ煮屋 貫太郎</span><span class="area">野木町 友沼925</span><span class="who hi">営業マンC</span></a></li>
+        <li data-area="栃木県 野木町"><a href="tesoro/"><span class="nm">tesoro</span><span class="area">野木町 佐川野</span><span class="who hi">営業マンC</span></a></li>
+        <li data-area="栃木県 野木町"><a href="tenhachi/"><span class="nm">匠丼屋 てん八</span><span class="area">野木町 南赤塚</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
     <p class="batch"><b>第4便</b>／営業マンDぶんは送付済み<span class="n">D 10通</span></p>
@@ -240,14 +251,8 @@
         <li><a href="hamburg/"><span class="nm">ハンブルグ</span><span class="area">緑町</span></a></li>
     </ul>
 
-    <h2>栃木県 野木町<span class="count">17軒</span></h2>
+    <h2>栃木県 野木町<span class="count">17軒（うち3軒は第3便・上）</span></h2>
 
-    <p class="batch"><b>第3便</b>／古河市の第3便の続き（Cの20通のうちの3通）<span class="n">C 3通</span></p>
-    <ul>
-        <li><a href="kantaro/"><span class="nm">もつ煮屋 貫太郎</span><span class="area">友沼925</span><span class="who hi">営業マンC</span></a></li>
-        <li><a href="tesoro/"><span class="nm">tesoro</span><span class="area">佐川野</span><span class="who hi">営業マンC</span></a></li>
-        <li><a href="tenhachi/"><span class="nm">匠丼屋 てん八</span><span class="area">南赤塚</span><span class="who hi">営業マンC</span></a></li>
-    </ul>
 
     <p class="batch"><b>第7便</b>／古河市を送り終えてから<span class="n">D 5通・C 2通</span></p>
     <ul>
