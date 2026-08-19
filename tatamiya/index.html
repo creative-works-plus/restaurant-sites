@@ -280,7 +280,17 @@
     .hero-photo::after {
         content: ''; position: absolute; inset: 0;
         background:
-            linear-gradient(to top, rgba(9,30,28,.94) 0%, rgba(9,30,28,.78) 34%, rgba(9,30,28,.30) 68%, rgba(9,30,28,.42) 100%);
+            /* 文字が乗る左側だけを落とし、暖簾のある右側は写真のまま残す */
+            linear-gradient(to right, rgba(9,30,28,.62) 0%, rgba(9,30,28,.55) 30%, rgba(9,30,28,.20) 62%, rgba(9,30,28,0) 84%),
+            linear-gradient(to top, rgba(9,30,28,.94) 0%, rgba(9,30,28,.80) 34%, rgba(9,30,28,.44) 68%, rgba(9,30,28,.54) 100%);
+    }
+    @media (max-width: 900px) {
+        /* 幅が狭いと文字が全幅に広がるので、横方向の濃淡はならす */
+        .hero-photo::after {
+            background:
+                linear-gradient(to right, rgba(9,30,28,.50) 0%, rgba(9,30,28,.44) 70%, rgba(9,30,28,.36) 100%),
+                linear-gradient(to top, rgba(9,30,28,.92) 0%, rgba(9,30,28,.76) 34%, rgba(9,30,28,.42) 68%, rgba(9,30,28,.52) 100%);
+        }
     }
     .hero-inner {
         position: relative; z-index: 2;
@@ -292,12 +302,14 @@
         font-size: clamp(.76rem, 2.6vw, .86rem);
         letter-spacing: .32em; text-indent: .32em; color: var(--accent-2);
         margin-bottom: .8em;
+        text-shadow: 0 1px 10px rgba(9,30,28,.6);
     }
     .hero h1 {
         font-family: var(--font-head);
         font-size: clamp(2.5rem, 12vw, 4.6rem);
         line-height: 1.1; letter-spacing: .1em;
         margin-bottom: .22em;
+        text-shadow: 0 2px 18px rgba(9,30,28,.5);
     }
     .hero h1 .h1-sub {
         display: block; font-size: clamp(.8rem, 3.2vw, 1rem);
@@ -307,6 +319,7 @@
     .hero-copy {
         font-size: clamp(1.02rem, 3.6vw, 1.3rem);
         line-height: 1.85; max-width: 24em; margin: 1.1em 0 1.3em;
+        text-shadow: 0 1px 12px rgba(9,30,28,.55);
     }
     .hero-copy strong { color: var(--accent-2); font-weight: 700; }
     .hero-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.4em; }
