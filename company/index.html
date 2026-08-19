@@ -484,21 +484,33 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   border-left: 2px solid var(--line-2); padding-left: 16px;
 }
 
-/* ---------- 制作事例：95軒の壁 ---------- */
+/* ---------- 制作事例：95軒の壁 ----------
+   ★高さを固定する設計（2026-08-19）。軒数が増えたら1枚を小さくして列を増やすので、
+     100軒でも200軒でもこの節の高さは変わらない（以前は1軒増えるごとに縦に伸びていた）。
+     列数は build_lp_works.py が --wall-cols / --wall-cols-sp に書き込む。手で書き換えない。
+   ・この大きさでは業態名(figcaption)は読めないので出さない。
+     「全部ちがう店」であることは、壁の下に業態を並べた文字のほうで示す */
 .wall {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-  gap: 8px; margin-bottom: 18px;
+  display: grid; grid-template-columns: repeat(var(--wall-cols, 12), 1fr);
+  gap: 6px; margin-bottom: 16px;
 }
 .wall figure {
-  margin: 0; border-radius: 6px; overflow: hidden; background: var(--paper-2);
+  margin: 0; border-radius: 3px; overflow: hidden; background: var(--paper-2);
   border: 1px solid var(--line);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.wall figure:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(25,26,24,0.16); }
-.wall img { width: 100%; aspect-ratio: 160 / 283; object-fit: cover; object-position: top; }
-.wall figcaption {
-  font-size: 10.5px; color: var(--muted); text-align: center;
-  padding: 5px 2px 6px; background: var(--card); line-height: 1.4;
+.wall figure:hover {
+  transform: translateY(-3px); box-shadow: 0 8px 18px rgba(25,26,24,0.20);
+  position: relative; z-index: 1;
+}
+/* height:auto を必ず添える（width/height属性が残っているので、無いと縦に伸びる事故になる） */
+.wall img { width: 100%; height: auto; aspect-ratio: 160 / 283; object-fit: cover; object-position: top; display: block; }
+.wall figcaption { display: none; }
+/* 壁で読めなくなった業態を、ここで文字として並べる。
+   1軒ずつ列挙しないので、軒数が増えても増えるのは重複しない業態ぶんだけ */
+.wall-genres {
+  font-size: 12.5px; line-height: 1.9; color: var(--muted);
+  margin-bottom: 12px; letter-spacing: 0.01em;
 }
 .wall-note { font-size: 13.5px; color: var(--muted); margin-bottom: 56px; }
 
@@ -508,14 +520,15 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   font-family: var(--font-display); font-size: 21px; font-weight: 700; margin-bottom: 8px;
 }
 .chips-block p { font-size: 15px; color: var(--muted); max-width: 640px; margin-bottom: 24px; }
-.chips { display: flex; flex-wrap: wrap; gap: 9px; }
+/* 壁と同じ考え方で、こちらも高さを固定する（列数は build_lp_works.py が書き込む） */
+.chips { display: grid; grid-template-columns: repeat(var(--chip-cols, 20), 1fr); gap: 5px; }
 .chip-c {
-  width: 46px; height: 46px; border-radius: 8px;
+  width: 100%; aspect-ratio: 1; border-radius: 4px;
   border: 1px solid var(--line); overflow: hidden;
   display: flex; flex-direction: column;
 }
 .chip-c .b { flex: 1; }
-.chip-c .a { height: 11px; }
+.chip-c .a { height: 34%; }
 
 /* ---------- 制作事例：大きいカード ---------- */
 .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -828,10 +841,11 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   .stat { padding: 24px 12px; }
   .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   .stat:nth-child(odd) { border-left: none; }
-  /* 95軒の壁: 画面が狭いので1枚あたりを小さくして枚数の多さを見せる */
-  .wall { grid-template-columns: repeat(auto-fill, minmax(74px, 1fr)); gap: 6px; }
-  .wall figcaption { font-size: 9.5px; }
-  .chip-c { width: 38px; height: 38px; }
+  /* 95軒の壁: 画面が狭いので1枚をさらに小さくし、そのぶん行数を増やして高さをそろえる */
+  .wall { grid-template-columns: repeat(var(--wall-cols-sp, 8), 1fr); gap: 4px; }
+  .wall-genres { font-size: 11.5px; line-height: 1.85; }
+  .chips { grid-template-columns: repeat(var(--chip-cols-sp, 12), 1fr); gap: 3px; }
+  .chip-c { border-radius: 3px; }
   /* 中央ぞろえだと行末がバラバラに見えるので、長い注記は左ぞろえに */
   .price-note, .cta-band p:not(.cta-note) { text-align: left; }
   /* 制作の流れ・お約束: 番号を左に置くと本文が細長くなるので、スマホでは番号を上に */
@@ -1112,8 +1126,11 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
       <h2 class="section-title">同じ形のものは、<br>ひとつもありません。</h2>
       <p class="section-lead">これまでにおつくりした95軒です。決まった型に写真と名前を差し替えたものではなく、業態・価格帯・お店の雰囲気に合わせて、一軒ずつ設計しています。いずれもご契約前のお店で、まずはこの状態までお作りしてお持ちしています。</p>
 
-      <!-- 95軒の壁（店名は出さず、業態のみ） -->
-      <div class="wall" role="list" aria-label="制作した95軒のホームページ">
+      <!-- 95軒の壁（店名は出さず、業態のみ）
+           --wall-cols は build_lp_works.py が書き込む。1行の枚数＝軒数÷行数なので、
+           軒数が増えても行数（＝高さ）は変わらない -->
+      <div class="wall" role="list" aria-label="制作した95軒のホームページ"
+           style="--wall-cols:19; --wall-cols-sp:10">
         <!-- wall:auto:start -->
         <figure role="listitem"><img src="works/tiles/00.jpg" alt="カフェ・ハンバーガー・スイーツの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>カフェ・ハンバーガー・スイーツ</figcaption></figure>
         <figure role="listitem"><img src="works/tiles/01.jpg" alt="ギャラリー併設のカフェの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>ギャラリー併設のカフェ</figcaption></figure>
@@ -1212,13 +1229,14 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
         <figure role="listitem"><img src="works/tiles/94.jpg" alt="鶏白湯らーめん・つけめんの店舗サイト 制作事例のヒーロー画面" loading="lazy" width="160" height="283"><figcaption>鶏白湯らーめん・つけめん</figcaption></figure>
         <!-- wall:auto:end -->
       </div>
-      <p class="wall-note">※ お店のお名前は伏せ、業態のみを記しています。お電話番号も画面上で伏せています。</p>
+      <p class="wall-genres"><!-- genres:auto:start -->カフェ・ハンバーガー・スイーツ／ギャラリー併設のカフェ／カフェ／ガレージカフェ／自家製麺のラーメン／ネパール・インド料理／予約制のカフェ／洋風居酒屋／味噌ラーメン／手打ちうどん／カフェ・窯焼きピッツァ／炭火串焼／定食・海鮮丼／ラーメン・餃子／さぬきうどん／長崎ちゃんぽん・皿うどん／生姜らーめん／日本そば／そば／まぜそば／もつ煮・餃子・らーめん／うなぎ・川魚／炭火ダイニング／和食・炭火／古民家の和食／焼き芋専門店／とんかつ／ラーメン／もつ煮・お弁当／そばと創作料理／ラーメン・つけ麺／佐野らーめん／和食・おにぎり／イタリアン／フレンチ／ステーキ／ステーキ・ハンバーグ／スリランカ料理／タイ料理／珈琲と洋菓子／窯焼きピザ／町中華／背脂中華そば／ハンバーグ・洋食／中華料理・会席／手打ちそば・うどん／中華料理／そば・お定食／和洋中の食堂・ご宴会／自家焙煎の珈琲／天丼・和食／活魚料理・割烹／味噌らーめん／居酒屋／日本料理・会席／和風らーめん・お土産／中華・ラーメン／大箱居酒屋・ご宴会／寿司／大衆食堂／四川料理／パン／家系ラーメン／洋食・オムライス／海鮮居酒屋／炭火焼き／炭火焼肉／焼肉／武蔵野うどん／寿司・出前／串焼き／手打そば・天丼／定食・居酒屋／手打ちそば／そば・地酒／タンメン／鮮魚・釜めし／炉端焼き／麦とろ・和食／鶏白湯らーめん・つけめん<!-- genres:auto:end --></p>
+      <p class="wall-note">※ 1枚がひとつのお店のホームページです（95軒・80業態）。お店のお名前は伏せ、お電話番号も画面上で伏せています。</p>
 
       <!-- 配色チップ -->
       <div class="chips-block reveal">
         <h3>95軒ぶんの、95とおりの色</h3>
         <p>それぞれのホームページで使っている色です。上の面が地の色、下の帯がアクセントの色。看板の色、器の色、店内の照明の色から起こしているので、同じ組み合わせは出てきません。「型を使っていない」というのは、つまりこういうことです。</p>
-        <div class="chips" aria-hidden="true">
+        <div class="chips" aria-hidden="true" style="--chip-cols:32; --chip-cols-sp:16">
           <!-- chips:auto:start -->
           <div class="chip-c"><div class="b" style="background:#fcf7f1"></div><div class="a" style="background:#d0392b"></div></div>
           <div class="chip-c"><div class="b" style="background:#ffffff"></div><div class="a" style="background:#b06a5e"></div></div>
