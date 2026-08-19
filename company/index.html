@@ -353,6 +353,21 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 .global-nav a.btn { padding: 10px 22px; font-size: 14px; }
 .global-nav a.btn-primary, .global-nav a.btn-primary:hover { color: #fff; }
 
+/* SNSアイコン(Instagram・公式LINE)
+   ・文字のメニューは920px以下で消すが、アイコンは幅を取らないのでスマホでも残す
+   ・LINEの緑・Instagramの紫は使わない。このLPの色は墨/生成り/濃緑/金の4色で決めており、
+     外のブランド色を2つ持ち込むと、並べた瞬間にそこだけ既製の部品に見えるため */
+.nav-sns { display: flex; align-items: center; gap: 8px; }
+.nav-ico {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  color: var(--ink-2); border: 1px solid var(--line);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.nav-ico svg { width: 19px; height: 19px; display: block; }
+.nav-ico:hover { color: var(--green); border-color: var(--line-2); background: rgba(28, 74, 62, 0.06); }
+.nav-ico:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
 /* ---------- 共通セクション（カードを減らし、罫線と余白で組む） ---------- */
 .section { padding: 92px 0; }
 .section.tinted { background: var(--paper-2); }
@@ -723,6 +738,49 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 }
 .cta-sub a { color: var(--gold-soft); }
 
+/* ---------- CTA帯のInstagram ----------
+   相談の導線(LINE・メール)とは役割が違う。ここに来る店主は「この会社は実在するのか」を
+   確かめに来ているので、最近の投稿を3枚そのまま出して、動いている様子を見せる。
+   新しい節を作らず帯の中に畳んでいるのは、ページをこれ以上伸ばさないため。 */
+.ig-block {
+  margin-top: 34px; padding-top: 32px;
+  border-top: 1px solid rgba(241, 241, 238, 0.16);
+}
+.ig-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-latin); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.14em; color: var(--gold-soft); margin-bottom: 10px;
+}
+.ig-eyebrow svg { width: 16px; height: 16px; }
+.ig-lead {
+  color: rgba(241, 241, 238, 0.74); font-size: 14.5px;
+  max-width: 520px; margin: 0 auto 24px;
+}
+.ig-feed {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  max-width: 404px; margin: 0 auto 24px;
+}
+.ig-feed img {
+  width: 100%; height: auto; display: block;
+  border-radius: 10px; border: 1px solid rgba(241, 241, 238, 0.14);
+  transition: transform 0.28s ease, border-color 0.28s ease;
+}
+.ig-feed:hover img { transform: translateY(-4px); border-color: var(--gold-soft); }
+.ig-feed:focus-visible { outline: 3px solid var(--gold); outline-offset: 6px; border-radius: 12px; }
+/* 金地のLINEボタンと張り合わせない。主導線はあくまで公式LINEなので、こちらは枠だけの控えめな形 */
+.btn-ig {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: rgba(241, 241, 238, 0.07);
+  border: 1px solid rgba(241, 241, 238, 0.24);
+  color: #f1f1ee; font-size: 14.5px; padding: 12px 24px;
+}
+.btn-ig svg { width: 18px; height: 18px; flex: none; }
+.btn-ig .at { font-family: var(--font-latin); letter-spacing: 0.02em; }
+.btn-ig:hover {
+  background: rgba(241, 241, 238, 0.13);
+  border-color: var(--gold-soft); color: #fff; transform: translateY(-2px);
+}
+
 /* ---------- フッター ---------- */
 .site-footer {
   background: var(--dark-2); color: rgba(241, 241, 238, 0.68);
@@ -754,6 +812,8 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   .compare { grid-template-columns: 1fr; }
   .compare-col.right { border-left: none; }
   .global-nav a:not(.btn) { display: none; }
+  /* ただしSNSアイコンは残す（文字メニューと違って幅を食わず、スマホでこそ押される導線のため） */
+  .global-nav .nav-sns a.nav-ico { display: inline-flex; }
 }
 
 @media (max-width: 600px) {
@@ -783,6 +843,14 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   .company-row { grid-template-columns: 1fr; gap: 2px; }
   .br-sp { display: inline; }
   .br-pc { display: none; }
+  /* ヘッダー: ロゴ＋アイコン2つ＋ボタンが390pxに収まるよう、この幅だけ寸法を詰める */
+  .global-nav { gap: 12px; }
+  .nav-sns { gap: 5px; }
+  .nav-ico { width: 32px; height: 32px; }
+  .nav-ico svg { width: 17px; height: 17px; }
+  .global-nav a.btn { padding: 9px 15px; font-size: 13px; }
+  /* Instagram: 3枚並びのまま画面幅に合わせる（1枚ずつ縦に積むと帯が急に長くなるため） */
+  .ig-feed { gap: 7px; }
 }
 
 /* ==========================================================================
@@ -918,6 +986,23 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
       <a href="#works">制作事例</a>
       <a href="#price">料金</a>
       <a href="#flow">制作の流れ</a>
+      <span class="nav-sns">
+        <a class="nav-ico" href="https://www.instagram.com/creativeworks.plus/" target="_blank" rel="noopener" aria-label="Instagram（別のタブで開きます）" title="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5.4"></rect>
+            <circle cx="12" cy="12" r="4.1"></circle>
+            <circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+        <a class="nav-ico" href="https://lin.ee/nFu0bnO" target="_blank" rel="noopener" aria-label="公式LINE（別のタブで開きます）" title="公式LINE">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3.7c-4.85 0-8.8 3.15-8.8 7.05 0 3.5 3.13 6.44 7.36 7 .29.06.68.19.78.44.09.23.06.58.03.81l-.13.79c-.04.23-.19.9.8.49.99-.41 5.32-3.13 7.26-5.36 1.34-1.47 1.5-2.96 1.5-4.17 0-3.9-3.95-7.05-8.8-7.05Z"></path>
+            <circle cx="8.6" cy="10.6" r="0.95" fill="currentColor" stroke="none"></circle>
+            <circle cx="12" cy="10.6" r="0.95" fill="currentColor" stroke="none"></circle>
+            <circle cx="15.4" cy="10.6" r="0.95" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+      </span>
       <a href="#contact" class="btn btn-primary">無料相談</a>
     </nav>
   </div>
@@ -1577,6 +1662,32 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
       </div>
 
       <p class="cta-sub">メールでのご相談も承ります —— <a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a></p>
+
+      <!-- Instagram（相談の導線ではなく、実在の確認と日々の様子を見てもらう場所） -->
+      <div class="ig-block">
+        <span class="ig-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5.4"></rect>
+            <circle cx="12" cy="12" r="4.1"></circle>
+            <circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"></circle>
+          </svg>INSTAGRAM
+        </span>
+        <p class="ig-lead"><span class="nw">毎朝ひとつ、</span><span class="nw">ホームページまわりの</span><span class="nw">小さな話を</span><span class="nw">上げています。</span><br class="br-sp"><span class="nw">制作の途中や、</span><span class="nw">考えていることも</span><span class="nw">そのまま</span><span class="nw">載せています。</span></p>
+
+        <a class="ig-feed" href="https://www.instagram.com/creativeworks.plus/" target="_blank" rel="noopener" aria-label="Instagramの最近の投稿を見る（別のタブで開きます）">
+          <img src="ig/01.jpg" alt="Instagramの投稿「お品書きは、写真ではなく文字で組みます。」" loading="lazy" width="480" height="600">
+          <img src="ig/02.jpg" alt="Instagramの投稿「順番を、逆にしました。」" loading="lazy" width="480" height="600">
+          <img src="ig/03.jpg" alt="Instagramの投稿「一枚目の写真を、決めるのは誰か。」" loading="lazy" width="480" height="600">
+        </a>
+
+        <a class="btn btn-ig" href="https://www.instagram.com/creativeworks.plus/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5.4"></rect>
+            <circle cx="12" cy="12" r="4.1"></circle>
+            <circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"></circle>
+          </svg><span class="at">@creativeworks.plus</span>
+        </a>
+      </div>
     </div>
   </section>
 
