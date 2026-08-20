@@ -72,6 +72,32 @@
         content: "✉"; margin-left: 7px; font-size: 0.78rem; color: #8f7a4e;
     }
 
+    /* 便で絞り込むボタン。中身はページの下の script が便から自動で作る
+       （便を足しても、ここへの登録作業は要らない）。JSが動かないときは
+       ボタンが出ないだけで、一覧はいままでどおり全部並ぶ */
+    .filter {
+        display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 0 0 26px;
+    }
+    .filter button {
+        font: inherit; font-size: 0.72rem; letter-spacing: 0.06em; cursor: pointer;
+        background: #17171a; color: #9b9892; border: 1px solid #2a2a2e; border-radius: 999px;
+        padding: 7px 13px; transition: 0.2s;
+    }
+    .filter button:hover, .filter button:focus-visible { border-color: #c9a063; color: #e8c98f; }
+    .filter button[aria-pressed="true"] { background: #1f1c15; border-color: #c9a063; color: #e8c98f; }
+    .filter button .c { color: #6f6d69; margin-left: 6px; }
+    .filter button[aria-pressed="true"] .c { color: #a58a5c; }
+    /* 投函が済んだ便は控えめに（残りがどれかを目で拾えるように） */
+    .filter button.sent { color: #6f6d69; }
+    .filter button.sent .c::after { content: "✓"; margin-left: 4px; }
+
+    /* ★これが無いと絞り込みが効かない。.batch と ul は display:flex なので、
+       ブラウザ既定の [hidden]{display:none} が負けて消えない */
+    [hidden] { display: none !important; }
+    /* 絞り込みで先頭に来た見出しの、上の余白を詰める */
+    .batch.is-first { margin-top: 0; }
+    h2.is-first { margin-top: 0; }
+
     .own { margin-top: 34px; padding-top: 22px; border-top: 1px solid #26262a; }
     .own a { background: #1b1a16; border-color: #35322a; }
 
@@ -92,8 +118,13 @@
     <h1>制作サイト一覧</h1>
     <p class="total">全101軒</p>
 
+    <div class="filter" id="filter"></div>
+
     <p class="note">
         <b>この並びは「手紙を送る順番」です。</b>上から順に送ってください。<br>
+        <b>★上のボタンで、見たい便だけを出せます。</b>「これから」＝まだ出していない便だけ。
+        ✓が付いているのは投函が済んだ便です。選ぶとアドレスの後ろに <b>#bin4</b> のように残るので、
+        <b>そのままの状態のリンクを営業マンに渡せます</b>（例：…/#bin4 なら開いた時点で第4便だけが出ます）。<br>
         1つの便＝1週ぶん。<b>同じ便の中に同じ町丁の店を入れていません</b>——
         隣同士に同じ手紙が同じ週に届くと「近所に同じものが回っている」と照合されるためです。<br>
         <b>便の中は担当ごとにまとめてあり、点線が担当の境目です。</b>
@@ -108,8 +139,9 @@
         （数えるときに2か所を足さずに済むように）。境目に点線と「ここから野木町」を出し、
         その行の町域には市町名を付けています。
         <b>そのぶん野木町の見出しの17軒には、上の第3便に出ている3軒（第4便の1軒とあわせて4軒）も含みます。</b><br>
-        <b>★2026-08-20：第3便の営業マンCぶん10通（蓮〜てん八）を投函しました。</b>
-        営業マンAの5通・営業マンDの20通・営業マンCの残り10通は、封筒の宛名書きまで済んでいます。<br>
+        <b>★2026-08-20：第3便までを全部投函しました（60通）。</b>
+        いちばん上の組は「送付済み」と呼んでいましたが、ボタンの並びを揃えるため<b>第1便</b>に改めました。
+        <b>次に出すのは第4便の20通で、手紙の印刷も封筒の宛名書きもこれからです。</b><br>
         <b>★2026-08-20：もとの第4便（営業マンD 10通）は第3便へ移したので、第4便を組み直しました。</b>
         <b>第4便＝D 10通・C 10通</b>で、もとの第5便・第6便・便の割り当て前から詰めています。
         <b>Cの10通目だけ野木町の秀寿司です</b>——古河市に残っている店では、同じ町丁を重ねずに20通を組めなかったためです（第3便と同じ理由）。
@@ -149,7 +181,7 @@
 
     <h2>茨城県 古河市<span class="count">84軒</span></h2>
 
-    <p class="batch done"><b>送付済み</b>／すべて営業マンA<span class="n">5通</span></p>
+    <p class="batch done"><b>第1便</b>／投函済み・すべて営業マンA<span class="n">5通</span></p>
     <ul>
         <li class="done"><a href="nagi/"><span class="nm">居酒屋 凪</span><span class="area">北町</span><span class="who na">営業マンA</span></a></li>
         <li class="done"><a href="nagomidokoro-syu/"><span class="nm">なごみ処 秀</span><span class="area">坂間</span><span class="who na">営業マンA</span></a></li>
@@ -158,57 +190,57 @@
         <li class="done"><a href="bonne-qualite/"><span class="nm">イタリアン Bonne Qualité(ボンヌカリテ)</span><span class="area">大堤</span><span class="who na">営業マンA</span></a></li>
     </ul>
 
-    <p class="batch"><b>第2便</b>／今週<span class="n">A 5通・C 5通</span></p>
+    <p class="batch done"><b>第2便</b>／投函済み（2026-08-20）<span class="n">A 5通・C 5通</span></p>
     <ul>
-        <li class="envelope"><a href="sumikichi/"><span class="nm">炭きち</span><span class="area">東本町</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="izakaya-japan/"><span class="nm">居酒屋ジャパン</span><span class="area">東1</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="sobazen/"><span class="nm">そば善</span><span class="area">古河</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="torattoriya/"><span class="nm">とらっ鳥屋</span><span class="area">横山町</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="uokatsu/"><span class="nm">食彩厨房 魚かつ</span><span class="area">上辺見</span><span class="who na">営業マンA</span></a></li>
-        <li class="split envelope"><a href="ryoka/"><span class="nm">良花</span><span class="area">高野</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="kuro-diamond/"><span class="nm">畑の黒ダイヤ</span><span class="area">上大野</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="bunpuku-hanten/"><span class="nm">文福飯店</span><span class="area">北山田</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="takachan/"><span class="nm">それいけ!たかちゃんラーメン</span><span class="area">大山</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="sakasa-shokudo/"><span class="nm">さかさ食堂</span><span class="area">下辺見</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="sumikichi/"><span class="nm">炭きち</span><span class="area">東本町</span><span class="who na">営業マンA</span></a></li>
+        <li class="done envelope"><a href="izakaya-japan/"><span class="nm">居酒屋ジャパン</span><span class="area">東1</span><span class="who na">営業マンA</span></a></li>
+        <li class="done envelope"><a href="sobazen/"><span class="nm">そば善</span><span class="area">古河</span><span class="who na">営業マンA</span></a></li>
+        <li class="done envelope"><a href="torattoriya/"><span class="nm">とらっ鳥屋</span><span class="area">横山町</span><span class="who na">営業マンA</span></a></li>
+        <li class="done envelope"><a href="uokatsu/"><span class="nm">食彩厨房 魚かつ</span><span class="area">上辺見</span><span class="who na">営業マンA</span></a></li>
+        <li class="done split envelope"><a href="ryoka/"><span class="nm">良花</span><span class="area">高野</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="kuro-diamond/"><span class="nm">畑の黒ダイヤ</span><span class="area">上大野</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="bunpuku-hanten/"><span class="nm">文福飯店</span><span class="area">北山田</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="takachan/"><span class="nm">それいけ!たかちゃんラーメン</span><span class="area">大山</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="sakasa-shokudo/"><span class="nm">さかさ食堂</span><span class="area">下辺見</span><span class="who hi">営業マンC</span></a></li>
     </ul>
 
-    <p class="batch"><b>第3便</b>／来週まとめて投函<span class="n">A 5通・D 20通・C 20通（古河市17・野木町3）</span></p>
+    <p class="batch done"><b>第3便</b>／投函済み（2026-08-20）<span class="n">A 5通・D 20通・C 20通（古河市17・野木町3）</span></p>
     <ul>
-        <li class="envelope"><a href="ikkaku/"><span class="nm">食彩酒 一鶴</span><span class="area">東本町</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="genji/"><span class="nm">酒道場 源氏</span><span class="area">東1</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="ichi/"><span class="nm">いざかや 壱</span><span class="area">古河</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="kyu/"><span class="nm">海鮮居酒屋 玖 -kyu-</span><span class="area">関戸</span><span class="who na">営業マンA</span></a></li>
-        <li class="envelope"><a href="sangenya/"><span class="nm">三軒家</span><span class="area">下辺見</span><span class="who na">営業マンA</span></a></li>
-        <li class="split envelope"><a href="tatamiya/"><span class="nm">たたみ家</span><span class="area">中央町</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="rikuzen-koga/"><span class="nm">りくぜん 古河店</span><span class="area">東3</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="ocha-nova/"><span class="nm">Cafe 5438 Ocha-Nova</span><span class="area">本町4</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="asunaro/"><span class="nm">あすなろ（三和本店・古河店）</span><span class="area">仁連</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="senri/"><span class="nm">ステーキハウス千里</span><span class="area">横山町</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="ryubitei/"><span class="nm">串焼き居酒屋 竜美亭</span><span class="area">本町1</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="ramen-ichiban/"><span class="nm">ラーメン一番</span><span class="area">上辺見2310</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="daruma/"><span class="nm">焼肉だるま</span><span class="area">小堤</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="tawaraya/"><span class="nm">うどん茶屋 俵屋</span><span class="area">茶屋新田</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="ooba/"><span class="nm">炭火焼肉 おおば</span><span class="area">駒羽根</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="kiraku-hanten/"><span class="nm">喜楽飯店</span><span class="area">東1</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="steak-fuji/"><span class="nm">ステーキ食堂 富士</span><span class="area">東本町1</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="nouvelle-classique/"><span class="nm">ヌーベル・クラシック</span><span class="area">上辺見302</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="musashiya/"><span class="nm">武蔵屋</span><span class="area">横山町</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="maruimo-cafe/"><span class="nm">まる芋カフェ</span><span class="area">下辺見</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="fujiya/"><span class="nm">藤屋</span><span class="area">小堤</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="shinraku-hanten/"><span class="nm">新楽飯店</span><span class="area">本町1</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="shoryu/"><span class="nm">昇龍</span><span class="area">駒羽根</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="mendo-inaba/"><span class="nm">麺堂 稲葉（古河本店・INABASTYLE）</span><span class="area">大山</span><span class="who ma">営業マンD</span></a></li>
-        <li class="envelope"><a href="flandre/"><span class="nm">レストラン フランドル</span><span class="area">女沼</span><span class="who ma">営業マンD</span></a></li>
-        <li class="split envelope"><a href="awaya/"><span class="nm">支那そば・横浜タンメン 阿波家</span><span class="area">久能</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="ikki/"><span class="nm">らーめん壱輝</span><span class="area">大堤</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="mendokoro-kuraya/"><span class="nm">めん処 蔵屋</span><span class="area">柳橋</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="minowa/"><span class="nm">とんかつ みの和</span><span class="area">東山田</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="nagase/"><span class="nm">ラーメン長瀬</span><span class="area">中田</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="ichigen/"><span class="nm">味噌らーめん 一玄</span><span class="area">稲宮</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="homareya/"><span class="nm">横浜家系ラーメン 誉家</span><span class="area">西牛谷</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="spice-garden/"><span class="nm">スパイスガーデン</span><span class="area">下大野</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="mashirako/"><span class="nm">小さな小さなしあわせ処 ましらこ</span><span class="area">緑町</span><span class="who hi">営業マンC</span></a></li>
-        <li class="envelope"><a href="yururino-mori/"><span class="nm">ゆるりの森</span><span class="area">上片田</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="ikkaku/"><span class="nm">食彩酒 一鶴</span><span class="area">東本町</span><span class="who na">営業マンA</span></a></li>
+        <li class="done envelope"><a href="genji/"><span class="nm">酒道場 源氏</span><span class="area">東1</span><span class="who na">営業マンA</span></a></li>
+        <li class="done envelope"><a href="ichi/"><span class="nm">いざかや 壱</span><span class="area">古河</span><span class="who na">営業マンA</span></a></li>
+        <li class="done envelope"><a href="kyu/"><span class="nm">海鮮居酒屋 玖 -kyu-</span><span class="area">関戸</span><span class="who na">営業マンA</span></a></li>
+        <li class="done envelope"><a href="sangenya/"><span class="nm">三軒家</span><span class="area">下辺見</span><span class="who na">営業マンA</span></a></li>
+        <li class="done split envelope"><a href="tatamiya/"><span class="nm">たたみ家</span><span class="area">中央町</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="rikuzen-koga/"><span class="nm">りくぜん 古河店</span><span class="area">東3</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="ocha-nova/"><span class="nm">Cafe 5438 Ocha-Nova</span><span class="area">本町4</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="asunaro/"><span class="nm">あすなろ（三和本店・古河店）</span><span class="area">仁連</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="senri/"><span class="nm">ステーキハウス千里</span><span class="area">横山町</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="ryubitei/"><span class="nm">串焼き居酒屋 竜美亭</span><span class="area">本町1</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="ramen-ichiban/"><span class="nm">ラーメン一番</span><span class="area">上辺見2310</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="daruma/"><span class="nm">焼肉だるま</span><span class="area">小堤</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="tawaraya/"><span class="nm">うどん茶屋 俵屋</span><span class="area">茶屋新田</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="ooba/"><span class="nm">炭火焼肉 おおば</span><span class="area">駒羽根</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="kiraku-hanten/"><span class="nm">喜楽飯店</span><span class="area">東1</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="steak-fuji/"><span class="nm">ステーキ食堂 富士</span><span class="area">東本町1</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="nouvelle-classique/"><span class="nm">ヌーベル・クラシック</span><span class="area">上辺見302</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="musashiya/"><span class="nm">武蔵屋</span><span class="area">横山町</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="maruimo-cafe/"><span class="nm">まる芋カフェ</span><span class="area">下辺見</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="fujiya/"><span class="nm">藤屋</span><span class="area">小堤</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="shinraku-hanten/"><span class="nm">新楽飯店</span><span class="area">本町1</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="shoryu/"><span class="nm">昇龍</span><span class="area">駒羽根</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="mendo-inaba/"><span class="nm">麺堂 稲葉（古河本店・INABASTYLE）</span><span class="area">大山</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done envelope"><a href="flandre/"><span class="nm">レストラン フランドル</span><span class="area">女沼</span><span class="who ma">営業マンD</span></a></li>
+        <li class="done split envelope"><a href="awaya/"><span class="nm">支那そば・横浜タンメン 阿波家</span><span class="area">久能</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="ikki/"><span class="nm">らーめん壱輝</span><span class="area">大堤</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="mendokoro-kuraya/"><span class="nm">めん処 蔵屋</span><span class="area">柳橋</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="minowa/"><span class="nm">とんかつ みの和</span><span class="area">東山田</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="nagase/"><span class="nm">ラーメン長瀬</span><span class="area">中田</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="ichigen/"><span class="nm">味噌らーめん 一玄</span><span class="area">稲宮</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="homareya/"><span class="nm">横浜家系ラーメン 誉家</span><span class="area">西牛谷</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="spice-garden/"><span class="nm">スパイスガーデン</span><span class="area">下大野</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="mashirako/"><span class="nm">小さな小さなしあわせ処 ましらこ</span><span class="area">緑町</span><span class="who hi">営業マンC</span></a></li>
+        <li class="done envelope"><a href="yururino-mori/"><span class="nm">ゆるりの森</span><span class="area">上片田</span><span class="who hi">営業マンC</span></a></li>
         <li class="done envelope"><a href="ren/"><span class="nm">蓮</span><span class="area">坂間</span><span class="who hi">営業マンC</span></a></li>
         <li class="done envelope"><a href="matsugaku/"><span class="nm">さぬきうどん 松学</span><span class="area">上大野</span><span class="who hi">営業マンC</span></a></li>
         <li class="done envelope"><a href="champon-shizuka/"><span class="nm">しずか</span><span class="area">大和田</span><span class="who hi">営業マンC</span></a></li>
@@ -297,5 +329,118 @@
         <a href="sales/recruit.html"><span>営業パートナー募集要項</span><span class="tag">社内用</span></a>
     </div>
 </div>
+
+<script>
+/* 便で絞り込む。便の見出し（class="batch" の段落）と その次の一覧を1組として扱い、
+   ★このコメントに便の見出しのタグをそのまま書かないこと。
+     build_letter_preview.py が同じ文字列でページを切り分けており、
+     コメントの中の1つを「中身の無い便」と読んで落ちる（2026-08-20 に実際に落ちた）。
+   ボタンは便の見出しから毎回組み立てる（新しい便を足しても手当ては要らない）。
+   選んだ便は URL の後ろ（#bin4）に残るので、営業マンに自分の便のリンクを渡せる。 */
+(function () {
+    var wrap = document.querySelector('.wrap');
+    var bar  = document.getElementById('filter');
+    if (!wrap || !bar) return;
+
+    var groups = [], h2 = null;
+    for (var i = 0; i < wrap.children.length; i++) {
+        var el = wrap.children[i];
+        if (el.tagName === 'H2') { h2 = el; continue; }
+        if (el.tagName !== 'P' || !el.classList.contains('batch')) continue;
+        var ul = el.nextElementSibling;
+        if (!ul || ul.tagName !== 'UL') continue;
+        var b = el.querySelector('b');
+        var no = (b.textContent.match(/第(\d+)便/) || [])[1];
+        groups.push({
+            head: el, list: ul, area: h2,
+            label: b.textContent.trim(),
+            key: no ? 'bin' + no : 'g' + groups.length,
+            sent: el.classList.contains('done'),
+            n: ul.querySelectorAll('li > a').length   /* li.sub は <a> が無いので数に入らない */
+        });
+    }
+    if (groups.length < 2) return;
+
+    var total = document.querySelector('.total');
+    var totalText = total ? total.textContent : '';
+    /* 地域の軒数は「全部」のときの文言に戻せるよう控えておく。
+       絞り込んだときに 84軒 のままだと、見えている数と合わなくて数え直しの手間になる */
+    var areaCount = [];
+    Array.prototype.forEach.call(document.querySelectorAll('h2 .count'), function (c) {
+        areaCount.push([c, c.textContent]);
+    });
+    var todo = 0;
+    groups.forEach(function (g) { if (!g.sent) todo += g.n; });
+
+    function button(key, label, count, sent) {
+        var el = document.createElement('button');
+        el.type = 'button';
+        el.dataset.key = key;
+        if (sent) el.className = 'sent';
+        el.innerHTML = label + '<span class="c">' + count + '</span>';
+        el.addEventListener('click', function () {
+            location.hash = (key === 'all' ? '' : key);
+            apply(key);
+        });
+        bar.appendChild(el);
+        return el;
+    }
+
+    var buttons = [button('all', '全部', groups.reduce(function (s, g) { return s + g.n; }, 0), false)];
+    if (todo) buttons.push(button('todo', 'これから', todo, false));
+    groups.forEach(function (g) { buttons.push(button(g.key, g.label, g.n, g.sent)); });
+
+    function apply(key) {
+        var shown = 0, label = '';
+        groups.forEach(function (g) {
+            var on = (key === 'all') || (key === 'todo' ? !g.sent : g.key === key);
+            g.head.hidden = g.list.hidden = !on;
+            g.head.classList.remove('is-first');
+            if (on) { shown += g.n; if (key === g.key) label = g.label; }
+        });
+        /* 中身が1つも見えていない地域の見出しは隠す */
+        var areas = [];
+        groups.forEach(function (g) { if (g.area && areas.indexOf(g.area) < 0) areas.push(g.area); });
+        areas.forEach(function (a) {
+            a.hidden = !groups.some(function (g) { return g.area === a && !g.head.hidden; });
+            a.classList.remove('is-first');
+        });
+        /* 先頭に来たものの余白を詰める */
+        areaCount.forEach(function (pair) {
+            var h = pair[0].closest('h2');
+            if (key === 'all') { pair[0].textContent = pair[1]; return; }
+            /* ★1つの便が2つの市町にまたがることがある（第3便・第4便）。
+               その行には data-area が付いているので、見出しの市町と突き合わせて数える。
+               ここを「その見出しの下にある行」で数えると、古河市に野木町の分まで足してしまう */
+            var name = h.firstChild.textContent.trim(), n = 0;
+            groups.forEach(function (g) {
+                if (g.head.hidden) return;
+                Array.prototype.forEach.call(g.list.querySelectorAll('li > a'), function (a) {
+                    var da = a.parentNode.getAttribute('data-area');
+                    if (da ? da === name : g.area === h) n++;
+                });
+            });
+            pair[0].textContent = n + '軒';
+        });
+        var firstArea = areas.filter(function (a) { return !a.hidden; })[0];
+        if (firstArea) firstArea.classList.add('is-first');
+        var firstHead = groups.filter(function (g) { return !g.head.hidden; })[0];
+        if (firstHead && (!firstArea || firstHead.area !== firstArea)) firstHead.head.classList.add('is-first');
+
+        if (total) {
+            total.textContent = key === 'all' ? totalText
+                : (key === 'todo' ? 'これから出すぶん ' : label + '　') + shown + '軒';
+        }
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.key === key)); });
+    }
+
+    function fromHash() {
+        var k = (location.hash || '').replace('#', '');
+        return buttons.some(function (b) { return b.dataset.key === k; }) ? k : 'all';
+    }
+    window.addEventListener('hashchange', function () { apply(fromHash()); });
+    apply(fromHash());
+})();
+</script>
 </body>
 </html>
