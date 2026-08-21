@@ -428,6 +428,14 @@
     .btn-ghost { border: 1px solid var(--line-strong); color: var(--ink); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
     .btn-block { width: 100%; }
+    /* ボタンの中は語の途中で折らない。.nw は inline-block なので入りきらないと
+       中で折れてしまい、390pxで「ご予約・お問い／合わせ」になっていた（絶対ルール⑬） */
+    /* ボタンの中は語の途中で折らない。折るならこの2つの境目だけ
+       （.nw は inline-block なので入りきらないと中で折れ、390pxで
+        「ご予約・お問い／合わせ」になっていた。絶対ルール⑬） */
+    .btn-tel-num, .btn-tel-cap { display: inline-block; white-space: nowrap; }
+    /* 2行になる幅では区切りの「｜」が行末に取り残されるので、そこだけ消す */
+    @media (max-width: 480px) { .btn-tel-sep { display: none; } }
     .hero-actions {
         display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
         margin-top: clamp(26px, 5vw, 38px);
@@ -452,85 +460,92 @@
     }
     .lead + .photo-grid, .lead + .photo-row { margin-top: clamp(30px, 5vw, 48px); }
 
-    /* --- ヒーロー：二枚看板（うどん／丼もの）を実写のまま左右に敷く -----------
-       2026-08-21 改訂。もとは棹と支点を線で描いた「天秤」を置いていたが、
-       定規とコンパスで描ける説明図＝図解で、実写と並ぶと自作の略図に見えた
-       （絶対ルール⑫）。釣り合いは写真2枚と一行の文で言い、線では描かない。 */
+    /* --- ヒーロー：生成りの地に、二枚の写真を「置く」 -------------------------
+       2026-08-21 改訂（2回目）。写真を画面いっぱいに敷いていたので、うどんも丼も
+       寄りすぎて器が切れ、圧だけが強かった。料理が器ごと収まる大きさまで引いて、
+       店の地色の上に組み写真として置く。文字は写真に載せず、地の上で読ませるので
+       暗幕もいらない。釣り合いは写真二枚と一行の文で言う（絶対ルール⑫）。 */
     .hero {
-        position: relative; isolation: isolate; overflow: hidden;
-        display: flex; align-items: center; justify-content: center;
-        padding-block: clamp(52px, 9vw, 96px);
-    }
-    .hero-stage {
-        position: absolute; inset: 0; z-index: 0;
-        display: grid; grid-template-columns: 1fr 1fr;
-    }
-    .hero-stage .hp { position: relative; margin: 0; overflow: hidden; }
-    .hero-stage .hp picture { display: block; width: 100%; height: 100%; }
-    .hero-stage .hp img { width: 100%; height: 100%; object-fit: cover; }
-    .hp-udon img { object-position: 62% 52%; }
-    .hp-don  img { object-position: 50% 56%; }
-    .hp-don::before {                       /* 二枚の合わせ目に細い罫を1本だけ */
-        content: ''; position: absolute; inset: 0 auto 0 0; width: 1px; z-index: 2;
-        background: rgba(255, 255, 255, 0.34);
-    }
-    /* 明るい実写の上に白文字を置くので、暗幕は強めに。中央を濃く、下端をさらに濃く */
-    .hero-veil {
-        position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        position: relative; overflow: hidden;
+        display: flex; align-items: center;
+        padding-block: clamp(38px, 6vw, 74px);
         background:
-            radial-gradient(98% 70% at 50% 45%,
-                rgba(18, 20, 13, 0.82) 0%, rgba(18, 20, 13, 0.58) 46%,
-                rgba(18, 20, 13, 0.26) 78%, rgba(18, 20, 13, 0.12) 100%),
-            linear-gradient(180deg,
-                rgba(18, 20, 13, 0.56) 0%, rgba(18, 20, 13, 0.30) 28%,
-                rgba(18, 20, 13, 0.40) 64%, rgba(18, 20, 13, 0.84) 100%),
-            linear-gradient(90deg,
-                rgba(18, 20, 13, 0.20) 0%, rgba(18, 20, 13, 0.06) 34%, rgba(18, 20, 13, 0) 52%);
+            radial-gradient(130% 100% at 86% 6%, #F5F4E9 0%, rgba(245, 244, 233, 0) 58%),
+            linear-gradient(180deg, var(--bg) 0%, #E3E7D8 100%);
     }
-    .hero-body {
-        position: relative; z-index: 2; text-align: center;
-        width: min(100% - 2 * var(--pad-inner), 880px);
+    .hero::after {                       /* 右下にだけ、差し色の余韻をうっすら置く */
+        content: ''; position: absolute; right: -14%; bottom: -26%;
+        width: 48%; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+        background: radial-gradient(circle, rgba(107, 69, 96, 0.075) 0%, rgba(107, 69, 96, 0) 70%);
     }
+    .hero-grid {
+        position: relative; z-index: 1;
+        display: grid; align-items: center;
+        grid-template-columns: minmax(0, 0.94fr) minmax(0, 1fr);
+        gap: clamp(30px, 5vw, 66px);
+    }
+
+    .hero-body { text-align: left; }
     .hero-eyebrow {
-        font-family: var(--font-head); color: rgba(255, 255, 255, 0.86);
-        font-size: clamp(.76rem, 2.6vw, .92rem); letter-spacing: 0.2em; text-indent: 0.2em;
-        text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+        font-family: var(--font-head); color: var(--dim);
+        font-size: clamp(.76rem, 2.6vw, .9rem); letter-spacing: 0.18em;
     }
-    .hero-title { font-family: var(--font-head); font-weight: 400; margin-top: 14px; color: #fff; }
+    /* ★flex にしない。直下の .nw が別々のアイテムになって間延びする（絶対ルール⑬） */
+    .hero-eyebrow::before {
+        content: ''; display: inline-block; vertical-align: middle;
+        width: 28px; height: 1px; margin-right: 12px; background: var(--accent-2);
+    }
+    .hero-title { font-family: var(--font-head); font-weight: 400; margin-top: 16px; color: var(--ink); }
     .ht-sub {
-        display: block; color: #EBD3E1;
-        font-size: clamp(.85rem, 3vw, 1.05rem); letter-spacing: 0.36em; text-indent: 0.36em;
-        text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
+        display: block; color: var(--accent);
+        font-size: clamp(.85rem, 3vw, 1.02rem); letter-spacing: 0.34em; text-indent: 0.34em;
     }
     .ht-name {
-        display: block; line-height: 1.02; margin-top: 10px;
-        font-size: clamp(4.2rem, 17vw, 8rem); letter-spacing: 0.1em; text-indent: 0.1em;
-        text-shadow: 0 4px 36px rgba(0, 0, 0, 0.55), 0 1px 6px rgba(0, 0, 0, 0.4);
+        display: block; line-height: 1.02; margin-top: 12px;
+        font-size: clamp(3.4rem, 15vw, 6.4rem); letter-spacing: 0.08em; text-indent: 0.08em;
     }
     .hero-rule {
-        display: block; width: 66px; height: 1px; margin: clamp(22px, 4vw, 32px) auto 0;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.78), transparent);
+        display: block; width: 60px; height: 1px; background: var(--line-strong);
+        margin: clamp(20px, 3.4vw, 28px) 0 0;
     }
     .hero-lead {
-        margin-top: clamp(20px, 3.6vw, 28px); color: rgba(255, 255, 255, 0.96);
-        font-family: var(--font-head); font-size: clamp(1.02rem, 3.6vw, 1.3rem);
-        letter-spacing: 0.04em; text-shadow: 0 1px 16px rgba(0, 0, 0, 0.6);
+        margin-top: clamp(18px, 3.2vw, 26px); color: var(--muted);
+        font-family: var(--font-head); font-size: clamp(1rem, 3.4vw, 1.22rem);
+        line-height: 1.85; letter-spacing: 0.04em;
     }
-    .hero .status-chip {
-        margin-top: clamp(20px, 3.6vw, 30px);
-        background: rgba(255, 255, 255, 0.15); color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.34);
-        -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-    }
-    .hero .btn-primary { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.36); }
-    .hero .btn-ghost { border-color: rgba(255, 255, 255, 0.62); color: #fff; }
-    .hero .btn-ghost:hover { background: rgba(255, 255, 255, 0.95); border-color: transparent; color: var(--ink); }
+    .hero .status-chip { margin-top: clamp(18px, 3.2vw, 26px); }
+    .hero .hero-actions { justify-content: flex-start; }
 
-    @media (max-width: 899px) {                 /* 縦に2段。上＝うどん、下＝丼もの */
-        .hero-stage { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-        .hp-don::before { inset: 0 0 auto 0; width: auto; height: 1px; }
-        .hp-udon img { object-position: 58% 50%; }
-        .hp-don  img { object-position: 50% 46%; }
+    /* 組み写真。うどんは横位置・丼は縦位置のまま、それぞれの原寸の形で枠を作る。
+       枠を写真の形に合わせているので、器が切り落とされない */
+    .hero-photos { position: relative; }
+    .hero-photos figure { margin: 0; }   /* ★このリセットは figure 型セレクタを含むので
+                                             ずらす側も .hero-photos を付けて詳細度を揃える */
+    .hero-photos img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .hp-udon {
+        position: relative; z-index: 1; aspect-ratio: 16 / 10;
+        overflow: hidden; border-radius: 14px;
+        box-shadow: 0 20px 44px rgba(34, 38, 28, 0.16);
+    }
+    .hp-udon img { object-position: 50% 54%; }
+    .hero-photos .hp-don {
+        position: relative; z-index: 2; aspect-ratio: 3 / 4;
+        width: 44%; margin: -19% 0 0 6%;
+        overflow: hidden; border-radius: 14px;
+        /* 縁取りは border ではなく影で作る（aspect-ratio と喧嘩しない） */
+        box-shadow: 0 0 0 6px var(--bg), 0 22px 46px rgba(34, 38, 28, 0.22);
+    }
+    .hp-don img { object-position: 50% 52%; }
+
+    @media (max-width: 959px) {              /* 上に文字、下に組み写真 */
+        .hero { padding-block: clamp(30px, 6vw, 52px); }
+        .hero-grid { grid-template-columns: 1fr; gap: clamp(26px, 6vw, 40px); }
+        .hero-body { text-align: center; }
+        .hero-eyebrow::before { display: none; }
+        .hero-rule { margin-inline: auto; }
+        .hero .hero-actions { justify-content: center; }
+        .hero-photos { max-width: 520px; margin-inline: auto; }
+        .hero-photos .hp-don { width: 42%; margin: -17% 0 0 4%; }
     }
 
     /* --- はじめてのお客様へ（実用の欄を先に出す） ----------------------------- */
@@ -749,43 +764,39 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-stage">
-        <figure class="hp hp-udon">
-            <img src="img/hero-udon.jpg" alt="竹すのこのせいろに盛った、つやのある太いさぬきうどん"
-                 width="1800" height="1012" fetchpriority="high" decoding="async">
-        </figure>
-        <figure class="hp hp-don">
-            <!-- 枠の形が縦長（PCの2段組）と横長（スマホ・タブレットの2段積み）で
-                 まるきり変わるので、写真そのものを向きで差し替える -->
-            <picture>
-                <source media="(max-width: 899px)" srcset="img/hero-donburi-w.jpg" width="1024" height="768">
+    <div class="container hero-grid">
+        <div class="hero-body">
+            <p class="hero-eyebrow reveal"><span class="nw">茨城県古河市上大野・</span><span class="nw">県道</span><span class="nw">124号沿い</span></p>
+
+            <h1 class="hero-title reveal reveal-delay-1">
+                <span class="ht-sub"><span class="nw">さぬきうどん</span></span>
+                <span class="ht-name"><span class="nw">松学</span></span>
+            </h1>
+
+            <span class="hero-rule reveal reveal-delay-2" aria-hidden="true"></span>
+
+            <p class="hero-lead reveal reveal-delay-2"><span class="nw">丼ものとうどんを、</span><span class="nw">どちらも</span><span class="nw">一人前で</span><span class="nw">お出しします。</span></p>
+
+            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+
+            <div class="hero-actions">
+                <a href="tel:0280982968" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    <span class="nwb"><span class="btn-tel-num">0280-98-2968</span><span class="btn-tel-sep">｜</span><span class="btn-tel-cap">ご予約・お問い合わせ</span></span>
+                </a>
+                <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+            </div>
+        </div>
+
+        <div class="hero-photos reveal reveal-delay-1">
+            <figure class="hp-udon">
+                <img src="img/hero-udon.jpg" alt="竹すのこのせいろに盛った、つやのある太いさぬきうどん"
+                     width="1200" height="675" fetchpriority="high" decoding="async">
+            </figure>
+            <figure class="hp-don">
                 <img src="img/hero-donburi.jpg" alt="赤い丼に盛ったかつ丼。卵でとじたかつに三つ葉を添えている"
-                     width="768" height="1024" fetchpriority="high" decoding="async">
-            </picture>
-        </figure>
-    </div>
-    <span class="hero-veil" aria-hidden="true"></span>
-
-    <div class="container hero-body">
-        <p class="hero-eyebrow reveal"><span class="nw">茨城県古河市上大野・</span><span class="nw">県道</span><span class="nw">124号沿い</span></p>
-
-        <h1 class="hero-title reveal reveal-delay-1">
-            <span class="ht-sub"><span class="nw">さぬきうどん</span></span>
-            <span class="ht-name"><span class="nw">松学</span></span>
-        </h1>
-
-        <span class="hero-rule reveal reveal-delay-2" aria-hidden="true"></span>
-
-        <p class="hero-lead reveal reveal-delay-2"><span class="nw">丼ものとうどんを、</span><span class="nw">どちらも</span><span class="nw">一人前で</span><span class="nw">お出しします。</span></p>
-
-        <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
-
-        <div class="hero-actions">
-            <a href="tel:0280982968" class="btn btn-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                <span class="nwb"><span class="nw">0280-98-2968｜</span><span class="nw">ご予約・お問い合わせ</span></span>
-            </a>
-            <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+                     width="640" height="853" fetchpriority="high" decoding="async">
+            </figure>
         </div>
     </div>
 </section>
@@ -1124,7 +1135,7 @@
 
         <!-- ★末尾の予約導線（必須） -->
         <div class="hero-actions" style="margin-top:14px;">
-            <a href="tel:0280982968" class="btn btn-primary btn-block"><span class="nwb"><span class="nw">お電話で</span><span class="nw">ご予約・お問い合わせ</span></span></a>
+            <a href="tel:0280982968" class="btn btn-primary btn-block"><span class="nwb"><span class="btn-tel-num">お電話で</span><span class="btn-tel-cap">ご予約・お問い合わせ</span></span></a>
         </div>
     </div>
 </section>
