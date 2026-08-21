@@ -163,7 +163,7 @@
     .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
     .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
     .nav-toggle { margin-left: 6px; }
-    .hero { min-height: min(100svh, 820px); }  /* ヒーローはヘッダーの下まで通す全画面。820px の上限は、大画面で間延びさせず次の節を覗かせるため */
+    /* .hero の高さは世界観そのものなので、ヒーローの節（901px以上で min(100svh, 760px)）で決める */
     [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
     a { color: inherit; text-decoration: none; }
     ul, ol { list-style: none; }
@@ -414,18 +414,8 @@
         transition: background 0.28s ease;
     }
 
-    /* ★ヒーローの写真の上にいる間だけ、ヘッダーを写真に溶かす。
-       60px スクロールすると既存の監視が body.scrolled を付けて元の白い帯に戻る。
-       .nav-open を除くのは、メニューを開いた時だけは白地に戻さないと文字が読めないため。 */
-    body:not(.scrolled):not(.nav-open) .site-header {
-        background: transparent; backdrop-filter: none; border-bottom-color: transparent;
-    }
-    body:not(.scrolled):not(.nav-open) .brand,
-    body:not(.scrolled):not(.nav-open) .header-tel { color: #fff; text-shadow: 0 1px 12px rgba(18, 4, 9, 0.6); }
-    body:not(.scrolled):not(.nav-open) .header-tel svg { color: #fff; }
-    body:not(.scrolled):not(.nav-open) .pc-nav a { color: rgba(255, 255, 255, 0.88); }
-    body:not(.scrolled):not(.nav-open) .pc-nav a:hover { color: #fff; }
-    body:not(.scrolled):not(.nav-open) .nav-toggle > span:not([class]) { background: #fff; }
+    /* ★ヘッダーは常に白い帯のまま。2026-08-21 に一度「ヒーローの上だけ透明」にしたが、
+       ヒーローの地を明るく戻した時点で白い文字が消えるので撤去した。 */
 
     .pc-nav { display: none; margin-left: auto; gap: clamp(14px, 1.8vw, 24px); align-items: center; }
     .pc-nav a { font-size: 0.88rem; letter-spacing: 0.03em; color: var(--muted); }
@@ -447,6 +437,10 @@
         transform: translateX(100%);
     }
     body.nav-open .mobile-nav { transform: translateX(0); }
+    /* ★開いている間はヘッダーを引き出しより上に置く。引き出しは top:0 の全高なので、
+       このひと押しが無いと「開いたあと、同じボタンをもう一度押しても閉じない」
+       （引き出しがボタンを覆う）。引き出しの上余白はヘッダーぶん確保してある。 */
+    body.nav-open .site-header { z-index: 210; }
     body.nav-open::after {
         content: ''; position: fixed; inset: 0; z-index: 190;
         background: rgba(36, 29, 31, 0.35);
@@ -458,134 +452,135 @@
     }
     .nav-close { margin-top: 18px; text-align: left; font-size: 0.86rem; color: var(--dim); }
 
-    /* ══════════════ ヒーロー：全画面の一杯＋「赤い庇」 ══════════════════════
+    /* ══════════════ ヒーロー：一杯の全景と「赤い庇」の二枚組 ══════════════
        署名＝この店の看板そのもの。国道沿いの赤い庇に、白い筆文字で「ラーメン 蓮 REN」。
-       それを写真の上に置いた赤い板として写し取り、3秒で「何の店か・どこの店か」を出す。
-       ★旧・A-19「献立の式」（ラーメン＋400円＝Aセット）は 2026-08-21 に廃止した。
-         いちばん大きな要素が紅い丸の「400」で、初見では 400円のラーメン屋に読める。
-         式は説明が要る＝ヒーローに置くものではない。セットの話は #set に一本化した。
+       これを赤い板として立て、右に丼の全景を1枚だけ置く。強さは赤い板が持ち、
+       写真は器の縁まで見せる役に回る。
+
+       ★ここまでの経緯（同じ直しを繰り返さないために残す）
+        ・A-19「献立の式」（ラーメン＋400円＝Aセット）… 紅い丸の「400」がいちばん大きく、
+          初見で400円のラーメン屋に読めた。式は説明が要る＝ヒーロー向きではない。廃止。
+        ・全画面のマクロ写真 … 寄りすぎて丼の縁が1か所も写らず、「写真が大きすぎる」。
+          → 写真は器ごと見せる。面積で押さず、余白と赤い板で見せる。
        ══════════════════════════════════════════════════════════════════ */
     .hero {
         position: relative;
-        margin-top: calc(var(--header-h) * -1);   /* 写真をヘッダーの下まで通して全画面にする */
-        display: flex; align-items: flex-end;
+        display: flex; align-items: center;
+        background: var(--bg);
         overflow: hidden;
-        background: #2A1015;                      /* 写真が来る前の地。黒ではなく紅を落とした暗色 */
     }
-    .hero-media { position: absolute; inset: 0; z-index: 0; }
-    .hero-media img {
-        width: 100%; height: 100%;
-        object-fit: cover; object-position: 46% 40%;   /* 丼の中心を画面の中心に置く */
-        filter: saturate(1.10) contrast(1.07);         /* スクリム越しでも湯気と餡の照りが残るように */
-    }
-    /* スクリム。純黒を敷くと写真が灰色に濁るので、紅を落とした暗色でつなぐ。
-       濃くするのは上下2か所だけ（上＝ヘッダーの文字、下＝店名・営業状況・電話）。 */
-    .hero-media::after {
-        content: ''; position: absolute; inset: 0;
+    /* 地の紅。左上から薄く差すだけで、写真を大きくしなくても画面が締まる */
+    .hero::before {
+        content: ''; position: absolute; inset: 0; pointer-events: none;
         background:
-            linear-gradient(to bottom,
-                rgba(38, 12, 18, .62) 0,
-                rgba(38, 12, 18, .08) 22%,
-                rgba(34, 10, 16, .40) 52%,
-                rgba(26,  7, 12, .93) 100%),
-            linear-gradient(to right, rgba(26, 7, 12, .58) 0, rgba(26, 7, 12, 0) 68%);
+            radial-gradient(120% 90% at 4% 0%, rgba(192, 40, 74, .10) 0, rgba(192, 40, 74, 0) 58%),
+            radial-gradient(90% 80% at 100% 100%, rgba(140, 23, 51, .07) 0, rgba(140, 23, 51, 0) 60%);
     }
     .hero-inner {
-        /* ★ width は書かない。.container の width:min(100% - 余白, --maxw) を上書きして
-           文字が画面の左端に貼り付く（2026-08-21 に一度やった） */
         position: relative; z-index: 1;
-        text-align: left; color: #fff;
-        padding-top: calc(var(--header-h) + clamp(28px, 8vw, 72px));
-        padding-bottom: clamp(38px, 6vw, 76px);
+        display: grid; gap: clamp(24px, 4vw, 64px);
+        padding-block: clamp(32px, 6vw, 64px);
     }
+    .hero-copy { text-align: left; }
 
-    /* display は flex（ブロックレベル）。inline-flex にすると次の赤い板と同じ行に載る */
     .hero-eyebrow {
         display: flex; align-items: center; gap: 10px;
         font-size: clamp(12px, 3.2vw, 14px); letter-spacing: .16em;
-        color: rgba(255, 255, 255, .88);
+        color: var(--muted);
     }
     .hero-eyebrow::before {
         content: ''; flex: 0 0 auto;
-        width: clamp(24px, 6vw, 46px); height: 2px; background: var(--accent-hi);
+        width: clamp(24px, 6vw, 46px); height: 2px; background: var(--accent);
     }
 
     /* 赤い庇。看板の組み（「ラーメン」が上、「蓮」が大きく、右下に小さく REN）をそのまま写す */
     .hero-plate {
         display: flex; flex-direction: column; align-items: flex-start; width: fit-content;
-        margin-top: clamp(14px, 3vw, 22px);
-        padding: clamp(10px, 2.4vw, 18px) clamp(20px, 4vw, 34px) clamp(12px, 2.6vw, 20px);
+        margin-top: clamp(14px, 3vw, 20px);
+        padding: clamp(10px, 2.4vw, 16px) clamp(20px, 4vw, 30px) clamp(12px, 2.6vw, 18px);
         background: var(--accent); color: #fff;
         border-radius: 3px;
-        box-shadow: 0 26px 54px rgba(18, 4, 9, .58);
+        box-shadow: 0 20px 40px rgba(140, 23, 51, .26);
         font-weight: 400;
     }
-    .plate-kana  { font-family: var(--font-head); font-size: clamp(13px, 3.2vw, 18px); letter-spacing: .3em; line-height: 1.4; }
+    .plate-kana  { font-family: var(--font-head); font-size: clamp(13px, 3.2vw, 17px); letter-spacing: .3em; line-height: 1.4; margin-right: -.3em; }
     .plate-row   { display: flex; align-items: baseline; gap: .3em; }
-    .plate-name  { font-family: var(--font-head); font-size: clamp(52px, 13vw, 104px); line-height: 1; letter-spacing: .02em; }
-    .plate-roman { font-family: var(--font-head); font-size: clamp(14px, 3vw, 22px); letter-spacing: .16em; }
+    .plate-name  { font-family: var(--font-head); font-size: clamp(46px, 11vw, 82px); line-height: 1; letter-spacing: .02em; }
+    .plate-roman { font-family: var(--font-head); font-size: clamp(13px, 2.8vw, 19px); letter-spacing: .16em; }
 
     .hero-catch {
-        margin-top: clamp(18px, 3.4vw, 28px);
+        margin-top: clamp(18px, 3.4vw, 26px);
         font-family: var(--font-head); font-weight: 400;
-        font-size: clamp(20px, 5vw, 34px); line-height: 1.55;
-        color: #fff; text-shadow: 0 2px 18px rgba(20, 5, 10, .62);
+        font-size: clamp(19px, 4.6vw, 30px); line-height: 1.6;
+        color: var(--ink);
     }
-    .hero-facts { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: clamp(16px, 3vw, 22px); }
+    /* ★折り返しは <br> で固定する。ch で調整すると 768px だけ3行に折れる（実際に折れた） */
+    .hero-catch { max-width: none; }
+
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: clamp(16px, 3vw, 20px); }
     .hero-fact {
         display: inline-flex; align-items: center;
         padding: 5px 13px; border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, .42);
-        background: rgba(255, 255, 255, .10);
-        font-size: clamp(12px, 3.1vw, 13.5px); letter-spacing: .03em;
-        color: rgba(255, 255, 255, .95);
+        border: 1px solid var(--line-strong); background: var(--surface);
+        font-size: clamp(12px, 3.1vw, 13px); letter-spacing: .03em; color: var(--muted);
     }
-    /* JS が className を丸ごと書き替える（is-open 等）ので、追加クラスではなく親で当てる */
-    .hero .status-chip {
-        margin-top: clamp(16px, 3vw, 22px);
-        max-width: 100%;   /* 月曜の長い文言（祝日の断り書き）でも枠から出さない */
-        border-color: rgba(255, 255, 255, .42);
-        background: rgba(255, 255, 255, .10);
-        color: #fff;
-    }
-    .hero .hero-actions { justify-content: flex-start; margin-top: clamp(20px, 3.6vw, 30px); }
-    /* 暗い写真の上では紅のボタンが沈むので、ここだけ白地に反転していちばん前に出す */
-    .hero .btn-primary { background: #fff; color: var(--accent-deep); box-shadow: 0 18px 38px rgba(18, 4, 9, .5); }
-    .hero .btn-primary:hover { background: #fff; color: var(--accent); transform: translateY(-1px); }
-    .hero .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .08); }
-    .hero .btn-ghost:hover { background: rgba(255, 255, 255, .18); }
+    .hero .status-chip { margin-top: clamp(14px, 3vw, 20px); max-width: 100%; background: var(--surface); }
+    .hero .hero-actions { justify-content: flex-start; margin-top: clamp(18px, 3.4vw, 28px); }
 
-    /* 下端に「まだ続きがある」ことを出す目印。矢印は置かず、細い線1本で足りる */
-    .hero-scroll {
-        position: absolute; left: 50%; bottom: 0; z-index: 1;
-        width: 1px; height: clamp(26px, 5vw, 42px);
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, .75));
+    /* --- 写真は1枚だけ。器の縁まで入れて、面積では押さない --------------------- */
+    .hero-photo { position: relative; }
+    .hero-photo img {
+        position: relative; z-index: 1;
+        width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;
+        border-radius: 6px;
+        box-shadow: 0 26px 60px rgba(140, 23, 51, .18);
+    }
+    /* 紅の枠を少しずらして敷く。写真を大きくせずに奥行きだけ足す */
+    .hero-photo::after {
+        content: ''; position: absolute; z-index: 0;
+        inset: clamp(12px, 2vw, 20px) calc(clamp(12px, 2vw, 20px) * -1) calc(clamp(12px, 2vw, 20px) * -1) clamp(12px, 2vw, 20px);
+        border: 1px solid var(--accent); border-radius: 6px;
     }
 
-    /* ★幅で折り返し位置を決めない。ch で調整すると 768px だけ3行に折れる（実際に折れた）。
-       キャッチは <br> で「味噌・醤油・塩の三種から、／お好みの一杯を。」に固定し、
-       いちばん狭い390pxでも1行目が入りきる文字数（13字）に収めてある。 */
-    .hero-catch { max-width: none; }
-    /* 620px 以下は写真の情報量が落ちるので、寄りを少し上げて丼を主役に保つ */
+    /* --- 900px 以下：全画面の高さを要求しない ------------------------------- */
+    @media (max-width: 900px) { .hero { min-height: 0; } }
+
+    /* --- 739px 以下：写真を上、文字を下に積む ------------------------------- */
+    @media (max-width: 739px) {
+        .hero-inner { grid-template-columns: 1fr; }
+        /* ★横長に伏せない。5:4 に切ると丼の縁が両方とも切れて、また「大きな寄り」に戻る。
+           正方形のまま幅を絞れば、一杯の全体が見えたうえで画面を占めない。 */
+        .hero-photo { order: -1; width: min(74%, 340px); }
+        .hero-photo::after { inset: 10px -10px -10px 10px; }
+    }
+
+    /* --- 740px 以上：横に並べる。写真の列を 36% までにして、キャッチの1行目
+           （13文字・最大30px＝約390px）が入る幅を文字側に残す ----------------- */
+    @media (min-width: 740px) {
+        .hero-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 36%); align-items: center; }
+        .hero-photo { width: 100%; max-width: 460px; margin-left: auto; }
+    }
     @media (max-width: 620px) {
-        .hero-media img { object-position: 50% 38%; }
-        /* 幅の違う2つのボタンが段違いに並ぶと雑に見えるので、縦に揃える */
         .hero .hero-actions { flex-direction: column; align-items: stretch; }
         .hero .hero-actions .btn { width: 100%; }
     }
 
+    /* --- 901px 以上：写真の列を少し広げ、ヒーローに画面の高さを持たせる ------ */
+    @media (min-width: 901px) {
+        .hero { min-height: min(100svh, 760px); }
+        .hero-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 41%); }
+    }
+
     /* 出現演出は「読み込み時に一度だけ」。背景写真そのものは動かさない（絶対ルール⑧） */
     @keyframes heroRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-    .hero-inner > * { animation: heroRise 0.7s cubic-bezier(.22, .8, .28, 1) both; }
-    .hero-inner > *:nth-child(1) { animation-delay: 0.06s; }
-    .hero-inner > *:nth-child(2) { animation-delay: 0.14s; }
-    .hero-inner > *:nth-child(3) { animation-delay: 0.24s; }
-    .hero-inner > *:nth-child(4) { animation-delay: 0.32s; }
-    .hero-inner > *:nth-child(5) { animation-delay: 0.38s; }
-    .hero-inner > *:nth-child(6) { animation-delay: 0.44s; }
-
-    /* 「ラーメン」の字送りは最後の1文字ぶんが右に余るので、その分だけ戻す */
-    .plate-kana { margin-right: -.3em; }
+    .hero-copy > *, .hero-photo { animation: heroRise 0.7s cubic-bezier(.22, .8, .28, 1) both; }
+    .hero-photo                  { animation-delay: 0.10s; }
+    .hero-copy > *:nth-child(1)  { animation-delay: 0.06s; }
+    .hero-copy > *:nth-child(2)  { animation-delay: 0.14s; }
+    .hero-copy > *:nth-child(3)  { animation-delay: 0.24s; }
+    .hero-copy > *:nth-child(4)  { animation-delay: 0.32s; }
+    .hero-copy > *:nth-child(5)  { animation-delay: 0.38s; }
+    .hero-copy > *:nth-child(6)  { animation-delay: 0.44s; }
 
     /* ══════════════ 来店のご案内 ══════════════════════════════════════ */
     .info-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3); margin-top: var(--sp-4); }
@@ -744,42 +739,42 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-
-    <!-- ★署名＝「赤い庇」。国道沿いのこの店の看板（赤地に白の筆文字で「ラーメン 蓮 REN」）を
-         写真の上の赤い板としてそのまま写した。外観写真の alt にも「赤い庇の店舗」とある通り、
-         遠くからこの色で見つけてもらっている店なので、その色をいちばん先に出す。 -->
-    <div class="hero-media">
-        <img src="img/hero.jpg" alt="龍の絵付けの丼に盛った味噌ラーメン。もやしとコーンをのせている" width="1760" height="1113" loading="eager" fetchpriority="high" decoding="async">
-    </div>
-
     <div class="container hero-inner">
-        <p class="hero-eyebrow"><span class="nw">茨城県古河市坂間</span></p>
 
-        <h1 class="hero-plate">
-            <span class="plate-kana"><span class="nw">ラーメン</span></span>
-            <span class="plate-row"><span class="plate-name">蓮</span><span class="plate-roman">REN</span></span>
-        </h1>
+        <!-- ★署名＝「赤い庇」。国道沿いのこの店の看板（赤地に白の筆文字で「ラーメン 蓮 REN」）を
+             そのまま赤い板に写した。外観写真の alt にも「赤い庇の店舗」とある通り、
+             遠くからこの色で見つけてもらっている店なので、その色をいちばん先に出す。 -->
+        <div class="hero-copy">
+            <p class="hero-eyebrow"><span class="nw">茨城県古河市坂間</span></p>
 
-        <p class="hero-catch"><span class="nw">味噌・</span><span class="nw">醤油・</span><span class="nw">塩の</span><span class="nw">三種から、</span><br><span class="nw">お好みの</span><span class="nw">一杯を。</span></p>
+            <h1 class="hero-plate">
+                <span class="plate-kana"><span class="nw">ラーメン</span></span>
+                <span class="plate-row"><span class="plate-name">蓮</span><span class="plate-roman">REN</span></span>
+            </h1>
 
-        <ul class="hero-facts">
-            <li class="hero-fact"><span class="nwb"><span class="nw">小上がりの</span><span class="nw">お座敷あり</span></span></li>
-            <li class="hero-fact"><span class="nwb"><span class="nw">駐車場あり</span><span class="nw">（大型車も</span><span class="nw">可）</span></span></li>
-            <li class="hero-fact"><span class="nw">現金のみ</span></li>
-        </ul>
+            <p class="hero-catch"><span class="nw">味噌・</span><span class="nw">醤油・</span><span class="nw">塩の</span><span class="nw">三種から、</span><br><span class="nw">お好みの</span><span class="nw">一杯を。</span></p>
 
-        <span class="status-chip" id="status-chip"><span class="status-text">11:00〜14:00／17:00〜20:00（月曜定休）</span></span>
+            <ul class="hero-facts">
+                <li class="hero-fact"><span class="nwb"><span class="nw">小上がりの</span><span class="nw">お座敷あり</span></span></li>
+                <li class="hero-fact"><span class="nwb"><span class="nw">駐車場あり</span><span class="nw">（大型車も</span><span class="nw">可）</span></span></li>
+                <li class="hero-fact"><span class="nw">現金のみ</span></li>
+            </ul>
 
-        <div class="hero-actions">
-            <a href="tel:0280482955" class="btn btn-primary btn-tel">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                <span class="tel-num">0280-48-2955</span><span class="tel-cap">お電話はこちら</span>
-            </a>
-            <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+            <span class="status-chip" id="status-chip"><span class="status-text">11:00〜14:00／17:00〜20:00（月曜定休）</span></span>
+
+            <div class="hero-actions">
+                <a href="tel:0280482955" class="btn btn-primary btn-tel">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    <span class="tel-num">0280-48-2955</span><span class="tel-cap">お電話はこちら</span>
+                </a>
+                <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+            </div>
         </div>
-    </div>
 
-    <span class="hero-scroll" aria-hidden="true"></span>
+        <figure class="hero-photo">
+            <img src="img/hero.jpg" alt="龍の絵付けの丼に盛った醤油ラーメン。海苔・チャーシュー・なると・メンマ・白髪ねぎをのせている" width="1100" height="1100" loading="eager" fetchpriority="high" decoding="async">
+        </figure>
+    </div>
 </section>
 
 
