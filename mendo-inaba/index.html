@@ -551,10 +551,41 @@
     .photo-grid figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.7; }
     .section-invert .photo-grid figcaption { color: #C7BCDF; }
 
-    /* 全幅の帯 C-4 ------------------------------------------------------------ */
-    .band { position: relative; }
-    .band img { width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
-    @media (max-width: 620px) { .band img { aspect-ratio: 4 / 3; } }
+    /* 章の継ぎ目に置く一枚 C-4 ------------------------------------------------
+       もとは全幅 21:9 の帯だった。原寸 640×480 の写真を画面幅いっぱいまで
+       引き伸ばすため、横へ間延びしたうえに解像度も足りていなかった。
+       幅を原寸までに抑え、紫紺の面へ下半分だけ差し込んで「継ぎ目」そのものにする。 */
+    .bridge { background: var(--bg); --dip: clamp(44px, 8vw, 104px); }
+    .bridge-inner {
+        display: grid; grid-template-columns: minmax(0, 640px) auto;
+        align-items: start; gap: clamp(14px, 2.6vw, 24px);
+    }
+    .bridge figure { margin: 0 0 calc(-1 * var(--dip)); position: relative; z-index: 2; }
+    .bridge img {
+        display: block; width: 100%; height: auto;
+        aspect-ratio: 3 / 2; object-fit: cover;
+        border-radius: var(--radius); box-shadow: 0 24px 56px rgba(36, 29, 51, .30);
+    }
+    .bridge-label {
+        writing-mode: vertical-rl; height: 8.5em;   /* ★行の長さは文字基準。vh で決めない */
+        justify-self: start;                        /* 余白に浮かせず、写真の肩に付ける */
+        margin: 6px 0 0; display: flex; align-items: center; gap: 14px;
+        font-family: var(--font-head); font-size: 13px; letter-spacing: .24em;
+        color: var(--accent); white-space: nowrap;
+    }
+    .bridge-label::before { content: ""; flex: none; width: 1px; height: 34px; background: var(--line-strong); }
+    /* 写真が食い込むぶんだけ、次の章の天を空ける */
+    .bridge + .section-invert { padding-top: calc(var(--pad-section) + clamp(44px, 8vw, 104px)); }
+
+    @media (max-width: 760px) {
+        .bridge-inner { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+        .bridge figure { grid-row: 2; }
+        .bridge img { aspect-ratio: 4 / 3; }
+        .bridge-label {
+            grid-row: 1; writing-mode: horizontal-tb; height: auto; margin: 0 0 2px; gap: 10px;
+        }
+        .bridge-label::before { width: 26px; height: 1px; }
+    }
 
     /* ── 二枚並べの説明（のぼり・木札）───────────────────────────────── */
     .proof { display: grid; gap: clamp(18px, 4vw, 34px); align-items: center; }
@@ -966,10 +997,15 @@
 </section>
 
 
-<!-- ── 全幅の帯 C-4 ─────────────────────────────────────────────── -->
-<div class="band reveal">
-    <img src="kuki-men-close.jpg" width="640" height="480"
-         alt="太めの麺の拡大。表面に艶がある" loading="lazy" decoding="async">
+<!-- ── 章の継ぎ目の一枚 C-4 ─────────────────────────────────────── -->
+<div class="bridge reveal">
+    <div class="container bridge-inner">
+        <figure>
+            <img src="kuki-men-close.jpg" width="640" height="480"
+                 alt="太めの麺の拡大。表面に艶がある" loading="lazy" decoding="async">
+        </figure>
+        <p class="bridge-label"><span class="nwb"><span class="nw">INABASTYLEの</span>麺</span></p>
+    </div>
 </div>
 
 
