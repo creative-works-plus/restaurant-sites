@@ -35,7 +35,7 @@
       "@type": "Restaurant",
       "name": "ラーメン長瀬",
       "servesCuisine": "Ramen",
-      "priceRange": "¥",
+      "priceRange": "￥900～￥1,500",
       "paymentAccepted": "Cash",
       "url": "https://creative-works-plus.github.io/restaurant-sites/nagase/",
       "image": "photos/p05.jpg",
@@ -216,7 +216,7 @@
     .sticky-bar .bar-tel { background: var(--accent); color: var(--bg); }
     .sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
 
-    /* --- お品書き内サブナビの高さ下限（この店は build_menu.py 未使用のため未使用だが仕組みは残す） -- */
+    /* --- お品書き内サブナビの高さ下限（タップ44px） --- */
     .subnav a {
         min-height: 44px;
         display: inline-flex; align-items: center;
@@ -268,7 +268,7 @@
 
     /* ══════════════════════════════════════════════════════════════════
        ここから下が、この店だけのCSS。
-       ヒーロー＝A-3（分割2カラム）／メニュー＝B-2（カードグリッド、価格は掲示写真で見せる）
+       ヒーロー＝A-3（分割2カラム）／メニュー＝B-2（カードグリッド、品名と価格は menu.json から生成）
        順番＝D-4（実用先行）。署名的な仕掛け＝営業時間の帯（軸＝時間）。
        ══════════════════════════════════════════════════════════════════ */
 
@@ -463,35 +463,73 @@
         .ramen-gallery { grid-template-columns: 1fr; }
     }
 
-    /* ---- お品書き：掲示写真を主役に（B-2カードグリッド） ---- */
-    .menu-board {
-        display: grid; grid-template-columns: 0.85fr 1fr; gap: var(--gap);
-        align-items: start; margin-top: 26px;
+    /* ---- お品書き：章内ナビ（build_menu.py が出力する .subnav） ---- */
+    .subnav {
+        border-block: 1px solid var(--line);
+        background: var(--surface);
     }
-    .board-col { max-width: 420px; margin-inline: auto; }
-    .board-frame { aspect-ratio: 763 / 1024; }
-    .board-note-tap { margin-top: 8px; text-align: center; font-size: 0.78rem; color: var(--dim); }
-    .board-side { display: flex; flex-direction: column; gap: 16px; }
-    .board-side .photo-frame { aspect-ratio: 4 / 3; }
-    .board-side .menu-note {
-        background: var(--surface); border: 1px solid var(--line);
-        border-radius: var(--radius); padding: 16px 18px; font-size: 0.86rem; color: var(--muted);
+    .subnav-inner {
+        width: min(100% - 2 * var(--pad-inner), var(--maxw));
+        margin-inline: auto;
+        display: flex; flex-wrap: wrap; gap: 8px;
+        padding-block: 12px;
     }
-    @media (max-width: 760px) {
-        .menu-board { grid-template-columns: 1fr; }
+    .subnav a {
+        font-family: var(--font-head); font-size: 0.86rem; letter-spacing: 0.03em;
+        color: var(--muted); border: 1px solid var(--line);
+        border-radius: 999px; background: var(--surface-2);
+        transition: color 0.25s ease, border-color 0.25s ease;
     }
+    .subnav a:hover, .subnav a:focus-visible { color: var(--accent); border-color: var(--accent); }
 
-    /* ---- ご飯もの（#menu 内に統合） ---- */
-    .menu-sub-title {
-        font-family: var(--font-head); font-weight: 700; font-size: 1.05rem;
-        color: var(--ink); margin-top: 40px; margin-bottom: 4px;
+    /* ---- お品書き：章（build_menu.py が menu.json から生成する） ---- */
+    #menu { padding-block-end: clamp(28px, 5vw, 44px); }
+    .subnav + .section { padding-block-start: clamp(30px, 5vw, 48px); }
+    .menu-block + .menu-block { margin-top: clamp(40px, 7vw, 72px); }
+    .menu-head {
+        display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+        padding-bottom: 10px; border-bottom: 1px solid var(--line-strong);
     }
-    .gohan-row {
-        display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap);
-        align-items: center; margin-top: 18px;
+    .menu-head h2 {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: clamp(1.2rem, 3vw, 1.55rem); color: var(--ink);
     }
-    .gohan-row .photo-frame { aspect-ratio: 4 / 3; }
-    @media (max-width: 760px) { .gohan-row { grid-template-columns: 1fr; } }
+    .menu-head .yomi {
+        font-size: 0.66rem; letter-spacing: 0.22em; color: var(--dim);
+    }
+    .menu-note { margin-top: 12px; font-size: 0.88rem; color: var(--muted); }
+    .menu-grid {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 4px clamp(24px, 5vw, 56px); margin-top: 18px;
+    }
+    .menu-grid:has(.menu-list:only-child) { grid-template-columns: 1fr; max-width: 34em; }
+    .menu-list li {
+        display: flex; align-items: baseline; gap: 6px;
+        padding-block: 11px; border-bottom: 1px dotted var(--line-strong);
+        font-size: 0.95rem;
+    }
+    .menu-list .name { color: var(--ink); }
+    .menu-list .desc {
+        display: block; font-size: 0.78rem; color: var(--dim); line-height: 1.7;
+    }
+    .menu-list .dots { flex: 1 1 auto; min-width: 12px; }
+    .menu-list .price {
+        flex-shrink: 0; font-family: var(--font-head); font-weight: 700;
+        color: var(--accent); font-size: 0.98rem;
+    }
+    .menu-list .price small { font-weight: 400; color: var(--dim); font-size: 0.74rem; }
+    .menu-photos {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+        justify-content: start; gap: var(--gap); margin-top: 26px;
+    }
+    .menu-photos .photo-frame { aspect-ratio: 4 / 3; }
+    .menu-photos .photo-frame.is-tall { aspect-ratio: 3 / 4; }
+    .menu-photos figcaption {
+        margin-top: 8px; font-size: 0.78rem; color: var(--dim); text-align: center;
+    }
+    @media (max-width: 700px) {
+        .menu-grid { grid-template-columns: 1fr; }
+    }
 
     /* ---- お客様の声 ---- */
     .voice-grid {
@@ -704,54 +742,148 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     お品書き（B-2：価格は当店の掲示をそのまま。地の文で金額を書かない）
+     お品書き（品名と価格は menu.json → build_menu.py で生成。直接編集しない）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="menu">
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">お品書き。</span></h2>
-        <p class="lead reveal"><span class="nw">お品書きは</span><span class="nw">店内に</span><span class="nw">掲示し</span><span class="nw">ております。</span><span class="nw">写真は</span><span class="nw">店頭の</span><span class="nw">掲示の</span><span class="nw">一部です。</span></p>
+        <p class="lead reveal"><span class="nw">中華そばと</span><span class="nw">背脂中華そばの、</span><span class="nw">二本立てで</span><span class="nw">ございます。</span><span class="nw">お品書きは</span><span class="nw">2026年</span><span class="nw">8月現在の</span><span class="nw">もので</span><span class="nw">ございます。</span><span class="nw">ご注文は</span><span class="nw">入口右手の</span><span class="nw">券売機で</span><span class="nw">承っ</span><span class="nw">ております。</span></p>
+    </div>
+</section>
 
-        <div class="menu-board reveal reveal-delay-1">
-            <div class="board-col">
-                <div class="board-frame photo-frame">
-                    <a href="photos/p40.jpg" target="_blank" rel="noopener">
-                        <img src="photos/p40.jpg" alt="店頭に掲示された品書きの一部（背脂中華そば 大 ¥1100）"
-                             width="763" height="1024"
-                             loading="lazy" decoding="async">
-                    </a>
-                </div>
-                <p class="board-note-tap"><span class="nw">タップすると</span><span class="nw">大きく</span><span class="nw">ご覧いただけます</span></p>
-            </div>
-            <div class="board-side">
-                <div class="photo-frame">
-                    <img src="photos/p31.jpg" alt="海苔をのせた中華そば"
-                         width="1400" height="933"
-                         loading="lazy" decoding="async">
-                </div>
-                <p class="menu-note"><span class="nw">海苔をのせた</span><span class="nw">一杯も</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">最新の</span><span class="nw">品書きは、</span><span class="nw">店頭の</span><span class="nw">掲示にて</span><span class="nw">ご確認ください。</span></p>
-                <div class="photo-frame">
-                    <img src="photos/p16.jpg" alt="テーブルに並んだ調味料"
-                         width="1020" height="764"
-                         loading="lazy" decoding="async">
-                </div>
-                <p class="menu-note"><span class="nw">卓上の</span><span class="nw">調味料も</span><span class="nw">お好みで</span><span class="nw">お使い</span><span class="nw">いただけます。</span></p>
+<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#chuka">中華そば</a>
+        <a href="#seabura">背脂中華そば</a>
+        <a href="#gohan">ご飯もの・餃子</a>
+        <a href="#topping">トッピング</a>
+        <a href="#drink">お飲みもの</a>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="menu-block reveal" id="chuka">
+            <div class="menu-head"><h2><span class="nw">中華そば</span></h2><span class="yomi">C H U K A S O B A</span></div>
+            <p class="menu-note"><span class="nw">背脂を</span><span class="nw">入れない、</span><span class="nw">すっきりとした</span><span class="nw">一杯で</span><span class="nw">ございます。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">中華そば</span><span class="nw">（並）</span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
+                    <li><span class="name"><span class="nw">中華そば</span><span class="nw">（中）</span><span class="desc">麺<span class="nw">1.5倍</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,000円</span></span></li>
+                    <li><span class="name"><span class="nw">中華そば</span><span class="nw">（大）</span><span class="desc">麺<span class="nw">2倍</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,100円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">中華そば</span><span class="nw">（並）＋</span><span class="nw">半ライス</span></span><span class="dots"></span><span class="price"><span class="nw">1,000円</span></span></li>
+                    <li><span class="name"><span class="nw">中華そば</span><span class="nw">（並）＋</span><span class="nw">半焼飯</span></span><span class="dots"></span><span class="price"><span class="nw">1,200円</span></span></li>
+                    <li><span class="name"><span class="nw">中華そば</span><span class="nw">（並）＋</span><span class="nw">半焼飯＋</span><span class="nw">餃子</span><span class="nw">（3ヶ）</span></span><span class="dots"></span><span class="price"><span class="nw">1,500円</span></span></li>
+                </ul>
             </div>
         </div>
 
-        <h3 class="menu-sub-title reveal"><span class="nw">ご飯もの。</span></h3>
-        <div class="gohan-row reveal reveal-delay-1">
-            <div class="photo-frame">
-                <img src="photos/p22.jpg" alt="チャーシューをのせたご飯"
-                     width="1020" height="764"
-                     loading="lazy" decoding="async">
+        <div class="menu-block reveal" id="seabura">
+            <div class="menu-head"><h2><span class="nw">背脂中華そば</span></h2><span class="yomi">S E A B U R A</span></div>
+            <p class="menu-note"><span class="nw">背脂を</span><span class="nw">浮かせた、</span><span class="nw">当店の</span><span class="nw">顔で</span><span class="nw">ございます。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">背脂中華そば</span><span class="nw">（並）</span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
+                    <li><span class="name"><span class="nw">背脂中華そば</span><span class="nw">（中）</span><span class="desc">麺<span class="nw">1.5倍</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,000円</span></span></li>
+                    <li><span class="name"><span class="nw">背脂中華そば</span><span class="nw">（大）</span><span class="desc">麺<span class="nw">2倍</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,100円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">背脂中華そば</span><span class="nw">（並）＋</span><span class="nw">半ライス</span></span><span class="dots"></span><span class="price"><span class="nw">1,000円</span></span></li>
+                    <li><span class="name"><span class="nw">背脂中華そば</span><span class="nw">（並）＋</span><span class="nw">半焼飯</span></span><span class="dots"></span><span class="price"><span class="nw">1,200円</span></span></li>
+                    <li><span class="name"><span class="nw">背脂中華そば</span><span class="nw">（並）＋</span><span class="nw">半焼飯＋</span><span class="nw">餃子</span><span class="nw">（3ヶ）</span></span><span class="dots"></span><span class="price"><span class="nw">1,500円</span></span></li>
+                </ul>
             </div>
-            <p class="lead">
-                <span class="nw">チャーシューをのせた</span><span class="nw">一皿です。</span>
-                <span class="nw">ラーメンとあわせて</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただけます。</span>
-            </p>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame is-tall">
+                        <img src="photos/p40.jpg" alt="背脂中華そば 大"
+                             width="763" height="1024" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">背脂中華そば</span><span class="nw">（大）</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="photos/p31.jpg" alt="背脂を浮かせた中華そば"
+                             width="1400" height="933" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">海苔をのせて</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="gohan">
+            <div class="menu-head"><h2><span class="nw">ご飯もの・</span><span class="nw">餃子</span></h2><span class="yomi">G O H A N</span></div>
+            <p class="menu-note"><span class="nw">ラーメンと</span><span class="nw">ご一緒にどうぞ。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">焼飯</span><span class="desc"><span class="nw">スープ</span><span class="nw">付き</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">焼飯</span><span class="nw">（大）</span><span class="desc"><span class="nw">スープ</span><span class="nw">付き</span></span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
+                    <li><span class="name"><span class="nw">焼豚丼</span></span><span class="dots"></span><span class="price"><span class="nw">400円</span></span></li>
+                    <li><span class="name"><span class="nw">卵かけ</span><span class="nw">ご飯</span></span><span class="dots"></span><span class="price"><span class="nw">300円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ライス</span><span class="desc"><span class="nw">大・</span><span class="nw">中・</span><span class="nw">小から</span><span class="nw">お選び</span><span class="nw">いただけます</span></span></span><span class="dots"></span><span class="price"><span class="nw">200円</span></span></li>
+                    <li><span class="name"><span class="nw">餃子</span><span class="nw">（5ヶ）</span></span><span class="dots"></span><span class="price"><span class="nw">500円</span></span></li>
+                    <li><span class="name"><span class="nw">餃子</span><span class="nw">（3ヶ）</span></span><span class="dots"></span><span class="price"><span class="nw">300円</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="photos/p23.jpg" alt="ご飯にのせた焼豚"
+                             width="1018" height="764" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">焼豚丼</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="topping">
+            <div class="menu-head"><h2><span class="nw">トッピング</span></h2><span class="yomi">T O P P I N G</span></div>
+            <p class="menu-note"><span class="nw">お好みで</span><span class="nw">お足し</span><span class="nw">くださいませ。</span><span class="nw">卓上の</span><span class="nw">調味料も</span><span class="nw">ご自由に</span><span class="nw">お使い</span><span class="nw">くださいませ。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">肉増し</span><span class="nw">（2枚）</span></span><span class="dots"></span><span class="price"><span class="nw">300円</span></span></li>
+                    <li><span class="name"><span class="nw">ネギ</span><span class="nw">増し</span></span><span class="dots"></span><span class="price"><span class="nw">100円</span></span></li>
+                    <li><span class="name"><span class="nw">味玉</span></span><span class="dots"></span><span class="price"><span class="nw">100円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">生たまご</span></span><span class="dots"></span><span class="price"><span class="nw">100円</span></span></li>
+                    <li><span class="name"><span class="nw">岩海苔</span></span><span class="dots"></span><span class="price"><span class="nw">200円</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="photos/p22.jpg" alt="箸で持ち上げた焼豚"
+                             width="1020" height="764" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">焼豚</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="photos/p17.jpg" alt="卓上に並んだ調味料"
+                             width="1024" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">卓上の</span><span class="nw">調味料</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="drink">
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">D R I N K</span></div>
+            <p class="menu-note"><span class="nw">お車を</span><span class="nw">運転される</span><span class="nw">方は</span><span class="nw">ご遠慮くださいませ。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">瓶ビール</span><span class="nw">（中瓶）</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
+<!-- menu:auto:end -->
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
