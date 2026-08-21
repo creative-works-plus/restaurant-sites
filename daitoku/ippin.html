@@ -320,14 +320,30 @@
 
     .subnav {
         position: sticky; top: var(--header-h); z-index: 60;
-        display: flex; flex-wrap: wrap; justify-content: center; gap: 2px;
+        display: block;
         background: rgba(199, 194, 188, 0.96); backdrop-filter: blur(6px);
         border-bottom: 1px solid var(--line-strong);
         padding-block: 4px;
     }
-    .subnav a { font-size: .84rem; color: var(--muted); border-radius: 999px; }
+    /* 項目が折り返して固定UIが画面の1/3を塞いでいたので、横スクロール1行にする。
+       入りきる幅では中央に置き、本文と同じ container の幅に揃える（左に詰まって見えるのを止める） */
+    .subnav::after {
+        content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 30px;
+        background: linear-gradient(to right, transparent, rgba(199, 194, 188, 0.96));
+        pointer-events: none;
+    }
+    .subnav a { font-size: .84rem; color: var(--muted); border-radius: 999px; white-space: nowrap; }
     .subnav a:hover, .subnav a:focus-visible { color: var(--accent-deep); background: var(--surface); }
-    .subnav-inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; }
+    .subnav-inner {
+        width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+        display: flex; flex-wrap: nowrap; gap: 4px;
+        justify-content: flex-start;
+        justify-content: safe center;   /* 対応しない環境では上の flex-start が残る */
+        overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        padding-inline: 4px;
+    }
+    .subnav-inner::-webkit-scrollbar { display: none; }
+    @media (min-width: 1180px) { .subnav::after { display: none; } }
 
     .lead-box {
         max-width: 40em; margin: 0 auto; text-align: center;
@@ -404,6 +420,16 @@
     .site-footer { background: var(--surface-2); padding-block: 40px 30px; text-align: center; }
     .footer-name { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; letter-spacing: .1em; }
     .footer-addr { margin-top: 10px; color: var(--muted); font-size: .86rem; }
+    .footer-map { margin-top: 14px; }
+    .footer-map a {
+        display: inline-flex; align-items: center; gap: 7px;
+        min-height: 42px; padding: 0 18px; border-radius: 999px;
+        border: 1px solid rgba(180, 36, 60, .35);
+        color: var(--accent-deep); font-size: .82rem; font-weight: 700; letter-spacing: .03em;
+        transition: background .2s ease;
+    }
+    .footer-map a:hover { background: var(--surface); }
+    .footer-map svg { width: 14px; height: 14px; flex: 0 0 14px; fill: none; stroke: currentColor; stroke-width: 2; }
     .footer-copy { margin-top: 14px; color: var(--dim); font-size: .76rem; }
 
     </style>
@@ -658,6 +684,12 @@
         </div>
         <p class="footer-name"><span class="nw">大徳</span></p>
         <p class="footer-addr">〒306-0012 <span class="nw">茨城県古河市旭町</span>1-11-7／<a class="tel-link nw" href="tel:0280313798">0280-31-3798</a></p>
+        <p class="footer-map">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA1-11-7" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span class="nwb"><span class="nw">Googleマップで</span><span class="nw">開く</span></span>
+            </a>
+        </p>
         <p class="footer-copy">&copy; <span class="nw">大徳</span></p>
     </div>
 </footer>

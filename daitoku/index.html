@@ -348,72 +348,200 @@
     .hero {
         position: relative; overflow: hidden;
         display: flex; align-items: center;
-        padding-block: calc(var(--header-h) + 28px) 40px;
+        padding-block: clamp(20px, 3vw, 34px) clamp(36px, 5vw, 60px);
+        background:
+            radial-gradient(120% 86% at 76% 6%, rgba(240, 226, 219, .96) 0%, rgba(240, 226, 219, 0) 58%),
+            linear-gradient(168deg, #F2ECE7 0%, #E2DAD3 52%, #C9C3BD 100%);
     }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
     /* 壁の短冊は「紙の向こうに本物の壁がある」ことを示すだけの地。ピントを落として、
-       写真の中の旧価格（2024年12月の短冊）が読めてしまうのを止める。scale は縁のにじみ止め */
+       写真の中の旧価格（2024年12月の短冊）が読めてしまうのを止める。下へ向けて消す */
     .hero-bg img {
         width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%;
-        filter: blur(4px); transform: scale(1.04);
+        filter: blur(7px) saturate(.82); transform: scale(1.06); opacity: .3;
+        -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.22) 60%, transparent 100%);
+                mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.22) 60%, transparent 100%);
     }
-    .hero-bg::after {
-        content: ''; position: absolute; inset: 0; background: var(--bg); opacity: .88;
+    /* 大きな雷紋。地に敷く意匠であって、説明のための図ではない（絶対ルール⑫） */
+    .hero-raimon {
+        position: absolute; z-index: 0; pointer-events: none;
+        left: clamp(-230px, -13vw, -90px); top: clamp(-130px, -8vw, -54px);
+        width: clamp(260px, 36vw, 520px); height: auto;
+        fill: none; stroke: var(--accent); stroke-width: .8;
+        stroke-linecap: square; stroke-linejoin: miter; opacity: .1;
     }
-    .hero .container { position: relative; z-index: 1; }
-    .hero > .container { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+    .hero > .container { position: relative; z-index: 1; }
 
-    .mokuji { width: 100%; max-width: 560px; text-align: center; }
-    .mokuji-title {
+    .hero-grid {
+        display: grid; gap: clamp(26px, 5vw, 40px);
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "copy" "art" "panel";
+    }
+    @media (min-width: 900px) {
+        .hero-grid {
+            grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+            grid-template-areas: "copy art" "panel art";
+            align-items: start; align-content: center;
+            column-gap: clamp(32px, 4.2vw, 58px); row-gap: 18px;
+        }
+    }
+    .hero-copy  { grid-area: copy; }
+    .hero-art   { grid-area: art; align-self: center; }
+    .hero-panel { grid-area: panel; }
+
+    /* --- 左：名乗り ---------------------------------------------------------- */
+    .hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+        font-size: clamp(11px, 2.9vw, 12.5px); font-weight: 700;
+        letter-spacing: .3em; color: var(--accent-deep);
+    }
+    .hero-eyebrow::before {
+        content: ''; width: clamp(24px, 6vw, 40px); height: 1px;
+        background: var(--accent); opacity: .75;
+    }
+    .hero-title {
+        font-family: var(--font-head); font-weight: 700; color: var(--ink);
+        font-size: clamp(58px, 13vw, 98px); letter-spacing: .1em; line-height: .96;
+        margin-top: 12px; text-indent: .1em;
+    }
+    .hero-sub {
+        margin-top: 14px; color: var(--muted);
+        font-size: clamp(14px, 3.6vw, 16.5px); letter-spacing: .1em; line-height: 1.8;
+    }
+
+    /* --- 右：写真の三枚組 ----------------------------------------------------- */
+    .hero-art {
+        display: grid; gap: 12px; grid-template-columns: 1fr 1fr;
+        width: 100%; max-width: 468px; margin-inline: auto; position: relative;
+    }
+    /* 差し色の当て板。写真の一枚後ろへずらして敷く */
+    .hero-art::before {
+        content: ''; position: absolute; z-index: 0;
+        right: clamp(-16px, -1.4vw, -10px); top: clamp(-16px, -1.4vw, -10px);
+        width: 44%; height: 40%;
+        border: 1px solid rgba(180, 36, 60, .38); border-radius: 12px;
+    }
+    .hero-shot {
+        position: relative; z-index: 1; overflow: hidden;
+        border-radius: 12px; border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow); background: var(--surface-2);
+    }
+    .hero-shot img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-shot-main { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+    .hero-shot-sub  { aspect-ratio: 1 / 1; }
+
+    /* --- 左下：品書きの目次（この店の署名） ------------------------------------ */
+    .hero-panel {
+        position: relative; overflow: hidden; max-width: 560px;
+        background: var(--surface);
+        border: 1px solid var(--line-strong); border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 15px clamp(14px, 3vw, 22px) 17px;
+    }
+    .hero-panel::before {
+        content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
+        background: linear-gradient(to right, var(--accent), var(--accent-hi));
+    }
+    .panel-label {
+        display: flex; align-items: baseline; gap: 10px;
         font-family: var(--font-head); font-weight: 700;
-        font-size: clamp(40px, 11vw, 62px); letter-spacing: .16em;
-        color: var(--ink); line-height: 1;
+        font-size: .96rem; letter-spacing: .08em;
+        padding-bottom: 9px; border-bottom: 1px solid var(--line-strong);
     }
-    .mokuji-sub {
-        margin-top: 10px; font-size: clamp(13px, 3.4vw, 15px);
-        letter-spacing: .16em; color: var(--muted);
+    .panel-label .panel-count {
+        margin-left: auto; font-family: var(--font-body); font-weight: 400;
+        font-size: .76rem; letter-spacing: .04em; color: var(--dim);
     }
 
-    .mokuji-list {
-        margin-top: 30px; text-align: left;
-        border-top: 1px solid var(--line-strong);
-    }
     .mokuji-row {
-        display: flex; align-items: baseline; gap: .5em;
-        padding: 13px 4px; border-bottom: 1px solid var(--line-strong);
+        display: flex; align-items: center; gap: .55em;
+        padding: 9px 2px; border-bottom: 1px solid var(--line);
         min-height: 44px;
+        transition: padding-left .2s ease;
     }
+    .mokuji-list li:last-child .mokuji-row { border-bottom: none; }
     .mokuji-no {
-        font-family: var(--font-head); font-weight: 700;
-        font-size: clamp(14px, 3.6vw, 16px); color: var(--dim); flex: 0 0 auto;
+        flex: 0 0 22px; width: 22px; height: 22px;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-family: var(--font-head); font-weight: 700; font-size: 12.5px; line-height: 1;
+        color: var(--accent-deep); border: 1px solid rgba(180, 36, 60, .32); border-radius: 4px;
+        transition: background .2s ease, color .2s ease, border-color .2s ease;
     }
     .mokuji-name {
         font-family: var(--font-head); font-weight: 700;
-        font-size: clamp(15px, 4vw, 18px); letter-spacing: .06em;
+        font-size: clamp(15px, 4vw, 17px); letter-spacing: .06em;
         color: var(--ink); flex: 0 0 auto; white-space: nowrap;
         transition: color .2s ease;
     }
-    .mokuji-dots {
-        flex: 1 1 auto; align-self: flex-end; height: 1.3em; position: relative; margin: 0 2px;
-    }
+    .mokuji-dots { flex: 1 1 auto; align-self: center; height: 1em; position: relative; margin: 0 2px; }
     .mokuji-dots::after {
-        content: ''; position: absolute; left: 0; right: 0; bottom: .42em; height: 2px;
+        content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px;
         background-image: repeating-linear-gradient(to right, var(--dim) 0, var(--dim) 2px, transparent 2px, transparent 7px);
-        opacity: .55; transition: background-image .2s ease, opacity .2s ease;
+        opacity: .5; transition: background-image .2s ease, opacity .2s ease;
     }
     .mokuji-count {
-        font-size: clamp(13px, 3.4vw, 15px); color: var(--muted); flex: 0 0 auto; white-space: nowrap;
+        font-size: clamp(12.5px, 3.2vw, 14px); color: var(--muted);
+        flex: 0 0 auto; white-space: nowrap;
     }
-    .mokuji-reco {
-        margin-top: 18px; font-size: .86rem; color: var(--muted); line-height: 1.7;
+    .mokuji-arrow {
+        flex: 0 0 auto; width: 14px; height: 14px; margin-left: 2px;
+        fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: square;
+        opacity: 0; transform: translateX(-4px);
+        transition: opacity .2s ease, transform .2s ease;
     }
+    .mokuji-row:hover, .mokuji-row:focus-visible { padding-left: 6px; }
     .mokuji-row:hover .mokuji-name,
-    .mokuji-row:focus-visible .mokuji-name { color: var(--accent); }
+    .mokuji-row:focus-visible .mokuji-name { color: var(--accent-deep); }
+    .mokuji-row:hover .mokuji-no,
+    .mokuji-row:focus-visible .mokuji-no {
+        background: var(--accent); color: var(--surface); border-color: var(--accent);
+    }
     .mokuji-row:hover .mokuji-dots::after,
     .mokuji-row:focus-visible .mokuji-dots::after {
         background-image: none; background-color: var(--accent); opacity: 1;
     }
+    .mokuji-row:hover .mokuji-arrow,
+    .mokuji-row:focus-visible .mokuji-arrow { opacity: 1; transform: none; }
     .mokuji-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .mokuji-reco {
+        margin-top: 12px; font-size: .81rem; color: var(--muted); line-height: 1.75;
+    }
+
+    /* --- 左下：行き方への入口 -------------------------------------------------- */
+    .hero-access {
+        display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+        margin-top: 14px; font-size: .84rem; color: var(--muted);
+    }
+    .hero-access svg { width: 15px; height: 15px; flex: 0 0 15px; fill: none; stroke: var(--accent); stroke-width: 2; }
+    .hero-access .map-link {
+        color: var(--accent-deep); font-weight: 700;
+        text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+        min-height: 32px; display: inline-flex; align-items: center;
+    }
+    .hero-access .map-link:hover { color: var(--accent); }
+
+    @media (max-width: 899px) {
+        .hero-art   { max-width: 560px; margin-inline: 0; }
+        .hero-panel { max-width: 560px; }
+    }
+    @media (min-width: 621px) {
+        .hero .hero-actions { justify-content: flex-start; }
+    }
+    @media (max-width: 620px) {
+        .hero .hero-actions .btn { flex: 1 1 100%; }
+        .hero-access { justify-content: center; }
+    }
+
+    /* 一度だけの立ち上がり。背景を動かし続ける演出はしない（絶対ルール⑧） */
+    @keyframes heroRise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    .hero-copy  { animation: heroRise .85s cubic-bezier(.16,.7,.3,1) both; }
+    .hero-art   { animation: heroRise .85s cubic-bezier(.16,.7,.3,1) .1s both; }
+    .hero-panel { animation: heroRise .85s cubic-bezier(.16,.7,.3,1) .2s both; }
+    @media (prefers-reduced-motion: reduce) {
+        .hero-copy, .hero-art, .hero-panel { animation: none; }
+    }
+    .hero-panel .hero-actions { margin-top: 15px; }
 
     .hero-actions {
         display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 6px;
@@ -511,12 +639,53 @@
     .info-table th { width: 6.4em; color: var(--dim); font-weight: 500; }
     .tel-link { color: var(--accent-deep); font-weight: 700; }
 
+    /* --- 地図のカード：埋め込み地図＋Googleマップへの入口 ---------------------- */
+    .map-card {
+        border-radius: 14px; overflow: hidden;
+        border: 1px solid var(--line-strong); box-shadow: var(--shadow);
+        background: var(--surface);
+    }
+    .map-card .map-wrapper { border: 0; border-radius: 0; }
+    .map-foot {
+        display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+        padding: 16px clamp(14px, 3vw, 20px);
+        border-top: 1px solid var(--line);
+    }
+    .map-addr {
+        display: flex; align-items: center; gap: 9px;
+        font-size: .9rem; color: var(--muted); line-height: 1.6;
+    }
+    .map-addr svg { width: 17px; height: 17px; flex: 0 0 17px; fill: none; stroke: var(--accent); stroke-width: 2; }
+    .map-actions { margin-left: auto; display: flex; flex-wrap: wrap; gap: 10px; }
+    .map-actions .btn { padding: 11px 20px; min-height: 46px; font-size: .88rem; }
+    .btn-map {
+        background: var(--surface); color: var(--accent-deep);
+        border-color: rgba(180, 36, 60, .38);
+    }
+    .btn-map:hover { background: #F6E7E2; }
+    .map-actions .btn svg { fill: none; stroke: currentColor; stroke-width: 2; }
+    @media (max-width: 620px) {
+        .map-foot { flex-direction: column; align-items: stretch; }
+        .map-actions { margin-left: 0; }
+        .map-actions .btn { flex: 1 1 100%; }
+    }
+
     /* ══════════════════════════════════════════════════════════════════
        フッター
        ══════════════════════════════════════════════════════════════════ */
     .site-footer { background: var(--surface-2); padding-block: 40px 30px; text-align: center; }
     .footer-name { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; letter-spacing: .1em; }
     .footer-addr { margin-top: 10px; color: var(--muted); font-size: .86rem; }
+    .footer-map { margin-top: 14px; }
+    .footer-map a {
+        display: inline-flex; align-items: center; gap: 7px;
+        min-height: 42px; padding: 0 18px; border-radius: 999px;
+        border: 1px solid rgba(180, 36, 60, .35);
+        color: var(--accent-deep); font-size: .82rem; font-weight: 700; letter-spacing: .03em;
+        transition: background .2s ease;
+    }
+    .footer-map a:hover { background: var(--surface); }
+    .footer-map svg { width: 14px; height: 14px; flex: 0 0 14px; fill: none; stroke: currentColor; stroke-width: 2; }
     .footer-copy { margin-top: 14px; color: var(--dim); font-size: .76rem; }
 
     </style>
@@ -561,30 +730,65 @@
              width="1500" height="963"
              loading="eager" fetchpriority="high" decoding="async">
     </div>
+    <svg class="hero-raimon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M3 3H29V29H11V11H23V23H15"/></svg>
+
     <div class="container">
-        <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+        <div class="hero-grid">
 
-        <div class="mokuji">
-            <h1 class="mokuji-title"><span class="nw">大徳</span></h1>
-            <p class="mokuji-sub"><span class="nw">古河・</span><span class="nw">旭町の</span><span class="nw">町中華</span></p>
+            <!-- 名乗り -->
+            <div class="hero-copy">
+                <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+                <p class="hero-eyebrow">RAMEN DAITOKU</p>
+                <h1 class="hero-title"><span class="nw">大徳</span></h1>
+                <p class="hero-sub"><span class="nw">古河・</span><span class="nw">旭町の</span><span class="nw">町中華</span></p>
+            </div>
 
-            <ol class="mokuji-list">
-                <li><a class="mokuji-row" href="men.html#shoyu"><span class="mokuji-no">一</span><span class="mokuji-name"><span class="nw">しょう</span>油</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">5品</span></span></a></li>
-                <li><a class="mokuji-row" href="men.html#shio"><span class="mokuji-no">二</span><span class="mokuji-name">し　お</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">6品</span></span></a></li>
-                <li><a class="mokuji-row" href="men.html#miso"><span class="mokuji-no">三</span><span class="mokuji-name">み　そ</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">4品</span></span></a></li>
-                <li><a class="mokuji-row" href="men.html#karai"><span class="mokuji-no">四</span><span class="mokuji-name">辛　い</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">3品</span></span></a></li>
-                <li><a class="mokuji-row" href="men.html#noukou"><span class="mokuji-no">五</span><span class="mokuji-name">濃　厚</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">4品</span></span></a></li>
-                <li><a class="mokuji-row" href="men.html#ankake"><span class="mokuji-no">六</span><span class="mokuji-name"><span class="nw">あんかけ</span></span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">3品</span></span></a></li>
-            </ol>
-            <p class="mokuji-reco"><span class="nw">はじめての</span><span class="nw">お客様には、</span><span class="nw">一の</span><span class="nw">「野菜五目ラーメン」か、</span><span class="nw">ごはん</span><span class="nw">ものの</span><span class="nw">「チャーシュー</span><span class="nw">INレタスチャーハン」を</span><span class="nw">お勧めし</span><span class="nw">ております。</span></p>
-        </div>
+            <!-- 写真の三枚組 -->
+            <div class="hero-art">
+                <div class="hero-shot hero-shot-main">
+                    <img src="img/men-canton-lift.jpg" alt="広東麺の麺を箸で持ち上げたところ。とろみのあんに白菜・きくらげ・海老・うずら卵、赤い天板の卓で"
+                         width="1000" height="750" loading="eager" fetchpriority="high" decoding="async">
+                </div>
+                <div class="hero-shot hero-shot-sub">
+                    <img src="img/gaikan-tent.jpg" alt="正面の赤いテント看板。白い筆文字で「ラーメン 大徳」"
+                         width="360" height="480" loading="eager" decoding="async"
+                         style="object-position: 50% 40%;">
+                </div>
+                <div class="hero-shot hero-shot-sub">
+                    <img src="img/men-shoyu-2.jpg" alt="しょう油ラーメン。チャーシュー、なると、のり、味付け玉子をのせて、雷紋の丼で"
+                         width="360" height="480" loading="eager" decoding="async">
+                </div>
+            </div>
 
-        <div class="hero-actions">
-            <a href="tel:0280313798" class="btn btn-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                0280-31-3798｜ご予約はこちら
-            </a>
-            <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+            <!-- 品書きの目次 -->
+            <div class="hero-panel">
+                <p class="panel-label"><span class="panel-label-text"><span class="nw">麺の</span><span class="nw">お品書き</span></span><span class="panel-count">全<span class="nw">25品＋</span><span class="nw">そのほかのめん</span></span></p>
+
+                <ol class="mokuji-list">
+                    <li><a class="mokuji-row" href="men.html#shoyu"><span class="mokuji-no">一</span><span class="mokuji-name"><span class="nw">しょう</span>油</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">5品</span></span><svg class="mokuji-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a></li>
+                    <li><a class="mokuji-row" href="men.html#shio"><span class="mokuji-no">二</span><span class="mokuji-name">し　お</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">6品</span></span><svg class="mokuji-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a></li>
+                    <li><a class="mokuji-row" href="men.html#miso"><span class="mokuji-no">三</span><span class="mokuji-name">み　そ</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">4品</span></span><svg class="mokuji-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a></li>
+                    <li><a class="mokuji-row" href="men.html#karai"><span class="mokuji-no">四</span><span class="mokuji-name">辛　い</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">3品</span></span><svg class="mokuji-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a></li>
+                    <li><a class="mokuji-row" href="men.html#noukou"><span class="mokuji-no">五</span><span class="mokuji-name">濃　厚</span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">4品</span></span><svg class="mokuji-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a></li>
+                    <li><a class="mokuji-row" href="men.html#ankake"><span class="mokuji-no">六</span><span class="mokuji-name"><span class="nw">あんかけ</span></span><span class="mokuji-dots" aria-hidden="true"></span><span class="mokuji-count"><span class="nw">3品</span></span><svg class="mokuji-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a></li>
+                </ol>
+                <p class="mokuji-reco"><span class="nw">はじめての</span><span class="nw">お客様には、</span><span class="nw">一の</span><span class="nw">「野菜五目ラーメン」か、</span><span class="nw">ごはん</span><span class="nw">ものの</span><span class="nw">「チャーシュー</span><span class="nw">INレタスチャーハン」を</span><span class="nw">お勧めし</span><span class="nw">ております。</span></p>
+
+                <div class="hero-actions">
+                    <a href="tel:0280313798" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                        0280-31-3798｜ご予約はこちら
+                    </a>
+                    <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+                </div>
+
+                <p class="hero-access">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="hero-access-addr"><span class="nw">茨城県古河市旭町</span>1-11-7<span class="nw">（駐車場あり）</span></span>
+                    <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA1-11-7" target="_blank" rel="noopener"><span class="nwb"><span class="nw">Googleマップで</span><span class="nw">開く</span></span></a>
+                </p>
+            </div>
+
         </div>
     </div>
 </section>
@@ -838,12 +1042,30 @@
             <tr><th><span class="nw">お支払い</span></th><td><span class="nw">現金のみ</span></td></tr>
         </table>
 
-        <div class="map-wrapper reveal">
-            <iframe
-                src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA1-11-7&z=16&output=embed"
-                allowfullscreen loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="大徳 の地図"></iframe>
+        <div class="map-card reveal">
+            <div class="map-wrapper">
+                <iframe
+                    src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA1-11-7&z=16&output=embed"
+                    allowfullscreen loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="大徳 の地図"></iframe>
+            </div>
+            <div class="map-foot">
+                <p class="map-addr">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>〒306-0012 <span class="nw">茨城県古河市旭町</span>1-11-7</span>
+                </p>
+                <div class="map-actions">
+                    <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA1-11-7" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Googleマップで開く
+                    </a>
+                    <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA1-11-7" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+                        経路を調べる
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="hero-actions" style="margin-top:24px;">
@@ -869,6 +1091,12 @@
         </div>
         <p class="footer-name"><span class="nw">大徳</span></p>
         <p class="footer-addr">〒306-0012 <span class="nw">茨城県古河市旭町</span>1-11-7／<a class="tel-link nw" href="tel:0280313798">0280-31-3798</a></p>
+        <p class="footer-map">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA1-11-7" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span class="nwb"><span class="nw">Googleマップで</span><span class="nw">開く</span></span>
+            </a>
+        </p>
         <p class="footer-copy">&copy; <span class="nw">大徳</span></p>
     </div>
 </footer>
