@@ -232,24 +232,34 @@
     .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line-strong); }
     .btn-ghost:hover, .btn-ghost:focus-visible { border-color: var(--accent); color: var(--accent-deep); }
 
-    /* --- ページ先頭バナー（このページのファーストビュー） ------------------------- */
-    .menu-banner { position: relative; }
-    .menu-banner .photo-frame { border-radius: 0; border: 0; box-shadow: none; aspect-ratio: 16 / 7; }
-    @media (max-width: 620px) { .menu-banner .photo-frame { aspect-ratio: 4 / 3; } }
-    .menu-banner-overlay {
-        position: absolute; inset: 0; display: flex; flex-direction: column;
-        justify-content: flex-end; padding: clamp(20px, 4vw, 48px);
-        /* ★炭火の実写は肉のハイライトが白飛びしており、薄い覆いだと
-           白文字が最悪 1.13:1 まで落ちて消える（実測）。文字の載る下半分を
-           しっかり沈めて、大きな文字の下限 3:1 を上回らせる */
-        background: linear-gradient(0deg, rgba(20,38,74,.90) 0%, rgba(20,38,74,.78) 52%, rgba(20,38,74,.30) 100%);
+    /* --- ページ先頭バナー（このページのファーストビュー） -------------------------
+       ★2026-08-21 改訂：写真を画面幅いっぱいに引き伸ばし、その上に白文字を左端から
+       置く形をやめた。元の写真が 669×392 しかなく、1440px まで広げると眠くなるうえ、
+       文字だけが画面の左端に張り付いて、下の本文（container の内側）と列が揃わない。
+       文字は紺色の面に、写真は右半分に。どちらも container の幅に収める。 */
+    .menu-banner { padding-block: clamp(20px, 3.4vw, 38px) clamp(18px, 2.6vw, 30px); }
+    .banner-card {
+        display: grid; grid-template-columns: 1fr; grid-template-areas: "photo" "text";
+        overflow: hidden; border-radius: calc(var(--radius) + 4px);
+        background: var(--accent-deep); box-shadow: var(--shadow);
     }
+    @media (min-width: 820px) {
+        .banner-card { grid-template-columns: 1fr 1.04fr; grid-template-areas: "text photo"; }
+    }
+    .banner-text { grid-area: text; display: flex; flex-direction: column; justify-content: center;
+                    padding: clamp(26px, 3.6vw, 46px); }
+    /* 見出しの上の短い金線。ヒーローの署名と同じ考え方で、面の始まりを示す */
+    .banner-text::before { content: ""; display: block; width: 38px; height: 2px;
+                            background: rgba(255,255,255,.5); margin-bottom: clamp(14px, 2vw, 20px); }
+    .banner-photo { grid-area: photo; position: relative; aspect-ratio: 4 / 3; }
+    @media (min-width: 820px) { .banner-photo { aspect-ratio: auto; } }
+    .banner-photo .photo-frame { position: absolute; inset: 0;
+                                  border-radius: 0; border: 0; box-shadow: none; }
     .menu-banner-title { font-family: var(--font-head); font-weight: 400; color: #fff;
-                          font-size: clamp(28px, 5.4vw, 46px);
-                          text-shadow: 0 2px 14px rgba(20,38,74,.55); }
-    .menu-banner-sub { color: rgba(255,255,255,.92); font-size: .92rem; margin-top: 6px; max-width: 52ch;
-                       text-shadow: 0 1px 10px rgba(20,38,74,.5); }
-    .menu-banner-cta { margin-top: 18px; }
+                          font-size: clamp(27px, 4.2vw, 42px); line-height: 1.35; }
+    .menu-banner-sub { color: rgba(255,255,255,.84); font-size: .9rem; line-height: 2;
+                        margin-top: 12px; max-width: 34ch; }
+    .menu-banner-cta { margin-top: clamp(20px, 2.6vw, 28px); }
     .menu-banner-cta .btn-primary { background: #fff; color: var(--accent-deep); box-shadow: none; }
     .menu-banner-cta .btn-primary:hover { background: var(--bg); }
 
@@ -416,18 +426,24 @@
      ページ先頭バナー（このページのファーストビュー）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="menu-banner">
-    <div class="photo-frame">
-        <img src="images/yaki-genba.jpg" alt="丸い焼き網コンロで肉を焼いている場面。炭の上に乗せた網で3切れの肉に焼き目がついている"
-             width="1024" height="768" loading="eager" fetchpriority="high" decoding="async">
-    </div>
-    <div class="menu-banner-overlay">
-        <p class="menu-banner-title"><span class="nw">お品書き</span></p>
-        <p class="menu-banner-sub"><span class="nw">黒毛和牛の</span><span class="nw">牝牛を、</span><span class="nw">天然の</span><span class="nw">備長炭で。</span><span class="nw">お値段は、</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
-        <div class="menu-banner-cta">
-            <a href="tel:0280337829" class="btn btn-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                0280-33-7829
-            </a>
+    <div class="container">
+        <div class="banner-card">
+            <div class="banner-text">
+                <p class="menu-banner-title"><span class="nw">お品書き</span></p>
+                <p class="menu-banner-sub"><span class="nw">黒毛和牛の</span><span class="nw">牝牛を、</span><span class="nw">天然の</span><span class="nw">備長炭で</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただきます。</span></p>
+                <div class="menu-banner-cta">
+                    <a href="tel:0280337829" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                        0280-33-7829
+                    </a>
+                </div>
+            </div>
+            <div class="banner-photo">
+                <div class="photo-frame">
+                    <img src="images/yaki-genba.jpg" alt="丸い焼き網コンロで肉を焼いている場面。炭の上に乗せた網で3切れの肉に焼き目がついている"
+                         width="1024" height="768" loading="eager" fetchpriority="high" decoding="async">
+                </div>
+            </div>
         </div>
     </div>
 </section>
