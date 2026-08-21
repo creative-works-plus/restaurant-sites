@@ -556,13 +556,15 @@
 
     /* ══ ★署名的な仕掛け：箸袋の帯 ══════════════════════════════════════
        実物の箸袋（ファミリー レストラン／中田屋／出前迅速／TEL(0280)76-0958）を
-       そのまま横長に組み、ヒーローの文字の面と外観写真の境目をまたがせる。
+       そのまま横長に組み、ヒーローの下端（文字の面と夕暮れの店構えの両方）を横切らせる。
        帯ぜんぶが電話のリンク＝この店の予約導線そのもの。動かさない。 */
     :root { --hashi-h: 132px; }
     @media (max-width: 900px) { :root { --hashi-h: 108px; } }
     @media (max-width: 620px) { :root { --hashi-h: 96px; } }
 
-    .hero-band { position: relative; z-index: 3; margin-bottom: calc(var(--hashi-h) / -2); }
+    /* 帯は「文字の面」と「夕暮れの店構え」の境目の下端を横切る。
+       DOM上はヒーローの最後なので、負の margin-top で半分ぶん持ち上げる */
+    .hero-band { position: relative; z-index: 3; margin-top: calc(var(--hashi-h) / -2); }
     /* ★署名の帯はコンテナで切らない。下の外観写真が全幅なので、帯だけ両端が余ると
        「壁に貼った札」に見えて、実物の箸袋の見立てが立たない。
        文字の左端は本文グリッドに揃える（padding で内側へ寄せる） */
@@ -610,39 +612,94 @@
         .hashi-num { font-size: 14px; }
     }
 
-    /* --- ヒーロー（A-34） ----------------------------------------------------- */
-    .hero {
-        min-height: 0; display: block; padding-top: clamp(30px, 6vw, 62px);
-        background: var(--bg);
+    /* --- ヒーロー（A-34 → 2026-08-21 に組み直し） -----------------------------
+       前は「文字だけの面」の下に「全幅16:9の外観写真」を敷いた二段組みで、
+         ① PC では文字が左34emで終わり、右半分が地のまま空いていた
+         ② 外観の全景（電線・隣店の看板・置き石まで写ったもの）が
+            ページでいちばん大きな要素になり、店の商いを何も語っていなかった
+         ③ スマホの第一画面に写真が一枚も出ず、文字だけで800px近く続いていた
+       いまは左に文字・右に夕暮れの店構えを縦位置で立てた二枚組にして、
+       その境目の下端を箸袋の帯が横切る。写真は看板と灯りのところだけに寄せて切ってある。 */
+    .hero { min-height: 0; display: block; background: var(--bg); padding-top: 0; }
+    .hero-grid { display: grid; }
+
+    /* 文字の面：左端はコンテナと同じ位置に揃える（帯の .hashi と同じ式） */
+    .hero-copy, .hero-tail {
+        padding-left: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2));
+        padding-right: var(--pad-inner);
     }
-    .hero-inner { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3); }
-    .hero-eyebrow {
-        font-size: clamp(13px, 2.4vw, 16px); letter-spacing: .28em; color: var(--accent);
-        margin-top: var(--sp-2);
+    .hero-copy {
+        display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3);
+        padding-top: clamp(26px, 5vw, 54px);
     }
-    .hero-name {
-        font-size: var(--fz-hero); letter-spacing: .14em; line-height: 1.05; margin-top: var(--sp-1);
-    }
+    /* 帯が下端を半分ぶん覆うので、そのぶん逃がす */
+    .hero-tail { padding-bottom: calc(var(--hashi-h) / 2 + var(--sp-4)); }
+
+    .hero-copy .status-chip { align-self: flex-start; }   /* grid/flex で横に伸ばさない */
+    .hero-eyebrow { font-size: clamp(13px, 2.4vw, 16px); letter-spacing: .28em; color: var(--accent); }
+    .hero-name { font-size: var(--fz-hero); letter-spacing: .14em; line-height: 1.05; }
     .hero-lead {
         font-family: var(--font-head); font-size: clamp(20px, 4.4vw, 32px);
         letter-spacing: .08em; line-height: 1.4; color: var(--accent);
     }
-    .hero-sub { color: var(--muted); max-width: 34em; }
-    .hero-hours { color: var(--dim); font-size: .92rem; letter-spacing: .1em; line-height: 1.9; margin-top: var(--sp-3); }
-    /* ★901px以上では文字が左34emで終わり、右半分が地のまま残っていた。
-       営業時間を右下に立てて、空白に仕事をさせる */
-    @media (min-width: 901px) {
-        .hero-inner { display: grid; grid-template-columns: minmax(0, 34em) 1fr; align-items: start; }
-        .hero-inner > :not(.hero-hours) { grid-column: 1; }
-        .hero-hours { grid-column: 2; grid-row: 2 / 7; justify-self: end; align-self: end;
-                      text-align: right; margin-top: 0; }
+    .hero-sub { color: var(--muted); max-width: 30em; }
+
+    /* 夕暮れの店構え。右端まで抜き、帯と接する下辺だけわずかに沈める */
+    .hero-shot { position: relative; overflow: hidden; background: #16151C; }
+    .hero-shot img { width: 100%; height: 100%; object-fit: cover; object-position: 25% 30%; }
+    .hero-shot::after {
+        content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+        background: linear-gradient(to bottom, rgba(12, 10, 16, 0), rgba(12, 10, 16, .42));
+        pointer-events: none;
     }
-    .hero-actions { margin-block: var(--sp-3) clamp(26px, 5vw, 48px); }
-    .hero-photo { position: relative; z-index: 1; }
-    .hero-photo img {
-        width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 62%;
+
+    /* 予約の電話を1行目に単独で置き、二次導線は次の行にそろえる */
+    .hero-tail .hero-actions { margin-block: 0; }
+    .hero-tail .hero-actions-sub { margin-top: var(--sp-3); }
+
+    /* 営業時間・定休日・駐車場。お品書きの罫を借りて組む。
+       ★flex の折り返しにすると、行末に罫だけが宙に残る（1024px幅で実際に出た）ので、
+         列数を決めた grid にして、罫は「2列目の左」「2行目の上」だけに引く */
+    .hero-meta {
+        display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: var(--sp-4); border-top: 1px solid var(--line);
     }
-    @media (max-width: 620px) { .hero-photo img { aspect-ratio: 4 / 3; } }
+    .hero-meta > div { display: flex; align-items: baseline; gap: 10px; padding: 11px 16px; min-width: 0; }
+    .hero-meta > div:nth-child(2n)   { border-left: 1px solid var(--line); }
+    .hero-meta > div:nth-child(2n+1) { padding-left: 0; }
+    .hero-meta > div:nth-child(n+3)  { border-top: 1px solid var(--line); }
+    @media (min-width: 1180px) {
+        .hero-meta { grid-template-columns: repeat(4, minmax(0, auto)); justify-content: start; }
+        .hero-meta > div { border-left: 1px solid var(--line); border-top: 0; padding-left: 16px; }
+        .hero-meta > div:first-child { border-left: 0; padding-left: 0; }
+    }
+    .hero-meta dt { font-size: 12px; letter-spacing: .2em; color: var(--accent); white-space: nowrap; }
+    .hero-meta dd {
+        font-family: var(--font-head); font-size: clamp(14px, 2.6vw, 17px);
+        letter-spacing: .04em; color: var(--ink); line-height: 1.3; white-space: nowrap;
+    }
+
+    /* スマホ〜タブレット：文字 → 写真 → 予約導線 の順に積む。
+       写真を第一画面に入れるため、導線より前に置く */
+    @media (max-width: 999px) {
+        .hero-copy { order: 1; }
+        .hero-shot { order: 2; margin-top: clamp(20px, 4vw, 32px); aspect-ratio: 16 / 10; }
+        .hero-tail { order: 3; padding-top: clamp(20px, 4vw, 28px); }
+    }
+    @media (max-width: 620px) { .hero-shot { aspect-ratio: 4 / 3; } }
+
+    /* PC：左に文字・右に写真。写真は画面の右端まで抜けて高さいっぱいに立つ */
+    @media (min-width: 1000px) {
+        .hero-grid {
+            grid-template-columns: minmax(0, 1fr) clamp(340px, 40vw, 600px);
+            grid-template-rows: auto 1fr;
+            min-height: clamp(500px, calc(100svh - var(--header-h) - 64px), 660px);
+        }
+        .hero-copy { grid-column: 1; grid-row: 1; padding-right: clamp(32px, 4.5vw, 76px); }
+        .hero-tail { grid-column: 1; grid-row: 2; padding-right: clamp(32px, 4.5vw, 76px);
+                     padding-top: clamp(22px, 3vw, 34px); align-self: end; }
+        .hero-shot { grid-column: 2; grid-row: 1 / 3; }
+    }
 
     /* --- セクション見出し（肩に箸袋の折り目の三角を置く） --------------------- */
     .sec-head { margin-bottom: var(--blk-y); }
@@ -917,27 +974,42 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="container hero-inner">
-        <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+    <div class="hero-grid">
+        <div class="hero-copy">
+            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
-        <p class="hero-eyebrow"><span class="nw">昭和四十四年、</span><span class="nw">諸川。</span></p>
-        <h1 class="hero-name"><span class="nw">中田屋</span></h1>
-        <p class="hero-lead"><span class="nw">和・</span><span class="nw">洋・</span><span class="nw">中、</span><span class="nw">百種類。</span></p>
-        <p class="hero-sub"><span class="nw">お昼の</span><span class="nw">お膳から、</span><span class="nw">六十名様までの</span><span class="nw">ご宴会まで。</span><br><span class="nw">茨城県古河市諸川の</span><span class="nw">食堂で</span><span class="nw">ございます。</span></p>
+            <p class="hero-eyebrow"><span class="nw">昭和四十四年、</span><span class="nw">諸川。</span></p>
+            <h1 class="hero-name"><span class="nw">中田屋</span></h1>
+            <p class="hero-lead"><span class="nw">和・</span><span class="nw">洋・</span><span class="nw">中、</span><span class="nw">百種類。</span></p>
+            <p class="hero-sub"><span class="nw">お昼の</span><span class="nw">お膳から、</span><span class="nw">六十名様までの</span><span class="nw">ご宴会まで。</span><br><span class="nw">茨城県古河市諸川の</span><span class="nw">食堂で</span><span class="nw">ございます。</span></p>
+        </div>
 
-        <p class="hero-hours">昼 11:30〜14:00 ／ 夜 17:30〜20:00<br><span class="nw">月曜定休</span></p>
+        <figure class="hero-shot">
+            <img src="img/hero-yoru.webp" alt="日が暮れたころの中田屋の店構え。灯りのともった看板と、明かりのついた入口" width="916" height="955" fetchpriority="high" decoding="async" style="height:100%;">
+        </figure>
 
-        <div class="hero-actions">
-            <a href="tel:0280760958" class="btn btn-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                0280-76-0958｜ご予約はこちら
-            </a>
-            <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
-            <a href="#enkai" class="btn btn-ghost">ご宴会・ご会食（〜60名様）</a>
+        <div class="hero-tail">
+            <div class="hero-actions">
+                <a href="tel:0280760958" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    0280-76-0958｜ご予約はこちら
+                </a>
+            </div>
+            <div class="hero-actions hero-actions-sub">
+                <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+                <a href="#enkai" class="btn btn-ghost">ご宴会・ご会食（〜60名様）</a>
+            </div>
+
+            <dl class="hero-meta">
+                <div><dt>昼</dt><dd>11:30〜14:00</dd></div>
+                <div><dt>夜</dt><dd>17:30〜20:00</dd></div>
+                <div><dt><span class="nw">定休</span></dt><dd><span class="nw">月曜日</span></dd></div>
+                <div><dt><span class="nw">駐車場</span></dt><dd><span class="nw">65台</span></dd></div>
+            </dl>
         </div>
     </div>
 
-    <!-- ★署名的な仕掛け：箸袋の帯。文字の面と外観写真の境目をまたいで置く -->
+    <!-- ★署名的な仕掛け：箸袋の帯。文字の面と店構えの写真をまとめて下端で横切る -->
     <div class="hero-band">
         <div class="container">
             <a class="hashi" href="tel:0280760958" aria-label="お電話でのご予約 0280-76-0958">
@@ -957,10 +1029,6 @@
                 </span>
             </a>
         </div>
-    </div>
-
-    <div class="hero-photo">
-        <img src="img/gaikan.webp" alt="中田屋の外観。赤茶の瓦屋根と桜色の外壁" width="1024" height="768" fetchpriority="high" decoding="async" style="height:auto;">
     </div>
 </section>
 
@@ -993,9 +1061,9 @@
             <div class="about-photos reveal">
                 <figure class="wide">
                     <div class="photo-frame r-16x9">
-                        <img src="img/gaikan-yoru.webp" alt="夕暮れの中田屋の外観" width="1024" height="768" loading="lazy" decoding="async">
+                        <img src="img/gaikan.webp" alt="国道沿いに面した中田屋の外観。赤茶の瓦屋根と桜色の外壁" width="1024" height="768" loading="lazy" decoding="async">
                     </div>
-                    <figcaption><span class="nw">夕方の</span><span class="nw">店構え</span></figcaption>
+                    <figcaption><span class="nw">昼の</span><span class="nw">店構え</span></figcaption>
                 </figure>
                 <figure>
                     <div class="photo-frame r-4x3">

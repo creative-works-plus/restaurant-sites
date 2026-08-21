@@ -594,9 +594,13 @@
     .subnav-inner { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
                     display: flex; gap: var(--sp-1); overflow-x: auto; }
     .subnav a { font-size: 14px; color: var(--muted); white-space: nowrap; border-bottom: 2px solid transparent; }
-    /* 390px で4章目「ご一緒に」が画面の外に出るので、狭い画面だけ詰めて4つとも見せる
+    /* ★2026-08-21：お品書きを4章31品→7章に増やしたので、狭い画面では章が入り切らない。
+       横スクロールで見せる（.subnav-inner は overflow-x:auto）。
+       狭い画面だけ字と余白を詰めて、1画面に見える章の数をなるべく多くする。
        （min-height:44px は骨格側で確保されるのでタップ領域は割らない） */
     @media (max-width: 620px) { .subnav a { font-size: 12.5px; padding-inline: 9px; } }
+    .subnav-inner { scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .subnav-inner::-webkit-scrollbar { display: none; }
     .subnav a:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
 
     .lead-box { max-width: 44em; color: var(--muted); line-height: 2; margin-bottom: var(--sp-6); }
@@ -982,24 +986,32 @@
         <a href="#mori">森のごはん</a>
         <a href="#hatake">畑のごはん</a>
         <a href="#tanbo">田んぼのごはん</a>
-        <a href="#goissho">ご一緒に</a>
+        <a href="#seiro">せいろ</a>
+        <a href="#kodomo">お子様に</a>
+        <a href="#amai">甘いもの</a>
+        <a href="#osake">お酒</a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">お膳はすべて、サラダから甘いものまでひと通りお付けしております。<b>お値段を載せていないお膳は、お電話（080-4101-0707）でお気軽にお尋ねください。</b>店内のお品書きにも掲げております。お子様メニューとお子様用の椅子もご用意しております。</div>
+        <div class="lead-box reveal">お膳はすべて、サラダから甘いものまでひと通りお付けしております。お蕎麦だけの単品、お子様のお膳、手づくりの甘いもの、向かいの田のお米で醸した古河のどぶろくもご用意しております。<b>お値段を載せていない品は、お電話（080-4101-0707）でお気軽にお尋ねください。</b>店内のお品書きにも掲げております。</div>
 
         <div class="menu-block reveal" id="mori">
             <div class="menu-head"><h2><span class="nw">森のごはん</span></h2><span class="yomi">MORI NO GOHAN</span></div>
-            <p class="menu-note"><span class="nw">二か</span><span class="nw">月ごとに</span><span class="nw">献立を</span><span class="nw">替え</span><span class="nw">ております。</span><span class="nw">8月は</span><span class="nw">夏野菜の</span><span class="nw">ジェノベーゼを、</span><span class="nw">1日</span><span class="nw">10食かぎりで。</span></p>
+            <p class="menu-note"><span class="nw">野菜ソムリエが</span><span class="nw">旬の</span><span class="nw">野菜で</span><span class="nw">献立を</span><span class="nw">立てる、</span><span class="nw">創作そばの</span><span class="nw">お膳です。</span><span class="nw">二か</span><span class="nw">月ごとに</span><span class="nw">替えており、</span><span class="nw">8月は</span><span class="nw">夏野菜の</span><span class="nw">ジェノベーゼを</span><span class="nw">1日</span><span class="nw">10食かぎりで。</span><span class="nw">サラダ・</span><span class="nw">そば</span><span class="nw">豆腐・</span><span class="nw">小鉢・</span><span class="nw">スープ・</span><span class="nw">ピクルス・</span><span class="nw">ミニスムージー・</span><span class="nw">デザート</span><span class="nw">3種を</span><span class="nw">お付けします。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">夏野菜の</span><span class="nw">ジェノベーゼ</span><span class="desc"><span class="nw">松の</span><span class="nw">実の</span><span class="nw">代わりに</span><span class="nw">自家栽培の</span><span class="nw">落花生を</span></span></span><span class="dots"></span><span class="price"><span class="nw">2,750円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
-                    <li><span class="name"><span class="nw">旬の</span><span class="nw">野菜の</span><span class="nw">レモンクリーム</span><span class="desc"><span class="nw">冷製。</span><span class="nw">春から</span><span class="nw">初夏に</span></span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">夏野菜の</span><span class="nw">ジェノベーゼ</span><span class="desc"><span class="nw">八月。</span><span class="nw">松の</span><span class="nw">実の</span><span class="nw">代わりに</span><span class="nw">自家栽培の</span><span class="nw">落花生を</span></span></span><span class="dots"></span><span class="price"><span class="nw">2,750円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
+                    <li><span class="name"><span class="nw">秋野菜の</span><span class="nw">ペペロンチーノ</span><span class="desc"><span class="nw">九月・</span><span class="nw">十月。</span><span class="nw">隠し</span><span class="nw">味の</span><span class="nw">アンチョビでこくを</span><span class="nw">出して</span></span></span></li>
+                    <li><span class="name"><span class="nw">きの</span><span class="nw">こと</span><span class="nw">ベーコンの</span><span class="nw">トマトクリーム</span><span class="desc"><span class="nw">十一月・</span><span class="nw">十二月。</span><span class="nw">手打ちの</span><span class="nw">平麺に</span><span class="nw">絡めて</span></span></span></li>
+                    <li><span class="name"><span class="nw">冬野菜と</span><span class="nw">チキンの</span><span class="nw">和風クリーム</span><span class="desc"><span class="nw">一月・</span><span class="nw">二月。</span><span class="nw">炒めた</span><span class="nw">葱の</span><span class="nw">出汁に、</span><span class="nw">味噌と</span><span class="nw">生姜を</span><span class="nw">忍ばせて</span></span></span></li>
+                    <li><span class="name"><span class="nw">春野菜の</span><span class="nw">ペペロンチーノ</span><span class="desc"><span class="nw">三月・</span><span class="nw">四月。</span><span class="nw">掘りたての</span><span class="nw">春野菜とともに</span></span></span></li>
+                    <li><span class="name"><span class="nw">旬の</span><span class="nw">野菜の</span><span class="nw">レモンクリーム</span><span class="desc"><span class="nw">五月・</span><span class="nw">六月。</span><span class="nw">冷たい</span><span class="nw">平麺で、</span><span class="nw">さっぱりと</span></span></span></li>
+                    <li><span class="name"><span class="nw">たっぷり</span><span class="nw">トマトの</span><span class="nw">オルトラーナ</span><span class="desc"><span class="nw">七月。</span><span class="nw">採れたて</span><span class="nw">夏野菜の</span><span class="nw">ソースに、</span><span class="nw">きゅうりを</span><span class="nw">重ねて</span></span></span></li>
                 </ul>
             </div>
-            <p class="menu-after"><span class="nw">夏野菜の</span><span class="nw">ジェノベーゼは</span><span class="nw">8月末まで</span><span class="nw">お出しします。</span><span class="nw">次の</span><span class="nw">献立は、</span><span class="nw">その</span><span class="nw">とき</span><span class="nw">畑にある</span><span class="nw">もので</span><span class="nw">お決めします。</span></p>
+            <p class="menu-after"><span class="nw">献立はその</span><span class="nw">とき</span><span class="nw">畑にある</span><span class="nw">もので</span><span class="nw">お決めします</span><span class="nw">ので、</span><span class="nw">月によって</span><span class="nw">少し</span><span class="nw">変わる</span><span class="nw">ことが</span><span class="nw">ございます。</span></p>
         </div>
 
         <div class="menu-block reveal" id="hatake">
@@ -1035,6 +1047,7 @@
                     <figcaption><span class="nw">野菜の</span><span class="nw">天ぷら</span></figcaption>
                 </figure>
             </div>
+            <p class="menu-after"><span class="nw">おそばは</span>50g<span class="nw">お増やしできます。</span><span class="nw">ご注文の</span><span class="nw">ときに</span><span class="nw">お申しつけ</span><span class="nw">ください。</span></p>
         </div>
 
         <div class="menu-block reveal" id="tanbo">
@@ -1048,12 +1061,14 @@
             <p class="menu-after"><span class="nw">土日祝日は</span><span class="nw">混み</span><span class="nw">合います</span><span class="nw">ので、</span><span class="nw">お席は</span><span class="nw">お電話で</span><span class="nw">ご予約いただくと</span><span class="nw">確実です。</span></p>
         </div>
 
-        <div class="menu-block reveal" id="goissho">
-            <div class="menu-head"><h2><span class="nw">ご一緒に</span></h2><span class="yomi">TO GO WITH</span></div>
+        <div class="menu-block reveal" id="seiro">
+            <div class="menu-head"><h2><span class="nw">せいろ</span></h2><span class="yomi">SEIRO</span></div>
+            <p class="menu-note"><span class="nw">お蕎麦を</span><span class="nw">主に</span><span class="nw">お召し</span><span class="nw">上がりになりたい</span><span class="nw">方へ、</span><span class="nw">単品でも</span><span class="nw">お出しし</span><span class="nw">ております。</span><span class="nw">サラダか</span><span class="nw">天ぷらを</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">おそばは</span><span class="nw">150gと</span><span class="nw">200gから</span><span class="nw">お選び</span><span class="nw">いただけます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">ドリンクバーセット</span><span class="desc"><span class="nw">自家焙煎のそば</span><span class="nw">茶も</span><span class="nw">ございます</span></span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">おそば</span><span class="nw">大盛り</span><span class="desc">50g<span class="nw">お増やしします</span></span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">お日さまの</span><span class="nw">野菜せいろ</span><span class="nw">（冷）</span><span class="desc"><span class="nw">そばつゆで</span></span></span></li>
+                    <li><span class="name"><span class="nw">里山のきのこ</span><span class="nw">汁せいろ</span><span class="nw">（温）</span><span class="desc"><span class="nw">きのこの</span><span class="nw">汁につけて</span></span></span></li>
+                    <li><span class="name"><span class="nw">野の</span><span class="nw">合鴨汁せいろ</span><span class="nw">（温）</span><span class="desc"><span class="nw">合鴨の</span><span class="nw">汁につけて</span></span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1065,7 +1080,54 @@
                     <figcaption><span class="nw">常陸秋そば</span></figcaption>
                 </figure>
             </div>
-            <p class="menu-after"><span class="nw">お子様用の</span><span class="nw">椅子と</span><span class="nw">お子様メニューを</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">ベビーカーのまま</span><span class="nw">お入り</span><span class="nw">いただけます。</span></p>
+            <p class="menu-after"><span class="nw">こちらも</span>50g<span class="nw">お増やしできます。</span><span class="nw">ドリンクバーセット・</span><span class="nw">デザートセットを</span><span class="nw">ご一緒にどうぞ。</span></p>
+        </div>
+
+        <div class="menu-block reveal" id="kodomo">
+            <div class="menu-head"><h2><span class="nw">お子様に</span></h2><span class="yomi">FOR CHILDREN</span></div>
+            <p class="menu-note"><span class="nw">お子様ランチは、</span><span class="nw">ハンバーグとおにぎりに、</span><span class="nw">ジュースと</span><span class="nw">アイスを</span><span class="nw">お付けし</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">お子様ランチ</span></span></li>
+                    <li><span class="name"><span class="nw">お子さまの</span><span class="nw">野菜せいろ</span><span class="desc"><span class="nw">小さめのせいろで</span></span></span></li>
+                </ul>
+            </div>
+            <p class="menu-after"><span class="nw">お子様用の</span><span class="nw">椅子を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">ベビーカーのまま</span><span class="nw">お入り</span><span class="nw">いただけます。</span></p>
+        </div>
+
+        <div class="menu-block reveal" id="amai">
+            <div class="menu-head"><h2><span class="nw">甘い</span><span class="nw">ものと</span><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">SWEETS &amp; DRINK</span></div>
+            <p class="menu-note"><span class="nw">デザートは</span><span class="nw">全粒粉の</span><span class="nw">小麦粉・</span><span class="nw">そば</span><span class="nw">粉・</span><span class="nw">そばの</span><span class="nw">実・</span><span class="nw">畑の</span><span class="nw">野菜から、</span><span class="nw">ひとつずつ</span><span class="nw">手づくりし</span><span class="nw">ております。</span><span class="nw">お膳には</span><span class="nw">3種</span><span class="nw">お付けし</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">デザート</span><span class="nw">3種</span><span class="desc"><span class="nw">その</span><span class="nw">日の</span><span class="nw">手づくりから</span><span class="nw">3つ</span></span></span></li>
+                    <li><span class="name"><span class="nw">ドリンクバー</span><span class="desc"><span class="nw">自家焙煎のそば</span><span class="nw">茶も</span><span class="nw">ございます</span></span></span></li>
+                    <li><span class="name"><span class="nw">デザート</span><span class="nw">3種と</span><span class="nw">ドリンクバーの</span><span class="nw">セット</span></span></li>
+                    <li><span class="name"><span class="nw">バニラアイス</span></span></li>
+                    <li><span class="name"><span class="nw">いちごの</span><span class="nw">スムージー</span><span class="desc"><span class="nw">自家栽培のいちごで</span></span></span></li>
+                </ul>
+            </div>
+            <p class="menu-after"><span class="nw">お食事と</span><span class="nw">ご一緒の</span><span class="nw">ときは、</span><span class="nw">ドリンクバーセット・</span><span class="nw">デザートセットも</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+        </div>
+
+        <div class="menu-block reveal" id="osake">
+            <div class="menu-head"><h2><span class="nw">お酒</span></h2><span class="yomi">SAKE</span></div>
+            <p class="menu-note"><span class="nw">古河のどぶろくは、</span><span class="nw">向かいの</span><span class="nw">田で</span><span class="nw">穫れた</span><span class="nw">お米から</span><span class="nw">私どもで</span><span class="nw">醸し</span><span class="nw">ております。</span><span class="nw">二〇〇七年に</span><span class="nw">濁酒特区の</span><span class="nw">認証を</span><span class="nw">いただき、</span><span class="nw">翌年に</span><span class="nw">初めて</span><span class="nw">蔵出し</span><span class="nw">いたしました。</span><span class="nw">濃醇どぶろくは</span><span class="nw">古河ブランドの</span><span class="nw">認証を</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">四つの</span><span class="nw">銘は、</span><span class="nw">古河大使の</span><span class="nw">皆さまに</span><span class="nw">名づけて</span><span class="nw">いただいた</span><span class="nw">ものです。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">どぶろく</span> <span class="nw">ゆきはな</span><span class="nw">（甘口）</span><span class="desc"><span class="nw">命名</span> <span class="nw">永井路子氏</span><span class="nw">（直木賞作家）</span></span></span></li>
+                    <li><span class="name"><span class="nw">どぶろく</span> <span class="nw">雪桃水</span><span class="nw">（甘口）</span><span class="desc"><span class="nw">命名</span> <span class="nw">渡辺徹氏</span><span class="nw">（俳優）</span></span></span></li>
+                    <li><span class="name"><span class="nw">どぶろく</span> <span class="nw">円居</span><span class="nw">（辛口）</span><span class="desc"><span class="nw">命名</span> <span class="nw">樋口真嗣氏</span><span class="nw">（映画監督）</span></span></span></li>
+                    <li><span class="name"><span class="nw">どぶろく</span> <span class="nw">古河の</span><span class="nw">誇り</span><span class="nw">（辛口）</span><span class="desc"><span class="nw">命名</span> <span class="nw">仁志敏久氏</span><span class="nw">（元プロ</span><span class="nw">野球選手）</span></span></span></li>
+                    <li><span class="name"><span class="nw">ワイン</span><span class="nw">（赤・</span><span class="nw">白）</span><span class="desc"><span class="nw">グラスと</span><span class="nw">ボトルで</span></span></span></li>
+                    <li><span class="name"><span class="nw">常陸野ネスト</span> <span class="nw">ホワイトエール</span><span class="desc"><span class="nw">ハーブが</span><span class="nw">香る</span></span></span></li>
+                    <li><span class="name"><span class="nw">常陸野ネスト</span> <span class="nw">ヴァイツェン</span><span class="desc"><span class="nw">小麦のにごり</span></span></span></li>
+                    <li><span class="name"><span class="nw">アサヒスーパードライ</span></span></li>
+                    <li><span class="name"><span class="nw">御慶事</span> <span class="nw">生貯蔵酒</span><span class="desc"><span class="nw">古河の</span><span class="nw">地酒</span></span></span></li>
+                    <li><span class="name"><span class="nw">ノンアルコールビール</span></span></li>
+                </ul>
+            </div>
+            <p class="menu-after"><span class="nw">ワインは</span><span class="nw">足利の</span><span class="nw">ココ・</span><span class="nw">ファーム・</span><span class="nw">ワイナリー、</span><span class="nw">ビールは</span><span class="nw">那珂の</span><span class="nw">木内酒造の</span><span class="nw">ものです。</span><span class="nw">お車で</span><span class="nw">お越しの</span><span class="nw">方には、</span><span class="nw">ノンアルコールビールと</span><span class="nw">ドリンクバーを</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
         </div>
     </div>
 </section>
