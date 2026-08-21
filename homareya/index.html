@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/homareya/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/homareya/img/hero-special.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/homareya/img/hero-gaikan.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -38,24 +38,12 @@
       "priceRange": "¥",
       "telephone": "+81-280-23-1265",
       "url": "https://creative-works-plus.github.io/restaurant-sites/homareya/",
-      "image": "img/hero-special.jpg",
+      "image": "img/hero-gaikan.jpg",
       "smokingAllowed": false,
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-          "opens": "11:00",
-          "closes": "15:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-          "opens": "17:00",
-          "closes": "22:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Saturday","Sunday"],
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
           "opens": "11:00",
           "closes": "22:00"
         }
@@ -430,15 +418,32 @@
     .hero-caution { margin-top: 14px; font-size: .84rem; color: var(--dim); max-width: 30em; }
     .hero .status-chip { background: var(--surface); box-shadow: var(--shadow-soft); }
 
-    .hero-mosaic {
-        display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr);
-        gap: 10px; aspect-ratio: 4 / 3.55;
+    /* --- ヒーローの写真：外観を主役に、器は帯で添える ------------------------- */
+    /* 店を探しているお客様がいちばん先に照らし合わせるのは看板と入口なので、
+       いちばん大きい面を外観にあて、料理は下に小さく重ねる。
+       写真はコンテナの右端から画面の右端まで抜く（body に overflow-x:hidden があるので安全）。 */
+    /* コンテナの右端から画面の右端までの距離。%を使うと段の幅を基準にしてしまうので、
+       画面幅とコンテナ幅だけで出す（横幅が狭いときは左右の余白と同じ値になる） */
+    .hero { --bleed: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2)); }
+    .hero-shot { position: relative; margin-right: calc(-1 * var(--bleed)); }
+    .hero-shot .shot-frame {
+        height: clamp(430px, 66svh, 620px);
+        border-radius: var(--radius) 0 0 var(--radius);
+        border-right: 0;
     }
-    .hero-mosaic .photo-frame { min-height: 0; }
-    .m-men  { grid-area: 1 / 1 / 4 / 3; }
-    .m-sp   { grid-area: 1 / 3 / 3 / 5; }
-    .m-tab  { grid-area: 3 / 3 / 4 / 4; }
-    .m-gy   { grid-area: 3 / 4 / 4 / 5; }
+    /* 右端の自販機と電柱を落として、看板と入口を面の真ん中に置く */
+    .hero-shot .shot-frame img { object-position: 42% 54%; }
+
+    .hero-rail { position: absolute; left: clamp(-34px, -2.4vw, -14px); bottom: 20px;
+                 display: flex; gap: 10px; }
+    .hero-rail li { line-height: 0; }
+    .hero-rail img {
+        width: clamp(74px, 7.2vw, 104px); height: auto; aspect-ratio: 1;
+        object-fit: cover; border-radius: 10px;
+        border: 3px solid var(--bg); box-shadow: var(--shadow);
+    }
+    /* 卓上写真は上半分に赤黄のPOPが入るので、下の調味料側を見せる */
+    .hero-rail .rail-tab { object-position: 50% 100%; }
 
     @media (max-width: 900px) {
         .hero-grid { display: flex; flex-direction: column; align-items: stretch; }
@@ -447,26 +452,24 @@
         .hero .eyebrow     { order: 2; margin-top: 16px; }
         .hero-title        { order: 3; }
         .hero-yomi         { order: 4; }
-        .hero-mosaic       { order: 5; margin-top: 22px; aspect-ratio: 4 / 3.2; }
+        .hero-shot         { order: 5; margin-top: 22px; margin-right: 0; }
         .hero-lead         { order: 6; margin-top: 22px; max-width: none; }
         .hero-chips        { order: 7; }
         .hero-caution      { order: 8; }
         .hero-actions      { order: 9; }
+        .hero-shot .shot-frame {
+            height: auto; aspect-ratio: 4 / 3;
+            border-radius: var(--radius); border-right: 1px solid var(--line-strong);
+        }
+        /* 画面が狭いと重ねた帯が外観を隠すので、下に並べ直す */
+        .hero-rail { position: static; margin-top: 10px; gap: 8px; }
+        .hero-rail li { flex: 1 1 0; }
+        .hero-rail img { width: 100%; }
     }
     @media (max-width: 620px) {
         .hero-actions .btn { width: 100%; }
-        /* 4カラムのままだと右下2枚が85px角になって何の写真か分からなくなる */
-        .hero-mosaic {
-            grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr);
-            aspect-ratio: 4 / 4.4;
-        }
-        .m-men { grid-area: 1 / 1 / 4 / 2; }
-        .m-sp  { grid-area: 1 / 2 / 2 / 3; }
-        .m-tab { grid-area: 2 / 2 / 3 / 3; }
-        .m-gy  { grid-area: 3 / 2 / 4 / 3; }
+        .hero-shot .shot-frame { aspect-ratio: 4 / 3.2; }
     }
-    /* 卓上写真は上半分に赤黄のPOPが入るので、下の調味料側を見せる */
-    .m-tab img { object-position: 50% 100%; }
 
     /* --- 注文の三択（署名的な仕掛け・ページで1面だけの反転面） ------------------ */
     .order {
@@ -662,21 +665,46 @@
     }
     .menu-photos figure { margin: 0; flex: 1 1 210px; max-width: 330px; }
 
-    /* 広い画面では品書きの右に写真を1列で並走させる（右半分の空きを消す） */
-    @media (min-width: 980px) {
-        .menu-block { display: grid; grid-template-columns: minmax(0, 1fr) 320px;
-                      column-gap: clamp(32px, 4vw, 56px); align-items: start; }
-        .menu-head, .menu-note { grid-column: 1 / -1; }
-        .menu-photos { flex-direction: column; margin-top: 22px; }
-        .menu-photos figure { max-width: none; flex: 0 0 auto; }
-        .menu-grid { margin-top: 22px; }
-    }
     .menu-photos .photo-frame { aspect-ratio: 4 / 3; }
     /* キャプションの書式はページ内で1つに揃える（#dish の形に合わせる） */
     .menu-photos figcaption,
     .rice-photos figcaption {
         margin-top: 8px; font-size: .9rem; color: var(--muted);
         font-family: var(--font-head); font-weight: 700;
+    }
+
+    /* タブレット幅では品書きの下に写真が回る。1枚しかない章で 330px のまま置くと
+       右側だけが空いて見えるので、この幅のときは横長にして全幅で敷く */
+    @media (min-width: 620px) and (max-width: 979px) {
+        .menu-photos:has(figure:only-child) figure { max-width: none; }
+        .menu-photos:has(figure:only-child) .photo-frame { aspect-ratio: 16 / 7; }
+    }
+
+    /* 広い画面では品書きの右に写真を並走させる。
+       ★写真の高さは品書きの高さに合わせて伸び縮みさせる——4:3で固定していたころは、
+         品数の少ない章で写真の列だけが下へ300pxほど伸び、品書きの下が空いて見えた。
+         写真の中身をすべて絶対配置にすると、この段の高さは品書き側だけで決まる。 */
+    @media (min-width: 980px) {
+        .menu-block { display: grid; grid-template-columns: minmax(0, 1fr) clamp(250px, 27%, 330px);
+                      column-gap: clamp(32px, 4vw, 56px); align-items: stretch; }
+        .menu-head, .menu-note { grid-column: 1 / -1; }
+        .menu-grid { margin-top: 22px; }
+        .menu-photos {
+            display: grid; grid-auto-rows: 1fr; gap: 14px;
+            margin-top: 22px; align-self: stretch; min-height: 220px;
+        }
+        .menu-photos figure { position: relative; min-height: 0; }
+        .menu-photos .photo-frame { position: absolute; inset: 0; aspect-ratio: auto; }
+        /* キャプションは写真の中へ。行の高さを取らないので、下に空きが残らない */
+        .menu-photos figcaption {
+            position: absolute; left: 1px; right: 1px; bottom: 1px; margin: 0;
+            padding: 30px 14px 11px; color: #FFFFFF; font-size: .88rem;
+            border-radius: 0 0 var(--radius) var(--radius);
+            background: linear-gradient(to top, rgba(11, 33, 22, .74), rgba(11, 33, 22, 0));
+            text-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+        }
+        /* 写真の無い章（お飲みもの）は、右を空けずに全幅で組む */
+        .menu-block:not(:has(.menu-photos)) { grid-template-columns: minmax(0, 1fr); }
     }
 
     .menu-foot {
@@ -791,8 +819,8 @@
             </p>
 
             <ul class="hero-chips">
-                <li class="chip"><b><span class="nw">平日</span></b> 11:00〜15:00／17:00〜22:00</li>
-                <li class="chip"><b><span class="nw">土日祝</span></b> 11:00〜22:00</li>
+                <li class="chip"><b><span class="nw">毎日</span></b> 11:00〜22:00</li>
+                <li class="chip"><span class="nwb"><span class="nw">通し</span><span class="nw">営業・</span>LO 21:30</span></li>
                 <li class="chip"><span class="nw">不定休</span></li>
                 <li class="chip"><span class="nw">駐車場あり</span></li>
                 <li class="chip"><span class="nwb"><span class="nw">カウンター</span><span class="nw">席・</span><span class="nw">テーブル</span>席</span></li>
@@ -813,23 +841,21 @@
             </div>
         </div>
 
-        <div class="hero-mosaic">
-            <div class="photo-frame m-men">
-                <img src="img/hero-men.jpg" alt="丼から箸で持ち上げた太めの麺" width="1053" height="1400"
+        <div class="hero-shot">
+            <div class="photo-frame shot-frame">
+                <img src="img/hero-gaikan.jpg" alt="赤い看板を掲げた誉家の外観と入口" width="1500" height="1299"
                      loading="eager" fetchpriority="high" decoding="async">
             </div>
-            <div class="photo-frame m-sp">
-                <img src="img/hero-special.jpg" alt="チャーシュー二枚、味玉、うずらの卵、ほうれん草、海苔をのせた一杯" width="1020" height="836"
-                     loading="lazy" decoding="async">
-            </div>
-            <div class="photo-frame m-tab">
-                <img src="img/hero-table.jpg" alt="卓上に並ぶ調味料の瓶と壁の品書き" width="1000" height="750"
-                     loading="lazy" decoding="async">
-            </div>
-            <div class="photo-frame m-gy">
-                <img src="img/hero-gyoza.jpg" alt="白い皿に六個並べて焼き上げた餃子" width="1000" height="750"
-                     loading="lazy" decoding="async">
-            </div>
+            <ul class="hero-rail">
+                <li><img src="img/hero-men.jpg" alt="丼から箸で持ち上げた太めの麺" width="1053" height="1400"
+                         loading="lazy" decoding="async"></li>
+                <li><img src="img/hero-special.jpg" alt="チャーシュー二枚、味玉、うずらの卵、ほうれん草、海苔をのせた一杯" width="1020" height="836"
+                         loading="lazy" decoding="async"></li>
+                <li><img class="rail-tab" src="img/hero-table.jpg" alt="卓上に並ぶ調味料の瓶と壁の品書き" width="1000" height="750"
+                         loading="lazy" decoding="async"></li>
+                <li><img src="img/hero-gyoza.jpg" alt="白い皿に六個並べて焼き上げた餃子" width="1000" height="750"
+                         loading="lazy" decoding="async"></li>
+            </ul>
         </div>
     </div>
 </section>
@@ -1049,8 +1075,8 @@
         <p class="eyebrow reveal"><span class="nw">お品書き</span></p>
         <h2 class="section-title reveal"><span class="nw">その</span><span class="nw">日の</span><span class="nw">お腹に</span><span class="nw">合わせて。</span></h2>
         <p class="lead reveal">
-            <span class="nw">醤油・</span><span class="nw">塩・</span><span class="nw">味噌の</span><span class="nw">ラーメンに、</span><span class="nw">つけ</span><span class="nw">麺と</span><span class="nw">油そば、</span><span class="nw">まぜそば。</span><span class="nw">餃子と</span><span class="nw">ライスも</span><span class="nw">ご用意し</span><span class="nw">ております。</span>
-            <span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">食券機に</span><span class="nw">掲げ</span><span class="nw">ております。</span>
+            <span class="nw">醤油・</span><span class="nw">塩・</span><span class="nw">味噌の</span><span class="nw">ラーメンに、</span><span class="nw">つけ</span><span class="nw">麺と</span><span class="nw">油そば。</span><span class="nw">丼ものと</span><span class="nw">餃子、</span><span class="nw">お飲み</span><span class="nw">ものも</span><span class="nw">ご用意し</span><span class="nw">ております。</span>
+            <span class="nw">お値段はすべて</span><span class="nw">税込みで</span><span class="nw">ございます。</span>
         </p>
     </div>
 </section>
@@ -1059,35 +1085,29 @@
     <div class="subnav-inner">
         <a href="#menu-ramen">ラーメン</a>
         <a href="#menu-tsukemen">つけ麺・油そば</a>
-        <a href="#menu-set">セット・一品</a>
+        <a href="#menu-set">セット・丼・一品</a>
         <a href="#menu-topping">トッピング</a>
+        <a href="#menu-drink">お飲みもの</a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
         <div class="menu-block reveal" id="menu-ramen">
             <div class="menu-head"><h2><span class="nw">ラーメン</span></h2><span class="yomi">R A M E N</span></div>
-            <p class="menu-note"><span class="nw">醤油・</span><span class="nw">塩・</span><span class="nw">味噌から</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">麺のかたさ・</span><span class="nw">味の</span><span class="nw">濃さ・</span><span class="nw">油の</span><span class="nw">量は、</span><span class="nw">食券を</span><span class="nw">お渡し</span><span class="nw">いただく</span><span class="nw">ときに</span><span class="nw">お伺いします。</span></p>
+            <p class="menu-note"><span class="nw">醤油と</span><span class="nw">塩から</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">麺のかたさ・</span><span class="nw">味の</span><span class="nw">濃さ・</span><span class="nw">油の</span><span class="nw">量は、</span><span class="nw">食券を</span><span class="nw">お渡し</span><span class="nw">いただく</span><span class="nw">ときに</span><span class="nw">お伺いします。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">ラーメン</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">味玉ラーメン</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">ネギラーメン</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">ラーメン</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"><span class="nw">890円</span></span></li>
+                    <li><span class="name"><span class="nw">味玉ラーメン</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"><span class="nw">1,010円</span></span></li>
+                    <li><span class="name"><span class="nw">ネギラーメン</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"><span class="nw">1,090円</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">誉家スペシャル</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">味噌ラーメン</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">煮干とん</span><span class="nw">ラーメン</span><span class="desc"><span class="nw">豚骨の</span><span class="nw">スープに</span><span class="nw">煮干しの</span><span class="nw">粉を</span><span class="nw">合わせ</span><span class="nw">ております</span></span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">チャーシューメン</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"><span class="nw">1,170円</span></span></li>
+                    <li><span class="name"><span class="nw">スペシャルラーメン</span><span class="desc"><span class="nw">醤油・</span>塩</span></span><span class="dots"></span><span class="price"><span class="nw">1,150円</span></span></li>
+                    <li><span class="name"><span class="nw">味噌ラーメン</span></span><span class="dots"></span><span class="price"><span class="nw">990円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/menu-nori.jpg" alt="海苔を三枚立てかけ、うずらの卵を添えたラーメン"
-                             width="694" height="854" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">のりを</span><span class="nw">増して</span></figcaption>
-                </figure>
                 <figure>
                     <div class="photo-frame">
                         <img src="img/menu-tokusei.jpg" alt="チャーシュー三枚と味玉、ほうれん草をのせたラーメン"
@@ -1100,13 +1120,14 @@
 
         <div class="menu-block reveal" id="menu-tsukemen">
             <div class="menu-head"><h2><span class="nw">つけ</span><span class="nw">麺・</span><span class="nw">油そば</span></h2><span class="yomi">T S U K E M E N</span></div>
+            <p class="menu-note"><span class="nw">油そばは、</span><span class="nw">大盛りを</span><span class="nw">無料で</span><span class="nw">承ります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">つけ</span>麺</span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">油そば</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">つけ</span>麺<span class="desc"><span class="nw">並盛</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,030円</span><small><span class="nw">大盛り</span> +<span class="nw">120円</span></small></span></li>
+                    <li><span class="name"><span class="nw">絶品油そば</span><span class="desc"><span class="nw">大盛り</span><span class="nw">無料</span></span></span><span class="dots"></span><span class="price"><span class="nw">910円</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">まぜそば</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">絶品油そば</span>A<span class="desc"><span class="nw">大盛り</span><span class="nw">無料</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,050円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1121,13 +1142,16 @@
         </div>
 
         <div class="menu-block reveal" id="menu-set">
-            <div class="menu-head"><h2><span class="nw">セット・</span><span class="nw">一品</span></h2><span class="yomi">S E T</span></div>
+            <div class="menu-head"><h2><span class="nw">セット・</span><span class="nw">丼・</span><span class="nw">一品</span></h2><span class="yomi">S E T</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">特誉セット</span><span class="desc"><span class="nw">ラーメンと</span><span class="nw">餃子</span></span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">誉家セット</span><span class="desc"><span class="nw">ラーメンと</span><span class="nw">餃子</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,080円</span></span></li>
+                    <li><span class="name"><span class="nw">肉汁餃子</span><span class="desc"><span class="nw">当店のおすすめで</span><span class="nw">ございます</span></span></span><span class="dots"></span><span class="price"><span class="nw">390円</span></span></li>
+                    <li><span class="name"><span class="nw">ネギチャ</span>丼</span><span class="dots"></span><span class="price"><span class="nw">320円</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">餃子</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">ネギマヨ</span>丼</span><span class="dots"></span><span class="price"><span class="nw">390円</span></span></li>
+                    <li><span class="name"><span class="nw">お子様セット</span></span><span class="dots"></span><span class="price"><span class="nw">350円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1136,7 +1160,7 @@
                         <img src="img/menu-gyoza.jpg" alt="白い皿に並べて焼き上げた餃子"
                              width="1024" height="768" loading="lazy" decoding="async">
                     </div>
-                    <figcaption><span class="nw">餃子</span></figcaption>
+                    <figcaption><span class="nw">肉汁餃子</span></figcaption>
                 </figure>
             </div>
         </div>
@@ -1146,15 +1170,20 @@
             <p class="menu-note"><span class="nw">丼の</span><span class="nw">上は、</span><span class="nw">あとからいくらでも</span><span class="nw">変えられます。</span><span class="nw">お好きな</span><span class="nw">ものを</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">味玉</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">のり</span><span class="nw">増し</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">ほうれん</span>草</span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">大盛り</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">味玉</span></span><span class="dots"></span><span class="price"><span class="nw">120円</span></span></li>
+                    <li><span class="name"><span class="nw">のり</span></span><span class="dots"></span><span class="price"><span class="nw">120円</span></span></li>
+                    <li><span class="name"><span class="nw">ほうれん</span>草</span><span class="dots"></span><span class="price"><span class="nw">120円</span></span></li>
+                    <li><span class="name"><span class="nw">うずら</span><span class="desc"><span class="nw">5個</span></span></span><span class="dots"></span><span class="price"><span class="nw">120円</span></span></li>
+                    <li><span class="name"><span class="nw">メンマ</span></span><span class="dots"></span><span class="price"><span class="nw">120円</span></span></li>
+                    <li><span class="name"><span class="nw">麺大盛り</span></span><span class="dots"></span><span class="price"><span class="nw">120円</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">うずら</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">ねぎ</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">チャーシュー</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">チャーシュー</span><span class="desc"><span class="nw">4枚</span></span></span><span class="dots"></span><span class="price"><span class="nw">280円</span></span></li>
+                    <li><span class="name"><span class="nw">白髪ネギ</span></span><span class="dots"></span><span class="price"><span class="nw">200円</span></span></li>
+                    <li><span class="name"><span class="nw">もや</span><span class="nw">キャベ</span></span><span class="dots"></span><span class="price"><span class="nw">200円</span></span></li>
+                    <li><span class="name"><span class="nw">粉チーズ</span></span><span class="dots"></span><span class="price"><span class="nw">120円</span></span></li>
+                    <li><span class="name"><span class="nw">マヨネーズ</span></span><span class="dots"></span><span class="price"><span class="nw">70円</span></span></li>
+                    <li><span class="name"><span class="nw">卵黄</span></span><span class="dots"></span><span class="price"><span class="nw">70円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1174,6 +1203,28 @@
                 </figure>
             </div>
         </div>
+
+        <div class="menu-block reveal" id="menu-drink">
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">D R I N K</span></div>
+            <p class="menu-note"><span class="nw">お飲み</span><span class="nw">ものも、</span><span class="nw">食券機で</span><span class="nw">お求め</span><span class="nw">いただけます。</span></p>
+            <div class="menu-grid cols-3">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ビール</span></span><span class="dots"></span><span class="price"><span class="nw">550円</span></span></li>
+                    <li><span class="name"><span class="nw">ノンアルコールビール</span></span><span class="dots"></span><span class="price"><span class="nw">400円</span></span></li>
+                    <li><span class="name"><span class="nw">レモンサワー</span></span><span class="dots"></span><span class="price"><span class="nw">400円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ハイボール</span></span><span class="dots"></span><span class="price"><span class="nw">550円</span></span></li>
+                    <li><span class="name"><span class="nw">コーラ</span></span><span class="dots"></span><span class="price"><span class="nw">200円</span></span></li>
+                    <li><span class="name"><span class="nw">オレンジジュース</span></span><span class="dots"></span><span class="price"><span class="nw">200円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">りんごジュース</span></span><span class="dots"></span><span class="price"><span class="nw">200円</span></span></li>
+                    <li><span class="name"><span class="nw">烏龍茶</span></span><span class="dots"></span><span class="price"><span class="nw">200円</span></span></li>
+                    <li><span class="name"><span class="nw">黒烏龍茶</span></span><span class="dots"></span><span class="price"><span class="nw">250円</span></span></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </section>
 <!-- menu:auto:end -->
@@ -1181,7 +1232,7 @@
 <section class="section" style="padding-top:0;">
     <div class="container">
         <p class="menu-foot reveal">
-            <span class="nw">お値段は、</span><span class="nw">店内の</span><span class="nw">食券機に</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします</span><span class="nw">ので、</span>
+            <span class="nw">こちらの</span><span class="nw">お値段は</span><span class="nw">2026年</span><span class="nw">8月現在の</span><span class="nw">もので</span><span class="nw">ございます。</span><span class="nw">お品書きは</span><span class="nw">折々に</span><span class="nw">変わります</span><span class="nw">ので、</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span>
             <a href="tel:0280231265" class="tel-link">0280-23-1265</a>
             <span class="nw">まで</span><span class="nw">お気軽に</span><span class="nw">お尋ね</span><span class="nw">ください。</span><span class="nw">売り</span><span class="nw">切れの</span><span class="nw">品がある</span><span class="nw">日も</span><span class="nw">ございます。</span>
         </p>
@@ -1228,7 +1279,7 @@
         <table class="info-table reveal">
             <tr><th><span class="nw">住所</span></th><td>〒306-0233 <span class="nw">茨城県古河市西牛谷</span>616-1<small><span class="nw">ケーズデンキ</span><span class="nw">古河中央店のそばです。</span></small></td></tr>
             <tr><th><span class="nw">電話</span></th><td><a href="tel:0280231265" class="tel-link">0280-23-1265</a><small><span class="nw">混み</span><span class="nw">具合や</span><span class="nw">お席の</span><span class="nw">空き、</span><span class="nw">お値段も、</span><span class="nw">お電話で</span><span class="nw">お答え</span><span class="nw">いたします。</span></small></td></tr>
-            <tr><th><span class="nw">営業時間</span></th><td><span class="nw">平日</span> 11:00〜15:00／17:00〜22:00<br><span class="nw">土・</span><span class="nw">日・</span>祝 11:00〜22:00<small><span class="nw">お出かけ</span><span class="nw">前に</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">いただけますと</span><span class="nw">確かです。</span></small></td></tr>
+            <tr><th><span class="nw">営業時間</span></th><td>11:00〜22:00（LO 21:30）<br><span class="nw">昼夜通しで</span><span class="nw">お待ちし</span><span class="nw">ております。</span><small><span class="nw">お出かけ</span><span class="nw">前に</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">いただけますと</span><span class="nw">確かです。</span></small></td></tr>
             <tr><th><span class="nw">定休日</span></th><td><span class="nw">不定休</span><small><span class="nw">お休みを</span><span class="nw">いただく</span><span class="nw">日が</span><span class="nw">ございます。</span></small></td></tr>
             <tr><th><span class="nw">席数</span></th><td><span class="nw">カウンター</span><span class="nw">席・</span><span class="nw">テーブル</span>席 <span class="nw">30席</span></td></tr>
             <tr><th><span class="nw">駐車場</span></th><td><span class="nw">あり</span></td></tr>
@@ -1388,20 +1439,16 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
 
 /* --------------------------------------------------------------------------
    5. 営業状況バッジ
-   平日（月〜金）＝11:00〜15:00／17:00〜22:00、土日＝11:00〜22:00 の通し。
+   2026年8月の店頭の貼り紙と食べログの営業時間欄より、毎日 11:00〜22:00 の通し営業。
    不定休のため定休日は設定しない（休みの日に「営業中」と出すより、
    お電話でお確かめいただく案内を本文に置いている）。
    -------------------------------------------------------------------------- */
-var LUNCH  = { open: 11 * 60, close: 15 * 60, label: '11:00〜15:00' };
-var DINNER = { open: 17 * 60, close: 22 * 60, label: '17:00〜22:00' };
 var ALLDAY = { open: 11 * 60, close: 22 * 60, label: '11:00〜22:00' };
 
 var BUSINESS = {
     shiftsByDay: {
-        0: [ALLDAY],
-        1: [LUNCH, DINNER], 2: [LUNCH, DINNER], 3: [LUNCH, DINNER],
-        4: [LUNCH, DINNER], 5: [LUNCH, DINNER],
-        6: [ALLDAY]
+        0: [ALLDAY], 1: [ALLDAY], 2: [ALLDAY], 3: [ALLDAY],
+        4: [ALLDAY], 5: [ALLDAY], 6: [ALLDAY]
     }
 };
 
