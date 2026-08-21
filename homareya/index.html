@@ -389,10 +389,10 @@
             var(--bg);
     }
     .hero-grid {
-        display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
-        gap: clamp(24px, 4vw, 52px); align-items: center;
+        display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .94fr);
+        gap: clamp(24px, 4vw, 56px); align-items: stretch;
     }
-    .hero-copy { display: flex; flex-direction: column; align-items: flex-start; }
+    .hero-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
     .hero-title {
         font-family: var(--font-head); font-weight: 800;
         font-size: clamp(2.15rem, 8.6vw, 3.6rem); line-height: 1.24; letter-spacing: .02em;
@@ -417,33 +417,19 @@
     .chip b { color: var(--ink); font-weight: 700; }
     .hero-caution { margin-top: 14px; font-size: .84rem; color: var(--dim); max-width: 30em; }
     .hero .status-chip { background: var(--surface); box-shadow: var(--shadow-soft); }
+    .hero .status-chip + .eyebrow { margin-top: 18px; }
 
-    /* --- ヒーローの写真：外観を主役に、器は帯で添える ------------------------- */
+    /* --- ヒーローの写真：外観を1枚だけ、文章と同じ高さで ---------------------- */
     /* 店を探しているお客様がいちばん先に照らし合わせるのは看板と入口なので、
-       いちばん大きい面を外観にあて、料理は下に小さく重ねる。
-       写真はコンテナの右端から画面の右端まで抜く（body に overflow-x:hidden があるので安全）。 */
-    /* コンテナの右端から画面の右端までの距離。%を使うと段の幅を基準にしてしまうので、
-       画面幅とコンテナ幅だけで出す（横幅が狭いときは左右の余白と同じ値になる） */
-    .hero { --bleed: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2)); }
-    .hero-shot { position: relative; margin-right: calc(-1 * var(--bleed)); }
-    .hero-shot .shot-frame {
-        height: clamp(430px, 66svh, 620px);
-        border-radius: var(--radius) 0 0 var(--radius);
-        border-right: 0;
-    }
-    /* 右端の自販機と電柱を落として、看板と入口を面の真ん中に置く */
-    .hero-shot .shot-frame img { object-position: 42% 54%; }
-
-    .hero-rail { position: absolute; left: clamp(-34px, -2.4vw, -14px); bottom: 20px;
-                 display: flex; gap: 10px; }
-    .hero-rail li { line-height: 0; }
-    .hero-rail img {
-        width: clamp(74px, 7.2vw, 104px); height: auto; aspect-ratio: 1;
-        object-fit: cover; border-radius: 10px;
-        border: 3px solid var(--bg); box-shadow: var(--shadow);
-    }
-    /* 卓上写真は上半分に赤黄のPOPが入るので、下の調味料側を見せる */
-    .hero-rail .rail-tab { object-position: 50% 100%; }
+       外観を1枚だけ置く。
+       ★写真の右端は本文の幅（--maxw）でそろえる。画面の右端まで抜くと、
+         広い画面ほど写真だけが伸びて見え、左の文章との釣り合いが崩れる。
+       高さは左の文章の段に合わせて伸ばし、上下の切り口を文章とそろえる。 */
+    .hero-shot { position: relative; display: flex; }
+    .hero-shot .shot-frame { flex: 1 1 auto; min-height: clamp(400px, 58svh, 552px); }
+    /* 段が縦長になったぶん左右が切れる。看板の「横」から欠けないよう左に寄せ、
+       切るのは右端の自販機と電柱のほうにする */
+    .hero-shot .shot-frame img { object-position: 8% 50%; }
 
     @media (max-width: 900px) {
         .hero-grid { display: flex; flex-direction: column; align-items: stretch; }
@@ -452,19 +438,12 @@
         .hero .eyebrow     { order: 2; margin-top: 16px; }
         .hero-title        { order: 3; }
         .hero-yomi         { order: 4; }
-        .hero-shot         { order: 5; margin-top: 22px; margin-right: 0; }
+        .hero-shot         { order: 5; margin-top: 22px; }
         .hero-lead         { order: 6; margin-top: 22px; max-width: none; }
         .hero-chips        { order: 7; }
         .hero-caution      { order: 8; }
         .hero-actions      { order: 9; }
-        .hero-shot .shot-frame {
-            height: auto; aspect-ratio: 4 / 3;
-            border-radius: var(--radius); border-right: 1px solid var(--line-strong);
-        }
-        /* 画面が狭いと重ねた帯が外観を隠すので、下に並べ直す */
-        .hero-rail { position: static; margin-top: 10px; gap: 8px; }
-        .hero-rail li { flex: 1 1 0; }
-        .hero-rail img { width: 100%; }
+        .hero-shot .shot-frame { min-height: 0; aspect-ratio: 4 / 3; }
     }
     @media (max-width: 620px) {
         .hero-actions .btn { width: 100%; }
@@ -843,19 +822,9 @@
 
         <div class="hero-shot">
             <div class="photo-frame shot-frame">
-                <img src="img/hero-gaikan.jpg" alt="赤い看板を掲げた誉家の外観と入口" width="1500" height="1299"
+                <img src="img/hero-gaikan.jpg" alt="赤い看板を掲げた誉家の外観と入口" width="1386" height="1306"
                      loading="eager" fetchpriority="high" decoding="async">
             </div>
-            <ul class="hero-rail">
-                <li><img src="img/hero-men.jpg" alt="丼から箸で持ち上げた太めの麺" width="1053" height="1400"
-                         loading="lazy" decoding="async"></li>
-                <li><img src="img/hero-special.jpg" alt="チャーシュー二枚、味玉、うずらの卵、ほうれん草、海苔をのせた一杯" width="1020" height="836"
-                         loading="lazy" decoding="async"></li>
-                <li><img class="rail-tab" src="img/hero-table.jpg" alt="卓上に並ぶ調味料の瓶と壁の品書き" width="1000" height="750"
-                         loading="lazy" decoding="async"></li>
-                <li><img src="img/hero-gyoza.jpg" alt="白い皿に六個並べて焼き上げた餃子" width="1000" height="750"
-                         loading="lazy" decoding="async"></li>
-            </ul>
         </div>
     </div>
 </section>
