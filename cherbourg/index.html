@@ -476,79 +476,74 @@
     .eyebrow-lat { font-family: var(--font-lat); font-size: .78rem; letter-spacing: .28em; color: var(--dim); margin-bottom: 8px; }
 
     /* --- ヒーロー ------------------------------------------------------------
-       PC（≥701px）は写真に重ねる。スマホ（≤700px）は「写真の帯＋その下に文字」に組み替える
-       （2026-08-18 改訂：重ねたまま縮小するとスクリムを強くするしかなく外観が消えるため）。 ------ */
-    .hero { position: relative; display: flex; align-items: flex-end; overflow: hidden; }
-    .hero-media { position: absolute; inset: 0; z-index: 0; }
-    .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
-    /* 縦長の画面は横方向のトリミングが強く働くため、CHERBOURGの雲看板とトリコロールが
-       写る左寄りへ基準点を移す（左端のうさぎ看板はトリミング済みの画像自体から既に消えている） */
-    @media (max-width: 900px) {
-        .hero-media img { object-position: 8% 22%; }
+       2026-08-21 改訂：画面いっぱいの写真＋暗いスクリムをやめ、
+       「文字の段（左）＋写真の板（右）」の2段組に組み替えた。理由は3つ。
+         ① 元画像は 603×531px しかなく、1440px 幅へ引き伸ばすと輪郭が甘い。
+            板に収めれば実寸に近い倍率で置けるので、同じ写真がはっきり写る
+         ② 世界観は「ガラス越しの光でいっぱいの明るい店」なのに、白抜きの文字を
+            読ませるために画面の上半分を黒く沈めていた（地の色と逆を向いていた）
+         ③ 高さが 100svh あるため、核である署名の章が初見で一度も見えなかった
+       ≥901px＝2段組／≤900px＝写真の板 → 文字 に積む（骨格の 620/900 に合わせる）。 --- */
+    .hero {
+        position: relative;
+        min-height: 0;                    /* 骨格の calc(100svh - --header-h) を打ち消す */
+        background: var(--bg);
+        padding-block: clamp(28px, 4.2vw, 56px) clamp(44px, 6vw, 84px);
+        overflow: hidden;                 /* 板の外へずらした罫を画面の外で切る */
     }
-    .hero-scrim {
-        position: absolute; inset: 0;
-        /* 縦方向1枚だけ：看板（画像の上18%ほど）は素通しにして、文字のブロックが始まる
-           あたりから下だけを静かにする。トリコロールは文字の真裏に来るので沈んで構わない。 */
-        background: linear-gradient(180deg,
-            rgba(4, 6, 10, 0) 0%, rgba(4, 6, 10, .04) 18%,
-            rgba(4, 6, 10, .6) 40%, rgba(4, 6, 10, .88) 62%, rgba(4, 6, 10, .93) 100%);
+    .hero-inner { display: grid; gap: clamp(28px, 4vw, 48px); }
+    .hero-copy { min-width: 0; }
+
+    /* 写真の板（右）。罫を右下へずらして敷き、板が一枚浮いて見えるようにする */
+    .hero-shot { position: relative; min-width: 0; }
+    .hero-media {
+        position: relative; z-index: 1; margin: 0;
+        aspect-ratio: 7 / 6; overflow: hidden;
+        border-radius: var(--radius); border: 1px solid var(--line-strong);
+        background: var(--surface-2); box-shadow: 0 16px 36px rgba(107, 58, 30, .13);
     }
-    .hero .container { position: relative; z-index: 1; padding-block: var(--sp-6) var(--sp-6); }
-    .hero .status-wrap { margin-bottom: var(--sp-5); }
-    .hero .status-chip { background: rgba(248, 250, 250, .94); border-color: rgba(27, 31, 30, .18); color: var(--ink); }
-    .hero .status-note { color: rgba(248, 250, 250, .82); }
-    /* ★2026-08-18：文言に閉店時刻と断りが増えて丈が伸びたぶん、そのまま文字の上に置くと
-       店頭の青い雲形看板（CHERBOURG）に重なる。PCでは看板の外＝右上へ逃がす */
-    @media (min-width: 701px) {
-        .hero .status-wrap {
-            position: absolute; top: var(--sp-5); right: var(--sp-5); margin-bottom: 0;
-            display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
-        }
-        /* 写真の上に直に置くと背景次第で読めなくなるため、バッジと同じ白の地を敷く */
-        .hero .status-note {
-            margin-top: 0; color: var(--ink);
-            background: rgba(248, 250, 250, .94); border: 1px solid rgba(27, 31, 30, .18);
-            border-radius: 999px; padding: 4px 13px;
-        }
-    }
-    .hero-word { margin-bottom: var(--sp-4); }
-    .hero-eyebrow { font-family: var(--font-lat); font-size: .8rem; letter-spacing: .32em; color: rgba(248, 250, 250, .88); margin-bottom: 8px; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+
+    .hero .status-wrap { margin-bottom: var(--sp-4); }
+    .hero-eyebrow { font-family: var(--font-lat); font-size: .8rem; letter-spacing: .32em; color: var(--dim); margin-bottom: 10px; }
+    .hero-word { margin-bottom: var(--sp-3); }
     .hero-word-mark {
-        font-family: var(--font-lat); font-weight: 400; font-size: clamp(40px, 10vw, 82px);
-        line-height: 1; color: #fff; letter-spacing: .02em; text-shadow: 0 3px 20px rgba(0, 0, 0, .38);
+        font-family: var(--font-lat); font-weight: 400;
+        font-size: clamp(38px, 7.2vw, 62px); line-height: 1.04;
+        color: var(--ink); letter-spacing: .03em;
     }
-    /* .band-red / .band-blue はヒーローでは使わない（写真内の実物の札と二重表示になるため撤去。
-       --band-red / --band-blue トークン自体は他所での使用に備えて残す） */
+    /* 署名（ソースのひと筋）と同じ形の罫を、屋号と惹句のあいだに1本だけ引く */
+    .hero-rule { width: 46px; height: 9px; color: var(--accent); margin-bottom: var(--sp-4); }
+    .hero-rule path { fill: currentColor; }
     .hero-catch {
         font-family: var(--font-head); font-weight: 700; font-size: var(--fz-hero); line-height: 1.32;
-        color: #fff; margin-top: var(--sp-5);
+        color: var(--ink);
     }
-    .hero-sub { margin-top: var(--sp-4); max-width: 46ch; font-size: 1rem; line-height: 1.9; color: rgba(248, 250, 250, .92); }
+    .hero-sub { margin-top: var(--sp-4); max-width: 40ch; font-size: 1rem; line-height: 1.9; color: var(--muted); }
     .hero .hero-actions { margin-top: var(--sp-5); }
-    /* 写真の上は --ink の黒枠が溶けて見えなくなるため、ヒーロー内の .btn-ghost だけ明るい配色にする */
-    .hero .btn-ghost { color: var(--cloth-ink); border-color: rgba(238, 243, 250, .55); }
-    .hero .btn-ghost:hover { background: rgba(238, 243, 250, .14); border-color: rgba(238, 243, 250, .55); color: var(--cloth-ink); }
 
-    /* --- ヒーロー：スマホ（≤700px）は重ねをやめて「写真の帯 → 文字」に積む ---------
-       白抜きをやめるので写真を暗くする必要がなくなる。文字は --bg の地に --ink で置く。 */
-    @media (max-width: 700px) {
-        .hero { display: block; min-height: auto; }
-        .hero-media { position: relative; inset: auto; aspect-ratio: 4 / 3; }
-        .hero-media img { object-position: 48% 30%; }
-        .hero-scrim {
-            /* ほぼ掛けない。帯の最下部だけ薄く、次の文字ブロックへの継ぎ目をなじませる */
-            background: linear-gradient(180deg, rgba(4, 6, 10, 0) 0%, rgba(4, 6, 10, 0) 82%, rgba(4, 6, 10, .22) 100%);
+    @media (min-width: 901px) {
+        .hero-inner {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
+            align-items: center; gap: clamp(40px, 4.6vw, 64px);
         }
-        .hero .container { position: static; z-index: auto; padding-block: var(--sp-5) var(--sp-6); }
-        .hero .status-chip { background: transparent; border-color: var(--line-strong); color: var(--ink); }
-        .hero .status-note { color: var(--dim); }
-        .hero-eyebrow { color: var(--dim); }
-        .hero-word-mark { color: var(--ink); text-shadow: none; }
-        .hero-catch { color: var(--ink); }
-        .hero-sub { color: var(--muted); }
-        .hero .btn-ghost { color: var(--ink); border-color: var(--line-strong); }
-        .hero .btn-ghost:hover { background: transparent; border-color: var(--accent); color: var(--accent-deep); }
+        .hero-shot::after {
+            content: ''; position: absolute; z-index: 0;
+            inset: 22px -22px -22px 22px;
+            border: 1px solid rgba(107, 58, 30, .55); border-radius: var(--radius);
+        }
+    }
+    /* ≤900px：写真の板を先に置き、その下に文字を積む（従来のスマホ組みを踏襲） */
+    @media (max-width: 900px) {
+        .hero-shot { order: -1; }
+        .hero-media { aspect-ratio: 4 / 3; }
+        .hero-media img { object-position: 42% 30%; }
+        .hero-sub { max-width: none; }
+    }
+    /* 621〜900px は横幅があるぶん 4:3 だと写真だけで画面が埋まる。横長に浅くする */
+    @media (min-width: 621px) and (max-width: 900px) {
+        .hero-media { aspect-ratio: 16 / 9; }
+        .hero-media img { object-position: 42% 34%; }
     }
 
     /* --- 署名 A-43「うしろ半分が、ソース。」 --------------------------------- */
@@ -741,6 +736,7 @@
     <a href="#menu"  data-nav-link>お品書き</a>
     <a href="#takeout" data-nav-link>お持ち帰り</a>
     <a href="#course" data-nav-link>コース・お食事会</a>
+    <a href="#drink" data-nav-link>お飲みもの</a>
     <a href="#gallery" data-nav-link>料理</a>
     <a href="#about" data-nav-link>お店について</a>
     <a href="#seats" data-nav-link>店内とお席</a>
@@ -755,32 +751,37 @@
      CHERBOURG のワードマークは文字＋CSSの帯で店頭ガラスの構造を踏襲する（絵として描き起こさない）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-media">
-        <img src="img/gaikan-05-crop.jpg"
-             alt="白い総ガラス張りの外観に朝日が差し込み、入口の柱にフランス国旗が掛かる。青い雲形の看板に「CHERBOURG」、赤い帯に「レストラン」、青い帯に「シェルブール」の文字。"
-             width="603" height="531" loading="eager" fetchpriority="high" decoding="async">
-        <div class="hero-scrim"></div>
-    </div>
-    <div class="container">
-        <div class="status-wrap">
-            <span class="status-chip" id="status-chip"><span class="status-text">11:30〜14:00／17:30〜21:00</span></span>
-            <p class="status-note"><span class="nw">お休みの</span><span class="nw">日が</span><span class="nw">ございます</span></p>
+    <div class="container hero-inner">
+        <div class="hero-copy">
+            <div class="status-wrap">
+                <span class="status-chip" id="status-chip"><span class="status-text">11:30〜14:00／17:30〜21:00</span></span>
+                <p class="status-note"><span class="nw">お休みの</span><span class="nw">日が</span><span class="nw">ございます</span></p>
+            </div>
+
+            <div class="hero-word">
+                <p class="hero-eyebrow">RESTAURANT</p>
+                <h1 class="hero-word-mark">CHERBOURG</h1>
+            </div>
+            <svg class="hero-rule" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 6 Q4 2 14 2 L88 2 Q98 2 98 6 Q98 9 88 9 L14 9 Q4 9 2 6 Z"/></svg>
+
+            <p class="hero-catch"><span class="nw">ソースまでが、</span><br><span class="nw">一皿です。</span></p>
+            <p class="hero-sub"><span class="nw">古河の</span><span class="nw">住宅街で、</span><span class="nw">夫婦ふたりの</span><span class="nw">フランス</span><span class="nw">料理店を</span><span class="nw">営んで</span><span class="nw">おります。</span><span class="nw">肉の</span><span class="nw">皿にも</span><span class="nw">魚の</span><span class="nw">皿にも、</span><span class="nw">その</span><span class="nw">皿の</span><span class="nw">ための</span><span class="nw">ソースを</span><span class="nw">合わせて。</span><span class="nw">どうぞ</span><span class="nw">普段着で</span><span class="nw">お越し</span><span class="nw">ください。</span></p>
+
+            <div class="hero-actions">
+                <a href="tel:0280326902" class="btn btn-primary btn-tel">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    <span class="tel-num">0280-32-6902</span><span class="tel-cap">ご予約はこちら</span>
+                </a>
+                <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+            </div>
         </div>
 
-        <div class="hero-word">
-            <p class="hero-eyebrow">RESTAURANT</p>
-            <h1 class="hero-word-mark">CHERBOURG</h1>
-        </div>
-
-        <p class="hero-catch"><span class="nw">ソースまでが、</span><br><span class="nw">一皿です。</span></p>
-        <p class="hero-sub"><span class="nw">古河の</span><span class="nw">住宅街で、</span><span class="nw">夫婦ふたりの</span><span class="nw">フランス</span><span class="nw">料理店を</span><span class="nw">営んで</span><span class="nw">おります。</span><span class="nw">肉の</span><span class="nw">皿にも</span><span class="nw">魚の</span><span class="nw">皿にも、</span><span class="nw">その</span><span class="nw">皿の</span><span class="nw">ための</span><span class="nw">ソースを</span><span class="nw">合わせて。</span><span class="nw">どうぞ</span><span class="nw">普段着で</span><span class="nw">お越し</span><span class="nw">ください。</span></p>
-
-        <div class="hero-actions">
-            <a href="tel:0280326902" class="btn btn-primary btn-tel">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                <span class="tel-num">0280-32-6902</span><span class="tel-cap">ご予約はこちら</span>
-            </a>
-            <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+        <div class="hero-shot">
+            <figure class="hero-media">
+                <img src="img/gaikan-05-crop.jpg"
+                     alt="白い総ガラス張りの外観に朝日が差し込み、入口の柱にフランス国旗が掛かる。青い雲形の看板に「CHERBOURG」、赤い帯に「レストラン」、青い帯に「シェルブール」の文字。"
+                     width="603" height="531" loading="eager" fetchpriority="high" decoding="async">
+            </figure>
         </div>
     </div>
 </section>
@@ -862,13 +863,14 @@
         <a href="#takeout">お持ち帰り</a>
         <a href="#course">コース・お食事会</a>
         <a href="#past-dishes">そのほかの日替わり</a>
+        <a href="#drink">お飲みもの</a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
         <div class="menu-block reveal" id="lunch">
             <div class="menu-head"><h2><span class="nw">日替わりの</span><span class="nw">ランチ</span></h2><span class="yomi">D E J E U N E R</span></div>
-            <p class="menu-note"><span class="nw">ランチは</span><span class="nw">日替わりです。</span><span class="nw">土曜・</span><span class="nw">日曜も</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">品を</span><span class="nw">黒板に</span><span class="nw">書いて</span><span class="nw">お待ちし</span><span class="nw">ております。</span><span class="nw">お値段は</span><span class="nw">2026年</span><span class="nw">5月の</span><span class="nw">黒板の</span><span class="nw">一例で、</span><span class="nw">税別で</span><span class="nw">記し</span><span class="nw">ております。</span><span class="nw">夜の</span><span class="nw">お品は</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
+            <p class="menu-note"><span class="nw">ランチは</span><span class="nw">日替わりです。</span><span class="nw">土曜・</span><span class="nw">日曜も</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">品を</span><span class="nw">黒板に</span><span class="nw">書いて</span><span class="nw">お待ちし</span><span class="nw">ております。</span><span class="nw">サラダと</span><span class="nw">ライス、</span><span class="nw">コーヒーまたは</span><span class="nw">紅茶を</span><span class="nw">お付けし</span><span class="nw">ております。</span><span class="nw">お値段は</span><span class="nw">2026年</span><span class="nw">5月の</span><span class="nw">黒板の</span><span class="nw">一例で、</span><span class="nw">税別で</span><span class="nw">記し</span><span class="nw">ております。</span><span class="nw">夜の</span><span class="nw">お品は</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">ポークヒレカツ</span><span class="nw">（チーズのせ）トマト</span><span class="nw">風味</span></span><span class="dots"></span><span class="price"><span class="nw">1,300円</span></span></li>
@@ -887,7 +889,7 @@
 
         <div class="menu-block reveal" id="takeout">
             <div class="menu-head"><h2><span class="nw">お持ち</span><span class="nw">帰り</span></h2><span class="yomi">A   E M P O R T E R</span></div>
-            <p class="menu-note"><span class="nw">ハンバーグ</span><span class="nw">弁当と、</span><span class="nw">オードヴルの</span><span class="nw">盛り</span><span class="nw">合わせを</span><span class="nw">お作りし</span><span class="nw">ております。</span><span class="nw">どちらも</span><span class="nw">お電話で</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span><span class="nw">オードヴルの</span><span class="nw">盛り</span><span class="nw">合わせは</span><span class="nw">ご予約制で</span><span class="nw">ございます。</span><span class="nw">ハンバーグ</span><span class="nw">弁当の</span><span class="nw">お値段は</span><span class="nw">税込、</span><span class="nw">そのほかは</span><span class="nw">税別で</span><span class="nw">記し</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">ハンバーグ</span><span class="nw">弁当と、</span><span class="nw">オードヴルの</span><span class="nw">盛り</span><span class="nw">合わせを</span><span class="nw">お作りし</span><span class="nw">ております。</span><span class="nw">オードヴルの</span><span class="nw">盛り</span><span class="nw">合わせは</span><span class="nw">ご予約制です。</span><span class="nw">オードヴルの</span><span class="nw">ご予約は、</span><span class="nw">お電話で</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span><span class="nw">ハンバーグ</span><span class="nw">弁当の</span><span class="nw">お値段は</span><span class="nw">税込、</span><span class="nw">そのほかは</span><span class="nw">税別で</span><span class="nw">記し</span><span class="nw">ております。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">ハンバーグ</span><span class="nw">弁当</span><span class="desc"><span class="nw">デミグラスソース／</span><span class="nw">黒コショー／</span><span class="nw">和風しょう</span><span class="nw">油／</span><span class="nw">チーズトマト</span> の<span class="nw">4種から</span><span class="nw">お選び</span><span class="nw">いただけます</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,000円</span><small><span class="nw">税込・</span><span class="nw">2026年</span><span class="nw">5月現在</span></small></span></li>
@@ -930,6 +932,26 @@
                     <li><span class="name"><span class="nw">サイコロステーキ</span></span></li>
                     <li><span class="name"><span class="nw">ミートソース</span><span class="nw">（パスタ）</span></span></li>
                 </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="drink">
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">B O I S S O N S</span></div>
+            <p class="menu-note"><span class="nw">お食事のあとに、</span><span class="nw">コーヒーか</span><span class="nw">紅茶を</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">日替わりの</span><span class="nw">ランチと、</span><span class="nw">サービスコースに</span><span class="nw">お付けし</span><span class="nw">ております。</span><span class="nw">このほかの</span><span class="nw">お飲み</span><span class="nw">ものは、</span><span class="nw">お席で</span><span class="nw">お尋ね</span><span class="nw">ください。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">コーヒー</span><span class="desc"><span class="nw">日替わりの</span><span class="nw">ランチ・</span><span class="nw">サービスコースに</span><span class="nw">お付けし</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">紅茶</span><span class="desc"><span class="nw">レモンを</span><span class="nw">添えて</span><span class="nw">お出しし</span><span class="nw">ております</span></span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/drink-01.jpg" alt="白いカップに注いだコーヒー。青と金で縁取った受け皿に銀のスプーンを添え、青いレース編みのクロスの上に置いてある"
+                             width="1000" height="750" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">お食事のあとの</span><span class="nw">コーヒー</span></figcaption>
+                </figure>
             </div>
         </div>
     </div>
