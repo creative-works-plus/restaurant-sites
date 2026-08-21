@@ -502,15 +502,6 @@
         white-space: nowrap;
     }
 
-    /* 名物カツ丼 → お値段への導線 */
-    .to-price { margin-top: 26px; }
-    .to-price a {
-        display: inline-flex; align-items: center; min-height: 44px;
-        color: var(--accent-deep); font-weight: 700; letter-spacing: 0.02em;
-        border-bottom: 2px solid var(--accent);
-    }
-    .to-price a:hover { color: var(--accent); }
-
     /* 価格表の前置き（値段の幅を先に示す） */
     .price-lead {
         padding: 20px 20px 4px;
@@ -518,14 +509,6 @@
     }
     .price-lead b { color: var(--accent-deep); font-size: 1.08rem; }
     .price-lead .mini { font-size: 0.85rem; color: var(--muted); }
-
-    /* テレビの帯からカツ丼への導線 */
-    .tv-link {
-        display: inline-flex; align-items: center; min-height: 32px;
-        color: var(--accent-deep); font-weight: 700;
-        border-bottom: 2px solid var(--accent);
-    }
-    .tv-link:hover { color: var(--accent); }
 
     /* 価格表の「ご飯大盛り」注記 */
     .price-table th small {
@@ -741,18 +724,9 @@
     }
     .grid-photos.cols-7 { grid-template-columns: repeat(2, 1fr); }
     @media (min-width: 641px) { .grid-photos.cols-7 { grid-template-columns: repeat(4, 1fr); } }
-    /* 写真7枚だとマスが1つ余るので、最後の枠をお品書きへの入口にする */
-    .grid-more {
-        display: flex; align-items: center; justify-content: center;
-        aspect-ratio: 1 / 1;
-        border-radius: var(--radius);
-        background: var(--accent); color: #fff;
-        text-align: center; font-weight: 700; font-size: 0.92rem; line-height: 1.6;
-        letter-spacing: 0.02em;
-        transition: background 0.2s ease, transform 0.2s ease;
-    }
-    .grid-more:hover { background: var(--accent-hi); transform: translateY(-2px); }
-    .grid-more::after { content: ' →'; }
+    /* 写真7枚だとマスが1つ余るので、最後の1枚（横長）を2マス分に広げて埋める */
+    .grid-photos.cols-7 figure.span2 { grid-column: span 2; }
+    .grid-photos.cols-7 figure.span2 img { aspect-ratio: 16 / 9; }
 
     /* ══════ お持ち帰り ══════ */
     .takeout-grid {
@@ -954,8 +928,7 @@
 <div class="tv-band">
     <div class="container">
         <p><span class="tv-tag"><span class="nw">テレビ</span></span>
-        <span class="nwb"><span class="nw">2026年</span><span class="nw">6月</span><span class="nw">27日、</span><span class="nw">テレビ</span><span class="nw">東京</span><span class="nw">「出川哲朗の</span><span class="nw">充電させてもらえませんか？」で</span><span class="nw">ご紹介いただきました。</span></span>
-        <a href="#katsudon" class="tv-link"><span class="nwb"><span class="nw">名物の</span><span class="nw">カツ</span><span class="nw">丼を</span><span class="nw">見る</span> →</span></a></p>
+        <span class="nwb"><span class="nw">2026年</span><span class="nw">6月</span><span class="nw">27日、</span><span class="nw">テレビ</span><span class="nw">東京</span><span class="nw">「出川哲朗の</span><span class="nw">充電させてもらえませんか？」で</span><span class="nw">ご紹介いただきました。</span></span></p>
     </div>
 </div>
 
@@ -1003,10 +976,6 @@
                 <span class="note">古河市下辺見2707</span>
             </div>
         </div>
-
-        <div class="photo-frame reveal reveal-delay-2" style="margin-top:clamp(22px,4vw,34px);">
-            <img src="img/kanban.jpg" alt="朱赤の外壁に掛かる「とんかつ 三軒家」の看板" width="621" height="828" loading="lazy" style="height:auto;">
-        </div>
     </div>
 </section>
 
@@ -1048,8 +1017,6 @@
             <li><span class="nw">お茶と</span><span class="nw">お新香は</span><span class="nw">セルフサービスです</span></li>
             <li><span class="nw">お会計は</span><span class="nw">現金のみ</span><span class="nw">頂戴し</span><span class="nw">ております</span></li>
         </ul>
-
-        <p class="to-price reveal"><a href="#menu"><span class="nwb"><span class="nw">お値段と</span><span class="nw">お品書きを</span><span class="nw">見る</span> →</span></a></p>
     </div>
 </section>
 
@@ -1176,17 +1143,14 @@
                 <figcaption><span class="nw">海老フライ</span></figcaption>
             </figure>
             <figure>
-                <img src="img/karaage.jpg" alt="鶏の唐揚げ" width="640" height="360" loading="lazy" style="height:auto;">
-                <figcaption><span class="nw">鶏の</span><span class="nw">唐揚げ</span></figcaption>
-            </figure>
-            <figure>
                 <img src="img/tonjiru.jpg" alt="具の入ったとん汁" width="1000" height="749" loading="lazy" style="height:auto;">
                 <figcaption><span class="nw">とん</span>汁</figcaption>
             </figure>
-            <!-- 8枚目の枠は写真ではなくお品書きへの入口にして、マスの余りを出さない -->
-            <a href="#menu" class="grid-more">
-                <span>そのほかのお品も<br>お品書きに</span>
-            </a>
+            <!-- 7枚だとマスが1つ余るので、横長の唐揚げを最後に置いて2マス分使う -->
+            <figure class="span2">
+                <img src="img/karaage.jpg" alt="鶏の唐揚げ" width="640" height="360" loading="lazy" style="height:auto;">
+                <figcaption><span class="nw">鶏の</span><span class="nw">唐揚げ</span></figcaption>
+            </figure>
         </div>
     </div>
 </section>
