@@ -369,8 +369,9 @@
     /* ══════════════════════════════════════════════════════════════════
        ステーキハウス千里 ／ 漆黒と白磁だけで組む。
        色（彩度）はお肉と炎の中にしか置かない＝UIは彩度ゼロで通す。
-       署名＝「銀盤（ぎんばん）」。鉄板の鏡面をCSSで描き、
-       ①ヒーローの店名を載せる台 ②章見出しの罫 ③CTAの縁 の3か所で同じ物を使う。
+       署名＝「銀線（ぎんせん）」。鉄板そのもの（灰色の面）ではなく、
+       磨いた面を走る一条の光だけを描く。
+       ①店名の文字に乗せる艶 ②章見出しの罫 の2か所で同じ光を使う。
        ══════════════════════════════════════════════════════════════════ */
 
     :root {
@@ -380,16 +381,24 @@
         --paper-line:  rgba(22, 22, 26, 0.16);
     }
 
-    /* --- 銀盤（鉄板の鏡面）------------------------------------------------ */
-    .ginban {
-        background-color: #232327;
-        background-image:
-            linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.03) 44%,
-                                    rgba(0,0,0,.40) 45%, rgba(255,255,255,.07) 100%),
-            repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 4px);
+    /* --- 銀線（磨いた鉄板を走る一条の光）------------------------------------
+       灰色の面で鉄板を表すと、どうしても既製の壁紙の見え方になる。
+       面をやめて「光」だけを残す：文字には艶を、章見出しには細い一条を。 */
+    .ginban { background-color: transparent; background-image: none; }
+    .ginban-rule {
+        height: 1px; width: 140px; border-radius: 0; margin-bottom: 24px;
+        background: linear-gradient(90deg,
+            var(--accent-hi) 0, var(--accent-hi) 30px,
+            rgba(207, 204, 196, .40) 30px, rgba(207, 204, 196, .13) 58%,
+            rgba(207, 204, 196, 0) 100%);
     }
-    .ginban-rule { height: 3px; border-radius: 2px; width: 108px; margin-bottom: 22px; }
-    .ginban-rule.is-wide { width: 100%; height: 2px; }
+    .ginban-rule.is-wide { width: 100%; }
+    .panel-light .ginban-rule {
+        background: linear-gradient(90deg,
+            var(--paper-ink) 0, var(--paper-ink) 30px,
+            rgba(22, 22, 26, .34) 30px, rgba(22, 22, 26, .11) 58%,
+            rgba(22, 22, 26, 0) 100%);
+    }
 
     /* --- 見出しまわり ------------------------------------------------------ */
     .eyebrow {
@@ -471,8 +480,9 @@
     .hero { position: relative; display: flex; align-items: center; overflow: hidden; isolation: isolate; }
     .hero::before {
         content: ''; position: absolute; inset: 0; z-index: -2;
-        background: url('img/hero-counter.jpg') center 62% / cover no-repeat;
-        opacity: .40; filter: grayscale(.35) contrast(1.06);
+        background: url('img/exterior-night.jpg') 50% 42% / cover no-repeat;
+        opacity: .44; filter: contrast(1.05) saturate(1.1) blur(1.5px);
+        transform: scale(1.05);   /* ぼかしの縁が出ないよう、わずかに大きく敷く */
     }
     .hero::after {
         content: ''; position: absolute; inset: 0; z-index: -1;
@@ -486,16 +496,21 @@
         font-size: clamp(72px, 19vw, 176px); line-height: .96; letter-spacing: .1em;
         margin: 26px 0 0; position: relative;
     }
-    .hero-name .refl {
-        position: absolute; left: 0; top: 100%; width: 100%;
-        transform: scaleY(-1); pointer-events: none; user-select: none;
-        opacity: .17; -webkit-mask-image: linear-gradient(to top, transparent 8%, #000 92%);
-        mask-image: linear-gradient(to top, transparent 8%, #000 92%);
-        aria-hidden: true;
+    /* 店名は「台に載せる」のをやめ、文字そのものに鏡面の艶を乗せる。
+       下の一条は、磨いた面に落ちる光の残り。 */
+    .hero-plate {
+        display: inline-block; padding: 0 0 .16em; position: relative;
+        background-image: linear-gradient(166deg,
+            #FFFFFF 0%, #F1EEE7 24%, #ABA69C 46%, #FCFBF8 55%,
+            #CBC7BE 74%, #F3F1EC 100%);
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent; -webkit-text-fill-color: transparent;
     }
-    .hero-plate { display: inline-block; padding: 0 clamp(18px, 5vw, 44px) 6px; position: relative; }
     .hero-plate::after {
-        content: ''; display: block; height: 3px; border-radius: 2px; margin-top: 14px;
+        content: ''; position: absolute; left: 0; right: .1em; bottom: 0; height: 1px;
+        background: linear-gradient(90deg,
+            rgba(243, 241, 236, 0) 0, rgba(243, 241, 236, .88) 16%,
+            rgba(243, 241, 236, .88) 62%, rgba(243, 241, 236, 0) 100%);
     }
     .hero-en {
         font-family: var(--font-head); font-size: clamp(15px, 3.4vw, 22px);
@@ -761,8 +776,7 @@
 
         <!-- 署名＝銀盤（鉄板の鏡面）。店名はその上に載り、下へ薄く映り込む -->
         <h1 class="hero-name">
-            <span class="hero-plate ginban" style="background-clip:padding-box;"><span class="nw">千里</span></span>
-            <span class="refl ginban" aria-hidden="true" style="opacity:.14;height:0;"></span>
+            <span class="hero-plate ginban"><span class="nw">千里</span></span>
         </h1>
         <p class="hero-en">S E N R I</p>
 
@@ -841,7 +855,7 @@
             <div>
                 <span class="eyebrow reveal">PRIVATE ROOMS</span>
                 <h2 class="section-title reveal"><span class="nw">お席と、</span><span class="nw">ご会食</span></h2>
-                <div class="ginban ginban-rule reveal" aria-hidden="true" style="background-color:#8b8880;"></div>
+                <div class="ginban ginban-rule reveal" aria-hidden="true"></div>
                 <p class="section-lead reveal"><span class="nw">四名様用と</span><span class="nw">六名様用の</span><span class="nw">個室カウンターを</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">ご法要のあとの</span><span class="nw">お席、</span><span class="nw">ご商談、</span><span class="nw">記念日や</span><span class="nw">お祝い</span><span class="nw">事、</span><span class="nw">ご家族のだんらんに、</span><span class="nw">どうぞ</span><span class="nw">お使い</span><span class="nw">くださいませ。</span></p>
                 <p class="section-lead reveal"><span class="nw">個室に</span><span class="nw">収まらない</span><span class="nw">ご人数の</span><span class="nw">お席は、</span><span class="nw">貸切にて</span><span class="nw">承っ</span><span class="nw">ております。</span><span class="nw">ご人数と</span><span class="nw">ご予算、</span><span class="nw">お日にちを</span><span class="nw">お電話で</span><span class="nw">お聞かせ</span><span class="nw">いただければ、</span><span class="nw">こちらで</span><span class="nw">ご相談に</span><span class="nw">乗ります。</span></p>
                 <p class="section-lead reveal"><span class="nw">お昼は、</span><span class="nw">一組十名様までの</span><span class="nw">お席を</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
@@ -1078,10 +1092,10 @@
             <div class="reveal">
                 <div class="grid-2">
                     <figure>
-                        <div class="photo-frame ratio-3x4"><img src="img/exterior-day.jpg" alt="昼の外観。SENRI の看板を掲げた入口" width="706" height="530" loading="lazy" decoding="async"></div>
+                        <div class="photo-frame ratio-4x3"><img src="img/exterior-day.jpg" alt="昼の外観。SENRI の看板を掲げた入口" width="706" height="530" loading="lazy" decoding="async"></div>
                     </figure>
                     <figure>
-                        <div class="photo-frame ratio-3x4"><img src="img/exterior-night.jpg" alt="夜の外観。Steak House 千里 と灯る看板" width="603" height="804" loading="lazy" decoding="async"></div>
+                        <div class="photo-frame ratio-4x3"><img src="img/exterior-dusk.jpg" alt="夕暮れの外観。赤い看板に灯りが入ったところ" width="719" height="539" loading="lazy" decoding="async"></div>
                     </figure>
                 </div>
             </div>
@@ -1097,17 +1111,6 @@
                     <li><span class="fact-k"><span class="nw">閉店の</span><span class="nw">時刻</span></span><span><span class="nw">当日の</span><span class="nw">状況により、</span><span class="nw">早めに</span><span class="nw">店を</span><span class="nw">閉める</span><span class="nw">ことが</span><span class="nw">ございます。</span><span class="nw">当日の</span><span class="nw">お席の</span><span class="nw">空き</span><span class="nw">具合は、</span><span class="nw">お電話にて</span><span class="nw">お確かめ</span><span class="nw">くださいませ。</span></span></li>
                 </ul>
             </div>
-        </div>
-
-        <div class="grid-2 reveal" style="margin-top:var(--gap);">
-            <figure>
-                <div class="photo-frame ratio-16x9"><img src="img/sign-bull.jpg" alt="入口の窓に描かれた牛の印" width="1030" height="772" loading="lazy" decoding="async"></div>
-                <figcaption><span class="nw">入口の</span><span class="nw">牛の</span>印</figcaption>
-            </figure>
-            <figure>
-                <div class="photo-frame ratio-16x9"><img src="img/steak-plate.jpg" alt="切り分けたステーキに焼き野菜を添えた一皿" width="921" height="691" loading="lazy" decoding="async"></div>
-                <figcaption><span class="nw">お出しする</span><span class="nw">一皿</span></figcaption>
-            </figure>
         </div>
     </div>
 </section>

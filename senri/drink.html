@@ -330,8 +330,9 @@
     /* ══════════════════════════════════════════════════════════════════
        ステーキハウス千里 ／ 漆黒と白磁だけで組む。
        色（彩度）はお肉と炎の中にしか置かない＝UIは彩度ゼロで通す。
-       署名＝「銀盤（ぎんばん）」。鉄板の鏡面をCSSで描き、
-       ①ヒーローの店名を載せる台 ②章見出しの罫 ③CTAの縁 の3か所で同じ物を使う。
+       署名＝「銀線（ぎんせん）」。鉄板そのもの（灰色の面）ではなく、
+       磨いた面を走る一条の光だけを描く。
+       ①店名の文字に乗せる艶 ②章見出しの罫 の2か所で同じ光を使う。
        ══════════════════════════════════════════════════════════════════ */
 
     :root {
@@ -341,16 +342,24 @@
         --paper-line:  rgba(22, 22, 26, 0.16);
     }
 
-    /* --- 銀盤（鉄板の鏡面）------------------------------------------------ */
-    .ginban {
-        background-color: #232327;
-        background-image:
-            linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.03) 44%,
-                                    rgba(0,0,0,.40) 45%, rgba(255,255,255,.07) 100%),
-            repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 4px);
+    /* --- 銀線（磨いた鉄板を走る一条の光）------------------------------------
+       灰色の面で鉄板を表すと、どうしても既製の壁紙の見え方になる。
+       面をやめて「光」だけを残す：文字には艶を、章見出しには細い一条を。 */
+    .ginban { background-color: transparent; background-image: none; }
+    .ginban-rule {
+        height: 1px; width: 140px; border-radius: 0; margin-bottom: 24px;
+        background: linear-gradient(90deg,
+            var(--accent-hi) 0, var(--accent-hi) 30px,
+            rgba(207, 204, 196, .40) 30px, rgba(207, 204, 196, .13) 58%,
+            rgba(207, 204, 196, 0) 100%);
     }
-    .ginban-rule { height: 3px; border-radius: 2px; width: 108px; margin-bottom: 22px; }
-    .ginban-rule.is-wide { width: 100%; height: 2px; }
+    .ginban-rule.is-wide { width: 100%; }
+    .panel-light .ginban-rule {
+        background: linear-gradient(90deg,
+            var(--paper-ink) 0, var(--paper-ink) 30px,
+            rgba(22, 22, 26, .34) 30px, rgba(22, 22, 26, .11) 58%,
+            rgba(22, 22, 26, 0) 100%);
+    }
 
     /* --- 見出しまわり ------------------------------------------------------ */
     .eyebrow {
@@ -454,9 +463,21 @@
         mask-image: linear-gradient(to top, transparent 8%, #000 92%);
         aria-hidden: true;
     }
-    .hero-plate { display: inline-block; padding: 0 clamp(18px, 5vw, 44px) 6px; position: relative; }
+    /* 店名は「台に載せる」のをやめ、文字そのものに鏡面の艶を乗せる。
+       下の一条は、磨いた面に落ちる光の残り。 */
+    .hero-plate {
+        display: inline-block; padding: 0 0 .16em; position: relative;
+        background-image: linear-gradient(166deg,
+            #FFFFFF 0%, #F1EEE7 24%, #ABA69C 46%, #FCFBF8 55%,
+            #CBC7BE 74%, #F3F1EC 100%);
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent; -webkit-text-fill-color: transparent;
+    }
     .hero-plate::after {
-        content: ''; display: block; height: 3px; border-radius: 2px; margin-top: 14px;
+        content: ''; position: absolute; left: 0; right: .1em; bottom: 0; height: 1px;
+        background: linear-gradient(90deg,
+            rgba(243, 241, 236, 0) 0, rgba(243, 241, 236, .88) 16%,
+            rgba(243, 241, 236, .88) 62%, rgba(243, 241, 236, 0) 100%);
     }
     .hero-en {
         font-family: var(--font-head); font-size: clamp(15px, 3.4vw, 22px);
@@ -781,10 +802,10 @@
             <div class="menu-photos">
                 <figure>
                     <div class="photo-frame">
-                        <img src="img/beer.jpg" alt="泡の立った生ビールのジョッキ"
-                             width="900" height="1200" loading="lazy" decoding="async">
+                        <img src="img/beer-cheers.jpg" alt="鉄板の前で合わせた生ビールのジョッキとウイスキーの水割り"
+                             width="780" height="585" loading="lazy" decoding="async">
                     </div>
-                    <figcaption><span class="nw">生ビール</span></figcaption>
+                    <figcaption><span class="nw">生ビールと</span><span class="nw">水割り</span></figcaption>
                 </figure>
             </div>
         </div>
@@ -814,8 +835,8 @@
             <div class="menu-photos">
                 <figure>
                     <div class="photo-frame">
-                        <img src="img/shochu-senri.jpg" alt="店名を入れた黒い焼酎のボトルとワインのボトル"
-                             width="899" height="1200" loading="lazy" decoding="async">
+                        <img src="img/shochu-senri.jpg" alt="「千里」の名を入れた黒い焼酎のボトルとワインのボトル"
+                             width="935" height="701" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">千里の</span><span class="nw">ボトル</span></figcaption>
                 </figure>
@@ -852,10 +873,10 @@
             <div class="menu-photos">
                 <figure>
                     <div class="photo-frame">
-                        <img src="img/sauces.jpg" alt="たれの器と薬味を並べた卓の上"
+                        <img src="img/coffee.jpg" alt="白い器に注いだ食後のコーヒー"
                              width="1200" height="900" loading="lazy" decoding="async">
                     </div>
-                    <figcaption><span class="nw">卓の</span>上</figcaption>
+                    <figcaption><span class="nw">食後の</span><span class="nw">珈琲</span></figcaption>
                 </figure>
             </div>
         </div>
