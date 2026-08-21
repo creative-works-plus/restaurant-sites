@@ -379,27 +379,36 @@
     .btn-block { width: 100%; max-width: 460px; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 
-    /* ══ ヒーロー（A-3 分割2カラム） ══════════════════════════════════════ */
+    /* ══ ヒーロー（A-3 分割2カラム／写真は額装して本文と同格に置く） ═══════ */
     .hero {
-        position: relative;
-        display: grid; grid-template-columns: 1fr;
+        position: relative; overflow: hidden;
+        display: flex; align-items: center;
+        padding: clamp(28px, 6vw, 60px) var(--pad-inner) clamp(48px, 8vw, 88px);
         background:
-            radial-gradient(120% 80% at 15% 0%, rgba(90, 72, 168, .55), transparent 62%),
+            radial-gradient(110% 78% at 12% 0%, rgba(90, 72, 168, .55), transparent 62%),
             var(--bg);
     }
+    .hero-inner {
+        width: 100%; max-width: var(--maxw); margin-inline: auto;
+        display: grid; grid-template-columns: 1fr;
+        gap: clamp(28px, 5vw, 44px);
+    }
+    .hero-media { position: relative; order: -1; }   /* スマホは写真を先に置く */
     .hero-photo {
         position: relative; overflow: hidden;
-        min-height: 46svh;
-        border-bottom: 1px solid var(--line);
+        aspect-ratio: 4 / 3;
+        border-radius: var(--radius);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        background: var(--surface-2);
     }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 46%; }
     .hero-photo::after {
         content: ''; position: absolute; inset: 0;
-        background: linear-gradient(180deg, rgba(24, 16, 54, .34) 0%, rgba(24, 16, 54, .06) 40%, rgba(36, 26, 77, .92) 100%);
+        background: linear-gradient(180deg, rgba(24, 16, 54, .22) 0%, rgba(24, 16, 54, 0) 44%, rgba(24, 16, 54, .40) 100%);
     }
     .hero-body {
         display: flex; flex-direction: column; justify-content: center;
-        padding: var(--sp-6) var(--pad-inner) var(--sp-6);
         gap: var(--sp-4);
     }
     .hero-eyebrow {
@@ -425,13 +434,30 @@
         max-width: 30em; margin-top: calc(var(--sp-4) * -0.5);
     }
 
+    /* タブレット幅では写真だけが大きくなりすぎるので、幅を止める */
+    @media (min-width: 560px) and (max-width: 899px) {
+        .hero-media { max-width: 520px; margin-inline: auto; }
+    }
+
     @media (min-width: 900px) {
-        .hero { grid-template-columns: 0.86fr 1fr; align-items: stretch; }
-        .hero-photo { min-height: 100%; border-bottom: 0; border-right: 1px solid var(--line); }
-        .hero-photo::after {
-            background: linear-gradient(90deg, rgba(24, 16, 54, .30) 0%, rgba(24, 16, 54, 0) 45%, rgba(36, 26, 77, .75) 100%);
+        .hero-inner {
+            grid-template-columns: minmax(0, 1fr) minmax(0, .78fr);
+            align-items: center;
+            gap: clamp(44px, 6vw, 84px);
         }
-        .hero-body { padding-inline: clamp(40px, 6vw, 88px); }
+        .hero-media { order: 0; }
+        /* 額の裏へ、細い枠をもう一枚ずらして落とす */
+        .hero-media::before {
+            content: ''; position: absolute;
+            inset: 22px 22px -22px -22px;
+            border: 1px solid var(--accent-deep);
+            border-radius: var(--radius);
+            pointer-events: none;
+        }
+        .hero-photo { aspect-ratio: 4 / 5; }
+        .hero-photo::after {
+            background: linear-gradient(190deg, rgba(24, 16, 54, .20) 0%, rgba(24, 16, 54, 0) 48%, rgba(24, 16, 54, .34) 100%);
+        }
     }
 
     /* ══ 2カラムの節（写真＋本文） ═══════════════════════════════════════ */
@@ -682,10 +708,7 @@
 
 <!-- ══════════════ ヒーロー（A-3 分割2カラム） ══════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-photo">
-        <img src="img/hero-wagyu.jpg" alt="黒い皿に盛りつけた、細かな霜降りの黒毛和牛のスライス" width="768" height="1024" loading="eager" fetchpriority="high" decoding="async">
-    </div>
-
+  <div class="hero-inner">
     <div class="hero-body">
         <div class="hero-eyebrow">
             <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
@@ -712,6 +735,13 @@
 
         <p class="hero-note"><span class="nw">ご予約の</span><span class="nw">お電話は</span><span class="nw">16時から</span><span class="nw">お受けし</span><span class="nw">ております。</span></p>
     </div>
+
+    <div class="hero-media">
+        <div class="hero-photo">
+            <img src="img/hero-wagyu.jpg" alt="黒い皿に盛りつけた、細かな霜降りの黒毛和牛のスライス" width="768" height="1024" loading="eager" fetchpriority="high" decoding="async">
+        </div>
+    </div>
+  </div>
 </section>
 
 
@@ -884,7 +914,7 @@
     <div class="container">
         <div class="split is-reverse">
             <div class="photo-frame split-photo is-wide reveal">
-                <img src="img/yaki-ami.jpg" alt="ロースターの網の上で焼いている、赤身の厚切り肉" width="518" height="691" loading="lazy" decoding="async">
+                <img src="img/yaki-ami.jpg" alt="ロースターの網の上で焼いている、赤身の厚切り肉二枚" width="691" height="518" loading="lazy" decoding="async">
             </div>
 
             <div class="split-text reveal reveal-delay-1">
