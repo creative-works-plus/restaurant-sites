@@ -349,7 +349,7 @@
     .btn-block { width: 100%; justify-content: center; }
 
     /* ══════════════════════════════════════════════════════════════════
-       ヒーロー（A-4改：4枚モザイク）
+       ヒーロー（A-4改：夜の外観1枚）
        ══════════════════════════════════════════════════════════════════ */
     .hero-inner {
         display: flex; flex-direction: column; gap: 22px;
@@ -373,19 +373,9 @@
         background: rgba(255, 255, 255, 0.7); border: 1px solid var(--line-strong);
         font-size: 0.82rem; color: var(--ink); font-weight: 500;
     }
-    .hero-mosaic {
-        display: grid; grid-template-columns: 1.05fr 1fr 1fr; gap: 8px;
-    }
-    .hero-mosaic .m-kanban .photo-frame { aspect-ratio: 0.62; }
-    .hero-mosaic .m-mabo .photo-frame,
-    .hero-mosaic .m-gyoza .photo-frame { aspect-ratio: 1 / 1; }
-    @media (max-width: 899px) {
-        .hero-mosaic .m-mabo .photo-frame,
-        .hero-mosaic .m-gyoza .photo-frame { height: 100%; aspect-ratio: auto; }
-    }
 
     /* スマホでは .hero-copy / .hero-media を透過させ、
-       「見出し → 大きな外観写真 → チップ → 電話 → モザイク3枚」の順に並べ替える
+       「見出し → 大きな外観写真 → チップ → 電話」の順に並べ替える
        （1画面目に必ず写真が1枚入るようにするため） */
     .hero-copy, .hero-media { display: contents; }
     .hero-badge      { order: 1; }
@@ -393,7 +383,6 @@
     .hero-photo-main { order: 3; }
     .hero-chips      { order: 4; }
     .hero-actions    { order: 5; }
-    .hero-mosaic     { order: 6; }
 
     @media (min-width: 900px) {
         .hero-inner {
@@ -412,15 +401,6 @@
         .hero-media { display: flex; flex-direction: column; gap: 8px; height: min(66svh, 540px); }
         .hero-photo-main { flex: 1 1 auto; min-height: 0; }
         .hero-photo-main .photo-frame { height: 100%; aspect-ratio: auto; }
-        /* min-height:0 が無いと、中の写真の自然高さが下限になって flex-basis が効かない */
-        .hero-mosaic { grid-template-columns: 1.05fr 1fr; grid-template-rows: 1fr 1fr; flex: 0 0 40%; min-height: 0; }
-        .hero-mosaic figure { min-height: 0; overflow: hidden; }
-        /* 縦看板は上寄せで切る（下を切ると「新樂飯店」の字が残らない） */
-        .hero-mosaic .m-kanban img { object-position: center 18%; }
-        .hero-mosaic .m-kanban { grid-row: 1 / 3; }
-        .hero-mosaic .m-kanban .photo-frame,
-        .hero-mosaic .m-mabo .photo-frame,
-        .hero-mosaic .m-gyoza .photo-frame { height: 100%; aspect-ratio: auto; }
     }
 
     /* ══════════════════════════════════════════════════════════════════
@@ -490,16 +470,6 @@
     }
     #mabo .section-title { font-size: clamp(1.9rem, 6vw, 2.7rem); font-weight: 900; }
     .rekima-text { margin-top: 40px; max-width: 34em; margin-inline: auto; text-align: center; opacity: 0.86; font-size: 1rem; }
-
-    /* ══════════════════════════════════════════════════════════════════
-       入口の扉（C-4 全幅の帯）
-       ══════════════════════════════════════════════════════════════════ */
-    .entrance-band { padding-block: clamp(48px, 8vw, 80px); }
-    .entrance-band .photo-frame { aspect-ratio: 16 / 9; }
-    @media (min-width: 760px) { .entrance-band .photo-frame { aspect-ratio: 21 / 8; } }
-    .entrance-caption {
-        margin-top: 16px; text-align: center; color: var(--muted); font-size: 0.92rem;
-    }
 
     /* ══════════════════════════════════════════════════════════════════
        麺の三品（B-2 カード）
@@ -693,7 +663,7 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     ヒーロー（A-4改：4枚モザイク）
+     ヒーロー（A-4改：夜の外観1枚）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
     <div class="container hero-inner">
@@ -729,27 +699,6 @@
                      width="1500" height="1125" loading="eager" fetchpriority="high" decoding="async">
             </div>
         </figure>
-
-        <div class="hero-mosaic">
-            <figure class="m-kanban">
-                <div class="photo-frame">
-                    <img src="img/kanban.jpg" alt="入口に掲げた「四川料理 新樂飯店」の縦看板"
-                         width="562" height="1000" loading="lazy" decoding="async">
-                </div>
-            </figure>
-            <figure class="m-mabo">
-                <div class="photo-frame">
-                    <img src="img/mabo-donabe.jpg" alt="土鍋で提供する麻婆豆腐"
-                         width="1300" height="975" loading="lazy" decoding="async">
-                </div>
-            </figure>
-            <figure class="m-gyoza">
-                <div class="photo-frame">
-                    <img src="img/gyoza.jpg" alt="焼き餃子6個"
-                         width="1200" height="899" loading="lazy" decoding="async">
-                </div>
-            </figure>
-        </div>
     </div>
 </section>
 
@@ -841,21 +790,6 @@
     </div>
 </section>
 
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     入口の扉（C-4 全幅の帯）
-     ══════════════════════════════════════════════════════════════════════ -->
-<section class="entrance-band">
-    <div class="container">
-        <figure class="reveal">
-            <div class="photo-frame">
-                <img src="img/iriguchi.jpg" alt="翡翠色の入口の扉。営業中の札とランチメニューの黒板"
-                     width="1100" height="824" loading="lazy" decoding="async">
-            </div>
-            <figcaption class="entrance-caption"><span class="nw">この</span><span class="nw">翡翠色の</span><span class="nw">扉が、</span><span class="nw">当店の</span><span class="nw">看板の</span><span class="nw">色です。</span></figcaption>
-        </figure>
-    </div>
-</section>
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
@@ -986,6 +920,7 @@
         <a href="#oshinagaki-mabo">麻婆豆腐</a>
         <a href="#oshinagaki-men">麺</a>
         <a href="#oshinagaki-ippin">ご飯もの・点心</a>
+        <a href="#oshinagaki-drink">お飲みもの</a>
     </div>
 </nav>
 <section class="section">
@@ -1027,6 +962,21 @@
                 </ul>
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">レバニラ</span><span class="nw">炒め</span><span class="nw">（ランチ）</span><span class="desc"><span class="nw">棒々鶏・</span><span class="nw">杏仁豆腐付き</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,100円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="oshinagaki-drink">
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">D R I N K</span></div>
+            <p class="menu-note"><span class="nw">紹興酒・</span><span class="nw">ビール・</span><span class="nw">ワインのほか、</span><span class="nw">ジャスミン</span><span class="nw">茶も</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">紹興酒</span><span class="desc"><span class="nw">ボトルで</span><span class="nw">ご用意し</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">ビール</span><span class="desc"><span class="nw">サッポロ</span></span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ワイン</span><span class="desc"><span class="nw">ボトルで</span><span class="nw">ご用意し</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">ジャスミン</span>茶</span></li>
                 </ul>
             </div>
         </div>
@@ -1151,14 +1101,6 @@
                 referrerpolicy="no-referrer-when-downgrade"
                 title="新楽飯店 の地図"></iframe>
         </div>
-
-        <figure class="parking-fig reveal">
-            <div class="photo-frame">
-                <img src="img/parking-kanban.jpg" alt="「P 店舗ウラ 20m ご利用下さい」と書かれた駐車場の案内看板"
-                     width="800" height="800" loading="lazy" decoding="async">
-            </div>
-            <figcaption><span class="nw">店舗裏手の</span><span class="nw">駐車場は、</span><span class="nw">この</span><span class="nw">看板が</span><span class="nw">目印で</span><span class="nw">ございます。</span></figcaption>
-        </figure>
 
         <div class="hero-actions" style="margin-top:24px;">
             <a href="tel:0280326408" class="btn btn-primary btn-block">お電話でご予約する</a>
