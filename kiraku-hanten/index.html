@@ -424,23 +424,66 @@
     /* ==========================================================================
        宴会（★訴求の芯）
        ========================================================================== */
-    .enkai-nums {
-        display: grid; grid-template-columns: repeat(4, 1fr);
-        gap: clamp(10px, 1.8vw, 18px); margin-bottom: clamp(28px, 4vw, 44px);
+    /* 宴会の概要（単位を揃えた3枚。席・人数・貸切を混ぜない） */
+    .enkai-facts {
+        display: grid; grid-template-columns: repeat(3, 1fr);
+        gap: clamp(10px, 1.8vw, 18px); margin-bottom: clamp(22px, 3.4vw, 36px);
     }
-    .num-card {
+    .fact-card {
         background: var(--surface); border: 1px solid var(--line);
-        border-radius: var(--radius); padding: 20px 16px; text-align: center;
-        box-shadow: var(--shadow);
+        border-radius: var(--radius); padding: 20px 18px; box-shadow: var(--shadow);
     }
-    .num-card b {
-        display: block; font-family: var(--font-head);
-        font-size: clamp(1.7rem, 5.6vw, 2.5rem); line-height: 1.1;
-        color: var(--accent); letter-spacing: .02em;
+    .fact-label {
+        display: block; font-size: .78rem; letter-spacing: .16em;
+        color: var(--label); font-weight: 700;
     }
-    .num-card b em { font-style: normal; font-size: .5em; }
-    .num-card span { display: block; margin-top: 6px; font-size: .82rem; color: var(--muted); line-height: 1.5; }
-    @media (max-width: 700px) { .enkai-nums { grid-template-columns: repeat(2, 1fr); } }
+    .fact-num {
+        display: block; margin-top: 6px; font-family: var(--font-head);
+        font-size: clamp(1.5rem, 4.4vw, 2.1rem); line-height: 1.15;
+        color: var(--accent); letter-spacing: .01em;
+    }
+    .fact-num em { font-style: normal; font-size: .5em; margin: 0 .1em 0 .06em; }
+    .fact-sub { display: block; margin-top: 8px; font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    @media (max-width: 700px) {
+        .enkai-facts { grid-template-columns: 1fr; }
+        .fact-card { display: grid; grid-template-columns: 5.2em 1fr; align-items: baseline; column-gap: 12px; padding: 16px 18px; }
+        .fact-label { grid-column: 1; }
+        .fact-num { grid-column: 2; margin-top: 0; }
+        .fact-sub { grid-column: 2; }
+    }
+
+    /* 人数から／予算から（同じ形の2枚。読む順に番号を振る） */
+    .pick-grid {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: clamp(16px, 2.6vw, 28px); margin-bottom: clamp(28px, 4vw, 44px); align-items: start;
+    }
+    @media (max-width: 820px) { .pick-grid { grid-template-columns: 1fr; } }
+    .pick-card {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: clamp(18px, 3vw, 26px); box-shadow: var(--shadow);
+    }
+    .pick-title {
+        display: flex; align-items: center; gap: 10px;
+        font-family: var(--font-head); font-size: 1.12rem; letter-spacing: .05em; line-height: 1.4;
+    }
+    .pick-step {
+        flex: none; display: inline-grid; place-items: center;
+        width: 26px; height: 26px; border-radius: 50%;
+        background: var(--accent); color: #fff;
+        font-family: var(--font-body); font-size: .82rem; font-weight: 700; line-height: 1;
+    }
+    .pick-table { width: 100%; margin-top: 14px; }
+    .pick-table th, .pick-table td {
+        padding: 11px 0; border-bottom: 1px solid var(--line);
+        text-align: left; vertical-align: baseline;
+    }
+    .pick-table tr:last-child th, .pick-table tr:last-child td { border-bottom: 0; padding-bottom: 0; }
+    .pick-table th { font-family: var(--font-head); font-weight: 400; font-size: 1.06rem; color: var(--ink); white-space: nowrap; }
+    .pick-table td { text-align: right; font-size: .92rem; color: var(--muted); }
+    .pick-table-price td { font-family: var(--font-head); font-size: .95rem; color: var(--ink); }
+    .pick-table-price td b { font-size: 1.22rem; font-weight: 400; letter-spacing: .01em; }
+    .pick-hl th, .pick-hl td { color: var(--accent-deep); }
+    .pick-hl th { font-weight: 700; }
 
     .enkai-grid {
         display: grid; grid-template-columns: 1fr 1fr;
@@ -452,15 +495,6 @@
     .enkai-photos figure { margin: 0; }
     .enkai-photos figcaption { margin-top: 8px; font-size: .82rem; color: var(--dim); }
 
-    .course-table { width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-    .course-table caption {
-        caption-side: top; text-align: left; padding: 14px 18px 0;
-        font-family: var(--font-head); font-size: 1.05rem; letter-spacing: .04em;
-    }
-    .course-table th, .course-table td { padding: 13px 18px; border-bottom: 1px solid var(--line); font-size: .95rem; text-align: left; }
-    .course-table tr:last-child th, .course-table tr:last-child td { border-bottom: 0; }
-    .course-table th { font-weight: 700; white-space: nowrap; }
-    .course-table td { color: var(--muted); text-align: right; font-family: var(--font-head); font-size: 1.05rem; }
     .note { font-size: .82rem; color: var(--dim); margin-top: 12px; }
     .course-guide { margin-top: 16px; font-size: 1rem; color: var(--ink); }
     .welcome-list { display: grid; gap: 8px; margin-top: 16px; }
@@ -474,24 +508,6 @@
     }
     .route-btn { margin-top: 14px; }
     .cta-hours { margin-top: 10px; text-align: center; font-size: .9rem; color: var(--muted); }
-
-    /* 人数から選ぶ（幹事が自分の人数を1画面で確認するための一覧） */
-    .size-pick {
-        background: var(--surface); border: 1px solid var(--line);
-        border-radius: var(--radius); padding: clamp(18px, 3vw, 26px);
-        margin-bottom: clamp(28px, 4vw, 44px); box-shadow: var(--shadow);
-    }
-    .size-pick h3 {
-        font-family: var(--font-head); font-size: 1.15rem; letter-spacing: .06em; margin-bottom: 14px;
-    }
-    .size-pick ul { display: flex; flex-wrap: wrap; gap: 10px; }
-    .size-pick li {
-        display: inline-flex; align-items: baseline; gap: 7px;
-        border: 1px solid var(--line-strong); border-radius: 999px;
-        padding: 7px 15px; background: var(--bg);
-    }
-    .size-pick li b { font-family: var(--font-head); font-size: 1.02rem; color: var(--ink); }
-    .size-pick li span { font-size: .78rem; color: var(--muted); }
 
     /* 予算 */
     .budget { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -778,51 +794,69 @@
         <p class="section-lede reveal">
             <span class="nw">駅の</span><span class="nw">東口を</span><span class="nw">出て</span><span class="nw">2分。</span><span class="nw">座敷も</span><span class="nw">掘りごたつもあり、</span><span class="nw">四名の</span><span class="nw">個室から</span><span class="nw">三十名以上の</span><span class="nw">個室まで</span><span class="nw">用意しています。</span>
             <span class="nw">貸切は</span><span class="nw">二十名から</span><span class="nw">五十名まで。</span><span class="nw">飲み</span><span class="nw">放題も</span><span class="nw">お付けできます。</span>
-            <span class="nw">人数と</span><span class="nw">日にちが</span><span class="nw">決まりましたら、</span><span class="nw">まず</span><span class="nw">お電話ください。</span>
         </p>
 
-        <ul class="enkai-nums reveal">
-            <li class="num-card"><b>112<em>席</em></b><span><span class="nw">総席数</span></span></li>
-            <li class="num-card"><b>30<em><span class="nw">名以上</span></em></b><span><span class="nw">個室</span><span class="nw">（4・</span><span class="nw">6・</span><span class="nw">8・</span><span class="nw">10〜20・</span><span class="nw">20〜30名も）</span></span></li>
-            <li class="num-card"><b>20-50<em>名</em></b><span><span class="nw">貸切</span></span></li>
-            <li class="num-card"><b>2,000<em><span class="nw">円〜</span></em></b><span><span class="nw">宴会コース</span><span class="nw">（税込）</span></span></li>
+        <ul class="enkai-facts reveal">
+            <li class="fact-card">
+                <span class="fact-label"><span class="nw">総席数</span></span>
+                <span class="fact-num">112<em>席</em></span>
+                <span class="fact-sub"><span class="nw">テーブル</span><span class="nw">席・</span><span class="nw">座敷・</span><span class="nw">掘りごたつ</span></span>
+            </li>
+            <li class="fact-card">
+                <span class="fact-label"><span class="nw">個室</span></span>
+                <span class="fact-num">4<em>名</em>〜30<em><span class="nw">名以上</span></em></span>
+                <span class="fact-sub"><span class="nw">6つの</span><span class="nw">広さを</span><span class="nw">ご用意しています</span></span>
+            </li>
+            <li class="fact-card">
+                <span class="fact-label"><span class="nw">貸切</span></span>
+                <span class="fact-num">20〜50<em>名</em></span>
+                <span class="fact-sub"><span class="nw">店内をまるごと</span><span class="nw">お使い</span><span class="nw">いただけます</span></span>
+            </li>
         </ul>
 
-        <div class="size-pick reveal">
-            <h3><span class="nw">人数から</span><span class="nw">選ぶ</span></h3>
-            <ul>
-                <li><b><span class="nw">4名</span></b><span><span class="nw">個室</span></span></li>
-                <li><b><span class="nw">6名</span></b><span><span class="nw">個室</span></span></li>
-                <li><b><span class="nw">8名</span></b><span><span class="nw">個室</span></span></li>
-                <li><b><span class="nw">10〜20名</span></b><span><span class="nw">個室</span></span></li>
-                <li><b><span class="nw">20〜30名</span></b><span><span class="nw">個室</span></span></li>
-                <li><b><span class="nw">30名以上</span></b><span><span class="nw">個室</span></span></li>
-                <li><b><span class="nw">20〜50名</span></b><span><span class="nw">貸切</span></span></li>
-            </ul>
-            <p class="note">※<span class="nw">お席の</span>形<span class="nw">（座敷・</span><span class="nw">掘りごたつ・</span><span class="nw">テーブル）は</span><span class="nw">ご人数と</span><span class="nw">空き</span><span class="nw">状況によって</span><span class="nw">変わります。</span><span class="nw">ご希望を</span><span class="nw">お電話で</span><span class="nw">お伝え</span><span class="nw">ください。</span></p>
+        <div class="pick-grid">
+            <div class="pick-card reveal">
+                <h3 class="pick-title"><span class="pick-step">1</span><span class="nwb"><span class="nw">ご人数から</span><span class="nw">お席を</span><span class="nw">決める</span></span></h3>
+                <table class="pick-table">
+                    <tbody>
+                        <tr><th><span class="nw">4名</span></th><td><span class="nw">個室</span></td></tr>
+                        <tr><th><span class="nw">6名</span></th><td><span class="nw">個室</span></td></tr>
+                        <tr><th><span class="nw">8名</span></th><td><span class="nw">個室</span></td></tr>
+                        <tr><th><span class="nw">10〜20名</span></th><td><span class="nw">個室</span></td></tr>
+                        <tr><th><span class="nw">20〜30名</span></th><td><span class="nw">個室</span></td></tr>
+                        <tr><th><span class="nw">30名以上</span></th><td><span class="nw">個室</span></td></tr>
+                        <tr class="pick-hl"><th><span class="nw">20〜50名</span></th><td><span class="nw">店内貸切</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="note">※<span class="nw">お席の</span>形<span class="nw">（座敷・</span><span class="nw">掘りごたつ・</span><span class="nw">テーブル）は、</span><span class="nw">ご人数と</span><span class="nw">空き</span><span class="nw">状況によって</span><span class="nw">変わります。</span><span class="nw">ご希望を</span><span class="nw">お電話で</span><span class="nw">お伝え</span><span class="nw">ください。</span></p>
+            </div>
+
+            <div class="pick-card reveal reveal-delay-1">
+                <h3 class="pick-title"><span class="pick-step">2</span><span class="nwb"><span class="nw">ご予算から</span><span class="nw">コースを</span><span class="nw">決める</span></span></h3>
+                <table class="pick-table pick-table-price">
+                    <tbody>
+                        <tr><th>松</th><td><b>3,000</b>円</td></tr>
+                        <tr><th>竹</th><td><b>2,500</b>円</td></tr>
+                        <tr><th>梅</th><td><b>2,000</b>円</td></tr>
+                        <tr><th><span class="nw">飲み</span><span class="nw">放題</span></th><td><span class="nw">お付けできます</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="note"><span class="nw">※コースの</span><span class="nw">価格は、</span><span class="nw">お一人さまあたり・</span><span class="nw">税込です。</span></p>
+                <p class="course-guide"><span class="nw">コースの</span><span class="nw">中身と</span><span class="nw">飲み</span><span class="nw">放題の</span><span class="nw">時間は、</span><span class="nw">ご予算と</span><span class="nw">ご人数にあわせて</span><span class="nw">ご相談を</span><span class="nw">承ります。</span></p>
+            </div>
         </div>
 
         <div class="enkai-grid">
             <div>
-                <table class="course-table reveal">
-                    <caption>宴会コース</caption>
-                    <tbody>
-                        <tr><th><span class="nw">コース</span><span class="nw">（松）</span></th><td><span class="nw">3,000円</span></td></tr>
-                        <tr><th><span class="nw">コース</span><span class="nw">（竹）</span></th><td><span class="nw">2,500円</span></td></tr>
-                        <tr><th><span class="nw">コース</span><span class="nw">（梅）</span></th><td><span class="nw">2,000円</span></td></tr>
-                        <tr><th><span class="nw">飲み</span><span class="nw">放題</span></th><td><span class="nw">お付けできます</span></td></tr>
-                    </tbody>
-                </table>
+                <h3 class="pick-title"><span class="pick-step">3</span><span class="nwb"><span class="nw">ご予約は</span><span class="nw">お電話で</span></span></h3>
                 <p class="course-guide">
-                    <span class="nw">コースの</span><span class="nw">中身と</span><span class="nw">飲み</span><span class="nw">放題の</span><span class="nw">時間は、</span><span class="nw">ご予算と</span><span class="nw">ご人数にあわせて</span><span class="nw">ご相談を</span><span class="nw">承ります。</span>
-                    <span class="nw">お決まりでなくても、</span><span class="nw">まずは</span><span class="nw">お電話ください。</span>
+                    <span class="nw">人数と</span><span class="nw">日にちが</span><span class="nw">決まりましたら、</span><span class="nw">まずは</span><span class="nw">お電話ください。</span><span class="nw">お席と</span><span class="nw">コースは、</span><span class="nw">こちらで</span><span class="nw">ご一緒に</span><span class="nw">組み</span><span class="nw">立てます。</span>
                 </p>
                 <ul class="welcome-list">
                     <li><span class="nwb"><span class="nw">お子様連れ</span><span class="nw">歓迎</span><span class="nw">（乳児・</span><span class="nw">未就学児・</span><span class="nw">小学生）</span></span></li>
                     <li><span class="nwb"><span class="nw">ベビーカーのまま</span><span class="nw">ご入店いただけます</span></span></li>
                     <li><span class="nwb"><span class="nw">車椅子でも</span><span class="nw">ご入店いただけます</span></span></li>
                 </ul>
-                <p class="note"><span class="nw">※価格は</span><span class="nw">税込です。</span></p>
                 <div class="hero-actions" style="margin-top:22px;">
                     <a href="tel:0280326191" class="btn btn-primary btn-block">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
