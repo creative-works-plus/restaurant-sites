@@ -480,10 +480,11 @@
     .hero { position: relative; display: flex; align-items: center; overflow: hidden; isolation: isolate; }
     .hero::before {
         content: ''; position: absolute; inset: 0; z-index: -2;
-        background: url('img/exterior-night.jpg') 50% 42% / cover no-repeat;
-        opacity: .44; filter: contrast(1.05) saturate(1.1) blur(1.5px);
-        transform: scale(1.05);   /* ぼかしの縁が出ないよう、わずかに大きく敷く */
+        background: url('img/hero-exterior.jpg') 62% 50% / cover no-repeat;
+        opacity: .80; filter: brightness(.66) contrast(1.06) saturate(1.24);
     }
+    /* 縦長の画面では、切り取られる幅のぶん看板が外へ逃げる。看板側へ寄せる */
+    @media (max-width: 720px) { .hero::before { background-position: 76% 50%; } }
     .hero::after {
         content: ''; position: absolute; inset: 0; z-index: -1;
         background:
