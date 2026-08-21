@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/matsugaku/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/matsugaku/img/hero-donburi.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/matsugaku/img/hero-udon.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -39,7 +39,7 @@
       "telephone": "+81-280-98-2968",
       "paymentAccepted": "Cash",
       "url": "https://creative-works-plus.github.io/restaurant-sites/matsugaku/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/matsugaku/img/hero-donburi.jpg",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/matsugaku/img/hero-udon.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -303,6 +303,7 @@
         padding: 5px 13px; border-radius: 999px;
         border: 1px solid var(--line-strong);
         font-size: 0.8rem; letter-spacing: 0.04em;
+        white-space: nowrap;   /* JSで後から入る文字は fix_ja_breaks の対象外なので固定する */
     }
     .status-chip::before {
         content: ''; width: 7px; height: 7px; border-radius: 50%;
@@ -451,70 +452,85 @@
     }
     .lead + .photo-grid, .lead + .photo-row { margin-top: clamp(30px, 5vw, 48px); }
 
-    /* --- ヒーロー A-21「釣り合い」 -------------------------------------------- */
-    .hero { display: flex; align-items: center; padding-block: clamp(34px, 7vw, 60px); }
-    .hero > .container { text-align: center; width: min(100% - 2 * var(--pad-inner), 860px); }
-    .hero-eyebrow {
-        font-family: var(--font-head); color: var(--muted);
-        font-size: clamp(.76rem, 2.6vw, .92rem); letter-spacing: 0.2em; text-indent: 0.2em;
+    /* --- ヒーロー：二枚看板（うどん／丼もの）を実写のまま左右に敷く -----------
+       2026-08-21 改訂。もとは棹と支点を線で描いた「天秤」を置いていたが、
+       定規とコンパスで描ける説明図＝図解で、実写と並ぶと自作の略図に見えた
+       （絶対ルール⑫）。釣り合いは写真2枚と一行の文で言い、線では描かない。 */
+    .hero {
+        position: relative; isolation: isolate; overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        padding-block: clamp(52px, 9vw, 96px);
     }
-    .hero-title { font-family: var(--font-head); font-weight: 400; margin-top: 10px; }
+    .hero-stage {
+        position: absolute; inset: 0; z-index: 0;
+        display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .hero-stage .hp { position: relative; margin: 0; overflow: hidden; }
+    .hero-stage .hp picture { display: block; width: 100%; height: 100%; }
+    .hero-stage .hp img { width: 100%; height: 100%; object-fit: cover; }
+    .hp-udon img { object-position: 62% 52%; }
+    .hp-don  img { object-position: 50% 56%; }
+    .hp-don::before {                       /* 二枚の合わせ目に細い罫を1本だけ */
+        content: ''; position: absolute; inset: 0 auto 0 0; width: 1px; z-index: 2;
+        background: rgba(255, 255, 255, 0.34);
+    }
+    /* 明るい実写の上に白文字を置くので、暗幕は強めに。中央を濃く、下端をさらに濃く */
+    .hero-veil {
+        position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background:
+            radial-gradient(98% 70% at 50% 45%,
+                rgba(18, 20, 13, 0.82) 0%, rgba(18, 20, 13, 0.58) 46%,
+                rgba(18, 20, 13, 0.26) 78%, rgba(18, 20, 13, 0.12) 100%),
+            linear-gradient(180deg,
+                rgba(18, 20, 13, 0.56) 0%, rgba(18, 20, 13, 0.30) 28%,
+                rgba(18, 20, 13, 0.40) 64%, rgba(18, 20, 13, 0.84) 100%),
+            linear-gradient(90deg,
+                rgba(18, 20, 13, 0.20) 0%, rgba(18, 20, 13, 0.06) 34%, rgba(18, 20, 13, 0) 52%);
+    }
+    .hero-body {
+        position: relative; z-index: 2; text-align: center;
+        width: min(100% - 2 * var(--pad-inner), 880px);
+    }
+    .hero-eyebrow {
+        font-family: var(--font-head); color: rgba(255, 255, 255, 0.86);
+        font-size: clamp(.76rem, 2.6vw, .92rem); letter-spacing: 0.2em; text-indent: 0.2em;
+        text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+    }
+    .hero-title { font-family: var(--font-head); font-weight: 400; margin-top: 14px; color: #fff; }
     .ht-sub {
-        display: block; color: var(--accent);
-        font-size: clamp(.85rem, 3vw, 1.05rem); letter-spacing: 0.34em; text-indent: 0.34em;
+        display: block; color: #EBD3E1;
+        font-size: clamp(.85rem, 3vw, 1.05rem); letter-spacing: 0.36em; text-indent: 0.36em;
+        text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
     }
     .ht-name {
-        display: block; line-height: 1.02; margin-top: 6px;
-        font-size: clamp(3.9rem, 16vw, 7rem); letter-spacing: 0.1em; text-indent: 0.1em;
+        display: block; line-height: 1.02; margin-top: 10px;
+        font-size: clamp(4.2rem, 17vw, 8rem); letter-spacing: 0.1em; text-indent: 0.1em;
+        text-shadow: 0 4px 36px rgba(0, 0, 0, 0.55), 0 1px 6px rgba(0, 0, 0, 0.4);
     }
-
-    .balance { position: relative; width: min(100%, 580px); margin: clamp(26px, 5.5vw, 44px) auto 0; }
-    .balance .beam {
-        display: block; height: 2px; background: var(--ink);
-        margin-inline: calc(clamp(118px, 33vw, 204px) / 2);
-        transform: scaleX(0); transform-origin: 50% 50%;
-        transition: transform .75s cubic-bezier(.22, .72, .28, 1);
-    }
-    .balance.in-view .beam { transform: scaleX(1); }
-    .balance .fulcrum {
-        position: absolute; top: 1px; left: 50%; transform: translateX(-50%);
-        width: 26px; height: 25px; background: var(--ink);
-        clip-path: polygon(50% 0, 100% 100%, 0 100%);
-    }
-    .balance .fulcrum::after {
-        content: ''; position: absolute; left: -13px; bottom: -4px;
-        width: 52px; height: 2px; background: var(--ink);
-    }
-    .pans { display: flex; justify-content: space-between; align-items: flex-start; margin-top: -3px; }
-    .pan { width: clamp(118px, 33vw, 204px); display: flex; flex-direction: column; align-items: center; }
-    .pan .cord { position: relative; display: block; width: 1px; height: clamp(24px, 5vw, 36px); background: var(--line-strong); }
-    .pan .cord::before {
-        content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%);
-        width: 7px; height: 7px; border-radius: 50%; background: var(--ink);
-    }
-    .pan .disc {
-        display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden;
-        background: var(--surface-2); box-shadow: var(--shadow);
-        opacity: 0; transform: translateY(-7px);
-        transition: opacity .55s ease .42s, transform .55s ease .42s;
-    }
-    .balance.in-view .disc { opacity: 1; transform: none; }
-    .pan .disc img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
-    .pan figcaption {
-        margin-top: 12px; font-family: var(--font-head); color: var(--muted);
-        font-size: clamp(.8rem, 2.6vw, .95rem); letter-spacing: 0.14em; text-indent: 0.14em;
+    .hero-rule {
+        display: block; width: 66px; height: 1px; margin: clamp(22px, 4vw, 32px) auto 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.78), transparent);
     }
     .hero-lead {
-        margin-top: clamp(26px, 5vw, 40px);
-        font-size: clamp(1.02rem, 3.6vw, 1.28rem); font-family: var(--font-head);
-        letter-spacing: 0.04em;
+        margin-top: clamp(20px, 3.6vw, 28px); color: rgba(255, 255, 255, 0.96);
+        font-family: var(--font-head); font-size: clamp(1.02rem, 3.6vw, 1.3rem);
+        letter-spacing: 0.04em; text-shadow: 0 1px 16px rgba(0, 0, 0, 0.6);
     }
-    .hero .status-chip { margin-top: clamp(22px, 4vw, 32px); }
-    .no-js .balance .beam { transform: scaleX(1); }
-    .no-js .balance .disc { opacity: 1; transform: none; }
-    @media (prefers-reduced-motion: reduce) {
-        .balance .beam { transform: scaleX(1); }
-        .balance .disc { opacity: 1; transform: none; }
+    .hero .status-chip {
+        margin-top: clamp(20px, 3.6vw, 30px);
+        background: rgba(255, 255, 255, 0.15); color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.34);
+        -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+    .hero .btn-primary { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.36); }
+    .hero .btn-ghost { border-color: rgba(255, 255, 255, 0.62); color: #fff; }
+    .hero .btn-ghost:hover { background: rgba(255, 255, 255, 0.95); border-color: transparent; color: var(--ink); }
+
+    @media (max-width: 899px) {                 /* 縦に2段。上＝うどん、下＝丼もの */
+        .hero-stage { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+        .hp-don::before { inset: 0 0 auto 0; width: auto; height: 1px; }
+        .hp-udon img { object-position: 58% 50%; }
+        .hp-don  img { object-position: 50% 46%; }
     }
 
     /* --- はじめてのお客様へ（実用の欄を先に出す） ----------------------------- */
@@ -605,6 +621,9 @@
     .menu-photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(156px, 1fr)); gap: clamp(12px, 2.4vw, 20px); margin-top: clamp(26px, 5vw, 42px); }
     .menu-photos figure { margin: 0; }
     .menu-photos .photo-frame { aspect-ratio: 4 / 3; border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface-2); }
+    /* 章に写真が1枚しかないとき、auto-fit で1枚が横いっぱいに伸びて眠くなる。
+       枠の幅を頭打ちにして中央へ寄せる（原寸より大きく引き伸ばさないため） */
+    .menu-photos figure:only-child { max-width: 460px; margin-inline: auto; }
     .menu-photos figcaption { margin-top: 9px; text-align: center; font-size: .8rem; color: var(--dim); }
 
     /* --- お客様の声 ---------------------------------------------------------- */
@@ -665,16 +684,17 @@
         .photo-grid.tight .ph:last-child:nth-child(odd) .photo-frame { aspect-ratio: 16 / 9; }
     }
 
-    /* B#5 署名（釣り合い）を核のセクションでもう一度だけ出す */
+    /* B#5 核のセクションの見出し下に、細い罫と菱を1つだけ置く
+       （2026-08-21：もとは天秤の小型版だった。説明図はやめて意匠だけ残す） */
     #set .section-title { margin-bottom: clamp(12px, 2.2vw, 18px); }
-    .mark-balance {
-        display: block; position: relative; width: 58px; height: 2px;
-        background: var(--ink); margin: 0 auto clamp(28px, 4.6vw, 40px);
+    .mark-rule {
+        display: block; position: relative; width: 88px; height: 1px;
+        background: var(--line-strong); margin: 0 auto clamp(28px, 4.6vw, 40px);
     }
-    .mark-balance::after {
-        content: ''; position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
-        width: 15px; height: 14px; background: var(--ink);
-        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    .mark-rule::after {
+        content: ''; position: absolute; top: -3.5px; left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        width: 8px; height: 8px; background: var(--accent);
     }
 
     /* B#6 中盤で差し色が3画面ぶん消えるので、引用に楔を1本だけ入れる */
@@ -729,7 +749,24 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="container">
+    <div class="hero-stage">
+        <figure class="hp hp-udon">
+            <img src="img/hero-udon.jpg" alt="竹すのこのせいろに盛った、つやのある太いさぬきうどん"
+                 width="1800" height="1012" fetchpriority="high" decoding="async">
+        </figure>
+        <figure class="hp hp-don">
+            <!-- 枠の形が縦長（PCの2段組）と横長（スマホ・タブレットの2段積み）で
+                 まるきり変わるので、写真そのものを向きで差し替える -->
+            <picture>
+                <source media="(max-width: 899px)" srcset="img/hero-donburi-w.jpg" width="1024" height="768">
+                <img src="img/hero-donburi.jpg" alt="赤い丼に盛ったかつ丼。卵でとじたかつに三つ葉を添えている"
+                     width="768" height="1024" fetchpriority="high" decoding="async">
+            </picture>
+        </figure>
+    </div>
+    <span class="hero-veil" aria-hidden="true"></span>
+
+    <div class="container hero-body">
         <p class="hero-eyebrow reveal"><span class="nw">茨城県古河市上大野・</span><span class="nw">県道</span><span class="nw">124号沿い</span></p>
 
         <h1 class="hero-title reveal reveal-delay-1">
@@ -737,38 +774,16 @@
             <span class="ht-name"><span class="nw">松学</span></span>
         </h1>
 
-        <!-- A-21「釣り合い」：棹の両端に同じ大きさの丸い写真を吊る。下の三角が支点 -->
-        <div class="balance reveal reveal-delay-2">
-            <span class="beam" aria-hidden="true"></span>
-            <span class="fulcrum" aria-hidden="true"></span>
-            <div class="pans">
-                <figure class="pan">
-                    <span class="cord" aria-hidden="true"></span>
-                    <span class="disc">
-                        <img src="img/hero-donburi.jpg" alt="卵でとじたかつをのせた丼を真上から見たところ"
-                             width="768" height="768" fetchpriority="high" decoding="async">
-                    </span>
-                    <figcaption><span class="nw">丼もの</span></figcaption>
-                </figure>
-                <figure class="pan">
-                    <span class="cord" aria-hidden="true"></span>
-                    <span class="disc">
-                        <img src="img/hero-udon.jpg" alt="さぬきうどんの麺の寄り"
-                             width="552" height="552" fetchpriority="high" decoding="async">
-                    </span>
-                    <figcaption><span class="nw">さぬきうどん</span></figcaption>
-                </figure>
-            </div>
-        </div>
+        <span class="hero-rule reveal reveal-delay-2" aria-hidden="true"></span>
 
-        <p class="hero-lead reveal"><span class="nw">丼ものとうどんを、</span><span class="nw">どちらも</span><span class="nw">一人前で</span><span class="nw">お出しします。</span></p>
+        <p class="hero-lead reveal reveal-delay-2"><span class="nw">丼ものとうどんを、</span><span class="nw">どちらも</span><span class="nw">一人前で</span><span class="nw">お出しします。</span></p>
 
         <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
         <div class="hero-actions">
             <a href="tel:0280982968" class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                0280-98-2968｜ご予約・お問い合わせ
+                <span class="nwb"><span class="nw">0280-98-2968｜</span><span class="nw">ご予約・お問い合わせ</span></span>
             </a>
             <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
         </div>
@@ -811,7 +826,7 @@
 <section class="section" id="set">
     <div class="container">
         <h2 class="section-title reveal"><span class="en">BALANCE</span><span class="nw">丼とうどん、</span><span class="nw">どちらも</span><span class="nw">一人前で。</span></h2>
-        <span class="mark-balance reveal" aria-hidden="true"></span>
+        <span class="mark-rule reveal" aria-hidden="true"></span>
 
         <div class="lead stack reveal">
             <p><span class="nw">どちらかを</span><span class="nw">小ぶりにする</span><span class="nw">ことは、</span><span class="nw">いたしません。</span><span class="nw">丼ものもうどんも</span><span class="nw">一人前ずつ、</span><span class="nw">一枚の</span><span class="nw">お盆にのせて</span><span class="nw">お出しします。</span></p>
@@ -853,7 +868,7 @@
             </figure>
             <figure class="ph reveal reveal-delay-1">
                 <div class="photo-frame r-4x3"><img src="img/udon-zaru.jpg" alt="ざるに盛った冷たいうどんとつけ汁" width="768" height="1024" loading="lazy" decoding="async"></div>
-                <figcaption><span class="nw">ざるうどん</span></figcaption>
+                <figcaption><span class="nw">冷たく</span><span class="nw">締めて</span></figcaption>
             </figure>
             <figure class="ph reveal reveal-delay-2">
                 <div class="photo-frame r-4x3"><img src="img/udon-nori.jpg" alt="刻み海苔をのせたうどん" width="1000" height="750" loading="lazy" decoding="async"></div>
@@ -947,10 +962,10 @@
             <div class="menu-photos">
                 <figure>
                     <div class="photo-frame">
-                        <img src="img/menu-tenzaru.jpg" alt="天ぷらとつけ汁、うどんを並べたお盆"
-                             width="576" height="769" loading="lazy" decoding="async">
+                        <img src="img/udon-seiro.jpg" alt="竹すのこのせいろに盛った冷たいうどんと、つけ汁、薬味の小鉢"
+                             width="705" height="529" loading="lazy" decoding="async">
                     </div>
-                    <figcaption><span class="nw">天ざるうどん</span></figcaption>
+                    <figcaption><span class="nw">ざるうどん</span></figcaption>
                 </figure>
             </div>
         </div>
@@ -1109,7 +1124,7 @@
 
         <!-- ★末尾の予約導線（必須） -->
         <div class="hero-actions" style="margin-top:14px;">
-            <a href="tel:0280982968" class="btn btn-primary btn-block">お電話でご予約・お問い合わせ</a>
+            <a href="tel:0280982968" class="btn btn-primary btn-block"><span class="nwb"><span class="nw">お電話で</span><span class="nw">ご予約・お問い合わせ</span></span></a>
         </div>
     </div>
 </section>
