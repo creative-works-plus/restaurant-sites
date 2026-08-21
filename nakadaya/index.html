@@ -573,7 +573,10 @@
         position: relative; display: flex; align-items: center; gap: clamp(10px, 2.4vw, 28px);
         min-height: var(--hashi-h);
         padding-block: var(--sp-3);
-        padding-right: clamp(64px, 8.6vw, 106px);
+        /* 帯の面は全幅のままだが、刷ってある文字は本文と同じ左右の端に収める。
+           右を clamp の固定値にしていたので、電話番号が画面の端まで逃げていた（2026-08-21 修正）。
+           56px は右端の折り目（.hashi-fold）に文字が潜り込まないための最低値 */
+        padding-right: max(56px, calc((100vw - var(--maxw)) / 2 + 140px));
         padding-left: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2));
         background: var(--surface);
         border-top: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
@@ -668,11 +671,10 @@
     .hero-meta > div:nth-child(2n)   { border-left: 1px solid var(--line); }
     .hero-meta > div:nth-child(2n+1) { padding-left: 0; }
     .hero-meta > div:nth-child(n+3)  { border-top: 1px solid var(--line); }
-    @media (min-width: 1180px) {
-        .hero-meta { grid-template-columns: repeat(4, minmax(0, auto)); justify-content: start; }
-        .hero-meta > div { border-left: 1px solid var(--line); border-top: 0; padding-left: 16px; }
-        .hero-meta > div:first-child { border-left: 0; padding-left: 0; }
-    }
+    /* ★4つ横並びにしない（2026-08-21）。文字の段の幅は「画面幅 − 写真の面」で決まるので、
+       ビューポートの media query では収まりを保証できず、1440px で
+       「17:30〜20:00」と「定休」が接触した。2×2 で固定し、幅は本文と同じ measure に収める */
+    .hero-meta { max-width: 34em; }
     .hero-meta dt { font-size: 12px; letter-spacing: .2em; color: var(--accent); white-space: nowrap; }
     .hero-meta dd {
         font-family: var(--font-head); font-size: clamp(14px, 2.6vw, 17px);
@@ -691,7 +693,7 @@
     /* PC：左に文字・右に写真。写真は画面の右端まで抜けて高さいっぱいに立つ */
     @media (min-width: 1000px) {
         .hero-grid {
-            grid-template-columns: minmax(0, 1fr) clamp(340px, 40vw, 600px);
+            grid-template-columns: minmax(0, 1fr) clamp(340px, 46vw, 780px);
             grid-template-rows: auto 1fr;
             min-height: clamp(500px, calc(100svh - var(--header-h) - 64px), 660px);
         }
