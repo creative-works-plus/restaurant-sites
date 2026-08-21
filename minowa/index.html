@@ -519,7 +519,12 @@
     }
     .subnav a { font-size: 14px; color: var(--muted); letter-spacing: .04em; }
     @media (max-width: 620px) {
-        .subnav a { font-size: 13px; padding-inline: 12px; }
+        /* ★2026-08-21：章が5つに増え、折り返して2段になった。追従する帯が2段だと
+           画面の上が塞がり、.oshinagaki [id] の scroll-margin-top（1段ぶんの76px）も
+           合わなくなる。狭い画面では折り返さず、横に流して1段のまま保つ。 */
+        .subnav-inner { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+        .subnav-inner::-webkit-scrollbar { display: none; }
+        .subnav a { font-size: 13px; padding-inline: 12px; flex: 0 0 auto; white-space: nowrap; }
     }
     .subnav a:hover { color: var(--accent); }
     .oshinagaki { background: var(--surface); }
@@ -888,28 +893,30 @@
         <a href="#katsu">かつの定食</a>
         <a href="#fry">海老・揚げもの</a>
         <a href="#gohan">丼・カレー</a>
+        <a href="#ippin">一品料理</a>
+        <a href="#nomimono">お飲みもの</a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">お値段は改定することがございます。ここに記しておりますのは、いまのお値段を確かめられたお品でございます。そのほかのお品は、店内のお品書きに掲げております。</div>
+        <div class="lead-box reveal">お値段は改定することがございます。ここに記しておりますのは、2026年8月現在で確かめられたお品でございます。そのほかのお品は、店内のお品書きに掲げております。</div>
 
         <div class="menu-block reveal" id="katsu">
             <div class="menu-head"><h2><span class="nw">かつの</span><span class="nw">定食</span></h2><span class="yomi">K A T S U</span></div>
             <p class="menu-note"><span class="nw">定食には、</span><span class="nw">ご飯・</span><span class="nw">お味噌汁・</span><span class="nw">お新香・</span><span class="nw">冷奴を</span><span class="nw">お付けします。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">ロースかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">上ロースかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">ヒレかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">上ヒレかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">ロースかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,350円</span></span></li>
+                    <li><span class="name"><span class="nw">上ロースかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,550円</span></span></li>
+                    <li><span class="name"><span class="nw">ヒレかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,450円</span></span></li>
+                    <li><span class="name"><span class="nw">上ヒレかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,700円</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">チキンかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">ニンニク</span><span class="nw">入り</span><span class="nw">ロースかつ</span><span class="nw">定食</span><span class="desc"><span class="nw">ロースの</span><span class="nw">間に、</span><span class="nw">にんにくを</span><span class="nw">挟んで</span><span class="nw">揚げます</span></span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">串かつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">ヒレ・</span><span class="nw">コロッケミックス</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">チキンかつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,280円</span></span></li>
+                    <li><span class="name"><span class="nw">ニンニク</span><span class="nw">入り</span><span class="nw">ロースかつ</span><span class="nw">定食</span><span class="desc"><span class="nw">ロースの</span><span class="nw">間に、</span><span class="nw">にんにくを</span><span class="nw">挟んで</span><span class="nw">揚げます</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,580円</span></span></li>
+                    <li><span class="name"><span class="nw">串かつ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,280円</span></span></li>
+                    <li><span class="name"><span class="nw">ヒレ・</span><span class="nw">コロッケミックス</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,200円</span></span></li>
                 </ul>
             </div>
         </div>
@@ -918,31 +925,73 @@
             <div class="menu-head"><h2><span class="nw">海老と、</span><span class="nw">そのほかの</span><span class="nw">揚げ</span><span class="nw">もの</span></h2><span class="yomi">F R Y</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">エビフライ</span><span class="nw">定食</span><span class="desc"><span class="nw">有頭の</span><span class="nw">海老を</span><span class="nw">揚げて</span><span class="nw">お出しします</span></span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">エビフライ</span><span class="nw">定食</span><span class="desc"><span class="nw">有頭の</span><span class="nw">海老を</span><span class="nw">揚げて</span><span class="nw">お出しします</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,850円</span></span></li>
                     <li><span class="name"><span class="nw">エビ・</span><span class="nw">ヒレかつ</span><span class="nw">ミックス</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,750円</span></span></li>
-                    <li><span class="name"><span class="nw">エビ・</span><span class="nw">ロースかつ</span><span class="nw">ミックス</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">エビ・</span><span class="nw">チキンかつ</span><span class="nw">ミックス</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">エビ・</span><span class="nw">ロースかつ</span><span class="nw">ミックス</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,850円</span></span></li>
+                    <li><span class="name"><span class="nw">エビ・</span><span class="nw">チキンかつ</span><span class="nw">ミックス</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,580円</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">カキフライ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">コロッケ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">アジフライ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">カキフライ</span><span class="nw">定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,200円</span></span></li>
+                    <li><span class="name"><span class="nw">コロッケ</span><span class="nw">定食</span></span></li>
+                    <li><span class="name"><span class="nw">アジフライ</span><span class="nw">定食</span></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="gohan">
             <div class="menu-head"><h2><span class="nw">丼・</span><span class="nw">カレーと</span><span class="nw">お食事</span></h2><span class="yomi">G O H A N</span></div>
-            <p class="menu-note"><span class="nw">夜は、</span><span class="nw">日本酒も</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">カツ</span>丼</span><span class="dots"></span><span class="price"><span class="nw">1,000円</span></span></li>
-                    <li><span class="name"><span class="nw">かつ</span>重</span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">カツカレー</span><span class="desc"><span class="nw">サラダを</span><span class="nw">お付けします</span></span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">かつ</span>重</span></li>
+                    <li><span class="name"><span class="nw">カツカレー</span><span class="desc"><span class="nw">サラダを</span><span class="nw">お付けします</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,200円</span></span></li>
+                    <li><span class="name"><span class="nw">焼肉定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,350円</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">焼肉定食</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">生姜焼定食</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">上焼肉定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,550円</span></span></li>
+                    <li><span class="name"><span class="nw">生姜焼定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,350円</span></span></li>
+                    <li><span class="name"><span class="nw">上生姜焼定食</span></span><span class="dots"></span><span class="price"><span class="nw">1,550円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="ippin">
+            <div class="menu-head"><h2><span class="nw">一品料理</span></h2><span class="yomi">I P P I N</span></div>
+            <p class="menu-note"><span class="nw">お酒に</span><span class="nw">合わせて、</span><span class="nw">お好みで</span><span class="nw">お選び</span><span class="nw">ください。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">鮪刺身</span></span><span class="dots"></span><span class="price"><span class="nw">880円</span></span></li>
+                    <li><span class="name"><span class="nw">イカ</span>刺</span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">冷奴</span></span><span class="dots"></span><span class="price"><span class="nw">280円</span></span></li>
+                    <li><span class="name"><span class="nw">キムチ</span></span><span class="dots"></span><span class="price"><span class="nw">380円</span></span></li>
+                    <li><span class="name"><span class="nw">ホルモン</span>焼</span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">手羽餃子</span></span><span class="dots"></span><span class="price"><span class="nw">680円</span></span></li>
+                    <li><span class="name"><span class="nw">鶏唐揚</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">イカゲソ</span><span class="nw">唐揚</span></span><span class="dots"></span><span class="price"><span class="nw">480円</span></span></li>
+                    <li><span class="name"><span class="nw">ロース</span><span class="nw">唐揚げ</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
+                    <li><span class="name"><span class="nw">モツ</span><span class="nw">煮込</span></span><span class="dots"></span><span class="price"><span class="nw">600円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="nomimono">
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">N O M I M O N O</span></div>
+            <p class="menu-note"><span class="nw">夜は、</span><span class="nw">ビールに</span><span class="nw">日本酒、</span><span class="nw">酎ハイも</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">お車の</span><span class="nw">お客様には、</span><span class="nw">ノンアルコールと</span><span class="nw">ソフトドリンクをどうぞ。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">生ビール</span><span class="nw">（中）</span></span><span class="dots"></span><span class="price"><span class="nw">680円</span></span></li>
+                    <li><span class="name"><span class="nw">瓶ビール</span><span class="nw">（大）</span></span><span class="dots"></span><span class="price"><span class="nw">680円</span></span></li>
+                    <li><span class="name"><span class="nw">ハイボール</span></span><span class="dots"></span><span class="price"><span class="nw">480円</span></span></li>
+                    <li><span class="name"><span class="nw">樽ハイ</span></span><span class="dots"></span><span class="price"><span class="nw">480円</span></span></li>
+                    <li><span class="name"><span class="nw">日本酒</span></span><span class="dots"></span><span class="price"><span class="nw">420円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ノンアルコール</span></span><span class="dots"></span><span class="price"><span class="nw">450円</span></span></li>
+                    <li><span class="name"><span class="nw">ウーロン</span>茶</span><span class="dots"></span><span class="price"><span class="nw">250円</span></span></li>
+                    <li><span class="name"><span class="nw">コーラ</span></span><span class="dots"></span><span class="price"><span class="nw">250円</span></span></li>
+                    <li><span class="name"><span class="nw">オレンジジュース</span></span><span class="dots"></span><span class="price"><span class="nw">250円</span></span></li>
                 </ul>
             </div>
         </div>
@@ -1280,12 +1329,10 @@ setInterval(updateStatus, 60000);
     if (desc) {
         /* JSで後から入れる文字は fix_ja_breaks.py の対象外なので、
            .nw をここで手で入れる（入れないと iPhone で「第二・第四火／曜日」と割れる） */
-        desc.innerHTML = (m + 1)
-            + '<span class="nw">月の</span><span class="nw">お休みは</span> '
-            + restDays.join('・')
-            + ' <span class="nw">日で</span><span class="nw">ございます。</span>'
-            + '<span class="nw">（毎週月曜日と、</span><span class="nw">第二・</span>'
-            + '<span class="nw">第四火曜日）</span>';
+        desc.innerHTML = '<span class="nw">' + (m + 1) + '月のお休みは</span> '
+            + '<span class="nw">' + restDays.join('・') + ' 日でございます。</span>'
+            + '<span class="nw">（毎週月曜日と、</span>'
+            + '<span class="nw">第二・</span><span class="nw">第四火曜日）</span>';
     }
 })();
 
