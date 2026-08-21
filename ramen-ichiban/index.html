@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/ramen-ichiban/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/ramen-ichiban/img/hero-menlift.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/ramen-ichiban/img/moyashisoba.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -39,7 +39,7 @@
       "telephone": "+81-280-32-3865",
       "paymentAccepted": "Cash",
       "url": "https://creative-works-plus.github.io/restaurant-sites/ramen-ichiban/",
-      "image": "img/hero-menlift.jpg",
+      "image": "img/moyashisoba.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -478,20 +478,14 @@
     .photo-frame.r11 { aspect-ratio: 1 / 1; }
     .photo-frame.r34 { aspect-ratio: 3 / 4; }
 
-    /* --- ヒーロー（A-2：上に写真・下に情報帯） --------------------------------- */
+    /* --- ヒーロー（情報帯のみ・写真なし） ------------------------------------- */
     .hero { display: flex; flex-direction: column; padding: 0; }
-    .hero-photo {
-        position: relative; flex: 0 0 auto;
-        height: clamp(180px, 24svh, 280px);   /* ★先に高さを決める（帯が押し出されないように） */
-        overflow: hidden; background: var(--surface-2);
+    .hero-band { flex: 1 1 auto; display: flex; align-items: center; padding-block: var(--sp-5); }
+    /* 写真が無いぶん、PCでは画面いっぱいに引き伸ばさず内容の高さで収める */
+    @media (min-width: 901px) {
+        .hero { min-height: 0; }
+        .hero-band { padding-block: clamp(56px, 9vh, 104px); }
     }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
-    .hero-photo::after {
-        content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
-        background: linear-gradient(to top, var(--bg) 12%, rgba(242, 228, 189, 0));
-    }
-    .hero-band { flex: 1 1 auto; display: flex; align-items: center; padding-block: var(--sp-3) var(--sp-5); }
-    @media (min-width: 901px) { .hero-photo { height: clamp(260px, 38svh, 400px); } }
     .hero-eyebrow {
         font-size: var(--fz-cap); letter-spacing: .2em; color: var(--dim);
         margin-top: var(--sp-3);
@@ -514,8 +508,7 @@
     @media (max-width: 620px) { .hero .hero-actions { margin-top: var(--sp-4); } .hero-lead { margin-top: var(--sp-2); } }
     /* 画面の短いスマホ（SE等）でも、電話ボタンをファーストビューに収める */
     @media (max-width: 620px) and (max-height: 800px) {
-        .hero-photo { height: 18svh; }
-        .hero-band  { padding-block: var(--sp-2) var(--sp-3); }
+        .hero-band  { padding-block: var(--sp-3); }
         .hero-eyebrow { margin-top: var(--sp-2); }
         .hero-lead { font-size: 15.5px; }
         .hero-facts { margin-top: var(--sp-2); gap: 6px; }
@@ -746,11 +739,6 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-photo">
-        <img src="img/hero-menlift.jpg" alt="丼から箸で持ち上げた中華そばの細い縮れ麺と、澄んだ醤油のスープ"
-             width="984" height="1022" loading="eager" fetchpriority="high" decoding="async">
-    </div>
-
     <div class="hero-band">
         <div class="container">
             <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
