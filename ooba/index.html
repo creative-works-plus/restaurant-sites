@@ -428,11 +428,22 @@
     .cow-chips li.on { background: var(--accent); border-color: var(--accent); }
     .cow-chips li.on a { color: var(--bg); font-weight: 700; }
 
-    /* --- こだわるのは、黒毛和牛の牝牛です。 ------------------------------------- */
-    .about-grid { display: grid; gap: clamp(30px, 4vw, 54px); grid-template-columns: 1fr; }
-    @media (min-width: 860px) { .about-grid { grid-template-columns: 1.3fr .8fr; align-items: start; } }
-    .about-text p { color: var(--muted); margin-top: 18px; max-width: 58ch; }
-    .about-photo .photo-frame { aspect-ratio: 2 / 3; }
+    /* --- こだわるのは、黒毛和牛の牝牛です。 -------------------------------------
+       ★2026-08-21：店内の部位図ポスターの写真をここから外した。
+       同じ部位図をヒーローの図版（SVG）で既に見せており、掲示の文章もすぐ左に
+       起こしてあるので、写真は同じことを3度言う枠になっていた。
+       写真を抜いた穴は別の写真で埋めず、掲示の写しを「紙の面」として立てる。 */
+    .about-grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: start; }
+    @media (min-width: 860px) { .about-grid { grid-template-columns: .92fr 1.08fr; } }
+    .about-text p { color: var(--muted); margin-top: 18px; max-width: 46ch; }
+    .about-note { position: relative; margin: 0; border-left: none; padding: clamp(24px, 3.2vw, 38px);
+                   background: var(--surface); border: 1px solid var(--line);
+                   border-radius: var(--radius); box-shadow: var(--shadow); }
+    /* 掲示の紙らしさは、左肩に落とす一本の藍線だけで出す（額装はしない） */
+    .about-note::before { content: ""; position: absolute; left: 0; top: clamp(24px, 3.2vw, 38px);
+                           width: 3px; height: 46px; background: var(--accent); }
+    .about-note p:last-of-type { margin-bottom: 0; }
+    .about-note cite { margin-top: 20px; text-align: right; }
 
     /* --- 天然の備長炭で。（唯一の反転面） --------------------------------------- */
     .section-invert { background: var(--paper); color: var(--paper-ink); }
@@ -503,7 +514,19 @@
                           border: 1px solid var(--line); border-radius: var(--radius);
                           box-shadow: 0 12px 28px rgba(20,38,74,.06); margin: 0; }
 
-    /* --- ご案内 ----------------------------------------------------------------------- */
+    /* --- ご案内 -----------------------------------------------------------------------
+       ★2026-08-21：外観写真を差し替えた（正面 → 道路側。ポール看板と駐車場の
+       「IN」「P」が1枚に入るので、初めての方が探すときに役に立つ）。
+       見出しの脇に置く220pxの小片のままでは、道の様子も看板の文字も読めないため、
+       写真と店舗情報を2列に組み直して、写真に本来の大きさを与える。 */
+    .info-grid { display: grid; gap: clamp(24px, 3vw, 40px); grid-template-columns: 1fr;
+                  align-items: start; margin-top: 30px; }
+    @media (min-width: 900px) { .info-grid { grid-template-columns: 1fr 1.12fr; } }
+    .info-photo { margin: 0; }
+    .info-photo .photo-frame { aspect-ratio: 3 / 2; }
+    .info-photo figcaption { margin-top: 10px; font-size: .84rem; color: var(--muted); line-height: 1.8; }
+    @media (min-width: 900px) { .info-grid .info-table { margin-bottom: 0; } }
+
     .info-table { width: 100%; border-collapse: collapse; margin: 0 0 34px; }
     .info-table th, .info-table td { text-align: left; padding: 14px 10px; border-bottom: 1px solid var(--line);
                                        vertical-align: top; }
@@ -707,21 +730,14 @@
         <div class="about-text">
             <h2 class="section-title reveal"><span class="nw">黒毛和牛の、</span><span class="nw">牝牛だけ。</span></h2>
             <p class="reveal"><span class="nw">当店は、</span><span class="nw">黒毛和牛の</span><span class="nw">A5ランクの</span><span class="nw">牝牛だけを</span><span class="nw">お出しし</span><span class="nw">ております。</span><br class="br-pc"><span class="nw">東京食肉市場から</span><span class="nw">直に</span><span class="nw">仕入れ、</span><span class="nw">店で</span><span class="nw">切り</span><span class="nw">分けて</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
-
-            <blockquote class="quote reveal">
-                <p><span class="nw">黒毛和牛牝牛は</span><span class="nw">去勢牛</span><span class="nw">（牡牛）にはない</span><span class="nw">脂の</span><span class="nw">甘み、</span><span class="nw">肉の</span><span class="nw">味が</span><span class="nw">特徴で</span><span class="nw">サシは</span><span class="nw">入りにくく、</span><span class="nw">見た</span><span class="nw">目の</span><span class="nw">派手さはありません。</span><span class="nw">肉本来の</span><span class="nw">旨みは</span><span class="nw">牝牛が</span><span class="nw">強いです。</span><span class="nw">基本的に</span><span class="nw">脂の</span><span class="nw">質が</span><span class="nw">違います。</span><span class="nw">脂自体さっぱりしてます</span><span class="nw">ので、</span><span class="nw">年配の</span><span class="nw">方にもおすすめです。</span><span class="nw">松坂牛は</span><span class="nw">99%が</span><span class="nw">牝牛です。</span></p>
-                <p><span class="nw">ブランドにはこだわりません。</span><span class="nw">こだわるのは</span><span class="nw">「黒毛和牛の</span><span class="nw">牝牛」です。</span><span class="nw">ブランド</span><span class="nw">牛はあくまで</span><span class="nw">ブランド、</span><span class="nw">同じ</span><span class="nw">材質の</span><span class="nw">宝石でも</span><span class="nw">ブランド</span><span class="nw">名が</span><span class="nw">入ると</span><span class="nw">値段が</span><span class="nw">高騰します。</span><span class="nw">牛も</span><span class="nw">同じで</span><span class="nw">ブランド</span><span class="nw">牛は</span><span class="nw">高値で</span><span class="nw">取引され、</span><span class="nw">リーズナブルに</span><span class="nw">お客様に</span><span class="nw">提供するには</span><span class="nw">難しいからです。</span></p>
-                <p><span class="nw">ブランド</span><span class="nw">牛だけが</span><span class="nw">美味しいわけではないのを</span><span class="nw">実証いたします。</span></p>
-                <cite>店内の掲示より</cite>
-            </blockquote>
         </div>
 
-        <figure class="about-photo reveal">
-            <div class="photo-frame">
-                <img src="images/sign-cow-chart.jpg" alt="店内に掲げられた「おおばの牛肉へのこだわり」のポスター。牝牛についての説明文と、牛の部位図が描かれている"
-                     width="680" height="964" loading="lazy" decoding="async">
-            </div>
-        </figure>
+        <blockquote class="quote about-note reveal">
+            <p><span class="nw">黒毛和牛牝牛は</span><span class="nw">去勢牛</span><span class="nw">（牡牛）にはない</span><span class="nw">脂の</span><span class="nw">甘み、</span><span class="nw">肉の</span><span class="nw">味が</span><span class="nw">特徴で</span><span class="nw">サシは</span><span class="nw">入りにくく、</span><span class="nw">見た</span><span class="nw">目の</span><span class="nw">派手さはありません。</span><span class="nw">肉本来の</span><span class="nw">旨みは</span><span class="nw">牝牛が</span><span class="nw">強いです。</span><span class="nw">基本的に</span><span class="nw">脂の</span><span class="nw">質が</span><span class="nw">違います。</span><span class="nw">脂自体さっぱりしてます</span><span class="nw">ので、</span><span class="nw">年配の</span><span class="nw">方にもおすすめです。</span><span class="nw">松坂牛は</span><span class="nw">99%が</span><span class="nw">牝牛です。</span></p>
+            <p><span class="nw">ブランドにはこだわりません。</span><span class="nw">こだわるのは</span><span class="nw">「黒毛和牛の</span><span class="nw">牝牛」です。</span><span class="nw">ブランド</span><span class="nw">牛はあくまで</span><span class="nw">ブランド、</span><span class="nw">同じ</span><span class="nw">材質の</span><span class="nw">宝石でも</span><span class="nw">ブランド</span><span class="nw">名が</span><span class="nw">入ると</span><span class="nw">値段が</span><span class="nw">高騰します。</span><span class="nw">牛も</span><span class="nw">同じで</span><span class="nw">ブランド</span><span class="nw">牛は</span><span class="nw">高値で</span><span class="nw">取引され、</span><span class="nw">リーズナブルに</span><span class="nw">お客様に</span><span class="nw">提供するには</span><span class="nw">難しいからです。</span></p>
+            <p><span class="nw">ブランド</span><span class="nw">牛だけが</span><span class="nw">美味しいわけではないのを</span><span class="nw">実証いたします。</span></p>
+            <cite>店内の掲示より</cite>
+        </blockquote>
     </div>
 </section>
 
@@ -862,15 +878,16 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="info">
     <div class="container">
-        <div class="head-with-photo reveal">
-            <h2 class="section-title"><span class="nw">ご案内</span></h2>
-            <figure class="side-photo">
-                <div class="photo-frame">
-                    <img src="images/exterior-day-front.jpg" alt="昼間の店舗外観。切妻屋根の平屋建てで、杉板張りの妻壁に「炭火焼肉おおば」の立体文字看板。白い暖簾が下がる入口"
-                         width="866" height="578" loading="lazy" decoding="async">
-                </div>
-            </figure>
-        </div>
+        <h2 class="section-title reveal"><span class="nw">ご案内</span></h2>
+
+        <div class="info-grid">
+        <figure class="info-photo reveal">
+            <div class="photo-frame">
+                <img src="images/exterior-signboard.jpg" alt="道路側から見た昼間の店舗外観。手前に杉板張りの入口と白い暖簾、右手に「炭火焼肉おおば 黒毛和牛」のポール看板と駐車場の「IN」「P」の案内板が立つ"
+                     width="836" height="557" loading="lazy" decoding="async">
+            </div>
+            <figcaption><span class="nw">ポール</span><span class="nw">看板が</span><span class="nw">目印で</span><span class="nw">ございます。</span><span class="nw">お車は</span><span class="nw">23台まで</span><span class="nw">お停め</span><span class="nw">いただけます。</span></figcaption>
+        </figure>
 
         <table class="info-table reveal">
             <tr><th><span class="nw">住所</span></th><td>〒306-0221 <span class="nw">茨城県古河市駒羽根</span>8-1</td></tr>
@@ -890,6 +907,7 @@
                 <span class="pay-chip"><span class="nw">現金</span></span><span class="pay-chip"><span class="nw">クレジットカード</span></span><span class="pay-chip"><span class="nw">古河市はなもも</span><span class="nw">商品券</span></span>
             </td></tr>
         </table>
+        </div>
 
         <div class="map-wrapper reveal">
             <iframe
