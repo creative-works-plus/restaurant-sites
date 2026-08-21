@@ -665,7 +665,12 @@
         display: grid; gap: clamp(14px, 2.4vw, 20px); margin-top: clamp(30px, 5vw, 46px);
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     }
-    @media (min-width: 900px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 900px) {
+        .gallery { grid-template-columns: repeat(6, 1fr); }
+        .gallery figure { grid-column: span 2; }
+        /* 5枚なので、下段の2枚を中央に寄せる */
+        .gallery figure:nth-child(4) { grid-column: 2 / span 2; }
+    }
     .gallery figure { margin: 0; }
     .gallery .photo-frame { aspect-ratio: 4 / 3; }
     .gallery figcaption { font-size: 0.82rem; color: var(--dim); margin-top: 10px; letter-spacing: 0.04em; }
@@ -1126,13 +1131,6 @@
                          width="825" height="1100" loading="lazy" decoding="async">
                 </div>
                 <figcaption><span class="nw">お持ち</span><span class="nw">帰り</span></figcaption>
-            </figure>
-            <figure class="reveal reveal-delay-2">
-                <div class="photo-frame">
-                    <img src="img/staff.jpg" alt="厨房に立つ店主とスタッフ"
-                         width="720" height="720" loading="lazy" decoding="async">
-                </div>
-                <figcaption><span class="nw">お待ちし</span><span class="nw">ております</span></figcaption>
             </figure>
         </div>
     </div>
