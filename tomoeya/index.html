@@ -348,7 +348,7 @@
     .mon-symbols { position: absolute; width: 0; height: 0; overflow: hidden; }
     /* 1色で塗る紋は、3つの巴の境目を背景色の線で抜かないと
        ただの黒丸に見えてしまう。地の色は置き場所ごとに変える */
-    .mon-mark use, .hero-mon use {
+    .mon-mark use, .hero-mon use, .tomoe-mon use {
         fill: currentColor; stroke: var(--mon-gap, var(--bg));
         stroke-width: 4.5; stroke-linejoin: round; paint-order: stroke fill;
     }
@@ -388,28 +388,28 @@
        巴せいろ：三種の食べ比べ（このサイト最大の見せ場）
        ══════════════════════════════════════════════════ */
     #tomoe-zaru { background: var(--surface); }
-    .tomoe-layout { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--gap); align-items: stretch; margin-top: 40px; }
-    .tomoe-diagram-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+    .tomoe-layout { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--gap); align-items: start; margin-top: 40px; }
+    /* ★2026-08-21 改訂。もとは三つ巴の紋を3色に塗り分け、勾玉の中に「十割」「二八」「太打ち」の
+       文字を入れて、色の凡例（●つきのリスト）で対応させる図解だった。説明のための図は入れない
+       方針になったため（→ CLAUDE.md 絶対ルール⑫）、紋は単色の意匠に戻し、三種は品書きの体裁で並べる。
+       色を名前に読み替える手間が無くなるぶん、こちらのほうが速く読める */
+    .tomoe-diagram-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(20px, 3vw, 30px);
         background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius);
         padding: clamp(24px, 4vw, 40px); }
-    .tomoe-diagram { width: min(260px, 56vw); height: auto; }
-    .tomoe-diagram .c-10   { fill: var(--ink); }
-    .tomoe-diagram .c-28   { fill: var(--accent); }
-    .tomoe-diagram .c-futo { fill: var(--accent-2); }
-    .tomoe-diagram .ring   { fill: none; stroke: var(--accent-2); stroke-width: 1.4; opacity: .55; }
-    /* B5：勾玉ごとの品名ラベル。塗りは真下の勾玉の色ごとに読める濃さへ振り分ける */
-    .tomoe-diagram text { font-family: var(--font-body); font-weight: 700; font-size: 7px; }
-    .tomoe-diagram .lbl-10   { fill: var(--dark-ink); }
-    .tomoe-diagram .lbl-28   { fill: #fff; }
-    .tomoe-diagram .lbl-futo { fill: var(--dark-bg); }
-    .tomoe-legend { display: grid; gap: 12px; width: 100%; }
-    .tomoe-legend li { display: flex; align-items: baseline; gap: 10px; font-size: 0.95rem; }
-    .tomoe-legend .dot { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 12px; margin-top: 3px; }
-    .tomoe-legend .dot.c-10   { background: var(--ink); }
-    .tomoe-legend .dot.c-28   { background: var(--accent); }
-    .tomoe-legend .dot.c-futo { background: var(--accent-2); }
-    .tomoe-legend strong { font-family: var(--font-head); font-weight: 400; font-size: 1.02rem; }
-    .tomoe-legend span.desc { color: var(--muted); display: block; margin-top: 2px; }
+    .tomoe-mon { width: min(132px, 30vw); height: auto; color: var(--accent-2); --mon-gap: var(--surface-2); }
+    .tomoe-mon .ring { fill: none; stroke: var(--accent-2); stroke-width: 1.2; opacity: .45; }
+    /* 三種は品書きの体裁で。細い罫で区切るだけにして、色の凡例は置かない */
+    .tomoe-kinds { width: 100%; }
+    .tomoe-kinds li { padding-block: 14px; }
+    .tomoe-kinds li + li { border-top: 1px solid var(--line); }
+    .tomoe-kinds strong {
+        display: block; font-family: var(--font-head); font-weight: 400;
+        font-size: 1.18rem; letter-spacing: .06em; color: var(--ink);
+    }
+    .tomoe-kinds .desc {
+        display: block; margin-top: 5px;
+        font-size: 0.92rem; line-height: 1.85; color: var(--muted);
+    }
 
     .tomoe-photos { display: grid; gap: var(--gap); }
     .tomoe-photos .photo-frame { aspect-ratio: 16 / 10; }
@@ -535,8 +535,8 @@
 <body class="no-js">
 <!-- no-js クラスは下の script が消す -->
 
-<!-- 三つ巴の紋：1本のコマ形（磬）を120度ずつ回して3つ並べる。ヘッダーの小さな紋と
-     巴せいろの図解（3色分け）の両方がここを参照する。意匠パーツなので重複対象外 -->
+<!-- 三つ巴の紋：1本のコマ形（磬）を120度ずつ回して3つ並べる。ヘッダー・ヒーロー・
+     巴せいろの章の3か所がここを参照する。意匠パーツなので重複対象外 -->
 <svg class="mon-symbols" aria-hidden="true">
   <symbol id="tomoe-comma" viewBox="0 0 100 100">
     <!-- 中心から縁まで、半径が外円の半分の弧で仕切った1本ぶんの巴。
@@ -625,7 +625,7 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     巴せいろ：三種の食べ比べ（このサイトの見せ場。三つ巴の紋を色分けして図解）
+     巴せいろ：三種の食べ比べ（このサイトの見せ場。紋は単色の意匠、三種は品書きで並べる）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="tomoe-zaru">
     <div class="container">
@@ -637,27 +637,24 @@
 
         <div class="tomoe-layout">
             <div class="tomoe-diagram-wrap reveal">
-                <svg class="tomoe-diagram" viewBox="0 0 100 100" aria-hidden="true">
+                <svg class="tomoe-mon" viewBox="0 0 100 100" aria-hidden="true">
                     <circle class="ring" cx="50" cy="50" r="47"/>
-                    <use href="#tomoe-comma" class="c-10"/>
-                    <use href="#tomoe-comma" class="c-28" transform="rotate(120 50 50)"/>
-                    <use href="#tomoe-comma" class="c-futo" transform="rotate(240 50 50)"/>
-                    <text class="lbl-10" x="50" y="27.5" text-anchor="middle">十割</text>
-                    <text class="lbl-28" x="69.5" y="61.3" text-anchor="middle">二八</text>
-                    <text class="lbl-futo" x="30.5" y="61.3" text-anchor="middle">太打ち</text>
+                    <use href="#tomoe-comma"/>
+                    <use href="#tomoe-comma" transform="rotate(120 50 50)"/>
+                    <use href="#tomoe-comma" transform="rotate(240 50 50)"/>
                 </svg>
-                <ul class="tomoe-legend">
+                <ul class="tomoe-kinds">
                     <li>
-                        <span class="dot c-10"></span>
-                        <span><strong><span class="nw">十割</span></strong><span class="desc"><span class="nw">蕎麦粉だけで</span><span class="nw">打った、</span><span class="nw">香りの</span><span class="nw">強い</span><span class="nw">一枚です。</span></span></span>
+                        <strong><span class="nw">十割</span></strong>
+                        <span class="desc"><span class="nw">蕎麦粉だけで</span><span class="nw">打った、</span><span class="nw">香りの</span><span class="nw">強い</span><span class="nw">一枚です。</span></span>
                     </li>
                     <li>
-                        <span class="dot c-28"></span>
-                        <span><strong><span class="nw">二八</span></strong><span class="desc"><span class="nw">蕎麦粉八割・</span><span class="nw">小麦粉二割。</span><span class="nw">のどごしのよい</span><span class="nw">一枚です。</span></span></span>
+                        <strong><span class="nw">二八</span></strong>
+                        <span class="desc"><span class="nw">蕎麦粉八割・</span><span class="nw">小麦粉二割。</span><span class="nw">のどごしのよい</span><span class="nw">一枚です。</span></span>
                     </li>
                     <li>
-                        <span class="dot c-futo"></span>
-                        <span><strong><span class="nw">熟成太打ち</span></strong><span class="desc"><span class="nw">打ってから</span><span class="nw">寝かせ、</span><span class="nw">太めに</span><span class="nw">打った、</span><span class="nw">噛みごたえのある</span><span class="nw">一枚です。</span></span></span>
+                        <strong><span class="nw">熟成太打ち</span></strong>
+                        <span class="desc"><span class="nw">打ってから</span><span class="nw">寝かせ、</span><span class="nw">太めに</span><span class="nw">打った、</span><span class="nw">噛みごたえのある</span><span class="nw">一枚です。</span></span>
                     </li>
                 </ul>
             </div>

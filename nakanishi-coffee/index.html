@@ -306,7 +306,7 @@
 
        世界観 …「白いガルバリウム波板の小さな箱に、黒い線で描かれた
                  ドリップスタンドがひとつ」。銀灰の地に白い箱を並べる。
-       ヒーロー … A-11「配合の図」（新設）
+       ヒーロー … 一杯の実写（丸抜き）＋合わせている三つの産地（2026-08-21 改訂）
        お品書き … B-1（価格右寄せ＝豆）＋ B-2（カード＝店内のお品書き）
        ══════════════════════════════════════════════════════════════════ */
 
@@ -409,7 +409,7 @@
     .lede { color: var(--muted); max-width: 44em; }
     .lede + .lede { margin-top: var(--sp-3); }
 
-    /* --- ヒーロー ＝ A-11「配合の図」 ------------------------------------------ */
+    /* --- ヒーロー ------------------------------------------------------------- */
     .hero {
         display: flex; align-items: center;
         padding-block: var(--sp-6);
@@ -439,41 +439,46 @@
     }
     .hero-note { font-size: var(--fz-cap); color: var(--dim); letter-spacing: 0.04em; }
 
-    /* 配合の図（静止。ホバーで輪郭だけ濃くなる） */
-    .blend { width: 100%; max-width: 460px; margin-inline: auto; }
-    .blend svg { width: 100%; height: auto; overflow: visible; }
-    .blend .ring { fill: #FFFFFF; stroke: var(--accent);
-                   stroke-width: 1.4; stroke-opacity: .55;
-                   transition: stroke-opacity .2s ease, fill-opacity .2s ease; }
-    .blend .ring-1 { fill-opacity: .10; }   /* 浅い（エチオピア） */
-    .blend .ring-2 { fill-opacity: .17; }   /* 中（グアテマラ） */
-    .blend .ring-3 { fill-opacity: .26; }   /* 深い（ブラジル） */
-    .blend:hover .ring { stroke-opacity: .9; }
-    .blend:hover .ring-1 { fill-opacity: .15; }
-    .blend:hover .ring-2 { fill-opacity: .23; }
-    .blend:hover .ring-3 { fill-opacity: .33; }
-    .blend .origin {
-        font-family: var(--font-ja-head); font-size: 15px; letter-spacing: .08em;
-        fill: var(--muted);
+    /* 一杯（丸く抜いた実写）と、合わせている三つの産地 */
+    .blend { width: 100%; max-width: 340px; margin-inline: auto; }  /* 元写真が360pxなので、これ以上大きくしない */
+    .blend-photo {
+        position: relative; width: 100%; aspect-ratio: 1 / 1;
+        border-radius: 50%; overflow: hidden;
+        box-shadow: 0 18px 44px rgba(60, 40, 24, .16);
     }
-    .blend .origin-en {
-        font-family: var(--font-head); font-size: 9.5px; letter-spacing: .2em;
-        fill: var(--dim);
+    .blend-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .blend-photo::after {
+        content: ""; position: absolute; inset: 0; border-radius: 50%;
+        border: 1px solid var(--accent); opacity: .5; pointer-events: none;
     }
-    .blend .cup-ring { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-opacity: .85; }
     .blend-cap {
-        text-align: center; margin-top: var(--sp-3);
+        text-align: center; margin-top: var(--sp-4);
         font-family: var(--font-ja-head); letter-spacing: .14em; font-size: 1.02rem;
     }
     .blend-cap span {
         display: block; font-family: var(--font-head); font-size: .7rem;
         letter-spacing: .28em; color: var(--dim); margin-top: 4px;
     }
+    .blend-origins {
+        display: grid; grid-template-columns: repeat(3, 1fr);
+        margin-top: var(--sp-3); text-align: center;
+    }
+    .blend-origins li { padding-inline: 4px; }
+    .blend-origins li + li { border-left: 1px solid var(--line); }
+    .blend-origins .ja {
+        display: block; font-family: var(--font-ja-head);
+        font-size: .92rem; letter-spacing: .04em; color: var(--muted);
+    }
+    .blend-origins .en {
+        display: block; font-family: var(--font-head);
+        font-size: .58rem; letter-spacing: .18em; color: var(--dim); margin-top: 3px;
+    }
+
     @media (max-width: 900px) {
         .hero .container { grid-template-columns: 1fr; }
         .hero-copy { order: 1; }
         .blend-wrap { order: 2; }
-        .blend { max-width: 340px; }
+        .blend { max-width: 288px; }
     }
 
     /* --- 全幅の帯（写真） ----------------------------------------------------- */
@@ -724,8 +729,10 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     ヒーロー ＝ A-11「配合の図」（新設）
-     三つの円が重なって、真ん中が一杯になる
+     ヒーロー ＝ 一杯の実写と、合わせている三つの産地
+     ★2026-08-21 改訂。もとは A-11「配合の図」（三つの円が重なるヴェン図）だったが、
+       説明のための図（図解）は入れない方針になったため、店のロゴ入りカップの実写と
+       産地名の組みに差し替えた（CLAUDE.md 絶対ルール⑫）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
     <div class="container">
@@ -752,26 +759,19 @@
         </div>
 
         <div class="blend-wrap">
-            <div class="blend">
-                <svg viewBox="0 0 400 330" role="img" aria-labelledby="blend-title blend-desc">
-                    <title id="blend-title">ノギマチブレンドの配合</title>
-                    <desc id="blend-desc">ブラジル・グアテマラ・エチオピアの三つが重なる中心に、一杯の珈琲があります。</desc>
-                    <circle class="ring ring-3" cx="150" cy="130" r="110"/>
-                    <circle class="ring ring-2" cx="250" cy="130" r="110"/>
-                    <circle class="ring ring-1" cx="200" cy="205" r="110"/>
-                    <clipPath id="cup-clip"><circle cx="200" cy="155" r="50"/></clipPath>
-                    <image href="img/hero-cup.jpg" x="150" y="105" width="100" height="100"
-                           preserveAspectRatio="xMidYMid slice" clip-path="url(#cup-clip)"></image>
-                    <circle class="cup-ring" cx="200" cy="155" r="50"/>
-                    <text class="origin"    x="110" y="58"  text-anchor="middle">ブラジル</text>
-                    <text class="origin-en" x="110" y="74"  text-anchor="middle">BRAZIL</text>
-                    <text class="origin"    x="292" y="58"  text-anchor="middle">グアテマラ</text>
-                    <text class="origin-en" x="292" y="74"  text-anchor="middle">GUATEMALA</text>
-                    <text class="origin"    x="200" y="283" text-anchor="middle">エチオピア</text>
-                    <text class="origin-en" x="200" y="299" text-anchor="middle">ETHIOPIA</text>
-                </svg>
-                <p class="blend-cap"><span class="nw">ノギマチブレンド</span><span>NOGIMACHI BLEND</span></p>
-            </div>
+            <figure class="blend">
+                <div class="blend-photo">
+                    <img src="img/hero-cup.jpg"
+                         alt="中西珈琲のロゴが入った白いカップに注がれた珈琲。木の受け皿にのっている"
+                         width="360" height="360" style="height:auto" decoding="async">
+                </div>
+                <figcaption class="blend-cap"><span class="nw">ノギマチブレンド</span><span>NOGIMACHI BLEND</span></figcaption>
+                <ul class="blend-origins">
+                    <li><span class="ja"><span class="nw">ブラジル</span></span><span class="en">BRAZIL</span></li>
+                    <li><span class="ja"><span class="nw">グアテマラ</span></span><span class="en">GUATEMALA</span></li>
+                    <li><span class="ja"><span class="nw">エチオピア</span></span><span class="en">ETHIOPIA</span></li>
+                </ul>
+            </figure>
         </div>
     </div>
 </section>
