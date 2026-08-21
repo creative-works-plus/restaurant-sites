@@ -249,7 +249,10 @@
     .page-hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 44px; align-items: center; }
     .page-hero-catch { font-family: var(--font-mincho); font-weight: 800; color: var(--washi); font-size: clamp(1.9rem, 5vw, 2.7rem); line-height: 1.5; letter-spacing: 0.04em; }
     .page-hero-sub { margin-top: 20px; color: var(--fog); font-size: 0.98rem; line-height: 2; max-width: 36em; }
-    .page-hero-hours { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 0.86rem; color: var(--fog); }
+    /* 提供時間と定休日は別の行に分ける（1行に並べると折り返しで「定休日」だけ取り残される） */
+    .page-hero-hours { margin-top: 22px; font-size: 0.86rem; color: var(--fog); }
+    .page-hero-hours-row { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+    .page-hero-hours-row + .page-hero-hours-row { margin-top: 8px; }
     .page-hero-hours strong { color: var(--washi); font-weight: 600; }
     .page-hero-note { margin-top: 20px; font-size: 0.82rem; color: var(--fog-dim); }
 
@@ -356,7 +359,7 @@
 
     @media (max-width: 860px) {
         .page-hero-inner { grid-template-columns: 1fr; text-align: center; }
-        .page-hero-hours { justify-content: center; }
+        .page-hero-hours-row { justify-content: center; }
         .subnav { justify-content: center; }
         .mini-info { justify-content: center; text-align: center; }
         section.section { padding: 72px 0; }
@@ -454,7 +457,10 @@
                 <span class="eyebrow">Lunch</span>
                 <h1 class="page-hero-catch"><span class="nw">昼にも、</span><br><span class="nw">贅沢な</span><span class="nw">一杯を。</span></h1>
                 <p class="page-hero-sub"><span class="nw">看板のこぼれ</span><span class="nw">マウンテン</span><span class="nw">丼をはじめ、</span><span class="nw">マグロ</span><span class="nw">丼・</span><span class="nw">サーモン</span><span class="nw">丼・</span><span class="nw">定食まで。</span><span class="nw">仕入れにこだわった</span><span class="nw">海鮮を、</span><span class="nw">昼のひと</span><span class="nw">ときにも</span><span class="nw">気軽に</span><span class="nw">お楽しみ</span><span class="nw">いただけます。</span><span class="nw">ランチタイムも</span><span class="nw">駐車場</span><span class="nw">50台完備、</span><span class="nw">個室の</span><span class="nw">ご利用・</span><span class="nw">ネット</span><span class="nw">予約も</span><span class="nw">可能です。</span></p>
-                <p class="page-hero-hours"><strong><span class="nw">提供時間</span></strong> 11:00〜14:00（L.O.13:30）　<strong><span class="nw">定休日</span></strong> <span class="nw">火曜日</span></p>
+                <div class="page-hero-hours">
+                    <p class="page-hero-hours-row"><strong><span class="nw">提供時間</span></strong> <span class="nwb">11:00〜14:00（L.O.13:30）</span></p>
+                    <p class="page-hero-hours-row"><strong><span class="nw">定休日</span></strong> <span class="nwb"><span class="nw">火曜日</span></span></p>
+                </div>
                 <nav class="subnav" aria-label="メニューページ切り替え">
                     <a href="course.html">コース</a>
                     <a href="food.html">フード</a>
