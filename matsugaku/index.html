@@ -528,14 +528,26 @@
         box-shadow: 0 20px 44px rgba(34, 38, 28, 0.16);
     }
     .hp-udon img { object-position: 50% 54%; }
+    /* うどんの下に、丼（縦位置）と店構え（横位置）を下ぞろえで2枚。
+       右下が空くのでここに店構えを入れ、料理2枚に「どんな店か」を足す */
+    .hp-row {
+        position: relative; z-index: 2;
+        display: flex; align-items: flex-end; gap: clamp(10px, 1.4vw, 16px);
+        margin: -19% 0 0 6%;
+    }
     .hero-photos .hp-don {
-        position: relative; z-index: 2; aspect-ratio: 3 / 4;
-        width: 44%; margin: -19% 0 0 6%;
+        flex: 0 0 47%; aspect-ratio: 3 / 4;
         overflow: hidden; border-radius: 14px;
         /* 縁取りは border ではなく影で作る（aspect-ratio と喧嘩しない） */
         box-shadow: 0 0 0 6px var(--bg), 0 22px 46px rgba(34, 38, 28, 0.22);
     }
     .hp-don img { object-position: 50% 52%; }
+    .hero-photos .hp-shop {
+        flex: 1 1 0; aspect-ratio: 4 / 3;
+        overflow: hidden; border-radius: 14px;
+        box-shadow: 0 0 0 6px var(--bg), 0 16px 34px rgba(34, 38, 28, 0.18);
+    }
+    .hp-shop img { object-position: 50% 46%; }
 
     @media (max-width: 959px) {              /* 上に文字、下に組み写真 */
         .hero { padding-block: clamp(30px, 6vw, 52px); }
@@ -545,7 +557,8 @@
         .hero-rule { margin-inline: auto; }
         .hero .hero-actions { justify-content: center; }
         .hero-photos { max-width: 520px; margin-inline: auto; }
-        .hero-photos .hp-don { width: 42%; margin: -17% 0 0 4%; }
+        .hp-row { margin: -17% 0 0 4%; gap: 10px; }
+        .hero-photos .hp-don { flex: 0 0 46%; }
     }
 
     /* --- はじめてのお客様へ（実用の欄を先に出す） ----------------------------- */
@@ -793,10 +806,16 @@
                 <img src="img/hero-udon.jpg" alt="竹すのこのせいろに盛った、つやのある太いさぬきうどん"
                      width="1200" height="675" fetchpriority="high" decoding="async">
             </figure>
-            <figure class="hp-don">
-                <img src="img/hero-donburi.jpg" alt="赤い丼に盛ったかつ丼。卵でとじたかつに三つ葉を添えている"
-                     width="640" height="853" fetchpriority="high" decoding="async">
-            </figure>
+            <div class="hp-row">
+                <figure class="hp-don">
+                    <img src="img/hero-donburi.jpg" alt="赤い丼に盛ったかつ丼。卵でとじたかつに三つ葉を添えている"
+                         width="640" height="853" fetchpriority="high" decoding="async">
+                </figure>
+                <figure class="hp-shop">
+                    <img src="img/hero-shop.jpg" alt="瓦屋根の平屋の入口。紺色の「味自慢 うどん」の暖簾と営業中ののぼりが立っている"
+                         width="700" height="525" decoding="async">
+                </figure>
+            </div>
         </div>
     </div>
 </section>
