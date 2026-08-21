@@ -542,20 +542,16 @@
 
     /* ── 署名：出どころの見取り図 ─────────────────────────────────── */
     #origin { background: var(--surface); border-block: 1px solid var(--line); }
-    .origin-wrap { display: grid; gap: var(--gap); }
-    @media (min-width: 900px) { .origin-wrap { grid-template-columns: 1fr 1fr; align-items: center; } }
-    .zen-map { width: 100%; height: auto; }
-    .zen-map .dish { fill: #fff; stroke: var(--accent-2); stroke-width: 1.1; }
-    .zen-map .dish.own { fill: var(--accent-hi); fill-opacity: 0; transition: fill-opacity .6s ease .2s; }
-    .in-view .zen-map .dish.own { fill-opacity: .42; }
-    @media (prefers-reduced-motion: reduce) { .zen-map .dish.own { fill-opacity: .42; transition: none; } }
-    .zen-map .lead-line { stroke: var(--dim); stroke-width: .8; }
-    .zen-map text { font-family: var(--font-body); font-size: 10.5px; fill: var(--ink); letter-spacing: .02em; }
-    .zen-map text.src { fill: var(--muted); font-size: 9px; }
-    .origin-key { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-4); font-size: var(--fz-cap); color: var(--muted); }
-    .origin-key span { display: inline-flex; align-items: center; gap: 7px; }
-    .origin-key i { width: 13px; height: 13px; border: 1px solid var(--accent-2); display: block; }
-    .origin-key i.own { background: rgba(116, 162, 38, .42); }
+    /* ★2026-08-21：左に置いていたお膳の俯瞰図（SVGの図解）を削除した（絶対ルール⑫）。
+       残った一覧を左右2列に割って、横幅の空きを埋める。狭い画面では1列に落として、
+       2枚目の罫線を消し、1本の続きに見せる（間に空行が空いたように見えるのを防ぐ）。 */
+    .origin-wrap { display: grid; gap: 0; margin-top: var(--sp-5); }
+    .origin-wrap .calendar { margin-top: 0; }
+    .origin-wrap .calendar + .calendar { border-top: 0; }
+    @media (min-width: 900px) {
+        .origin-wrap { grid-template-columns: 1fr 1fr; align-items: start; column-gap: var(--sp-6); }
+        .origin-wrap .calendar + .calendar { border-top: 1px solid var(--line-strong); }
+    }
     .cert { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
     .cert li {
         border: 1px solid var(--accent); color: var(--accent-deep);
@@ -851,45 +847,21 @@
         <span class="sec-label reveal">WHERE IT COMES FROM</span>
         <h2 class="section-title reveal"><span class="nw">お膳の、</span><span class="nw">出どころ</span></h2>
 
-        <div class="origin-wrap">
-            <div class="reveal">
-                <svg class="zen-map" viewBox="0 0 420 300" role="img" aria-label="お膳を真上から見た図。そば、季節の野菜、そば豆腐、ごはん、落花生、味噌汁、そば茶の器を自家栽培のしるしで塗り分けている">
-                    <rect x="8" y="8" width="404" height="284" rx="8" fill="none" stroke="#3C3324" stroke-width="1.4" opacity=".55"/>
-                    <circle class="dish own" cx="100" cy="128" r="60"/>
-                    <text x="100" y="133" text-anchor="middle" font-size="15">1</text>
-                    <rect class="dish own" x="180" y="30" width="212" height="62" rx="3"/>
-                    <text x="286" y="66" text-anchor="middle" font-size="15">2</text>
-                    <circle class="dish own" cx="205" cy="150" r="25"/>
-                    <text x="205" y="155" text-anchor="middle" font-size="15">3</text>
-                    <circle class="dish own" cx="266" cy="150" r="27"/>
-                    <text x="266" y="155" text-anchor="middle" font-size="15">4</text>
-                    <circle class="dish own" cx="325" cy="150" r="22"/>
-                    <text x="325" y="155" text-anchor="middle" font-size="15">5</text>
-                    <circle class="dish own" cx="378" cy="150" r="22"/>
-                    <text x="378" y="155" text-anchor="middle" font-size="15">6</text>
-                    <circle class="dish own" cx="212" cy="238" r="23"/>
-                    <text x="212" y="243" text-anchor="middle" font-size="15">7</text>
-                    <rect class="dish" x="278" y="212" width="42" height="52" rx="7"/>
-                    <text x="299" y="243" text-anchor="middle" font-size="15">8</text>
-                </svg>
-                <div class="origin-key">
-                    <span><i class="own"></i>道の向かいの畑・田んぼから</span>
-                    <span><i></i>仕入れているもの</span>
-                </div>
-            </div>
+        <p class="lede reveal"><span class="nw">お膳に</span><span class="nw">載る</span><span class="nw">もののほとんどは、</span><strong><span class="nw">道の</span><span class="nw">向かいの</span><span class="nw">畑と</span><span class="nw">田んぼで</span><span class="nw">穫れた</span><span class="nw">ものです。</span></strong><span class="nw">その</span><span class="nw">朝に</span><span class="nw">採った</span><span class="nw">野菜を、</span><span class="nw">そのまま</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+        <p class="lede reveal"><span class="nw">そばは</span><span class="nw">自家栽培の</span><span class="nw">ものを</span><span class="nw">自家の</span><span class="nw">石臼で</span><span class="nw">挽き、</span><span class="nw">お米も</span><span class="nw">落花生も、</span><span class="nw">そば</span><span class="nw">茶の</span><span class="nw">実も</span><span class="nw">同じ</span><span class="nw">土から</span><span class="nw">穫っ</span><span class="nw">ております。</span></p>
 
-            <div class="reveal reveal-delay-1">
-                <p class="lede"><span class="nw">お膳の</span><span class="nw">器を、</span><span class="nw">上から</span><span class="nw">並べてみました。</span><strong><span class="nw">色を</span><span class="nw">付けた</span><span class="nw">器は、</span><span class="nw">当店の</span><span class="nw">畑と</span><span class="nw">田んぼで</span><span class="nw">採れた</span><span class="nw">ものです。</span></strong></p>
-                <div class="calendar" style="margin-top:var(--sp-4);">
-                    <dl><dt>1</dt><dd><span class="nw">そば</span> ─ <span class="nw">自家栽培の</span><span class="nw">常陸秋そばを、</span><span class="nw">自家の</span><span class="nw">石臼で</span><span class="nw">挽い</span><span class="nw">ております</span></dd></dl>
-                    <dl><dt>2</dt><dd><span class="nw">季節の</span><span class="nw">野菜</span> ─ <span class="nw">有機</span><span class="nw">JAS認証の</span><span class="nw">畑から、</span><span class="nw">その</span><span class="nw">朝に</span><span class="nw">採った</span><span class="nw">ものを</span></dd></dl>
-                    <dl><dt>3</dt><dd><span class="nw">そば</span><span class="nw">豆腐</span> ─ <span class="nw">自家製粉のそば</span><span class="nw">粉から</span><span class="nw">作ります</span></dd></dl>
-                    <dl><dt>4</dt><dd><span class="nw">ごはん</span> ─ <span class="nw">地下</span><span class="nw">100mの</span><span class="nw">水で</span><span class="nw">育てた</span><span class="nw">自家栽培米</span><span class="nw">（白米と</span><span class="nw">六穀米）</span></dd></dl>
-                    <dl><dt>5</dt><dd><span class="nw">落花生</span> ─ <span class="nw">自家栽培・</span><span class="nw">自家焙煎。</span><span class="nw">ジェノベーゼでは</span><span class="nw">松の</span><span class="nw">実の</span><span class="nw">代わりに</span></dd></dl>
-                    <dl><dt>6</dt><dd><span class="nw">汁もの</span> ─ <span class="nw">手作りの</span><span class="nw">田舎味噌をあわせて</span></dd></dl>
-                    <dl><dt>7</dt><dd><span class="nw">そば</span>茶 ─ <span class="nw">自家栽培のそばの</span><span class="nw">実を、</span><span class="nw">自家で</span><span class="nw">焙煎し</span><span class="nw">ております</span></dd></dl>
-                    <dl><dt>8</dt><dd><span class="nw">つゆ</span> ─ <span class="nw">調味料は</span><span class="nw">仕入れた</span><span class="nw">ものをあわせ</span><span class="nw">ております</span></dd></dl>
-                </div>
+        <div class="origin-wrap reveal reveal-delay-1">
+            <div class="calendar">
+                <dl><dt><span class="nw">そば</span></dt><dd><span class="nw">自家栽培の</span><span class="nw">常陸秋そばを、</span><span class="nw">自家の</span><span class="nw">石臼で</span><span class="nw">挽い</span><span class="nw">ております</span></dd></dl>
+                <dl><dt><span class="nw">季節の</span><span class="nw">野菜</span></dt><dd><span class="nw">有機</span><span class="nw">JAS認証の</span><span class="nw">畑から、</span><span class="nw">その</span><span class="nw">朝に</span><span class="nw">採った</span><span class="nw">ものを</span></dd></dl>
+                <dl><dt><span class="nw">そば</span><span class="nw">豆腐</span></dt><dd><span class="nw">自家製粉のそば</span><span class="nw">粉から</span><span class="nw">作ります</span></dd></dl>
+                <dl><dt><span class="nw">ごはん</span></dt><dd><span class="nw">地下</span><span class="nw">100mの</span><span class="nw">水で</span><span class="nw">育てた</span><span class="nw">自家栽培米</span><span class="nw">（白米と</span><span class="nw">六穀米）</span></dd></dl>
+            </div>
+            <div class="calendar">
+                <dl><dt><span class="nw">落花生</span></dt><dd><span class="nw">自家栽培・</span><span class="nw">自家焙煎。</span><span class="nw">ジェノベーゼでは</span><span class="nw">松の</span><span class="nw">実の</span><span class="nw">代わりに</span></dd></dl>
+                <dl><dt><span class="nw">汁もの</span></dt><dd><span class="nw">手作りの</span><span class="nw">田舎味噌をあわせて</span></dd></dl>
+                <dl><dt><span class="nw">そば</span>茶</dt><dd><span class="nw">自家栽培のそばの</span><span class="nw">実を、</span><span class="nw">自家で</span><span class="nw">焙煎し</span><span class="nw">ております</span></dd></dl>
+                <dl><dt><span class="nw">つゆ</span></dt><dd><span class="nw">調味料は</span><span class="nw">仕入れた</span><span class="nw">ものをあわせ</span><span class="nw">ております</span></dd></dl>
             </div>
         </div>
     </div>
