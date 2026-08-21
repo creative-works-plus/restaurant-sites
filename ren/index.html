@@ -8,14 +8,14 @@
     <meta name="robots" content="noindex, nofollow">
 
     <title>蓮 - 公式サイト｜古河市 ラーメン</title>
-    <meta name="description" content="茨城県古河市坂間のラーメン店「蓮」。醤油・味噌・塩のラーメンに＋400円で餃子や半ライスが付くセットが揃い、現金でのお支払い、大型車も停められる駐車場もご利用いただけます。">
+    <meta name="description" content="茨城県古河市坂間のラーメン店「蓮」。味噌・醤油・塩の三種から選べる一杯に、餃子やモツ煮の一品をご用意しております。小上がりのお座敷と、大型車も停められる駐車場がございます。お支払いは現金のみ。">
 
     <meta property="og:title" content="蓮｜古河市坂間のラーメン店">
-    <meta property="og:description" content="醤油・味噌・塩のラーメンに、＋400円で一膳になるセットが揃う古河市坂間のラーメン店です。">
+    <meta property="og:description" content="味噌・醤油・塩の三種から選べる一杯。茨城県古河市坂間のラーメン店です。">
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/ren/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/ren/img/hero-set.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/ren/img/hero.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。看板の紅（--accent）で指定 -->
@@ -39,7 +39,7 @@
       "telephone": "+81-280-48-2955",
       "paymentAccepted": "Cash",
       "url": "https://creative-works-plus.github.io/restaurant-sites/ren/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/ren/img/hero-set.jpg",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/ren/img/hero.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -163,7 +163,7 @@
     .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
     .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
     .nav-toggle { margin-left: 6px; }
-    .hero { min-height: min(calc(100svh - var(--header-h)), 760px); }  /* 足し算のズレをなくす。760px の上限は、空きすぎて式と電話が離れるのを防ぐため */
+    .hero { min-height: min(100svh, 820px); }  /* ヒーローはヘッダーの下まで通す全画面。820px の上限は、大画面で間延びさせず次の節を覗かせるため */
     [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
     a { color: inherit; text-decoration: none; }
     ul, ol { list-style: none; }
@@ -396,10 +396,36 @@
     .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: var(--sp-5); }
 
     /* --- ヘッダー ------------------------------------------------------------- */
-    .site-header { background: rgba(247, 241, 242, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .site-header {
+        background: rgba(247, 241, 242, 0.92); backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+        transition: background 0.28s ease, border-color 0.28s ease;
+    }
     .brand { font-family: var(--font-head); font-size: clamp(20px, 4.6vw, 26px); color: var(--accent); }
     .header-tel { color: var(--ink); }
     .header-tel svg { color: var(--accent); }
+    /* ★ハンバーガーの3本線。04-base.css は当たり判定（44×44）までしか持っておらず、
+       線そのものは店側で描く決まりになっている。ここが無かったので
+       スマホのメニューボタンが「押せるが見えない」状態だった（2026-08-21 修正）。
+       `> span:not([class])` に限定するのは、中に文字ラベルを足したとき4本目が出ないため。 */
+    .nav-toggle > span:not([class]) {
+        width: 22px; height: 2px; border-radius: 2px;
+        background: var(--ink);
+        transition: background 0.28s ease;
+    }
+
+    /* ★ヒーローの写真の上にいる間だけ、ヘッダーを写真に溶かす。
+       60px スクロールすると既存の監視が body.scrolled を付けて元の白い帯に戻る。
+       .nav-open を除くのは、メニューを開いた時だけは白地に戻さないと文字が読めないため。 */
+    body:not(.scrolled):not(.nav-open) .site-header {
+        background: transparent; backdrop-filter: none; border-bottom-color: transparent;
+    }
+    body:not(.scrolled):not(.nav-open) .brand,
+    body:not(.scrolled):not(.nav-open) .header-tel { color: #fff; text-shadow: 0 1px 12px rgba(18, 4, 9, 0.6); }
+    body:not(.scrolled):not(.nav-open) .header-tel svg { color: #fff; }
+    body:not(.scrolled):not(.nav-open) .pc-nav a { color: rgba(255, 255, 255, 0.88); }
+    body:not(.scrolled):not(.nav-open) .pc-nav a:hover { color: #fff; }
+    body:not(.scrolled):not(.nav-open) .nav-toggle > span:not([class]) { background: #fff; }
 
     .pc-nav { display: none; margin-left: auto; gap: clamp(14px, 1.8vw, 24px); align-items: center; }
     .pc-nav a { font-size: 0.88rem; letter-spacing: 0.03em; color: var(--muted); }
@@ -407,6 +433,9 @@
     @media (min-width: 901px) {
         .pc-nav { display: flex; }
         .header-tel { margin-left: clamp(14px, 2vw, 24px); }
+        /* PCは横並びのナビが出ているので、ハンバーガーは畳む
+           （線を描いた 2026-08-21 まで、見えないまま desktop に居座っていた） */
+        .nav-toggle { display: none; }
     }
 
     /* --- モバイルナビの見た目 ---------------------------------------------- */
@@ -429,44 +458,134 @@
     }
     .nav-close { margin-top: 18px; text-align: left; font-size: 0.86rem; color: var(--dim); }
 
-    /* ══════════════ ヒーロー：A-19「献立の式」 ══════════════════════════ */
-    .hero { display: flex; align-items: center; }
-    .hero-inner { text-align: center; }
-
-    .equation { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 2.2vw, 22px); }
-    .eq-item {
-        width: clamp(150px, 17vw, 210px); height: clamp(150px, 17vw, 210px);
-        border-radius: 50%; overflow: hidden; flex: 0 0 auto;
-        border: 1px solid var(--line-strong); box-shadow: var(--shadow);
-        background: var(--surface-2);
+    /* ══════════════ ヒーロー：全画面の一杯＋「赤い庇」 ══════════════════════
+       署名＝この店の看板そのもの。国道沿いの赤い庇に、白い筆文字で「ラーメン 蓮 REN」。
+       それを写真の上に置いた赤い板として写し取り、3秒で「何の店か・どこの店か」を出す。
+       ★旧・A-19「献立の式」（ラーメン＋400円＝Aセット）は 2026-08-21 に廃止した。
+         いちばん大きな要素が紅い丸の「400」で、初見では 400円のラーメン屋に読める。
+         式は説明が要る＝ヒーローに置くものではない。セットの話は #set に一本化した。
+       ══════════════════════════════════════════════════════════════════ */
+    .hero {
+        position: relative;
+        margin-top: calc(var(--header-h) * -1);   /* 写真をヘッダーの下まで通して全画面にする */
+        display: flex; align-items: flex-end;
+        overflow: hidden;
+        background: #2A1015;                      /* 写真が来る前の地。黒ではなく紅を落とした暗色 */
     }
-    .eq-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .eq-num { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--accent); color: #fff; }
-    .eq-num .num { font-family: var(--font-head); font-size: clamp(30px, 6vw, 46px); line-height: 1; font-variant-numeric: tabular-nums; }
-    .eq-num .unit { font-size: 0.8rem; margin-top: 2px; letter-spacing: 0.05em; }
-    .eq-op { font-family: var(--font-head); color: var(--accent); font-size: clamp(24px, 4vw, 36px); line-height: 1; flex: 0 0 auto; }
-    .eq-op.reveal { opacity: 0; transform: none; transition: opacity 0.18s ease; }
-    .eq-op.reveal.in-view { opacity: 1; }
-    .eq-op-eq.reveal { transition-delay: 0.18s; }
+    .hero-media { position: absolute; inset: 0; z-index: 0; }
+    .hero-media img {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: 46% 40%;   /* 丼の中心を画面の中心に置く */
+        filter: saturate(1.10) contrast(1.07);         /* スクリム越しでも湯気と餡の照りが残るように */
+    }
+    /* スクリム。純黒を敷くと写真が灰色に濁るので、紅を落とした暗色でつなぐ。
+       濃くするのは上下2か所だけ（上＝ヘッダーの文字、下＝店名・営業状況・電話）。 */
+    .hero-media::after {
+        content: ''; position: absolute; inset: 0;
+        background:
+            linear-gradient(to bottom,
+                rgba(38, 12, 18, .62) 0,
+                rgba(38, 12, 18, .08) 22%,
+                rgba(34, 10, 16, .40) 52%,
+                rgba(26,  7, 12, .93) 100%),
+            linear-gradient(to right, rgba(26, 7, 12, .58) 0, rgba(26, 7, 12, 0) 68%);
+    }
+    .hero-inner {
+        /* ★ width は書かない。.container の width:min(100% - 余白, --maxw) を上書きして
+           文字が画面の左端に貼り付く（2026-08-21 に一度やった） */
+        position: relative; z-index: 1;
+        text-align: left; color: #fff;
+        padding-top: calc(var(--header-h) + clamp(28px, 8vw, 72px));
+        padding-bottom: clamp(38px, 6vw, 76px);
+    }
 
-    /* 式の真下に置くので、頭に「＝」を出して"400円"ではなく"右の丸"の説明だと分かるようにする */
-    .eq-caption { margin-top: var(--sp-3); font-size: clamp(13px, 3.4vw, 15px); color: var(--muted); letter-spacing: 0.02em; }
-    .eq-caption-mark { color: var(--accent); margin-right: 0.4em; }
-    .hero-title { font-family: var(--font-head); font-weight: 400; font-size: var(--fz-hero); color: var(--ink); margin-top: var(--sp-5); line-height: 1.1; }
-    .hero-sub { margin-top: var(--sp-2); color: var(--muted); font-size: 1rem; letter-spacing: 0.03em; }
-    .hero #status-chip { margin-top: var(--sp-3); }
+    /* display は flex（ブロックレベル）。inline-flex にすると次の赤い板と同じ行に載る */
+    .hero-eyebrow {
+        display: flex; align-items: center; gap: 10px;
+        font-size: clamp(12px, 3.2vw, 14px); letter-spacing: .16em;
+        color: rgba(255, 255, 255, .88);
+    }
+    .hero-eyebrow::before {
+        content: ''; flex: 0 0 auto;
+        width: clamp(24px, 6vw, 46px); height: 2px; background: var(--accent-hi);
+    }
 
-    /* スマホでも「式」は必ず横一列のまま。縦に積むと
-       ①足し算に見えなくなり（この店の署名そのものが消える）
-       ②店名・営業状況・電話がファーストビューから押し出される。
-       円を小さくして横で成立させる（390px 実測：円94×3＋演算子2＋隙間4で 345px < 350px）。 */
+    /* 赤い庇。看板の組み（「ラーメン」が上、「蓮」が大きく、右下に小さく REN）をそのまま写す */
+    .hero-plate {
+        display: flex; flex-direction: column; align-items: flex-start; width: fit-content;
+        margin-top: clamp(14px, 3vw, 22px);
+        padding: clamp(10px, 2.4vw, 18px) clamp(20px, 4vw, 34px) clamp(12px, 2.6vw, 20px);
+        background: var(--accent); color: #fff;
+        border-radius: 3px;
+        box-shadow: 0 26px 54px rgba(18, 4, 9, .58);
+        font-weight: 400;
+    }
+    .plate-kana  { font-family: var(--font-head); font-size: clamp(13px, 3.2vw, 18px); letter-spacing: .3em; line-height: 1.4; }
+    .plate-row   { display: flex; align-items: baseline; gap: .3em; }
+    .plate-name  { font-family: var(--font-head); font-size: clamp(52px, 13vw, 104px); line-height: 1; letter-spacing: .02em; }
+    .plate-roman { font-family: var(--font-head); font-size: clamp(14px, 3vw, 22px); letter-spacing: .16em; }
+
+    .hero-catch {
+        margin-top: clamp(18px, 3.4vw, 28px);
+        font-family: var(--font-head); font-weight: 400;
+        font-size: clamp(20px, 5vw, 34px); line-height: 1.55;
+        color: #fff; text-shadow: 0 2px 18px rgba(20, 5, 10, .62);
+    }
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: clamp(16px, 3vw, 22px); }
+    .hero-fact {
+        display: inline-flex; align-items: center;
+        padding: 5px 13px; border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, .42);
+        background: rgba(255, 255, 255, .10);
+        font-size: clamp(12px, 3.1vw, 13.5px); letter-spacing: .03em;
+        color: rgba(255, 255, 255, .95);
+    }
+    /* JS が className を丸ごと書き替える（is-open 等）ので、追加クラスではなく親で当てる */
+    .hero .status-chip {
+        margin-top: clamp(16px, 3vw, 22px);
+        max-width: 100%;   /* 月曜の長い文言（祝日の断り書き）でも枠から出さない */
+        border-color: rgba(255, 255, 255, .42);
+        background: rgba(255, 255, 255, .10);
+        color: #fff;
+    }
+    .hero .hero-actions { justify-content: flex-start; margin-top: clamp(20px, 3.6vw, 30px); }
+    /* 暗い写真の上では紅のボタンが沈むので、ここだけ白地に反転していちばん前に出す */
+    .hero .btn-primary { background: #fff; color: var(--accent-deep); box-shadow: 0 18px 38px rgba(18, 4, 9, .5); }
+    .hero .btn-primary:hover { background: #fff; color: var(--accent); transform: translateY(-1px); }
+    .hero .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .08); }
+    .hero .btn-ghost:hover { background: rgba(255, 255, 255, .18); }
+
+    /* 下端に「まだ続きがある」ことを出す目印。矢印は置かず、細い線1本で足りる */
+    .hero-scroll {
+        position: absolute; left: 50%; bottom: 0; z-index: 1;
+        width: 1px; height: clamp(26px, 5vw, 42px);
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, .75));
+    }
+
+    /* ★幅で折り返し位置を決めない。ch で調整すると 768px だけ3行に折れる（実際に折れた）。
+       キャッチは <br> で「味噌・醤油・塩の三種から、／お好みの一杯を。」に固定し、
+       いちばん狭い390pxでも1行目が入りきる文字数（13字）に収めてある。 */
+    .hero-catch { max-width: none; }
+    /* 620px 以下は写真の情報量が落ちるので、寄りを少し上げて丼を主役に保つ */
     @media (max-width: 620px) {
-        .equation { gap: 6px; }
-        .eq-item { width: clamp(74px, 24vw, 96px); height: clamp(74px, 24vw, 96px); }
-        .eq-op { font-size: clamp(18px, 5vw, 22px); }
-        .eq-num .num { font-size: clamp(20px, 5.4vw, 26px); }
-        .eq-num .unit { font-size: 0.62rem; margin-top: 1px; }
+        .hero-media img { object-position: 50% 38%; }
+        /* 幅の違う2つのボタンが段違いに並ぶと雑に見えるので、縦に揃える */
+        .hero .hero-actions { flex-direction: column; align-items: stretch; }
+        .hero .hero-actions .btn { width: 100%; }
     }
+
+    /* 出現演出は「読み込み時に一度だけ」。背景写真そのものは動かさない（絶対ルール⑧） */
+    @keyframes heroRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .hero-inner > * { animation: heroRise 0.7s cubic-bezier(.22, .8, .28, 1) both; }
+    .hero-inner > *:nth-child(1) { animation-delay: 0.06s; }
+    .hero-inner > *:nth-child(2) { animation-delay: 0.14s; }
+    .hero-inner > *:nth-child(3) { animation-delay: 0.24s; }
+    .hero-inner > *:nth-child(4) { animation-delay: 0.32s; }
+    .hero-inner > *:nth-child(5) { animation-delay: 0.38s; }
+    .hero-inner > *:nth-child(6) { animation-delay: 0.44s; }
+
+    /* 「ラーメン」の字送りは最後の1文字ぶんが右に余るので、その分だけ戻す */
+    .plate-kana { margin-right: -.3em; }
 
     /* ══════════════ 来店のご案内 ══════════════════════════════════════ */
     .info-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3); margin-top: var(--sp-4); }
@@ -498,6 +617,8 @@
     .set-card .set-desc { color: var(--muted); font-size: 0.9rem; }
     /* チャーハンセットだけは「ラーメン代への追加」ではなく一式の値段。 ＋400円／＋600円と同じ見た目で並ぶと足し算に読めるので、値段の横に断る */
     .set-card .set-note { font-family: var(--font-body); font-size: 0.72rem; color: var(--muted); margin-left: 0.5em; letter-spacing: 0.04em; }
+    /* 「＋400円」だけを大きく出すと何に足すのか読めない（2026-08-21 指摘）。金額の真上に必ず添える */
+    .set-card .set-note-pre { display: block; font-family: var(--font-body); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; line-height: 1.6; }
     @media (max-width: 900px) { .set-grid { grid-template-columns: 1fr; gap: var(--blk-y); } }
 
     /* ══════════════ お品書き ══════════════════════════════════════════ */
@@ -623,28 +744,30 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
+
+    <!-- ★署名＝「赤い庇」。国道沿いのこの店の看板（赤地に白の筆文字で「ラーメン 蓮 REN」）を
+         写真の上の赤い板としてそのまま写した。外観写真の alt にも「赤い庇の店舗」とある通り、
+         遠くからこの色で見つけてもらっている店なので、その色をいちばん先に出す。 -->
+    <div class="hero-media">
+        <img src="img/hero.jpg" alt="龍の絵付けの丼に盛った味噌ラーメン。もやしとコーンをのせている" width="1760" height="1113" loading="eager" fetchpriority="high" decoding="async">
+    </div>
+
     <div class="container hero-inner">
+        <p class="hero-eyebrow"><span class="nw">茨城県古河市坂間</span></p>
 
-        <!-- ★署名＝A-19「献立の式」。お店の「蓮 お得なセットメニュー」のご案内（卓上のラミネート）を
-             そのまま式にした。★「店頭の」と書かない——実物は卓上に置かれたご案内で、外の掲示ではない。
-             丸抜きの2枚は実写、真ん中の丸だけ紅の塗り面＋白文字。演算子は出現時に＋→＝の順で1回だけフェードする。 -->
-        <div class="equation" role="group" aria-label="ラーメン ＋ 400円 ＝ Aセット（餃子5ケ・半ライス付き）">
-            <figure class="eq-item eq-photo">
-                <img src="img/hero-ramen.jpg" alt="ネギ味噌ラーメン" width="700" height="525" loading="eager" fetchpriority="high" decoding="async">
-            </figure>
-            <span class="eq-op eq-op-plus reveal" aria-hidden="true">＋</span>
-            <div class="eq-item eq-num" aria-hidden="true">
-                <span class="num">400</span><span class="unit">円</span>
-            </div>
-            <span class="eq-op eq-op-eq reveal" aria-hidden="true">＝</span>
-            <figure class="eq-item eq-photo">
-                <img src="img/hero-set.jpg" alt="Aセット。ラーメンに餃子と半ライスが付く" width="760" height="760" loading="eager" decoding="async">
-            </figure>
-        </div>
-        <p class="eq-caption"><span class="eq-caption-mark" aria-hidden="true">＝</span><span class="nw">Aセット</span><span class="nw">（餃子</span><span class="nw">5ケ・</span><span class="nw">半ライス</span><span class="nw">付き）</span></p>
+        <h1 class="hero-plate">
+            <span class="plate-kana"><span class="nw">ラーメン</span></span>
+            <span class="plate-row"><span class="plate-name">蓮</span><span class="plate-roman">REN</span></span>
+        </h1>
 
-        <h1 class="hero-title">蓮</h1>
-        <p class="hero-sub"><span class="nw">ラーメン</span><span class="nw">蓮／</span><span class="nw">古河市坂間</span></p>
+        <p class="hero-catch"><span class="nw">味噌・</span><span class="nw">醤油・</span><span class="nw">塩の</span><span class="nw">三種から、</span><br><span class="nw">お好みの</span><span class="nw">一杯を。</span></p>
+
+        <ul class="hero-facts">
+            <li class="hero-fact"><span class="nwb"><span class="nw">小上がりの</span><span class="nw">お座敷あり</span></span></li>
+            <li class="hero-fact"><span class="nwb"><span class="nw">駐車場あり</span><span class="nw">（大型車も</span><span class="nw">可）</span></span></li>
+            <li class="hero-fact"><span class="nw">現金のみ</span></li>
+        </ul>
+
         <span class="status-chip" id="status-chip"><span class="status-text">11:00〜14:00／17:00〜20:00（月曜定休）</span></span>
 
         <div class="hero-actions">
@@ -655,6 +778,8 @@
             <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
         </div>
     </div>
+
+    <span class="hero-scroll" aria-hidden="true"></span>
 </section>
 
 
@@ -675,13 +800,12 @@
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">来店の</span><span class="nw">ご案内</span></h2>
 
+        <!-- ★お座敷・現金のみ・駐車場はヒーローの .hero-facts に上げた（2026-08-21）。
+             同じ画面のうちに同じ札が二度出るので、ここは日にちと時間だけにする -->
         <div class="info-chips reveal reveal-delay-1">
             <span class="info-chip">11:00〜14:00／17:00〜20:00</span>
             <span class="info-chip">月曜定休（祝日は翌火曜）</span>
             <span class="info-chip">第三月曜・火曜は連休</span>
-            <span class="info-chip">小上がりのお座敷あり</span>
-            <span class="info-chip">現金のみ</span>
-            <span class="info-chip">駐車場あり（大型車も可）</span>
         </div>
 
         <p class="info-note reveal reveal-delay-2"><span class="nw">駐車場は、</span><span class="nw">隣の</span><span class="nw">ファミリーマートと</span><span class="nw">共同で</span><span class="nw">ご利用いただい</span><span class="nw">ております。</span></p>
@@ -709,8 +833,8 @@
 <!-- ══════════════ ＋四〇〇円で、一膳になる（署名の全景） ══════════════════════════ -->
 <section class="section" id="set">
     <div class="container">
-        <h2 class="section-title reveal"><span class="nw">＋四〇〇円で、</span><span class="nw">一膳になる</span></h2>
-        <p class="set-lead reveal"><span class="nw">お好きな</span><span class="nw">一杯に、</span><span class="nw">四〇〇円から</span><span class="nw">セットを</span><span class="nw">お付けします。</span></p>
+        <h2 class="section-title reveal"><span class="nw">セットの</span><span class="nw">ご案内</span></h2>
+        <p class="set-lead reveal"><span class="nw">お好きな</span><span class="nw">ラーメンに、</span><span class="nw">餃子や</span><span class="nw">半ライスを</span><span class="nw">お付けできます。</span><span class="nw">下の</span><span class="nw">金額は、</span><span class="nw">ラーメン</span><span class="nw">代に</span><span class="nw">足して</span><span class="nw">いただくぶんです。</span></p>
 
         <div class="set-grid">
             <div class="set-card reveal">
@@ -719,7 +843,7 @@
                 </figure>
                 <div class="set-body">
                     <h3><span class="nw">Aセット</span></h3>
-                    <p class="set-plus"><span class="nw">＋400円</span></p>
+                    <p class="set-plus"><span class="set-note-pre"><span class="nw">ラーメン</span><span class="nw">代に</span></span>＋<span class="nw">400円</span></p>
                     <p class="set-desc"><span class="nw">餃子</span><span class="nw">5ケ・</span><span class="nw">半ライス</span></p>
                 </div>
             </div>
@@ -729,7 +853,7 @@
                 </figure>
                 <div class="set-body">
                     <h3><span class="nw">Bセット</span></h3>
-                    <p class="set-plus"><span class="nw">＋600円</span></p>
+                    <p class="set-plus"><span class="set-note-pre"><span class="nw">ラーメン</span><span class="nw">代に</span></span>＋<span class="nw">600円</span></p>
                     <p class="set-desc"><span class="nw">餃子</span><span class="nw">3ケ・</span><span class="nw">モツ</span>煮<span class="nw">（ミニ）・</span><span class="nw">半ライス</span></p>
                 </div>
             </div>
@@ -1040,6 +1164,11 @@ window.addEventListener('scroll', function () {
         }
     }
 }, { passive: true });
+
+/* ★読み込み直後にも一度だけ判定を通す。ヒーローの上ではヘッダーを透明にしているので、
+   ページ途中で再読み込みされたときに .scrolled が付かないと、白い本文の上で
+   ヘッダーの文字が白いまま＝読めない状態になる */
+window.dispatchEvent(new Event('scroll'));
 
 
 /* --------------------------------------------------------------------------
