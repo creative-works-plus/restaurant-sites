@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
-    <meta name="theme-color" content="#131015">
+    <meta name="theme-color" content="#1B2030">
 
     <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
 
     <!-- favicon：不揃いに切った麺三本と、その上にのぼる曙（日の出）。店のテーマカラーで塗る -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23131015'/%3E%3Cpath d='M14 30a18 18 0 0 1 36 0z' fill='%23EFAF98'/%3E%3Cg fill='%23F4EDE8'%3E%3Crect x='14' y='36' width='7' height='16' rx='2'/%3E%3Crect x='24' y='36' width='12' height='16' rx='2'/%3E%3Crect x='39' y='36' width='5' height='16' rx='2'/%3E%3Crect x='47' y='36' width='3' height='16' rx='2'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231B2030'/%3E%3Cpath d='M14 30a18 18 0 0 1 36 0z' fill='%23EFAF98'/%3E%3Cg fill='%23F4EDE8'%3E%3Crect x='14' y='36' width='7' height='16' rx='2'/%3E%3Crect x='24' y='36' width='12' height='16' rx='2'/%3E%3Crect x='39' y='36' width='5' height='16' rx='2'/%3E%3Crect x='47' y='36' width='3' height='16' rx='2'/%3E%3C/g%3E%3C/svg%3E">
 
     <script type="application/ld+json">
     {
@@ -70,9 +70,13 @@
     <style>
     :root {
         /* --- 面（背景） 3段。明るい店なら明度の向きを逆にする ----------------- */
-        --bg:          #131015;   /* 地の色。業態の世界観を決める主役 */
-        --surface:     #1C1820;   /* カード・帯の面 */
-        --surface-2:   #251F2A;   /* さらに手前の面・入れ子のカード */
+        /* ★2026-08-22 改訂：#131015（ほぼ黒）は面が沈んで写真だけが浮く見え方に
+           なっていたため、夜明け前の空の色＝藍墨へ入れ替えた。明度は約2.7倍。
+           曙色（--accent）が補色側に寄るので、差し色がより温かく見える。 */
+        --bg:          #1B2030;   /* 地の色。夜明け前の藍墨 */
+        --bg-rgb:      27, 32, 48;/* 上をグラデーションで薄める時に使う */
+        --surface:     #242A3C;   /* カード・帯の面 */
+        --surface-2:   #2E3548;   /* さらに手前の面・入れ子のカード */
 
         /* --- 文字（--bg 上でのコントラスト比を必ず確認） ------------------------ */
         --ink:         #F4EDE8;   /* 見出し・本文（4.5:1 以上、見出しは 7:1 が望ましい） */
@@ -94,7 +98,7 @@
            白磁・生成りの上に黒0.55を落とすと汚れたグレーの帯に見える。
            明るい店の例（食彩厨房 魚かつ）：0 18px 40px rgba(11, 53, 73, 0.10)
            ＝アクセント色（藍）を薄く使うと、影が世界観の一部になる */
-        --shadow:      0 24px 60px rgba(0, 0, 0, 0.55);
+        --shadow:      0 24px 60px rgba(7, 10, 20, 0.55);
 
         /* --- 余白（実装ではこの変数だけを使う） -------------------------------- */
         --sp-1: 4px;  --sp-2: 8px;  --sp-3: 16px;
@@ -260,7 +264,7 @@
         position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
         display: none; gap: 1px; background: var(--line);
         transform: translateY(100%); transition: transform 0.35s ease;
-        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 -10px 30px rgba(7, 10, 20, 0.5);
     }
     .sticky-bar.visible { transform: translateY(0); }
     .sticky-bar a {
@@ -390,17 +394,28 @@
        ────────────────────────────────────────────────────────────────── */
 
     body { font-size: var(--fz-body); letter-spacing: 0; }
+
+    /* 地に「空気」を持たせる。単色の面をそのまま敷くと画面が板に見えるので、
+       画面に貼りついた（スクロールしない）ごく薄い層を一枚だけ重ねる。
+       上＝夜の藍がわずかに濃く、下＝曙色がほんのり差す。★動かさない */
+    body::before {
+        content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+        background:
+            radial-gradient(120% 70% at 78% -10%, rgba(96, 116, 168, .16), rgba(var(--bg-rgb), 0) 60%),
+            radial-gradient(90% 60% at 8% 108%, rgba(239, 175, 152, .10), rgba(var(--bg-rgb), 0) 62%),
+            linear-gradient(180deg, #1D2336 0%, var(--bg) 46%, #191D2B 100%);
+    }
     ::selection { background: var(--accent); color: var(--bg); }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
     /* --- ヘッダー ------------------------------------------------------------ */
     .site-header {
-        background: rgba(19, 16, 21, 0.72);
+        background: rgba(27, 32, 48, 0.68);
         backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
         border-bottom: 1px solid transparent;
         transition: background .3s ease, border-color .3s ease;
     }
-    body.scrolled .site-header { background: rgba(19, 16, 21, 0.94); border-bottom-color: var(--line); }
+    body.scrolled .site-header { background: rgba(27, 32, 48, 0.93); border-bottom-color: var(--line); }
     .brand { font-family: var(--font-head); letter-spacing: .1em; }
     .header-tel { color: var(--accent); letter-spacing: .04em; }
     .header-tel:hover { color: var(--accent-hi); }
@@ -411,7 +426,7 @@
 
     .mobile-nav {
         inset: var(--header-h) 0 auto 0;
-        background: rgba(19, 16, 21, 0.98);
+        background: rgba(27, 32, 48, 0.98);
         border-bottom: 1px solid var(--line);
         padding: var(--sp-4) var(--pad-inner) var(--sp-5);
         display: flex; flex-direction: column; gap: var(--sp-2);
@@ -470,59 +485,80 @@
         border-left: 1px solid var(--line-strong); padding-left: var(--sp-3);
     }
 
-    /* ══ ヒーロー：新型 A-14「手切りの帯」 ═══════════════════════════════════
-       一枚の写真を幅の違う七本の縦帯に切り分け、切れ目に生成りの細い線を残し、
-       各帯を上下にわずかにずらす。帯は連続した一枚を共有するので、全体は
-       「包丁を入れた直後の一枚」に見える。★静止（アニメーションさせない）。
-       成立条件＝一枚のものを刃物で不揃いに切ることが商品そのものである店だけ。 */
+    /* ══ ヒーロー：新型 A-19「夜明けの二枚」 ═══════════════════════════════════
+       2026-08-22 改訂。旧 A-14「手切りの帯」は一枚の写真を七本に切り分けて
+       並べる型だったが、料理が何なのか読み取れず、写真が壊れて見えていた。
+       署名（＝不揃い）は写真ではなく罫と図に持たせ、写真は一枚のまま見せる。
+
+       組み：夜の外観を「面」として置き（スマホ＝上の帯／PCは右の全高）、
+       手切り麺の一枚をその上に札のように浮かせる。外観の縁は地の色へ
+       溶かして、四角い写真の切り抜きに見せない。★静止（動かさない）。 */
     .hero {
-        display: flex; flex-direction: column; justify-content: center;
-        padding-block: clamp(40px, 8vw, 84px);
         position: relative; overflow: hidden;
+        padding-bottom: clamp(40px, 8vw, 84px);
     }
+
+    /* 写真の面 --------------------------------------------------------------- */
+    .hero-stage {
+        position: relative; width: 100%;
+        height: clamp(210px, 52vw, 340px);
+    }
+    .hero-stage img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 42%; }
+    /* 縁は「地の色を上から塗る」のではなく写真自体を薄れさせる。
+       塗ると body の空気（body::before のグラデーション）と色が食い違って、
+       写真の左端に一本の線が出てしまう */
+    .hero-stage {
+        -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+                mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+    }
+    /* 縁を地の色へ溶かす膜。写真の上に文字は載せないので、可読性ではなく
+       「写真が四角く貼ってある」感じを消すために掛ける */
+    .hero-veil {
+        position: absolute; inset: 0; pointer-events: none;
+        background:
+            linear-gradient(180deg, rgba(var(--bg-rgb), .58) 0%, rgba(var(--bg-rgb), .06) 36%,
+                            rgba(var(--bg-rgb), .55) 82%, rgba(var(--bg-rgb), .85) 100%);
+    }
+
     /* 東の空。曙色のにじみ（写真ではないので静止でも成立する） */
-    .hero::before {
-        content: ''; position: absolute; left: 50%; top: 34%;
-        width: min(160vw, 1500px); aspect-ratio: 2 / 1; transform: translate(-50%, -50%);
-        background: radial-gradient(ellipse at center, rgba(239, 175, 152, .20), rgba(239, 175, 152, 0) 68%);
-        pointer-events: none;
+    .hero-dawn {
+        content: ''; position: absolute; left: 8%; top: 46%;
+        width: min(150vw, 1200px); aspect-ratio: 2 / 1; transform: translate(-50%, -50%);
+        background: radial-gradient(ellipse at center, rgba(239, 175, 152, .17), rgba(239, 175, 152, 0) 66%);
+        pointer-events: none; z-index: 1;
     }
-    /* PCでは帯が左に寄る（max-width:900px）ので、余る右側へ「東の空」を移す */
-    @media (min-width: 980px) { .hero::before { left: 74%; top: 30%; } }
-    .hero .container { position: relative; z-index: 1; }
+
+    /* スマホ：札 → 言葉 の順。札は写真の帯へ少し重ねる（PCでは並び直す） */
+    .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; }
+
+    /* 手切り麺の札 ----------------------------------------------------------- */
+    .hero-card {
+        order: -1;
+        margin: -56px 0 var(--sp-5); max-width: 420px;
+        background: var(--surface);
+        border: 1px solid var(--line-strong); border-radius: var(--radius);
+        padding: 10px 10px 12px; box-shadow: var(--shadow);
+    }
+    .hero-card > img {
+        width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
+        border-radius: 4px;
+    }
+    /* 署名：幅のそろわない三本。包丁を入れた断面をここでも繰り返す */
+    .hero-card figcaption {
+        display: flex; align-items: center; gap: 10px;
+        margin-top: 10px; padding: 0 2px;
+        font-size: var(--fz-cap); color: var(--dim); letter-spacing: .06em; line-height: 1.6;
+    }
+    .hero-card figcaption::before {
+        content: ''; flex: 0 0 auto; width: 22px; height: 14px;
+        background:
+            linear-gradient(var(--accent), var(--accent)) 0 100% / 3px 14px no-repeat,
+            linear-gradient(var(--accent), var(--accent)) 6px 100% / 5px 9px no-repeat,
+            linear-gradient(var(--accent), var(--accent)) 14px 100% / 2px 12px no-repeat;
+    }
+
+    /* 言葉 ------------------------------------------------------------------- */
     .hero .status-chip { margin-bottom: var(--sp-4); color: var(--muted); }
-
-    .cut-band {
-        display: flex; gap: 2px;
-        /* 元写真が612pxなので、これ以上広げると刃の線がぼける */
-        width: 100%; max-width: 900px;
-        height: clamp(150px, 30vw, 250px);
-        margin-block: var(--sp-4) var(--sp-5);
-        padding-block: 14px;                 /* 上下のズレ幅を逃がす */
-    }
-    .cut-strip {
-        position: relative; overflow: hidden; flex: 0 0 auto;
-        /* 切れ目（gap 2px × 6本ぶん＝12px）を先に引いてから幅を配分する。
-           引かないと帯の右端が 12px はみ出して、右揃えが崩れる */
-        width: calc((100% - 12px) * var(--w) / 100);
-        transform: translateY(var(--dy));
-        border-radius: 2px;
-        background: var(--surface-2);
-        /* 切れ目。刃を入れた線が生成りで光る */
-        box-shadow: 1px 0 0 rgba(244, 237, 232, .22), -1px 0 0 rgba(244, 237, 232, .22);
-    }
-    .cut-strip img {
-        position: absolute; top: 0; left: calc(-100% * var(--o) / var(--w));
-        width: calc(100% * 100 / var(--w)); max-width: none;
-        height: 100%; object-fit: cover;
-    }
-    .cut-caption {
-        display: flex; align-items: baseline; gap: var(--sp-2);
-        font-size: var(--fz-cap); color: var(--dim); letter-spacing: .08em;
-        margin-top: calc(-1 * var(--sp-3)); margin-bottom: var(--sp-4);
-    }
-    .cut-caption::before { content: ''; width: 26px; height: 1px; background: var(--line-strong); }
-
     .hero-name {
         font-family: var(--font-head); font-weight: 400;
         font-size: var(--fz-hero); line-height: 1.22; letter-spacing: .14em;
@@ -531,6 +567,55 @@
     .hero-copy { margin-top: var(--sp-4); color: var(--muted); font-size: clamp(15px, 3.6vw, 18px); line-height: 1.9; }
     .hero-copy b { color: var(--ink); font-weight: 400; }
     .hero .hero-actions { margin-top: var(--sp-5); }
+
+    /* タブレット：札が小さく見えるので少しだけ大きく取る */
+    @media (min-width: 620px) and (max-width: 899px) {
+        .hero-stage { height: clamp(260px, 46vw, 400px); }
+        .hero-card { max-width: 520px; margin-top: -72px; }
+    }
+
+    /* PC：写真を右の全高へ移し、言葉と札を左右に並べる ------------------------ */
+    @media (min-width: 900px) {
+        .hero {
+            display: flex; align-items: center;
+            padding-block: clamp(48px, 7vw, 96px);
+            /* 元写真が1400pxなので、これ以上引き伸ばすと外観がぼける。
+               背の高い画面では画面いっぱいにせず、次の章を少し覗かせる */
+            min-height: min(calc(100svh - var(--header-h)), 780px);
+        }
+        .hero-stage {
+            position: absolute; inset: 0 0 0 44%;
+            width: auto; height: auto;
+        }
+        .hero-stage img {
+            object-position: 58% 46%;
+            /* 上下の縁も溶かす。親（横方向）と子（縦方向）で一枚ずつ掛けると、
+               mask-composite に頼らずに二方向の抜きが重なる */
+            -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 9%, #000 84%, transparent 100%);
+                    mask-image: linear-gradient(180deg, transparent 0%, #000 9%, #000 84%, transparent 100%);
+        }
+        .hero-stage {
+            -webkit-mask-image: linear-gradient(97deg, transparent 0%, rgba(0,0,0,.06) 20%,
+                                                rgba(0,0,0,.55) 46%, #000 72%);
+                    mask-image: linear-gradient(97deg, transparent 0%, rgba(0,0,0,.06) 20%,
+                                                rgba(0,0,0,.55) 46%, #000 72%);
+        }
+        .hero-veil {
+            background:
+                linear-gradient(180deg, rgba(var(--bg-rgb), .62) 0%, rgba(var(--bg-rgb), 0) 26%,
+                                rgba(var(--bg-rgb), 0) 74%, rgba(var(--bg-rgb), .55) 100%);
+        }
+        .hero-dawn { left: 34%; top: 42%; }
+        .hero-inner {
+            display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .82fr);
+            gap: clamp(28px, 4vw, 64px); align-items: center;
+        }
+        .hero-card { order: 0; margin: 0; max-width: none; }
+        .hero-card > img { aspect-ratio: 4 / 3; }
+    }
+    @media (min-width: 1180px) {
+        .hero-stage { inset: 0 0 0 47%; }
+    }
 
     /* --- 章の共通 ----------------------------------------------------------- */
     .section { padding-block: var(--sec-y); }
@@ -558,6 +643,7 @@
 
     /* --- 料理グリッド ------------------------------------------------------- */
     .dish-grid { display: grid; gap: var(--sp-3); grid-template-columns: repeat(3, 1fr); margin-top: var(--blk-y); }
+    .dish-grid-2 { grid-template-columns: repeat(2, 1fr); }
     .dish-grid.is-2 { grid-template-columns: repeat(2, 1fr); }
     @media (max-width: 700px) { .dish-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 430px) { .dish-grid, .dish-grid.is-2 { grid-template-columns: 1fr; } }
@@ -721,35 +807,40 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="container">
-        <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
-        <figure class="cut-band" role="img" aria-label="手切りの平打ち麺に、炙ったチャーシューとほうれん草をのせたつけ麺">
-                <span class="cut-strip" style="--w:11;--o:0;--dy:0"><img src="img/hero-tegiri-tsukemen.jpg" alt="" width="568" height="312" loading="eager" fetchpriority="high" decoding="async"></span>
-                <span class="cut-strip" style="--w:19;--o:11;--dy:-9px"><img src="img/hero-tegiri-tsukemen.jpg" alt="" width="568" height="312" loading="eager" fetchpriority="high" decoding="async"></span>
-                <span class="cut-strip" style="--w:9;--o:30;--dy:5px"><img src="img/hero-tegiri-tsukemen.jpg" alt="" width="568" height="312" loading="eager" fetchpriority="high" decoding="async"></span>
-                <span class="cut-strip" style="--w:16;--o:39;--dy:-4px"><img src="img/hero-tegiri-tsukemen.jpg" alt="" width="568" height="312" loading="eager" fetchpriority="high" decoding="async"></span>
-                <span class="cut-strip" style="--w:13;--o:55;--dy:10px"><img src="img/hero-tegiri-tsukemen.jpg" alt="" width="568" height="312" loading="eager" fetchpriority="high" decoding="async"></span>
-                <span class="cut-strip" style="--w:22;--o:68;--dy:-6px"><img src="img/hero-tegiri-tsukemen.jpg" alt="" width="568" height="312" loading="eager" fetchpriority="high" decoding="async"></span>
-                <span class="cut-strip" style="--w:10;--o:90;--dy:3px"><img src="img/hero-tegiri-tsukemen.jpg" alt="" width="568" height="312" loading="eager" fetchpriority="high" decoding="async"></span>
-        </figure>
-        <p class="cut-caption"><span class="nwb"><span class="nw">一枚の</span><span class="nw">麺帯を、</span><span class="nw">包丁で</span><span class="nw">切り</span><span class="nw">分け</span><span class="nw">ております</span></span></p>
+    <!-- 夜の外観。スマホ＝上の帯／PC＝右の全高。縁は .hero-veil で地に溶かす -->
+    <div class="hero-stage">
+        <img src="img/exterior-night.jpg" alt="看板に灯りがともった、拉麺工房 暁の夜の外観" width="1400" height="788" loading="eager" fetchpriority="high" decoding="async">
+        <span class="hero-veil" aria-hidden="true"></span>
+    </div>
+    <div class="hero-dawn" aria-hidden="true"></div>
 
-        <h1 class="hero-name"><span class="hero-yomi"><span class="nw">らーめんこうぼう</span> <span class="nw">あかつき</span></span><span class="nw">拉麺工房</span> 暁</h1>
-        <p class="hero-copy"><span class="nw">豚骨と</span><span class="nw">鶏がらに、</span><span class="nw">昆布と</span><span class="nw">干し</span><span class="nw">椎茸を</span><span class="nw">重ねた</span><span class="nw">スープ。</span><br class="br-pc">
-            <span class="nw">麺は</span><span class="nw">北海道産の</span><span class="nw">小麦を</span><span class="nw">三種、</span><span class="nw">配合して</span><span class="nw">打っ</span><span class="nw">ております。</span><br>
-            <b><span class="nw">包丁で</span><span class="nw">切り</span><span class="nw">分ける</span><span class="nw">平打ちの</span><span class="nw">手切り</span><span class="nw">麺は、</span><span class="nw">一日十食かぎり</span></b>で<span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
-        <div class="hero-actions">
-            <a href="tel:0280316670" class="btn btn-primary btn-tel">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                <span class="tel-num">0280-31-6670</span><span class="tel-cap">お問い合わせ</span>
-            </a>
-            <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+            <h1 class="hero-name"><span class="hero-yomi"><span class="nw">らーめんこうぼう</span> <span class="nw">あかつき</span></span><span class="nw">拉麺工房</span> 暁</h1>
+            <p class="hero-copy"><span class="nw">豚骨と</span><span class="nw">鶏がらに、</span><span class="nw">昆布と</span><span class="nw">干し</span><span class="nw">椎茸を</span><span class="nw">重ねた</span><span class="nw">スープ。</span><br class="br-pc">
+                <span class="nw">麺は</span><span class="nw">北海道産の</span><span class="nw">小麦を</span><span class="nw">三種、</span><span class="nw">配合して</span><span class="nw">打っ</span><span class="nw">ております。</span><br>
+                <b><span class="nw">包丁で</span><span class="nw">切り</span><span class="nw">分ける</span><span class="nw">平打ちの</span><span class="nw">手切り</span><span class="nw">麺は、</span><span class="nw">一日十食かぎり</span></b>で<span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+
+            <div class="hero-actions">
+                <a href="tel:0280316670" class="btn btn-primary btn-tel">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    <span class="tel-num">0280-31-6670</span><span class="tel-cap">お問い合わせ</span>
+                </a>
+                <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+            </div>
+
+            <p class="hero-facts"><span class="nw">茨城県古河市・</span><span class="nw">国道</span><span class="nw">125号沿い</span><span class="nw">（ジョイフル</span><span class="nw">本田</span> <span class="nw">古河店から</span><span class="nw">西へ</span><span class="nw">六百メートルほど）／</span><span class="nw">駐車場が</span><span class="nw">ございます</span><br>
+                <span class="nw">お支払いは</span><span class="nw">現金のみ・</span><span class="nw">ご予約は</span><span class="nw">承っておりません／</span><span class="nw">材料がなくなり</span><span class="nw">次第、</span><span class="nw">閉めさせて</span><span class="nw">いただきます</span></p>
         </div>
 
-        <p class="hero-facts"><span class="nw">茨城県古河市・</span><span class="nw">国道</span><span class="nw">125号沿い</span><span class="nw">（ジョイフル</span><span class="nw">本田</span> <span class="nw">古河店から</span><span class="nw">西へ</span><span class="nw">六百メートルほど）／</span><span class="nw">駐車場が</span><span class="nw">ございます</span><br>
-            <span class="nw">お支払いは</span><span class="nw">現金のみ・</span><span class="nw">ご予約は</span><span class="nw">承っておりません／</span><span class="nw">材料がなくなり</span><span class="nw">次第、</span><span class="nw">閉めさせて</span><span class="nw">いただきます</span></p>
+        <!-- 手切り麺の一枚。切り分けずに、そのまま見ていただく -->
+        <figure class="hero-card">
+            <img src="img/hero-tegiri-tsukemen.jpg" alt="手切りの平打ち麺に、炙ったチャーシューとほうれん草をのせたつけ麺" width="568" height="312" loading="eager" fetchpriority="high" decoding="async">
+            <figcaption><span class="nwb"><span class="nw">一枚の</span><span class="nw">麺帯を、</span><span class="nw">包丁で</span><span class="nw">切り</span><span class="nw">分け</span><span class="nw">ております</span></span></figcaption>
+        </figure>
     </div>
 </section>
 
@@ -1024,7 +1115,9 @@
             <div class="photo-frame reveal reveal-delay-1"><img src="img/counter.jpg" alt="木のカウンターと丸椅子、奥にテーブル席が見える店内" width="1200" height="900" loading="lazy" decoding="async"></div>
         </div>
 
-        <div class="dish-grid" style="margin-top:var(--blk-y)">
+        <!-- 夜の外観はヒーローへ移した（1ページで同じ写真を二度使わない・絶対ルール⑦）ので、
+             ここは袖看板と昼の外観の二枚で組む -->
+        <div class="dish-grid dish-grid-2" style="margin-top:var(--blk-y)">
             <figure class="dish reveal">
                 <div class="photo-frame"><img src="img/sign-sode.jpg" alt="「拉麺工房 暁」と筆で書かれた白い袖看板" width="480" height="480" loading="lazy" decoding="async"></div>
                 <figcaption><span class="nw">袖看板</span><span class="sub"><span class="nw">通りからの</span><span class="nw">目印です</span></span></figcaption>
@@ -1032,10 +1125,6 @@
             <figure class="dish reveal reveal-delay-1">
                 <div class="photo-frame"><img src="img/exterior-day.jpg" alt="黄色い縁取りの切妻屋根に赤い看板を掲げた昼の外観" width="686" height="514" loading="lazy" decoding="async"></div>
                 <figcaption><span class="nw">昼の</span><span class="nw">外観</span></figcaption>
-            </figure>
-            <figure class="dish reveal reveal-delay-2">
-                <div class="photo-frame"><img src="img/exterior-night.jpg" alt="看板に灯りがともった夜の外観" width="1400" height="788" loading="lazy" decoding="async"></div>
-                <figcaption><span class="nw">夜の</span><span class="nw">外観</span></figcaption>
             </figure>
         </div>
     </div>
