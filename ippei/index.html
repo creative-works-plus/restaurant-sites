@@ -483,30 +483,144 @@
     .photo-card h3 { font-family: var(--font-head); font-size: 1.02rem; color: var(--ink); display: flex; justify-content: space-between; gap: 8px; align-items: baseline; font-weight: 400; }
     .photo-card .cap { font-size: 0.8rem; color: var(--dim); }
 
-    /* --- ヒーロー：A-30「お品書きの両端（りょうたん）」------------------------------
-       軸は「振れ幅」。左端に715円のラーメン、右端に8,800円のふかひれの姿煮（写真は
-       離れの和室）を丸く抜いて置き、間を一直線の物差しでつなぐ。天秤（A-21）とは
-       違い、支点も吊り紐も作らない——両端の距離そのものが主題。
+    /* --- ヒーロー：夜の外観を全面に敷く（2026-08-22 作り直し）------------------------
+       もとは物差し（A-30「お品書きの両端」）を文字だけで組んでいたが、
+         ①ファーストビューに店の顔が一枚も無く、何の店かが絵で伝わらない
+         ②両端の丸が 66〜138px しか取れず、中に何が写っているか読めない
+       の2点で作り直した。夜の外観（赤いネオンの「中華料理」＋緑のネオンの「一平」）を
+       ヘッダーの裏まで全面に敷き、物差しは直下の独立した節へ移して大きく組み直している。
+       ★背景は静止画のまま。ケンバーンズ等の常時アニメーションは入れない（絶対ルール⑧）。
        ------------------------------------------------------------------------- */
-    .hero { display: flex; align-items: center; justify-content: center; padding-block: clamp(48px, 9vw, 88px); }
-    /* ★width:100% を書かないこと。.container の width は
-       min(100% - 2*--pad-inner, --maxw) なので、100% で上書きすると
-       左右の余白と最大幅がまるごと消え、物差しの両端の丸が画面の端で切れる
-       （2026-08-15 の公開前チェックで 390/768/1280 の全幅で発生） */
-    .hero .container { display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 4vw, 32px); text-align: center; }
-    .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.22em; color: var(--dim); }
-    .hero-title { font-family: var(--font-head); font-size: clamp(44px, 11vw, 88px); color: var(--accent-deep); line-height: 1; }
+    .hero {
+        --hero-ink: #F7F1E5;                 /* 写真の上に載る文字（外壁のオフホワイト寄り） */
+        --hero-dim: rgba(247, 241, 229, 0.70);
+        --hero-veil: 10, 8, 7;               /* 覆いの色。夜の空の黒に合わせた暖かい黒 */
 
-    .hero-ruler { display: flex; align-items: center; width: 100%; gap: clamp(10px, 3vw, 28px); margin-top: 4px; }
-    .ruler-anchor { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 0 0 auto; }
+        position: relative; isolation: isolate; overflow: hidden;
+        display: flex; align-items: flex-end; justify-content: flex-start;
+        background: rgb(var(--hero-veil));   /* 写真が来る前でも文字が読める地 */
+        min-height: 100svh;
+        /* ★ヘッダーの裏まで写真を伸ばす。body の padding-top をいったん打ち消して、
+           同じ量を自分の padding で戻す（本文がヘッダーに潜り込まないようにするため） */
+        margin-top: calc(-1 * var(--header-h));
+        padding-top: calc(var(--header-h) + clamp(40px, 12vh, 120px));
+        padding-bottom: clamp(40px, 9vh, 92px);
+    }
+    .hero-media { position: absolute; inset: 0; z-index: -2; }
+    /* ★height:100% を明示する。骨格の img{height:auto} のままだと 4:3 の比率で
+       描かれて下に地が出る */
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 42%; }
+    /* 縦長の窓では横に細い短冊しか写らない。看板の「中華料理」と緑の「一平」、
+       赤白の日除けと玄関の灯りが1枚に収まる位置まで右へ寄せる */
+    @media (max-width: 620px) { .hero-media img { object-position: 65% 46%; } }
+
+    /* 覆い。①下から上へ濃く（文字の座） ②左から右へ薄く（見出しの側だけ沈める）
+       ③上端を少しだけ沈める（透明ヘッダーの文字の座） */
+    .hero-veil {
+        position: absolute; inset: 0; z-index: -1;
+        background:
+            linear-gradient(to top,
+                rgba(var(--hero-veil), 0.94) 0%,
+                rgba(var(--hero-veil), 0.78) 22%,
+                rgba(var(--hero-veil), 0.30) 50%,
+                rgba(var(--hero-veil), 0.16) 72%,
+                rgba(var(--hero-veil), 0.52) 100%),
+            linear-gradient(to right,
+                rgba(var(--hero-veil), 0.60) 0%,
+                rgba(var(--hero-veil), 0.20) 48%,
+                rgba(var(--hero-veil), 0.00) 78%);
+    }
+
+    /* ★.container の width は書き換えない（min(100% - 2*--pad-inner, --maxw)）。
+       100% で上書きすると左右の余白と最大幅がまるごと消える */
+    .hero .container {
+        position: relative; z-index: 1;
+        display: flex; flex-direction: column; align-items: flex-start;
+        text-align: left; gap: clamp(13px, 2.2vw, 19px);
+    }
+    .hero .status-chip {
+        background: rgba(var(--hero-veil), 0.46); color: var(--hero-ink);
+        border-color: rgba(247, 241, 229, 0.30); backdrop-filter: blur(6px);
+    }
+    .hero .status-chip::before { background: rgba(247, 241, 229, 0.55); }
+
+    /* 眉。前に置く短い2色の罫は、看板そのものの引用
+       （赤いネオン＝「中華料理」／緑のネオン＝「一平」）。
+       ★display:flex にしない——文節を .nw で囲んだとき、span の1つ1つが
+         別のアイテムになって間延びする（絶対ルール⑬）。inline-block で並べる */
+    .hero-eyebrow {
+        display: block; color: var(--hero-dim);
+        font-size: clamp(11px, 2.7vw, 13px); letter-spacing: 0.24em; line-height: 1.6;
+    }
+    .hero-eyebrow::before {
+        content: ''; display: inline-block; vertical-align: 0.28em;
+        width: clamp(26px, 7vw, 54px); height: 2px; border-radius: 2px;
+        margin-right: clamp(10px, 2.4vw, 16px);
+        background: linear-gradient(to right, #E0402E 0 54%, #55D89B 54% 100%);
+    }
+    .hero-title {
+        font-family: var(--font-head); color: var(--hero-ink);
+        font-size: clamp(60px, 15vw, 136px); line-height: 0.94; letter-spacing: 0.06em;
+        text-shadow: 0 2px 34px rgba(0, 0, 0, 0.55);
+    }
+    .hero-lede {
+        color: var(--hero-ink); max-width: 24ch;
+        font-size: clamp(15px, 3.5vw, 21px); line-height: 1.95; letter-spacing: 0.03em;
+        text-shadow: 0 1px 18px rgba(0, 0, 0, 0.6);
+    }
+    .hero .hero-actions { justify-content: flex-start; margin-top: clamp(12px, 2.4vw, 20px); }
+    .hero .btn-primary { background: var(--accent-hi); box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45); }
+    .hero .btn-primary:hover { background: #B9634A; }
+    .hero .btn-ghost {
+        border-color: rgba(247, 241, 229, 0.46); color: var(--hero-ink);
+        background: rgba(var(--hero-veil), 0.28); backdrop-filter: blur(4px);
+    }
+    .hero .btn-ghost:hover { border-color: var(--hero-ink); background: rgba(247, 241, 229, 0.14); color: var(--hero-ink); }
+
+    /* 右下の縦組みの目印。夜の路地（写真の右手の暗部）に置く。
+       ★縦の長さは em で決める。vh で決めると窓が横長のとき文字が次の列へ送られる */
+    .hero-cue {
+        position: absolute; right: clamp(14px, 3vw, 34px); bottom: clamp(34px, 8vh, 88px);
+        z-index: 1; display: none; align-items: center; gap: 12px;
+        writing-mode: vertical-rl; height: 9em;
+        font-size: 10.5px; letter-spacing: 0.42em; color: var(--hero-dim);
+    }
+    .hero-cue::after { content: ''; flex: 1 1 auto; width: 1px; background: linear-gradient(to bottom, rgba(247,241,229,0.55), rgba(247,241,229,0)); }
+    @media (min-width: 900px) { .hero-cue { display: flex; } }
+
+    /* ヘッダーは写真の上では透明。60px スクロールしたら地を戻す（JSが .scrolled を付ける）。
+       ★no-js とナビを開いている間は透明にしない——JSが動かない環境では .scrolled が
+         永久に付かず、写真を抜けたあと生成りの地に生成りの文字が乗って消える */
+    .site-header, .brand, .header-tel, .header-tel svg { transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+    body:not(.no-js):not(.scrolled):not(.nav-open) .site-header {
+        background: transparent; backdrop-filter: none; border-bottom-color: transparent;
+    }
+    body:not(.no-js):not(.scrolled):not(.nav-open) .site-header::before {
+        content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+        background: linear-gradient(to bottom, rgba(10, 8, 7, 0.62), rgba(10, 8, 7, 0));
+    }
+    body:not(.no-js):not(.scrolled):not(.nav-open) .brand,
+    body:not(.no-js):not(.scrolled):not(.nav-open) .header-tel,
+    body:not(.no-js):not(.scrolled):not(.nav-open) .header-tel svg { color: #F7F1E5; }
+    body:not(.no-js):not(.scrolled):not(.nav-open) .nav-toggle > span:not([class]) { background: #F7F1E5; }
+
+    /* --- お品書きの両端（りょうたん）★この店の署名的な仕掛け -------------------------
+       軸は「振れ幅」。左端に715円のラーメン、右端に8,800円のふかひれの姿煮（写真は
+       離れの和室）を丸く抜いて置き、間を一直線の物差しでつなぐ。天秤とは違い、
+       支点も吊り紐も作らない——両端の距離そのものが主題。
+       2026-08-22：ヒーローから独立した節へ移した。幅を丸ごと使えるので、
+       中に何が写っているか読めるところまで丸を大きくしている。
+       ------------------------------------------------------------------------- */
+    .span-ruler { display: flex; align-items: center; width: 100%; gap: clamp(10px, 3vw, 34px); margin-top: clamp(6px, 2vw, 16px); }
+    .ruler-anchor { display: flex; flex-direction: column; align-items: center; gap: 12px; flex: 0 0 auto; }
     .anchor-circle {
-        width: clamp(66px, 15vw, 138px); height: clamp(66px, 15vw, 138px); border-radius: 50%;
+        width: clamp(104px, 22vw, 200px); height: clamp(104px, 22vw, 200px); border-radius: 50%;
         overflow: hidden; border: 3px solid var(--accent); box-shadow: var(--shadow); background: var(--surface-2);
         flex: 0 0 auto;
     }
     .anchor-circle img { width: 100%; height: 100%; object-fit: cover; }
-    .anchor-label { font-size: clamp(11.5px, 2.4vw, 15px); font-weight: 700; line-height: 1.35; color: var(--ink); }
-    /* ★2026-08-15レビュー A4：円が66〜138pxと小さく、768pxでは窓と壁しか見えていなかった。
+    .anchor-label { font-size: clamp(12px, 2.5vw, 16px); font-weight: 700; line-height: 1.45; color: var(--ink); }
+    /* ★2026-08-15レビュー A4：円が小さく、768pxでは窓と壁しか見えていなかった。
        朱の回転台を円内に収める */
     .ruler-anchor:last-child .anchor-circle img { object-position: 50% 72%; }
 
@@ -517,8 +631,6 @@
     @keyframes ruler-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
     @media (prefers-reduced-motion: reduce) { .ruler-fill { animation: none; transform: scaleX(1); } }
     .ruler-tick { position: absolute; top: -4px; width: 1px; height: 10px; background: var(--line-strong); }
-
-    .hero-line { font-size: clamp(13px, 2.6vw, 16px); color: var(--muted); letter-spacing: 0.02em; }
 
     /* --- 本日のご案内 ------------------------------------------------------------ */
     #today .info-table { margin-bottom: clamp(20px, 4vw, 28px); }
@@ -554,6 +666,13 @@
            h3 内の品名（flex・nowrap）の min-content 幅ぶんトラックが広がり、
            2列合計が container 幅を超えて横スクロールが出る（実測 350px 中 386px）。 */
         #menu-pickup .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(10px, 3vw, 16px); }
+        /* ★2026-08-22：上の minmax(0,1fr) で列を169pxに固定したので、h3 を
+           「品名｜価格」の1行（flex・space-between）のまま置くと、品名の min-content
+           114px ＋ 価格の nowrap 100px が列に入りきらず、価格が隣の列の上へはみ出し、
+           品名は「カシュー／ナッツ」と語の途中で折り返していた（幅390pxで実測）。
+           この幅では価格を品名の下へ落とす。 */
+        #menu-pickup .photo-card h3 { display: block; }
+        #menu-pickup .photo-card h3 .price { display: block; margin-top: 2px; }
     }
 
     .kaishoku-grid { display: grid; grid-template-columns: minmax(220px, 340px) 1fr; gap: var(--gap); align-items: center; }
@@ -622,17 +741,46 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
+    <!-- 背景は静止画。常時アニメーション（ケンバーンズ）は入れない -->
+    <div class="hero-media">
+        <img src="img/hero-gaikan-yoru.jpg" alt="夜の一平の外観。壁面に赤いネオンの「中華料理」と緑のネオンの「一平」、その下に赤白の日除けと提灯型の吊りランプ、刈り込んだ黒松の生垣" width="1024" height="768" loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="hero-veil" aria-hidden="true"></div>
+
     <div class="container">
         <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
         <span class="hero-eyebrow reveal">古河・横山町の中華料理</span>
         <h1 class="hero-title reveal"><span class="nw">一平</span></h1>
-        <p class="hero-line reveal reveal-delay-1"><span class="nw">ふだんの</span><span class="nw">お昼も、</span><span class="nw">ご法事の</span><span class="nw">お席も、</span><span class="nw">同じ</span><span class="nw">一軒で</span><span class="nw">ございます。</span></p>
+        <p class="hero-lede reveal reveal-delay-1"><span class="nw">ふだんの</span><span class="nw">お昼も、</span><span class="nw">ご法事の</span><span class="nw">お席も、</span><span class="nw">同じ</span><span class="nw">一軒で</span><span class="nw">ございます。</span></p>
 
-        <div class="hero-ruler reveal reveal-delay-2">
+        <div class="hero-actions reveal reveal-delay-2">
+            <a href="tel:0280220189" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                0280-22-0189｜ご予約はこちら
+            </a>
+            <a href="kaishoku.html" class="btn btn-ghost">法事・ご会食のお席を見る</a>
+        </div>
+    </div>
+
+    <span class="hero-cue" aria-hidden="true">SCROLL</span>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     お品書きの両端 ★この店の署名的な仕掛け
+     2026-08-22：ヒーローを写真に明け渡したので、物差しはここへ移して大きく組んだ
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="span">
+    <div class="container">
+        <span class="section-eyebrow reveal">715円から、8,800円まで</span>
+        <h2 class="section-title reveal"><span class="nw">お品書きの</span><span class="nw">両端</span></h2>
+        <p class="section-lead reveal"><span class="nw">715円の</span><span class="nw">ラーメンと、</span><span class="nw">8,800円からのふかひれの</span><span class="nw">姿煮が、</span><span class="nw">同じ</span><span class="nw">お品書きに</span><span class="nw">載っ</span><span class="nw">ております。</span></p>
+
+        <div class="span-ruler reveal reveal-delay-1">
             <div class="ruler-anchor">
                 <div class="anchor-circle">
-                    <img src="img/men-ramen.jpg" alt="醤油のラーメン" width="750" height="1000" loading="eager" fetchpriority="high" decoding="async">
+                    <img src="img/men-ramen.jpg" alt="醤油のラーメン" width="750" height="1000" loading="lazy" decoding="async">
                 </div>
                 <p class="anchor-label"><span class="nw">ラーメン</span><br><span class="nw">715円</span></p>
             </div>
@@ -645,23 +793,13 @@
                 <span class="ruler-tick" style="left:85%"></span>
             </div>
             <div class="ruler-anchor">
+                <!-- ★alt は写っているものを書く。ここに写っているのは離れの和室であって
+                     ふかひれの姿煮ではない（実在しない料理の絵として読まれる事故を防ぐ） -->
                 <div class="anchor-circle">
-                    <!-- ★alt は写っているものを書く。ここに写っているのは離れの和室であって
-                         ふかひれの姿煮ではない（実在しない料理の絵として読まれる事故を防ぐ） -->
                     <img src="img/zashiki-hanare.jpg" alt="離れの和室。丸テーブルと朱赤の回転台" width="1200" height="900" loading="lazy" decoding="async">
                 </div>
                 <p class="anchor-label"><span class="nw">法事・</span><span class="nw">ご会食</span><br><span class="nw">コース</span> <span class="nw">3,500円より</span></p>
             </div>
-        </div>
-
-        <p class="hero-line reveal reveal-delay-3"><span class="nw">715円の</span><span class="nw">ラーメンと、</span><span class="nw">8,800円からのふかひれの</span><span class="nw">姿煮が、</span><span class="nw">同じ</span><span class="nw">お品書きに</span><span class="nw">載っ</span><span class="nw">ております。</span></p>
-
-        <div class="hero-actions">
-            <a href="tel:0280220189" class="btn btn-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                0280-22-0189｜ご予約はこちら
-            </a>
-            <a href="kaishoku.html" class="btn btn-ghost">法事・ご会食のお席を見る</a>
         </div>
     </div>
 </section>
@@ -779,7 +917,7 @@
         <div class="photo-grid">
             <figure class="photo-card reveal">
                 <div class="photo-frame"><img src="img/ippin-torikashu.jpg" alt="鶏肉とカシューナッツ炒め" width="750" height="1000" loading="lazy" decoding="async"></div>
-                <h3><span class="nwb"><span class="nw">鶏肉と</span><span class="nw">カシュー</span><span class="nw">ナッツ</span><span class="nw">炒め</span></span><span class="price"><span class="nw">小盆</span> <span class="nw">2,090円</span></span></h3>
+                <h3><span class="nwb"><span class="nw">鶏肉と</span><span class="nw">カシューナッツ</span><span class="nw">炒め</span></span><span class="price"><span class="nw">小盆</span> <span class="nw">2,090円</span></span></h3>
             </figure>
             <figure class="photo-card reveal reveal-delay-1">
                 <div class="photo-frame"><img src="img/ippin-happousai.jpg" alt="八宝菜" width="750" height="1000" loading="lazy" decoding="async"></div>
