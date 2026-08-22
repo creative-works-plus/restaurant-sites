@@ -484,11 +484,12 @@
     .photo-card .cap { font-size: 0.8rem; color: var(--dim); }
 
     /* --- ヒーロー：夜の外観を全面に敷く（2026-08-22 作り直し）------------------------
-       もとは物差し（A-30「お品書きの両端」）を文字だけで組んでいたが、
-         ①ファーストビューに店の顔が一枚も無く、何の店かが絵で伝わらない
-         ②両端の丸が 66〜138px しか取れず、中に何が写っているか読めない
-       の2点で作り直した。夜の外観（赤いネオンの「中華料理」＋緑のネオンの「一平」）を
-       ヘッダーの裏まで全面に敷き、物差しは直下の独立した節へ移して大きく組み直している。
+       もとは物差し（A-30「お品書きの両端」＝715円のラーメンと8,800円のふかひれを
+       一直線で結ぶ図）を文字だけで組んでいたが、ファーストビューに店の顔が一枚も無く、
+       何の店かが絵で伝わらなかった。夜の外観（赤いネオンの「中華料理」＋緑のネオンの
+       「一平」）をヘッダーの裏まで全面に敷く形へ作り直している。
+       ★物差しは2026-08-22に丸藤さんの指示で節ごと削除した（振れ幅の話は、
+         お品書きのページで価格そのものが語る）。復活させない。
        ★背景は静止画のまま。ケンバーンズ等の常時アニメーションは入れない（絶対ルール⑧）。
        ------------------------------------------------------------------------- */
     .hero {
@@ -603,34 +604,6 @@
     body:not(.no-js):not(.scrolled):not(.nav-open) .header-tel,
     body:not(.no-js):not(.scrolled):not(.nav-open) .header-tel svg { color: #F7F1E5; }
     body:not(.no-js):not(.scrolled):not(.nav-open) .nav-toggle > span:not([class]) { background: #F7F1E5; }
-
-    /* --- お品書きの両端（りょうたん）★この店の署名的な仕掛け -------------------------
-       軸は「振れ幅」。左端に715円のラーメン、右端に8,800円のふかひれの姿煮（写真は
-       離れの和室）を丸く抜いて置き、間を一直線の物差しでつなぐ。天秤とは違い、
-       支点も吊り紐も作らない——両端の距離そのものが主題。
-       2026-08-22：ヒーローから独立した節へ移した。幅を丸ごと使えるので、
-       中に何が写っているか読めるところまで丸を大きくしている。
-       ------------------------------------------------------------------------- */
-    .span-ruler { display: flex; align-items: center; width: 100%; gap: clamp(10px, 3vw, 34px); margin-top: clamp(6px, 2vw, 16px); }
-    .ruler-anchor { display: flex; flex-direction: column; align-items: center; gap: 12px; flex: 0 0 auto; }
-    .anchor-circle {
-        width: clamp(104px, 22vw, 200px); height: clamp(104px, 22vw, 200px); border-radius: 50%;
-        overflow: hidden; border: 3px solid var(--accent); box-shadow: var(--shadow); background: var(--surface-2);
-        flex: 0 0 auto;
-    }
-    .anchor-circle img { width: 100%; height: 100%; object-fit: cover; }
-    .anchor-label { font-size: clamp(12px, 2.5vw, 16px); font-weight: 700; line-height: 1.45; color: var(--ink); }
-    /* ★2026-08-15レビュー A4：円が小さく、768pxでは窓と壁しか見えていなかった。
-       朱の回転台を円内に収める */
-    .ruler-anchor:last-child .anchor-circle img { object-position: 50% 72%; }
-
-    .ruler-line { position: relative; flex: 1 1 auto; height: 2px; min-width: 28px; }
-    .ruler-base { position: absolute; inset: 0; background: var(--line-strong); }
-    .ruler-fill { position: absolute; inset: 0; background: var(--accent); transform-origin: center; transform: scaleX(1); }
-    body:not(.no-js) .ruler-fill { animation: ruler-grow 0.8s cubic-bezier(0.16, 0.7, 0.3, 1) both; }
-    @keyframes ruler-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-    @media (prefers-reduced-motion: reduce) { .ruler-fill { animation: none; transform: scaleX(1); } }
-    .ruler-tick { position: absolute; top: -4px; width: 1px; height: 10px; background: var(--line-strong); }
 
     /* --- 本日のご案内 ------------------------------------------------------------ */
     #today .info-table { margin-bottom: clamp(20px, 4vw, 28px); }
@@ -764,44 +737,6 @@
     </div>
 
     <span class="hero-cue" aria-hidden="true">SCROLL</span>
-</section>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     お品書きの両端 ★この店の署名的な仕掛け
-     2026-08-22：ヒーローを写真に明け渡したので、物差しはここへ移して大きく組んだ
-     ══════════════════════════════════════════════════════════════════════ -->
-<section class="section" id="span">
-    <div class="container">
-        <span class="section-eyebrow reveal">715円から、8,800円まで</span>
-        <h2 class="section-title reveal"><span class="nw">お品書きの</span><span class="nw">両端</span></h2>
-        <p class="section-lead reveal"><span class="nw">715円の</span><span class="nw">ラーメンと、</span><span class="nw">8,800円からのふかひれの</span><span class="nw">姿煮が、</span><span class="nw">同じ</span><span class="nw">お品書きに</span><span class="nw">載っ</span><span class="nw">ております。</span></p>
-
-        <div class="span-ruler reveal reveal-delay-1">
-            <div class="ruler-anchor">
-                <div class="anchor-circle">
-                    <img src="img/men-ramen.jpg" alt="醤油のラーメン" width="750" height="1000" loading="lazy" decoding="async">
-                </div>
-                <p class="anchor-label"><span class="nw">ラーメン</span><br><span class="nw">715円</span></p>
-            </div>
-            <div class="ruler-line" aria-hidden="true">
-                <div class="ruler-base"></div>
-                <div class="ruler-fill"></div>
-                <span class="ruler-tick" style="left:11%"></span>
-                <span class="ruler-tick" style="left:33%"></span>
-                <span class="ruler-tick" style="left:63%"></span>
-                <span class="ruler-tick" style="left:85%"></span>
-            </div>
-            <div class="ruler-anchor">
-                <!-- ★alt は写っているものを書く。ここに写っているのは離れの和室であって
-                     ふかひれの姿煮ではない（実在しない料理の絵として読まれる事故を防ぐ） -->
-                <div class="anchor-circle">
-                    <img src="img/zashiki-hanare.jpg" alt="離れの和室。丸テーブルと朱赤の回転台" width="1200" height="900" loading="lazy" decoding="async">
-                </div>
-                <p class="anchor-label"><span class="nw">法事・</span><span class="nw">ご会食</span><br><span class="nw">コース</span> <span class="nw">3,500円より</span></p>
-            </div>
-        </div>
-    </div>
 </section>
 
 
