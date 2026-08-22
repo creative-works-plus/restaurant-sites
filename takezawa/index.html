@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/takezawa/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/takezawa/img/tblg-exterior-parking.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/takezawa/img/tblg-motsuni-teishoku-2.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -39,7 +39,7 @@
       "telephone": "+81-280-33-7822",
       "paymentAccepted": "Cash",
       "url": "https://creative-works-plus.github.io/restaurant-sites/takezawa/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/takezawa/img/tblg-exterior-parking.jpg",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/takezawa/img/tblg-motsuni-teishoku-2.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -557,7 +557,13 @@
     }
     .hero .container { display: flex; flex-direction: column; gap: var(--sp-4); }
 
-    .hero-photo { width: 100%; aspect-ratio: 16 / 9; }
+    /* ヒーローの写真だけは共通の .photo-frame より縦に大きく、枠線を外して
+       「カード」ではなく1枚の面として立てる。原寸 640×640 を超えて引き伸ばさない */
+    .hero-photo {
+        width: 100%; aspect-ratio: 3 / 2;
+        border: 0; border-radius: 14px;
+        box-shadow: 0 22px 54px rgba(58, 42, 28, .20);
+    }
 
     .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3); }
     .status-chip { align-self: flex-start; background: var(--surface); }
@@ -597,12 +603,19 @@
 
     .hero .hero-actions { margin-top: var(--sp-2); }
 
+    /* スマホは看板の写真が縦に効くぶん、下のお電話ボタンが最初の画面から
+       押し出されやすい。ヒーローの中の余白だけ詰めて 844px の中に収める */
+    @media (max-width: 620px) {
+        .hero .container { gap: var(--sp-3); }
+        .hero-hours { padding: var(--sp-3); margin-top: 0; }
+    }
+
     @media (min-width: 861px) {
-        /* 写真を右、言葉を左。写真は 640×360 の実寸のまま 16:9 で置くので拡大されない */
+        /* 写真を右、言葉を左。原寸 640×640 の中央を 4:5 で見せるので拡大は起きない */
         .hero .container { flex-direction: row-reverse; align-items: center; gap: var(--gap); }
         .hero-copy { gap: var(--sp-3); }
-        .hero-photo { flex: 1 1 50%; min-width: 0; }
-        .hero-copy  { flex: 1 1 50%; min-width: 0; }
+        .hero-photo { flex: 1 1 46%; min-width: 0; aspect-ratio: 4 / 5; }
+        .hero-copy  { flex: 1 1 54%; min-width: 0; }
         .hh-days li { width: 34px; height: 34px; font-size: 15px; }
     }
 
@@ -756,8 +769,8 @@
     <div class="container">
 
         <div class="photo-frame hero-photo reveal">
-            <img src="img/tblg-exterior-parking.jpg" alt="高架道路沿いに建つ店舗の外観。屋根の上に「もつ煮・餃子 たけざわ」の黄色い看板、右手に「営業中」ののぼり、手前は駐車場"
-                 width="640" height="360" loading="eager" fetchpriority="high" decoding="async">
+            <img src="img/tblg-motsuni-teishoku-2.jpg" alt="店先の看板。「しょうがらーめん」と「もつ煮・餃子 たけざわ」の二枚が並び、その下に木の板塀と「らーめん」ののぼり"
+                 width="640" height="640" loading="eager" fetchpriority="high" decoding="async">
         </div>
 
         <div class="hero-copy reveal">
@@ -1006,8 +1019,8 @@
 
         <div class="gallery-grid reveal">
             <figure class="photo-frame gallery-photo">
-                <img src="img/tblg-motsuni-teishoku-1.jpg" alt="自動販売機の並ぶ店先。屋根の上に黄色い「もつ煮・餃子 たけざわ」の看板"
-                     width="640" height="480" loading="lazy" decoding="async">
+                <img src="img/tblg-exterior-parking.jpg" alt="高架道路沿いに建つ店舗の外観。「営業中」ののぼりと、手前の駐車場"
+                     width="640" height="360" loading="lazy" decoding="async">
             </figure>
             <figure class="photo-frame gallery-photo">
                 <img src="img/tblg-interior-counter.jpg" alt="木製のカウンター席"
