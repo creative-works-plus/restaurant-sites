@@ -124,6 +124,11 @@
         --orn-cat-3: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9 30c-2-6 3-8 1-14' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M16 30c-2-7 3-9 1-16' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M23 30c-2-6 3-8 1-14' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
         --orn-cat-4: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 15a12 12 0 0 0 24 0z' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='4' y1='15' x2='28' y2='15' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3Cline x1='16' y1='15' x2='16' y2='9' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
         --orn-cat-5: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='11' rx='11' ry='3.4' fill='none' stroke='%23000' stroke-width='2.4'/%3E%3Cpath d='M5 11v9c0 1.9 4.9 3.4 11 3.4s11-1.5 11-3.4v-9' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3Cline x1='16' y1='23.4' x2='16' y2='29' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3Cline x1='9' y1='29' x2='23' y2='29' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+        /* ★2026-08-22：お品書きを5章→8章に組み直したので、章の紋を3つ足す。
+           一品＝小鉢を上から見た二重丸／お飲みもの＝タンブラー／コース＝お膳に器と箸 */
+        --orn-cat-6: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='16' cy='16' r='5.6' fill='none' stroke='%23000' stroke-width='2.2'/%3E%3C/svg%3E");
+        --orn-cat-7: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9.5 4h13l-1.7 24h-9.6z' fill='none' stroke='%23000' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cline x1='10.2' y1='12' x2='21.8' y2='12' stroke='%23000' stroke-width='2.2'/%3E%3C/svg%3E");
+        --orn-cat-8: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3.5' y='7.5' width='25' height='17' rx='2.6' fill='none' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.5' cy='16' r='3.8' fill='none' stroke='%23000' stroke-width='2.2'/%3E%3Cline x1='19' y1='12.4' x2='24.5' y2='12.4' stroke='%23000' stroke-width='2.2' stroke-linecap='round'/%3E%3Cline x1='19' y1='16' x2='24.5' y2='16' stroke='%23000' stroke-width='2.2' stroke-linecap='round'/%3E%3Cline x1='19' y1='19.6' x2='24.5' y2='19.6' stroke='%23000' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
 
         /* --- 地紋のスロット（★ここに常設で置いてよいのは「地紋」だけ） -----------
            2026-08-15 に整理した。**それまでは地紋・区切り・紋の3つを全店共通で常設していた**が、
@@ -514,7 +519,13 @@
        写真と一緒に第1画面へ入るようにする */
     .hero-photo { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line-strong);
         box-shadow: var(--shadow); }
-    .hero-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+    /* ★2026-08-22：ヒーローを店の外観に差し替えた。元写真が正方形で、4:3に切ると
+       屋根の頂点と玄関のどちらかが必ず切れる。スマホは縦を詰めたいので4:3で
+       「空を落として建物と看板を残す」位置に寄せ、写真が縦長の列になるPCでは
+       正方形のまま切らずに全部見せる */
+    .hero-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+        object-position: center 32%; display: block; }
+    @media (min-width: 900px) { .hero-photo img { aspect-ratio: 1 / 1; object-position: center; } }
     .hero-lede { color: var(--muted); max-width: 34em; }
     @media (min-width: 900px) {
         .hero .container { display: grid; grid-template-columns: 1fr 1.12fr; grid-template-rows: auto auto auto auto;
@@ -643,6 +654,14 @@
     .subnav a { color: rgba(35,32,26,.62); font-size: .88rem; border-bottom: 2px solid transparent;
         flex: 0 0 auto; white-space: nowrap; }
     .subnav a:hover { color: var(--paper-ink); border-color: var(--accent-deep); }
+    /* ★2026-08-22：章が8本になり、約900pxより狭いと最後の「オードブル」が画面の外へ出る。
+       横に流せることが見た目で分からないので、はみ出していて、かつ右端まで流していない
+       ときだけ右の縁をぼかす。全部収まっている幅では出さないので、JSで実測して付ける */
+    .subnav { position: relative; }
+    .subnav::after { content: ""; position: absolute; top: 0; right: 0; bottom: 1px; width: 44px;
+        background: linear-gradient(to right, rgba(242,237,224,0), var(--paper));
+        opacity: 0; transition: opacity .2s ease; pointer-events: none; }
+    .subnav.can-scroll-x::after { opacity: 1; }
 
     .menu-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: var(--blk-y); }
     .menu-gallery .photo-frame { aspect-ratio: 4 / 3; border-color: rgba(35,32,26,.14); box-shadow: none; }
@@ -651,6 +670,9 @@
        引いていた。ヒーローの直後＝暗い面へ移したので、罫線をこの面の色に戻す */
     .dish-section .menu-gallery { margin-bottom: 0; }
     .dish-section .menu-gallery .photo-frame { border-color: var(--line); }
+    /* ★2026-08-22：並びの先頭の1枚だけ2×2で大きく出す。4列なら 1枚(2×2)＋8枚で
+       ちょうど3行、2列（スマホ）なら 1枚(2×2)＋8枚でちょうど5行に収まる */
+    .menu-gallery .lead { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
 
     /* 章の区切りを節の区切り（--sec-y）と同じにすると、お品書きが5つの別の節に割れて見える。
        節間 --sec-y ＞ 章間 --sp-6 ＞ 見出しと本文 の3段で差をつける */
@@ -663,6 +685,9 @@
     #yakimono .menu-head::before  { --orn-cat: var(--orn-cat-2); }
     #nabe .menu-head::before      { --orn-cat: var(--orn-cat-3); }
     #syokuji .menu-head::before   { --orn-cat: var(--orn-cat-4); }
+    #ippin .menu-head::before     { --orn-cat: var(--orn-cat-6); }
+    #drink .menu-head::before     { --orn-cat: var(--orn-cat-7); }
+    #course .menu-head::before    { --orn-cat: var(--orn-cat-8); }
     #oordoburu .menu-head::before { --orn-cat: var(--orn-cat-5); }
     /* 章題を本文と同じゴシック700にすると、品名（16px・700）と5pxしか差が無く
        「太字の品目の1つ」に沈む。書体を屋号と同じ Yuji Mai に戻して階層を立てる */
@@ -675,16 +700,27 @@
     .menu-list .desc { display: block; font-weight: 400; color: rgba(35,32,26,.6); font-size: .82rem; }
     .menu-list .dots { flex: 1; border-bottom: 1px dotted rgba(35,32,26,.35); margin-bottom: 5px; }
     .menu-list .price { font-feature-settings: "tnum"; font-weight: 700; white-space: nowrap; }
-    .menu-list .price small { display: block; font-weight: 400; font-size: .72rem; color: rgba(35,32,26,.55); text-align: right; }
+    /* ★2026-08-22：但し書き（sub）は price の中にあるので nowrap を受け継ぐ。長い一文が
+       入るとスマホで品名の欄が1〜2文字まで潰れ、語の途中で改行される。ここで折り返しを
+       許して幅も抑え、品名の欄を守る（長い説明は desc 側に書く） */
+    .menu-list .price small { display: block; font-weight: 400; font-size: .72rem; color: rgba(35,32,26,.55); text-align: right; white-space: normal; max-width: 10em; margin-left: auto; }
     /* ★価格の無い品には点線リーダーを引かない（0-b） */
     .menu-list li:has(.price:empty) .dots { border-bottom-color: transparent; }
+    /* ★2026-08-22：ご宴会のコースは品名も説明も長く、点線が折り返しに押されて数ミリしか
+       残らない。中途半端に切れた線より引かないほうが整うので、この章だけ線を落とす
+       （欄そのものは残す。価格を右端に寄せる支えになっている） */
+    #course .menu-list .dots { border-bottom-color: transparent; }
     /* お品書きに添える写真。コンテナ幅いっぱい（1120px）まで伸ばすと、
        寄りのスナップが引き伸ばされて生活感だけが目立つ */
     /* ★2026-08-17：枠を 4/3 に固定していたので、縦位置の写真（鍋・ラーメンは
        3024×4032）が上下を落として中央だけの絵になっていた。**枠の比率を
        写真自身に決めさせる**（aspect-ratio: auto ＋ img の height:auto）。
        章ごとに1枚しか置かないので、縦横が混ざっても並びは崩れない */
-    .menu-photos { margin-top: var(--sp-3); padding-left: 40px; max-width: 660px; }
+    /* ★2026-08-22：章に写真を2枚以上置けるようにした。1枚のときは max-width が効いて
+       これまでどおり430pxで収まり、2枚以上のときだけ横に並ぶ（縦に積むと章が間延びする） */
+    .menu-photos { margin-top: var(--sp-3); padding-left: 40px; max-width: 660px;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px; align-items: start; }
     .menu-photos .photo-frame { aspect-ratio: auto; max-width: 430px; border-color: rgba(35,32,26,.14); }
     .menu-photos .photo-frame img { height: auto; }
     .menu-after { padding-left: 40px; margin-top: var(--sp-2); color: rgba(35,32,26,.6); font-size: .88rem; }
@@ -789,7 +825,7 @@
         <!-- ★2026-08-17：ここには「人数の段」（ご予約の人数の図）を置いていたが、
              第1画面の主役はこの店のお料理にした。図は「お席のこと」の頭へ移した -->
         <div class="hero-photo reveal">
-            <img src="hero-oozara.jpg" alt="大皿に盛った唐揚げ・串カツ・海老フライ・ローストビーフ・フライドポテト・エビチリの盛り合わせ" width="1500" height="1125" fetchpriority="high" decoding="async">
+            <img src="hero-gaikan.jpg" alt="黄色い外壁に瓦屋根の二階建て。玄関脇に「居酒屋 大将」の木看板、その左に大宴会ののぼり" width="1321" height="1320" fetchpriority="high" decoding="async">
         </div>
 
         <div class="hero-actions">
@@ -814,6 +850,9 @@
         <p class="reveal" style="max-width:620px;color:var(--muted);margin-bottom:var(--sp-5)"><span class="nw">お造り、</span><span class="nw">揚げ</span><span class="nw">もの、</span><span class="nw">お鍋、</span><span class="nw">お食事。</span><span class="nw">ご宴会の</span><span class="nw">お料理は、</span><span class="nw">大皿に</span><span class="nw">盛り</span><span class="nw">合わせて</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
 
         <div class="menu-gallery reveal">
+            <!-- ★2026-08-22：この大皿はヒーローに置いていた写真。ヒーローを店の外観に
+                 差し替えたので、いちばん見ていただきたいお料理としてここの頭に置き直した -->
+            <div class="photo-frame lead"><img src="hero-oozara.jpg" alt="大皿に盛った唐揚げ・串カツ・海老フライ・ローストビーフ・フライドポテト・エビチリの盛り合わせ" width="1500" height="1125" loading="lazy" decoding="async"></div>
             <div class="photo-frame"><img src="dish-gyoza.jpg" alt="焼き上がった手作り餃子" width="480" height="360" loading="lazy" decoding="async"></div>
             <div class="photo-frame"><img src="dish-yakitori-kushi.jpg" alt="串に刺した焼き鳥の盛り合わせ" width="480" height="360" loading="lazy" decoding="async"></div>
             <div class="photo-frame"><img src="dish-sashimi-kai.jpg" alt="刺身と貝類の盛り合わせ" width="480" height="360" loading="lazy" decoding="async"></div>
@@ -999,7 +1038,7 @@
 <section class="section">
     <div class="container">
         <p class="section-cap reveal"><span class="nw">お品書き</span></p>
-        <h2 class="section-title reveal"><span class="nw">お造りから、</span><span class="nw">お鍋、</span><span class="nw">お食事まで</span></h2>
+        <h2 class="section-title reveal"><span class="nw">お造りから、</span><span class="nw">お鍋、</span><span class="nw">お飲み</span><span class="nw">ものまで</span></h2>
         <p class="reveal" style="max-width:620px;color:rgba(35,32,26,.72)"><span class="nw">ここに</span><span class="nw">挙げたほかの</span><span class="nw">お品書きは</span><span class="nw">店内に</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お値段もあわせて、</span><a href="tel:0280924488" class="tel-link"><span class="nw">お電話で</span><span class="nw">ご案内いたします</span></a>。</p>
     </div>
 </section>
@@ -1007,40 +1046,79 @@
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
 <nav class="subnav" aria-label="お品書き内のナビゲーション">
     <div class="subnav-inner">
-        <a href="#sashimi">お造り・冷たい肴</a>
+        <a href="#sashimi">お造り・お寿司</a>
         <a href="#yakimono">揚げ物・焼き物</a>
         <a href="#nabe">お鍋</a>
+        <a href="#ippin">一品</a>
         <a href="#syokuji">麺・ごはん</a>
+        <a href="#drink">お飲みもの</a>
+        <a href="#course">ご宴会のコース</a>
         <a href="#oordoburu">オードブル</a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
         <div class="menu-block reveal" id="sashimi">
-            <div class="menu-head"><h2><span class="nw">お造り・</span><span class="nw">冷たい</span>肴</h2><span class="yomi">O T S U K U R I</span></div>
-            <p class="menu-note"><span class="nw">お造りは、</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">魚をさばいて</span><span class="nw">お出しし</span><span class="nw">ております。</span><span class="nw">冷たい</span><span class="nw">肴もあわせて</span><span class="nw">ご案内し</span><span class="nw">ております。</span></p>
+            <div class="menu-head"><h2><span class="nw">お造り・</span><span class="nw">お寿司</span></h2><span class="yomi">O T S U K U R I</span></div>
+            <p class="menu-note"><span class="nw">お造りは、</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">魚をさばいて</span><span class="nw">お出しし</span><span class="nw">ております。</span><span class="nw">お寿司は</span><span class="nw">カウンターにて</span><span class="nw">握っ</span><span class="nw">ております。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">クリームチーズチャンジャ</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">大将サラダ</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">刺身盛り</span><span class="nw">合わせ</span></span></li>
+                    <li><span class="name"><span class="nw">舟盛り</span><span class="desc"><span class="nw">ご宴会に</span></span></span></li>
+                    <li><span class="name"><span class="nw">海鮮カルパッチョ</span></span></li>
+                    <li><span class="name"><span class="nw">にぎり</span><span class="nw">寿司</span></span></li>
+                    <li><span class="name"><span class="nw">ちらし</span><span class="nw">寿司</span></span></li>
+                    <li><span class="name"><span class="nw">サーモン</span><span class="nw">刺身</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ほたて</span><span class="nw">刺身</span></span></li>
+                    <li><span class="name"><span class="nw">甘えび</span><span class="nw">刺身</span></span></li>
+                    <li><span class="name"><span class="nw">しめさば</span></span></li>
+                    <li><span class="name"><span class="nw">まぐろ</span><span class="nw">中落ち</span></span></li>
+                    <li><span class="name"><span class="nw">げそ</span><span class="nw">刺身</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="dish-funamori.jpg" alt="生牡蠣・帆立・海老・たこ・小魚を盛り込んだ舟盛り"
+                             width="900" height="720" loading="lazy" decoding="async">
+                    </div>
+                </figure>
                 <figure>
                     <div class="photo-frame">
                         <img src="dish-sashimi.jpg" alt="刺身盛り合わせ"
                              width="472" height="535" loading="lazy" decoding="async">
                     </div>
                 </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="dish-sushi.jpg" alt="まぐろ・サーモン・いくら・玉子などのにぎり寿司の盛り合わせ"
+                             width="640" height="524" loading="lazy" decoding="async">
+                    </div>
+                </figure>
             </div>
+            <p class="menu-after"><span class="nw">その</span><span class="nw">日の</span><span class="nw">お造りは、</span><span class="nw">カウンターの</span><span class="nw">上の</span><span class="nw">短冊にて</span><span class="nw">ご案内し</span><span class="nw">ております。</span></p>
         </div>
 
         <div class="menu-block reveal" id="yakimono">
             <div class="menu-head"><h2><span class="nw">揚げ</span><span class="nw">物・</span><span class="nw">焼き</span>物</h2><span class="yomi">A G E M O N O  Y A K I M O N O</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">手作り</span><span class="nw">餃子</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">麻婆豆腐</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">手作り</span><span class="nw">餃子</span></span></li>
+                    <li><span class="name"><span class="nw">唐揚げ</span></span></li>
+                    <li><span class="name"><span class="nw">焼き</span><span class="nw">鳥串盛り</span><span class="nw">合わせ</span></span></li>
+                    <li><span class="name"><span class="nw">ローストビーフ</span></span></li>
+                    <li><span class="name"><span class="nw">サイコロステーキ</span></span></li>
+                    <li><span class="name"><span class="nw">エビチリ</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">焼き</span>魚</span></li>
+                    <li><span class="name"><span class="nw">カキフライ</span></span></li>
+                    <li><span class="name"><span class="nw">鳥軟骨つくね</span></span></li>
+                    <li><span class="name"><span class="nw">ホルモン</span><span class="nw">炒め</span></span></li>
+                    <li><span class="name"><span class="nw">レバニラ</span><span class="nw">炒め</span></span></li>
+                    <li><span class="name"><span class="nw">フライドポテト</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1050,15 +1128,27 @@
                              width="1600" height="1200" loading="lazy" decoding="async">
                     </div>
                 </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="dish-yakizakana.jpg" alt="皿に盛った焼き魚の開き"
+                             width="480" height="640" loading="lazy" decoding="async">
+                    </div>
+                </figure>
             </div>
         </div>
 
         <div class="menu-block reveal" id="nabe">
             <div class="menu-head"><h2><span class="nw">お鍋</span></h2><span class="yomi">N A B E</span></div>
+            <p class="menu-note"><span class="nw">お鍋は、</span><span class="nw">ご宴会の</span><span class="nw">コースにも</span><span class="nw">お付けし</span><span class="nw">ております。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">海鮮寄せ</span>鍋</span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">カキ</span>鍋</span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">海鮮寄せ</span>鍋</span></li>
+                    <li><span class="name"><span class="nw">豪華海鮮寄せ</span>鍋<span class="nw">（大）</span><span class="desc"><span class="nw">ご宴会に</span></span></span></li>
+                    <li><span class="name"><span class="nw">カキ</span>鍋<span class="desc"><span class="nw">冬の</span><span class="nw">期間限定</span></span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">もつ</span>鍋</span></li>
+                    <li><span class="name"><span class="nw">ピリ</span><span class="nw">辛坦々鍋</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1071,18 +1161,49 @@
             </div>
         </div>
 
+        <div class="menu-block reveal" id="ippin">
+            <div class="menu-head"><h2><span class="nw">一品</span></h2><span class="yomi">I P P I N</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">大将サラダ</span></span></li>
+                    <li><span class="name"><span class="nw">クリームチーズチャンジャ</span></span></li>
+                    <li><span class="name"><span class="nw">麻婆豆腐</span></span></li>
+                    <li><span class="name"><span class="nw">あさりの</span><span class="nw">酒蒸し</span></span></li>
+                    <li><span class="name"><span class="nw">明太ポテトチーズ</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">もつ</span>煮</span></li>
+                    <li><span class="name"><span class="nw">とり</span><span class="nw">肉の</span><span class="nw">レモン</span>煮</span></li>
+                    <li><span class="name"><span class="nw">お新香盛り</span><span class="nw">合わせ</span></span></li>
+                    <li><span class="name"><span class="nw">茶碗蒸し</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="dish-salad.jpg" alt="サーモン・海老・いかを彩りよく盛ったサラダ"
+                             width="480" height="640" loading="lazy" decoding="async">
+                    </div>
+                </figure>
+            </div>
+        </div>
+
         <div class="menu-block reveal" id="syokuji">
             <div class="menu-head"><h2><span class="nw">麺・</span><span class="nw">ごはん</span></h2><span class="yomi">M E N  G O H A N</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">チャーハン</span></span><span class="dots"></span><span class="price"><span class="nw">600円</span></span></li>
-                    <li><span class="name"><span class="nw">おにぎり</span><span class="desc"><span class="nw">鮭・</span><span class="nw">おかか・</span><span class="nw">明太子</span></span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">大将ラーメン</span><span class="desc"><span class="nw">味噌</span></span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">キムチチャーハン</span></span></li>
+                    <li><span class="name"><span class="nw">大将ラーメン</span><span class="desc"><span class="nw">味噌</span></span></span></li>
+                    <li><span class="name"><span class="nw">醤油ラーメン</span></span></li>
+                    <li><span class="name"><span class="nw">豆乳坦々ラーメン</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">醤油ラーメン</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">豆乳坦々ラーメン</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">ちらし</span><span class="nw">寿司</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">焼きそば</span></span></li>
+                    <li><span class="name"><span class="nw">おにぎり</span><span class="desc"><span class="nw">鮭・</span><span class="nw">おかか・</span><span class="nw">明太子</span></span></span></li>
+                    <li><span class="name"><span class="nw">焼きおにぎり</span></span></li>
+                    <li><span class="name"><span class="nw">うどん</span></span></li>
+                    <li><span class="name"><span class="nw">雑炊</span><span class="desc"><span class="nw">お鍋の</span><span class="nw">締めに</span></span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1093,6 +1214,75 @@
                     </div>
                 </figure>
             </div>
+        </div>
+
+        <div class="menu-block reveal" id="drink">
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">O N O M I M O N O</span></div>
+            <p class="menu-note"><span class="nw">生ビールは</span><span class="nw">キリンラガーを</span><span class="nw">お出しし</span><span class="nw">ております。</span><span class="nw">本格芋焼酎と</span><span class="nw">日本酒も</span><span class="nw">取り</span><span class="nw">揃え</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">お好みを</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">くださいませ。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">生ビール</span><span class="desc"><span class="nw">キリンラガー</span></span></span></li>
+                    <li><span class="name"><span class="nw">瓶ビール</span><span class="desc"><span class="nw">キリンラガー</span></span></span></li>
+                    <li><span class="name"><span class="nw">ハイボール</span></span></li>
+                    <li><span class="name"><span class="nw">角ハイボール</span></span></li>
+                    <li><span class="name"><span class="nw">コークハイ</span></span></li>
+                    <li><span class="name"><span class="nw">ジンジャーハイ</span></span></li>
+                    <li><span class="name"><span class="nw">メガハイボール</span></span></li>
+                    <li><span class="name"><span class="nw">メガコークハイ</span></span></li>
+                    <li><span class="name"><span class="nw">メガジンジャー</span></span></li>
+                    <li><span class="name"><span class="nw">ウイスキー</span><span class="desc"><span class="nw">水割り・</span><span class="nw">ロック</span></span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">サワー</span><span class="desc"><span class="nw">レモン・</span><span class="nw">ライム・</span><span class="nw">あんず・</span><span class="nw">メロン・</span><span class="nw">ピーチ・</span><span class="nw">アセロラ・</span><span class="nw">青りんご・</span><span class="nw">カルピス</span></span></span></li>
+                    <li><span class="name"><span class="nw">梅シソサワー</span></span></li>
+                    <li><span class="name"><span class="nw">オリジナルチューハイ</span></span></li>
+                    <li><span class="name"><span class="nw">生レモンサワー</span></span></li>
+                    <li><span class="name"><span class="nw">生グレープフルーツサワー</span></span></li>
+                    <li><span class="name"><span class="nw">日本酒</span></span></li>
+                    <li><span class="name"><span class="nw">本格芋焼酎</span></span></li>
+                    <li><span class="name"><span class="nw">まっこり</span></span></li>
+                    <li><span class="name"><span class="nw">ワイン</span></span></li>
+                    <li><span class="name"><span class="nw">カクテル</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="drink-nama.jpg" alt="キリンラガーの生ビールとお通しの小鉢"
+                             width="499" height="666" loading="lazy" decoding="async">
+                    </div>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="drink-reishu.jpg" alt="ガラスの片口とおちょこに注いだ冷酒"
+                             width="517" height="690" loading="lazy" decoding="async">
+                    </div>
+                </figure>
+            </div>
+            <p class="menu-after"><span class="nw">お飲み</span><span class="nw">放題つきの</span><span class="nw">ご宴会コースも</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">お車の</span><span class="nw">方や</span><span class="nw">お子さまには、</span><span class="nw">ソフトドリンクも</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">銘柄と</span><span class="nw">お値段は、</span><span class="nw">店内にて</span><span class="nw">ご案内いたします。</span></p>
+        </div>
+
+        <div class="menu-block reveal" id="course">
+            <div class="menu-head"><h2><span class="nw">ご宴会の</span><span class="nw">コース</span></h2><span class="yomi">C O U R S E</span></div>
+            <p class="menu-note"><span class="nw">お飲み</span><span class="nw">放題つきの</span><span class="nw">コースは、</span><span class="nw">ラストオーダー</span><span class="nw">90分・</span><span class="nw">2時間制で</span><span class="nw">承っ</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">冬のあったか</span><span class="nw">お鍋つき</span>　<span class="nw">お飲み</span><span class="nw">放題つき</span><span class="nw">コース</span><span class="desc"><span class="nw">豪華海鮮寄せ</span>鍋<span class="nw">（大）・</span><span class="nw">お刺身盛り</span><span class="nw">合わせ・</span><span class="nw">エビチリ・</span><span class="nw">ローストビーフ・</span><span class="nw">焼き</span><span class="nw">鳥串盛り</span><span class="nw">合わせ・</span><span class="nw">オードブル・</span><span class="nw">焼きおにぎり・</span><span class="nw">お新香盛り</span><span class="nw">合わせ。</span><span class="nw">お鍋は</span><span class="nw">ピリ</span><span class="nw">辛坦々鍋、</span><span class="nw">もつ</span><span class="nw">鍋にも</span><span class="nw">お変え</span><span class="nw">いただけます。</span><span class="nw">生ビール・</span><span class="nw">ハイボールの</span><span class="nw">お飲み</span><span class="nw">放題つきで</span><span class="nw">ございます</span></span></span><span class="dots"></span><span class="price"><span class="nw">5,700円</span></span></li>
+                    <li><span class="name"><span class="nw">お飲み</span><span class="nw">放題つき</span>　<span class="nw">八品の</span><span class="nw">コース</span><span class="desc"><span class="nw">刺身盛り</span><span class="nw">合わせ・</span><span class="nw">ローストビーフ・</span><span class="nw">オードブル・</span><span class="nw">串盛り</span><span class="nw">合わせ・</span><span class="nw">海鮮カルパッチョ・</span><span class="nw">エビチリ・</span><span class="nw">餃子・</span><span class="nw">焼きおにぎり。</span><span class="nw">生ビール・</span><span class="nw">ハイボール・</span><span class="nw">サワー</span><span class="nw">類が</span><span class="nw">お飲み</span><span class="nw">放題になります</span></span></span><span class="dots"></span><span class="price"><span class="nw">5,500円</span></span></li>
+                    <li><span class="name"><span class="nw">お昼の</span><span class="nw">ご宴会</span>　<span class="nw">法事・</span><span class="nw">慶事の</span><span class="nw">コース</span><span class="desc"><span class="nw">折料理・</span><span class="nw">お刺身・</span><span class="nw">茶碗蒸し・</span><span class="nw">うどん・</span><span class="nw">フルーツを</span><span class="nw">お付けした、</span><span class="nw">十一品の</span><span class="nw">個人盛りの</span><span class="nw">コースです。</span><span class="nw">お昼から</span><span class="nw">ご利用いただけます。</span><span class="nw">無料の</span><span class="nw">送迎バスも</span><span class="nw">承っ</span><span class="nw">ております</span></span></span><span class="dots"></span><span class="price"><span class="nw">5,000円</span></span></li>
+                    <li><span class="name"><span class="nw">平日限定</span>　<span class="nw">お飲み</span><span class="nw">放題つき</span><span class="nw">コース</span><span class="desc"><span class="nw">刺身盛り</span><span class="nw">合わせ</span><span class="nw">（小）・</span><span class="nw">オードブル・</span><span class="nw">餃子・</span><span class="nw">エビチリ・</span><span class="nw">串盛り</span><span class="nw">合わせ・</span><span class="nw">ローストビーフ・</span><span class="nw">焼きおにぎり</span><span class="nw">などの</span><span class="nw">大皿料理です。</span><span class="nw">ご人数に</span><span class="nw">合わせて</span><span class="nw">お組み</span><span class="nw">いたします。</span><span class="nw">二時間制で、</span><span class="nw">送迎バスを</span><span class="nw">ご利用の</span><span class="nw">場合は</span><span class="nw">5,500円の</span><span class="nw">コースより</span><span class="nw">承っ</span><span class="nw">ております</span></span></span><span class="dots"></span><span class="price"><span class="nw">5,000円</span></span></li>
+                    <li><span class="name"><span class="nw">小中学生の</span><span class="nw">ご宴会プラン</span><span class="desc"><span class="nw">チャーハン・</span><span class="nw">サイコロステーキまたは</span><span class="nw">ローストビーフ・</span><span class="nw">唐揚げ・</span><span class="nw">焼きそば・</span><span class="nw">ポテト・</span><span class="nw">ピザなど。</span><span class="nw">アイスクリームも</span><span class="nw">お付けできます。</span><span class="nw">おふたりに</span><span class="nw">一本、</span><span class="nw">ペットボトルの</span><span class="nw">お飲み</span><span class="nw">ものを</span><span class="nw">お付けし</span><span class="nw">ております。</span><span class="nw">十名さまより</span><span class="nw">承ります。</span><span class="nw">中学生の</span><span class="nw">男子と</span><span class="nw">高校生さまは</span><span class="nw">3,300円の</span><span class="nw">コースを</span><span class="nw">ご用意し</span><span class="nw">ております</span></span></span><span class="dots"></span><span class="price"><span class="nw">2,750円</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="seat-zen.jpg" alt="お座敷に二列に並んだご宴会のお膳"
+                             width="320" height="240" loading="lazy" decoding="async">
+                    </div>
+                </figure>
+            </div>
+            <p class="menu-after"><span class="nw">ご人数・</span><span class="nw">ご予算に</span><span class="nw">合わせて</span><span class="nw">お組み</span><span class="nw">いたします。</span><span class="nw">十名さまより、</span><span class="nw">無料の</span><span class="nw">送迎バスも</span><span class="nw">承っ</span><span class="nw">ております。</span></p>
         </div>
 
         <div class="menu-block reveal" id="oordoburu">
@@ -1108,6 +1298,12 @@
                     <div class="photo-frame">
                         <img src="dish-oordoburu.jpg" alt="巻き寿司・唐揚げ・ローストビーフ・エビチリなどを盛り合わせたオードブル"
                              width="1200" height="900" loading="lazy" decoding="async">
+                    </div>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="dish-oordoburu-fune.jpg" alt="巻き寿司・フライドポテト・唐揚げ・ローストビーフ・串もの・エビチリを盛り込んだ舟形のオードブル"
+                             width="1200" height="1600" loading="lazy" decoding="async">
                     </div>
                 </figure>
             </div>
@@ -1427,6 +1623,20 @@ function updateStatus() {
 }
 updateStatus();
 setInterval(updateStatus, 60000);
+
+/* お品書きのサブナビが横にはみ出しているかを実測して、右端のぼかしを出し入れする */
+(function () {
+    var bar = document.querySelector('.subnav');
+    var inner = bar && bar.querySelector('.subnav-inner');
+    if (!inner) return;
+    function update() {
+        var over = inner.scrollWidth - inner.clientWidth;
+        bar.classList.toggle('can-scroll-x', over > 4 && inner.scrollLeft < over - 4);
+    }
+    inner.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+})();
 </script>
 </body>
 </html>
