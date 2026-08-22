@@ -506,62 +506,90 @@
     figcaption { margin-top: 8px; font-size: var(--fz-cap); color: var(--dim); }
 
     /* ══════════════════════════════════════════════════════════════════
-       1. ヒーロー ── 秘密基地の図面
+       1. ヒーロー ── 大きな活字だけで組む（写真も図面も置かない）
+       ★2026-08-22 に差し替えた。以前はここに店の間取りを作図した図面を置いていたが、
+         ①絶対ルール⑫「説明のための図（図解）は作らない」に真正面から触れていた
+         ②図が主役になり、屋号とご予約の導線が図の下へ押し出されていた
+         ③丸藤さんから「ヒーローの画像はいらない」の指示
+       写真も置かない指示なので、支えになるのは活字の大きさと余白と罫の3つだけ。
+       署名の市松は「旗の帯」として1本だけ残す（意匠であって図解ではない）。
        ══════════════════════════════════════════════════════════════════ */
-    .hero { display: flex; flex-direction: column; justify-content: center; padding-block: var(--blk-y) var(--sp-5); }
-    .hero-tagline { font-size: 15px; color: var(--muted); margin: 10px 0 2px; max-width: 46ch; line-height: 1.9; }
+    .hero {
+        display: flex; flex-direction: column; justify-content: center;
+        position: relative; overflow: hidden;
+        padding-block: clamp(44px, 8vw, 96px) clamp(40px, 7vw, 84px);
+    }
+    /* 地は単色ではなく、上を白く下を土間色に落としたごく浅い1枚だけ。
+       写真ではないので絶対ルール⑧（背景写真の常時アニメーション禁止）には触れない。動きも付けない */
+    .hero::before {
+        content: ''; position: absolute; inset: 0; pointer-events: none;
+        background:
+            radial-gradient(110% 78% at 88% -6%, rgba(37, 107, 160, .11), transparent 62%),
+            linear-gradient(180deg, var(--surface) 0%, var(--bg) 58%);
+    }
+    .hero > .container { position: relative; z-index: 1; }
 
-    .blueprint-frame {
-        position: relative; width: 100%; aspect-ratio: 1000 / 640; color: var(--ink);
-        margin-block: var(--blk-y) var(--sp-4);
+    .hero-eyebrow {
+        margin-top: clamp(20px, 3.4vw, 34px);
+        font-size: 11px; letter-spacing: .24em; color: var(--dim);
+        text-transform: uppercase;
     }
-    /* 図面を幅いっぱいに伸ばすと高さが700px超になり、屋号もCTAも折り返しの下へ落ちる。
-       図の描画は viewBox 1000 のうち x≈82〜756 で終わっているので、詰めても絵は欠けない */
-    @media (min-width: 900px) { .blueprint-frame { max-width: 880px; margin-right: auto; } }
-    @media (max-width: 620px) {
-        .blueprint-frame { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
-    }
-    .blueprint { width: 100%; height: 100%; display: block; }
-    .bp-outline { stroke-dasharray: 1; stroke-dashoffset: 1; animation: bp-draw 1.3s cubic-bezier(.3,.6,.2,1) forwards; animation-delay: .15s; }
-    .bp-detail  { opacity: 0; animation: bp-fade .8s ease-out forwards; animation-delay: 1.15s; }
-    .bp-dim     { stroke-dasharray: 5 5; }
-    @keyframes bp-draw { to { stroke-dashoffset: 0; } }
-    @keyframes bp-fade { to { opacity: 1; } }
 
-    .bp-label-sub { display: block; font-size: 10.5px; color: var(--muted); letter-spacing: .02em; margin-top: 1px; }
-    .bp-label {
-        position: absolute; font-size: 12px; letter-spacing: .04em; color: var(--ink);
-        background: var(--bg); padding: 3px 8px; white-space: nowrap;
-        opacity: 0; animation: bp-fade .8s ease-out forwards; animation-delay: 1.25s;
+    /* 屋号。AJITO を画面いっぱいに使う1語として立てる */
+    .hero-title { margin-top: clamp(8px, 1.4vw, 14px); line-height: .88; }
+    .hero-title .t1, .hero-title .t2 {
+        display: block; font-family: var(--font-head); text-transform: uppercase;
     }
-    .bp-open {
-        position: absolute; top: 4%; right: 3%; text-align: right; background: var(--bg); padding: 4px 8px;
-        font-family: var(--font-head); letter-spacing: .08em; color: var(--accent-deep);
-        font-size: clamp(13px, 2.4vw, 17px); line-height: 1.2; white-space: nowrap;
-        opacity: 0; animation: bp-fade .8s ease-out forwards; animation-delay: 1.25s;
-    }
-    .bp-quote {
-        position: absolute; bottom: 4%; right: 3%; max-width: 44%; text-align: right;
-        background: var(--bg); padding: 4px 8px; font-size: 12px; color: var(--muted); line-height: 1.75;
-        opacity: 0; animation: bp-fade .8s ease-out forwards; animation-delay: 1.25s;
-    }
-    /* 文節ごとに .nw で区切る。行まるごとを nowrap にすると、狭い画面で
-       箱（max-width 44%）から文字がはみ出して横スクロールが出る（390pxで17px出ていた） */
-    .bp-quote .nw { white-space: nowrap; }
-    @media (max-width: 560px) { .bp-quote { max-width: 58%; } }
+    .hero-title .t1 { font-size: clamp(26px, 5.4vw, 58px); letter-spacing: .13em; color: var(--dim); }
+    .hero-title .t2 { font-size: clamp(72px, 17.5vw, 224px); letter-spacing: .015em; color: var(--ink); }
 
-    .bp-titleblock {
-        border: 1px solid var(--ink); background: var(--surface); display: inline-block;
-        padding: 12px 18px; margin-top: 2px;
+    /* 屋号は5文字しかないので、1120px の枠を活字だけでは埋められない。
+       PCでは導入文を屋号の右へ回して、AJITO の横の空白を文章で埋める。
+       ★グリッドの子に aspect-ratio は付けない（.hero は min-height:100svh を持つので
+         行が先に伸ばされて横にはみ出す。骨格のコメント参照） */
+    @media (min-width: 900px) {
+        .hero-head {
+            display: grid; grid-template-columns: minmax(0, auto) minmax(230px, 1fr);
+            gap: clamp(30px, 4.6vw, 68px); align-items: end;
+        }
+        .hero-head .hero-tagline { margin-top: 0; padding-bottom: clamp(12px, 1.8vw, 26px); }
     }
-    .bp-brand {
-        font-family: var(--font-head); font-size: var(--fz-hero); letter-spacing: .06em;
-        line-height: 1.05; text-transform: uppercase; white-space: nowrap;
+
+    /* 市松の帯（チェッカーフラッグ）。右へ向かって消える1本だけ */
+    .hero-rule {
+        height: 14px; margin-top: clamp(18px, 2.8vw, 28px);
+        background: repeating-conic-gradient(var(--ink) 0% 25%, transparent 0% 50%) 0 0 / 14px 14px;
+        -webkit-mask-image: linear-gradient(90deg, #000 0 34%, transparent 92%);
+                mask-image: linear-gradient(90deg, #000 0 34%, transparent 92%);
     }
-    .bp-sub { font-size: 11px; letter-spacing: .1em; color: var(--dim); margin-top: 6px; }
+
+    .hero-tagline {
+        margin-top: clamp(20px, 3vw, 30px); max-width: 40ch;
+        font-size: clamp(15px, 1.5vw, 17px); color: var(--muted); line-height: 1.95;
+    }
+
+    /* 店の要点。図面が抱えていた 席数・駐車・営業時間・開店日 をここへ移した */
+    .hero-facts {
+        display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(12px, 2.2vw, 26px); margin-top: clamp(32px, 4.6vw, 54px);
+    }
+    .hero-facts > div { border-top: 1px solid var(--line-strong); padding-top: 11px; }
+    .hero-facts dt { font-size: 10px; letter-spacing: .18em; color: var(--dim); margin-bottom: 5px; }
+    .hero-facts dd { font-size: clamp(14px, 1.4vw, 16px); font-weight: 700; line-height: 1.45; }
+    .hero-facts dd small { display: block; margin-top: 3px; font-size: 11.5px; font-weight: 400; color: var(--muted); }
+    @media (max-width: 700px) { .hero-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    /* 出現。屋号だけ下から起こし、あとは順に浮かせる（1回きり・0.9秒で終わる） */
+    .hero-fade { opacity: 0; animation: hero-up .8s cubic-bezier(.22,.7,.25,1) forwards; }
+    .hero-title .t1 { animation-delay: .10s; }
+    .hero-title .t2 { animation-delay: .18s; }
+    @keyframes hero-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    .hero-rule { transform-origin: left center; animation: hero-wipe .9s cubic-bezier(.22,.7,.25,1) .34s backwards; }
+    @keyframes hero-wipe { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
     @media (prefers-reduced-motion: reduce) {
-        .bp-outline, .bp-detail, .bp-label, .bp-open, .bp-quote { opacity: 1; stroke-dashoffset: 0; }
+        .hero-fade { opacity: 1; animation: none; }
+        .hero-rule { animation: none; }
     }
 
     /* ══════════════════════════════════════════════════════════════════
@@ -599,7 +627,21 @@
     .lead-box { color: var(--muted); font-size: 15px; max-width: 58ch; margin-bottom: var(--blk-y); }
 
     .subnav { position: sticky; top: var(--header-h); z-index: 60; background: var(--surface); border-bottom: 1px solid var(--line); }
-    .subnav-inner { display: flex; overflow-x: auto; gap: 2px; -webkit-overflow-scrolling: touch; }
+    /* ★2026-08-22 修正：タブが画面の左端に貼り付いていた。
+       `.subnav` は body 直下に出るので `.container` の外側にあり、
+       本文（幅 --maxw・左右 --pad-inner）と左端がそろっていなかった。
+       ここで中身だけ本文と同じ幅に揃える（`.container` 自体は触らない）。 */
+    .subnav-inner {
+        display: flex; overflow-x: auto; gap: 2px; -webkit-overflow-scrolling: touch;
+        width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+    }
+    /* 収まる幅ではタブを中央に寄せる。
+       ★`justify-content: center` は使わない——はみ出したときに先頭のタブが
+         スクロールで掴めなくなる（flex の中央寄せの既知の罠）。
+         両端の子の auto マージンなら、余白があるときだけ効いて、
+         狭い画面では 0 に潰れるので先頭から普通にスクロールできる。 */
+    .subnav-inner a:first-child { margin-inline-start: auto; }
+    .subnav-inner a:last-child  { margin-inline-end: auto; }
     /* ★flex の子に nowrap と flex-shrink:0 を書かないと、タブが押し潰されて
        「ごはんも／の」「パス／タ」と語の途中で2行に折れる */
     .subnav-inner a { font-size: 13px; color: var(--muted); border-bottom: 2px solid transparent;
@@ -705,136 +747,24 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
     <div class="container">
-        <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+        <div class="hero-head">
+            <div class="hero-headline">
+                <span class="status-chip hero-fade" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
-        <p class="hero-tagline"><span class="nw">コンクリート</span><span class="nw">土間の</span><span class="nw">ガレージで、</span><span class="nw">昔ながらの</span><span class="nw">ナポリタンと</span><span class="nw">アジアの</span><span class="nw">一皿を</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+                <p class="hero-eyebrow hero-fade"><span class="nw">茨城県古河市原町</span></p>
 
-        <div class="blueprint-frame">
-            <svg class="blueprint" viewBox="0 0 1000 640" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-                <!-- 外周（建物の壁）。開いたシャッターぶんだけ左壁を切っている -->
-                <g class="bp-outline" stroke-linecap="square">
-                    <line pathLength="1" x1="120" y1="90"  x2="720" y2="90"/>
-                    <line pathLength="1" x1="720" y1="90"  x2="720" y2="470"/>
-                    <line pathLength="1" x1="720" y1="470" x2="120" y2="470"/>
-                    <line pathLength="1" x1="120" y1="90"  x2="120" y2="150"/>
-                    <line pathLength="1" x1="120" y1="300" x2="120" y2="470"/>
-                    <line pathLength="1" x1="120" y1="150" x2="146" y2="150"/>
-                    <line pathLength="1" x1="120" y1="300" x2="146" y2="300"/>
-                </g>
+                <h1 class="hero-title">
+                    <span class="t1 hero-fade">Garage Cafe</span>
+                    <span class="t2 hero-fade">AJITO</span>
+                </h1>
+            </div>
 
-                <!-- 内側：開いたシャッター（巻き上がったスラット） -->
-                <g class="bp-detail" stroke-width="1.6">
-                    <line x1="124" y1="97"  x2="160" y2="97"/>
-                    <line x1="124" y1="105" x2="160" y2="105"/>
-                    <line x1="124" y1="113" x2="160" y2="113"/>
-                    <line x1="124" y1="121" x2="160" y2="121"/>
-                </g>
-
-                <!-- 内側：車の外形（車種は描かない。抽象化した上面シルエット） -->
-                <g class="bp-detail" stroke-width="1.8">
-                    <rect x="176" y="188" width="164" height="70" rx="24"/>
-                    <path d="M214 188 L302 188 L288 203 L228 203 Z"/>
-                    <line x1="176" y1="223" x2="160" y2="223"/>
-                    <line x1="340" y1="223" x2="356" y2="223"/>
-                </g>
-
-                <!-- 内側：バイクの外形 -->
-                <g class="bp-detail" stroke-width="1.8">
-                    <circle cx="196" cy="300" r="15"/>
-                    <circle cx="286" cy="300" r="15"/>
-                    <path d="M196 300 L240 278 L286 300"/>
-                    <line x1="240" y1="278" x2="240" y2="264"/>
-                    <line x1="228" y1="264" x2="252" y2="264"/>
-                </g>
-
-                <!-- 内側：土間の市松（4×3コマだけ） -->
-                <g class="bp-detail">
-                    <rect x="300" y="340" width="30" height="30" fill="currentColor" stroke="none"/>
-                    <rect x="330" y="340" width="30" height="30" fill="var(--surface)" stroke-width="1"/>
-                    <rect x="360" y="340" width="30" height="30" fill="currentColor" stroke="none"/>
-                    <rect x="390" y="340" width="30" height="30" fill="var(--surface)" stroke-width="1"/>
-                    <rect x="300" y="370" width="30" height="30" fill="var(--surface)" stroke-width="1"/>
-                    <rect x="330" y="370" width="30" height="30" fill="currentColor" stroke="none"/>
-                    <rect x="360" y="370" width="30" height="30" fill="var(--surface)" stroke-width="1"/>
-                    <rect x="390" y="370" width="30" height="30" fill="currentColor" stroke="none"/>
-                    <rect x="300" y="400" width="30" height="30" fill="currentColor" stroke="none"/>
-                    <rect x="330" y="400" width="30" height="30" fill="var(--surface)" stroke-width="1"/>
-                    <rect x="360" y="400" width="30" height="30" fill="currentColor" stroke="none"/>
-                    <rect x="390" y="400" width="30" height="30" fill="var(--surface)" stroke-width="1"/>
-                </g>
-
-                <!-- 内側：26席ぶんのテーブルと椅子（外形だけ） -->
-                <g class="bp-detail" stroke-width="1.4">
-                    <rect x="470" y="150" width="34" height="34"/>
-                    <circle cx="470" cy="136" r="4"/><circle cx="504" cy="136" r="4"/><circle cx="470" cy="198" r="4"/><circle cx="504" cy="198" r="4"/>
-                    <rect x="560" y="150" width="34" height="34"/>
-                    <circle cx="560" cy="136" r="4"/><circle cx="594" cy="136" r="4"/><circle cx="560" cy="198" r="4"/><circle cx="594" cy="198" r="4"/>
-                    <rect x="470" y="230" width="34" height="34"/>
-                    <circle cx="470" cy="216" r="4"/><circle cx="504" cy="216" r="4"/><circle cx="470" cy="278" r="4"/><circle cx="504" cy="278" r="4"/>
-                    <rect x="560" y="230" width="34" height="34"/>
-                    <circle cx="560" cy="216" r="4"/><circle cx="594" cy="216" r="4"/><circle cx="560" cy="278" r="4"/><circle cx="594" cy="278" r="4"/>
-                    <rect x="630" y="300" width="26" height="26"/>
-                    <circle cx="630" cy="288" r="4"/><circle cx="656" cy="288" r="4"/>
-                </g>
-
-                <!-- 内側：カウンター -->
-                <g class="bp-detail" stroke-width="1.8">
-                    <rect x="560" y="420" width="140" height="26"/>
-                    <line x1="560" y1="428" x2="700" y2="428"/>
-                </g>
-
-                <!-- 内側：建物前の駐車マス7台 -->
-                <g class="bp-detail" stroke-width="1.6">
-                    <line x1="140" y1="500" x2="700" y2="500"/>
-                    <line x1="140" y1="500" x2="140" y2="600"/>
-                    <line x1="700" y1="500" x2="700" y2="600"/>
-                    <line class="bp-dim" x1="220" y1="500" x2="220" y2="600"/>
-                    <line class="bp-dim" x1="300" y1="500" x2="300" y2="600"/>
-                    <line class="bp-dim" x1="380" y1="500" x2="380" y2="600"/>
-                    <line class="bp-dim" x1="460" y1="500" x2="460" y2="600"/>
-                    <line class="bp-dim" x1="540" y1="500" x2="540" y2="600"/>
-                    <line class="bp-dim" x1="620" y1="500" x2="620" y2="600"/>
-                </g>
-
-                <!-- 内側：ヤシの木 -->
-                <g class="bp-detail" stroke-width="1.6">
-                    <path d="M660 500 Q655 484 660 470"/>
-                    <path d="M660 470 Q640 460 624 468"/>
-                    <path d="M660 470 Q650 452 660 438"/>
-                    <path d="M660 470 Q670 452 686 462"/>
-                    <path d="M660 470 Q680 465 692 480"/>
-                </g>
-
-                <!-- 引き出し線 -->
-                <g class="bp-detail" stroke-width="1.2">
-                    <line x1="537" y1="190" x2="537" y2="118"/>
-                    <line x1="133" y1="225" x2="82" y2="225"/>
-                </g>
-
-                <!-- 寸法線（破線） -->
-                <g class="bp-detail bp-dim" stroke-width="1">
-                    <line x1="120" y1="66" x2="720" y2="66"/>
-                    <line x1="120" y1="58" x2="120" y2="74"/>
-                    <line x1="720" y1="58" x2="720" y2="74"/>
-                    <line x1="748" y1="90" x2="748" y2="470"/>
-                    <line x1="740" y1="90" x2="756" y2="90"/>
-                    <line x1="740" y1="470" x2="756" y2="470"/>
-                </g>
-            </svg>
-
-            <div class="bp-label" style="top:13.5%;left:48%">26席</div>
-            <div class="bp-label" style="top:80%;left:16%">駐車 7台</div>
-            <div class="bp-label" style="top:24%;left:16%">11:00 — 20:00<br><span class="bp-label-sub">L.O. 19:00｜水・木 定休</span></div>
-            <div class="bp-open">2025.05.02<br>OPEN</div>
-            <div class="bp-quote">父が老後の秘密基地として建てた。<br>母と娘が、店にした。</div>
+            <p class="hero-tagline hero-fade" style="animation-delay:.42s"><span class="nw">コンクリート</span><span class="nw">土間の</span><span class="nw">ガレージで、</span><span class="nw">昔ながらの</span><span class="nw">ナポリタンと</span><span class="nw">アジアの</span><span class="nw">一皿を</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
         </div>
 
-        <div class="bp-titleblock">
-            <h1 class="bp-brand">GARAGE CAFE<br>AJITO</h1>
-            <p class="bp-sub"><span class="nw">図面｜</span><span class="nw">古河市原町</span></p>
-        </div>
+        <div class="hero-rule" aria-hidden="true"></div>
 
-        <div class="hero-actions">
+        <div class="hero-actions hero-fade" style="animation-delay:.50s">
             <a href="tel:09067291790" class="btn btn-primary">
                 <span class="chk-flip" aria-hidden="true"></span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
@@ -842,6 +772,25 @@
             </a>
             <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
         </div>
+
+        <dl class="hero-facts hero-fade" style="animation-delay:.58s">
+            <div>
+                <dt>OPEN</dt>
+                <dd><span class="nwb">11:00 — 20:00</span><small>L.O. 19:00</small></dd>
+            </div>
+            <div>
+                <dt>CLOSED</dt>
+                <dd><span class="nwb"><span class="nw">水・</span><span class="nw">木曜</span></span><small><span class="nw">祝日・</span><span class="nw">祝前日も</span><span class="nw">営業</span></small></dd>
+            </div>
+            <div>
+                <dt>SEATS</dt>
+                <dd><span class="nwb"><span class="nw">26席</span></span><small><span class="nw">駐車</span> <span class="nw">7台</span></small></dd>
+            </div>
+            <div>
+                <dt>SINCE</dt>
+                <dd><span class="nwb">2025.05.02</span><small><span class="nw">古河市原町</span>6-16</small></dd>
+            </div>
+        </dl>
     </div>
 </section>
 
