@@ -691,8 +691,13 @@
     .grid3 { display: grid; gap: var(--sp-3); grid-template-columns: repeat(2, 1fr); }
     @media (min-width: 760px) { .grid3 { grid-template-columns: repeat(3, 1fr); } }
     .grid3 .photo-frame { aspect-ratio: 4 / 3; }
-    .grid2 { display: grid; gap: var(--sp-3); grid-template-columns: repeat(2, 1fr); }
-    .grid2 .photo-frame { aspect-ratio: 4 / 3; }
+    /* お持ち帰り：写真1枚と、リード文＋ご注文の電話を左右に組む */
+    .takeout-lay { display: grid; gap: var(--sp-4); align-items: center; }
+    @media (min-width: 760px) { .takeout-lay { grid-template-columns: 1.05fr .95fr; gap: var(--sp-5); } }
+    .takeout-lay .photo-frame { aspect-ratio: 4 / 3; }
+    .takeout-body .lead { margin-bottom: var(--sp-4); }
+    .takeout-body .menu-cta { margin-top: 0; }
+    @media (min-width: 760px) { .takeout-body .menu-cta { text-align: left; } }
 
     /* ── 反転面（煉瓦色）＝白い悪魔 ─────────────────────────────────── */
     .panel-paper { background: var(--paper); color: var(--paper-ink); }
@@ -791,6 +796,8 @@
     #menu-niku .menu-photos > figure:only-child .photo-frame { aspect-ratio: 16 / 9; }
     #menu-gohan .menu-photos > figure:only-child { max-width: 420px; margin-inline: auto; }
     #menu-gohan .menu-photos > figure:only-child .photo-frame { aspect-ratio: 3 / 4; }
+    /* お飲みもの：フラッペも黒板も縦位置の写真なので、2枚とも縦の枠でそろえる */
+    #menu-drink .menu-photos .photo-frame { aspect-ratio: 3 / 4; }
     .menu-cta { text-align: center; margin-top: var(--sp-5); }
 
     /* ── アクセス ────────────────────────────────────────────────── */
@@ -988,7 +995,7 @@
             </figure>
             <figure class="reveal reveal-delay-1">
                 <div class="photo-frame">
-                    <img src="img/niku-roastbeef-don.webp" alt="ローストビーフを敷き詰めた丼と黄身" width="1200" height="900" loading="lazy" decoding="async">
+                    <img src="img/niku-roastbeef-don.webp" alt="ローストビーフを敷き詰めた丼と黄身" width="900" height="675" loading="lazy" decoding="async">
                 </div>
                 <h3><span class="nw">ローストビーフ</span>丼</h3>
                 <p><span class="nw">低い</span><span class="nw">温度でゆっくり</span><span class="nw">火を</span><span class="nw">入れ</span><span class="nw">ております。</span><span class="nw">ソースは</span><span class="nw">お選び</span><span class="nw">いただけます。</span></p>
@@ -1012,7 +1019,7 @@
                 <figcaption><span class="nw">お味噌汁を</span><span class="nw">添えて</span></figcaption>
             </figure>
             <figure class="reveal reveal-delay-2">
-                <div class="photo-frame"><img src="img/niku-butadon-aka.webp" alt="赤い卓の上の豚丼とお味噌汁" width="768" height="1024" loading="lazy" decoding="async"></div>
+                <div class="photo-frame"><img src="img/niku-butadon-aka.webp" alt="赤い卓の上の豚丼とお味噌汁" width="1024" height="768" loading="lazy" decoding="async"></div>
                 <figcaption><span class="nw">赤い</span><span class="nw">卓で</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただけます</span></figcaption>
             </figure>
             <figure class="reveal">
@@ -1209,7 +1216,7 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="img/kokuban-drink.webp" alt="ソフトドリンクを書いた店内の黒板"
-                             width="900" height="600" loading="lazy" decoding="async">
+                             width="600" height="800" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">お飲み</span><span class="nw">ものの</span><span class="nw">黒板</span></figcaption>
                 </figure>
@@ -1234,24 +1241,20 @@
     <div class="container">
         <p class="section-eyebrow reveal">TAKE OUT</p>
         <h2 class="section-title reveal"><span class="nwb"><span class="nw">お持ち</span><span class="nw">帰り・</span><span class="nw">お届け</span></span></h2>
-        <p class="lead reveal"><span class="nw">店頭での</span><span class="nw">お持ち</span><span class="nw">帰りを</span><span class="nw">承っ</span><span class="nw">ております。</span><span class="nw">ローストビーフは</span><span class="nw">BOXに</span><span class="nw">詰めて</span><span class="nw">お渡し</span><span class="nw">いたします</span><span class="nw">ので、</span><span class="nw">おとなりの</span><span class="nw">古河総合公園でのひと</span><span class="nw">ときにも、</span><span class="nw">ご自宅での</span><span class="nw">お食事にもどうぞ。</span>Uber Eats <span class="nw">での</span><span class="nw">お届けも</span><span class="nw">ご利用いただけます。</span></p>
-
-        <div class="grid2">
+        <div class="takeout-lay">
             <figure class="reveal">
                 <div class="photo-frame"><img src="img/niku-roastbeef-box.webp" alt="お持ち帰り用の箱に詰めたローストビーフ" width="693" height="519" loading="lazy" decoding="async"></div>
                 <figcaption><span class="nw">ローストビーフの</span>BOX</figcaption>
             </figure>
-            <figure class="reveal reveal-delay-1">
-                <div class="photo-frame"><img src="img/niku-roastbeef-box2.webp" alt="ローストビーフを詰めたお持ち帰りの箱" width="1024" height="798" loading="lazy" decoding="async"></div>
-                <figcaption><span class="nw">ご自宅でもどうぞ</span></figcaption>
-            </figure>
-        </div>
-
-        <div class="menu-cta">
-            <a href="tel:08030833311" class="btn btn-primary btn-tel">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                <span class="tel-num">080-3083-3311</span><span class="tel-cap">お持ち帰りのご注文</span>
-            </a>
+            <div class="takeout-body reveal reveal-delay-1">
+                <p class="lead"><span class="nw">店頭での</span><span class="nw">お持ち</span><span class="nw">帰りを</span><span class="nw">承っ</span><span class="nw">ております。</span><span class="nw">ローストビーフは</span><span class="nw">BOXに</span><span class="nw">詰めて</span><span class="nw">お渡し</span><span class="nw">いたします</span><span class="nw">ので、</span><span class="nw">おとなりの</span><span class="nw">古河総合公園でのひと</span><span class="nw">ときにも、</span><span class="nw">ご自宅での</span><span class="nw">お食事にもどうぞ。</span>Uber Eats <span class="nw">での</span><span class="nw">お届けも</span><span class="nw">ご利用いただけます。</span></p>
+                <div class="menu-cta">
+                    <a href="tel:08030833311" class="btn btn-primary btn-tel">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                        <span class="tel-num">080-3083-3311</span><span class="tel-cap">お持ち帰りのご注文</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
