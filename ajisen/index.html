@@ -13,9 +13,9 @@
     <meta property="og:title" content="炭火串焼 あじ仙｜古河市の炭火串焼・居酒屋">
     <meta property="og:description" content="串も、海鮮も、〆の一杯も、ぜんぶ同じお値段。炭火で一本ずつ焼き上げる、古河市三和の串焼き居酒屋です。">
     <meta property="og:type" content="restaurant">
-    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/azisen/">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/ajisen/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/azisen/img/hero-exterior.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/ajisen/img/hero-exterior.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -38,8 +38,8 @@
       "priceRange": "¥¥",
       "telephone": "+81-280-33-3930",
       "paymentAccepted": "Cash, Credit Card, Electronic Money",
-      "url": "https://creative-works-plus.github.io/restaurant-sites/azisen/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/azisen/img/hero-exterior.jpg",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/ajisen/",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/ajisen/img/hero-exterior.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -364,10 +364,22 @@
 
     /* ══════════════════ ヒーロー（A-52：写真16/9＋下に文字。PC/SP共通） ══════════ */
     .hero { min-height: auto; display: block; }
+    /* ★2026-08-22 check_upscale.py が ✗（表示1440px / 実寸1015px = 0.70倍）。
+       写真の実寸を超えて広げない。1015px を超える画面では本文と同じ軸で中央に置く */
     .hero-photo {
-        width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+        width: 100%; max-width: 1015px; margin-inline: auto;
+        aspect-ratio: 16 / 9; overflow: hidden;
         background: var(--surface-2);
         max-height: min(68vh, 620px);
+    }
+    /* 中央寄せのままだと、写真の左端（212px）と本文の左端（160px）が52pxずれる。
+       写真が入りきる幅からは、本文と同じ左のレールに合わせる */
+    @media (min-width: 1015px) {
+        .hero-photo {
+            width: auto; max-width: 1015px;
+            margin-left: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2));
+            margin-right: auto;
+        }
     }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
     .hero-body { padding-top: var(--blk-y); }
@@ -424,7 +436,9 @@
 
     /* ══════════════════ ジンギスカン（全幅帯 21/9） ═══════════════════════════ */
     .jingisukan { background: var(--bg); }
-    .band-photo { width: 100%; aspect-ratio: 21 / 9; overflow: hidden; background: var(--surface-2); }
+    /* 全幅帯だが、写真の実寸は1000px。ここを超えて引き伸ばさない（memory：帯は元写真より大きくしない） */
+    .band-photo { width: 100%; max-width: 1000px; margin-inline: auto;
+                  aspect-ratio: 21 / 9; overflow: hidden; background: var(--surface-2); }
     .band-photo img { width: 100%; height: 100%; object-fit: cover; }
     .jg-body { padding-block: var(--blk-y) var(--sec-y); text-align: center; }
     .jg-body h2 { justify-content: center; }
