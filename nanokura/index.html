@@ -525,11 +525,30 @@
         .hero-caution { margin-top: 10px; font-size: 0.79rem; }
     }
 
-    /* --- 全幅の写真帯（C-4）。ヒーロー直下に1本だけ --------------------------- */
+    /* --- ヒーロー直下の一杯（C-4）。1本だけ ------------------------------------
+       元写真は 640×480 が上限（食べログ・ぐるなび等どこにも大きい版が無い）。
+       これを画面いっぱいに伸ばすと横に最大4倍まで拡大されて画がぼやけ、
+       さらに高さ46vhの帯に切り抜かれて丼の上下が落ちていた。
+       → スマホは全幅のまま（390px幅なら元寸のほうが大きく、むしろ精細）、
+         PCでは 720px の一枚に収めて拡大率を1.125倍で止める。
+       -------------------------------------------------------------------------- */
     .band { position: relative; }
+    .band-inner {
+        position: relative; width: 100%; margin-inline: auto;
+        overflow: hidden;
+    }
     .band img {
-        width: 100%; height: clamp(240px, 46vh, 520px);
-        object-fit: cover; object-position: 50% 52%;
+        width: 100%; height: auto;
+        aspect-ratio: 16 / 10;
+        object-fit: cover; object-position: 50% 50%;
+    }
+    @media (min-width: 760px) {
+        .band { padding: clamp(36px, 4.5vw, 64px) var(--pad-inner) clamp(36px, 4.5vw, 64px); }
+        .band-inner {
+            width: min(100%, 720px);
+            border-radius: var(--radius); box-shadow: var(--shadow);
+        }
+        .band img { aspect-ratio: 3 / 2; }
     }
     .band-cap {
         position: absolute; left: 0; right: 0; bottom: 0;
@@ -890,11 +909,14 @@
     </div>
 </section>
 
-<!-- 全幅の写真帯（C-4）。ヒーローの直後に一杯を1枚だけ置く -->
+<!-- ヒーローの直後に一杯を1枚だけ置く（元写真640pxのため、PCでは720pxに収める） -->
 <div class="band">
-    <img src="hero-shoga-ramen.jpg" alt="澄んだ黄金色のスープに、刻んだ生姜とねぎ、なると、チャーシューをのせた生姜らーめん"
-         width="640" height="480" fetchpriority="high" decoding="async">
-    <p class="band-cap"><b><span class="nw">生姜らーめん</span></b>SARAH JAPAN MENU AWARD 2024 で<span class="nw">二つ</span><span class="nw">星を</span><span class="nw">いただきました</span></p>
+    <div class="band-inner">
+        <img src="hero-shoga-ramen.jpg" alt="澄んだ黄金色のスープに、刻んだ生姜とねぎ、なると、チャーシューをのせた生姜らーめん"
+             width="640" height="480" sizes="(min-width: 760px) 720px, 100vw"
+             fetchpriority="high" decoding="async">
+        <p class="band-cap"><b><span class="nw">生姜らーめん</span></b>SARAH JAPAN MENU AWARD 2024 で<span class="nw">二つ</span><span class="nw">星を</span><span class="nw">いただきました</span></p>
+    </div>
 </div>
 
 
