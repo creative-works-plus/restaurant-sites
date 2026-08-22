@@ -415,38 +415,29 @@
     .sig-photo { border-radius: var(--radius); overflow: hidden; }
     .sig-photo img { width: 100%; height: auto; display: block; }
 
-    .sig-figure { text-align: center; }
-    .cow-svg { width: 100%; height: auto; overflow: visible; }
+    .sig-figure { display: flex; align-items: center; }
 
-    .sig-well { fill: none; stroke: var(--paper-ink); stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 1; }
-    .no-js .sig-well { stroke-dashoffset: 0; }
-    .sig-figure.in-view .sig-well {
-        animation: sig-draw .9s cubic-bezier(.3,.7,.2,1) forwards;
+    /* 大きさは図にせず、組版で見せる（→ CLAUDE.md 絶対ルール⑫。2026-08-22 に比較図を外した） */
+    .sig-sizes { width: 100%; }
+    .sig-size {
+        display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-4);
+        padding: var(--sp-3) 0; border-bottom: 1px solid rgba(239, 231, 227, .18);
+        opacity: 0; transform: translateY(12px);
     }
-
-    .ring { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.7); }
-    .no-js .ring { opacity: 1; transform: none; }
-    .sig-figure.in-view .ring {
-        animation: sig-ring .5s ease forwards;
-        animation-delay: calc(var(--i) * .08s);
+    .no-js .sig-size { opacity: 1; transform: none; }
+    .sig-figure.in-view .sig-size {
+        animation: sig-row .5s ease forwards;
+        animation-delay: calc(var(--i) * .09s);
     }
-    @keyframes sig-draw   { to { stroke-dashoffset: 0; } }
-    @keyframes sig-ring   { to { opacity: 1; transform: none; } }
+    @keyframes sig-row { to { opacity: 1; transform: none; } }
 
-    .sig-lead { stroke: var(--paper-ink); stroke-width: 1.6; opacity: .5; }
-    .sig-lbl { font: 500 32px/1 var(--font-body); fill: var(--paper-ink); }
-    .sig-lbl .j { fill: var(--amber); font-weight: 700; }
-
-    .sig-sizes { display: none; margin-top: var(--sp-4); font-size: 1.05rem; color: var(--paper-ink); }
-    .sig-sizes span { white-space: nowrap; margin: 0 3px; }
-    .sig-sizes .amber { color: var(--amber); font-weight: 700; }
-    @media (max-width: 700px) {
-        .sig-lbl, .sig-lead { display: none; }
-        .sig-sizes { display: block; }
-        /* ラベルを隠すと viewBox の右340が空白のまま残るので、その分だけ切り落として図を中央に戻す
-           （図の実体は x0〜540。880 / 540 = 163%） */
-        .sig-figure { overflow: hidden; }
-        .cow-svg { display: block; width: 163%; max-width: none; }
+    .sig-size .nm { font-family: var(--font-head); font-size: clamp(20px, 3.6vw, 28px); letter-spacing: .05em; }
+    .sig-size .wt { font-size: clamp(15px, 2.6vw, 18px); opacity: .78; white-space: nowrap; }
+    .sig-size.j { border-bottom-color: var(--amber); }
+    .sig-size.j .nm { color: var(--amber); font-size: clamp(24px, 4.6vw, 36px); }
+    .sig-size.j .wt { color: var(--amber); opacity: 1; font-weight: 700; }
+    @media (prefers-reduced-motion: reduce) {
+        .sig-size { opacity: 1; transform: none; animation: none !important; }
     }
 
     /* --- えらび方 ------------------------------------------------------------- */
@@ -639,34 +630,12 @@
             </figure>
 
             <div class="sig-figure reveal">
-                <svg class="cow-svg" viewBox="0 0 880 520" role="img"
-                     aria-label="鉄板皿のくぼみに、150グラム・200グラム・300グラム・450グラムの大きさを重ねた図">
-                    <!-- 井（料理をのせるくぼみ）。実物に合わせた横長の楕円 -->
-                    <ellipse class="sig-well" pathLength="1" cx="270" cy="250" rx="255" ry="168"/>
-                    <!-- 大きさ：半径 ∝ √重さ（厚み一定＝面積が重さに比例する） -->
-                    <g fill="none" stroke="var(--paper-ink)">
-                        <circle class="ring" style="--i:0" cx="270" cy="250" r="86.6"  stroke-width="2.2"/>
-                        <circle class="ring" style="--i:1" cx="270" cy="250" r="100"   stroke-width="2.2"/>
-                        <circle class="ring" style="--i:2" cx="270" cy="250" r="122.5" stroke-width="2.2"/>
-                        <circle class="ring" style="--i:3" cx="270" cy="250" r="150"   stroke-width="5.2"/>
-                    </g>
-                    <!-- 引き出し線（角度を段階的に下げてあるので交差しない） -->
-                    <g class="sig-lead" fill="none">
-                        <path d="M 338 197 L 620 150"/>
-                        <path d="M 367 226 L 620 225"/>
-                        <path d="M 389 280 L 620 300"/>
-                        <path d="M 388 342 L 620 380"/>
-                    </g>
-                    <g class="sig-lbl">
-                        <text x="634" y="159">S 150g</text>
-                        <text x="634" y="234">M 200g</text>
-                        <text x="634" y="309">L 300g</text>
-                        <text x="634" y="389" class="j">ジャンボ 450g</text>
-                    </g>
-                </svg>
-                <p class="sig-sizes" aria-hidden="true">
-                    <span>S 150g</span>／<span>M 200g</span>／<span>L 300g</span>／<span class="amber"><span class="nw">ジャンボ</span> 450g</span>
-                </p>
+                <div class="sig-sizes">
+                    <div class="sig-size"   style="--i:0"><span class="nm">S</span><span class="wt">150g</span></div>
+                    <div class="sig-size"   style="--i:1"><span class="nm">M</span><span class="wt">200g</span></div>
+                    <div class="sig-size"   style="--i:2"><span class="nm">L</span><span class="wt">300g</span></div>
+                    <div class="sig-size j" style="--i:3"><span class="nm">ジャンボ</span><span class="wt">450g</span></div>
+                </div>
             </div>
         </div>
     </div>
