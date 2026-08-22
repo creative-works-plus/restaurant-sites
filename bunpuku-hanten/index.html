@@ -394,12 +394,25 @@ body.nav-open .mobile-nav {
 }
 .dish-text { font-size: 0.9rem; color: var(--muted); line-height: 1.85; }
 
-/* --- 全幅の帯 ------------------------------------------------------------- */
-.band { position: relative; height: clamp(180px, 26vw, 290px); overflow: hidden; background: var(--surface-2); }
-.band img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; }
-.band::after {
+/* --- のぼりの帯 -----------------------------------------------------------
+   元写真は 1000×681。全幅に伸ばすと大きな画面で1.6倍以上に拡大されてぼやけ、
+   さらに細い帯に切り抜かれてのぼりの上下が落ちていた。
+   スマホは全幅のまま、PCでは元写真の幅（1000px）に収めて等倍で見せる。
+   --------------------------------------------------------------------------- */
+.band { position: relative; background: var(--bg); }
+.band-frame { position: relative; height: clamp(180px, 26vw, 290px); overflow: hidden; background: var(--surface-2); }
+.band-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; }
+.band-frame::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(40,16,21,0.86) 0%, rgba(40,16,21,0.30) 34%, rgba(40,16,21,0.06) 62%);
+}
+@media (min-width: 760px) {
+    .band { padding: clamp(30px, 3.6vw, 52px) var(--pad-inner); }
+    .band-frame {
+        width: min(100%, 1000px); margin-inline: auto;
+        height: clamp(240px, 30vw, 360px);
+        border-radius: var(--radius); box-shadow: var(--shadow);
+    }
 }
 .band-text {
     position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; z-index: 2;
@@ -829,9 +842,11 @@ body.nav-open .mobile-nav {
 
 <!-- ===== 全幅の帯 ===== -->
 <div class="band">
-    <img src="img/nobori.jpg" alt="店先に立つ紺色ののぼり。白抜きで「大衆食堂」と染め抜かれている"
-         width="1000" height="681" loading="lazy" decoding="async">
-    <p class="band-text"><span class="nw">店先ののぼりのとおり、</span><span class="nw">大衆食堂です。</span></p>
+    <div class="band-frame">
+        <img src="img/nobori.jpg" alt="店先に立つ紺色ののぼり。白抜きで「大衆食堂」と染め抜かれている"
+             width="1000" height="681" loading="lazy" decoding="async">
+        <p class="band-text"><span class="nw">店先ののぼりのとおり、</span><span class="nw">大衆食堂です。</span></p>
+    </div>
 </div>
 
 <!-- ===== お品書き（紙の面） ===== -->

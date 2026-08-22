@@ -484,9 +484,22 @@
         margin-top: 12px; font-size: .78rem; color: var(--dim); letter-spacing: .02em;
     }
 
-    /* --- 全幅の帯（C-4） ------------------------------------------------------- */
+    /* --- 看板の帯（C-4） -------------------------------------------------------
+       元写真は 1575×1181。全幅に伸ばすと大きな画面で拡大されてぼやけるうえ、
+       cover の切り抜きで看板右端の「ン」が画面外に落ちていた。
+       スマホは全幅のまま（390px幅なら元寸のほうが大きい）、
+       PCでは本文と同じ幅に収めて看板を丸ごと見せる。
+       -------------------------------------------------------------------------- */
     .band { position: relative; }
-    .band img { width: 100%; height: clamp(200px, 34vw, 380px); object-fit: cover; object-position: 50% 70%; }
+    .band img { width: 100%; height: clamp(200px, 34vw, 380px); object-fit: cover; object-position: 50% 62%; }
+    @media (min-width: 760px) {
+        .band { padding: clamp(28px, 3.2vw, 48px) var(--pad-inner); }
+        .band img {
+            width: min(100%, var(--maxw)); margin-inline: auto;
+            height: clamp(260px, 24vw, 360px);
+            border-radius: var(--radius);
+        }
+    }
 
     /* --- 番号のご案内 ---------------------------------------------------------- */
     .howto { background: var(--surface-2); }
