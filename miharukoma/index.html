@@ -573,7 +573,8 @@
        ★C2（owner-review 2026-08-15）：1280pxで左560pxしか使わず右が純黒の空白だった。
        900px以上は「札の写真2枚（左）／曜日表（右・max 520px）」の2カラムに組み、
        CTAは下段中央へ独立させる。 */
-    .rebanira-lead { margin-block: 2em; }
+    /* 写真の実寸は1024px。全幅に置くと1118pxに引き伸ばされてPCでぼやけるので幅で止める */
+    .rebanira-lead { margin: 2em auto; max-width: 1024px; }
     .rebanira-lead .photo-frame { aspect-ratio: 16 / 9; }
     .rebanira-lead figcaption { margin-top: 8px; font-size: .82rem; color: rgba(237,231,222,.68); }
     .rebanira-signs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
@@ -622,8 +623,9 @@
     @media (max-width: 620px) { .seat-photos { grid-template-columns: 1fr; } }
 
     /* --- アクセス頭の写真 ---------------------------------------------------------- */
-    .access-photo { margin-bottom: 1.8em; }
-    .access-photo .photo-frame { aspect-ratio: 16 / 9; }
+    /* 写真の実寸（1024px）を超えて引き伸ばさない。16/9では正面の建物が上下で切れるので4/3 */
+    .access-photo { margin: 0 auto 1.8em; max-width: 1024px; }
+    .access-photo .photo-frame { aspect-ratio: 4 / 3; }
 
     /* --- 雷紋の区切り（章の間） -------------------------------------------------- */
     .raimon-divider { width: min(100%, 240px); height: 12px; margin: 0 auto; color: var(--line-strong); }
@@ -1020,7 +1022,7 @@
 
         <figure class="access-photo reveal">
             <div class="photo-frame">
-                <img src="img/gaikan-sodekanban.jpg" width="753" height="1000" alt="道路から見える、自家製麺の袖看板でございます。" loading="lazy">
+                <img src="img/gaikan-shomen.jpg" width="1024" height="1024" alt="道路から見た三春駒の正面でございます。" loading="lazy" style="object-position: 50% 60%;">
             </div>
             <figcaption><span class="nw">スーパー</span><span class="nw">銭湯</span><span class="nw">「いちの</span>湯 <span class="nw">古河店」の</span><span class="nw">向かいに</span><span class="nw">ございます。</span></figcaption>
         </figure>

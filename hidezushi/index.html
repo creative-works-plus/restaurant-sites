@@ -467,14 +467,26 @@
     .menu-list .price:empty { display: none; }
 
     .subnav { position: sticky; top: var(--header-h); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); margin-bottom: 30px; overflow-x: auto; }
-    .subnav-inner, .subnav ul { display: flex; gap: 4px; list-style: none; }
-    .subnav a { font-size: .86rem; color: var(--muted); border-bottom: 2px solid transparent; }
+    /* ★横スクロールさせるため .subnav を全幅にしているので、そのままだとタブが画面の左端
+       （x=0）から始まり、本文（.container＝最大1120pxの中央寄せ）より大きく左へずれる。
+       左右の余白を「画面の余りの半分」まで広げて、本文の左端に揃える。 */
+    .subnav-inner, .subnav ul { display: flex; gap: 4px; list-style: none;
+        width: max-content; min-width: 100%;
+        padding-inline: max(var(--pad-inner), (100% - var(--maxw)) / 2); }
+    /* .subnav は sticky でヘッダーの下に居座るので、章のアンカーはその分だけ余計に空ける。
+       これが無いと『巻物』を押したとき見出しがタブ列の裏に隠れる。 */
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 56px); }
+    .subnav a { font-size: .86rem; color: var(--muted); border-bottom: 2px solid transparent;
+                display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; white-space: nowrap; }
     .subnav a:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* おすすめ：点線リーダーが伸びすぎないよう幅を絞る */
-    #osusume .menu-list { max-width: 560px; }
-    /* 一品料理と酒：価格が未確認の行が多いので、行の下線罫は出さない */
-    #ippin .menu-list li { border-bottom: none; }
+    /* 平日お昼の限定：1列組みなので、点線リーダーが伸びすぎないよう幅を絞る */
+    #lunch .menu-list { max-width: 560px; }
+    /* 巻物・一品料理・お飲みもの：価格を載せていない章は、行の下線罫を出さない
+       （点線リーダーの無い行に罫だけ残ると、値段が抜け落ちたように見えるため） */
+    #makimono .menu-list li,
+    #ippin .menu-list li,
+    #drink .menu-list li { border-bottom: none; }
 
     /* 出前でお届けするお品（B-3：縦書き短冊）
        ★ .menu-grid を1つのflexコンテナにし、.menu-list（2つのul）は
@@ -699,50 +711,118 @@
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
 <nav class="subnav" aria-label="お品書き内のナビゲーション">
     <div class="subnav-inner">
-        <a href="#osusume">おすすめ</a>
-        <a href="#ippin">一品料理と酒</a>
+        <a href="#nigiri-menu">にぎり寿司</a>
+        <a href="#chirashi">ちらしと丼</a>
+        <a href="#makimono">巻物</a>
+        <a href="#lunch">平日お昼の限定</a>
+        <a href="#ippin">一品料理</a>
+        <a href="#drink">お飲みもの</a>
         <a href="#demae">出前でお届けするお品</a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
-        <div class="menu-block reveal" id="osusume">
-            <div class="menu-head"><h2><span class="nw">おすすめ</span></h2><span class="yomi">OSUSUME</span></div>
-            <p class="menu-note"><span class="nw">表示は</span><span class="nw">税込価格です。</span></p>
+        <div class="menu-block reveal" id="nigiri-menu">
+            <div class="menu-head"><h2><span class="nw">にぎり</span><span class="nw">寿司</span></h2><span class="yomi">NIGIRI ZUSHI</span></div>
+            <p class="menu-note"><span class="nw">価格を</span><span class="nw">お示ししていない</span><span class="nw">お品は、</span><span class="nw">お電話で</span><span class="nw">お尋ね</span><span class="nw">ください。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
+                    <li><span class="name"><span class="nw">並寿司</span></span></li>
                     <li><span class="name"><span class="nw">上寿司</span></span><span class="dots"></span><span class="price"><span class="nw">1,980円</span></span></li>
+                    <li><span class="name"><span class="nw">特上寿司</span></span></li>
+                    <li><span class="name"><span class="nw">まぐろ</span><span class="nw">寿司</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">中とろ</span><span class="nw">寿司</span></span></li>
+                    <li><span class="name"><span class="nw">玉子寿司</span></span></li>
+                    <li><span class="name"><span class="nw">のり</span><span class="nw">玉寿司</span></span></li>
+                    <li><span class="name"><span class="nw">お子様寿司</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="chirashi">
+            <div class="menu-head"><h2><span class="nw">ちらしと</span>丼</h2><span class="yomi">CHIRASHI TO DON</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">並ちらし</span></span></li>
                     <li><span class="name"><span class="nw">上ちらし</span></span><span class="dots"></span><span class="price"><span class="nw">2,090円</span></span></li>
-                    <li><span class="name"><span class="nw">ランチ</span></span><span class="dots"></span><span class="price"><span class="nw">1,200円〜</span></span></li>
+                    <li><span class="name"><span class="nw">特上ちらし</span></span></li>
+                    <li><span class="name"><span class="nw">鉄火丼</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">上鉄火丼</span></span></li>
+                    <li><span class="name"><span class="nw">ねぎとろ</span>丼</span></li>
+                    <li><span class="name"><span class="nw">いくら</span>丼</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="makimono">
+            <div class="menu-head"><h2><span class="nw">巻物</span></h2><span class="yomi">MAKIMONO</span></div>
+            <p class="menu-note"><span class="nw">三本での</span><span class="nw">ご用意です。</span><span class="nw">太巻は</span><span class="nw">一本で</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">鉄火巻き</span></span></li>
+                    <li><span class="name"><span class="nw">ねぎとろ</span>巻</span></li>
+                    <li><span class="name"><span class="nw">のり</span>巻</span></li>
+                    <li><span class="name"><span class="nw">かっぱ</span>巻</span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">お新香巻</span></span></li>
+                    <li><span class="name"><span class="nw">うめしそ</span>巻</span></li>
+                    <li><span class="name"><span class="nw">納豆巻</span></span></li>
+                    <li><span class="name"><span class="nw">太巻</span><span class="nw">（一本）</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="lunch">
+            <div class="menu-head"><h2><span class="nw">平日</span><span class="nw">お昼の</span><span class="nw">限定</span></h2><span class="yomi">HIRU NO GENTEI</span></div>
+            <p class="menu-note"><span class="nw">午前</span><span class="nw">11時</span><span class="nw">45分から</span><span class="nw">午後</span><span class="nw">1時半まで、</span><span class="nw">平日だけの</span><span class="nw">お品です。</span><span class="nw">表示は</span><span class="nw">税込価格です。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">にぎり</span><span class="nw">寿司</span><span class="desc"><span class="nw">サラダ・</span><span class="nw">香の</span><span class="nw">物・</span><span class="nw">お味噌汁を</span><span class="nw">お付けします</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,200円</span></span></li>
+                    <li><span class="name"><span class="nw">海鮮ちらし</span><span class="desc"><span class="nw">サラダ・</span><span class="nw">香の</span><span class="nw">物・</span><span class="nw">お味噌汁を</span><span class="nw">お付けします</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,200円</span></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="ippin">
-            <div class="menu-head"><h2><span class="nw">一品料理と</span>酒</h2><span class="yomi">IPPIN TO OSAKE</span></div>
+            <div class="menu-head"><h2><span class="nw">一品料理</span></h2><span class="yomi">IPPIN RYORI</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">イカ</span><span class="nw">焼き</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">カルパッチョ</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">カキフライ</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">刺身盛り</span><span class="nw">合わせ</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">刺身盛り</span><span class="nw">合わせ</span><span class="desc"><span class="nw">ご人数と</span><span class="nw">ご予算に</span><span class="nw">合わせて</span><span class="nw">お仕立て</span><span class="nw">いたします</span></span></span></li>
+                    <li><span class="name"><span class="nw">イカ</span><span class="nw">焼き</span></span></li>
+                    <li><span class="name"><span class="nw">カルパッチョ</span></span></li>
                 </ul>
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">えび</span><span class="nw">フライ</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">生ビール</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">日本酒</span></span><span class="dots"></span><span class="price"></span></li>
-                    <li><span class="name"><span class="nw">焼酎</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">カキフライ</span></span></li>
+                    <li><span class="name"><span class="nw">えび</span><span class="nw">フライ</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="drink">
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">ONOMIMONO</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">生ビール</span></span></li>
+                    <li><span class="name"><span class="nw">日本酒</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">焼酎</span></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="demae">
             <div class="menu-head"><h2><span class="nw">出前で</span><span class="nw">お届けする</span><span class="nw">お品</span></h2><span class="yomi">DEMAE</span></div>
-            <p class="menu-note"><span class="nw">早めの</span><span class="nw">ご予約を</span><span class="nw">お願いし</span><span class="nw">ております。</span><span class="nw">上記のほかにも、</span><span class="nw">店の</span><span class="nw">お料理を</span><span class="nw">お届け</span><span class="nw">いたします。</span></p>
+            <p class="menu-note"><span class="nw">早めの</span><span class="nw">ご予約を</span><span class="nw">お願いし</span><span class="nw">ております。</span><span class="nw">上記のほか、</span><span class="nw">店内と</span><span class="nw">同じ</span><span class="nw">お料理も</span><span class="nw">お届けできます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">上寿司</span></span><span class="dots"></span><span class="price"><span class="nw">1,980円</span></span></li>
-                    <li><span class="name"><span class="nw">上ちらし</span></span><span class="dots"></span><span class="price"><span class="nw">2,090円</span></span></li>
+                    <li><span class="name"><span class="nw">上寿司</span></span><span class="dots"></span><span class="price"></span></li>
+                    <li><span class="name"><span class="nw">上ちらし</span></span><span class="dots"></span><span class="price"></span></li>
                     <li><span class="name"><span class="nw">鉄火巻</span></span><span class="dots"></span><span class="price"></span></li>
                     <li><span class="name"><span class="nw">かんぴょう</span>巻</span><span class="dots"></span><span class="price"></span></li>
                     <li><span class="name"><span class="nw">なっとう</span>巻</span><span class="dots"></span><span class="price"></span></li>
@@ -812,7 +892,7 @@
             <tr><th><span class="nw">住所</span></th><td>〒329-0101 <span class="nw">栃木県下都賀郡野木町友沼</span>4708-3</td></tr>
             <tr><th><span class="nw">電話</span></th><td><a href="tel:0280562548" class="tel-link nw">0280-56-2548</a></td></tr>
             <tr><th><span class="nw">営業時間</span></th><td>11:30〜14:00／17:00〜20:00</td></tr>
-            <tr><th><span class="nw">定休日</span></th><td><span class="nw">月曜日・</span>第<span class="nw">2＆第</span><span class="nw">3火曜日</span><span class="nw">（不定休あり。</span><span class="nw">お電話で</span><span class="nw">ご確認いただくと</span><span class="nw">確実です）</span></td></tr>
+            <tr><th><span class="nw">定休日</span></th><td><span class="nw">月曜日・</span>第2＆第<span class="nw">3火曜日</span><span class="nw">（不定休あり。</span><span class="nw">お電話で</span><span class="nw">ご確認いただくと</span><span class="nw">確実です）</span></td></tr>
             <tr><th><span class="nw">席数</span></th><td><span class="nw">カウンター</span><span class="nw">8席・</span><span class="nw">座敷</span><span class="nw">32席</span><span class="nw">（計</span><span class="nw">40席）</span></td></tr>
             <tr><th><span class="nw">駐車場</span></th><td><span class="nw">7台</span></td></tr>
             <tr><th><span class="nw">お支払い</span></th><td><span class="nw">現金、</span><span class="nw">野木町プレミアム</span><span class="nw">商品券・</span><span class="nw">ひまわり</span><span class="nw">商品券が</span><span class="nw">ご利用いただけます</span></td></tr>

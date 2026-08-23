@@ -598,52 +598,6 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════
-       署名：お品書きのものさし
-       ══════════════════════════════════════════════════════════════════ */
-    .sig-section { padding-block: var(--blk-y) var(--sec-y); }
-    .sig-lead { color: var(--muted); font-size: 1.02rem; max-width: 38em; margin: 0 auto var(--sp-5); text-align: center; }
-    .sig-cap { margin-top: var(--sp-3); text-align: center; font-size: var(--fz-cap); color: var(--muted); }
-    .sig-figure { width: min(100%, 880px); margin: 0 auto; }
-    /* 図の外枠自体はフェード／スライドさせない（.reveal の既定を打ち消す）。
-       動くのは中の軸・点・帯・写真だけ＝ブリーフ7-dの choreography のとおりにする */
-    .sig-figure.reveal { opacity: 1; transform: none; transition: none; }
-    .sig-svg-pc, .sig-svg-sp { display: block; width: 100%; height: auto; }
-    .sig-svg-pc { display: block; }
-    .sig-svg-sp { display: none; }
-    @media (max-width: 620px) {
-        .sig-svg-pc { display: none; }
-        .sig-svg-sp { display: block; }
-    }
-    /* ★SP版だけの文字サイズ。--fz-cap/--fz-price は vw 基準の clamp() で、
-       SVGは viewBox のスケール比でもう一度掛かるため、共有すると SP側で二重に拡大される
-       （2026-08-20 QA・実機390pxで写真とラベルが軸に重なって発覚）。
-       PC版（.sig-svg-pc側の同名クラス）はここでは触らない＝固定pxで別指定する */
-    .sig-svg-sp .sig-num        { font-size: 12px; }
-    .sig-svg-sp .sig-edge       { font-size: 11px; }
-    .sig-svg-sp .sig-band-label { font-size: 11px; }
-    .sig-svg-sp .sig-price      { font-size: 15px; }
-    .sig-band  { fill: var(--surface-2); }
-    .sig-tick-major, .sig-tick-minor, .sig-axis { stroke: var(--line-strong); }
-    .sig-tick-major { stroke-width: 1.2; }
-    .sig-tick-minor { stroke-width: 1; stroke: var(--line); }
-    .sig-axis { stroke: var(--ink); stroke-width: 1.5; fill: none; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .42s cubic-bezier(.16,.7,.3,1); }
-    .sig-num { font-family: var(--font-body); font-size: var(--fz-cap); fill: var(--muted); }
-    .sig-band-label { font-family: var(--font-body); font-size: var(--fz-cap); fill: var(--muted); }
-    .sig-edge { font-family: var(--font-body); font-size: var(--fz-cap); fill: var(--muted); }
-    .sig-leader { stroke: var(--line); stroke-width: 1; }
-    .sig-price { font-family: var(--font-body); font-weight: 700; font-size: var(--fz-price); fill: var(--ink); }
-    .sig-dot { fill: var(--accent); opacity: 0; transition: opacity .3s ease; }
-    .sig-photo { opacity: 0; transition: opacity .3s ease .1s; }
-    .sig-figure.in-view .sig-axis { stroke-dashoffset: 0; }
-    .sig-figure.in-view .sig-dot { opacity: .38; }
-    .sig-figure.in-view .sig-photo { opacity: 1; }
-    @media (prefers-reduced-motion: reduce) {
-        .sig-axis { stroke-dashoffset: 0; transition: none; }
-        .sig-dot { opacity: .38; transition: none; }
-        .sig-photo { opacity: 1; transition: none; }
-    }
-
-    /* ══════════════════════════════════════════════════════════════════
        営業のご案内
        ══════════════════════════════════════════════════════════════════ */
     .hours-card {
@@ -750,15 +704,10 @@
        場所とお越し方（外観・アクセス）
        ══════════════════════════════════════════════════════════════════ */
     .access-text { font-size: 1.02rem; max-width: 34em; margin-bottom: var(--blk-y); }
-    /* ★4枚とも全ブレークポイントで16:9に統一（2026-08-20 QA・B-3で余りマス/高さ不揃いを指摘）。
-       夜写真は縦位置の実写を object-position で調整し、行灯の看板を画面に収める */
-    .access-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-3); margin-bottom: var(--blk-y); }
+    /* ★全ブレークポイントで16:9に統一（2026-08-20 QA・B-3で余りマス/高さ不揃いを指摘）。
+       ★2026-08-23：夜の看板の1枚は上半分が黒くつぶれて何の写真か読めないため削除し、3枚に変更 */
+    .access-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); margin-bottom: var(--blk-y); }
     .access-gallery .photo-frame { aspect-ratio: 16 / 9; background: var(--surface-2); }
-    .access-gallery .ag-night .photo-frame { background: var(--ink); }
-    .access-gallery .ag-night img { object-position: 50% 47%; }
-    .access-gallery .ag-night figcaption {
-        font-size: var(--fz-cap); color: var(--muted); margin-top: var(--sp-2); text-align: center;
-    }
     @media (max-width: 900px) {
         .access-gallery { grid-template-columns: repeat(2, 1fr); }
     }
@@ -882,184 +831,6 @@
      <img> には width/height と height:auto を必ず付ける（08-画像の作法.md）
      同じ画像を1ページの中で2回使わない
      ══════════════════════════════════════════════════════════════════════ -->
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     署名：お品書きのものさし（ヒーロー直下・全幅）
-     ══════════════════════════════════════════════════════════════════════ -->
-<section class="section sig-section" id="signature">
-    <div class="container">
-        <p class="sig-lead reveal"><span class="nw">日本料理と</span><span class="nw">申しましても、</span><span class="nw">お値段は</span><span class="nw">ご覧のとおりです。</span><span class="nw">ふだんの</span><span class="nw">お昼にも、</span><span class="nw">お仕事帰りにも、</span><span class="nw">どうぞ</span><span class="nw">気兼ねなく</span><span class="nw">お使い</span><span class="nw">ください。</span></p>
-
-        <figure class="sig-figure reveal">
-            <svg class="sig-svg-pc" viewBox="0 0 880 340" role="img" aria-labelledby="sigTitle" xmlns="http://www.w3.org/2000/svg">
-                <title id="sigTitle">お品書き61品の値段の分布。200円のご飯から3,850円のうな重まで並び、680円から1,700円に定食が集まっている</title>
-<rect class="sig-band" x="143.8" y="272.0" width="220.5" height="44" rx="2"/>
-<line class="sig-tick-minor" x1="104.9" y1="294" x2="104.9" y2="300"/>
-<line class="sig-tick-minor" x1="321.1" y1="294" x2="321.1" y2="300"/>
-<line class="sig-tick-minor" x1="537.3" y1="294" x2="537.3" y2="300"/>
-<line class="sig-tick-minor" x1="753.5" y1="294" x2="753.5" y2="300"/>
-<line class="sig-tick-major" x1="213.0" y1="294" x2="213.0" y2="306"/>
-<line class="sig-tick-major" x1="429.2" y1="294" x2="429.2" y2="306"/>
-<line class="sig-tick-major" x1="645.4" y1="294" x2="645.4" y2="306"/>
-<line class="sig-axis" x1="40" y1="294" x2="840" y2="294" pathLength="100"/>
-<text class="sig-num" x="213.0" y="318" text-anchor="middle">1,000円</text>
-<text class="sig-num" x="429.2" y="318" text-anchor="middle">2,000円</text>
-<text class="sig-num" x="645.4" y="318" text-anchor="middle">3,000円</text>
-<text class="sig-band-label" x="254.1" y="240.0" text-anchor="middle">定食 680〜1,700円</text>
-<text class="sig-edge" x="40" y="318" text-anchor="start">ご飯 200円</text>
-<text class="sig-edge" x="840" y="318" text-anchor="end">うな重 3,850円</text>
-<clipPath id="sigClipPC"><rect x="193.8" y="10" width="168" height="168" rx="4"/></clipPath>
-<line class="sig-leader" x1="277.8" y1="252.0" x2="277.8" y2="272.0"/>
-<image class="sig-photo" href="img/sig-bento.webp" x="193.8" y="10" width="168" height="168" clip-path="url(#sigClipPC)" preserveAspectRatio="xMidYMid slice"/>
-<text class="sig-price" x="277.8" y="214.0" text-anchor="middle">藤よし弁当 1,300円</text>
-<circle class="sig-dot" cx="40.0" cy="294.0" r="2.5" style="transition-delay:420ms"/>
-<circle class="sig-dot" cx="40.0" cy="294.0" r="2.5" style="transition-delay:430ms"/>
-<circle class="sig-dot" cx="40.0" cy="294.0" r="2.5" style="transition-delay:440ms"/>
-<circle class="sig-dot" cx="50.8" cy="294.0" r="2.5" style="transition-delay:450ms"/>
-<circle class="sig-dot" cx="57.3" cy="294.0" r="2.5" style="transition-delay:460ms"/>
-<circle class="sig-dot" cx="57.3" cy="294.0" r="2.5" style="transition-delay:470ms"/>
-<circle class="sig-dot" cx="57.3" cy="294.0" r="2.5" style="transition-delay:480ms"/>
-<circle class="sig-dot" cx="72.4" cy="294.0" r="2.5" style="transition-delay:490ms"/>
-<circle class="sig-dot" cx="72.4" cy="294.0" r="2.5" style="transition-delay:500ms"/>
-<circle class="sig-dot" cx="83.2" cy="294.0" r="2.5" style="transition-delay:510ms"/>
-<circle class="sig-dot" cx="83.2" cy="294.0" r="2.5" style="transition-delay:520ms"/>
-<circle class="sig-dot" cx="94.1" cy="294.0" r="2.5" style="transition-delay:530ms"/>
-<circle class="sig-dot" cx="94.1" cy="294.0" r="2.5" style="transition-delay:540ms"/>
-<circle class="sig-dot" cx="100.5" cy="294.0" r="2.5" style="transition-delay:550ms"/>
-<circle class="sig-dot" cx="104.9" cy="294.0" r="2.5" style="transition-delay:560ms"/>
-<circle class="sig-dot" cx="104.9" cy="294.0" r="2.5" style="transition-delay:570ms"/>
-<circle class="sig-dot" cx="104.9" cy="294.0" r="2.5" style="transition-delay:580ms"/>
-<circle class="sig-dot" cx="126.5" cy="294.0" r="2.5" style="transition-delay:590ms"/>
-<circle class="sig-dot" cx="126.5" cy="294.0" r="2.5" style="transition-delay:600ms"/>
-<circle class="sig-dot" cx="137.3" cy="294.0" r="2.5" style="transition-delay:610ms"/>
-<circle class="sig-dot" cx="137.3" cy="294.0" r="2.5" style="transition-delay:620ms"/>
-<circle class="sig-dot" cx="143.8" cy="294.0" r="2.5" style="transition-delay:630ms"/>
-<circle class="sig-dot" cx="148.1" cy="294.0" r="2.5" style="transition-delay:640ms"/>
-<circle class="sig-dot" cx="148.1" cy="294.0" r="2.5" style="transition-delay:650ms"/>
-<circle class="sig-dot" cx="148.1" cy="294.0" r="2.5" style="transition-delay:660ms"/>
-<circle class="sig-dot" cx="148.1" cy="294.0" r="2.5" style="transition-delay:670ms"/>
-<circle class="sig-dot" cx="148.1" cy="294.0" r="2.5" style="transition-delay:680ms"/>
-<circle class="sig-dot" cx="148.1" cy="294.0" r="2.5" style="transition-delay:690ms"/>
-<circle class="sig-dot" cx="148.1" cy="294.0" r="2.5" style="transition-delay:700ms"/>
-<circle class="sig-dot" cx="158.9" cy="294.0" r="2.5" style="transition-delay:710ms"/>
-<circle class="sig-dot" cx="158.9" cy="294.0" r="2.5" style="transition-delay:720ms"/>
-<circle class="sig-dot" cx="165.4" cy="294.0" r="2.5" style="transition-delay:730ms"/>
-<circle class="sig-dot" cx="169.7" cy="294.0" r="2.5" style="transition-delay:740ms"/>
-<circle class="sig-dot" cx="169.7" cy="294.0" r="2.5" style="transition-delay:750ms"/>
-<circle class="sig-dot" cx="169.7" cy="294.0" r="2.5" style="transition-delay:760ms"/>
-<circle class="sig-dot" cx="169.7" cy="294.0" r="2.5" style="transition-delay:770ms"/>
-<circle class="sig-dot" cx="169.7" cy="294.0" r="2.5" style="transition-delay:780ms"/>
-<circle class="sig-dot" cx="169.7" cy="294.0" r="2.5" style="transition-delay:790ms"/>
-<circle class="sig-dot" cx="191.4" cy="294.0" r="2.5" style="transition-delay:800ms"/>
-<circle class="sig-dot" cx="202.2" cy="294.0" r="2.5" style="transition-delay:810ms"/>
-<circle class="sig-dot" cx="202.2" cy="294.0" r="2.5" style="transition-delay:820ms"/>
-<circle class="sig-dot" cx="202.2" cy="294.0" r="2.5" style="transition-delay:830ms"/>
-<circle class="sig-dot" cx="202.2" cy="294.0" r="2.5" style="transition-delay:840ms"/>
-<circle class="sig-dot" cx="208.6" cy="294.0" r="2.5" style="transition-delay:850ms"/>
-<circle class="sig-dot" cx="208.6" cy="294.0" r="2.5" style="transition-delay:860ms"/>
-<circle class="sig-dot" cx="213.0" cy="294.0" r="2.5" style="transition-delay:870ms"/>
-<circle class="sig-dot" cx="277.8" cy="294.0" r="2.5" style="transition-delay:880ms"/>
-<circle class="sig-dot" cx="277.8" cy="294.0" r="2.5" style="transition-delay:890ms"/>
-<circle class="sig-dot" cx="277.8" cy="294.0" r="2.5" style="transition-delay:900ms"/>
-<circle class="sig-dot" cx="299.5" cy="294.0" r="2.5" style="transition-delay:910ms"/>
-<circle class="sig-dot" cx="310.3" cy="294.0" r="2.5" style="transition-delay:920ms"/>
-<circle class="sig-dot" cx="321.1" cy="294.0" r="2.5" style="transition-delay:930ms"/>
-<circle class="sig-dot" cx="321.1" cy="294.0" r="2.5" style="transition-delay:940ms"/>
-<circle class="sig-dot" cx="321.1" cy="294.0" r="2.5" style="transition-delay:950ms"/>
-<circle class="sig-dot" cx="342.7" cy="294.0" r="2.5" style="transition-delay:960ms"/>
-<circle class="sig-dot" cx="342.7" cy="294.0" r="2.5" style="transition-delay:970ms"/>
-<circle class="sig-dot" cx="364.3" cy="294.0" r="2.5" style="transition-delay:980ms"/>
-<circle class="sig-dot" cx="429.2" cy="294.0" r="2.5" style="transition-delay:990ms"/>
-<circle class="sig-dot" cx="537.3" cy="294.0" r="2.5" style="transition-delay:1000ms"/>
-<circle class="sig-dot" cx="537.3" cy="294.0" r="2.5" style="transition-delay:1010ms"/>
-<circle class="sig-dot" cx="829.2" cy="294.0" r="2.5" style="transition-delay:1020ms"/>
-            </svg>
-            <svg class="sig-svg-sp" viewBox="0 0 350 250" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-<rect class="sig-band" x="60.2" y="190.0" width="85.5" height="30" rx="2"/>
-<line class="sig-tick-minor" x1="45.1" y1="205" x2="45.1" y2="210"/>
-<line class="sig-tick-minor" x1="128.9" y1="205" x2="128.9" y2="210"/>
-<line class="sig-tick-minor" x1="212.7" y1="205" x2="212.7" y2="210"/>
-<line class="sig-tick-minor" x1="296.5" y1="205" x2="296.5" y2="210"/>
-<line class="sig-tick-major" x1="87.0" y1="205" x2="87.0" y2="215"/>
-<line class="sig-tick-major" x1="170.8" y1="205" x2="170.8" y2="215"/>
-<line class="sig-tick-major" x1="254.6" y1="205" x2="254.6" y2="215"/>
-<line class="sig-axis" x1="20" y1="205" x2="330" y2="205" pathLength="100"/>
-<text class="sig-num" x="87.0" y="229" text-anchor="middle">1,000円</text>
-<text class="sig-num" x="170.8" y="229" text-anchor="middle">2,000円</text>
-<text class="sig-num" x="254.6" y="229" text-anchor="middle">3,000円</text>
-<text class="sig-band-label" x="102.9" y="172.0" text-anchor="middle">定食 680〜1,700円</text>
-<text class="sig-edge" x="20" y="243" text-anchor="start">ご飯 200円</text>
-<text class="sig-edge" x="330" y="243" text-anchor="end">うな重 3,850円</text>
-<clipPath id="sigClipSP"><rect x="48.2" y="8" width="128" height="128" rx="4"/></clipPath>
-<line class="sig-leader" x1="112.2" y1="178.0" x2="112.2" y2="190.0"/>
-<image class="sig-photo" href="img/sig-bento.webp" x="48.2" y="8" width="128" height="128" clip-path="url(#sigClipSP)" preserveAspectRatio="xMidYMid slice"/>
-<text class="sig-price sig-price-sp" x="112.2" y="154" text-anchor="middle">藤よし弁当 1,300円</text>
-<circle class="sig-dot" cx="20.0" cy="205" r="2.2" style="transition-delay:420ms"/>
-<circle class="sig-dot" cx="20.0" cy="205" r="2.2" style="transition-delay:430ms"/>
-<circle class="sig-dot" cx="20.0" cy="205" r="2.2" style="transition-delay:440ms"/>
-<circle class="sig-dot" cx="24.2" cy="205" r="2.2" style="transition-delay:450ms"/>
-<circle class="sig-dot" cx="26.7" cy="205" r="2.2" style="transition-delay:460ms"/>
-<circle class="sig-dot" cx="26.7" cy="205" r="2.2" style="transition-delay:470ms"/>
-<circle class="sig-dot" cx="26.7" cy="205" r="2.2" style="transition-delay:480ms"/>
-<circle class="sig-dot" cx="32.6" cy="205" r="2.2" style="transition-delay:490ms"/>
-<circle class="sig-dot" cx="32.6" cy="205" r="2.2" style="transition-delay:500ms"/>
-<circle class="sig-dot" cx="36.8" cy="205" r="2.2" style="transition-delay:510ms"/>
-<circle class="sig-dot" cx="36.8" cy="205" r="2.2" style="transition-delay:520ms"/>
-<circle class="sig-dot" cx="40.9" cy="205" r="2.2" style="transition-delay:530ms"/>
-<circle class="sig-dot" cx="40.9" cy="205" r="2.2" style="transition-delay:540ms"/>
-<circle class="sig-dot" cx="43.5" cy="205" r="2.2" style="transition-delay:550ms"/>
-<circle class="sig-dot" cx="45.1" cy="205" r="2.2" style="transition-delay:560ms"/>
-<circle class="sig-dot" cx="45.1" cy="205" r="2.2" style="transition-delay:570ms"/>
-<circle class="sig-dot" cx="45.1" cy="205" r="2.2" style="transition-delay:580ms"/>
-<circle class="sig-dot" cx="53.5" cy="205" r="2.2" style="transition-delay:590ms"/>
-<circle class="sig-dot" cx="53.5" cy="205" r="2.2" style="transition-delay:600ms"/>
-<circle class="sig-dot" cx="57.7" cy="205" r="2.2" style="transition-delay:610ms"/>
-<circle class="sig-dot" cx="57.7" cy="205" r="2.2" style="transition-delay:620ms"/>
-<circle class="sig-dot" cx="60.2" cy="205" r="2.2" style="transition-delay:630ms"/>
-<circle class="sig-dot" cx="61.9" cy="205" r="2.2" style="transition-delay:640ms"/>
-<circle class="sig-dot" cx="61.9" cy="205" r="2.2" style="transition-delay:650ms"/>
-<circle class="sig-dot" cx="61.9" cy="205" r="2.2" style="transition-delay:660ms"/>
-<circle class="sig-dot" cx="61.9" cy="205" r="2.2" style="transition-delay:670ms"/>
-<circle class="sig-dot" cx="61.9" cy="205" r="2.2" style="transition-delay:680ms"/>
-<circle class="sig-dot" cx="61.9" cy="205" r="2.2" style="transition-delay:690ms"/>
-<circle class="sig-dot" cx="61.9" cy="205" r="2.2" style="transition-delay:700ms"/>
-<circle class="sig-dot" cx="66.1" cy="205" r="2.2" style="transition-delay:710ms"/>
-<circle class="sig-dot" cx="66.1" cy="205" r="2.2" style="transition-delay:720ms"/>
-<circle class="sig-dot" cx="68.6" cy="205" r="2.2" style="transition-delay:730ms"/>
-<circle class="sig-dot" cx="70.3" cy="205" r="2.2" style="transition-delay:740ms"/>
-<circle class="sig-dot" cx="70.3" cy="205" r="2.2" style="transition-delay:750ms"/>
-<circle class="sig-dot" cx="70.3" cy="205" r="2.2" style="transition-delay:760ms"/>
-<circle class="sig-dot" cx="70.3" cy="205" r="2.2" style="transition-delay:770ms"/>
-<circle class="sig-dot" cx="70.3" cy="205" r="2.2" style="transition-delay:780ms"/>
-<circle class="sig-dot" cx="70.3" cy="205" r="2.2" style="transition-delay:790ms"/>
-<circle class="sig-dot" cx="78.6" cy="205" r="2.2" style="transition-delay:800ms"/>
-<circle class="sig-dot" cx="82.8" cy="205" r="2.2" style="transition-delay:810ms"/>
-<circle class="sig-dot" cx="82.8" cy="205" r="2.2" style="transition-delay:820ms"/>
-<circle class="sig-dot" cx="82.8" cy="205" r="2.2" style="transition-delay:830ms"/>
-<circle class="sig-dot" cx="82.8" cy="205" r="2.2" style="transition-delay:840ms"/>
-<circle class="sig-dot" cx="85.4" cy="205" r="2.2" style="transition-delay:850ms"/>
-<circle class="sig-dot" cx="85.4" cy="205" r="2.2" style="transition-delay:860ms"/>
-<circle class="sig-dot" cx="87.0" cy="205" r="2.2" style="transition-delay:870ms"/>
-<circle class="sig-dot" cx="112.2" cy="205" r="2.2" style="transition-delay:880ms"/>
-<circle class="sig-dot" cx="112.2" cy="205" r="2.2" style="transition-delay:890ms"/>
-<circle class="sig-dot" cx="112.2" cy="205" r="2.2" style="transition-delay:900ms"/>
-<circle class="sig-dot" cx="120.5" cy="205" r="2.2" style="transition-delay:910ms"/>
-<circle class="sig-dot" cx="124.7" cy="205" r="2.2" style="transition-delay:920ms"/>
-<circle class="sig-dot" cx="128.9" cy="205" r="2.2" style="transition-delay:930ms"/>
-<circle class="sig-dot" cx="128.9" cy="205" r="2.2" style="transition-delay:940ms"/>
-<circle class="sig-dot" cx="128.9" cy="205" r="2.2" style="transition-delay:950ms"/>
-<circle class="sig-dot" cx="137.3" cy="205" r="2.2" style="transition-delay:960ms"/>
-<circle class="sig-dot" cx="137.3" cy="205" r="2.2" style="transition-delay:970ms"/>
-<circle class="sig-dot" cx="145.7" cy="205" r="2.2" style="transition-delay:980ms"/>
-<circle class="sig-dot" cx="170.8" cy="205" r="2.2" style="transition-delay:990ms"/>
-<circle class="sig-dot" cx="212.7" cy="205" r="2.2" style="transition-delay:1000ms"/>
-<circle class="sig-dot" cx="212.7" cy="205" r="2.2" style="transition-delay:1010ms"/>
-<circle class="sig-dot" cx="325.8" cy="205" r="2.2" style="transition-delay:1020ms"/>
-            </svg>
-            <figcaption class="sig-cap"><span class="nw">写真は</span><span class="nw">お弁当の</span><span class="nw">一例です。</span></figcaption>
-        </figure>
-    </div>
-</section>
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
@@ -1412,10 +1183,6 @@
             </figure>
             <figure class="reveal">
                 <div class="photo-frame"><img src="img/acc-gaikan02.webp" width="1131" height="636" style="height:auto" alt="砂利敷きの駐車スペースに停まった車"></div>
-            </figure>
-            <figure class="reveal ag-night">
-                <div class="photo-frame"><img src="img/gaikan-04.webp" width="768" height="1024" style="height:auto" alt="夜、暗がりに玄関脇の行灯だけが橙に光る"></div>
-                <figcaption><span class="nw">夜は</span><span class="nw">行灯の</span><span class="nw">灯りが</span><span class="nw">目印です</span></figcaption>
             </figure>
         </div>
 

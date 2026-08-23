@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/hamburg/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/hamburg/img/dish-demi-jumbo-01.webp">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/hamburg/img/dish-demi-jumbo-02.webp">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -39,7 +39,7 @@
       "telephone": "+81-280-31-0518",
       "paymentAccepted": "Cash",
       "url": "https://creative-works-plus.github.io/restaurant-sites/hamburg/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/hamburg/img/dish-demi-jumbo-01.webp",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/hamburg/img/dish-demi-jumbo-02.webp",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -266,7 +266,11 @@
         background: linear-gradient(to right, transparent, var(--surface));
         pointer-events: none;
     }
-    .subnav-inner { display: flex; gap: 4px; width: max-content; min-width: 100%; padding-inline: var(--pad-inner); }
+    /* ★横スクロールさせるため親を全幅にしているので、そのままだと本文（.container＝
+       最大1080pxの中央寄せ）より左に出て、タブだけ左へずれて見える。
+       左右の余白を「画面の余りの半分」まで広げて、本文の左端に揃える。 */
+    .subnav-inner { display: flex; gap: 4px; width: max-content; min-width: 100%;
+                    padding-inline: max(var(--pad-inner), (100% - var(--maxw)) / 2); }
     .subnav a {
         min-height: 44px;
         display: inline-flex; align-items: center;
@@ -366,18 +370,22 @@
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--sp-4); }
 
     /* --- ヒーロー（A-3改・分割2カラム） ------------------------------------------ */
+    /* ★画面いっぱい（100svh）にすると、上下に何も無い帯ができて写真が小さく見える。
+       文章と写真の高さで決めて、大きい画面でだけ上限を掛ける。 */
+    .hero { min-height: 0; }
     .hero .container {
         display: flex; align-items: center;
-        min-height: calc(100svh - var(--header-h));
-        padding-block: var(--sp-6);
+        min-height: 0;
+        padding-block: clamp(24px, 4.5vw, 56px);
     }
     .hero-inner { width: 100%; }
     .hero-grid {
-        display: grid; grid-template-columns: 1.05fr .95fr;
-        gap: var(--gap); align-items: center; margin-top: var(--sp-5);
+        display: grid; grid-template-columns: 1.02fr .98fr;
+        gap: var(--gap); align-items: center; margin-top: 0;
     }
+    .hero-text { display: flex; flex-direction: column; align-items: flex-start; }
     .hero-eyebrow {
-        display: block; margin-top: var(--sp-4);
+        display: block; margin-top: var(--sp-3);
         font-size: .85rem; letter-spacing: .16em; color: var(--muted); font-weight: 700;
     }
     .hero-catch {
@@ -391,10 +399,13 @@
         background: var(--surface); border: 1px solid var(--line-strong); color: var(--muted);
         white-space: nowrap;
     }
-    .hero-photo { border-radius: var(--radius); }
+    /* 写真は縦長ぎみ（3:4寄り）にして、文章の高さと釣り合わせる。
+       元画像は1024×768なので、表示幅が1024pxを超えないよう max-width で止める。 */
+    .hero-photo { border-radius: var(--radius); aspect-ratio: 5 / 4; max-width: 1024px; }
+    .hero-photo img { object-position: 50% 68%; }
     @media (max-width: 900px) {
         .hero-grid { grid-template-columns: 1fr; }
-        .hero-photo { order: 2; }
+        .hero-photo { order: 2; aspect-ratio: 4 / 3; }
     }
 
     /* --- 署名（井の四つの大きさ） ------------------------------------------------- */
@@ -577,10 +588,9 @@
 <section class="hero" id="hero">
     <div class="container">
         <div class="hero-inner">
-            <span class="status-chip" id="status-chip"><span class="status-text">昼 11:30〜14:00／夜は土・日のみ</span></span>
-
             <div class="hero-grid">
                 <div class="hero-text">
+                    <span class="status-chip" id="status-chip"><span class="status-text">昼 11:30〜14:00／夜は土・日のみ</span></span>
                     <span class="hero-eyebrow">HAMBURG｜古河市緑町の洋食店</span>
                     <h1 class="hero-catch"><span class="nw">ビーフ</span>100%、<br class="br-pc"><span class="nw">すべて</span><span class="nw">手作りです。</span></h1>
                     <p class="hero-sub"><span class="nw">古河の</span><span class="nw">住宅街の</span><span class="nw">一軒家で、</span><span class="nw">夫婦二人で</span><span class="nw">営む</span><span class="nw">洋食の</span><span class="nw">店です。</span><span class="nw">ハンバーグは、</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">分を</span><span class="nw">店で</span><span class="nw">仕込んで</span><span class="nw">おります。</span></p>
@@ -603,8 +613,8 @@
                     </div>
                 </div>
 
-                <div class="hero-photo photo-frame r43">
-                    <img src="img/dish-demi-jumbo-01.webp" alt="牛の形をした鉄板皿にのった450gジャンボハンバーグ、自家製デミグラスソース"
+                <div class="hero-photo photo-frame">
+                    <img src="img/dish-demi-jumbo-02.webp" alt="牛の形をした鉄板皿にのった450gジャンボハンバーグ、自家製デミグラスソース"
                          width="1024" height="768" loading="eager" fetchpriority="high" decoding="async">
                 </div>
             </div>
@@ -704,7 +714,7 @@
                      width="1024" height="1024" loading="lazy" decoding="async">
             </figure>
             <figure class="photo-frame r43 reveal">
-                <img src="img/dish-demi-jumbo-02.webp" alt="450gジャンボハンバーグ、自家製デミグラスソース"
+                <img src="img/dish-demi-jumbo-01.webp" alt="450gジャンボハンバーグとライス、食後のコーヒー"
                      width="1024" height="768" loading="lazy" decoding="async">
             </figure>
             <figure class="photo-frame r43 reveal">
@@ -1308,7 +1318,7 @@ function shiftsForToday(day) {
 }
 
 /* 文節ごとに .nw で囲んだHTMLを組み立てる（JSが差し込む文字は fix_ja_breaks.py の対象外のため） */
-function nw(s) { return '<span class="nw">' + s + '</span>'; }
+function nw(s) { return '' + s + ''; }
 
 function updateStatus() {
     var el = document.getElementById('status-chip');
