@@ -84,7 +84,7 @@
         --accent:      #F2EAE0;   /* 差し色は有彩色にしない。乳白そのもの */
         --accent-hi:   #FFFFFF;   /* ホバー時の明るい版 */
         --accent-deep: #D9CAB5;   /* 押下・影の暗い版 */
-        --accent-2:    ;          /* 第2差し色は持たない */
+        /* --accent-2 は持たない（差し色は乳白1色。→ ブリーフ§2） */
         --mon:         #B5282A;   /* ロゴ実測の赤。「三の門」1枚とfaviconにだけ使う */
 
         /* --- 罫線 -------------------------------------------------------------- */
@@ -531,8 +531,17 @@
     }
     .hero::before {
         content: ''; position: absolute; inset: 0; z-index: 0;
+        /* 幕（scrim）だけを変数にしてある。★写真のURLをもう一度書かないため
+           （メディアクエリで background-image ごと書き直すと、同じ写真を2回
+             使っているように見えて check_image_dupes.py が ✗ を出す）。 */
+        --hero-scrim:
+            linear-gradient(180deg,
+                rgba(21,14,10,0.08) 0%,
+                rgba(21,14,10,0.30) 30%,
+                rgba(21,14,10,0.74) 62%,
+                rgba(21,14,10,0.92) 100%);
         background-image:
-            linear-gradient(180deg, rgba(21,14,10,0.10) 0%, rgba(21,14,10,0.42) 48%, rgba(21,14,10,0.88) 100%),
+            var(--hero-scrim),
             url('images/hp-外観-看板と牛のオブジェ-トリム.jpg');
         background-size: cover;
         background-position: center top;
@@ -543,6 +552,20 @@
        引き伸ばしが生じるため、プレートの上（丸い「大門」看板の下）で切った
        -トリム.jpg（2200×900・屋根の牛のオブジェと丸い看板は残す）に差し替えた。
        元ファイルは images/ にそのまま残している。 */
+    /* ★スマートフォンではヒーローが縦に伸びるぶん、文字の後ろに空が広く残る。
+       PC と同じ幕（scrim）だと本文サイズの .hero-sub が明るい屋根の上に乗って
+       4.5:1 を割ったので（390px 実測：中央 3.60／明るい側 2.01）、
+       ここだけ幕を濃くしている。牛のオブジェが写る上半分は薄いまま。 */
+    @media (max-width: 699.98px) {
+        .hero::before {
+            --hero-scrim:
+                linear-gradient(180deg,
+                    rgba(21,14,10,0.10) 0%,
+                    rgba(21,14,10,0.44) 26%,
+                    rgba(21,14,10,0.86) 56%,
+                    rgba(21,14,10,0.96) 100%);
+        }
+    }
     .hero > .container { position: relative; z-index: 1; }
     #status-chip { background: rgba(42,30,23,0.55); color: var(--ink); margin-bottom: 22px; }
     .hero-catch {
