@@ -115,7 +115,9 @@
     .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
     .nav-toggle { margin-left: 6px; }
     .hero { min-height: calc(100svh - var(--header-h)); }  /* 足し算のズレをなくす */
-    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    /* ★2026-08-25：サブナビが sticky に戻ったので、リンクで跳んだ先が
+       タブの下に隠れないよう、タブの高さぶんだけ余白を足す（スマホは1段＝45px）。 */
+    [id] { scroll-margin-top: calc(var(--header-h) + 78px); }
     a { color: inherit; text-decoration: none; }
     ul, ol { list-style: none; }
     table { border-collapse: collapse; }
@@ -540,6 +542,26 @@
                 border-bottom: 2px solid transparent; }
     .subnav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
 
+    /* ★2026-08-25：中央には寄っていたものの、章の多いページでは右のタブが
+       画面の外へ出たまま気づけなかった（「ドレッシング」「ランチ」が見えない）。
+       広い画面では折り返して段にし、全部のタブを一度に見せる。
+       　・折り返すと flex の auto マージンが効かないので justify-content で中央へ
+       　・「まだ右に続く」ことを示していた右端のぼかしは、折り返せば不要
+       スマホは指で流せる一列のまま（折り返すと画面の三分の一を占めてしまう）。 */
+    @media (min-width: 760px) {
+        .subnav-inner { overflow-x: visible; flex-wrap: wrap; justify-content: center;
+                        row-gap: 4px; padding-block: 6px; }
+        .subnav-inner > a:first-child,
+        .subnav-inner > a:last-child { margin-inline: 0; }
+        .subnav::after { display: none; }
+        .subnav a { min-height: 38px; padding-inline: 15px;
+                    border: 1px solid var(--line); border-radius: 999px;
+                    border-bottom-width: 1px; }
+        .subnav a:hover { color: var(--ink); background: var(--surface-2);
+                          border-color: var(--accent); }
+        [id] { scroll-margin-top: calc(var(--header-h) + 132px); }   /* 段が2つでも隠れない */
+    }
+
     .lead-box { border: 1px solid var(--line); border-radius: var(--radius);
                 background: var(--surface); padding: clamp(20px, 4.4vw, 30px);
                 color: var(--muted); margin-bottom: clamp(30px, 6vw, 50px); }
@@ -628,8 +650,11 @@
         background: center / 128px auto no-repeat url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20160%2054%27%3E%3Cg%20fill%3D%27%23C6483F%27%3E%3Cpath%20d%3D%27M18%207%20C20%2019%2027%2025%2027%2036%20C27%2047%2023%2054%2018%2054%20C13%2054%209%2047%209%2036%20C9%2027%2016%2022%2018%207%20Z%27%2F%3E%3Cpath%20d%3D%27M80%200%20C82%2012%2089%2018%2089%2029%20C89%2040%2085%2047%2080%2047%20C75%2047%2071%2040%2071%2029%20C71%2020%2078%2015%2080%200%20Z%27%2F%3E%3Cpath%20d%3D%27M142%207%20C144%2019%20151%2025%20151%2036%20C151%2047%20147%2054%20142%2054%20C137%2054%20133%2047%20133%2036%20C133%2027%20140%2022%20142%207%20Z%27%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%27%23E4897A%27%20opacity%3D%27.9%27%3E%3Cpath%20d%3D%27M18%2028%20C19%2034%2023%2037%2023%2043%20C23%2049%2021%2052%2018%2052%20C15%2052%2013%2049%2013%2043%20C13%2037%2017%2034%2018%2028%20Z%27%2F%3E%3Cpath%20d%3D%27M80%2021%20C81%2027%2085%2030%2085%2036%20C85%2042%2083%2045%2080%2045%20C77%2045%2075%2042%2075%2036%20C75%2030%2079%2027%2080%2021%20Z%27%2F%3E%3Cpath%20d%3D%27M142%2028%20C143%2034%20147%2037%20147%2043%20C147%2049%20145%2052%20142%2052%20C139%2052%20137%2049%20137%2043%20C137%2037%20141%2034%20142%2028%20Z%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     }
 
-    /* 横スクロールのサブナビ：右端にまだ続きがあると分かるように */
-    .subnav { position: relative; }
+    /* 横スクロールのサブナビ：右端にまだ続きがあると分かるように。
+       ★2026-08-25：ここに書いていた `.subnav { position: relative; }` が、
+       上の `position: sticky` を後から打ち消していた（読み進めてもタブが
+       上に残らず、実測でも relative になっていた）。sticky も位置指定済みなので
+       ::after の基準にはそのまま使える。relative の1行を外して sticky を戻す。 */
     .subnav::after { content: ''; position: absolute; right: 0; top: 0; bottom: 1px; width: 42px;
                      pointer-events: none;
                      background: linear-gradient(90deg, rgba(35,18,15,0), rgba(35,18,15,.95)); }

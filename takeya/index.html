@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/takeya/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/takeya/img/hero-mise.webp">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/takeya/img/hero-kanban.webp">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -38,7 +38,7 @@
       "telephone": "+81-280-33-1415",
       "paymentAccepted": "Cash, Credit Card",
       "url": "https://creative-works-plus.github.io/restaurant-sites/takeya/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/takeya/img/hero-mise.webp",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/takeya/img/hero-kanban.webp",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "東本町1-2-14",
@@ -510,35 +510,48 @@
     /* ══════════════════════════════════════════════════════════════════
        ヒーロー：A-44「貼り紙の壁」
        ══════════════════════════════════════════════════════════════════ */
+    /* ★2026-08-25 全面差し替え。
+       それまでは夜の斜め写真（1920px）を全面に敷き、上に暗い覆いをかけて札を載せていた。
+       ・写真が画面いっぱいに拡がるぶん、暗い路地と隣のビルばかりが目に入って、
+         肝心の看板が小さかった
+       ・覆いを濃くしないと札が読めず、濃くすると店構えが見えない、という板挟み
+       いまは**下見板の面**を地にして、**看板が正面から写った一枚を額に入れて置く**。
+       写真は全面に拡げないので覆いが要らず、そのままの明るさで見せられる。 */
     .hero {
-        position: relative; display: flex; align-items: flex-end; overflow: hidden;
+        position: relative; overflow: hidden;
+        min-height: 0;                       /* 骨格の 100svh を解除（中身の高さで決める） */
+        background: var(--board); color: var(--ink-on-board);
     }
-    .hero-photo { position: absolute; inset: 0; z-index: 0; }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 46% 44%; }
-    /* ★スマホは縦長のヒーローに対して写真が横長なので、cover は高さ基準で拡大される
-       ＝横方向しか動かせない。看板（画面左寄り）が切れないよう横位置を寄せる。 */
-    @media (max-width: 620px) {
-        .hero-photo img { object-position: 38% 40%; }
-    }
-    .hero-photo::after {
-        content: ''; position: absolute; inset: 0;
-        /* 2026-08-25：ヒーローを 1920×1080 の店構えに差し替え。
-           旧写真（410px・左下に旧価格の貼り紙）を隠すための radial-gradient は不要になった。
-           下スクリムだけを残し、写真そのものが見えるように薄くしてある。 */
+    /* 地＝下見板の縦の目。1本ずつ描かず、繰り返しのグラデーションで薄く出す */
+    .hero::before {
+        content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
         background:
-            linear-gradient(185deg, rgba(20, 15, 11, .10) 0%, rgba(18, 13, 10, .48) 72%, rgba(15, 11, 8, .66) 100%);
+            repeating-linear-gradient(90deg,
+                rgba(244, 240, 231, .045) 0 1px,
+                rgba(244, 240, 231, 0)    1px 46px),
+            radial-gradient(120% 90% at 78% 18%, rgba(208, 123, 78, .16), transparent 62%);
     }
-    /* 1200px以上は覆いを一段だけ濃くし、ヒーローの高さに上限を設ける
-       （写真は 1920px あるので引き伸ばしは起きない。文字の読みやすさのため） */
-    @media (min-width: 1200px) {
-        .hero-photo::after {
-            background:
-                linear-gradient(185deg, rgba(20, 15, 11, .14) 0%, rgba(18, 13, 10, .52) 72%, rgba(15, 11, 8, .7) 100%);
-        }
-        .hero { min-height: min(calc(100svh - var(--header-h)), 820px); }
+    .hero-inner {
+        position: relative; z-index: 1;
+        display: grid; gap: clamp(28px, 4.4vw, 56px); align-items: center;
+        padding-block: clamp(44px, 8vw, 92px);
     }
-    .hero-inner { position: relative; z-index: 1; padding-block: clamp(36px, 9vw, 84px); }
-    .hero-notes { display: flex; flex-direction: column; gap: 18px; width: min(88%, 420px); }
+    @media (min-width: 900px) {
+        .hero-inner { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); }
+    }
+    .hero-notes { display: flex; flex-direction: column; gap: 18px; width: min(100%, 420px); }
+
+    /* 額：紙の白縁で囲う（店先の貼り紙と同じ地）。
+       ★元寸 1560px。表示幅の上限を 760px に抑えて、拡大表示にならないようにする。 */
+    .hero-frame {
+        max-width: 760px; margin-inline: auto; width: 100%;
+        background: var(--paper); padding: 10px;
+        box-shadow: 0 26px 60px rgba(8, 6, 4, .55);
+    }
+    .hero-frame img { width: 100%; height: auto; display: block; }
+    @media (min-width: 900px) {
+        .hero-frame { margin-inline: 0 0 0 auto; }
+    }
 
     .note-card {
         --rot: 0deg;
@@ -557,7 +570,10 @@
     .note-eyebrow { font-size: 13px; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
     .note-card h1 {
         font-family: var(--font-head); font-weight: 600;
-        font-size: var(--fz-hero); line-height: 1.22;
+        /* ★2026-08-25：ヒーローが2段組になり、札の列が 400px で頭打ちになった。
+           --fz-hero（最大58px）のままだと「匠味ダイニング」の7文字が札からはみ出す。
+           札の幅から逆算した上限に置き換える。 */
+        font-size: clamp(30px, 6.4vw, 44px); line-height: 1.24;
     }
     .note-catch { font-size: clamp(16px, 2.6vw, 19px); line-height: 1.75; }
     .note-tel-lead { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
@@ -630,6 +646,89 @@
     }
     @media (max-width: 620px) {
         .menu-photos { grid-template-columns: repeat(2, 1fr); gap: var(--sp-3); }
+    }
+
+    /* お品書きの見出しの節。すぐ下にタブが続くので、下の余白だけ詰める */
+    .section-menu-head { padding-bottom: var(--sp-4); }
+    .menu-lead-note { color: var(--dim); font-size: var(--fz-cap); margin-top: var(--sp-3); }
+
+    /* --- 章と章のあいだ（2026-08-25：1章だったお品書きを12章に組み直した） -------
+       お品書きが「代表的なお料理」の1章しか無かったころは間隔が要らなかったが、
+       章が並ぶと区切りが要る。章の頭を紙の面から少し浮かせる。 */
+    .menu-block + .menu-block { margin-top: clamp(44px, 6vw, 76px); }
+
+    /* --- 品名の並び（build_menu.py が出す .menu-grid / .menu-list） --------------
+       ★お値段は1品も出していない（_裁定.md／menu.json の `_価格の扱い`）。
+       値段の欄が無いぶん、品名だけが左に並んで頼りなく見えるので、
+       **壁に貼った品書きの紙**に見えるよう、章ごとに紙の面へ載せる。 */
+    .menu-grid {
+        display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 var(--sp-5);
+        background: var(--paper);
+        padding: clamp(20px, 3vw, 34px) clamp(18px, 3vw, 32px);
+        box-shadow: var(--shadow);
+    }
+    .menu-list { list-style: none; margin: 0; padding: 0; }
+    .menu-list li {
+        padding: 11px 0;
+        border-bottom: 1px dashed var(--line);   /* 品書きの罫。実線より紙に近い */
+        color: var(--ink); line-height: 1.6;
+    }
+    .menu-list li:last-child { border-bottom: 0; }
+    .menu-list .name { font-family: var(--font-head); font-size: 1.02rem; letter-spacing: .02em; }
+    .menu-list .desc {
+        display: block; margin-top: 4px;
+        font-family: var(--font-body); font-size: var(--fz-cap); color: var(--dim); line-height: 1.7;
+    }
+    /* 章に写真が付くときは、紙の面の下に置く */
+    .menu-grid + .menu-photos { margin-top: var(--sp-4); }
+    @media (max-width: 700px) {
+        /* 2列のままだと品名が1文字ずつ折れる（「とろーりチーズのザクザクサラダ」）。
+           狭い画面では1列にして、罫が最後まで通るようにする。 */
+        .menu-grid { grid-template-columns: 1fr; gap: 0; }
+        .menu-list + .menu-list li:first-child { border-top: 1px dashed var(--line); }
+    }
+
+    /* --- お品書きのタブ（.subnav。骨格は高さの下限だけ。見た目はこの店で決める） --
+       12章に増えたので、章へ直接飛べるタブを出す。
+       ・地は署名の節と同じ下見板の墨茶にして、紙の面の品書きと はっきり分ける
+       ・広い画面では**折り返して段にする**（横に流すと右の「ソフトドリンク」まで
+         届かず、切れていることに気づけない＝ペントーラで実際に起きた）
+       ・スマホは指で流せる一列のまま（折り返すと画面の三分の一を占めてしまう） */
+    .subnav {
+        position: sticky; top: var(--header-h); z-index: 40;
+        background: var(--board);
+        border-bottom: 1px solid rgba(244, 240, 231, .14);
+    }
+    .subnav-inner {
+        display: flex; gap: 6px; align-items: center;
+        max-width: var(--maxw); margin-inline: auto;
+        padding: 5px clamp(12px, 3vw, 24px);
+        overflow-x: auto; scrollbar-width: none;
+    }
+    .subnav-inner::-webkit-scrollbar { display: none; }
+    .subnav a {
+        flex: 0 0 auto;
+        font-family: var(--font-head); font-size: .92rem; letter-spacing: .04em;
+        color: var(--muted-on-board); white-space: nowrap;
+        border: 1px solid transparent; border-radius: 999px;
+        transition: color .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .subnav a:hover { color: var(--ink-on-board); background: rgba(244, 240, 231, .08); }
+    /* 右端に「まだ続きがある」ことを示すぼかし（横に流す幅のときだけ） */
+    .subnav::after {
+        content: ''; position: absolute; right: 0; top: 0; bottom: 1px; width: 42px;
+        pointer-events: none;
+        background: linear-gradient(90deg, rgba(34, 27, 21, 0), rgba(34, 27, 21, .95));
+    }
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 66px); }
+
+    @media (min-width: 820px) {
+        .subnav-inner { overflow-x: visible; flex-wrap: wrap; justify-content: center;
+                        row-gap: 4px; padding-block: 7px; }
+        .subnav::after { display: none; }           /* 折り返せば続きは無い */
+        .subnav a { min-height: 38px; padding-inline: 15px; border-color: rgba(244, 240, 231, .18); }
+        .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 122px); }  /* 段が2つでも隠れない */
     }
 
     /* ══════════════════════════════════════════════════════════════════
@@ -726,7 +825,7 @@
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
     <a href="#shomei" data-nav-link>品書きの壁</a>
-    <a href="#ryouri" data-nav-link>代表的なお料理</a>
+    <a href="#menu"   data-nav-link>お品書き</a>
     <a href="#ten"    data-nav-link>店内・お集まり</a>
     <a href="#voice"  data-nav-link>お客様の声</a>
     <a href="#info"   data-nav-link>アクセス</a>
@@ -741,10 +840,6 @@
      ①店名＋業態 ②惹句 ③電話（tel:）。画鋲や紐は描かない。写真は動かさない。
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-photo">
-        <img src="img/hero-mise.webp" alt="夜、看板に灯りが入った匠味ダイニング タケヤの店構え"
-             width="1920" height="1080" loading="eager" fetchpriority="high" decoding="async">
-    </div>
     <div class="container hero-inner">
         <div class="hero-notes">
             <div class="note-card note-1 reveal">
@@ -762,6 +857,11 @@
                 </a>
             </div>
         </div>
+
+        <figure class="hero-frame reveal reveal-delay-1">
+            <img src="img/hero-kanban.webp" alt="灯りの入った「匠味ダイニング タケヤ」の看板と、格子戸の入口"
+                 width="1560" height="1180" loading="eager" fetchpriority="high" decoding="async">
+        </figure>
     </div>
 </section>
 
@@ -791,7 +891,7 @@
             <span class="nw">追加の</span><span class="nw">ご注文を</span><span class="nw">気にせず、</span><span class="nw">はじめから</span><span class="nw">終わりまでゆっくり</span><span class="nw">お過ごし</span><span class="nw">いただけます。</span>
         </p>
 
-        <p class="shomei-brands reveal"><span class="nw">越乃寒梅・八海山・久保田と</span><span class="nw">いった</span><span class="nw">銘柄の</span><span class="nw">お酒も、</span><span class="nw">飲み放題の</span><span class="nw">うちで</span><span class="nw">ございます。</span></p>
+        <p class="shomei-brands reveal"><span class="nw">越乃寒梅・</span><span class="nw">八海山・</span><span class="nw">久保田といった</span><span class="nw">銘柄の</span><span class="nw">お酒も、</span><span class="nw">飲み</span><span class="nw">放題のうちで</span><span class="nw">ございます。</span></p>
 
         <p class="shomei-note reveal"><span class="nw">鍋付き・</span><span class="nw">刺し</span><span class="nw">盛りへの</span><span class="nw">変更も、</span><span class="nw">ご予約に</span><span class="nw">限り</span><span class="nw">承ります。</span></p>
 
@@ -801,85 +901,68 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     代表的なお料理（build_menu.py --no-price で組む。menu.json の blocks.ryouri）
+     お品書き（build_menu.py --no-price が組む。menu.json）
+     ★2026-08-25：1章（代表的なお料理・写真だけ）から11章・76品に組み直した。
+       お値段は1品も出していない（menu.json の `_価格の扱い`／_裁定.md）。
+       全体の見出しとリード文は auto の外に置く（build_menu.py は章しか出さない）。
      menu:auto:start 〜 menu:auto:end の間は直接編集しない
      ══════════════════════════════════════════════════════════════════════ -->
+<section class="section section-menu-head" id="menu">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="rakkan" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"></rect><path d="M8 7v10M12 6v11M16 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="nw">お品書き</span></h2>
+        <p class="lead reveal">
+            <span class="nw">お料理も</span><span class="nw">お飲み</span><span class="nw">ものも、</span><span class="nw">五十種を</span><span class="nw">超えて</span><span class="nw">ご用意し</span><span class="nw">ております。</span><br class="br-pc">
+            <span class="nw">定番のほか、</span><span class="nw">季節の</span><span class="nw">旬な</span><span class="nw">食材を</span><span class="nw">使った</span><span class="nw">一品もその</span><span class="nw">日ごとに</span><span class="nw">お出しし</span><span class="nw">ております。</span>
+        </p>
+        <p class="menu-lead-note reveal"><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
+    </div>
+</section>
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#otsumami">おつまみ</a>
+        <a href="#sashimi">お造り</a>
+        <a href="#yakimono">焼き物</a>
+        <a href="#agemono">揚げ物</a>
+        <a href="#nimono">煮物</a>
+        <a href="#nabe">お鍋</a>
+        <a href="#shime">ご飯もの</a>
+        <a href="#beer">ビール</a>
+        <a href="#nihonshu">日本酒</a>
+        <a href="#shochu">焼酎</a>
+        <a href="#soft">ソフトドリンク</a>
+    </div>
+</nav>
 <section class="section">
     <div class="container">
-        <div class="menu-block reveal" id="ryouri">
-            <div class="menu-head"><h2><span class="nwb"><span class="nw">代表的な</span><span class="nw">お料理</span></span></h2><span class="yomi">R Y O U R I</span></div>
-            <p class="menu-note"><span class="nw">定番の</span><span class="nw">お料理のほか、</span><span class="nw">季節の</span><span class="nw">旬な</span><span class="nw">食材を</span><span class="nw">使った</span><span class="nw">一品も</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
+        <div class="menu-block reveal" id="otsumami">
+            <div class="menu-head"><h2><span class="nwb"><span class="nw">おつまみ・</span><span class="nw">サラダ</span></span></h2><span class="yomi">O T S U M A M I</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">胡麻塩キャベツ</span></span></li>
+                    <li><span class="name"><span class="nw">焼き</span><span class="nw">枝豆</span><span class="desc"><span class="nw">焼く</span><span class="nw">ことで</span><span class="nw">甘さが</span><span class="nw">増します。</span></span></span></li>
+                    <li><span class="name"><span class="nw">枝豆の</span><span class="nw">ガーリック</span><span class="nw">炒め</span></span></li>
+                    <li><span class="name"><span class="nw">チャンジャ</span></span></li>
+                    <li><span class="name"><span class="nw">珍味の</span><span class="nw">三点盛り</span></span></li>
+                    <li><span class="name"><span class="nw">たたき</span><span class="nw">山芋の</span><span class="nw">明太子和え</span></span></li>
+                    <li><span class="name"><span class="nw">山芋の</span><span class="nw">梅肉かけ</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">たこわさび</span></span></li>
+                    <li><span class="name"><span class="nw">シーザーサラダ</span></span></li>
+                    <li><span class="name"><span class="nw">とろーり</span><span class="nw">チーズの</span><span class="nw">ザクザクサラダ</span></span></li>
+                    <li><span class="name"><span class="nw">海老と</span><span class="nw">アボカドの</span><span class="nw">サラダ</span></span></li>
+                    <li><span class="name"><span class="nw">チーズと</span><span class="nw">サラミの</span><span class="nw">盛り</span><span class="nw">合わせ</span></span></li>
+                    <li><span class="name"><span class="nw">あさりの</span><span class="nw">酒蒸し</span></span></li>
+                </ul>
+            </div>
             <div class="menu-photos">
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-nabe.webp" alt="豚肉と野菜を入れたお鍋"
-                             width="640" height="480" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">お鍋</span></figcaption>
-                </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-sashimi.webp" alt="旬の魚介を盛り合わせたお造り"
-                             width="640" height="480" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">お造りの</span><span class="nw">盛り</span><span class="nw">合わせ</span></figcaption>
-                </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-tempura.webp" alt="魚介と野菜の天ぷら盛り合わせ"
-                             width="640" height="480" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">天ぷらの</span><span class="nw">盛り</span><span class="nw">合わせ</span></figcaption>
-                </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-gyoza.webp" alt="焼き目をつけた餃子"
-                             width="640" height="480" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">焼き</span><span class="nw">餃子</span></figcaption>
-                </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-ayu.webp" alt="串を打って焼いた鮎の塩焼き"
-                             width="640" height="480" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">鮎の</span><span class="nw">塩焼き</span></figcaption>
-                </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-yakimono.webp" alt="炙り焼きの盛り合わせ"
-                             width="640" height="480" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">焼き</span><span class="nw">物の</span><span class="nw">盛り</span><span class="nw">合わせ</span></figcaption>
-                </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-asari.webp" alt="あさりの酒蒸し"
-                             width="640" height="480" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">あさりの</span><span class="nw">酒蒸し</span></figcaption>
-                </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-kakuni.webp" alt="とろりと煮た豚の角煮"
-                             width="1000" height="750" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">角煮</span></figcaption>
-                </figure>
                 <figure>
                     <div class="photo-frame">
                         <img src="img/dish-edamame.webp" alt="枝豆"
                              width="1000" height="562" loading="lazy" decoding="async">
                     </div>
-                    <figcaption><span class="nw">枝豆</span></figcaption>
-                </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/dish-ebi.webp" alt="有頭海老の塩焼き"
-                             width="640" height="480" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">海老の</span><span class="nw">塩焼き</span></figcaption>
+                    <figcaption><span class="nw">焼き</span><span class="nw">枝豆</span></figcaption>
                 </figure>
                 <figure>
                     <div class="photo-frame">
@@ -890,11 +973,270 @@
                 </figure>
                 <figure>
                     <div class="photo-frame">
+                        <img src="img/dish-asari.webp" alt="あさりの酒蒸し"
+                             width="640" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">あさりの</span><span class="nw">酒蒸し</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="sashimi">
+            <div class="menu-head"><h2><span class="nw">お造り</span></h2><span class="yomi">S A S H I M I</span></div>
+            <p class="menu-note"><span class="nw">その</span><span class="nw">日の</span><span class="nw">仕入れによって、</span><span class="nw">お出しできる</span><span class="nw">魚が</span><span class="nw">変わります。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">お刺身の</span><span class="nw">三点盛り</span></span></li>
+                    <li><span class="name"><span class="nw">お刺身の</span><span class="nw">盛り</span><span class="nw">合わせ</span><span class="desc"><span class="nw">ご人数に</span><span class="nw">合わせて</span><span class="nw">お仕立て</span><span class="nw">いたします。</span></span></span></li>
+                    <li><span class="name"><span class="nw">特選</span> <span class="nw">お刺身の</span><span class="nw">盛り</span><span class="nw">合わせ</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">海鮮カルパッチョ</span></span></li>
+                    <li><span class="name"><span class="nw">かつおの</span><span class="nw">お刺身</span></span></li>
+                    <li><span class="name"><span class="nw">まぐろの</span><span class="nw">お刺身</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-sashimi.webp" alt="旬の魚介を盛り合わせたお造り"
+                             width="640" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">お造りの</span><span class="nw">盛り</span><span class="nw">合わせ</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="yakimono">
+            <div class="menu-head"><h2><span class="nwb"><span class="nw">焼き</span>物</span></h2><span class="yomi">Y A K I M O N O</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ジャンボつくね</span><span class="desc"><span class="nw">塩・</span><span class="nw">たれ・</span><span class="nw">チーズから</span><span class="nw">お選び</span><span class="nw">いただけます。</span></span></span></li>
+                    <li><span class="name"><span class="nw">ジャンボ</span><span class="nw">焼とり</span><span class="desc"><span class="nw">塩・</span><span class="nw">たれから</span><span class="nw">お選び</span><span class="nw">いただけます。</span></span></span></li>
+                    <li><span class="name"><span class="nw">一口餃子</span></span></li>
+                    <li><span class="name"><span class="nw">いかの</span><span class="nw">丸焼き</span></span></li>
+                    <li><span class="name"><span class="nw">いかわた</span><span class="nw">焼き</span></span></li>
+                    <li><span class="name"><span class="nw">海老の</span><span class="nw">塩焼き</span></span></li>
+                    <li><span class="name"><span class="nw">鮎の</span><span class="nw">塩焼き</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">焼き</span>魚</span></li>
+                    <li><span class="name"><span class="nw">あさり</span><span class="nw">バター</span></span></li>
+                    <li><span class="name"><span class="nw">豚肉とにんにくの</span><span class="nw">芽の</span><span class="nw">炒め</span></span></li>
+                    <li><span class="name"><span class="nw">豚肉ともやしの</span><span class="nw">炒め</span></span></li>
+                    <li><span class="name"><span class="nw">サイコロステーキ</span></span></li>
+                    <li><span class="name"><span class="nw">お好み</span><span class="nw">焼き</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-yakimono.webp" alt="炙り焼きの盛り合わせ"
+                             width="640" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">焼き</span><span class="nw">物の</span><span class="nw">盛り</span><span class="nw">合わせ</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-ayu.webp" alt="串を打って焼いた鮎の塩焼き"
+                             width="640" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">鮎の</span><span class="nw">塩焼き</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-ebi.webp" alt="有頭海老の塩焼き"
+                             width="640" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">海老の</span><span class="nw">塩焼き</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-gyoza.webp" alt="焼き目をつけた餃子"
+                             width="640" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">焼き</span><span class="nw">餃子</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="agemono">
+            <div class="menu-head"><h2><span class="nwb"><span class="nw">揚げ</span>物</span></h2><span class="yomi">A G E M O N O</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">昭和の</span><span class="nw">チキンカツレツ</span><span class="desc"><span class="nw">直径およそ</span><span class="nw">三十センチ。</span><span class="nw">大きさのわりに、</span><span class="nw">中は</span><span class="nw">柔らかく</span><span class="nw">仕上げ</span><span class="nw">ております。</span></span></span></li>
+                    <li><span class="name"><span class="nw">ぷりぷり</span><span class="nw">海老マヨ</span><span class="desc"><span class="nw">特製の</span><span class="nw">衣でさっと</span><span class="nw">揚げ、</span><span class="nw">特製の</span><span class="nw">マヨネーズを</span><span class="nw">合わせ</span><span class="nw">ております。</span></span></span></li>
+                    <li><span class="name"><span class="nw">カキフライ</span></span></li>
+                    <li><span class="name"><span class="nw">カニクリームコロッケ</span><span class="desc"><span class="nw">三個で</span><span class="nw">お出しし</span><span class="nw">ております。</span></span></span></li>
+                    <li><span class="name"><span class="nw">若鳥の</span><span class="nw">ピリ</span><span class="nw">辛揚げ</span></span></li>
+                    <li><span class="name"><span class="nw">軟骨のから</span><span class="nw">揚げ</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ちくわの</span><span class="nw">磯辺揚げ</span><span class="desc"><span class="nw">天つゆと</span><span class="nw">大根おろしでどうぞ。</span></span></span></li>
+                    <li><span class="name"><span class="nw">串揚げの</span><span class="nw">五点盛り</span></span></li>
+                    <li><span class="name"><span class="nw">山菜の</span><span class="nw">天ぷら</span><span class="nw">盛り</span><span class="nw">合わせ</span></span></li>
+                    <li><span class="name"><span class="nw">さつま</span><span class="nw">揚げ</span></span></li>
+                    <li><span class="name"><span class="nw">はんぺん</span><span class="nw">チーズフライ</span></span></li>
+                    <li><span class="name"><span class="nw">フライドポテト</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-tempura.webp" alt="魚介と野菜の天ぷら盛り合わせ"
+                             width="640" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">天ぷらの</span><span class="nw">盛り</span><span class="nw">合わせ</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="nimono">
+            <div class="menu-head"><h2><span class="nwb"><span class="nw">煮物・</span><span class="nw">鉄板</span></span></h2><span class="yomi">N I M O N O</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">豚の</span><span class="nw">角煮</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span>煮</span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">鉄板の</span><span class="nw">一品</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-kakuni.webp" alt="とろりと煮た豚の角煮"
+                             width="1000" height="750" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">角煮</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
                         <img src="img/dish-shabu.webp" alt="鰹節と紅生姜をのせた鉄板の一品"
                              width="640" height="640" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">鉄板の</span><span class="nw">一品</span></figcaption>
                 </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="nabe">
+            <div class="menu-head"><h2><span class="nw">お鍋</span></h2><span class="yomi">N A B E</span></div>
+            <p class="menu-note"><span class="nw">寒くなってからの</span><span class="nw">お席で、</span><span class="nw">いちばんよく</span><span class="nw">お出しし</span><span class="nw">ております。</span><span class="nw">ご予約の</span><span class="nw">お客様には、</span><span class="nw">食べ</span><span class="nw">放題の</span><span class="nw">お献立を</span><span class="nw">お鍋つきに</span><span class="nw">お取り</span><span class="nw">替えする</span><span class="nw">こともできます。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">タケヤ</span><span class="nw">風ちゃんこ</span>鍋</span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">豚キムチ</span>鍋</span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-nabe.webp" alt="豚キムチ鍋。野菜と豆腐を並べて火にかけたところ"
+                             width="470" height="480" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">豚キムチ</span>鍋</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="shime">
+            <div class="menu-head"><h2><span class="nwb"><span class="nw">〆の</span><span class="nw">お食事</span></span></h2><span class="yomi">S H I M E</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">焼きうどん</span></span></li>
+                    <li><span class="name"><span class="nw">焼きそば</span></span></li>
+                    <li><span class="name"><span class="nw">味噌焼きおにぎり</span></span></li>
+                    <li><span class="name"><span class="nw">ざるそば・</span><span class="nw">ざるうどん</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">肉そば・</span><span class="nw">肉うどん</span></span></li>
+                    <li><span class="name"><span class="nw">鍋焼きうどん</span></span></li>
+                    <li><span class="name"><span class="nw">おかゆ</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="beer">
+            <div class="menu-head"><h2><span class="nw">ビール</span></h2><span class="yomi">B E E R</span></div>
+            <p class="menu-note"><span class="nw">お飲み</span><span class="nw">ものも</span><span class="nw">五十種を</span><span class="nw">超えて</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">食べ</span><span class="nw">放題と</span><span class="nw">ご一緒の</span><span class="nw">飲み</span><span class="nw">放題にも、</span><span class="nw">下の</span><span class="nw">お酒がそのまま</span><span class="nw">入っ</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">生ビール</span> <span class="nw">中ジョッキ</span></span></li>
+                    <li><span class="name"><span class="nw">生ビール</span> <span class="nw">グラス</span></span></li>
+                    <li><span class="name"><span class="nw">エビス</span> <span class="nw">琥珀</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">クラシックラガー</span> <span class="nw">中瓶</span></span></li>
+                    <li><span class="name"><span class="nw">ホッピー</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/drink-beer.webp" alt="琥珀色のビールを注いだグラス"
+                             width="864" height="1248" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">エビス</span> <span class="nw">琥珀</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="nihonshu">
+            <div class="menu-head"><h2><span class="nw">日本酒</span></h2><span class="yomi">N I H O N S H U</span></div>
+            <p class="menu-note"><span class="nw">冷やでも</span><span class="nw">燗でも</span><span class="nw">お出し</span><span class="nw">いたします。</span><span class="nw">銘柄の</span><span class="nw">お酒も、</span><span class="nw">飲み</span><span class="nw">放題のうちで</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">越乃寒梅</span></span></li>
+                    <li><span class="name"><span class="nw">八海山</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">久保田</span></span></li>
+                    <li><span class="name"><span class="nw">日本酒</span> <span class="nw">冷や・</span>燗</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="shochu">
+            <div class="menu-head"><h2><span class="nw">焼酎</span></h2><span class="yomi">S H O C H U</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">富乃宝山</span></span></li>
+                    <li><span class="name"><span class="nw">吉兆宝山</span></span></li>
+                    <li><span class="name"><span class="nw">安心院蔵</span></span></li>
+                    <li><span class="name"><span class="nw">山翡翠</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">明るい</span><span class="nw">農村</span></span></li>
+                    <li><span class="name"><span class="nw">長雲</span></span></li>
+                    <li><span class="name"><span class="nw">野ざらし</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/drink-shochu.webp" alt="テーブルに並ぶ焼酎のボトルと、氷を入れたグラス"
+                             width="1440" height="1080" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">焼酎</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="soft">
+            <div class="menu-head"><h2><span class="nw">ソフトドリンク</span></h2><span class="yomi">S O F T  D R I N K</span></div>
+            <p class="menu-note"><span class="nw">お車の</span><span class="nw">お客様、</span><span class="nw">お酒を</span><span class="nw">召し</span><span class="nw">上がらない</span><span class="nw">お客様にも。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">オレンジジュース</span></span></li>
+                    <li><span class="name"><span class="nw">グレープフルーツジュース</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ウーロン</span>茶</span></li>
+                    <li><span class="name"><span class="nw">コーヒー</span></span></li>
+                </ul>
             </div>
         </div>
     </div>
