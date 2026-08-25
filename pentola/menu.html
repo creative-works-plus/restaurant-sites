@@ -531,6 +531,11 @@
     .subnav-inner { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
                     display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
     .subnav-inner::-webkit-scrollbar { display: none; }
+    /* タブが少ないページで左に寄って見えていたので中央に置く。
+       flex の auto マージンは余白が無くなると 0 になるため、
+       タブが多くて横スクロールになるページでは左端から始まる（切れない）。 */
+    .subnav-inner > a:first-child { margin-inline-start: auto; }
+    .subnav-inner > a:last-child  { margin-inline-end: auto; }
     .subnav a { font-size: .85rem; color: var(--muted); white-space: nowrap;
                 border-bottom: 2px solid transparent; }
     .subnav a:hover { color: var(--ink); border-bottom-color: var(--accent); }

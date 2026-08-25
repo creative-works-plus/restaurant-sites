@@ -531,6 +531,11 @@
     .subnav-inner { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
                     display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
     .subnav-inner::-webkit-scrollbar { display: none; }
+    /* タブが少ないページで左に寄って見えていたので中央に置く。
+       flex の auto マージンは余白が無くなると 0 になるため、
+       タブが多くて横スクロールになるページでは左端から始まる（切れない）。 */
+    .subnav-inner > a:first-child { margin-inline-start: auto; }
+    .subnav-inner > a:last-child  { margin-inline-end: auto; }
     .subnav a { font-size: .85rem; color: var(--muted); white-space: nowrap;
                 border-bottom: 2px solid transparent; }
     .subnav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
@@ -610,8 +615,12 @@
 
     /* お品書き：写真が1枚だけの区分で、右に4マスぶん空いていた */
     .menu-photos:has(> figure:only-child) { grid-template-columns: minmax(240px, 420px); }
-    .menu-photos img[src$="beer.jpg"]      { object-position: 50% 16%; }
-    .menu-photos img[src$="softdrink.jpg"] { object-position: 22% 50%; }
+    /* 生ビール・ソフトドリンクは、飲みものが主役になるように写真そのものを
+       4:3 で切り直した（もとは同じ皿の料理が半分を占めていた）。
+       切ったぶん実寸が小さくなるので、枠の上限も写真の実寸までに抑える。 */
+    .menu-photos img[src$="beer.jpg"],
+    .menu-photos img[src$="softdrink.jpg"] { object-position: 50% 50%; }
+    #beer .menu-photos, #soft .menu-photos { grid-template-columns: minmax(220px, 380px); }
 
     /* 最後の区分の下に、節の余白と二重に空きができていた */
     .menu-block:last-child { margin-bottom: 0; }
@@ -763,8 +772,8 @@
             <div class="menu-photos">
                 <figure>
                     <div class="photo-frame">
-                        <img src="img/beer.jpg" alt="泡の立った生ビールのグラス"
-                             width="900" height="900" loading="lazy" decoding="async">
+                        <img src="img/beer.jpg" alt="キリン一番搾りの生ビール"
+                             width="520" height="390" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">生ビール</span></figcaption>
                 </figure>
@@ -834,7 +843,7 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="img/softdrink.jpg" alt="氷を入れたグラスのソフトドリンク"
-                             width="1000" height="666" loading="lazy" decoding="async">
+                             width="420" height="315" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">ソフトドリンク</span></figcaption>
                 </figure>

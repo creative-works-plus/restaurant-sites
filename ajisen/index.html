@@ -362,27 +362,34 @@
         margin-bottom: var(--blk-y);
     }
 
-    /* ══════════════════ ヒーロー（A-52：写真16/9＋下に文字。PC/SP共通） ══════════ */
+    /* ══════════════════ ヒーロー（A-52改：看板とお店の情報を横に並べる） ══════════
+       2026-08-25：写真だけが画面いっぱいに出て、店名・営業時間・電話が下に隠れていた。
+       PCは「文字｜看板」の2段組にして、看板とお店の情報が同時に目に入るようにする。
+       写真の実寸は 1015×571 しかないので、列の幅（約550px）を超えて広げない
+       （check_upscale.py の ✗ を出さないための上限）。 */
     .hero { min-height: auto; display: block; }
-    /* ★2026-08-22 check_upscale.py が ✗（表示1440px / 実寸1015px = 0.70倍）。
-       写真の実寸を超えて広げない。1015px を超える画面では本文と同じ軸で中央に置く */
+    .hero-grid {
+        display: grid; gap: clamp(22px, 3.4vw, 44px); align-items: center;
+        padding-block: var(--blk-y);
+    }
+    @media (min-width: 900px) {
+        .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); }
+        .hero-body { order: 1; }
+        .hero-photo { order: 2; }
+    }
     .hero-photo {
         width: 100%; max-width: 1015px; margin-inline: auto;
         aspect-ratio: 16 / 9; overflow: hidden;
+        border-radius: var(--radius);
         background: var(--surface-2);
-        max-height: min(68vh, 620px);
     }
-    /* 中央寄せのままだと、写真の左端（212px）と本文の左端（160px）が52pxずれる。
-       写真が入りきる幅からは、本文と同じ左のレールに合わせる */
-    @media (min-width: 1015px) {
-        .hero-photo {
-            width: auto; max-width: 1015px;
-            margin-left: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2));
-            margin-right: auto;
-        }
+    /* PCの列に入るときは、看板が主役に見える比率に切り替える */
+    @media (min-width: 900px) {
+        .hero-photo { aspect-ratio: 4 / 3; max-width: none; }
     }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-    .hero-body { padding-top: var(--blk-y); }
+    /* 看板は写真の右寄りにあるので、切り抜きの中心を右へずらす */
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 45%; }
+    .hero-body { padding-top: 0; }
     .hero-title {
         font-family: var(--font-head); font-weight: 700;
         font-size: var(--fz-hero); line-height: 1.28; letter-spacing: .06em;
@@ -393,7 +400,7 @@
         font-weight: 700; letter-spacing: .02em;
     }
     .hero-sub { font-size: var(--fz-body); color: var(--muted); margin-top: 8px; }
-    .hero-actions { margin-top: var(--blk-y); display: flex; gap: 12px; flex-wrap: wrap; padding-bottom: var(--blk-y); }
+    .hero-actions { margin-top: var(--blk-y); display: flex; gap: 12px; flex-wrap: wrap; }
     .btn {
         display: inline-flex; align-items: center; justify-content: center; gap: 8px;
         padding: 14px 22px; border-radius: var(--radius);
@@ -584,15 +591,11 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     ヒーロー（A-52：写真16/9＋下に文字。PC・SPとも縦積み）
+     ヒーロー（A-52改：PCは「文字｜看板」の2段組／SPは看板→文字の縦積み）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-photo">
-        <img src="img/hero-exterior.jpg"
-             alt="オレンジ色の瓦屋根と赤い提灯が並ぶ店先。白い看板に「炭火串焼　あじ仙」の文字と、赤い円の中に「味」の一文字"
-             width="1015" height="571" loading="eager" fetchpriority="high" decoding="async">
-    </div>
-    <div class="container hero-body">
+    <div class="container hero-grid">
+    <div class="hero-body">
         <span class="status-chip" id="status-chip"><span class="status-text">火〜金17:00〜23:00／土日15:00〜23:00・月曜定休</span></span>
         <h1 class="hero-title"><span class="nw">炭火串焼</span><span class="br-sp"> </span> <span class="nw">あじ</span>仙</h1>
         <p class="hero-catch"><span class="nw">今夜の</span><span class="nw">一軒に、</span><span class="nw">この</span><span class="nw">赤提灯を。</span></p>
@@ -605,6 +608,13 @@
             </a>
             <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
         </div>
+    </div>
+
+    <div class="hero-photo">
+        <img src="img/hero-exterior.jpg"
+             alt="オレンジ色の瓦屋根と赤い提灯が並ぶ店先。白い看板に「炭火串焼　あじ仙」の文字と、赤い円の中に「味」の一文字"
+             width="1015" height="571" loading="eager" fetchpriority="high" decoding="async">
+    </div>
     </div>
 </section>
 

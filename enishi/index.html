@@ -577,45 +577,15 @@
     @keyframes weft-x { to { transform: scaleX(1); } }
 
     .signature-section .container { display: block; }
-    .signature-grid {
-        display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center;
-    }
-    @media (min-width: 901px) { .signature-grid { grid-template-columns: 1fr .9fr; } }
-    .weave-wrap { width: 78%; max-width: 300px; margin-inline: auto; }
-    @media (min-width: 901px) { .weave-wrap { width: 100%; max-width: 360px; margin-inline: 0; } }
-    .weave-wrap svg { width: 100%; height: auto; display: block; }
-    .weave rect.h-band, .weave rect.v-band, .weave rect.patch { fill: var(--surface-2); }
-    .weave rect.h-band, .weave rect.v-band { stroke: var(--line); stroke-width: 1; }
-    .weave .v-band {
-        transform-box: fill-box; transform-origin: top center; transform: scaleY(0);
-    }
-    .weave .h-band {
-        transform-box: fill-box; transform-origin: left center; transform: scaleX(0);
-    }
-    .weave circle.dot { fill: var(--mon); opacity: 0; }
-    body:not(.no-js) .weave-wrap.reveal.in-view .h-band { animation: weft-x .7s cubic-bezier(.22,.61,.36,1) forwards; }
-    body:not(.no-js) .weave-wrap.reveal.in-view .v-band { animation: weft-y .6s cubic-bezier(.22,.61,.36,1) forwards; }
-    body:not(.no-js) .weave-wrap.reveal.in-view circle.dot { animation: dot-in .35s ease forwards; }
-    .weave-wrap.reveal.in-view .h-band.b1 { animation-delay: 0s; }
-    .weave-wrap.reveal.in-view .h-band.b2 { animation-delay: .12s; }
-    .weave-wrap.reveal.in-view .h-band.b3 { animation-delay: .24s; }
-    .weave-wrap.reveal.in-view .v-band.b1 { animation-delay: .40s; }
-    .weave-wrap.reveal.in-view .v-band.b2 { animation-delay: .52s; }
-    .weave-wrap.reveal.in-view circle.dot:nth-of-type(1) { animation-delay: .80s; }
-    .weave-wrap.reveal.in-view circle.dot:nth-of-type(2) { animation-delay: .86s; }
-    .weave-wrap.reveal.in-view circle.dot:nth-of-type(3) { animation-delay: .92s; }
-    .weave-wrap.reveal.in-view circle.dot:nth-of-type(4) { animation-delay: .98s; }
-    .weave-wrap.reveal.in-view circle.dot:nth-of-type(5) { animation-delay: 1.04s; }
-    .weave-wrap.reveal.in-view circle.dot:nth-of-type(6) { animation-delay: 1.10s; }
-    @keyframes weft-y { to { transform: scaleY(1); } }
-    @keyframes dot-in { to { opacity: 1; } }
+    .signature-grid { display: block; }
+    /* 2026-08-25：「焼き場は、奥にひとつ。」の横に置いていた織りの図を外した。
+       文章だけの面にして、見出しと本文を中央に置く。 */
     @media (prefers-reduced-motion: reduce) {
-        .hero-bands rect.band, .hero-bands rect.band-line,
-        .weave .h-band, .weave .v-band { animation: none !important; transform: none !important; }
-        .weave circle.dot { animation: none !important; opacity: 1 !important; }
+        .hero-bands rect.band, .hero-bands rect.band-line { animation: none !important; transform: none !important; }
     }
     .signature-copy h2 { font-size: clamp(1.6rem, 3.6vw, 2.1rem); margin-bottom: 16px; color: var(--ink); }
-    .signature-copy p { color: var(--ink); max-width: 42em; }
+    .signature-copy p { color: var(--ink); }
+    .signature-copy { max-width: 42em; margin-inline: auto; }
 
     /* --- 章区切り（織りの縮小版。ラベルなし・朱の点なし） ---------------------- */
     .chapter-divider { display: flex; justify-content: center; padding-block: 6px; }
@@ -832,24 +802,6 @@
 <section class="section signature-section" id="signature">
     <div class="container">
         <div class="signature-grid">
-            <div class="weave-wrap reveal">
-                <svg class="weave" viewBox="0 0 360 300" aria-hidden="true">
-                    <rect class="h-band b1" x="18" y="60"  width="324" height="34"/>
-                    <rect class="h-band b2" x="18" y="133" width="324" height="34"/>
-                    <rect class="h-band b3" x="18" y="206" width="324" height="34"/>
-                    <rect class="v-band b1" x="96"  y="18" width="34" height="264"/>
-                    <rect class="v-band b2" x="200" y="18" width="34" height="264"/>
-                    <rect class="patch" x="96"  y="133" width="34" height="34"/>
-                    <rect class="patch" x="200" y="60"  width="34" height="34"/>
-                    <rect class="patch" x="200" y="206" width="34" height="34"/>
-                    <circle class="dot" cx="113" cy="77"  r="5"/>
-                    <circle class="dot" cx="113" cy="150" r="5"/>
-                    <circle class="dot" cx="113" cy="223" r="5"/>
-                    <circle class="dot" cx="217" cy="77"  r="5"/>
-                    <circle class="dot" cx="217" cy="150" r="5"/>
-                    <circle class="dot" cx="217" cy="223" r="5"/>
-                </svg>
-            </div>
             <div class="signature-copy reveal">
                 <h2><span class="nw">焼き</span><span class="nw">場は、</span><span class="nw">奥にひとつ。</span></h2>
                 <p><span class="nw">ご注文の</span><span class="nw">品はすべて、</span><span class="nw">店主が</span><span class="nw">奥の</span><span class="nw">鉄板で</span><span class="nw">焼き</span><span class="nw">上げ、</span><span class="nw">熱いまま</span><span class="nw">席へ</span><span class="nw">お運び</span><span class="nw">いたします。</span><span class="nw">ヘラを</span><span class="nw">握って</span><span class="nw">いただく</span><span class="nw">必要はございません。</span><span class="nw">広島風</span><span class="nw">お好み</span><span class="nw">焼きは、</span><span class="nw">麺がうどんかそば、</span><span class="nw">味は</span><span class="nw">ソース・</span><span class="nw">醤油・</span><span class="nw">塩ダレ。</span><span class="nw">六通りから</span><span class="nw">お選び</span><span class="nw">いただけます。</span></p>

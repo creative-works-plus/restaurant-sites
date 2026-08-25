@@ -634,33 +634,8 @@
     .signature-section { text-align: center; }
     .signature-section .section-title { justify-content: center; }
     .signature-section .lead { margin-inline: auto; }
-    /* ★門の図（細い線のSVGだけ）が暗い地に浮き、「ご案内」→「三つの門」の間が
-       画面近く空白に見えていた（レビュー指摘）。--surface の面で受けて埋める。 */
-    .gate-figure {
-        max-width: 408px; margin: 12px auto 8px;
-        background: var(--surface); border: 1px solid var(--line);
-        border-radius: var(--radius); padding: 28px 24px;
-    }
-    .gate-svg { width: 100%; height: auto; display: block; }
-    .gate-svg rect { transform-box: fill-box; }
-    .gate-svg .gate-1 {
-        fill: var(--line); opacity: 0; transform: translateY(8px);
-        transition: opacity 0.22s ease-out, transform 0.22s ease-out;
-    }
-    .gate-svg .gate-2 {
-        fill: var(--muted); opacity: 0; transform: translateY(8px);
-        transition: opacity 0.22s ease-out 0.18s, transform 0.22s ease-out 0.18s;
-    }
-    .gate-svg .gate-3 {
-        fill: var(--muted); opacity: 0; transform: translateY(8px);
-        transition: opacity 0.22s ease-out 0.36s, transform 0.22s ease-out 0.36s, fill 0.3s ease 0.56s;
-    }
-    .gate-figure.in-view .gate-1,
-    .gate-figure.in-view .gate-2,
-    .gate-figure.in-view .gate-3 { opacity: 1; transform: none; }
-    .gate-figure.in-view .gate-3 { fill: var(--mon); }
-    .no-js .gate-3 { fill: var(--mon) !important; opacity: 1 !important; transform: none !important; }
-    @media (min-width: 700px) { .gate-figure { max-width: 508px; } }
+    /* 2026-08-25：「三つの門」の横に置いていた門の図（SVG）を外した。
+       三つの条件は下のカードが名指ししているので、図で言い直す必要が無い。 */
 
     .gate-conditions {
         display: grid; grid-template-columns: 1fr; gap: 14px;
@@ -679,10 +654,11 @@
     .gate-body-wrap .split-text p { margin-bottom: 16px; }
     .gate-close { font-weight: 700; color: var(--ink); }
     .gate-body-wrap .split-photo .photo-frame { aspect-ratio: 4 / 3; }
-    /* tb-2026-02（元寸1024px）は768px幅で単カラムになると全幅に伸びて
-       元寸の1/2倍を割るため、この写真枠だけ表示幅を500pxに抑える */
+    /* ★2026-08-25：看板と牛が小さく、まわりの闇が広かったので、写真そのものを
+       768×576 に切り寄せた（-寄り.jpg）。表示側で拡大したのではないので
+       画質は落ちていない。切ったぶん元寸が小さくなるぶん、枠の上限も下げる。 */
     @media (max-width: 899px) {
-        .gate-body-wrap .split-photo { max-width: 500px; margin-inline: auto; }
+        .gate-body-wrap .split-photo { max-width: 460px; margin-inline: auto; }
     }
 
     /* --- お品書き導入 ----------------------------------------------------- */
@@ -708,6 +684,30 @@
     .subnav-inner { display: flex; gap: 4px; width: max-content; padding-inline: var(--pad-inner); }
     .subnav a { font-size: 0.86rem; color: var(--muted); white-space: nowrap; border-bottom: 2px solid transparent; }
     .subnav a:hover { color: var(--ink); border-color: var(--line-strong); }
+
+    /* ★2026-08-25：章が27あるため、PCではタブが左端から右端まで一列に伸び続け、
+       どこまで続くのか目で追えなかった。広い画面では折り返して中央に寄せ、
+       段のあるチップにする（両端をぼかす mask も、折り返せば要らない）。
+       スマホは指で流せる一列のまま（折り返すと画面の半分を占めてしまう）。 */
+    @media (min-width: 900px) {
+        .subnav {
+            overflow-x: visible;
+            -webkit-mask-image: none; mask-image: none;
+        }
+        .subnav-inner {
+            width: auto; flex-wrap: wrap; justify-content: center;
+            row-gap: 2px; padding-block: 6px;
+            max-width: min(100% - 2 * var(--pad-inner), var(--maxw));
+            margin-inline: auto;
+        }
+        .subnav a {
+            border: 1px solid var(--line); border-radius: 999px;
+            min-height: 40px; padding-inline: 14px;
+        }
+        .subnav a:hover { border-color: var(--line-strong); background: var(--surface); }
+        /* 折り返して背が高くなったぶん、章へ飛んだときの余白も取り直す */
+        .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 172px); }
+    }
 
     .menu-wrap .menu-block {
         background: var(--surface);
@@ -903,19 +903,6 @@
         <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nwb"><span class="nw">三つの</span>門</span></h2>
         <p class="lead reveal"><span class="nw">当店の</span><span class="nw">仕入れには、</span><span class="nw">三つの</span><span class="nw">条件が</span><span class="nw">ございます。</span></p>
 
-        <div class="gate-figure reveal" role="img" aria-label="楣と柱だけで組んだ三重の門の意匠">
-            <svg class="gate-svg" viewBox="0 0 480 320" aria-hidden="true">
-                <rect class="gate-1" x="0" y="40" width="480" height="26"/>
-                <rect class="gate-1" x="44" y="66" width="26" height="254"/>
-                <rect class="gate-1" x="410" y="66" width="26" height="254"/>
-                <rect class="gate-2" x="88" y="104" width="304" height="22"/>
-                <rect class="gate-2" x="122" y="126" width="22" height="194"/>
-                <rect class="gate-2" x="348" y="126" width="22" height="194"/>
-                <rect class="gate-3" x="176" y="170" width="128" height="18"/>
-                <rect class="gate-3" x="200" y="188" width="18" height="132"/>
-                <rect class="gate-3" x="262" y="188" width="18" height="132"/>
-            </svg>
-        </div>
 
         <div class="gate-conditions">
             <div class="gate-cond reveal">
@@ -936,7 +923,7 @@
             </div>
             <figure class="split-photo reveal">
                 <div class="photo-frame">
-                    <img src="images/tb-2026-02-夜の看板と牛のオブジェ.jpg" alt="夜、赤く灯る看板と屋根の上の白い牛のオブジェ" width="1024" height="768" loading="lazy" decoding="async">
+                    <img src="images/tb-2026-02-夜の看板と牛のオブジェ-寄り.jpg" alt="夜、赤く灯る看板と屋根の上の白い牛のオブジェ" width="768" height="576" loading="lazy" decoding="async">
                 </div>
             </figure>
         </div>
@@ -1605,14 +1592,11 @@
             <p class="eyebrow reveal"><span class="nw">お車でどうぞ</span></p>
             <p class="reveal"><span class="nw">駐車場は</span><span class="nw">19台ございます。</span><span class="nw">JR古河駅からは</span><span class="nw">徒歩で</span><span class="nw">27分ほどかかります</span><span class="nw">ので、</span><span class="nw">お車での</span><span class="nw">ご来店が</span><span class="nw">便利です。</span><span class="nw">屋根の</span><span class="nw">上の</span><span class="nw">白い</span><span class="nw">牛が</span><span class="nw">目印で</span><span class="nw">ございます。</span></p>
         </div>
-        <div class="split-photo photo-pair reveal">
-            <div class="photo-frame main-photo">
-                <img src="images/hp-外観-モノクロ.jpg" alt="モノクロで撮影された店の外観" width="2200" height="1467" loading="lazy" decoding="async">
+        <figure class="split-photo reveal">
+            <div class="photo-frame">
+                <img src="images/hp-外観-昼-全景.jpg" alt="駐車場から見た昼の店構え。切妻屋根と縦格子の壁に丸い「焼肉 大門」の看板" width="2200" height="1467" loading="lazy" decoding="async">
             </div>
-            <div class="photo-frame accent-photo">
-                <img src="images/hp-g12-駐車場から見た外観.jpg" alt="駐車場から見た店の外観" width="512" height="341" loading="lazy" decoding="async">
-            </div>
-        </div>
+        </figure>
     </div>
 </section>
 

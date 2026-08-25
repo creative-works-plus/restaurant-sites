@@ -696,6 +696,13 @@
         display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-3);
     }
     .feature-photos .photo-hero { grid-column: 1 / -1; }
+    /* ★2026-08-25：全幅で敷く写真帯（.hero-shot と .feature-photos の1枚目）は、
+       PCで 1118px まで伸びる一方、元の写真は 561〜1024px しかなく、
+       2倍どころか等倍を割って眠い絵になっていた（check_upscale.py）。
+       主役の元寸を --src-w で渡し、**組み全体**をそこで頭打ちにして中央に置く。
+       主役だけを縮めると脇の正方形のほうが大きくなり、序列が逆転する。 */
+    .hero-shot { max-width: var(--src-w, none); margin-inline: auto; }
+    .feature-photos { max-width: var(--src-w, none); margin-inline: auto; }
     @media (max-width: 480px) {
         .feature-photos { grid-template-columns: repeat(2, 1fr); }
     }
@@ -899,7 +906,7 @@
         <h2 class="section-title reveal"><span class="seal" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="5" style="fill:var(--accent)"/><text x="16" y="23" text-anchor="middle" font-size="19" style="font-family:var(--font-head);fill:var(--paper)">鮨</text></svg></span><span><span class="nw">一貫の</span><span class="nw">こと</span></span></h2>
         <p class="lead reveal"><span class="nw">一貫に、</span><span class="nw">持てるだけの</span><span class="nw">ネタを</span><span class="nw">持たせて</span><span class="nw">握ります。</span><span class="nw">昼の</span><span class="nw">お膳でも、</span><span class="nw">夜の</span><span class="nw">カウンターでも、</span><span class="nw">この</span><span class="nw">仕事は</span><span class="nw">変えません。</span><span class="nw">まずは</span><span class="nw">一度、</span><span class="nw">召し</span><span class="nw">上がってみて</span><span class="nw">ください。</span></p>
 
-        <div class="photo-frame ar-32 hero-shot reveal">
+        <div class="photo-frame ar-32 hero-shot reveal" style="--src-w: 724px">
             <img src="img/ikkan-hero.jpg" width="724" height="482" alt="敏鮨の一貫。車海老が付け台に大きく垂れている。" loading="lazy" decoding="async" class="">
         </div>
 
@@ -943,7 +950,7 @@
         <p class="lead reveal"><span class="nw">平日の</span><span class="nw">お昼は、</span><span class="nw">にぎりかちらしの</span><span class="nw">お膳を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">お椀には、</span><span class="nw">海老で</span><span class="nw">出汁をとった</span><span class="nw">味噌汁を。</span><span class="nw">あわせて</span><span class="nw">茶碗蒸しも</span><span class="nw">お付けします。</span><span class="nw">うどんか</span><span class="nw">デザートは、</span><span class="nw">お好きなほうを</span><span class="nw">お選び</span><span class="nw">ください。</span></p>
         <p class="menu-note reveal"><span class="nw">土・</span><span class="nw">日・</span><span class="nw">祝の</span><span class="nw">お昼も、</span><span class="nw">お品書きから</span><span class="nw">お選び</span><span class="nw">いただけます。</span></p>
 
-        <div class="feature-photos lunch-photos reveal">
+        <div class="feature-photos lunch-photos reveal" style="--src-w: 594px">
             <div class="photo-frame ar-32 photo-hero"><img src="img/lunch-01.jpg" width="594" height="742" alt="敏鮨の平日ランチ。にぎりのお膳。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-11"><img src="img/lunch-02.jpg" width="640" height="426" alt="敏鮨のランチに付く、うどんと海老出汁の味噌汁。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-11"><img src="img/lunch-03.jpg" width="972" height="972" alt="敏鮨のランチに付く茶碗蒸し。" loading="lazy" decoding="async" class=""></div>
@@ -966,9 +973,8 @@
         <p class="lead reveal"><span class="nw">握りと</span><span class="nw">丼のほか、</span><span class="nw">刺身、</span><span class="nw">巻物、</span><span class="nw">天婦羅や</span><span class="nw">焼き</span><span class="nw">物の</span><span class="nw">一品、</span><span class="nw">お酒も</span><span class="nw">揃え</span><span class="nw">ております。</span><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">記し</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします</span><span class="nw">ので、</span><span class="nw">どうぞ</span><span class="nw">お気軽に</span><span class="nw">お尋ね</span><span class="nw">ください。</span></p>
 
         <div class="menu-photos reveal">
-            <div class="photo-frame ar-32"><img src="img/menu-01.jpg" width="934" height="622" alt="敏鮨の店内の棚。器と日本酒・焼酎が並ぶ。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-32"><img src="img/menu-02.jpg" width="665" height="443" alt="敏鮨の刺身・玉子焼き・貝の盛り合わせ。" loading="lazy" decoding="async" class=""></div>
-            <div class="photo-frame ar-45"><img src="img/menu-03.jpg" width="518" height="647" alt="敏鮨の巻物とにぎりの折。" loading="lazy" decoding="async" class=""></div>
+            <div class="photo-frame ar-32"><img src="img/menu-03.jpg" width="647" height="431" alt="敏鮨の巻物とにぎりの折。" loading="lazy" decoding="async" class=""></div>
         </div>
     </div>
 </section>
@@ -1192,7 +1198,7 @@
         <p class="lead reveal"><span class="nw">にぎりやちらしの</span><span class="nw">お持ち</span><span class="nw">帰り、</span><span class="nw">おまかせの</span><span class="nw">折詰も</span><span class="nw">承ります。</span><span class="nw">折は、</span><span class="nw">魚偏の</span><span class="nw">字を</span><span class="nw">敷き</span><span class="nw">詰めた</span><span class="nw">掛け</span><span class="nw">紙で</span><span class="nw">包んで</span><span class="nw">お渡し</span><span class="nw">いたします。</span><span class="nw">この</span><span class="nw">ページのいちばん</span><span class="nw">上に</span><span class="nw">敷いた</span><span class="nw">字も、</span><span class="nw">この</span><span class="nw">掛け</span><span class="nw">紙の</span><span class="nw">もので</span><span class="nw">ございます。</span></p>
         <p class="menu-note reveal"><span class="nw">お届けの</span><span class="nw">ご相談も</span><span class="nw">承ります。</span></p>
 
-        <div class="feature-photos takeout-photos reveal">
+        <div class="feature-photos takeout-photos reveal" style="--src-w: 638px">
             <div class="photo-frame ar-32 photo-hero"><img src="img/takeout-a.jpg" width="638" height="425" alt="敏鮨の折詰。魚偏の字を敷き詰めた掛け紙で包んである。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-11"><img src="img/takeout-b.jpg" width="559" height="698" alt="敏鮨の掛け紙の拡大。魚偏の漢字が並ぶ。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-11"><img src="img/takeout-03.jpg" width="640" height="480" alt="敏鮨の折詰とお品書きの紙。" loading="lazy" decoding="async" class=""></div>
@@ -1223,7 +1229,7 @@
         <!-- ★主役1枚は全幅、脇は2列の正方形。
              naikan-03はbanquet-01と同じ座敷入口を数十センチずらしただけの同一カットのため外し、
              脇には大人数で囲む盛り合わせ（moriawase-40／moriawase-35）を入れた -->
-        <div class="feature-photos banquet-photos reveal">
+        <div class="feature-photos banquet-photos reveal" style="--src-w: 561px">
             <div class="photo-frame ar-32 photo-hero"><img src="img/banquet-01.jpg" width="561" height="701" alt="敏鮨の座敷の入口。奥に畳の間が見える。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-11"><img src="img/moriawase-40.jpg" width="1000" height="563" alt="敏鮨の盛り合わせ。木の板に握りと巻物を彩りよく並べる。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-11"><img src="img/moriawase-35.jpg" width="1000" height="750" alt="敏鮨の盛り合わせ。うにやいくらなど、大皿ににぎりを盛り合わせる。" loading="lazy" decoding="async" class=""></div>
@@ -1256,9 +1262,8 @@
         <!-- ★D-4：生簀の一行 -->
         <p class="menu-note reveal"><span class="nw">カウンターの</span><span class="nw">奥には、</span><span class="nw">生簀が</span><span class="nw">ございます。</span></p>
 
-        <div class="feature-photos seats-photos reveal">
+        <div class="feature-photos seats-photos reveal" style="--src-w: 1024px">
             <div class="photo-frame ar-32 photo-hero"><img src="img/seats-01.jpg" width="1024" height="682" alt="敏鮨のカウンター。ネタケースごしに座席を見る。" loading="lazy" decoding="async" class=""></div>
-            <div class="photo-frame ar-11"><img src="img/naikan-05.jpg" width="1024" height="768" alt="敏鮨のネタケース奥の生簀。青い照明が灯る。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-11"><img src="img/seats-03.jpg" width="640" height="426" alt="敏鮨の暖簾。紺地に白抜きの「鮨」の字。" loading="lazy" decoding="async" class=""></div>
             <div class="photo-frame ar-11"><img src="img/seats-02.jpg" width="1024" height="682" alt="敏鮨の外観。夜、暖簾に灯りがともる。" loading="lazy" decoding="async" class=""></div>
         </div>

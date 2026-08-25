@@ -497,6 +497,17 @@
         background: var(--bg); color: var(--muted); font-size: .85rem;
     }
     .subnav a:hover, .subnav a:focus-visible { color: var(--accent); border-color: var(--accent); }
+    /* ★2026-08-25：章が16あるため、PCでは1行のタブが左端から右端まで伸びて
+       目で追えなかった。広い画面では折り返して中央に寄せ、2段のチップにする。
+       スマホは指で流せる1行のまま（折り返すと画面の3分の1を占めてしまう）。 */
+    @media (min-width: 760px) {
+        .subnav { overflow-x: visible; }
+        .subnav-inner {
+            flex-wrap: wrap; justify-content: center;
+            row-gap: var(--sp-2); max-width: min(100% - 2 * var(--pad-inner), 960px);
+        }
+        .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 116px); }
+    }
 
     .lead-box { max-width: 46em; color: var(--muted); margin-bottom: var(--blk-y); }
 
