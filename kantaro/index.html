@@ -426,33 +426,31 @@
         color: var(--muted); font-size: clamp(0.94rem, 3.1vw, 1rem); line-height: 2.05;
     }
 
-    /* --- ヒーロー（A-1改：全画面写真） ---------------------------------------- */
+    /* --- ヒーロー（店の看板の絵が主役。2026-08-26 差し替え） ------------------
+       絵は白い幕に描かれたものなので、白い下見板（--board）の台紙に載せて、
+       鋳鉄の黒の地から浮かせる。文字は絵の上に重ねない（絵の中に屋号がある）。 */
     .hero {
-        position: relative; display: flex; align-items: flex-end;
-        padding: clamp(90px, 16vh, 150px) 0 clamp(40px, 7vh, 70px);
-        overflow: hidden;
-    }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; }
-    .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 42%; }
-    .hero-bg::after {
-        content: ''; position: absolute; inset: 0;
-        background:
-            linear-gradient(to top, rgba(23,24,26,0.97) 0%, rgba(23,24,26,0.80) 34%, rgba(23,24,26,0.30) 66%, rgba(23,24,26,0.55) 100%),
-            linear-gradient(to right, rgba(23,24,26,0.72) 0%, rgba(23,24,26,0.10) 62%);
+        position: relative; display: flex; align-items: center;
+        padding: clamp(26px, 5vh, 54px) 0 clamp(40px, 7vh, 70px);
+        overflow: hidden; background: var(--bg);
     }
     .hero .container { position: relative; z-index: 1; }
-    .hero-name {
-        font-family: var(--font-head); font-weight: 400;
-        font-size: clamp(2.5rem, 12vw, 4.6rem); line-height: 1.18;
-        letter-spacing: 0.03em; margin: 18px 0 0;
-    }
-    .hero-name small {
+    .hero-sign { margin: 14px 0 0; font-weight: 400; line-height: 1; }
+    .hero-sign-en {
         display: block; font-family: var(--font-body); font-weight: 400;
         font-size: clamp(0.72rem, 2.6vw, 0.86rem); letter-spacing: 0.34em;
-        color: var(--accent-hi); margin-bottom: 12px;
+        color: var(--accent-hi); margin-bottom: 14px;
     }
+    .hero-sign-frame {
+        display: block; max-width: 860px;
+        padding: clamp(8px, 1.4vw, 13px);
+        background: var(--board); border-radius: 16px;
+        box-shadow: var(--shadow);
+    }
+    /* width/height 属性を書いているので、height:auto を必ず添える（縦に伸びる） */
+    .hero-sign-frame img { display: block; width: 100%; height: auto; border-radius: 8px; }
     .hero-catch {
-        margin-top: 20px;
+        margin-top: 26px;
         font-family: var(--font-head);
         font-size: clamp(1.1rem, 4.6vw, 1.6rem); line-height: 1.6;
         letter-spacing: 0.05em;
@@ -467,7 +465,60 @@
         margin-top: 22px; display: flex; flex-wrap: wrap; gap: 6px 18px;
         font-size: 0.95rem; color: var(--muted); letter-spacing: 0.03em;
     }
-    .hero .status-chip { background: rgba(23,24,26,0.62); }
+    .hero .status-chip { background: var(--surface); }
+
+    /* 広い画面では、絵を左・言葉を右の2段組にする（絵の右の空きが間延びするため） */
+    @media (min-width: 1000px) {
+        /* 全画面の高さは要らない（絵と言葉が横に並ぶので上下が間延びする） */
+        .hero { min-height: 640px; }
+        .hero .container {
+            display: grid; align-items: center;
+            grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+            column-gap: clamp(36px, 4vw, 64px);
+        }
+        .hero .status-chip { grid-column: 2; grid-row: 1; justify-self: start; }
+        .hero-sign  { grid-column: 1; grid-row: 1 / span 5; margin-top: 0; }
+        .hero-catch { grid-column: 2; grid-row: 2; }
+        .hero-lead  { grid-column: 2; grid-row: 3; }
+        .hero-actions { grid-column: 2; grid-row: 4; }
+        .hero-meta  { grid-column: 2; grid-row: 5; }
+        .hero-sign-frame { max-width: none; }
+    }
+
+    /* --- 通販（BASE）への導線。ヒーローのすぐ下に置く ------------------------ */
+    .shopband { background: var(--bg); padding: 0 0 clamp(30px, 5vh, 52px); }
+    .shopband-card {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 16px 28px;
+        padding: clamp(18px, 3vw, 26px) clamp(18px, 3vw, 30px);
+        background: var(--surface); border: 1px solid var(--line);
+        border-left: 4px solid var(--accent); border-radius: 14px;
+        transition: border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+    .shopband-card:hover, .shopband-card:focus-visible {
+        background: var(--surface-2); border-color: var(--line-strong);
+        border-left-color: var(--accent-hi); transform: translateY(-2px);
+    }
+    .shopband-body { display: block; }
+    .shopband-en {
+        display: block; font-size: 0.72rem; letter-spacing: 0.3em;
+        color: var(--accent-hi); margin-bottom: 8px;
+    }
+    .shopband-ttl {
+        display: block; font-family: var(--font-head); font-weight: 400;
+        font-size: clamp(1.05rem, 4.2vw, 1.35rem); line-height: 1.5; letter-spacing: 0.03em;
+    }
+    .shopband-sub {
+        display: block; margin-top: 8px; color: var(--muted);
+        font-size: clamp(0.86rem, 3vw, 0.94rem); line-height: 1.9;
+    }
+    .shopband-go {
+        display: inline-flex; align-items: center; gap: 10px; flex: 0 0 auto;
+        min-height: 44px; padding: 0 20px; border-radius: 999px;
+        background: var(--accent-hi); color: #17181A;   /* 7.3:1 */
+        font-weight: 700; font-size: 0.95rem; letter-spacing: 0.03em; white-space: nowrap;
+    }
+    .shopband-go svg { width: 17px; height: 17px; flex: 0 0 17px; }
 
     /* --- ご注文からお渡しまでの帯（この店の予約導線） -------------------------- */
     .flow {
@@ -817,14 +868,18 @@
 
 <!-- ══ ヒーロー（A-1改：全画面写真） ══════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-bg">
-        <img src="img/shop-motsuni-hero.jpg" alt="陶器の鉢に盛られたもつ煮込み。白髪ねぎと人参がのり、湯気が立っている"
-             width="1200" height="977" fetchpriority="high" decoding="async">
-    </div>
     <div class="container">
         <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
-        <h1 class="hero-name"><small>MOTSUNIYA KANTARO</small><span class="nw">もつ</span><span class="nw">煮屋</span> <span class="nw">貫太郎</span></h1>
+        <!-- 店の看板の絵をそのまま主役に置く（2026-08-26 オーナー様のご希望で、
+             もつ煮の写真から差し替え）。絵の中に屋号が入っているので h1 はこの絵。 -->
+        <h1 class="hero-sign">
+            <span class="hero-sign-en">MOTSUNIYA KANTARO</span>
+            <span class="hero-sign-frame">
+                <img src="img/kanban-artwork.jpg" alt="もつ煮屋 貫太郎"
+                     width="2104" height="1170" fetchpriority="high" decoding="async">
+            </span>
+        </h1>
 
         <p class="hero-catch"><span class="nw">逃げない</span><span class="nw">味。</span><br class="br-sp"><span class="nw">ごまかさない</span><span class="nw">量。</span></p>
 
@@ -844,6 +899,24 @@
         <p class="hero-meta">
             <span>11:00〜20:00</span><span><span class="nw">月曜定休</span></span><span><span class="nw">国道</span><span class="nw">4号沿い・</span><span class="nw">駐車場あり</span></span>
         </p>
+    </div>
+</section>
+
+
+<!-- ══ 通販への導線（ヒーローのすぐ下） ═══════════════════════════════ -->
+<section class="shopband">
+    <div class="container">
+        <a class="shopband-card" href="https://kantaro.buyshop.jp/" target="_blank" rel="noopener">
+            <span class="shopband-body">
+                <span class="shopband-en">ONLINE SHOP</span>
+                <span class="shopband-ttl">全国へお送りしております</span>
+                <span class="shopband-sub">冷凍の真空パックを、当店の通販のページからお求めいただけます。</span>
+            </span>
+            <span class="shopband-go">
+                通販のページを見る
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+            </span>
+        </a>
     </div>
 </section>
 
@@ -965,9 +1038,9 @@
         <ol class="rank reveal">
             <li><span class="no">1</span><span class="item"><span class="nw">坦々もつ</span>煮</span><span class="yen"><span class="nw">830円</span></span></li>
             <li><span class="no">2</span><span class="item"><span class="nw">もつ</span><span class="nw">煮込み</span></span><span class="yen"><span class="nw">680円</span></span></li>
-            <li><span class="no">3</span><span class="item"><span class="nw">もつ</span><span class="nw">唐弁当</span><span class="nw">（もつ</span><span class="nw">煮＋から</span><span class="nw">揚げ）</span></span><span class="yen"><span class="nw">900円</span></span></li>
+            <li><span class="no">3</span><span class="item"><span class="nw">もつ</span><span class="nw">唐弁当</span><span class="nw">（もつ</span><span class="nw">煮＋</span><span class="nw">から</span><span class="nw">揚げ）</span></span><span class="yen"><span class="nw">900円</span></span></li>
             <li><span class="no">4</span><span class="item"><span class="nw">もつ</span><span class="nw">ライス</span></span><span class="yen"><span class="nw">680円</span></span></li>
-            <li><span class="no">5</span><span class="item"><span class="nw">チャー</span><span class="nw">唐弁当</span><span class="nw">（チャーシュー＋から</span><span class="nw">揚げ）</span></span><span class="yen"><span class="nw">950円</span></span></li>
+            <li><span class="no">5</span><span class="item"><span class="nw">チャー</span><span class="nw">唐弁当</span><span class="nw">（チャーシュー＋</span><span class="nw">から</span><span class="nw">揚げ）</span></span><span class="yen"><span class="nw">950円</span></span></li>
         </ol>
     </div>
 </section>
@@ -1000,7 +1073,7 @@
                     <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span><span class="nw">（1人前）</span></span><span class="dots"></span><span class="price"><span class="nw">680円</span><small><span class="nw">2人前</span> <span class="nw">1,360円</span></small></span></li>
                     <li><span class="name"><span class="nw">坦々もつ</span>煮<span class="nw">（1人前）</span><span class="desc"><span class="nw">元祖坦々もつ</span><span class="nw">煮。</span><span class="nw">当店で</span><span class="nw">一番出ております</span></span></span><span class="dots"></span><span class="price"><span class="nw">830円</span><small><span class="nw">2人前</span> <span class="nw">1,660円</span></small></span></li>
                     <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">塩・</span><span class="nw">味噌・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span><span class="dots"></span><span class="price"><span class="nw">630円</span></span></li>
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span> <span class="nw">ハーフ＆ハーフ</span><span class="desc"><span class="nw">二つの</span><span class="nw">味を</span><span class="nw">半分ずつ</span></span></span><span class="dots"></span><span class="price"><span class="nw">630円</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span> <span class="nw">ハーフ＆</span><span class="nw">ハーフ</span><span class="desc"><span class="nw">二つの</span><span class="nw">味を</span><span class="nw">半分ずつ</span></span></span><span class="dots"></span><span class="price"><span class="nw">630円</span></span></li>
                     <li><span class="name"><span class="nw">からあげ</span><span class="nw">（5個）</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
                     <li><span class="name"><span class="nw">甘だれ</span><span class="nw">唐揚げ</span><span class="nw">（5個）</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
                     <li><span class="name"><span class="nw">ヤンニョムチキン</span><span class="nw">（4個）</span></span><span class="dots"></span><span class="price"><span class="nw">780円</span></span></li>
