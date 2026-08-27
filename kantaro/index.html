@@ -485,8 +485,8 @@
         .hero-sign-frame { max-width: none; }
     }
 
-    /* --- 通販（BASE）への導線。ヒーローのすぐ下に置く ------------------------ */
-    .shopband { background: var(--bg); padding: 0 0 clamp(30px, 5vh, 52px); }
+    /* --- 通販（BASE）への導線。お客様の声の手前にもう一度置く ---------------- */
+    .shopband { background: var(--bg); padding: clamp(30px, 5vh, 52px) 0; }
     .shopband-card {
         display: flex; align-items: center; justify-content: space-between;
         flex-wrap: wrap; gap: 16px 28px;
@@ -754,6 +754,10 @@
         color: var(--accent-hi); font-weight: 700; letter-spacing: 0.04em; font-size: 0.94rem;
     }
     .ship-link:hover { background: var(--accent); color: #17181A; }
+    /* 2つ目の入口（野木町のふるさと納税）。通販を主役のままにするため、こちらは罫だけ */
+    .ship-links { display: flex; flex-wrap: wrap; gap: 12px; }
+    .ship-link-sub { border-color: var(--line-strong); color: var(--muted); }
+    .ship-link-sub:hover { background: var(--surface-2); border-color: var(--line-strong); color: var(--ink); }
     @media (max-width: 760px) { .ship-grid { grid-template-columns: 1fr; } }
 
     /* --- お客様の声 ------------------------------------------------------------ */
@@ -903,20 +907,39 @@
 </section>
 
 
-<!-- ══ 通販への導線（ヒーローのすぐ下） ═══════════════════════════════ -->
-<section class="shopband">
+<!-- ══ 全国発送（ヒーローのすぐ下。通販への導線を兼ねる） ═══════════════ -->
+<section class="section" id="ship">
     <div class="container">
-        <a class="shopband-card" href="https://kantaro.buyshop.jp/" target="_blank" rel="noopener">
-            <span class="shopband-body">
-                <span class="shopband-en">ONLINE SHOP</span>
-                <span class="shopband-ttl">全国へお送りしております</span>
-                <span class="shopband-sub">冷凍の真空パックを、当店の通販のページからお求めいただけます。</span>
-            </span>
-            <span class="shopband-go">
-                通販のページを見る
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
-            </span>
-        </a>
+        <div class="ship-grid">
+            <div class="reveal">
+                <div class="title-wrap">
+                    <span class="en">DELIVERY</span>
+                    <h2 class="section-title"><span class="nw">全国へ</span><span class="nw">お送りし</span><span class="nw">ております</span></h2>
+                </div>
+                <p style="color:var(--muted);line-height:2.05;font-size:clamp(.94rem,3.1vw,1rem);"><span class="nw">当店の</span><span class="nw">通販の</span><span class="nw">ページから、</span><span class="nw">冷凍の</span><span class="nw">真空パックを</span><span class="nw">全国へ</span><span class="nw">お送りし</span><span class="nw">ております。</span><span class="nw">キャンプや</span><span class="nw">お酒のおともにも</span><span class="nw">お選び</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">野木町のふるさと</span><span class="nw">納税の</span><span class="nw">返礼品にも、</span><span class="nw">当店のもつ</span><span class="nw">煮と</span><span class="nw">チャーシューを</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">飲食店さまへの</span><span class="nw">卸しも</span><span class="nw">承っ</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">お電話で</span><span class="nw">ご相談ください。</span></p>
+                <div class="ship-links">
+                    <a href="https://kantaro.buyshop.jp/" class="ship-link" target="_blank" rel="noopener">
+                        通販のページを見る
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:1em;height:1em;"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                    </a>
+                    <a href="https://item.rakuten.co.jp/f093645-nogi/3501/" class="ship-link ship-link-sub" target="_blank" rel="noopener">
+                        ふるさと納税のページを見る
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:1em;height:1em;"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="ship-photos reveal reveal-delay-1">
+                <div class="photo-frame">
+                    <img src="img/shop-campset-3pack.jpg" alt="もつ焼き味噌・塩と〆うどんの真空パックを木の床に並べたキャンプ用のセット"
+                         width="900" height="1200" loading="lazy" decoding="async">
+                </div>
+                <div class="photo-frame">
+                    <img src="img/shop-camp-cooking.jpg" alt="夜のキャンプ。ランタンの下で、バーナーのクッカーに真空パックを入れて湯せんしている"
+                         width="1200" height="1200" loading="lazy" decoding="async">
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1274,33 +1297,20 @@
 </section>
 
 
-<!-- ══ 全国発送 ═════════════════════════════════════════════════════ -->
-<section class="section" id="ship" style="background:var(--surface);">
+<!-- ══ 通販への導線（もう一度・お客様の声の手前） ═══════════════════ -->
+<section class="shopband">
     <div class="container">
-        <div class="ship-grid">
-            <div class="reveal">
-                <div class="title-wrap">
-                    <span class="en">DELIVERY</span>
-                    <h2 class="section-title"><span class="nw">全国へ</span><span class="nw">お送りし</span><span class="nw">ております</span></h2>
-                </div>
-                <p style="color:var(--muted);line-height:2.05;font-size:clamp(.94rem,3.1vw,1rem);"><span class="nw">当店の</span><span class="nw">通販の</span><span class="nw">ページから、</span><span class="nw">冷凍の</span><span class="nw">真空パックを</span><span class="nw">全国へ</span><span class="nw">お送りし</span><span class="nw">ております。</span><span class="nw">キャンプや</span><span class="nw">お酒のおともにも</span><span class="nw">お選び</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">野木町のふるさと</span><span class="nw">納税の</span><span class="nw">返礼品にも、</span><span class="nw">当店のもつ</span><span class="nw">煮と</span><span class="nw">チャーシューを</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">飲食店さまへの</span><span class="nw">卸しも</span><span class="nw">承っ</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">お電話で</span><span class="nw">ご相談ください。</span></p>
-                <a href="https://kantaro.buyshop.jp/" class="ship-link" target="_blank" rel="noopener">
-                    通販のページを見る
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:1em;height:1em;"><path d="M7 17L17 7M9 7h8v8"/></svg>
-                </a>
-            </div>
-
-            <div class="ship-photos reveal reveal-delay-1">
-                <div class="photo-frame">
-                    <img src="img/shop-campset-3pack.jpg" alt="もつ焼き味噌・塩と〆うどんの真空パックを木の床に並べたキャンプ用のセット"
-                         width="900" height="1200" loading="lazy" decoding="async">
-                </div>
-                <div class="photo-frame">
-                    <img src="img/shop-camp-cooking.jpg" alt="夜のキャンプ。ランタンの下で、バーナーのクッカーに真空パックを入れて湯せんしている"
-                         width="1200" height="1200" loading="lazy" decoding="async">
-                </div>
-            </div>
-        </div>
+        <a class="shopband-card" href="https://kantaro.buyshop.jp/" target="_blank" rel="noopener">
+            <span class="shopband-body">
+                <span class="shopband-en">ONLINE SHOP</span>
+                <span class="shopband-ttl">全国へお送りしております</span>
+                <span class="shopband-sub">冷凍の真空パックを、当店の通販のページからお求めいただけます。</span>
+            </span>
+            <span class="shopband-go">
+                通販のページを見る
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+            </span>
+        </a>
     </div>
 </section>
 
