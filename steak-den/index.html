@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>ステーキDEN - 公式サイト｜古河市 ステーキ・洋食</title>
+    <meta name="description" content="古河市旭町のステーキ・洋食店「ステーキDEN」公式サイト。米沢牛を直接仕入れる、気取らない町のステーキ屋さん。テーブル席と個室、ご予約はお電話で承ります。">
+
+    <meta property="og:title" content="ステーキDEN｜古河市のステーキ・洋食">
+    <meta property="og:description" content="米沢牛を直接仕入れる、気取らないステーキ屋さん。ふだんの日も、記念の日も。">
+    <meta property="og:type" content="restaurant">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/steak-den/">
+    <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/steak-den/img/exterior-night.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
+    <meta name="theme-color" content="#33241B">
+
+    <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400;500;800&family=Zilla+Slab:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- favicon：塗り壁のクリーム地に、こげ茶の角丸四角＋Denの D（角ばったスラブ体） -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='10' fill='%2333241B'/%3E%3Ctext x='50' y='71' font-size='62' text-anchor='middle' fill='%23F6EFDC' font-family='Georgia, serif' font-weight='700'%3ED%3C/text%3E%3C/svg%3E">
+
+    <!-- JSON-LD Restaurant スキーマ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "ステーキDEN",
+      "servesCuisine": "Steak, Yoshoku (Japanese-Western)",
+      "priceRange": "¥¥¥",
+      "telephone": "+81-280-32-0299",
+      "paymentAccepted": "Cash, Credit Card",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/steak-den/",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/steak-den/img/exterior-night.jpg",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "11:30",
+          "closes": "14:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "17:30",
+          "closes": "21:00"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "旭町2-11-2",
+        "addressLocality": "古河市",
+        "addressRegion": "茨城県",
+        "postalCode": "306-0012",
+        "addressCountry": "JP"
+      },
+      "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA2-11-2",
+      "hasMenu": ["menu.html"],
+      "acceptsReservations": "True"
+    }
+    </script>
+
+    <style>
+    /* ══════════════════════════════════════════════════════════════════
+       トークン（_ブリーフ.md §2〜§5 の値をそのまま入れている）
+       ══════════════════════════════════════════════════════════════════ */
+    :root{
+        /* 色（§2） */
+        --bg:        #F6EFDC;
+        --surface:   #FFFCF4;
+        --surface-2: #EADCC0;
+        --deep:      #33241B;
+        --ink:       #221812;
+        --muted:     #57453A;
+        --dim:       #8A7666;
+        --accent:    #7A2B1E;
+        --accent-2:  #B96A22;
+        --line:      rgba(34,24,18,.14);
+        --line-strong: rgba(34,24,18,.28);
+        --radius:    4px;
+        --maxw:      1120px;
+
+        /* 骨格側（04-base.css）が要求する構造トークン。世界観に関係しない値 */
+        --shadow:     0 10px 30px rgba(34,24,18,.14);
+        --shadow-bar: 0 -10px 30px rgba(34,24,18,.28);
+        --open:   #4B7F4A;
+        --closed: var(--dim);
+        --pad-inner: clamp(20px, 5vw, 32px);
+
+        /* 書体（§3） */
+        --font-en: "Zilla Slab", Georgia, serif;
+        --font-ja: "Murecho", system-ui, sans-serif;
+        --font-body: var(--font-ja);
+        --fz-hero: clamp(32px, 7.4vw, 58px);
+        --fz-h2:   clamp(24px, 4.8vw, 36px);
+        --fz-h3:   clamp(18px, 3.2vw, 21px);
+        --fz-body: 16.5px;
+        --fz-cap:  13px;
+        --fz-en:   clamp(12px, 1.6vw, 14px);
+
+        /* 余白（§4） */
+        --sp-1: 4px; --sp-2: 8px; --sp-3: 16px; --sp-4: 26px; --sp-5: 44px; --sp-6: 72px;
+        --sec-y: clamp(60px, 9.5vw, 116px);
+        --blk-y: clamp(24px, 4vw, 42px);
+        --pad-section: var(--sec-y);
+
+        /* 署名（§5） */
+        --fz-sign:     clamp(37px, 9vw, 62px);
+        --fz-sign-sub: max(14px, calc(var(--fz-sign) / 2.6));
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       共通ベースCSS（04-base.css。店ごとに書き直さない）
+       ══════════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.85;
+        overflow-x: hidden;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+
+    :root { --header-h: 74px; }
+    @media (max-width: 768px) { :root { --header-h: 64px; } }
+
+    body { padding-top: var(--header-h); }
+    .site-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: var(--header-h);
+    }
+    .header-inner { display: flex; align-items: center; height: 100%; }
+    .brand { text-decoration: none; color: inherit; white-space: nowrap;
+             font-size: clamp(16px, 4.2vw, 20px); line-height: 1;
+             display: inline-flex; align-items: center; min-height: 44px; }
+    .header-tel { margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+                  min-height: 44px; padding: 0 8px; text-decoration: none; color: inherit;
+                  white-space: nowrap; }
+    .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
+    .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
+    .nav-toggle { margin-left: 6px; }
+    .hero { min-height: calc(100svh - var(--header-h)); }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; }
+
+    h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption {
+        word-break: auto-phrase;
+        text-wrap: pretty;
+    }
+    .nw { display: inline-block; }
+    .br-sp { display: none; }
+    @media (max-width: 600px) {
+        .br-sp { display: inline; }
+        .br-pc { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    .btn svg { width: 1.1em; height: 1.1em; flex: 0 0 auto; }
+    .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .section   { padding-block: var(--pad-section); }
+
+    .reveal {
+        opacity: 0; transform: translateY(26px);
+        transition: opacity 0.8s cubic-bezier(0.16, 0.7, 0.3, 1),
+                    transform 0.8s cubic-bezier(0.16, 0.7, 0.3, 1);
+    }
+    .reveal.in-view       { opacity: 1; transform: none; }
+    .reveal-delay-1       { transition-delay: 0.08s; }
+    .reveal-delay-2       { transition-delay: 0.16s; }
+    .no-js .reveal        { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    .photo-frame {
+        position: relative; overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        background: var(--surface-2);
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .map-wrapper {
+        position: relative; width: 100%; aspect-ratio: 16 / 10;
+        border-radius: var(--radius); overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+    @media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+
+    .sticky-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+        display: none; gap: 1px; background: var(--line);
+        transform: translateY(100%); transition: transform 0.35s ease;
+        box-shadow: var(--shadow-bar);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar a {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 16px 10px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sticky-bar .bar-tel { background: var(--accent); color: var(--bg); }
+    .sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
+
+    .btn-tel .tel-num { white-space: nowrap; }
+    .btn-tel .tel-cap { font-weight: 500; }
+    .btn-tel .tel-cap::before { content: '｜'; }
+    @media (max-width: 460px) {
+        .btn-tel { flex-wrap: wrap; padding: 12px 18px; line-height: 1.45; }
+        .btn-tel .tel-cap { flex-basis: 100%; text-align: center; font-size: .82rem; }
+        .btn-tel .tel-cap::before { content: none; }
+    }
+
+    .status-chip {
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 5px 13px; border-radius: 999px;
+        border: 1px solid var(--line-strong);
+        font-size: 0.8rem; letter-spacing: 0.04em;
+    }
+    .status-chip::before {
+        content: ''; width: 7px; height: 7px; border-radius: 50%;
+        background: var(--dim);
+    }
+    .status-chip.is-open::before   { background: var(--open); }
+    .status-chip.is-closed::before { background: var(--closed); }
+    .status-chip.is-break::before  { background: var(--accent); }
+    .status-note { margin-top: var(--sp-2); font-size: .78rem; letter-spacing: .02em; color: var(--dim); }
+
+    .mobile-nav {
+        position: fixed; z-index: 200;
+        visibility: hidden; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    body.nav-open .mobile-nav {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+    body.nav-open .site-header { z-index: 300; }
+    .nav-toggle {
+        width: 44px; height: 44px;
+        flex: 0 0 44px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 5px; background: none; border: 0; cursor: pointer;
+    }
+    .nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+    body.nav-open { overflow: hidden; }
+
+    @media (max-width: 620px) {
+        .sticky-bar { display: flex; }
+        body { padding-bottom: 68px; }
+    }
+    @media (min-width: 621px) {
+        .sticky-bar { display: none; }
+        body { padding-bottom: 0; }
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       ここから下が、この店だけのCSS
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* --- ヘッダー --- */
+    .site-header { background: var(--surface); border-bottom: 1px solid var(--line); }
+    .brand { font-family: var(--font-en); font-weight: 700; letter-spacing: .04em; color: var(--deep); }
+    .header-tel { color: var(--accent); }
+    .header-tel svg { color: var(--accent); }
+    .nav-toggle > span:not([class]) { width: 22px; height: 2px; background: var(--deep); border-radius: 2px; }
+
+    .mobile-nav {
+        top: var(--header-h); right: 0; width: min(78vw, 320px); bottom: 0;
+        background: var(--surface); border-left: 1px solid var(--line);
+        padding: var(--sp-5) var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3);
+        transform: translateX(12px);
+    }
+    body.nav-open .mobile-nav { transform: translateX(0); }
+    .mobile-nav a { font-size: 1rem; padding: 10px 4px; border-bottom: 1px solid var(--line); color: var(--ink); }
+    .nav-close { margin-top: var(--sp-3); align-self: flex-start; font-size: .85rem; color: var(--muted); }
+
+    /* --- 汎用パーツ --- */
+    .eyebrow { font-family: var(--font-en); font-size: var(--fz-en); letter-spacing: .08em;
+               color: var(--accent); font-weight: 600; margin-bottom: var(--sp-2); }
+    .section-title { font-family: var(--font-ja); font-weight: 800; font-size: var(--fz-h2);
+                      line-height: 1.3; letter-spacing: .02em; color: var(--deep); }
+    .lead { margin-top: var(--sp-3); font-size: var(--fz-body); line-height: 1.8; color: var(--muted);
+            max-width: 30em; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+           padding: 15px 26px; border-radius: var(--radius); font-size: .95rem; font-weight: 700;
+           letter-spacing: .03em; min-height: 44px; }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-ghost   { background: transparent; color: var(--deep); border: 1px solid var(--line-strong); }
+    .btn-block   { width: 100%; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-5); }
+
+    /* --- 写真の枠（アスペクト比の3種類） --- */
+    .ph-4-3 { aspect-ratio: 4 / 3; }
+    .ph-3-4 { aspect-ratio: 3 / 4; }
+    .ph-sign { aspect-ratio: 610 / 475; }
+
+    /* --- ヒーロー（A-2改：外観の実写＋情報帯） --- */
+    .hero { min-height: auto; }
+    .hero-photo { width: 100%; max-width: 1260px; margin-inline: auto; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface-2); }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-band { background: var(--surface); padding-block: clamp(30px, 6vw, 56px); }
+    .hero-band .status-chip { margin-bottom: 0; }
+    .hero-band .status-note + .hero-catch { margin-top: var(--sp-4); }
+    .hero-catch { font-family: var(--font-ja); font-weight: 800; font-size: var(--fz-hero);
+                  line-height: 1.3; letter-spacing: .02em; color: var(--deep); }
+    .hero-sub { margin-top: var(--sp-4); font-size: var(--fz-body); line-height: 1.8; color: var(--muted);
+                max-width: 34em; }
+
+    /* --- 署名の章（米沢牛のこと） --- */
+    .sig-section { background: var(--deep); overflow: hidden; }
+    .sig-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); align-items: center; }
+    @media (min-width: 900px) {
+        .sig-grid { grid-template-columns: 42% 58%; gap: var(--sp-6); }
+    }
+    .sig { max-width: 760px; padding-block: clamp(48px, 8vw, 96px); }
+    .sig-lead { font-family: var(--font-ja); font-size: var(--fz-sign); font-weight: 800; line-height: 1.15;
+                letter-spacing: .02em; color: var(--bg); }
+    .sig-name { font-family: var(--font-ja); font-size: var(--fz-sign-sub); font-weight: 400; line-height: 1.4;
+                letter-spacing: .04em; color: var(--bg); margin-top: var(--sp-3); }
+    .sig-body { font-size: var(--fz-body); line-height: 1.8; color: var(--surface-2); margin-top: var(--sp-4);
+                max-width: 44ch; }
+    .sig-photo { margin: 0; max-width: 590px; }
+
+    /* --- ステーキ --- */
+    .steak-photos { margin-top: var(--sp-5); display: grid; grid-template-columns: 1fr; gap: var(--sp-3); }
+    @media (min-width: 700px) {
+        .steak-photos { grid-template-columns: 1.6fr 1fr; align-items: center; }
+    }
+
+    /* --- ハンバーグ・ミックスグリル（写真なし） --- */
+    .hamburg-section .text-card {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: clamp(28px, 5vw, 48px); box-shadow: var(--shadow);
+    }
+    .hamburg-section .text-card .lead { margin-top: var(--sp-3); max-width: none; }
+
+    /* --- セット --- */
+    .set-photos { margin-top: var(--sp-5); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
+    @media (max-width: 560px) {
+        .set-photos { grid-template-columns: 1fr 1fr; }
+        .set-photos > :first-child { grid-column: 1 / -1; }
+    }
+
+    /* --- お品書き入口 --- */
+    .menu-link-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); align-items: center; }
+    @media (min-width: 760px) {
+        .menu-link-grid { grid-template-columns: 1fr 1.2fr; }
+    }
+    .menu-link-text .btn { margin-top: var(--sp-4); }
+
+    /* --- 店のなか --- */
+    .interior-photos { margin-top: var(--sp-5); display: grid; grid-template-columns: 1fr; gap: var(--sp-3); }
+    @media (min-width: 700px) {
+        .interior-photos { grid-template-columns: minmax(0,562px) minmax(0,465px); justify-content: start; align-items: end; gap: var(--sp-5); }
+    }
+
+    /* --- お客様の声 --- */
+    .voice-list { margin-top: var(--sp-5); display: grid; gap: var(--sp-4); }
+    @media (min-width: 760px) {
+        .voice-list { grid-template-columns: repeat(3, 1fr); }
+    }
+    .voice { background: var(--surface); border-left: 3px solid var(--accent-2);
+             border-radius: 0 var(--radius) var(--radius) 0; padding: var(--sp-4);
+             box-shadow: var(--shadow); }
+    .voice p { font-size: .95rem; line-height: 1.85; color: var(--ink); }
+    .voice cite { display: block; margin-top: var(--sp-3); font-size: .78rem; color: var(--dim);
+                  font-style: normal; }
+
+    /* --- ご予約・お支払い --- */
+    .reserve-section p + p { margin-top: var(--sp-3); font-size: .95rem; line-height: 1.85; color: var(--muted);
+                              max-width: 56ch; }
+
+    /* --- アクセス --- */
+    .access-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); align-items: start; }
+    @media (min-width: 800px) {
+        .access-grid { grid-template-columns: 1.3fr 1fr; }
+    }
+    .info-table { margin-top: var(--sp-5); width: 100%; border-collapse: collapse; }
+    .info-table th, .info-table td { text-align: left; padding: 12px 0; border-bottom: 1px solid var(--line);
+                                      font-size: .92rem; vertical-align: top; }
+    .info-table th { width: 6.5em; color: var(--dim); font-weight: 500; letter-spacing: .04em; }
+    .info-table td { color: var(--ink); }
+    .tel-link { color: var(--accent); font-weight: 700; }
+    .map-wrapper { margin-top: var(--sp-5); }
+
+    /* --- 締め --- */
+    .closing-section { padding-block: var(--blk-y); }
+    .closing-text { text-align: center; font-size: var(--fz-body); line-height: 2; color: var(--muted);
+                     max-width: 46ch; margin-inline: auto; }
+
+    /* --- フッター --- */
+    .site-footer { background: var(--deep); color: var(--surface-2); padding-block: var(--sp-6);
+                   text-align: center; }
+    .footer-name { font-family: var(--font-en); font-weight: 700; letter-spacing: .06em; color: var(--bg);
+                   font-size: 1.1rem; }
+    .footer-addr { margin-top: var(--sp-3); font-size: .85rem; }
+    .footer-copy { margin-top: var(--sp-2); font-size: .75rem; color: var(--dim); }
+    </style>
+</head>
+<body class="no-js">
+<!-- no-js クラスは下の script が消す。JS無効の環境で出現演出のコンテンツが
+     見えなくなるのを防ぐ保険なので、必ず付けたまま公開する -->
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="brand">STEAK DEN</a>
+
+        <a href="tel:0280320299" class="header-tel" aria-label="電話でご予約 0280-32-0299">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+            <span class="tel-label nw">0280-32-0299</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="#yonezawa" data-nav-link>米沢牛のこと</a>
+    <a href="#steak" data-nav-link>ステーキ</a>
+    <a href="menu.html" data-nav-link>お品書き</a>
+    <a href="#interior" data-nav-link>店のなか</a>
+    <a href="#info" data-nav-link>アクセス</a>
+    <a href="#reserve" data-nav-link>ご予約</a>
+    <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     1. ヒーロー
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+    <figure class="hero-photo">
+        <img src="img/exterior-night.jpg" alt="夜、暖色の灯りがともった玄関ポーチ。クリーム色の塗り壁とこげ茶の瓦屋根、格子の窓"
+             width="1300" height="813" loading="eager" fetchpriority="high" decoding="async">
+    </figure>
+    <div class="hero-band">
+        <div class="container">
+            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+            <p class="status-note"><span class="nw">定休日</span> <span class="nw">火曜日</span> ／ <span class="nw">駐車場は</span><span class="nw">店舗前に</span><span class="nw">ございます</span></p>
+
+            <h1 class="hero-catch"><span class="nw">ふだんの</span><span class="nw">日も、</span><br class="br-pc"><span class="nw">記念の</span><span class="nw">日も、</span><span class="nw">ステーキで。</span></h1>
+            <p class="hero-sub"><span class="nw">古河の</span><span class="nw">住宅街で、</span><span class="nw">米沢牛と</span><span class="nw">特選和牛の、</span><span class="nw">ステーキと</span><span class="nw">ハンバーグを</span><span class="nw">お出しし</span><span class="nw">ております。</span><br class="br-pc"><span class="nw">気取らない</span><span class="nw">構えの</span><span class="nw">店です。</span><span class="nw">どうぞ</span><span class="nw">普段着で</span><span class="nw">お越し</span><span class="nw">ください。</span></p>
+
+            <div class="hero-actions">
+                <a href="tel:0280320299" class="btn btn-primary btn-tel">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    <span class="tel-num">0280-32-0299</span><span class="tel-cap">ご予約</span>
+                </a>
+                <a href="menu.html" class="btn btn-ghost">お品書きを見る</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     2. 米沢牛のこと（署名の章）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section sig-section" id="yonezawa">
+    <div class="container sig-grid">
+        <div class="sig">
+            <p class="sig-lead reveal"><span class="nw">米沢牛・</span><span class="nw">特選和牛専門店</span></p>
+            <p class="sig-name reveal reveal-delay-1"><span class="nw">ステーキ</span> Den</p>
+            <p class="sig-body reveal reveal-delay-2"><span class="nw">米沢牛を、</span><span class="nw">直接仕入れ</span><span class="nw">ております。</span><span class="nw">なかでも</span><span class="nw">最高級ランク、</span><span class="nw">A5の</span><span class="nw">牝。</span><span class="nw">きめの</span><span class="nw">細かさと</span><span class="nw">味の</span><span class="nw">濃さ、</span><span class="nw">とろける</span><span class="nw">食感を、</span><span class="nw">まずは</span><span class="nw">一度</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
+        </div>
+        <figure class="photo-frame ph-sign sig-photo reveal">
+            <img src="img/signage-cow-emblem.jpg" alt="店頭の看板。丸い袖看板と大看板に「米沢牛・特選和牛専門店　ステーキ Den　食肉販売　ステーキ＆ハンバーグ」の文字、看板の上に黒い牛のシルエットの切り文字"
+                 width="610" height="475" loading="lazy" decoding="async">
+        </figure>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     3. ステーキ
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="steak">
+    <div class="container">
+        <p class="eyebrow reveal">STEAK</p>
+        <h2 class="section-title reveal"><span class="nw">ステーキ</span></h2>
+        <p class="lead reveal"><span class="nw">焼き</span><span class="nw">加減は、</span><span class="nw">お好みのままに</span><span class="nw">承ります。</span><span class="nw">塩と</span><span class="nw">胡椒で</span><span class="nw">下味をつけ、</span><span class="nw">ソースは</span><span class="nw">別の</span><span class="nw">器に</span><span class="nw">添え</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">まずはそのまま</span><span class="nw">一口、</span><span class="nw">肉の</span><span class="nw">味からどうぞ。</span></p>
+
+        <div class="steak-photos">
+            <figure class="photo-frame ph-4-3 reveal">
+                <img src="img/steak-closeup.jpg" alt="鉄板の上で焼き目のついたステーキを間近から"
+                     width="950" height="712" loading="lazy" decoding="async">
+            </figure>
+            <figure class="photo-frame ph-4-3 reveal reveal-delay-1" style="max-width:350px;">
+                <img src="img/steak-with-sauce.jpg" alt="鉄板皿に乗った、格子の焼き目がくっきりついたステーキ"
+                     width="360" height="270" loading="lazy" decoding="async">
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     4. ハンバーグとミックスグリル（写真の枠は作らない）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section hamburg-section" id="hamburg">
+    <div class="container">
+        <div class="text-card reveal">
+            <p class="eyebrow">HAMBURG / MIXED GRILL</p>
+            <h2 class="section-title"><span class="nw">ハンバーグと</span><span class="nw">ミックスグリル</span></h2>
+            <p class="lead"><span class="nw">ハンバーグは、</span><span class="nw">和牛百パーセント。</span><span class="nw">米沢牛も</span><span class="nw">挽き</span><span class="nw">込んで</span><span class="nw">おります。</span><span class="nw">ステーキも</span><span class="nw">ハンバーグも、</span><span class="nw">という</span><span class="nw">日には、</span><span class="nw">ミックスグリルをどうぞ。</span></p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     5. 洋食セット・和食セット
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="set">
+    <div class="container">
+        <p class="eyebrow reveal">SET</p>
+        <h2 class="section-title reveal"><span class="nw">洋食セット・</span><span class="nw">和食セット</span></h2>
+        <p class="lead reveal"><span class="nw">ステーキにも、</span><span class="nw">ハンバーグにも、</span><span class="nw">洋食の</span><span class="nw">セットと</span><span class="nw">和食の</span><span class="nw">セットを</span><span class="nw">お付け</span><span class="nw">いただけます。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">お腹と</span><span class="nw">気分で、</span><span class="nw">お選び</span><span class="nw">ください。</span></p>
+
+        <div class="set-photos">
+            <figure class="photo-frame ph-4-3 reveal">
+                <img src="img/soup.jpg" alt="澄んだオニオンスープ"
+                     width="562" height="422" loading="lazy" decoding="async">
+            </figure>
+            <figure class="photo-frame ph-4-3 reveal reveal-delay-1">
+                <img src="img/bread-roll.jpg" alt="バターを添えた丸いパン"
+                     width="730" height="547" loading="lazy" decoding="async">
+            </figure>
+            <figure class="photo-frame ph-4-3 reveal reveal-delay-2">
+                <img src="img/salad.jpg" alt="彩りサラダ、トマト添え"
+                     width="480" height="360" loading="lazy" decoding="async">
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     6. お品書きへの入口
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="menu">
+    <div class="container menu-link-grid">
+        <figure class="photo-frame ph-4-3 reveal">
+            <img src="img/steak-set.jpg" alt="ステーキにライスとサラダを添えたセット"
+                 width="950" height="712" loading="lazy" decoding="async">
+        </figure>
+        <div class="menu-link-text reveal">
+            <p class="eyebrow">MENU</p>
+            <h2 class="section-title"><span class="nw">お品書き</span></h2>
+            <p class="lead"><span class="nw">ステーキと</span><span class="nw">和牛の</span><span class="nw">一皿から、</span><span class="nw">サラダ、</span><span class="nw">デザート、</span><span class="nw">お飲み</span><span class="nw">ものまで。</span><span class="nw">お品書きの</span><span class="nw">ページに、</span><span class="nw">ひとそろい</span><span class="nw">載せ</span><span class="nw">ております。</span><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><a href="tel:0280320299" class="tel-link"><span class="nw">お電話でも</span></a><span class="nw">お答え</span><span class="nw">いたします</span><span class="nw">ので、</span><span class="nw">お気軽に</span><span class="nw">お尋ね</span><span class="nw">ください。</span></p>
+            <a href="menu.html" class="btn btn-primary">お品書きを見る</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     7. 店のなか
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="interior">
+    <div class="container">
+        <p class="eyebrow reveal">INTERIOR</p>
+        <h2 class="section-title reveal"><span class="nw">店のなか</span></h2>
+        <p class="lead reveal"><span class="nw">テーブル</span><span class="nw">席のほかに、</span><span class="nw">個室も</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">お子さま</span><span class="nw">連れの</span><span class="nw">ご家族や、</span><span class="nw">まわりを</span><span class="nw">気にせず</span><span class="nw">お話しになりたい</span><span class="nw">日には、</span><span class="nw">個室を</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span><span class="nw">個室の</span><span class="nw">ご利用や</span><span class="nw">ご人数は、</span><span class="nw">お電話で</span><span class="nw">ご相談ください。</span></p>
+
+        <div class="interior-photos">
+            <figure class="photo-frame ph-3-4 reveal">
+                <img src="img/interior-counter.jpg" alt="レンガのカウンターと格天井。棚には洋酒の瓶が並ぶ"
+                     width="562" height="750" loading="lazy" decoding="async">
+            </figure>
+            <figure class="photo-frame ph-4-3 reveal reveal-delay-1" style="max-width:465px;">
+                <img src="img/interior-dining.jpg" alt="白いロールスクリーンで仕切られたお席"
+                     width="480" height="360" loading="lazy" decoding="async">
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     8. お客様の声
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="voice">
+    <div class="container">
+        <p class="eyebrow reveal">VOICE</p>
+        <h2 class="section-title reveal"><span class="nw">お客様の</span>声</h2>
+
+        <div class="voice-list">
+            <blockquote class="voice reveal">
+                <p><span class="nw">「ランチには</span><span class="nw">少し</span><span class="nw">贅沢ですが、</span><span class="nw">サーロインランチを</span><span class="nw">ミディアムレアで</span><span class="nw">いただきました、</span><span class="nw">もちろんめっちゃ</span><span class="nw">美味しいです、</span><span class="nw">口の</span><span class="nw">中でとろけてなくなっちゃいました」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice reveal reveal-delay-1">
+                <p><span class="nw">「厚みがあり、</span><span class="nw">とても</span><span class="nw">柔らかい</span><span class="nw">肉です。</span><span class="nw">あまり</span><span class="nw">噛まないうちに、</span><span class="nw">口の</span><span class="nw">中で</span><span class="nw">脂がとろけ、</span><span class="nw">旨味が</span><span class="nw">一気に</span><span class="nw">広がります。」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice reveal reveal-delay-2">
+                <p><span class="nw">「付け</span><span class="nw">合わせのじゃがいもが</span><span class="nw">表面カリッと</span><span class="nw">中はしっとりしていて</span><span class="nw">美味しかったです。</span><span class="nw">手を</span><span class="nw">抜いてない</span><span class="nw">感じですね。」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     9. ご予約・お支払いについて
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section reserve-section" id="reserve">
+    <div class="container">
+        <p class="eyebrow reveal">RESERVE</p>
+        <h2 class="section-title reveal"><span class="nw">ご予約・</span><span class="nw">お支払いについて</span></h2>
+        <p class="lead reveal"><span class="nw">お席の</span><span class="nw">ご予約を、</span><span class="nw">お電話で</span><span class="nw">承っ</span><span class="nw">ております。</span><span class="nw">混み</span><span class="nw">合う</span><span class="nw">時間帯も</span><span class="nw">ございます</span><span class="nw">ので、</span><span class="nw">ご予約いただけますと</span><span class="nw">確実です。</span></p>
+        <p class="reveal reveal-delay-1"><span class="nw">ランチ</span><span class="nw">限定のおすすめの</span><span class="nw">品は、</span><span class="nw">サービス</span><span class="nw">価格での</span><span class="nw">ご提供の</span><span class="nw">ため、</span><span class="nw">カードを</span><span class="nw">お使い</span><span class="nw">いただけません。</span><span class="nw">あらかじめ</span><span class="nw">ご了承ください。</span></p>
+        <p class="reveal reveal-delay-2"><span class="nw">お祝いの</span><span class="nw">お席や</span><span class="nw">ご会食も、</span><span class="nw">お電話で</span><span class="nw">ご相談ください。</span></p>
+
+        <div class="hero-actions">
+            <a href="tel:0280320299" class="btn btn-primary btn-tel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                <span class="tel-num">0280-32-0299</span><span class="tel-cap">ご予約</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     10. アクセス・店舗情報
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="info">
+    <div class="container">
+        <div class="access-grid">
+            <div>
+                <p class="eyebrow reveal">ACCESS</p>
+                <h2 class="section-title reveal"><span class="nw">アクセス</span></h2>
+                <p class="lead reveal"><span class="nw">古河駅東口から、</span><span class="nw">歩いて</span><span class="nw">20分ほど。</span><span class="nw">古河一高の</span><span class="nw">近く、</span><span class="nw">朝日温泉のそばで</span><span class="nw">ございます。</span><span class="nw">店の</span><span class="nw">前に</span><span class="nw">駐車場が</span><span class="nw">ございます</span><span class="nw">ので、</span><span class="nw">お車でもどうぞ。</span></p>
+
+                <table class="info-table reveal">
+                    <tr><th><span class="nw">住所</span></th><td>〒306-0012 <span class="nw">茨城県古河市旭町</span>2-11-2</td></tr>
+                    <tr><th><span class="nw">電話</span></th><td><a href="tel:0280320299" class="tel-link nw">0280-32-0299</a></td></tr>
+                    <tr><th><span class="nw">営業時間</span></th><td>11:30〜14:00（L.O. 13:20）<br>17:30〜21:00</td></tr>
+                    <tr><th><span class="nw">定休日</span></th><td><span class="nw">火曜日</span></td></tr>
+                    <tr><th><span class="nw">お席</span></th><td><span class="nw">テーブル</span><span class="nw">席・</span><span class="nw">個室</span></td></tr>
+                    <tr><th><span class="nw">駐車場</span></th><td>有<span class="nw">（店舗前）</span></td></tr>
+                    <tr><th><span class="nw">お支払い</span></th><td><span class="nw">現金・</span><span class="nw">クレジットカード</span><span class="nw">（税込</span><span class="nw">11,000円以上）</span></td></tr>
+                </table>
+            </div>
+            <figure class="photo-frame ph-3-4 reveal">
+                <img src="img/exterior-entrance-day.jpg" alt="昼の玄関。庇の上にDenのロゴ、ランタン型の外灯"
+                     width="562" height="750" loading="lazy" decoding="async">
+            </figure>
+        </div>
+
+        <div class="map-wrapper reveal">
+            <iframe
+                src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E6%97%AD%E7%94%BA2-11-2&z=16&output=embed"
+                allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="ステーキDEN の地図"></iframe>
+        </div>
+
+        <div class="hero-actions" style="margin-top:24px;">
+            <a href="tel:0280320299" class="btn btn-primary btn-block">お電話でご予約する</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     締め
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section closing-section">
+    <div class="container">
+        <p class="closing-text reveal"><span class="nw">火を</span><span class="nw">入れるのは、</span><span class="nw">ご注文を</span><span class="nw">いただいてから。</span><span class="nw">焼き</span><span class="nw">上がりまでの</span><span class="nw">少しの</span><span class="nw">時間も、</span><span class="nw">ごちそうのうちで</span><span class="nw">ございます。</span><span class="nw">本日も、</span><span class="nw">鉄板を</span><span class="nw">温めて</span><span class="nw">お待ちし</span><span class="nw">ております。</span></p>
+    </div>
+</section>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <p class="footer-name">STEAK DEN</p>
+        <p class="footer-addr">〒306-0012 <span class="nw">茨城県古河市旭町</span>2-11-2／0280-32-0299</p>
+        <p class="footer-copy">&copy; <span class="nw">ステーキ</span>DEN</p>
+    </div>
+</footer>
+
+
+<!-- スマホ用 追従予約バー -->
+<div class="sticky-bar" id="sticky-bar">
+    <a href="#info" class="bar-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス・地図
+    </a>
+    <a href="tel:0280320299" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        電話で予約
+    </a>
+</div>
+
+
+<script>
+/* JS が動いた印。CSSの .no-js .reveal が外れて出現演出が有効になる */
+document.body.classList.remove('no-js');
+
+
+/* --------------------------------------------------------------------------
+   1. ヘッダー縮小・追従予約バーの表示切り替え
+   -------------------------------------------------------------------------- */
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+
+var subnavEl = document.querySelector('.subnav');
+var menuBlocks = document.querySelectorAll('.menu-block, .menu-section');
+var lastMenuBlock = menuBlocks.length ? menuBlocks[menuBlocks.length - 1] : null;
+
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+        stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
+    }
+    if (subnavEl && lastMenuBlock) {
+        if (window.getComputedStyle(subnavEl).position !== 'sticky') {
+            subnavEl.classList.remove('is-past');
+        } else {
+            var r = lastMenuBlock.getBoundingClientRect();
+            subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        }
+    }
+}, { passive: true });
+
+
+/* --------------------------------------------------------------------------
+   2. モバイルナビ開閉
+   -------------------------------------------------------------------------- */
+var navToggle = document.getElementById('nav-toggle');
+var navPanel = document.getElementById('mobile-nav');
+function closeNav() {
+    document.body.classList.remove('nav-open');
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'メニューを開く');
+    }
+}
+if (navToggle) {
+    navToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+}
+document.querySelectorAll('[data-nav-link]').forEach(function (a) {
+    a.addEventListener('click', closeNav);
+});
+var navClose = document.getElementById('nav-close');
+if (navClose) {
+    navClose.addEventListener('click', function () {
+        closeNav();
+        if (navToggle) navToggle.focus();
+    });
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (navPanel && navPanel.contains(e.target)) return;
+    if (navToggle && navToggle.contains(e.target)) return;
+    closeNav();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+});
+
+
+/* --------------------------------------------------------------------------
+   3. スクロール出現演出（IntersectionObserver）
+   -------------------------------------------------------------------------- */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+
+
+/* --------------------------------------------------------------------------
+   4. 営業状況バッジ
+   -------------------------------------------------------------------------- */
+var BUSINESS = {
+    closedDays: [2],
+    shifts: [
+        { open: 11 * 60 + 30, close: 14 * 60, label: '11:30〜14:00' },
+        { open: 17 * 60 + 30, close: 21 * 60, label: '17:30〜21:00' }
+    ]
+};
+
+function shiftsForToday(day) {
+    if (BUSINESS.shiftsByDay) {
+        return BUSINESS.shiftsByDay[day] || [];
+    }
+    return BUSINESS.closedDays.indexOf(day) !== -1 ? [] : BUSINESS.shifts;
+}
+
+function updateStatus() {
+    var el = document.getElementById('status-chip');
+    if (!el) return;
+    var now = new Date();
+    var minutes = now.getHours() * 60 + now.getMinutes();
+    var shifts = shiftsForToday(now.getDay());
+    var cls = '', text = '';
+
+    if (!shifts.length) {
+        cls = 'is-closed';
+        text = BUSINESS.closedText || '本日は定休日です';
+    } else {
+        var inShift = null;
+        for (var i = 0; i < shifts.length; i++) {
+            var s = shifts[i];
+            if (minutes >= s.open && minutes < s.close) { inShift = s; break; }
+        }
+        if (inShift) {
+            cls = 'is-open'; text = 'ただいま営業中 ' + inShift.label;
+        } else if (minutes < shifts[0].open) {
+            text = '本日 ' + shifts[0].label + ' 営業';
+        } else if (shifts[1] && minutes < shifts[1].open) {
+            cls = 'is-break';
+            text = '休憩中（' + shifts[1].label + ' 営業）';
+        } else {
+            cls = 'is-closed'; text = '本日の営業は終了しました';
+        }
+    }
+    el.className = 'status-chip' + (cls ? ' ' + cls : '');
+    el.querySelector('.status-text').textContent = text;
+}
+updateStatus();
+setInterval(updateStatus, 60000);
+</script>
+</body>
+</html>
