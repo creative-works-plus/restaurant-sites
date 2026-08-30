@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/kinukawa/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/kinukawa/img/hero-shopfront.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/kinukawa/img/hero-kaisendon.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -39,7 +39,7 @@
       "telephone": "+81-80-4064-1281",
       "paymentAccepted": "Cash",
       "url": "https://creative-works-plus.github.io/restaurant-sites/kinukawa/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/kinukawa/img/hero-shopfront.jpg",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/kinukawa/img/hero-kaisendon.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -608,28 +608,30 @@
 
     /* --- ① ヒーロー：看板の型 -------------------------------------------------- */
     .hero { background: var(--surface); display: flex; align-items: center; padding-block: var(--blk-y); }
-    .hero-grid { display: grid; grid-template-columns: 1fr 400px; gap: var(--gap); align-items: center; margin-top: var(--blk-y); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 620px; gap: var(--gap); align-items: center; margin-top: var(--blk-y); }
     .hero-name { display: flex; flex-direction: column; gap: 4px; margin-bottom: var(--blk-y); }
     .hero-name .l1 { font-size: 1.1rem; letter-spacing: .3em; text-indent: .3em; color: var(--muted); }
     .hero-name .l2 { font-size: var(--fz-hero); color: var(--ink); border-bottom: 3px solid var(--accent); padding-bottom: 8px; display: inline-block; }
     .hero-catch { font-family: var(--font-head); font-size: var(--fz-h2); color: var(--accent); margin-bottom: var(--blk-y); }
     .hero-sub { color: var(--muted); max-width: 42ch; margin-bottom: var(--blk-y); }
     .hero-hours { font-size: var(--fz-cap); letter-spacing: .06em; color: var(--dim); background: var(--surface-2); display: inline-flex; gap: 10px; padding: 8px 14px; border-radius: var(--radius); }
-    .hero-frame { aspect-ratio: 16 / 9; max-width: 400px; width: 100%; margin-inline: auto; }
+    /* ★2026-08-30：ヒーローの写真が 400px の16:9で、存在感が出ていなかった。
+       写真を看板料理（元 1500px）に替え、枠を 620px・3:2 まで広げる（2倍は保つ） */
+    .hero-frame { aspect-ratio: 3 / 2; max-width: 620px; width: 100%; margin-inline: auto; }
     @media (max-width: 900px) {
         .hero-grid { grid-template-columns: 1fr; }
         .hero-photo { order: -1; }
-        .hero-frame { max-width: 350px; }
+        .hero-frame { max-width: 460px; }
     }
 
     /* --- ② 大洗のさかな ★核 ----------------------------------------------------- */
     .sec-oarai { background: var(--bg); }
     .oarai-grid { display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center; margin-bottom: clamp(32px, 4.5vw, 56px); }
     .oarai-text p { max-width: 46ch; }
-    .oarai-photos { display: flex; flex-wrap: wrap; gap: var(--gap); align-items: flex-end; }
-    .oarai-photos figure { flex: 1 1 260px; }
-    .oarai-photos figure:last-child { flex: 0 0 400px; }
-    .ph-main { aspect-ratio: 4 / 3; max-width: 660px; }
+    .oarai-photos { display: flex; flex-wrap: wrap; gap: var(--gap); align-items: flex-end; justify-content: center; }
+    .oarai-photos figure { flex: 0 1 560px; text-align: center; }
+    .oarai-photos figure:last-child { flex: 0 0 auto; }
+    .ph-main { aspect-ratio: 3 / 2; max-width: 560px; }
     .ph-sub  { aspect-ratio: 4 / 3; max-width: 400px; }
     figure figcaption { margin-top: 8px; font-size: var(--fz-cap); color: var(--muted); text-align: center; }
     @media (max-width: 900px) {
@@ -768,8 +770,8 @@
             </div>
             <div class="hero-photo">
                 <div class="photo-frame hero-frame">
-                    <img src="img/hero-shopfront.jpg" alt="緑ののれんが掛かり白い袖看板の立つ大衆食堂きぬ川の平屋の外観"
-                         width="800" height="444" loading="eager" fetchpriority="high" decoding="async">
+                    <img src="img/hero-kaisendon.jpg" alt="大洗の市場から仕入れた魚介を盛った海鮮丼の定食"
+                         width="1500" height="1000" loading="eager" fetchpriority="high" decoding="async">
                 </div>
             </div>
         </div>
@@ -817,19 +819,14 @@
             </div>
         </div>
         <div class="oarai-photos">
+            <!-- ★2026-08-30：海鮮丼はヒーローに移したので、この節は刺身の一枚で見せる
+                 （同じ料理を1ページで二度は出さない） -->
             <figure class="reveal">
                 <div class="photo-frame ph-main">
-                    <img src="img/dish-kaisendon.jpg" alt="大洗の市場から仕入れた魚介を盛った海鮮丼定食"
-                         width="1340" height="810" loading="lazy" decoding="async">
-                </div>
-                <figcaption><span class="nw">海鮮丼</span></figcaption>
-            </figure>
-            <figure class="reveal">
-                <div class="photo-frame ph-sub">
-                    <img src="img/dish-sashimi-mori.jpg" alt="刺身の盛り合わせ"
+                    <img src="img/dish-sashimi-mori.jpg" alt="大洗の市場から仕入れた魚を引いた刺身の盛り合わせ"
                          width="800" height="534" loading="lazy" decoding="async">
                 </div>
-                <figcaption><span class="nw">お刺身</span></figcaption>
+                <figcaption><span class="nw">お刺身の</span><span class="nw">盛り合わせ</span></figcaption>
             </figure>
         </div>
     </div>
@@ -909,7 +906,7 @@
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">定食、丼物、麺類、一品料理、お飲みもの、ジュースと甘いもの。お値段は店内のお品書きに掲げております。お電話でもお答えいたします。</div>
+        <div class="lead-box reveal"><span class="nw">定食、</span><span class="nw">丼物、</span><span class="nw">麺類、</span><span class="nw">一品料理、</span><span class="nw">お飲みもの、</span><span class="nw">ジュースと</span><span class="nw">甘いもの。</span><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げております。</span><span class="nw">お電話でも</span><span class="nw">お答えいたします。</span></div>
 
         <div class="menu-block reveal" id="teishoku">
             <div class="menu-head"><h2><span class="nw">定食</span></h2></div>

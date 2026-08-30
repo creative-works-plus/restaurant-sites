@@ -360,9 +360,13 @@
         position: absolute; inset: 0; width: 100%; height: 100%;
         object-fit: cover; z-index: 0;
     }
+    /* ★2026-08-30：白い文字が明るい木立に溶けていた。幕の立ち上がりを
+       上へ伸ばし、文字が乗る帯（下半分）を確実に暗くする。 */
     .hero::before {
         content: ''; position: absolute; inset: 0; z-index: 1;
-        background: linear-gradient(to bottom, rgba(34,58,44,0) 38%, rgba(34,58,44,.86) 78%, #223A2C 100%);
+        background: linear-gradient(to bottom,
+            rgba(34,58,44,.34) 0%, rgba(34,58,44,.16) 22%,
+            rgba(34,58,44,.62) 52%, rgba(34,58,44,.92) 80%, #223A2C 100%);
         pointer-events: none;
     }
     .hero .container {
@@ -396,6 +400,33 @@
     }
     .hero .hero-actions { margin-top: var(--sp-3); }
 
+    /* ★2026-08-30 改訂：PCでは 700px の外観写真を画面いっぱい（1440px）まで
+       引き伸ばしていたため輪郭がにじみ、白い文字も明るい木立の上に重なっていた。
+       スマホの見え方（写真に文字を重ねる形）はそのまま残し、
+       PCだけ「名乗りは緑の面の上・写真は右に元の大きさで」の左右組みに切り替える。 */
+    @media (min-width: 900px) {
+        .hero {
+            min-height: 0; overflow: visible; background: var(--bg);
+            display: grid; align-items: stretch;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 44%);
+            column-gap: clamp(28px, 4vw, 56px);
+            padding-block: clamp(48px, 6vw, 88px);
+            padding-left: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2));
+        }
+        .hero::before { display: none; }
+        .hero-photo {
+            order: 2; position: static; inset: auto;
+            width: 100%; height: 100%; min-height: 480px; max-height: 660px;
+            object-fit: cover; object-position: center;
+        }
+        .hero .container {
+            order: 1; width: auto; max-width: 560px; margin: 0; padding: 0;
+            align-items: flex-start; text-align: left; justify-content: center;
+        }
+        .hero .status-chip { margin-bottom: var(--sp-3); }
+        .hero-pills, .hero .hero-actions { justify-content: flex-start; }
+    }
+
     /* --- 署名の図（総和の三菓・名の系譜図） -------------------------------- */
     #keifu { padding-block: var(--sec-y); }
     .keifu-sowa-en {
@@ -406,24 +437,12 @@
         text-align: center; font-size: clamp(38px, 8vw, 64px); letter-spacing: .14em;
         color: var(--ink-on-bg); margin-top: var(--sp-1);
     }
-    .keifu-line-v {
-        display: none; width: 1.6px; height: var(--sp-5); background: var(--accent);
-        margin-top: var(--sp-3); margin-inline: auto;
-    }
-    .keifu-svgwrap { position: relative; margin-top: var(--sp-5); }
-    .keifu-lines { width: 100%; height: auto; display: block; }
-    .branch {
-        stroke: var(--accent); stroke-width: 1.6; fill: none;
-        stroke-linecap: round; opacity: .75;
-    }
-    .keifu-so2so {
-        position: absolute; left: 76%; top: 66%; transform: translate(-50%, -50%);
-        font-family: var(--font-body); font-size: var(--fz-cap);
-        letter-spacing: .1em; color: var(--muted-on-bg); white-space: nowrap;
-    }
+    /* ★2026-08-30：「総 → 想」へ枝分かれする線の図を置いていたが、
+       何を表した図なのかが伝わらなかった（説明のための図＝絶対ルール⑫）。
+       図はやめて、三つの札だけで見せる。 */
     .keifu-cards {
         display: grid; grid-template-columns: repeat(3, 1fr);
-        gap: var(--sp-3); margin-top: var(--sp-2);
+        gap: var(--sp-3); margin-top: var(--sp-5);
     }
     .keifu-card {
         justify-self: center; width: min(100%, 280px);
@@ -442,9 +461,6 @@
         font-size: var(--fz-cap); color: var(--muted-on-bg);
     }
     @media (max-width: 900px) {
-        .keifu-lines, .keifu-so2so { display: none; }
-        .keifu-line-v { display: block; }
-        .keifu-svgwrap { margin-top: 0; }
         .keifu-cards { display: flex; flex-direction: column; gap: var(--sp-3); margin-top: var(--sp-4); }
         .keifu-card { position: relative; width: 100%; padding-left: calc(var(--sp-4) + 24px); }
         .keifu-card::before {
@@ -493,6 +509,10 @@
 
     /* --- お品書き -------------------------------------------------------- */
     .oshinagaki { background: var(--paper); }
+    /* ★2026-08-30：「お品書き」の題と章のタブだけが container の左端（画面から180px）に
+       立っていて、中身（820px の中央寄せ）と軸が合わず、左に寄って見えていた。
+       題・タブ・中身の軸をそろえる。 */
+    .oshinagaki .section-title { text-align: center; }
     .oshinagaki [id] { scroll-margin-top: calc(var(--header-h) + 76px); }
     .subnav {
         position: sticky; top: var(--header-h); z-index: 40;
@@ -500,6 +520,7 @@
     }
     .subnav-inner {
         display: flex; gap: var(--sp-3); overflow-x: auto;
+        justify-content: safe center;      /* 収まるときは中央、あふれるときだけ左から */
         max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad-inner);
     }
     .subnav a { color: var(--muted); font-size: 14px; border-bottom: 2px solid transparent; white-space: nowrap; }
@@ -541,7 +562,7 @@
     .tel-link { color: var(--accent-deep); font-weight: 600; }
     .note-sub { display: block; margin-top: 6px; font-size: 12.5px; color: var(--dim); line-height: 1.8; }
     #info .map-wrapper { margin-top: var(--blk-y); }
-    #info .photo-frame.access-photo { aspect-ratio: 4 / 3; margin-bottom: var(--blk-y); max-width: 640px; margin-inline: auto; }
+    #info .photo-frame.access-photo { aspect-ratio: 5 / 4; margin-bottom: var(--blk-y); max-width: 620px; margin-inline: auto; }
 
     /* --- フッター ---------------------------------------------------------- */
     .site-footer { background: var(--bg); color: var(--muted-on-bg); text-align: center; padding-block: var(--sec-y); }
@@ -622,17 +643,6 @@
         <div class="section-head reveal">
             <p class="keifu-sowa-en">SÔWA NATUREL GÂTEAUX</p>
             <h2 class="keifu-sowa"><span class="nw">総和の</span><span class="nw">三菓</span></h2>
-        </div>
-
-        <div class="keifu-line-v" aria-hidden="true"></div>
-
-        <div class="keifu-svgwrap reveal">
-            <svg class="keifu-lines" viewBox="0 0 1000 300" aria-hidden="true">
-                <path class="branch branch-l" d="M500,10 C500,120 200,150 200,290"/>
-                <path class="branch branch-c" d="M500,10 L500,290"/>
-                <path class="branch branch-r" d="M500,10 C500,120 800,150 800,290"/>
-            </svg>
-            <span class="keifu-so2so">総 → 想</span>
         </div>
 
         <div class="keifu-cards">
@@ -763,7 +773,7 @@
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">季節により、並ぶ品が入れ替わります。お値段は店頭にてご確認くださいませ。</div>
+        <div class="lead-box reveal"><span class="nw">季節に</span><span class="nw">より、</span><span class="nw">並ぶ</span><span class="nw">品が</span><span class="nw">入れ替わります。</span><span class="nw">お値段は</span><span class="nw">店頭にて</span><span class="nw">ご確認</span><span class="nw">くださいませ。</span></div>
 
         <div class="menu-block reveal" id="namagashi">
             <div class="menu-head"><h2><span class="nw">生菓子</span></h2><span class="yomi">G A T E A U X</span></div>
@@ -898,7 +908,9 @@
         </div>
 
         <div class="photo-frame access-photo reveal">
-            <img src="img/gaikan-tbl04-crop.webp" alt="国道沿いに立つ大きな看板と、緑色の壁の建物" width="512" height="371" loading="lazy" decoding="async">
+            <!-- ★2026-08-30：ここに置いていたのは国道沿いの案内看板で、店の外観ではなかった。
+                 陽の当たる外観の一枚に差し替える（元が 700px なので枠も 640px に留める）。 -->
+            <img src="img/gaikan-yh06.webp" alt="陽の当たる店の外観。オリーブの木とレンガ塀、緑色の扉" width="700" height="700" loading="lazy" decoding="async">
         </div>
 
         <table class="info-table reveal">
@@ -1038,42 +1050,6 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
     }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
     revealEls.forEach(function (el) { io.observe(el); });
 }
-
-
-/* --------------------------------------------------------------------------
-   3-b. 署名の図（総和の三菓）の線を1回だけ描く
-   -------------------------------------------------------------------------- */
-(function () {
-    var branches = document.querySelectorAll('.branch');
-    if (!branches.length) return;
-    if (reduceMotion) return;   /* reduced-motion では最初から描かれた状態のまま */
-
-    branches.forEach(function (p, i) {
-        var len = p.getTotalLength();
-        p.style.strokeDasharray = len;
-        p.style.strokeDashoffset = len;
-    });
-
-    var wrap = document.querySelector('.keifu-svgwrap');
-    if (!wrap || !('IntersectionObserver' in window)) {
-        branches.forEach(function (p) { p.style.strokeDashoffset = 0; });
-        return;
-    }
-    var drawn = false;
-    var kio = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting && !drawn) {
-                drawn = true;
-                branches.forEach(function (p, i) {
-                    p.style.transition = 'stroke-dashoffset .76s ease-out ' + (i * 110) + 'ms';
-                    p.style.strokeDashoffset = 0;
-                });
-                kio.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    kio.observe(wrap);
-})();
 
 
 /* --------------------------------------------------------------------------

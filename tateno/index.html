@@ -583,7 +583,13 @@
 
     /* --- お品書き（build_menu.py が出すクラス。見た目は店側で決める） --- */
     .subnav { position: sticky; top: var(--header-h); z-index: 40; background: var(--bg); border-bottom: 1px solid var(--line); }
-    .subnav-inner { display: flex; gap: 4px; overflow-x: auto; max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad-inner); }
+    /* ★2026-08-30：タブが画面に収まっているのに左へ寄っていた。
+       `width: max-content` の中身は既定で左そろえになるため。
+       収まるときは中央、あふれるときだけ横スクロールにする */
+    .subnav-inner {
+        display: flex; gap: 4px; overflow-x: auto; max-width: var(--maxw); margin: 0 auto;
+        justify-content: safe center; padding-inline: var(--pad-inner);
+    }
     .subnav a { font-size: 0.86rem; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; padding: 12px 10px; }
     .subnav a:hover { color: var(--accent); }
     /* ★レビュー裁定F6：見出し＋リードだけの#menuと、その次（サブナビの下）の距離が

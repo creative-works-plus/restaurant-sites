@@ -594,11 +594,20 @@
     }
     .board-row:last-of-type { border-bottom: none; }
     .board-label { font-size: .86rem; color: var(--muted); letter-spacing: .06em; }
-    .board-abc { display: flex; flex-wrap: wrap; gap: .05em .3em; }
-    .board-abc span {
-        font-family: 'Murecho', sans-serif; font-weight: 800; color: var(--ink);
-        font-size: clamp(1.5rem, 1rem + 2.2vw, 2.375rem); letter-spacing: .18em;
+    /* ★2026-08-30 改訂：A〜J の記号だけを大きく並べていたため、
+       どの記号が何のカレーなのかが板の上で分からなかった。
+       記号は小さくして、お名前のほうを読ませる。 */
+    .board-abc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px 16px; }
+    .board-abc .abc {
+        display: flex; align-items: baseline; gap: .45em;
+        font-size: clamp(.95rem, .9rem + .3vw, 1.06rem); color: var(--ink); letter-spacing: .02em;
     }
+    .board-abc .abc b {
+        flex: none; min-width: 1.4em; text-align: center;
+        font-family: 'Murecho', sans-serif; font-weight: 800; font-size: 1.2em;
+        color: var(--chili); letter-spacing: .04em;
+    }
+    @media (min-width: 601px) { .board-abc { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     .board-heat { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: clamp(.95rem, .9rem + .3vw, 1.06rem); color: var(--ink); }
     .heat { display: inline-flex; align-items: center; }
     .heat i { display: inline-block; width: 7px; height: 7px; margin-right: 6px; background: var(--chili); border-radius: 1px; vertical-align: .06em; }
@@ -624,21 +633,17 @@
     @media (min-width: 601px) { .board-out { left: -16px; } }
     @media (min-width: 901px) { .board-out { left: -28px; } }
     .board-out-note { max-width: min(680px, 92vw); margin: 8px auto 0; font-size: .86rem; color: var(--muted); }
-    .board-jump { max-width: min(680px, 92vw); margin: 4px auto 0; display: flex; justify-content: flex-end; }
-    .board-jump a {
-        display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px;
-        font-size: .92rem; color: var(--accent);
-    }
+    /* ★2026-08-30：「AからJまでのお名前はお品書きに」の一行は、板の上でお名前を
+       申し上げるようにしたので外した（同じ問いに二度答えない）。 */
 
     /* 動き：枠→枠外の一行→注記の順に、一拍ずつ遅れて現れる（一度きり） */
-    .board.reveal, .board-out.reveal, .board-out-note.reveal, .board-jump.reveal {
+    .board.reveal, .board-out.reveal, .board-out-note.reveal {
         transition-property: opacity, transform;
         transition-duration: 520ms;
         transition-timing-function: cubic-bezier(.22, .61, .36, 1);
     }
     .board-out.reveal { transition-delay: 700ms; }
     .board-out-note.reveal { transition-delay: 900ms; }
-    .board-jump.reveal { transition-delay: 1100ms; }
 
     @media (max-width: 600px) {
         .board-row { grid-template-columns: 1fr; gap: 6px; }
@@ -655,18 +660,24 @@
     }
     .naan-gallery .photo-frame { aspect-ratio: 4 / 3; }
     .naan-gallery figure:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
-    @media (min-width: 700px) {
-        .naan-gallery { grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: repeat(2, minmax(160px, 200px)); }
-        .naan-gallery figure.photo-frame { aspect-ratio: auto; height: 100%; min-width: 0; }
-        .naan-gallery figure:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
-        .naan-gallery figure:nth-child(2) { grid-column: 2; grid-row: 1; }
-        .naan-gallery figure:nth-child(3) { grid-column: 3; grid-row: 1; }
-        .naan-gallery figure:nth-child(4) { grid-column: 2 / 4; grid-row: 2; }
+    /* ★2026-08-30 改訂：4枠目にサラダの写真を入れていたが、この節はナンの節で、
+       しかも右下で大きく切れていた。枠を3つに減らし、真ん中の縦位置の一枚を
+       高く見せて段差をつける（引き伸ばさないよう、PCでも1枚 380px 前後に収める）。 */
+    @media (min-width: 760px) {
+        .naan-gallery { grid-template-columns: repeat(3, 1fr); align-items: center; }
+        .naan-gallery figure:first-child { grid-column: auto; aspect-ratio: 4 / 3; }
+        .naan-gallery figure:nth-child(2) { aspect-ratio: 3 / 4; }
     }
 
-    /* --- 全幅の帯（C-4） --------------------------------------------------- */
+    /* --- お品書きの前の一枚（もとは全幅の帯 C-4） --------------------------
+       ★2026-08-30 改訂：576px しかない縦位置の写真を全幅の帯に敷いていたため、
+       PCでは 1440px まで引き伸ばされて画質が崩れていた（check_upscale.py が 0.40倍）。
+       帯はやめ、元の大きさを超えない一枚として、真ん中に置く。 */
     .band { margin-top: clamp(40px, 6vw, 72px); }
-    .band .photo-frame { border-radius: 0; border-inline: 0; aspect-ratio: 21 / 9; }
+    .band .photo-frame {
+        aspect-ratio: 16 / 9;
+        width: min(100% - 2 * var(--pad-inner), 900px); margin-inline: auto;
+    }
     @media (max-width: 700px) { .band .photo-frame { aspect-ratio: 4 / 3; } }
 
     /* ══════════════════════════════════════════════════════════════════
@@ -688,16 +699,31 @@
     .menu-photos .photo-frame { aspect-ratio: 4 / 3; border-radius: 8px; }
     @media (min-width: 700px) { .menu-photos { grid-template-columns: repeat(3, 1fr); max-width: 640px; } }
 
+    /* ★2026-08-30 改訂：17章のタブを1行に並べて横スクロールにしていたため、
+       画面に収まらず、右端で切れたまま気づかれない作りになっていた。
+       折り返して段にし、札（ピル）の形にして、どこまであるかを一目で見せる。
+       ★段が増えるぶん、追従（sticky）はやめる。17章を折り返すと3段になり、
+       貼り付いたままだと画面の上から 170px 前後をタブが占め続けてしまう。
+       ここは「お品書きの目次」として、章の頭に一度だけ置く。 */
     .subnav {
-        position: sticky; top: var(--header-h); z-index: 60;
+        position: static; z-index: 60;
         background: var(--bg); border-bottom: 1px solid var(--line);
-        overflow-x: auto;
-        mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
-        -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
     }
-    .subnav-inner { display: flex; gap: 6px; padding: 10px var(--pad-inner); white-space: nowrap; }
-    .subnav a { border-radius: 999px; font-size: .82rem; color: var(--muted); }
-    .subnav a:hover { color: var(--accent-deep); }
+    .subnav-inner {
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
+        width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+        padding: 10px 0;
+    }
+    .subnav a {
+        border-radius: 999px; font-size: .82rem; color: var(--muted);
+        border: 1px solid var(--line); background: var(--surface);
+        transition: color .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .subnav a:hover { color: var(--accent-deep); border-color: var(--accent); background: var(--bg); }
+    @media (max-width: 899px) {
+        .subnav-inner { justify-content: flex-start; }
+        .subnav a { font-size: .78rem; padding-inline: 13px; }
+    }
 
     .menu-block { padding-block: 22px; border-top: 1px solid var(--line); }
     .menu-block:first-child { border-top: none; padding-top: 4px; }
@@ -735,6 +761,13 @@
     .interior-gallery .is-main { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
     .interior-gallery figure:not(.is-main) .photo-frame { aspect-ratio: 4 / 3; }
     .interior-gallery .is-main .photo-frame { aspect-ratio: 16 / 9; }
+    /* ★2026-08-30：1枚目を全幅で敷いていたが、元が 692px しかなく PCでは
+       1118px まで引き伸ばされていた。PCでは3枚を同じ大きさで横に並べる。 */
+    @media (min-width: 800px) {
+        .interior-gallery { grid-template-columns: repeat(3, 1fr); }
+        .interior-gallery .is-main { grid-column: auto; aspect-ratio: 4 / 3; }
+        .interior-gallery .is-main .photo-frame { aspect-ratio: 4 / 3; }
+    }
 
     /* ══════════════════════════════════════════════════════════════════
        お越しになる道すじ・店舗情報
@@ -809,9 +842,12 @@
                 </div>
                 <div class="tray-naan">
                     <div class="photo-frame">
-                        <img src="img/naan-giant-lift-01.jpg"
-                             alt="焼きたての大判ナンを手で持ち上げているところ"
-                             width="396" height="528" loading="eager" decoding="async">
+                        <!-- ★2026-08-30：ナンを手で持ち上げた写真は、お客様の手が写り込んで
+                             おり（絶対ルール⑯）、元も 396px しかなく表示幅に届いていなかった。
+                             盆ごと写した一枚に差し替える。 -->
+                        <img src="img/tray-naan-curry-triangle-01.jpg"
+                             alt="銀の盆に載った大判のナンと、2種のカレー、ライス"
+                             width="576" height="768" loading="eager" decoding="async">
                     </div>
                 </div>
                 <div class="tray-brand">
@@ -863,7 +899,16 @@
             <div class="board-row">
                 <span class="board-label">カレー</span>
                 <span class="board-abc">
-                    <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span>
+                    <span class="abc"><b>A</b>バターチキン</span>
+                    <span class="abc"><b>B</b>エビ</span>
+                    <span class="abc"><b>C</b>シーフード</span>
+                    <span class="abc"><b>D</b>マトン</span>
+                    <span class="abc"><b>E</b>ダルチキン</span>
+                    <span class="abc"><b>F</b>キーマ</span>
+                    <span class="abc"><b>G</b>チキン</span>
+                    <span class="abc"><b>H</b>ベジタブル</span>
+                    <span class="abc"><b>I</b>サグチキン</span>
+                    <span class="abc"><b>J</b>豆</span>
                 </span>
             </div>
             <div class="board-row">
@@ -889,7 +934,6 @@
 
         <p class="board-out reveal"><span class="nw">この</span><span class="nw">板には、</span><span class="nw">書いてまいりませんでした。</span><span class="nw">ナンも</span><span class="nw">ライスも、</span><span class="nw">おかわりを</span><span class="nw">お申しつけ</span><span class="nw">ください。</span></p>
         <p class="board-out-note reveal"><span class="nw">ドリンクの</span><span class="nw">お替りは</span> +<span class="nw">150円</span> <span class="nw">頂戴し</span><span class="nw">ております。</span></p>
-        <p class="board-jump reveal"><a href="#set"><span class="nwb">A <span class="nw">から</span> J <span class="nw">までの</span><span class="nw">お名前は、</span><span class="nw">お品書きに</span></span></a></p>
     </div>
 </section>
 
@@ -915,10 +959,6 @@
                 <img src="img/naan-tandoori-plate-01.jpg" alt="銀の盆に、切り分けられたナンとタンドリーチキン、串焼き、2種のカレーが並んでいる"
                      width="921" height="691" loading="lazy" decoding="async">
             </figure>
-            <figure class="photo-frame">
-                <img src="img/salad-coleslaw-01.jpg" alt="セットに付くサラダ。千切りの野菜にドレッシングがかかっている"
-                     width="675" height="675" loading="lazy" decoding="async">
-            </figure>
         </div>
     </div>
 </section>
@@ -929,9 +969,9 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <div class="band reveal">
     <div class="photo-frame">
-        <img src="img/tray-naan-curry-triangle-01.jpg"
-             alt="銀の盆に載った大判のナンと、2種のカレー、ライス"
-             width="576" height="768" loading="lazy" decoding="async">
+        <img src="img/curry-keema-set-01.jpg"
+             alt="銀の盆に載った大判のナンとカレー、脇に添えたサラダとお飲みもの"
+             width="1000" height="562" loading="lazy" decoding="async">
     </div>
 </div>
 

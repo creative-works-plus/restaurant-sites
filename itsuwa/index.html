@@ -437,16 +437,19 @@
     /* ══════════════════════════════════════════════════════════════════
        お品書き
        ══════════════════════════════════════════════════════════════════ */
-    .menu-proof { max-width: 300px; margin: 30px auto 0; text-align: center; }
-    .menu-proof .photo-frame { aspect-ratio: 771 / 1024; }
-    .menu-proof figcaption { margin-top: 10px; font-size: .85rem; color: var(--dim); }
+    /* ★2026-08-30：店内のお品書きを撮った一枚を置いていたが、すぐ下に
+       同じ中身を文字で起こしてあり、二度申し上げることになっていたので外した。
+       代わりに、章ごとに実物の写真を添える（.menu-photos）。 */
 
     .subnav {
         position: sticky; top: var(--header-h); z-index: 40;
         background: var(--surface); border-bottom: 1px solid var(--line);
     }
+    /* ★2026-08-30：画面に収まっているのにタブが左へ寄っていた
+       （flex の中身は既定で左そろえのため）。収まるときは中央に置く。 */
     .subnav-inner {
         display: flex; flex-wrap: wrap; gap: 4px 14px; overflow-x: auto;
+        justify-content: safe center;
         max-width: var(--maxw); margin-inline: auto;
         padding-inline: var(--pad-inner);
     }
@@ -480,6 +483,21 @@
     .menu-list .dots { flex: 1 1 16px; min-width: 16px; border-bottom: 1px dotted var(--line-strong); margin: 0 6px; transform: translateY(-5px); }
     .menu-list .price { flex: 0 0 auto; font-weight: 700; white-space: nowrap; }
     .menu-list .price small { display: block; font-weight: 400; font-size: .72rem; color: var(--muted); text-align: right; }
+
+    /* --- 章ごとの写真（build_menu.py が menu.json の "photos" から出す） ------
+       ★2026-08-30 新設：お品書きが品名と値段の行だけで、料理が一枚も見えなかった。
+       章の終わりに、その章の実物を並べる。元写真が 1024px 前後なので、
+       1マスは 340px までに抑える（引き伸ばさない）。 */
+    .menu-photos {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 340px));
+        justify-content: center; gap: 14px; margin-top: 26px;
+    }
+    .menu-photos figure { margin: 0; }
+    .menu-photos .photo-frame { aspect-ratio: 4 / 3; }
+    .menu-photos figcaption {
+        margin-top: 8px; font-size: .78rem; color: var(--muted);
+        letter-spacing: .04em; text-align: center;
+    }
 
     /* ══════════════════════════════════════════════════════════════════
        七福カレーそば・うどん
@@ -762,13 +780,6 @@
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">お品書き</span></h2>
         <p class="section-lead reveal"><span class="nw">そば・</span><span class="nw">うどんに、</span><span class="nw">丼物と</span><span class="nw">ラーメン。</span><span class="nw">毎日の</span><span class="nw">お昼にも</span><span class="nw">夕飯にも</span><span class="nw">使って</span><span class="nw">いただけるよう、</span><span class="nw">品数をそろえ</span><span class="nw">ております。</span></p>
-
-        <figure class="menu-proof reveal">
-            <div class="photo-frame">
-                <img src="img/oshinagaki-midori-01.jpg" alt="店内に掲げている緑色のお品書き。そば・うどん、丼、季節メニュー、変わりメニューの品名と価格が並ぶ" width="771" height="1024" loading="lazy" decoding="async">
-            </div>
-            <figcaption><span class="nw">店内に</span><span class="nw">掲げている</span><span class="nw">お品書きです。</span></figcaption>
-        </figure>
     </div>
 </section>
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
@@ -783,7 +794,7 @@
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">価格の入っていない品は、店内の品書きでご確認ください。お電話でもお答えいたします。</div>
+        <div class="lead-box reveal"><span class="nw">価格の</span><span class="nw">入っていない</span><span class="nw">品は、</span><span class="nw">店内の</span><span class="nw">品書きで</span><span class="nw">ご確認</span><span class="nw">ください。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></div>
 
         <div class="menu-block reveal" id="soba-udon">
             <div class="menu-head"><h2><span class="nw">そば・</span><span class="nw">うどん</span>類</h2></div>
@@ -822,6 +833,29 @@
                     <li><span class="name"><span class="nw">おみやげうどん・</span><span class="nw">そば</span></span><span class="dots"></span><span class="price"><span class="nw">480円</span></span></li>
                 </ul>
             </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-mori-soba-zen-05.jpg" alt="せいろに盛ったそばに刻み海苔をのせ、つゆの器を添えて"
+                             width="1024" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">ざる</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-tenpura-soba-01.jpg" alt="温かいそばに、海老の天ぷらと青菜、なるとをのせて"
+                             width="768" height="1024" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">天ぷら</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-kakitama-soba-01.jpg" alt="温かいそばに、卵とねぎ、なるとをのせて"
+                             width="1024" height="576" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">月見</span></figcaption>
+                </figure>
+            </div>
         </div>
 
         <div class="menu-block reveal" id="don">
@@ -841,19 +875,37 @@
                     <li><span class="name"><span class="nw">チャーシュー</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
                 </ul>
             </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-tendon-02.jpg" alt="重箱に盛った天丼。刻み海苔をのせて"
+                             width="1024" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">天丼</span></figcaption>
+                </figure>
+            </div>
         </div>
 
         <div class="menu-block reveal" id="kisetsu">
             <div class="menu-head"><h2><span class="nw">季節の</span><span class="nw">お品</span></h2></div>
             <div class="menu-grid">
-                <ul class="menu-list">
+                <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">冷たぬき</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
                     <li><span class="name"><span class="nw">冷麦</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
                 </ul>
-                <ul class="menu-list">
+                <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">冷し</span><span class="nw">中華</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
                     <li><span class="name"><span class="nw">冷きつね</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
                 </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-hiya-tanuki-01.jpg" alt="冷たいうどんに揚げ玉とハム、きゅうり、かまぼこ、レモンを添えて"
+                             width="1100" height="824" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">冷たぬき</span></figcaption>
+                </figure>
             </div>
         </div>
 
@@ -874,6 +926,22 @@
                     <li><span class="name"><span class="nw">冷とろ</span><span class="nw">セイロ</span></span><span class="dots"></span><span class="price"><span class="nw">810円</span></span></li>
                     <li><span class="name"><span class="nw">きのこ</span><span class="nw">汁セイロ</span></span></li>
                 </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-tenpura-zen-01.jpg" alt="せいろのそばと、なすや野菜を煮込んだ汁の椀を組み合わせた膳"
+                             width="1024" height="498" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">汁セイロ</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/dish-shichifuku-curry-close-01.jpg" alt="七福カレーそば。揚げと野菜を煮込んだカレーのつゆ"
+                             width="1024" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">七福カレーそば</span></figcaption>
+                </figure>
             </div>
         </div>
     </div>

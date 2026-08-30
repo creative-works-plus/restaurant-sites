@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/atago/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/atago/img/entrance-carved-atago-01.webp">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/atago/img/entrance-noren-01.webp">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -37,7 +37,7 @@
       "servesCuisine": "日本料理",
       "telephone": "+81-280-98-2480",
       "url": "https://creative-works-plus.github.io/restaurant-sites/atago/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/atago/img/entrance-carved-atago-01.webp",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/atago/img/entrance-noren-01.webp",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -491,7 +491,7 @@
     .hero { display: flex; align-items: center; background: var(--bg); padding-block: clamp(28px, 6vw, 48px); }
     .hero-grid {
         display: grid; grid-template-columns: 1fr 0.72fr; gap: var(--gap); align-items: stretch;
-        min-height: min(86svh, 780px);
+        min-height: min(76svh, 660px);
     }
     .hero-left { display: flex; flex-direction: column; justify-content: center; gap: 14px; }
     .hero-eyebrow {
@@ -502,36 +502,15 @@
         font-family: var(--font-head); font-weight: 600; color: var(--ink);
         font-size: clamp(2rem, 6vw, 2.8rem); letter-spacing: .06em; line-height: 1.1; margin: 0;
     }
-    .hero-catch { color: var(--muted); font-size: clamp(.95rem, 2.6vw, 1.05rem); margin: 0; }
+    .hero-catch {
+        color: var(--ink); font-family: var(--font-head); font-weight: 500;
+        font-size: clamp(1.15rem, 3.4vw, 1.55rem); line-height: 1.7; letter-spacing: .04em;
+        margin: 6px 0 2px;
+    }
 
-    /* 署名 A-50「と刺し身の」。★反転面はページ全体で2つだけ（署名の帯／締め）。ここが「署名の帯」 */
-    .hero-sig {
-        display: inline-flex; flex-direction: row; align-items: center; gap: .5em;
-        background: var(--paper); color: var(--paper-ink);
-        border-radius: var(--radius); box-shadow: var(--shadow);
-        padding: 12px 14px; margin-block: 4px;
-        width: fit-content; max-width: 100%; overflow: hidden;
-    }
-    .tail {
-        writing-mode: vertical-rl; text-orientation: mixed;
-        font-family: var(--font-head); font-weight: 600;
-        font-size: clamp(1.5rem, 5.4vw, 2.5rem); letter-spacing: .06em; line-height: 1.15;
-        color: var(--paper-ink); flex: 0 0 auto;
-    }
-    .tail-accent { color: var(--accent-on-paper); }
-    .dish-wrap { position: relative; display: flex; flex-direction: row; align-items: flex-start; gap: .5em; flex: 0 0 auto; padding-left: 27px; }
-    .brace-box { position: absolute; left: 0; top: 0; bottom: 0; width: 22px; }
-    .brace { display: block; width: 100%; height: 100%; color: var(--accent);
-             stroke-dasharray: 300; stroke-dashoffset: 300;
-             transition: stroke-dashoffset .9s cubic-bezier(.16,.7,.3,1); }
-    .in-view .brace, .reveal.in-view .brace { stroke-dashoffset: 0; }
-    .dish-cols { display: flex; flex-direction: row; align-items: flex-start; gap: .55em; flex: 0 0 auto; }
-    .dish {
-        writing-mode: vertical-rl; text-orientation: mixed;
-        font-family: var(--font-head); font-weight: 400; line-height: 1.15;
-        font-size: clamp(.86rem, 2.6vw, 1.02rem); color: var(--paper-ink);
-        height: auto;
-    }
+    /* ★2026-08-30 改訂：ヒーローに「主菜8品＋朱の括弧＋と刺し身の定食」という図を
+       置いていたが、何を表した図なのかが伝わらなかった（説明のための図＝絶対ルール⑫）。
+       図はやめて、キャッチの一文を主役に据え、品数は下の一行で申し上げる。 */
     .sig-note { color: var(--muted); font-size: .92rem; margin: 0; }
     .hero-sub { color: var(--muted); font-size: .95rem; margin: 0; }
 
@@ -555,7 +534,9 @@
     .band-text { padding-top: clamp(28px, 5vw, 44px); }
 
     /* --- 刺し身の一皿：1枚を大きく ------------------------------------------ */
-    .feature-photo { margin-top: 20px; max-width: 800px; }
+    /* ★2026-08-30：一皿が遠く小さく写っていたので、器いっぱいまで寄せて切り直した。
+       元が 693px しかないので、枠の上限もそこまでに抑える（引き伸ばさない） */
+    .feature-photo { margin-top: 20px; max-width: 693px; }
     .feature-photo .photo-frame { aspect-ratio: 4 / 3; }
 
     /* --- お食事（定食）4枚を横一列・1:1 ------------------------------------- */
@@ -592,7 +573,13 @@
         background: var(--surface); border-block: 1px solid var(--line);
         overflow-x: auto; -webkit-overflow-scrolling: touch;
     }
-    .subnav-inner { display: flex; gap: 4px; padding-inline: var(--pad-inner); }
+    /* ★2026-08-30：タブが画面に収まっているのに左へ寄っていた。
+       `width: max-content` の中身は既定で左そろえになるため。
+       収まるときは中央、あふれるときだけ横スクロールにする */
+    .subnav-inner {
+        display: flex; gap: 4px; width: max-content; min-width: 100%;
+        justify-content: center; padding-inline: var(--pad-inner);
+    }
     .subnav a { color: var(--muted); font-size: .86rem; border-right: 1px solid var(--line); white-space: nowrap; }
     .subnav a:last-child { border-right: 0; }
     .menu-block { padding-block: clamp(36px, 6vw, 56px); border-top: 1px solid var(--line); }
@@ -730,29 +717,8 @@
         <div class="hero-left">
             <p class="hero-eyebrow">ATAGO</p>
             <h1 class="hero-name"><span class="nw">あたご</span></h1>
-            <p class="hero-catch"><span class="nw">当店の</span><span class="nw">お品書きは、</span><span class="nw">この</span><span class="nw">形で</span><span class="nw">ございます。</span></p>
+            <p class="hero-catch"><span class="nw">刺し</span><span class="nw">身の</span><span class="nw">一皿が</span><span class="nw">付く、</span><span class="nw">お食事処で</span><span class="nw">ございます。</span></p>
 
-            <!-- 署名 A-50「と刺し身の」。8列の主菜（右から左）＋朱の括弧＋「と刺し身の定食」 -->
-            <div class="hero-sig reveal">
-                <span class="tail">と<span class="tail-accent">刺し身</span>の定食</span>
-                <div class="dish-wrap">
-                    <div class="brace-box">
-                        <svg class="brace" viewBox="0 0 24 200" preserveAspectRatio="none" aria-hidden="true">
-                            <path d="M20 2 C10 2 14 96 4 100 C14 104 10 198 20 198" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <div class="dish-cols">
-                        <span class="dish">焼肉</span>
-                        <span class="dish">からあげ</span>
-                        <span class="dish">ミックスフライ</span>
-                        <span class="dish">えびフライ</span>
-                        <span class="dish">ひれカツ</span>
-                        <span class="dish">とんかつ</span>
-                        <span class="dish">焼さば</span>
-                        <span class="dish">焼き魚</span>
-                    </div>
-                </div>
-            </div>
             <p class="sig-note"><span class="nw">お食事は</span><span class="nw">十二品。</span><span class="nw">そのうち</span><span class="nw">八品に、</span><span class="nw">刺し</span><span class="nw">身の</span><span class="nw">一皿を</span><span class="nw">お付けし</span><span class="nw">ております。</span></p>
             <p class="hero-sub"><span class="nw">古河市上大野、</span><span class="nw">お食事処あたごで</span><span class="nw">ございます。</span></p>
 
@@ -773,9 +739,9 @@
 
         <div class="hero-photo">
             <div class="photo-frame">
-                <img src="img/entrance-carved-atago-01.webp"
-                     alt="軒の一枚板に彫られた「愛宕」の看板と、藍地に白で「あたご」と染めた暖簾、格子の引き戸"
-                     width="768" height="1024" loading="eager" fetchpriority="high" decoding="async">
+                <img src="img/entrance-noren-01.webp"
+                     alt="藍地に白で「あたご」と染めた暖簾の掛かった入口"
+                     width="1024" height="768" loading="eager" fetchpriority="high" decoding="async">
             </div>
         </div>
     </div>
@@ -819,8 +785,8 @@
         <p class="reveal"><span class="nw">カウンターの</span><span class="nw">内に、</span><span class="nw">ネタの</span><span class="nw">ケースを</span><span class="nw">構え</span><span class="nw">ております。</span><span class="nw">定食に</span><span class="nw">お付けする</span><span class="nw">刺し</span><span class="nw">身は、</span><span class="nw">ここから</span><span class="nw">引いて</span><span class="nw">お出しする</span><span class="nw">もので</span><span class="nw">ございます。</span><span class="nw">刺し</span><span class="nw">身だけの</span><span class="nw">定食も</span><span class="nw">ございます。</span></p>
         <div class="feature-photo reveal">
             <div class="photo-frame">
-                <img src="img/sashimi-plate-01.webp" alt="白身魚と貝の刺し身。大葉とわさびを添えて"
-                     width="800" height="600" loading="lazy" decoding="async">
+                <img src="img/sashimi-plate-01.webp" alt="白身魚といかの刺し身。大葉と妻、わさびを添えて"
+                     width="693" height="520" loading="lazy" decoding="async">
             </div>
         </div>
     </div>
@@ -1106,8 +1072,8 @@
 
         <div class="info-photo reveal">
             <div class="photo-frame">
-                <img src="img/entrance-noren-01.webp" alt="藍地に白で「あたご」と染めた暖簾と、軒下の「愛宕」の彫り看板、赤い「いらっしゃいませ」のマット"
-                     width="1024" height="768" loading="lazy" decoding="async">
+                <img src="img/exterior-signboard-noren-01.webp" alt="「寿司 天ぷら｜お食事処あたご｜うなぎ 手打そば」の看板を掲げた店の外観。軒下に藍地の暖簾が掛かる"
+                     width="597" height="796" loading="lazy" decoding="async">
             </div>
         </div>
     </div>

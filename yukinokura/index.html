@@ -518,6 +518,10 @@
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent-deep); }
     .btn-block { width: 100%; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-4); }
+    /* 節の末尾に置くボタン。直前のカードや写真から離して、中央に置く */
+    .hero-actions.section-cta { margin-top: var(--sp-6); justify-content: center; }
+    /* 電話を1行目、お品書きの2つを2行目に並べる（半端な折り返しを作らない） */
+    .hero-subactions { flex: 1 0 100%; display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 
     /* ── ヘッダー ─────────────────────────────────────────────────── */
     .site-header {
@@ -603,7 +607,7 @@
     @media (max-width: 900px) {
         .hero { min-height: 0; padding-block: var(--sp-5); }
         .hero > .container { gap: var(--sp-4); }
-        .hero-plate { width: min(84%, 320px); }
+        .hero-plate { width: min(88%, 360px); }
     }
     .hero-copy { position: relative; z-index: 2; }
     .status-chip { background: var(--surface); color: var(--muted); margin-bottom: var(--sp-3); }
@@ -628,21 +632,26 @@
         padding: 9px 18px; border-radius: 999px; font-size: clamp(14px, 3.6vw, 16px);
     }
 
-    /* 皿：写真の円のうしろに、実物と同じ縞をCSSで描いて外へ広げる */
-    .hero-plate { position: relative; justify-self: center; width: min(100%, 460px); aspect-ratio: 1 / 1; }
+    /* ★2026-08-30 改訂：円い写真のうしろに扇（円錐グラデーション）を広げていたが、
+       無料テンプレートの「放射」そのもので、店の格が下がって見えた。
+       写真は角丸の面で大きく置き、署名の縞は写真の下の細い帯としてだけ残す。
+       元写真は 1024×1024 なので、表示幅の上限を 500px にして2倍を確保する。 */
+    .hero-plate { position: relative; justify-self: center; width: min(100%, 500px);
+                  margin-right: 22px; margin-bottom: 22px; }  /* 敷き紙のはみ出しぶん */
+    /* 写真の背後にずらして置く「敷き紙」。奥行きだけを作り、絵は描かない */
     .hero-plate::before {
-        content: ''; position: absolute; inset: -14%; border-radius: 50%;
-        background: var(--stripe);
-        opacity: .55;
-        -webkit-mask-image: radial-gradient(circle, #000 52%, rgba(0,0,0,.35) 74%, transparent 88%);
-                mask-image: radial-gradient(circle, #000 52%, rgba(0,0,0,.35) 74%, transparent 88%);
+        content: ''; position: absolute; inset: 22px -22px -22px 22px;
+        border-radius: 22px; background: var(--surface);
+        box-shadow: 0 26px 60px rgba(120, 60, 35, .14);
     }
     .hero-photo {
-        position: absolute; inset: 8%; border-radius: 50%; overflow: hidden;
-        border: 6px solid var(--surface);
-        box-shadow: 0 22px 50px rgba(120, 60, 35, .22);
+        position: relative; aspect-ratio: 1 / 1; border-radius: 22px; overflow: hidden;
+        box-shadow: 0 18px 44px rgba(120, 60, 35, .20);
     }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    @media (max-width: 900px) {
+        .hero-plate::before { inset: 16px -16px -16px 16px; }
+    }
 
     /* ── ページ見出し（サブページのヒーロー。全画面にしない） ─────────────── */
     .hero.page-head {
@@ -901,6 +910,7 @@
     <div class="container">
         <div class="hero-copy">
             <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+            <div class="stripe-rule" aria-hidden="true"></div>
             <h1 class="hero-name"><span class="sub">Y U K I N O K U R A</span><span class="nw">ごはん</span>家 <span class="nw">遊季の</span>蔵</h1>
             <p class="hero-lead"><span class="nw">茨城県古河市下辺見の</span><span class="nw">食堂です。</span><br class="br-pc">
                 <span class="nw">昼は</span><span class="nw">定食と</span><span class="nw">丼もの、</span><span class="nw">夜は</span><span class="nw">お刺身と</span><span class="nw">一品に</span><span class="nw">お酒を。</span></p>
@@ -919,8 +929,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
                 0280-31-2238｜ご予約はこちら
             </a>
-            <a href="lunch.html" class="btn btn-ghost">昼の定食</a>
-            <a href="dinner.html" class="btn btn-ghost">夜のお品書き</a>
+            <span class="hero-subactions">
+                <a href="lunch.html" class="btn btn-ghost">昼の定食</a>
+                <a href="dinner.html" class="btn btn-ghost">夜のお品書き</a>
+            </span>
         </div>
     </div>
 </section>
@@ -1005,7 +1017,7 @@
             </figure>
         </div>
 
-        <div class="hero-actions reveal">
+        <div class="hero-actions section-cta reveal">
             <a href="lunch.html" class="btn btn-ghost">昼のお品書きを見る</a>
         </div>
     </div>
@@ -1043,7 +1055,7 @@
                 <p><span class="nw">150分の</span><span class="nw">飲み</span><span class="nw">放題を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">ノンアルコールの</span><span class="nw">カクテルも</span><span class="nw">ございます。</span></p></div>
         </div>
 
-        <div class="hero-actions reveal">
+        <div class="hero-actions section-cta reveal">
             <a href="dinner.html" class="btn btn-ghost">夜のお品書きを見る</a>
             <a href="drink.html" class="btn btn-ghost">お飲みものを見る</a>
         </div>
@@ -1159,7 +1171,7 @@
         </div>
 
         <!-- ★末尾の予約導線（必須） -->
-        <div class="hero-actions" style="margin-top:24px;">
+        <div class="hero-actions section-cta">
             <a href="tel:0280312238" class="btn btn-primary btn-block">お電話でご予約する</a>
         </div>
     </div>

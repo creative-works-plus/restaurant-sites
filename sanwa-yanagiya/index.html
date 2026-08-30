@@ -258,7 +258,8 @@
         background: var(--surface); border-bottom: 1px solid var(--line);
         overflow-x: auto; -webkit-overflow-scrolling: touch;
     }
-    .subnav-inner { display: flex; gap: var(--sp-3); width: max-content; padding-inline: var(--pad-inner); }
+    /* 収まるときは中央、あふれるときだけ横スクロール */
+    .subnav-inner { display: flex; gap: var(--sp-3); width: max-content; min-width: 100%; justify-content: center; padding-inline: var(--pad-inner); }
     .subnav a {
         min-height: 44px;
         display: inline-flex; align-items: center;
@@ -413,33 +414,13 @@
     }
 
     /* --- 署名：三つの節、一筋のつゆ ------------------------------------------------ */
-    /* F-1：見出しは図の上に置く（グリッドの外）。図の下半分に重さを持たせる（F-3） */
+    /* 見出しはグリッドの外。本文と一枚の写真を左右に置く */
     .signature-title { font-size: var(--fz-h2); color: var(--ink); margin-bottom: var(--sp-4); }
-    .signature-grid { display: grid; grid-template-columns: minmax(240px, 380px) 1fr; gap: var(--gap); align-items: start; }
+    .signature-grid { display: grid; grid-template-columns: 1fr minmax(260px, 440px); gap: var(--gap); align-items: center; }
     @media (max-width: 760px) { .signature-grid { grid-template-columns: 1fr; } }
-    .sig-fig { width: 100%; margin-top: 0; }
-    .sig-svg { width: 100%; max-width: 380px; height: auto; display: block; margin-inline: auto; }
-    @media (max-width: 760px) { .sig-svg { max-width: 320px; } }
-    .sig-svg .strand { fill: none; stroke: var(--tsuyu); stroke-opacity: .7; stroke-width: 3; stroke-linecap: round;
-                        stroke-dasharray: 100; stroke-dashoffset: 100;
-                        transition: stroke-dashoffset .9s cubic-bezier(.2,.7,.3,1); }
-    .sig-svg .join   { fill: none; stroke: var(--tsuyu); stroke-width: 8; stroke-linecap: round;
-                        stroke-dasharray: 100; stroke-dashoffset: 100;
-                        transition: stroke-dashoffset .9s cubic-bezier(.2,.7,.3,1); }
-    .sig-svg.is-drawn .s1 { stroke-dashoffset: 0; transition-delay: 0s; }
-    .sig-svg.is-drawn .s2 { stroke-dashoffset: 0; transition-delay: .12s; }
-    .sig-svg.is-drawn .s3 { stroke-dashoffset: 0; transition-delay: .24s; }
-    .sig-svg.is-drawn .join { stroke-dashoffset: 0; transition-delay: .52s; }
-    @media (prefers-reduced-motion: reduce) {
-        .sig-svg .strand, .sig-svg .join { stroke-dashoffset: 0; transition: none; }
-    }
-    .sig-name { font-size: 15px; fill: var(--ink); font-family: var(--font-body); }
-    .sig-cup  { fill: var(--tsuyu); fill-opacity: .16; stroke: var(--tsuyu); stroke-width: 2; stroke-linejoin: round; }
-    .sig-rim  { stroke: var(--tsuyu); stroke-width: 2; stroke-linecap: round; }
-    .sig-word { font-family: var(--font-head); font-size: 20px; fill: var(--ink); text-anchor: middle; }
-
-    .signature-body p  { color: var(--muted); max-width: 58ch; }
-    .signature-photo { margin-top: var(--blk-y); max-width: 420px; }
+    .signature-body p  { color: var(--muted); max-width: 30em; font-size: clamp(.98rem, 1.35vw, 1.1rem); line-height: 2; }
+    .signature-photo { margin-top: 0; }
+    @media (max-width: 760px) { .signature-photo { margin-top: var(--blk-y); max-width: 420px; } }
 
     /* --- 料理の写真グリッド ------------------------------------------------------- */
     .dish-feature { margin-inline: 0; max-width: 720px; }
@@ -627,34 +608,16 @@
 
         <div class="signature-grid">
 
-            <div class="sig-fig reveal reveal-delay-1">
-                <svg class="sig-svg" viewBox="0 0 320 440" role="img" aria-label="本枯節・鯖節・宗田鰹節の三筋が、一つのつゆに合わさる図">
-                    <text class="sig-name" x="8" y="38" text-anchor="start">本枯節</text>
-                    <text class="sig-name" x="8" y="122" text-anchor="start">鯖節</text>
-                    <text class="sig-name" x="8" y="206" text-anchor="start">宗田鰹節</text>
-
-                    <path class="strand s1" pathLength="100" d="M8,48 C140,60 210,140 232,300"/>
-                    <path class="strand s2" pathLength="100" d="M8,132 C120,140 200,200 232,300"/>
-                    <path class="strand s3" pathLength="100" d="M8,216 C110,230 190,260 232,300"/>
-
-                    <path class="join" pathLength="100" d="M232,300 L232,410"/>
-
-                    <line class="sig-rim" x1="180" y1="406" x2="284" y2="406"/>
-                    <path class="sig-cup" d="M184,410 L280,410 L266,434 L198,434 Z"/>
-                    <text class="sig-word" x="232" y="426">つゆ</text>
-                </svg>
-            </div>
-
-            <div class="signature-body reveal reveal-delay-2">
+            <div class="signature-body reveal reveal-delay-1">
                 <p><span class="nw">当店のつゆは、</span><span class="nw">本枯節・</span><span class="nw">鯖節・</span><span class="nw">宗田鰹節、</span><span class="nw">三つの</span><span class="nw">節から</span><span class="nw">取った</span><span class="nw">出汁で</span><span class="nw">仕立て</span><span class="nw">ております。</span><span class="nw">手打ちのそばに</span><span class="nw">合う</span><span class="nw">ように、</span><span class="nw">節の</span><span class="nw">割合は</span><span class="nw">季節によって</span><span class="nw">変え</span><span class="nw">ております。</span><span class="nw">同じもりそばでも、</span><span class="nw">その</span><span class="nw">時季のつゆで</span><span class="nw">お出しします。</span></p>
-
-                <figure class="signature-photo">
-                    <div class="photo-frame ar-43">
-                        <img src="img/sobayu-pour-01.webp" alt="そば湯を、つゆの入った器へ注ぐところ"
-                             width="1100" height="825" loading="lazy" decoding="async">
-                    </div>
-                </figure>
             </div>
+
+            <figure class="signature-photo reveal reveal-delay-2">
+                <div class="photo-frame ar-43">
+                    <img src="img/sobayu-pour-01.webp" alt="そば湯を、つゆの入った器へ注ぐところ"
+                         width="1100" height="825" loading="lazy" decoding="async">
+                </div>
+            </figure>
 
         </div>
     </div>
@@ -744,7 +707,7 @@
                 <img src="img/bento-tempura-karaage-zaru-03.webp" alt="お重に、天ぷらと唐揚げと、海苔をのせた麺" width="691" height="921" loading="lazy" decoding="async">
             </div><figcaption><span class="nw">お重に、</span><span class="nw">天ぷらと</span><span class="nw">唐揚げと、</span><span class="nw">海苔をのせた</span>麺</figcaption></figure>
             <figure><div class="photo-frame ar-43">
-                <img src="img/tempuradon-soba-set-01.webp" alt="天丼とそばを組み合わせたセット" width="531" height="707" loading="lazy" decoding="async">
+                <img src="img/tempuradon-soba-set-01.webp" alt="天丼とそばを組み合わせたセット" width="707" height="531" loading="lazy" decoding="async">
             </div><figcaption><span class="nw">天丼とそばを</span><span class="nw">組み</span><span class="nw">合わせた</span><span class="nw">セット</span></figcaption></figure>
             <figure><div class="photo-frame ar-43">
                 <img src="img/soba-curry-nasukabocha-02.webp" alt="なす天とかぼちゃ天をのせた麺" width="664" height="498" loading="lazy" decoding="async">
@@ -858,7 +821,7 @@
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">お品書きに載せていないお値段は、店内のお品書きに掲げております。お電話でもお答えいたします。</div>
+        <div class="lead-box reveal"><span class="nw">お品書きに</span><span class="nw">載せていない</span><span class="nw">お値段は、</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げております。</span><span class="nw">お電話でも</span><span class="nw">お答えいたします。</span></div>
 
         <div class="menu-block reveal" id="cold">
             <div class="menu-head"><h2><span class="nw">冷たいそば</span> <span class="nw">又は</span> <span class="nw">うどん</span></h2><span class="yomi">C O L D</span></div>
@@ -1202,25 +1165,6 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
     }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
     revealEls.forEach(function (el) { io.observe(el); });
 }
-
-/* ★署名SVGの描き起こし（一度だけ）。prefers-reduced-motion は CSS 側で既に描かれた状態にしてある */
-var sigSvg = document.querySelector('.sig-svg');
-if (sigSvg) {
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-        sigSvg.classList.add('is-drawn');
-    } else {
-        var sigIo = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-drawn');
-                    sigIo.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.4 });
-        sigIo.observe(sigSvg);
-    }
-}
-
 
 /* --------------------------------------------------------------------------
    4. 営業状況バッジ

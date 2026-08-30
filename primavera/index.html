@@ -489,7 +489,13 @@
         display: block; font-size: clamp(13px, 2.6vw, 16px); color: var(--accent-deep);
         margin-bottom: var(--sp-2);
     }
-    .hero-name { font-size: var(--fz-cap); color: var(--muted); letter-spacing: .08em; margin-top: var(--sp-1); }
+    /* ★2026-08-30：店名より「店の名前は…」の一文のほうが大きく出ていた。
+       いちばん大きいのは店名、その説明はリードの大きさに落とす */
+    .hero-name {
+        font-family: var(--font-ja); font-weight: 700;
+        font-size: clamp(28px, 6.0vw, 46px); line-height: 1.3; letter-spacing: .06em;
+        color: var(--ink); margin-top: var(--sp-1);
+    }
     .lead-box { color: var(--muted); margin-bottom: var(--blk-y); }
 
     /* --- ヘッダー・ナビ --------------------------------------------------------- */
@@ -527,7 +533,8 @@
     .hero .status-chip { background: var(--surface); }
     .hero-copy { display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); max-width: 640px; }
     .hero-title {
-        font-size: var(--fz-hero); color: var(--ink); line-height: 1.32;
+        font-size: clamp(1.02rem, 2.4vw, 1.25rem); color: var(--accent-deep);
+        line-height: 1.85; letter-spacing: .04em; margin-top: var(--sp-2);
     }
     .hero-sub { color: var(--muted); font-size: 1rem; }
     .hero-photo { width: 100%; max-width: 660px; }
@@ -544,20 +551,8 @@
     /* --- 署名章「キタッラの弦」 ------------------------------------------------- */
     .signature { text-align: center; }
     .signature .section-title { max-width: 22ch; margin-inline: auto; }
-    .chitarra-wrap { width: min(560px, 92vw); margin: var(--blk-y) auto 0; }
-    .chitarra-svg { width: 100%; height: auto; display: block; overflow: visible; }
-    .chitarra-frame-outer { fill: none; stroke: var(--accent-deep); stroke-width: 7; }
-    .chitarra-frame-inner { fill: none; stroke: var(--accent-deep); stroke-width: 2; opacity: .55; }
-    .chitarra-dough { fill: #E3CFAE; opacity: .55; stroke: none; }
-    .chitarra-string { fill: none; stroke: var(--accent); stroke-width: 2.2; opacity: .95;
-        stroke-dasharray: 300; stroke-dashoffset: 300;
-        transition: stroke-dashoffset .8s cubic-bezier(.2,.7,.2,1); }
-    .chitarra-string--hi { stroke: var(--hi); stroke-width: 4; opacity: 1; }
-    .chitarra-wrap.in-view .chitarra-string { stroke-dashoffset: 0; }
-    .no-js .chitarra-string { stroke-dashoffset: 0 !important; transition: none; }
-    @media (prefers-reduced-motion: reduce) {
-        .chitarra-string { stroke-dashoffset: 0 !important; transition: none !important; }
-    }
+    /* ★2026-08-30：キタッラ（弦を張った道具）を線で描いた図を置いていたが、
+       説明のための図は使わない規約（絶対ルール⑫）。実物の麺の写真で見せる */
     .signature-text { max-width: 62ch; margin: var(--blk-y) auto 0; text-align: left; }
     .signature-text p + p { margin-top: var(--sp-3); }
 
@@ -636,18 +631,29 @@
     .menu-photos .photo-frame { width: 150px; aspect-ratio: 1 / 1; }
     .menu-photos figcaption { display: block; font-size: var(--fz-cap); color: var(--muted); margin-top: var(--sp-1); text-align: center; }
     .lead-box { max-width: 68ch; }
+    /* ★2026-08-30 改訂：17章のタブが下線だけの文字列で全幅に散っていたため、
+       「並べただけ」に見えていた。中身の幅を本文と同じ --maxw にそろえ、
+       札（ピル）の形にして、行を折り返しても列として読めるようにする。 */
     .subnav {
         position: sticky; top: var(--header-h); z-index: 40; background: rgba(244,234,221,.94);
-        backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); overflow-x: auto;
+        backdrop-filter: blur(6px); border-block: 1px solid var(--line);
     }
-    .subnav-inner { display: flex; gap: 4px; padding-inline: var(--pad-inner); width: max-content; }
-    .subnav a { color: var(--muted); font-size: .84rem; border-bottom: 2px solid transparent; }
-    .subnav a:hover { color: var(--accent-deep); border-color: var(--accent); }
-    /* PCでは17章を折り返して2段に畳む（横スクロールだと後半の章に辿り着けない） */
-    @media (min-width: 900px) {
-        .subnav-inner { flex-wrap: wrap; width: auto; justify-content: center; row-gap: 0; column-gap: 2px; }
-        .subnav a { font-size: .8rem; padding-inline: 7px; }
+    .subnav-inner {
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+        width: 100%; max-width: var(--maxw); margin-inline: auto;
+        padding: 12px var(--pad-inner);
     }
+    .subnav a {
+        padding: 6px 15px; border-radius: 999px;
+        border: 1px solid var(--line-strong); background: var(--surface);
+        color: var(--ink); font-size: .82rem; letter-spacing: .02em;
+        transition: border-color .2s ease, color .2s ease, background .2s ease;
+    }
+    .subnav a:hover { border-color: var(--accent); color: var(--accent-deep); background: #fff; }
+    /* お品書きの章立ての頭 */
+    .menu-intro { text-align: center; }
+    .menu-intro .section-title { margin-top: var(--sp-2); }
+    .menu-intro .lead-box { max-width: 60ch; margin-inline: auto; margin-bottom: 0; }
 
     /* --- アクセス・店舗情報（骨格の#info） ----------------------------------------- */
     .access-photo { width: 100%; max-width: 780px; margin-bottom: var(--blk-y); }
@@ -727,8 +733,8 @@
 
         <div class="hero-copy">
             <span class="eyebrow lang-en reveal">TRATTORIA PRIMAVERA</span>
-            <p class="hero-name reveal"><span class="nw">トラットリア</span> <span class="nw">プリマベーラ</span></p>
-            <h1 class="hero-title reveal"><span class="nw">店の</span><span class="nw">名前は、</span><span class="nw">イタリア語で</span><span class="nw">「春」といいます。</span></h1>
+            <h1 class="hero-name reveal"><span class="nw">トラットリア</span> <span class="nw">プリマベーラ</span></h1>
+            <p class="hero-title reveal"><span class="nw">店の</span><span class="nw">名前は、</span><span class="nw">イタリア語で</span><span class="nw">「春」といいます。</span></p>
             <p class="hero-sub reveal"><span class="nw">季節がめぐるたびに</span><span class="nw">品書きの</span><span class="nw">替わる、</span><span class="nw">古河の</span><span class="nw">トラットリアで</span><span class="nw">ございます。</span></p>
         </div>
 
@@ -775,28 +781,6 @@
     <div class="container">
         <span class="eyebrow lang-en reveal">CHITARRA</span>
         <h2 class="section-title reveal"><span class="nw">「ギター」という</span><span class="nw">名前の</span><span class="nw">道具で、</span><span class="nw">麺を</span><span class="nw">切ります</span></h2>
-
-        <figure class="chitarra-wrap reveal" aria-hidden="true">
-            <svg class="chitarra-svg" viewBox="0 0 560 300">
-                <rect class="chitarra-frame-outer" x="8" y="40" width="544" height="220"/>
-                <rect class="chitarra-frame-inner" x="22" y="54" width="516" height="192"/>
-                <line class="chitarra-string" x1="62" y1="40" x2="62" y2="260"/>
-                <line class="chitarra-string" x1="95" y1="40" x2="95" y2="260"/>
-                <line class="chitarra-string" x1="128" y1="40" x2="128" y2="260"/>
-                <line class="chitarra-string" x1="161" y1="40" x2="161" y2="260"/>
-                <line class="chitarra-string" x1="194" y1="40" x2="194" y2="260"/>
-                <line class="chitarra-string" x1="227" y1="40" x2="227" y2="260"/>
-                <line class="chitarra-string chitarra-string--hi" x1="260" y1="40" x2="260" y2="260"/>
-                <line class="chitarra-string" x1="293" y1="40" x2="293" y2="260"/>
-                <line class="chitarra-string" x1="326" y1="40" x2="326" y2="260"/>
-                <line class="chitarra-string" x1="359" y1="40" x2="359" y2="260"/>
-                <line class="chitarra-string" x1="392" y1="40" x2="392" y2="260"/>
-                <line class="chitarra-string" x1="425" y1="40" x2="425" y2="260"/>
-                <line class="chitarra-string" x1="458" y1="40" x2="458" y2="260"/>
-                <line class="chitarra-string" x1="491" y1="40" x2="491" y2="260"/>
-                <rect class="chitarra-dough" x="22" y="90" width="516" height="120"/>
-            </svg>
-        </figure>
 
         <div class="tile-grid tile-grid--4 reveal" style="margin-top:var(--blk-y);">
             <figure class="tile-fig">
@@ -918,9 +902,11 @@
      お品書き（17章107品・build_menu.py --no-price）
      menu:auto:start 〜 menu:auto:end は build_menu.py が書き換える
      ══════════════════════════════════════════════════════════════════════ -->
-<section class="section" id="menu" style="padding-bottom:0;">
-    <div class="container">
+<section class="section" id="menu" style="padding-bottom:var(--blk-y);">
+    <div class="container menu-intro">
+        <span class="eyebrow lang-en reveal">MEN&Ugrave;</span>
         <h2 class="section-title reveal"><span class="nw">お品書き</span></h2>
+        <div class="lead-box reveal" style="margin-top:var(--sp-4);"><span class="nw">アンティパストから</span><span class="nw">パスタ、</span><span class="nw">ピッツァ、</span><span class="nw">魚と</span><span class="nw">肉の</span><span class="nw">皿、</span><span class="nw">ドルチェ、</span><span class="nw">イタリアの</span><span class="nw">ワインまで、</span><span class="nw">ひととおりを</span><span class="nw">揃えて</span><span class="nw">おります。</span></div>
     </div>
 </section>
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
@@ -948,7 +934,7 @@
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">お値段は店内のお品書きに掲げております。お電話でもお答えいたします。<br><br>アンティパストからパスタ、ピッツァ、魚と肉の皿、ドルチェ、イタリアのワインまで、ひととおりを揃えております。旬の食材を使用しておりますので、お料理によっては内容が変わる場合がございます。本日の魚料理・肉料理は、黒板をご覧ください。</div>
+        <div class="lead-box reveal"><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げております。</span><span class="nw">お電話でも</span><span class="nw">お答えいたします。</span><span class="nw">旬の食材を</span><span class="nw">使用して</span><span class="nw">おりますので、</span><span class="nw">お料理に</span><span class="nw">よっては</span><span class="nw">内容が</span><span class="nw">変わる場合が</span><span class="nw">ございます。</span><span class="nw">本日の</span><span class="nw">魚料理・肉料理は、</span><span class="nw">黒板を</span><span class="nw">ご覧ください。</span></div>
 
         <div class="menu-block reveal" id="menu-lunch">
             <div class="menu-head"><h2><span class="nw">ランチ</span></h2><span class="yomi">P R A N Z O</span></div>
@@ -1289,9 +1275,9 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="about">
     <div class="container">
-        <div class="title-wrap"><h2 class="section-title reveal"><span class="nw">小さな</span><span class="nw">店で</span><span class="nw">ございます</span></h2></div>
+        <div class="title-wrap"><h2 class="section-title reveal"><span class="nw">目の</span><span class="nw">届く</span><span class="nw">二十席で</span><span class="nw">ございます</span></h2></div>
         <div class="signature-text reveal" style="margin-top:var(--blk-y);">
-            <p><span class="nw">目の</span><span class="nw">届く</span><span class="nw">分だけ、</span><span class="nw">お作りし</span><span class="nw">ております。</span><span class="nw">20席の</span><span class="nw">店で</span><span class="nw">ございます。</span><span class="nw">貸切の</span><span class="nw">ご相談も</span><span class="nw">承ります</span><span class="nw">ので、</span><span class="nw">お気軽に</span><span class="nw">お電話ください。</span><span class="nw">店のわきには</span><span class="nw">小さな</span><span class="nw">庭も</span><span class="nw">ございます。</span></p>
+            <p><span class="nw">目の</span><span class="nw">届く</span><span class="nw">分だけ、</span><span class="nw">お作りし</span><span class="nw">ております。</span><span class="nw">貸切の</span><span class="nw">ご相談も</span><span class="nw">承ります</span><span class="nw">ので、</span><span class="nw">お気軽に</span><span class="nw">お電話ください。</span><span class="nw">店のわきには</span><span class="nw">小さな</span><span class="nw">庭も</span><span class="nw">ございます。</span></p>
         </div>
 
         <figure class="about-photo reveal">

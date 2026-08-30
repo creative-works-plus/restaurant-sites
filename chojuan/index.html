@@ -642,7 +642,13 @@
     .subnav { position: sticky; top: var(--header-h); z-index: 40;
               background: rgba(247, 250, 252, 0.94); backdrop-filter: blur(4px);
               border-bottom: 1px solid var(--line); overflow-x: auto; }
-    .subnav-inner { display: flex; gap: 4px; padding-inline: var(--pad-inner); }
+    /* ★2026-08-30：タブが画面に収まっているのに左へ寄っていた。
+       `width: max-content` の中身は既定で左そろえになるため。
+       収まるときは中央、あふれるときだけ横スクロールにする */
+    .subnav-inner {
+        display: flex; gap: 4px; width: max-content; min-width: 100%;
+        justify-content: center; padding-inline: var(--pad-inner);
+    }
     .subnav a { color: var(--muted); font-size: 0.86rem; white-space: nowrap; }
     .subnav a:hover { color: var(--accent-deep); }
     @media (max-width: 620px) { .menu-grid { grid-template-columns: 1fr; } }
