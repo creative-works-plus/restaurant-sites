@@ -685,6 +685,9 @@
     }
     .menu-photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 20px; }
     .menu-photos .photo-frame { aspect-ratio: 4 / 3; }
+    /* 写真が1枚しかない章では、グリッドの1列が本文幅いっぱいに広がって
+       元写真より大きく引き伸ばされる（check_upscale.py が拾う）。幅で止める */
+    .menu-photos > figure:only-child { max-width: 460px; }
     /* 黒皿＋黒背景のスタジオ写真で、地 #17181A と溶けて空のカードに見えるので寄せて持ち上げる */
     .menu-photos .photo-frame img[src*="shop-chashu-studio"] {
         transform: scale(1.4); filter: brightness(1.12) contrast(1.04);
@@ -1059,11 +1062,11 @@
         </div>
 
         <ol class="rank reveal">
-            <li><span class="no">1</span><span class="item"><span class="nw">坦々もつ</span>煮</span><span class="yen"><span class="nw">830円</span></span></li>
-            <li><span class="no">2</span><span class="item"><span class="nw">もつ</span><span class="nw">煮込み</span></span><span class="yen"><span class="nw">680円</span></span></li>
-            <li><span class="no">3</span><span class="item"><span class="nw">もつ</span><span class="nw">唐弁当</span><span class="nw">（もつ</span><span class="nw">煮＋</span><span class="nw">から</span><span class="nw">揚げ）</span></span><span class="yen"><span class="nw">900円</span></span></li>
-            <li><span class="no">4</span><span class="item"><span class="nw">もつ</span><span class="nw">ライス</span></span><span class="yen"><span class="nw">680円</span></span></li>
-            <li><span class="no">5</span><span class="item"><span class="nw">チャー</span><span class="nw">唐弁当</span><span class="nw">（チャーシュー＋</span><span class="nw">から</span><span class="nw">揚げ）</span></span><span class="yen"><span class="nw">950円</span></span></li>
+            <li><span class="no">1</span><span class="item"><span class="nw">坦々もつ</span>煮</span><span class="yen"><span class="nw">970円</span></span></li>
+            <li><span class="no">2</span><span class="item"><span class="nw">もつ</span><span class="nw">煮込み</span></span><span class="yen"><span class="nw">820円</span></span></li>
+            <li><span class="no">3</span><span class="item"><span class="nw">もつから弁当</span><span class="nw">（もつ煮＋</span><span class="nw">唐あげ）</span></span><span class="yen"><span class="nw">1,000円</span></span></li>
+            <li><span class="no">4</span><span class="item"><span class="nw">もつ</span><span class="nw">ライス</span></span><span class="yen"><span class="nw">800円</span></span></li>
+            <li><span class="no">5</span><span class="item"><span class="nw">チャーから弁当</span><span class="nw">（チャーシュー＋</span><span class="nw">唐あげ）</span></span><span class="yen"><span class="nw">1,100円</span></span></li>
         </ol>
     </div>
 </section>
@@ -1080,26 +1083,26 @@
         <a href="#menu-motsuni">もつ煮・おつまみ</a>
         <a href="#menu-bento">お弁当・ごはん</a>
         <a href="#menu-frozen">冷凍パック</a>
+        <a href="#menu-chashu">チャーシュー</a>
         <a href="#menu-gentei">限定</a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">すべてお持ち帰りのお値段です。ご注文をいただいてからお詰めしますので、お急ぎのときは先にお電話をいただけますと助かります。数に限りがございますので、確実にお求めの際はお電話が確かです。価格は変更になる場合がございます。</div>
+        <div class="lead-box reveal"><span class="nw">すべて</span><span class="nw">お持ち</span><span class="nw">帰りの</span><span class="nw">お値段です。</span><span class="nw">ご注文を</span><span class="nw">いただいてから</span><span class="nw">お詰めします</span><span class="nw">ので、</span><span class="nw">お急ぎの</span><span class="nw">ときは</span><span class="nw">先に</span><span class="nw">お電話を</span><span class="nw">いただけますと</span><span class="nw">助かります。</span><span class="nw">数に</span><span class="nw">限りが</span><span class="nw">ございます</span><span class="nw">ので、</span><span class="nw">確実に</span><span class="nw">お求めの</span><span class="nw">際は</span><span class="nw">お電話が</span><span class="nw">確かです。</span><span class="nw">価格は</span><span class="nw">変更になる</span><span class="nw">場合が</span><span class="nw">ございます。</span></div>
 
         <div class="menu-block reveal" id="menu-motsuni">
             <div class="menu-head"><h2><span class="nw">もつ</span><span class="nw">煮とおつまみ</span></h2><span class="yomi">MOTSUNI</span></div>
             <p class="menu-note"><span class="nw">もつ</span><span class="nw">煮込みと</span><span class="nw">坦々もつ</span><span class="nw">煮は、</span><span class="nw">蓋つきの</span><span class="nw">カップに</span><span class="nw">お入れします。</span><span class="nw">薬味の</span><span class="nw">白髪ねぎは</span><span class="nw">別の</span><span class="nw">容器で</span><span class="nw">お付けします。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span><span class="nw">（1人前）</span></span><span class="dots"></span><span class="price"><span class="nw">680円</span><small><span class="nw">2人前</span> <span class="nw">1,360円</span></small></span></li>
-                    <li><span class="name"><span class="nw">坦々もつ</span>煮<span class="nw">（1人前）</span><span class="desc"><span class="nw">元祖坦々もつ</span><span class="nw">煮。</span><span class="nw">当店で</span><span class="nw">一番出ております</span></span></span><span class="dots"></span><span class="price"><span class="nw">830円</span><small><span class="nw">2人前</span> <span class="nw">1,660円</span></small></span></li>
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">塩・</span><span class="nw">味噌・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span><span class="dots"></span><span class="price"><span class="nw">630円</span></span></li>
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span> <span class="nw">ハーフ＆</span><span class="nw">ハーフ</span><span class="desc"><span class="nw">二つの</span><span class="nw">味を</span><span class="nw">半分ずつ</span></span></span><span class="dots"></span><span class="price"><span class="nw">630円</span></span></li>
-                    <li><span class="name"><span class="nw">からあげ</span><span class="nw">（5個）</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
-                    <li><span class="name"><span class="nw">甘だれ</span><span class="nw">唐揚げ</span><span class="nw">（5個）</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
-                    <li><span class="name"><span class="nw">ヤンニョムチキン</span><span class="nw">（4個）</span></span><span class="dots"></span><span class="price"><span class="nw">780円</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span><span class="nw">（1人前）</span></span><span class="dots"></span><span class="price"><span class="nw">820円</span><small><span class="nw">2人前</span> <span class="nw">1,640円</span></small></span></li>
+                    <li><span class="name"><span class="nw">坦々もつ</span>煮<span class="nw">（1人前）</span><span class="desc"><span class="nw">元祖坦々もつ</span><span class="nw">煮。</span><span class="nw">当店で</span><span class="nw">一番出ております</span></span></span><span class="dots"></span><span class="price"><span class="nw">970円</span><small><span class="nw">2人前</span> <span class="nw">1,940円</span></small></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">塩・</span><span class="nw">味噌・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span><span class="dots"></span><span class="price"><span class="nw">780円</span></span></li>
+                    <li><span class="name"><span class="nw">唐あげ</span><span class="nw">（5個入）</span></span><span class="dots"></span><span class="price"><span class="nw">850円</span></span></li>
+                    <li><span class="name"><span class="nw">ヤンニョムチキン</span><span class="nw">（4個入）</span></span><span class="dots"></span><span class="price"><span class="nw">950円</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">コッペパン</span></span><span class="dots"></span><span class="price"><span class="nw">600円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1122,7 +1125,7 @@
                         <img src="img/karaage-pack.jpg" alt="唐揚げ5個を透明のパックに入れたところ"
                              width="1200" height="900" loading="lazy" decoding="async">
                     </div>
-                    <figcaption><span class="nw">からあげ</span><span class="nw">（5個）</span></figcaption>
+                    <figcaption><span class="nw">唐あげ</span><span class="nw">（5個入）</span></figcaption>
                 </figure>
                 <figure>
                     <div class="photo-frame">
@@ -1139,15 +1142,15 @@
             <p class="menu-note"><span class="nw">ご飯の</span><span class="nw">大盛りは</span><span class="nw">150円で</span><span class="nw">承ります。</span><span class="nw">もつが</span><span class="nw">苦手な</span><span class="nw">ご家族には、</span><span class="nw">からあげ</span><span class="nw">弁当や</span><span class="nw">チャーシュー</span><span class="nw">弁当も</span><span class="nw">ございます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">唐弁当</span><span class="desc"><span class="nw">もつ</span><span class="nw">煮とから</span><span class="nw">揚げ</span></span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
-                    <li><span class="name"><span class="nw">坦々もつ</span><span class="nw">唐弁当</span></span><span class="dots"></span><span class="price"><span class="nw">1,000円</span></span></li>
-                    <li><span class="name"><span class="nw">チャーシュー</span><span class="nw">弁当</span></span><span class="dots"></span><span class="price"><span class="nw">950円</span></span></li>
-                    <li><span class="name"><span class="nw">チャー</span><span class="nw">唐弁当</span><span class="desc"><span class="nw">チャーシューとから</span><span class="nw">揚げ</span></span></span><span class="dots"></span><span class="price"><span class="nw">950円</span></span></li>
-                    <li><span class="name"><span class="nw">からあげ</span><span class="nw">弁当</span></span><span class="dots"></span><span class="price"><span class="nw">800円</span></span></li>
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">ライス</span></span><span class="dots"></span><span class="price"><span class="nw">680円</span></span></li>
-                    <li><span class="name"><span class="nw">坦々もつ</span><span class="nw">ライス</span></span><span class="dots"></span><span class="price"><span class="nw">780円</span></span></li>
+                    <li><span class="name"><span class="nw">もつから</span><span class="nw">弁当</span><span class="desc"><span class="nw">もつ</span><span class="nw">煮と</span><span class="nw">唐あげ</span><span class="nw">二個</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,000円</span></span></li>
+                    <li><span class="name"><span class="nw">坦々もつから</span><span class="nw">弁当</span><span class="desc"><span class="nw">坦々もつ</span><span class="nw">煮と</span><span class="nw">唐あげ</span><span class="nw">二個</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,150円</span></span></li>
+                    <li><span class="name"><span class="nw">チャーシュー</span><span class="nw">弁当</span></span><span class="dots"></span><span class="price"><span class="nw">1,250円</span></span></li>
+                    <li><span class="name"><span class="nw">チャーから</span><span class="nw">弁当</span><span class="desc"><span class="nw">チャーシューと</span><span class="nw">唐あげ</span><span class="nw">二個</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,100円</span></span></li>
+                    <li><span class="name"><span class="nw">からあげ</span><span class="nw">弁当</span><span class="desc"><span class="nw">唐あげ</span><span class="nw">四個</span></span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">ライス</span></span><span class="dots"></span><span class="price"><span class="nw">800円</span></span></li>
+                    <li><span class="name"><span class="nw">坦々もつ</span><span class="nw">ライス</span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
+                    <li><span class="name"><span class="nw">大盛り</span><span class="desc"><span class="nw">お弁当・</span><span class="nw">ごはん</span><span class="nw">ものと</span><span class="nw">ご一緒にどうぞ</span></span></span><span class="dots"></span><span class="price"><span class="nw">150円</span></span></li>
                     <li><span class="name"><span class="nw">塩むすび</span></span><span class="dots"></span><span class="price"><span class="nw">150円</span></span></li>
-                    <li><span class="name"><span class="nw">ご飯</span> <span class="nw">大盛り</span><span class="desc"><span class="nw">お弁当・</span><span class="nw">ごはん</span><span class="nw">ものと</span><span class="nw">ご一緒にどうぞ</span></span></span><span class="dots"></span><span class="price"><span class="nw">150円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1177,24 +1180,15 @@
 
         <div class="menu-block reveal" id="menu-frozen">
             <div class="menu-head"><h2><span class="nw">冷凍の</span><span class="nw">真空パック</span></h2><span class="yomi">FROZEN</span></div>
-            <p class="menu-note"><span class="nw">店頭の</span><span class="nw">冷凍ケースから</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">湯せんで</span><span class="nw">五分で</span><span class="nw">温まります。</span></p>
+            <p class="menu-note"><span class="nw">店頭の</span><span class="nw">冷凍ケースから</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">湯せんで</span><span class="nw">五分で</span><span class="nw">温まります。</span><span class="nw">お値段は</span><span class="nw">店頭か</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
             <div class="menu-grid">
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span><span class="nw">（1人前）</span></span><span class="dots"></span><span class="price"><span class="nw">730円</span><small><span class="nw">2人前</span> <span class="nw">1,450円</span></small></span></li>
-                    <li><span class="name"><span class="nw">坦々もつ</span>煮<span class="nw">（1人前）</span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">味噌・</span><span class="nw">塩・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
-                    <li><span class="name"><span class="nw">おとん</span><span class="nw">チャーシュー</span> <span class="nw">豚バラ</span><span class="desc"><span class="nw">小山市の</span><span class="nw">ブランド</span>豚<span class="nw">「おとん」を</span><span class="nw">使っ</span><span class="nw">ております</span></span></span><span class="dots"></span><span class="price">200g <span class="nw">1,300円</span><small>400g <span class="nw">2,600円</span></small></span></li>
-                    <li><span class="name"><span class="nw">おとん</span><span class="nw">チャーシュー</span> <span class="nw">肩ロース</span></span><span class="dots"></span><span class="price">200g <span class="nw">1,300円</span><small>400g <span class="nw">2,600円</span></small></span></li>
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span></span></li>
+                    <li><span class="name"><span class="nw">坦々もつ</span>煮</span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">味噌・</span><span class="nw">塩・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/shop-chashu-studio.jpg" alt="チャーシューの薄切りを白い角皿に扇状に並べたところ"
-                             width="1200" height="900" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">おとん</span><span class="nw">チャーシュー</span></figcaption>
-                </figure>
                 <figure>
                     <div class="photo-frame">
                         <img src="img/shop-pack-tray.jpg" alt="ラベルを貼った真空パックのもつ煮を、金属のトレーに並べているところ"
@@ -1205,12 +1199,32 @@
             </div>
         </div>
 
+        <div class="menu-block reveal" id="menu-chashu">
+            <div class="menu-head"><h2><span class="nw">手作り</span><span class="nw">チャーシュー</span></h2><span class="yomi">CHASHU</span></div>
+            <p class="menu-note"><span class="nw">とろとろになるまで</span><span class="nw">煮込んで</span><span class="nw">おります。</span><span class="nw">豚バラと</span><span class="nw">肩ロースの</span><span class="nw">二種を</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">豚バラ</span></span><span class="dots"></span><span class="price">200g <span class="nw">1,500円</span></span></li>
+                    <li><span class="name"><span class="nw">肩ロース</span></span><span class="dots"></span><span class="price">200g <span class="nw">1,500円</span></span></li>
+                </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/shop-chashu-studio.jpg" alt="チャーシューの薄切りを白い角皿に扇状に並べたところ"
+                             width="1200" height="900" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">手作り</span><span class="nw">チャーシュー</span></figcaption>
+                </figure>
+            </div>
+        </div>
+
         <div class="menu-block reveal" id="menu-gentei">
             <div class="menu-head"><h2><span class="nw">限定の</span><span class="nw">お品</span></h2><span class="yomi">LIMITED</span></div>
             <p class="menu-note"><span class="nw">ご用意のない</span><span class="nw">日も</span><span class="nw">ございます。</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
             <div class="menu-grid">
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼きそば</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼きそば</span></span><span class="dots"></span><span class="price"><span class="nw">730円</span></span></li>
                     <li><span class="name"><span class="nw">冷凍</span> <span class="nw">吉田もつうどん</span></span><span class="dots"></span><span class="price"><span class="nw">950円</span></span></li>
                 </ul>
             </div>
