@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>マデイ カフェ - 公式サイト｜古河市 カフェ</title>
+    <meta name="description" content="茨城県古河市坂間のカフェ「マデイ カフェ（madei cafe）」。営業日ごとに替わる本日のご飯と手作りのケーキを、週に二日、12時から16時までお出ししております。ご予約はお電話で、営業日はInstagramでお知らせしております。">
+
+    <meta property="og:title" content="マデイ カフェ｜古河市のカフェ">
+    <meta property="og:description" content="真手（までい）の名のとおりに、週に二日だけ営む小さなカフェ。本日のご飯と手作りのケーキをご用意しております。">
+    <meta property="og:type" content="restaurant">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/madei-cafe/">
+    <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/madei-cafe/img/hero-gaikan.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
+    <meta name="theme-color" content="#F4F1EA">
+
+    <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- favicon：木組みのパネル1区画（矩形の枠＋左下から右上への筋交い1本）。地#F4F1EA／線#8A5A32 -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23F4F1EA'/%3E%3Crect x='10' y='10' width='80' height='80' fill='none' stroke='%238A5A32' stroke-width='7'/%3E%3Cline x1='14' y1='86' x2='86' y2='14' stroke='%238A5A32' stroke-width='7' stroke-linecap='square'/%3E%3C/svg%3E">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "マデイ カフェ",
+      "servesCuisine": "Cafe",
+      "priceRange": "¥300 - ¥1,500",
+      "telephone": "+81-280-48-3053",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/madei-cafe/",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/madei-cafe/img/hero-gaikan.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "坂間212-3",
+        "addressLocality": "古河市",
+        "addressRegion": "茨城県",
+        "postalCode": "306-0056",
+        "addressCountry": "JP"
+      },
+      "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E5%9D%82%E9%96%93212-3",
+      "acceptsReservations": "True"
+    }
+    </script>
+
+    <style>
+    :root {
+        /* --- 面（背景） 3段 -------------------------------------------------- */
+        --bg:          #F4F1EA;   /* 漆喰の白 */
+        --surface:     #FFFFFF;   /* カード・お品書きの面 */
+        --surface-2:   #EAE3D6;   /* 沈めた面（節の区切り） */
+
+        /* --- 文字 ---------------------------------------------------------- */
+        --ink:         #33261C;   /* 見出し・本文（bg比 12.98:1） */
+        --muted:       #7A6A5B;   /* 補助テキスト（bg比 4.61:1） */
+        --dim:         #6B5B4C;   /* 注記・キャプション（bg比 5.77:1） */
+
+        /* --- 差し色 ---------------------------------------------------------- */
+        --accent:      #9E4257;   /* 苺の紅。CTA・章の印（bg比 5.52:1／白文字 6.23:1） */
+        --accent-hi:   #B85E72;   /* ホバー */
+        --accent-deep: #7C3345;   /* 押下 */
+        --accent-2:    #8A5A32;   /* 木組みのあめ色。罫・枠線に使う。面には敷かない */
+
+        /* --- 罫線 ------------------------------------------------------------ */
+        --line:        rgba(51,38,28,.16);
+        --line-strong: rgba(51,38,28,.28);
+
+        /* --- 影（明るい地なので黒0.55は使わず、ink系の薄い影にする） ---------- */
+        --shadow:      0 1px 3px rgba(51,38,28,.10);
+        --shadow-bar:  0 -10px 30px rgba(51,38,28,.14);
+
+        /* --- 営業状況バッジ（この店では使わない。→ JS参照） -------------------- */
+        --open:        #7fc383;
+        --closed:      #d98a7e;
+
+        /* --- 書体：洋館＝セリフ。和の明朝ではなく西欧の活字に寄せる ------------- */
+        --font-head:   'Zen Old Mincho', serif;      /* 和文見出し */
+        --font-display:'EB Garamond', serif;          /* 屋号・英字ラベル */
+        --font-body:   'Zen Kaku Gothic New', sans-serif;
+
+        /* --- 木組みの色（署名的な仕掛け A-73 専用） ----------------------------- */
+        --wood:        #8A5A32;
+        --wood-deep:   #6B4526;
+
+        /* --- 地紋のスロット（この店は組み上がってから判断。いまは無し） --------- */
+        --tex-paper:   none;
+        --tex-size:    clamp(360px, 33vw, 480px);
+        --tex-opacity: 0.06;
+        --tex-tint:    var(--accent);
+        --orn-blank:   url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
+
+        /* --- 形・間 ------------------------------------------------------------ */
+        --radius:      6px;       /* 洋館の建具に合わせて角は小さく */
+        --maxw:        1080px;
+        --gap:         clamp(16px, 4vw, 40px);
+        --pad-section: clamp(64px, 10vw, 128px);
+        --pad-inner:   clamp(20px, 5vw, 40px);
+
+        /* --- 余白（7-a） -------------------------------------------------------- */
+        --sp-1:4px; --sp-2:8px; --sp-3:16px; --sp-4:24px; --sp-5:40px; --sp-6:72px;
+
+        /* --- タイポ階層（7-b） -------------------------------------------------- */
+        --fz-hero: clamp(30px, 6.6vw, 52px);
+        --fz-h2:   clamp(23px, 4.4vw, 33px);
+        --fz-h3:   clamp(18px, 3.1vw, 21px);
+        --fz-body: 16px;  --fz-cap: 13px;
+    }
+
+    /* --- リセット ------------------------------------------------------------- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.85;
+        overflow-x: hidden;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+
+    :root { --header-h: 74px; }
+    @media (max-width: 768px) { :root { --header-h: 64px; } }
+
+    body { padding-top: var(--header-h); }
+    .site-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: var(--header-h);
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+    }
+    .header-inner { display: flex; align-items: center; height: 100%; }
+    .brand { text-decoration: none; color: inherit; white-space: nowrap;
+             font-size: clamp(16px, 4.2vw, 20px); line-height: 1;
+             display: inline-flex; align-items: center; min-height: 44px;
+             font-family: var(--font-display); letter-spacing: .01em; font-style: italic; }
+    .header-tel { margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+                  min-height: 44px; padding: 0 8px; text-decoration: none; color: var(--ink);
+                  white-space: nowrap; }
+    .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; color: var(--accent); }
+    .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
+    .nav-toggle { margin-left: 6px; }
+    .hero { min-height: auto; }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; }
+
+    h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption, .lead-box {
+        word-break: auto-phrase;
+        text-wrap: pretty;
+    }
+    .nw { display: inline-block; }
+    .br-sp { display: none; }
+    @media (max-width: 600px) {
+        .br-sp { display: inline; }
+        .br-pc { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    .btn svg { width: 1.1em; height: 1.1em; flex: 0 0 auto; }
+
+    .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .section   { padding-block: var(--pad-section); }
+
+    .reveal {
+        opacity: 0; transform: translateY(26px);
+        transition: opacity 0.8s cubic-bezier(0.16, 0.7, 0.3, 1),
+                    transform 0.8s cubic-bezier(0.16, 0.7, 0.3, 1);
+    }
+    .reveal.in-view       { opacity: 1; transform: none; }
+    .reveal-delay-1       { transition-delay: 0.08s; }
+    .reveal-delay-2       { transition-delay: 0.16s; }
+    .reveal-delay-3       { transition-delay: 0.24s; }
+    .no-js .reveal        { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    .photo-frame {
+        position: relative; overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        background: var(--surface-2);
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .map-wrapper {
+        position: relative; width: 100%; aspect-ratio: 16 / 10;
+        border-radius: var(--radius); overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+    @media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+
+    .sticky-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+        display: none; gap: 1px; background: var(--line);
+        transform: translateY(100%); transition: transform 0.35s ease;
+        box-shadow: var(--shadow-bar, 0 -10px 30px rgba(0, 0, 0, 0.45));
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar a {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+        padding: 14px 6px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.01em;
+    }
+    .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sticky-bar .bar-tel { background: var(--accent); color: #fff; }
+    .sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
+
+    .subnav a {
+        min-height: 44px;
+        display: inline-flex; align-items: center;
+        padding-inline: 16px;
+        white-space: nowrap;
+    }
+    .subnav { transition: transform .25s ease, opacity .25s ease; }
+    .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 60px); }
+
+    .btn-tel .tel-num { white-space: nowrap; }
+    .btn-tel .tel-cap { font-weight: 500; }
+    .btn-tel .tel-cap::before { content: '｜'; }
+    @media (max-width: 460px) {
+        .btn-tel { flex-wrap: wrap; padding: 12px 18px; line-height: 1.45; }
+        .btn-tel .tel-cap { flex-basis: 100%; text-align: center; font-size: .82rem; }
+        .btn-tel .tel-cap::before { content: none; }
+    }
+
+    .status-chip {
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 5px 13px; border-radius: 999px;
+        border: 1px solid var(--line-strong);
+        font-size: 0.8rem; letter-spacing: 0.04em;
+    }
+    .status-chip::before {
+        content: ''; width: 7px; height: 7px; border-radius: 50%;
+        background: var(--dim);
+    }
+    .status-chip.is-open::before   { background: var(--open); }
+    .status-chip.is-closed::before { background: var(--closed); }
+    .status-chip.is-break::before  { background: var(--accent); }
+
+    .mobile-nav {
+        position: fixed; z-index: 200;
+        visibility: hidden; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    body.nav-open .mobile-nav {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+    body.nav-open .site-header { z-index: 300; }
+    .nav-toggle {
+        width: 44px; height: 44px;
+        flex: 0 0 44px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 5px; background: none; border: 0; cursor: pointer;
+    }
+    .nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+    body.nav-open { overflow: hidden; }
+
+    @media (max-width: 620px) {
+        .sticky-bar { display: flex; }
+        body { padding-bottom: 68px; }
+    }
+    @media (min-width: 621px) {
+        .sticky-bar { display: none; }
+        body { padding-bottom: 0; }
+    }
+
+
+    /* ══════════════════════════════════════════════════════════════════
+       ここから下が、この店だけのCSS。
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* --- ヘッダーの3本線・モバイルナビ --------------------------------------- */
+    .nav-toggle > span:not([class]) {
+        width: 22px; height: 2px; background: var(--ink); display: block;
+    }
+    .mobile-nav {
+        top: 0; right: 0; height: 100%; width: min(78vw, 320px);
+        background: var(--surface); border-left: 1px solid var(--line);
+        padding: calc(var(--header-h) + var(--sp-5)) var(--sp-4) var(--sp-4);
+        display: flex; flex-direction: column; gap: var(--sp-4);
+        transform: translateX(100%);
+    }
+    body.nav-open .mobile-nav { transform: translateX(0); }
+    .mobile-nav a { font-family: var(--font-head); font-size: 1.05rem; }
+    .mobile-nav .nav-close { align-self: flex-start; margin-top: auto; font-size: .85rem; color: var(--muted); }
+
+    /* --- ボタン ---------------------------------------------------------------- */
+    .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+        padding: 14px 24px; border-radius: var(--radius);
+        font-weight: 600; letter-spacing: .02em; font-size: .96rem;
+        transition: background .2s ease, color .2s ease, border-color .2s ease;
+        border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover, .btn-primary:focus-visible { background: var(--accent-hi); }
+    .btn-ghost { background: transparent; border-color: var(--line-strong); color: var(--ink); }
+    .btn-ghost:hover, .btn-ghost:focus-visible { background: var(--surface); border-color: var(--accent-2); }
+    .btn-block { width: 100%; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+
+    /* --- 木組みの水平材（全セクション共通の唯一の区切り） ----------------------- */
+    .timber-rule {
+        height: 10px; background: var(--wood);
+        width: min(100% - 2 * var(--pad-inner), var(--maxw));
+        margin-inline: auto;
+    }
+
+    /* --- 見出し類 ---------------------------------------------------------------- */
+    .eyebrow {
+        font-family: var(--font-display); font-style: italic;
+        text-transform: uppercase; letter-spacing: .2em;
+        font-size: .78rem; color: var(--accent); margin-bottom: var(--sp-2);
+    }
+    .section-title {
+        font-family: var(--font-head); font-weight: 700;
+        font-size: var(--fz-h2); line-height: 1.3; margin-bottom: var(--sp-4);
+    }
+    .lead { max-width: 640px; color: var(--ink); }
+    .lead + .lead { margin-top: var(--sp-3); }
+    .lead + .photo-frame, .lead + .dish-feature { margin-top: var(--sp-5); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       ヒーロー：A-73「木組みの割り付け」
+       ══════════════════════════════════════════════════════════════════ */
+    .hero { padding-block: var(--sp-5) var(--sp-6); }
+
+    .timber-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px 12px;
+        background: var(--wood-deep);
+        padding: 12px;
+    }
+    .tp { background: var(--bg); padding: var(--sp-4); position: relative; }
+
+    .panel-brand { grid-column: 1 / 5; grid-row: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+    .wordmark { font-family: var(--font-display); font-style: italic; font-weight: 600;
+                font-size: clamp(28px, 5vw, 52px); line-height: 1; color: var(--ink); }
+    .wordmark-sub { font-size: 12px; letter-spacing: .18em; color: var(--muted); }
+
+    .panel-blank { grid-column: 5 / 7; grid-row: 1; display: flex; align-items: center; justify-content: center; padding: var(--sp-3); }
+    .panel-blank .brace { width: 100%; height: clamp(80px, 10vw, 140px); }
+    .panel-blank .brace line { stroke: var(--wood); stroke-width: 9; vector-effect: non-scaling-stroke; stroke-linecap: square; }
+
+    .panel-catch { grid-column: 1 / 4; grid-row: 2; display: flex; flex-direction: column; justify-content: center; gap: var(--sp-3); }
+    .panel-catch .status-chip { align-self: flex-start; }
+    .catch { font-family: var(--font-head); font-weight: 700; font-size: var(--fz-hero); line-height: 1.3; letter-spacing: .02em; }
+    .catch-sub { color: var(--muted); font-size: .95rem; line-height: 1.85; }
+
+    .panel-photo { grid-column: 4 / 7; grid-row: 2; display: flex; align-items: center; justify-content: center; padding: 0; }
+    .panel-photo .photo-frame { max-width: 512px; height: 100%; border-radius: 0; box-shadow: none; border: 0; }
+
+    .panel-info { grid-column: 1 / 7; grid-row: 3; }
+    .info-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-3) var(--sp-5); }
+    .info-band .info-fact { font-family: var(--font-head); font-size: 1.02rem; }
+    .info-band .info-fact strong { color: var(--accent); }
+
+    @media (max-width: 720px) {
+        .timber-grid { grid-template-columns: 1fr; gap: 8px; padding: 10px; }
+        .tp { grid-column: 1 !important; grid-row: auto !important; padding: var(--sp-3); }
+        .panel-blank { display: none; }
+        .panel-photo .photo-frame { max-width: none; }
+        .info-band { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* --- 本日のご飯（看板料理）とお品書きへのリード ------------------------------ */
+    .dish-feature { margin-block: var(--sp-5) 0; }
+    .dish-feature .photo-frame { max-width: 512px; aspect-ratio: 4 / 3; margin-inline: auto; }
+    .dish-feature figcaption { text-align: center; margin-top: var(--sp-2); color: var(--dim); font-size: var(--fz-cap); }
+
+    .dish-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); margin-top: var(--sp-5); }
+    .dish-gallery .photo-frame { aspect-ratio: 4 / 3; }
+    .dish-gallery figcaption { margin-top: 6px; font-size: var(--fz-cap); color: var(--dim); text-align: center; }
+    @media (max-width: 620px) { .dish-gallery { grid-template-columns: repeat(2, 1fr); } }
+
+    /* --- お品書き（build_menu.py の出力を受ける） -------------------------------- */
+    .lead-box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+                padding: var(--sp-4); margin-bottom: var(--sp-5); color: var(--muted); }
+
+    .subnav { position: sticky; top: var(--header-h); z-index: 60; background: var(--bg); border-block: 1px solid var(--line); }
+    .subnav-inner { display: flex; flex-wrap: wrap; gap: 4px 4px; overflow-x: visible; scrollbar-width: none;
+                     max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad-inner); }
+    @media (max-width: 620px) {
+        .subnav-inner { flex-wrap: nowrap; overflow-x: auto; }
+    }
+    .subnav-inner::-webkit-scrollbar { display: none; }
+    .subnav a { color: var(--muted); font-size: .85rem; border-bottom: 2px solid transparent; }
+    .subnav a:hover, .subnav a:focus-visible { color: var(--accent); border-color: var(--accent); }
+
+    .menu-block { padding-block: var(--sp-5) 0; border-top: 1px solid var(--line); }
+    .menu-block:first-of-type { border-top: 0; padding-top: 0; }
+    .menu-head { display: flex; align-items: baseline; gap: var(--sp-3); margin-bottom: var(--sp-2); }
+    .menu-head h2 { font-family: var(--font-head); font-size: var(--fz-h3); }
+    .menu-head .yomi { font-family: var(--font-display); font-style: italic; font-size: .74rem; letter-spacing: .1em; color: var(--dim); }
+    .menu-note { color: var(--muted); font-size: .88rem; margin-bottom: var(--sp-4); max-width: 640px; }
+
+    .menu-grid { display: grid; grid-template-columns: 1fr; gap: 0 var(--gap); }
+    @media (min-width: 700px) {
+        .menu-grid { grid-template-columns: repeat(2, 1fr); }
+        .menu-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+    .menu-list--solo { max-width: 520px; }
+    .menu-list li { display: flex; align-items: baseline; gap: 6px; padding-block: 11px; border-bottom: 1px dashed var(--line); }
+    .menu-list .name { font-weight: 600; }
+    .menu-list .desc { display: block; font-size: .82rem; color: var(--dim); font-weight: 400; margin-top: 3px; }
+    .menu-list .dots { flex: 1 1 auto; border-bottom: 1px dotted var(--line-strong); margin-bottom: 5px; min-width: 12px; }
+    .menu-list .price { flex: 0 0 auto; font-family: var(--font-head); white-space: nowrap; }
+    .menu-list .price small { display: block; font-size: .7rem; color: var(--dim); font-weight: 400; text-align: right; }
+
+    /* --- 建物と2階（C-3 大小ミックス） -------------------------------------------- */
+    .interior-photos {
+        display: grid; grid-template-columns: minmax(0, 512px) 1fr;
+        gap: var(--gap); align-items: start; margin-top: var(--sp-5);
+    }
+    .interior-photos .col-large { max-width: 512px; }
+    .interior-photos .col-large .photo-frame { aspect-ratio: 3 / 4; }
+    .interior-photos .col-small {
+        grid-column: 1 / -1;
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); margin-top: var(--gap);
+    }
+    .interior-photos .col-small .photo-frame { aspect-ratio: 3 / 4; }
+    @media (max-width: 860px) {
+        .interior-photos { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) { .interior-photos .col-small { grid-template-columns: repeat(2, 1fr); } }
+
+    /* --- お客様の声 ------------------------------------------------------------- */
+    .voice-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); margin-top: var(--sp-4); align-items: start; }
+    @media (max-width: 760px) { .voice-grid { grid-template-columns: 1fr; } }
+    blockquote.voice {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: var(--sp-4); box-shadow: var(--shadow);
+    }
+    blockquote.voice p { line-height: 1.9; }
+    blockquote.voice cite { display: block; margin-top: var(--sp-3); font-style: normal; font-size: var(--fz-cap); color: var(--dim); }
+
+    /* --- ご予約とお願いごと ------------------------------------------------------ */
+    .rules-list { margin-top: var(--sp-4); display: flex; flex-direction: column; gap: 12px; max-width: 680px; }
+    .rules-list li {
+        position: relative; padding-left: 20px; line-height: 1.85;
+    }
+    .rules-list li::before {
+        content: ''; position: absolute; left: 0; top: 10px;
+        width: 8px; height: 8px; background: var(--accent); border-radius: 1px; transform: rotate(45deg);
+    }
+    .rules-list a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* --- 締めの一文 --------------------------------------------------------------- */
+    .closing-section { padding-block: var(--sp-6); text-align: center; }
+    .closing-text {
+        font-family: var(--font-head); font-size: clamp(18px, 3vw, 24px); line-height: 2;
+        max-width: 640px; margin-inline: auto; color: var(--ink);
+    }
+
+    /* --- アクセス・店舗情報 -------------------------------------------------------- */
+    .info-table { width: 100%; border-collapse: collapse; margin-block: var(--sp-4) var(--sp-5); }
+    .info-table th, .info-table td { text-align: left; padding: 13px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .info-table th { width: 6.5em; color: var(--muted); font-weight: 500; font-size: .92rem; }
+    .info-table td { font-size: .98rem; }
+    .info-table .tel-link { color: var(--accent); font-weight: 600; }
+
+    /* --- フッター ------------------------------------------------------------------ */
+    .site-footer { background: var(--wood-deep); color: #F4F1EA; padding-block: var(--sp-5); text-align: center; }
+    .site-footer .footer-name { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; margin-bottom: var(--sp-2); }
+    .site-footer .footer-addr { font-size: .88rem; opacity: .82; margin-bottom: var(--sp-2); }
+    .site-footer .footer-copy { font-size: .78rem; opacity: .6; }
+
+    </style>
+</head>
+<body class="no-js">
+<!-- no-js クラスは下の script が消す。JS無効の環境で出現演出のコンテンツが
+     見えなくなるのを防ぐ保険なので、必ず付けたまま公開する -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ヘッダー（固定）。高さは --header-h で一元管理されている
+     ══════════════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="#hero" class="brand">madei cafe</a>
+
+        <a href="tel:0280483053" class="header-tel" aria-label="電話でご予約 0280-48-3053">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+            <span class="tel-label nw">0280-48-3053</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="#about" data-nav-link>お店について</a>
+    <a href="#menu"  data-nav-link>お品書き</a>
+    <a href="#reservation" data-nav-link>ご予約とお願いごと</a>
+    <a href="#info"  data-nav-link>アクセス</a>
+    <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ヒーロー：A-73「木組みの割り付け」
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+    <div class="container">
+        <div class="timber-grid">
+
+            <div class="tp panel-brand">
+                <p class="wordmark">madei cafe</p>
+                <p class="wordmark-sub nw">マデイ カフェ</p>
+            </div>
+
+            <div class="tp panel-blank" aria-hidden="true">
+                <svg class="brace" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <line x1="10" y1="90" x2="90" y2="10"></line>
+                    <line x1="50" y1="50" x2="20" y2="18"></line>
+                </svg>
+            </div>
+
+            <div class="tp panel-photo">
+                <div class="photo-frame">
+                    <img src="img/hero-gaikan.jpg" alt="白い漆喰の壁に飴色の木組みが走る、マデイ カフェの建物外観"
+                         width="1024" height="768" loading="eager" fetchpriority="high" decoding="async">
+                </div>
+            </div>
+
+            <div class="tp panel-catch">
+                <span class="status-chip"><span class="status-text nw">週に二日だけの営業です</span></span>
+                <h1 class="catch"><span class="nw">両手で</span><span class="nw">包み込む</span><span class="nw">ように、</span><span class="nw">丁寧に。</span></h1>
+                <p class="catch-sub"><span class="nw">真手</span><span class="nw">（までい）の</span><span class="nw">名のとおりに、</span><span class="nw">週に</span><span class="nw">二日だけ</span><span class="nw">営んで</span><span class="nw">おります。</span></p>
+            </div>
+
+            <div class="tp panel-info">
+                <div class="info-band">
+                    <p class="info-fact"><span class="nw">営業日は</span><strong class="nw">週に二日ほど</strong>、12:00〜16:00。<span class="nw">ご予約の</span><span class="nw">お客様を</span><span class="nw">中心に</span><span class="nw">お迎えし</span><span class="nw">ております。</span></p>
+                    <div class="hero-actions">
+                        <a href="tel:0280483053" class="btn btn-primary btn-tel">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                            <span class="tel-num">0280-48-3053</span><span class="tel-cap">ご予約はこちら</span>
+                        </a>
+                        <a href="https://www.instagram.com/madei_cafe/" class="btn btn-ghost ext" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+                            営業日をInstagramで見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<div class="timber-rule" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════════════════════════════
+     までいということ
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="about">
+    <div class="container">
+        <p class="eyebrow reveal">About</p>
+        <h2 class="section-title reveal"><span class="nw">真手、</span><span class="nw">という</span><span class="nw">こと</span></h2>
+        <p class="lead reveal"><span class="nw">店名の</span><span class="nw">真手</span><span class="nw">（までい）には、</span><span class="nw">「両手で</span><span class="nw">包み</span><span class="nw">込む</span><span class="nw">ように、</span><span class="nw">丁寧に、</span><span class="nw">手間を</span><span class="nw">惜しまず、</span><span class="nw">ゆっくりと」という</span><span class="nw">意味が</span><span class="nw">ございます。</span><span class="nw">当店はこの</span><span class="nw">言葉を、</span><span class="nw">料理や</span><span class="nw">お菓子の</span><span class="nw">作り</span><span class="nw">方だけでなく、</span><span class="nw">店の</span><span class="nw">営み</span><span class="nw">方その</span><span class="nw">もので</span><span class="nw">守りたいと</span><span class="nw">考えてまいりました。</span><span class="nw">営業は</span><span class="nw">週に</span><span class="nw">二日ほど。</span><span class="nw">お迎えする</span><span class="nw">数も、</span><span class="nw">お一人おひとりに</span><span class="nw">手をかけられる</span><span class="nw">分だけに</span><span class="nw">絞っ</span><span class="nw">ております。</span><span class="nw">親子で</span><span class="nw">営む、</span><span class="nw">古河市坂間の</span><span class="nw">小さな</span><span class="nw">カフェです。</span><span class="nw">ゆっくりとした</span><span class="nw">時間を</span><span class="nw">過ごしにいらして</span><span class="nw">ください。</span></p>
+    </div>
+</section>
+
+
+<div class="timber-rule" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════════════════════════════
+     本日のご飯と、本日のおやつ（看板料理＋お品書きへのリード）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="menu">
+    <div class="container">
+        <p class="eyebrow reveal">Menu</p>
+        <h2 class="section-title reveal"><span class="nw">本日の</span><span class="nw">ご飯と、</span><span class="nw">本日のおやつ</span></h2>
+        <p class="lead reveal"><span class="nw">お品書きは、</span><span class="nw">営業日ごとに</span><span class="nw">替わります。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">「本日の</span><span class="nw">ご飯」と</span><span class="nw">「本日の</span><span class="nw">パスタ」から</span><span class="nw">お選び</span><span class="nw">いただき、</span><span class="nw">おやつには</span><span class="nw">季節の</span><span class="nw">果物に</span><span class="nw">合わせて</span><span class="nw">仕込んだ</span><span class="nw">ケーキと</span><span class="nw">焼き</span><span class="nw">菓子を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">数に</span><span class="nw">限りがある</span><span class="nw">ため、</span><span class="nw">なくなり</span><span class="nw">次第</span><span class="nw">お出しできなくなる</span><span class="nw">品も</span><span class="nw">ございます。</span><span class="nw">お目当ての</span><span class="nw">品は、</span><span class="nw">ご予約の</span><span class="nw">際に</span><span class="nw">お取り</span><span class="nw">置きを</span><span class="nw">承ります。</span></p>
+
+        <figure class="dish-feature reveal">
+            <div class="photo-frame">
+                <img src="img/dish-wanplate.jpg" alt="十五穀米、チキン南蛮、かぼちゃの煮物、サラダなどが並ぶ本日のご飯のワンプレート"
+                     width="1024" height="768" loading="lazy" decoding="async">
+            </div>
+            <figcaption><span class="nw">本日の</span><span class="nw">ご飯</span><span class="nw">（2026年</span><span class="nw">4月の</span><span class="nw">一例）</span></figcaption>
+        </figure>
+
+        <div class="dish-gallery reveal">
+            <figure>
+                <div class="photo-frame"><img src="img/gallery-cake-strawberry.jpg" alt="いちごとキウイ、バナナを重ねたサワークリームショートケーキの断面" width="900" height="675" loading="lazy" decoding="async"></div>
+                <figcaption><span class="nw">サワークリーム</span><span class="nw">ショートケーキ</span></figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame"><img src="img/gallery-cake-fig.jpg" alt="いちじくをのせたクランブルチーズケーキ" width="900" height="675" loading="lazy" decoding="async"></div>
+                <figcaption><span class="nw">いちじくの</span><span class="nw">クランブルチーズケーキ</span></figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame"><img src="img/gallery-roll-strawberry.jpg" alt="いちごを巻き込んだロールケーキの断面" width="900" height="675" loading="lazy" decoding="async"></div>
+                <figcaption><span class="nw">いちごの</span><span class="nw">ロールケーキ</span></figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame"><img src="img/gallery-chicken-nanban.jpg" alt="タルタルソースをのせたチキン南蛮のアップ" width="900" height="675" loading="lazy" decoding="async"></div>
+                <figcaption><span class="nw">チキン</span><span class="nw">南蛮</span></figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame"><img src="img/gallery-soup.jpg" alt="かぼちゃのスープを注いだ器" width="900" height="675" loading="lazy" decoding="async"></div>
+                <figcaption><span class="nw">かぼちゃの</span><span class="nw">スープ</span></figcaption>
+            </figure>
+            <figure>
+                <div class="photo-frame"><img src="img/gallery-latte.jpg" alt="ラテアートを描いたカフェラテ" width="900" height="675" loading="lazy" decoding="async"></div>
+                <figcaption><span class="nw">カフェラテ</span></figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#gohan">本日のご飯</a>
+        <a href="#pasta">本日のパスタ</a>
+        <a href="#oyatsu">本日のおやつ</a>
+        <a href="#hot">あたたかいお飲み物</a>
+        <a href="#ice">冷たいお飲み物</a>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+
+        <div class="lead-box reveal"><span class="nw">お品書きは</span><span class="nw">営業日ごとに</span><span class="nw">書き</span><span class="nw">替え</span><span class="nw">ております。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">お献立と</span><span class="nw">お値段は、</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></div>
+
+        <div class="menu-block reveal" id="gohan">
+            <div class="menu-head"><h2><span class="nw">本日の</span><span class="nw">ご飯</span></h2><span class="yomi">G O H A N</span></div>
+            <p class="menu-note"><span class="nw">その</span><span class="nw">日の</span><span class="nw">お献立で</span><span class="nw">お出しする</span><span class="nw">ワンプレートです。</span><span class="nw">サラダと</span><span class="nw">スープを</span><span class="nw">お付けし</span><span class="nw">ております。</span><span class="nw">お飲み</span><span class="nw">物を</span><span class="nw">ご一緒に</span><span class="nw">ご注文いただくと</span><span class="nw">150円引き、</span><span class="nw">お飲み</span><span class="nw">物と</span><span class="nw">ケーキで</span><span class="nw">200円引きとなります。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">本日の</span><span class="nw">ご飯</span><span class="desc"><span class="nw">2026年</span><span class="nw">4月</span><span class="nw">4日は、</span><span class="nw">十五穀米・</span><span class="nw">チキン</span><span class="nw">南蛮・</span><span class="nw">かぼちゃの</span><span class="nw">煮物・</span><span class="nw">きゅうりと</span><span class="nw">ワカメの</span><span class="nw">酢の</span><span class="nw">物・</span><span class="nw">茄子の</span><span class="nw">ミートグラタン・</span><span class="nw">サラダ・</span><span class="nw">ほうれん</span><span class="nw">草の</span><span class="nw">ポタージュ</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,500円</span><small><span class="nw">2026年</span><span class="nw">4月の</span><span class="nw">一例</span></small></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="pasta">
+            <div class="menu-head"><h2><span class="nw">本日の</span><span class="nw">パスタ</span></h2><span class="yomi">P A S T A</span></div>
+            <p class="menu-note"><span class="nw">生麺を</span><span class="nw">使った</span><span class="nw">週替わりの</span><span class="nw">パスタです。</span><span class="nw">サラダを</span><span class="nw">お付けし</span><span class="nw">ております。</span><span class="nw">お飲み</span><span class="nw">物を</span><span class="nw">ご一緒に</span><span class="nw">ご注文いただくと</span><span class="nw">150円引き、</span><span class="nw">お飲み</span><span class="nw">物と</span><span class="nw">ケーキで</span><span class="nw">200円引きとなります。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">本日の</span><span class="nw">パスタ</span><span class="desc"><span class="nw">2026年</span><span class="nw">4月</span><span class="nw">4日は、</span><span class="nw">アサリと</span><span class="nw">菜の</span><span class="nw">花の</span><span class="nw">柚子生パスタ</span><span class="nw">（サラダ</span><span class="nw">付）</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,350円</span><small><span class="nw">2026年</span><span class="nw">4月の</span><span class="nw">一例</span></small></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="oyatsu">
+            <div class="menu-head"><h2><span class="nw">本日のおやつ</span></h2><span class="yomi">O Y A T S U</span></div>
+            <p class="menu-note"><span class="nw">旬の</span><span class="nw">果物に</span><span class="nw">合わせて、</span><span class="nw">営業日ごとに</span><span class="nw">お出しする</span><span class="nw">ものが</span><span class="nw">替わります。</span><span class="nw">下は</span><span class="nw">2026年</span><span class="nw">4月</span><span class="nw">4日に</span><span class="nw">お出ししていた</span><span class="nw">ものです。</span><span class="nw">お飲み</span><span class="nw">物と</span><span class="nw">ご一緒なら</span><span class="nw">「ケーキ</span><span class="nw">set」で</span><span class="nw">50円引きとなります。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">イチゴと</span><span class="nw">キウイと</span><span class="nw">バナナの</span><span class="nw">サワークリームショートケーキ</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span><small><span class="nw">2026年</span><span class="nw">4月の</span><span class="nw">一例</span></small></span></li>
+                    <li><span class="name"><span class="nw">苺と</span><span class="nw">桜餡の</span><span class="nw">ロールケーキ</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span><small><span class="nw">2026年</span><span class="nw">4月の</span><span class="nw">一例</span></small></span></li>
+                    <li><span class="name"><span class="nw">あまりんの</span><span class="nw">白くま</span><span class="nw">君ティラミス</span><span class="desc"><span class="nw">自家製バニラアイスのせ</span></span></span><span class="dots"></span><span class="price"><span class="nw">850円</span><small><span class="nw">2026年</span><span class="nw">4月の</span><span class="nw">一例</span></small></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">紅茶と</span><span class="nw">カスタードの</span><span class="nw">フルーツロール</span></span><span class="dots"></span><span class="price"><span class="nw">750円</span><small><span class="nw">2026年</span><span class="nw">4月の</span><span class="nw">一例</span></small></span></li>
+                    <li><span class="name"><span class="nw">苺と</span><span class="nw">ミルクジャムの</span><span class="nw">クランブルチーズ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">4月の</span><span class="nw">一例</span></small></span></li>
+                    <li><span class="name"><span class="nw">スコーン</span><span class="desc"><span class="nw">1個。</span><span class="nw">焼き</span><span class="nw">上がりまで</span><span class="nw">20分ほど</span><span class="nw">お時間を</span><span class="nw">頂戴します</span></span></span><span class="dots"></span><span class="price"><span class="nw">300円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="hot">
+            <div class="menu-head"><h2><span class="nw">あたたかい</span><span class="nw">お飲み</span>物</h2><span class="yomi">H O T　D R I N K</span></div>
+            <p class="menu-note"><span class="nw">お食事や</span><span class="nw">ケーキと</span><span class="nw">ご一緒に</span><span class="nw">ご注文いただくと、</span><span class="nw">お引きして</span><span class="nw">お出ししている</span><span class="nw">お飲み</span><span class="nw">物が</span><span class="nw">ございます。</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">印を</span><span class="nw">付け</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ドリップ</span><span class="nw">珈琲</span><span class="desc"><span class="nw">マイルド</span> <span class="nw">または</span> <span class="nw">ビター</span></span></span><span class="dots"></span><span class="price"><span class="nw">600円</span></span></li>
+                    <li><span class="name"><span class="nw">本日の</span><span class="nw">ストレート</span><span class="nw">珈琲</span><span class="desc"><span class="nw">その</span><span class="nw">日の</span><span class="nw">豆は</span><span class="nw">店の</span><span class="nw">者まで</span><span class="nw">お尋ね</span><span class="nw">ください</span></span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">カフェラテ</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">きな</span><span class="nw">粉ラテ</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">抹茶ラテ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">ほうじ</span><span class="nw">茶ラテ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">チャイ</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">チャイラテ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">スチームミルク</span></span><span class="dots"></span><span class="price"><span class="nw">550円</span></span></li>
+                    <li><span class="name"><span class="nw">ノンカフェイン</span><span class="nw">珈琲</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">ノンカフェインカフェラテ</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">紅茶</span><span class="nw">（ポット）</span><span class="desc"><span class="nw">ダージリン／</span><span class="nw">アールグレイ／</span><span class="nw">アッサム。</span><span class="nw">お食事の</span><span class="nw">セットは</span><span class="nw">カップでの</span><span class="nw">ご提供となります</span></span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">ホワイトチョコ</span><span class="nw">抹茶ラテ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">ホワイトモカ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">カフェモカ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="ice">
+            <div class="menu-head"><h2><span class="nw">冷たい</span><span class="nw">お飲み</span>物</h2><span class="yomi">I C E　D R I N K</span></div>
+            <p class="menu-note"><span class="nw">お食事や</span><span class="nw">ケーキと</span><span class="nw">ご一緒に</span><span class="nw">ご注文いただくと、</span><span class="nw">お引きして</span><span class="nw">お出ししている</span><span class="nw">お飲み</span><span class="nw">物が</span><span class="nw">ございます。</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">印を</span><span class="nw">付け</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">アイスコーヒー</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">アイスカフェラテ</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">アイスティー</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">アイス</span><span class="nw">抹茶ラテ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">アイスきな</span><span class="nw">粉ラテ</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                    <li><span class="name"><span class="nw">ホワイトチョコ</span><span class="nw">抹茶ラテ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">アイスココア</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">アイスモカ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">オレンジジュース</span></span><span class="dots"></span><span class="price"><span class="nw">500円</span></span></li>
+                    <li><span class="name"><span class="nw">りんごジュース</span></span><span class="dots"></span><span class="price"><span class="nw">500円</span></span></li>
+                    <li><span class="name"><span class="nw">ジンジャエール</span></span><span class="dots"></span><span class="price"><span class="nw">500円</span></span></li>
+                    <li><span class="name"><span class="nw">アイスミルク</span></span><span class="dots"></span><span class="price"><span class="nw">500円</span></span></li>
+                    <li><span class="name"><span class="nw">ウーロン</span>茶</span><span class="dots"></span><span class="price"><span class="nw">500円</span></span></li>
+                    <li><span class="name"><span class="nw">マンゴーラッシー</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">ブラックベリーの</span><span class="nw">ラッシー</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">自家製梅シロップ</span><span class="desc"><span class="nw">ソーダ</span>割 <span class="nw">または</span> <span class="nw">水割</span></span></span><span class="dots"></span><span class="price"><span class="nw">650円</span></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- menu:auto:end -->
+
+
+<div class="timber-rule" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════════════════════════════
+     建物と2階（C-3 大小ミックス）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="interior">
+    <div class="container">
+        <p class="eyebrow reveal">Interior</p>
+        <h2 class="section-title reveal"><span class="nw">二階の</span><span class="nw">ロフト</span><span class="nw">席まで、</span><span class="nw">ゆっくりと</span></h2>
+        <div class="interior-photos reveal">
+            <div class="col-large">
+                <div class="photo-frame">
+                    <img src="img/interior-loft.jpg" alt="階段の先に本棚のあるロフトが見える、吹き抜けの店内"
+                         width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+            </div>
+            <p class="lead"><span class="nw">2020年に</span><span class="nw">東本町から、</span><span class="nw">今の</span><span class="nw">坂間の</span><span class="nw">店へ</span><span class="nw">移ってまいりました。</span><span class="nw">一階の</span><span class="nw">テーブル</span><span class="nw">席のほかに、</span><span class="nw">階段を</span><span class="nw">上がった</span><span class="nw">二階に</span><span class="nw">ロフトの</span><span class="nw">席が</span><span class="nw">ございます。</span><span class="nw">季節の</span><span class="nw">飾りを</span><span class="nw">少しずつ</span><span class="nw">替えながら、</span><span class="nw">静かに</span><span class="nw">お過ごし</span><span class="nw">いただける</span><span class="nw">店内を</span><span class="nw">保っ</span><span class="nw">ております。</span></p>
+            <div class="col-small">
+                <div class="photo-frame">
+                    <img src="img/interior-2f-table.jpg" alt="本棚と絵本を飾った二階のテーブル席"
+                         width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+                <div class="photo-frame">
+                    <img src="img/interior-seasonal.jpg" alt="季節の飾りを置いた窓辺のテーブル席"
+                         width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+                <div class="photo-frame">
+                    <img src="img/interior-entrance.jpg" alt="木組みの壁に沿った入口の飾り棚とOPENの案内板"
+                         width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+            </div>
+        </div>
+
+        <p class="lead reveal" style="margin-top:var(--sp-4);"><span class="nw">ご利用の</span><span class="nw">決まりごとは、</span><span class="nw">下の</span>『<a href="#reservation" class="nw">ご予約と、お願いごと</a><span class="nw">』を</span><span class="nw">ご覧ください。</span></p>
+    </div>
+</section>
+
+
+<div class="timber-rule" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════════════════════════════
+     ご予約とお願いごと
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="reservation">
+    <div class="container">
+        <p class="eyebrow reveal">Reservation</p>
+        <h2 class="section-title reveal"><span class="nw">ご予約と、</span><span class="nw">お願いごと</span></h2>
+        <p class="lead reveal"><span class="nw">当店は、</span><span class="nw">ご予約の</span><span class="nw">お客様を</span><span class="nw">中心に</span><span class="nw">お迎えし</span><span class="nw">ております。</span><span class="nw">店の</span><span class="nw">前に</span><span class="nw">お停め</span><span class="nw">いただける</span><span class="nw">台数に</span><span class="nw">合わせて</span><span class="nw">ご予約を</span><span class="nw">締めさせて</span><span class="nw">いただいている</span><span class="nw">ため、</span><span class="nw">お席が</span><span class="nw">空いていても</span><span class="nw">お受けできない</span><span class="nw">日が</span><span class="nw">ございます。</span><span class="nw">数を</span><span class="nw">増やすより、</span><span class="nw">お越しくださった</span><span class="nw">お一人おひとりに</span><span class="nw">手をかける</span><span class="nw">ことを、</span><span class="nw">当店は</span><span class="nw">選んで</span><span class="nw">おります。</span></p>
+        <p class="lead reveal"><span class="nw">そのうえで、</span><span class="nw">いくつか</span><span class="nw">お願いごとが</span><span class="nw">ございます。</span><span class="nw">どれも、</span><span class="nw">ゆっくりとした</span><span class="nw">時間を</span><span class="nw">お守りする</span><span class="nw">ための</span><span class="nw">決まりごとです。</span></p>
+
+        <ul class="rules-list reveal">
+            <li><span class="nw">営業は</span><span class="nw">週に</span><span class="nw">二日ほど、</span><span class="nw">12時から</span><span class="nw">16時まで。</span><span class="nw">営業日は</span><a href="https://www.instagram.com/madei_cafe/" class="ext" target="_blank" rel="noopener">Instagram</a>で<span class="nw">お知らせし</span><span class="nw">ております</span></li>
+            <li><span class="nw">ご予約は</span><span class="nw">お電話で</span><span class="nw">承ります</span><span class="nw">（Instagramの</span><span class="nw">DMは</span><span class="nw">拝見できません）</span></li>
+            <li><span class="nw">お席は</span><span class="nw">二部制で、</span><span class="nw">2時間まで</span><span class="nw">お使い</span><span class="nw">いただけます</span></li>
+            <li><span class="nw">ケーキの</span><span class="nw">お取り</span><span class="nw">置きは、</span><span class="nw">前日</span><span class="nw">21時まで</span><span class="nw">承ります</span></li>
+            <li><span class="nw">テイクアウトのみの</span><span class="nw">お客様は、</span><span class="nw">16時以降に</span><span class="nw">お渡しし</span><span class="nw">ております</span></li>
+            <li><span class="nw">カフェのみの</span><span class="nw">ご利用は</span><span class="nw">14時以降に、</span><span class="nw">お一人様</span><span class="nw">お飲み</span><span class="nw">物を</span><span class="nw">一品</span><span class="nw">お願いし</span><span class="nw">ております</span></li>
+        </ul>
+
+        <div class="hero-actions" style="margin-top:var(--sp-5);">
+            <a href="tel:0280483053" class="btn btn-primary btn-tel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                <span class="tel-num">0280-48-3053</span><span class="tel-cap">ご予約はこちら</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<div class="timber-rule" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════════════════════════════
+     お客様の声
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="voice">
+    <div class="container">
+        <p class="eyebrow reveal">Voice</p>
+        <h2 class="section-title reveal"><span class="nw">お客様の</span>声</h2>
+
+        <div class="voice-grid">
+            <blockquote class="voice reveal">
+                <p><span class="nw">「要予約の</span><span class="nw">お店です。</span><span class="nw">とても</span><span class="nw">オシャレで</span><span class="nw">落ち</span><span class="nw">着いた</span><span class="nw">店内です。</span><span class="nw">1階席と</span><span class="nw">2階席があります。</span><span class="nw">今回</span><span class="nw">2階席は</span><span class="nw">満席だった</span><span class="nw">ので、</span><span class="nw">1階の</span><span class="nw">テーブル</span><span class="nw">席にしました。</span><span class="nw">今回は</span><span class="nw">ワンプレート</span><span class="nw">ご飯と</span><span class="nw">パスタの</span><span class="nw">2種類から</span><span class="nw">選べた</span><span class="nw">ので、</span><span class="nw">ワンプレート</span><span class="nw">ご飯を</span><span class="nw">注文。</span><span class="nw">その</span><span class="nw">他ドリンクと</span><span class="nw">デザートも</span><span class="nw">頼みました。</span><span class="nw">どれもとっても</span><span class="nw">美味しかったです。</span><span class="nw">次は</span><span class="nw">2階席に</span><span class="nw">座ってみたいな♪」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice reveal">
+                <p><span class="nw">「お菓子の</span><span class="nw">家の</span><span class="nw">ようなとても</span><span class="nw">素敵な</span><span class="nw">レストランです。</span><span class="nw">お料理や</span><span class="nw">ケーキ。</span><span class="nw">コーヒーなどとても</span><span class="nw">美味しくていつも</span><span class="nw">お世話になってます。</span><span class="nw">是非とも</span><span class="nw">お勧めしたい</span><span class="nw">お店です。」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice reveal">
+                <p><span class="nw">「居心地の</span><span class="nw">良い</span><span class="nw">お店だった。</span><span class="nw">ケーキが</span><span class="nw">可愛かったり</span><span class="nw">スコーン</span><span class="nw">焼きたてであつあつで</span><span class="nw">美味しかった。」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice reveal">
+                <p><span class="nw">「移転してから</span><span class="nw">初めて</span><span class="nw">行ってみましたが</span> <span class="nw">お店の</span><span class="nw">可愛さと</span><span class="nw">落ち</span><span class="nw">着く</span><span class="nw">感じは</span><span class="nw">変わらずで</span> <span class="nw">時間があっという</span><span class="nw">間に</span><span class="nw">過ぎていました！」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+        </div>
+    </div>
+</section>
+
+
+<div class="timber-rule" aria-hidden="true"></div>
+<section class="closing-section">
+    <div class="container">
+        <p class="closing-text reveal"><span class="nw">両手で</span><span class="nw">包み</span><span class="nw">込む</span><span class="nw">ように、</span><span class="nw">丁寧に、</span><span class="nw">手間を</span><span class="nw">惜しまず、</span><span class="nw">ゆっくりと。</span><span class="nw">その</span><span class="nw">名のとおりの</span><span class="nw">時間を</span><span class="nw">ご用意して、</span><span class="nw">お待ちし</span><span class="nw">ております。</span></p>
+    </div>
+</section>
+
+
+<div class="timber-rule" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════════════════════════════
+     アクセス・店舗情報（全店必須）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="info">
+    <div class="container">
+        <p class="eyebrow reveal">Access</p>
+        <h2 class="section-title reveal"><span class="nw">お越しの</span><span class="nw">際は</span></h2>
+        <p class="lead reveal"><span class="nw">お車で</span><span class="nw">お越し</span><span class="nw">ください。</span><span class="nw">駐車場は</span><span class="nw">店の</span><span class="nw">前に</span><span class="nw">6〜7台分ございます。</span></p>
+
+        <table class="info-table reveal">
+            <tr><th><span class="nw">住所</span></th><td>〒306-0056 <span class="nw">茨城県古河市坂間</span>212-3</td></tr>
+            <tr><th><span class="nw">電話</span></th><td><a href="tel:0280483053" class="tel-link nw">0280-48-3053</a></td></tr>
+            <tr><th><span class="nw">営業時間</span></th><td><span class="nw">週に</span><span class="nw">二日ほど、</span>12:00〜16:00<span class="nw">（二部制）</span><br><span class="nw">二部制の</span><span class="nw">お時間は、</span><span class="nw">お電話で</span><span class="nw">ご案内いたします。</span></td></tr>
+            <tr><th><span class="nw">定休日</span></th><td><span class="nw">曜日は</span><span class="nw">決まっておりません。</span><span class="nw">営業日は</span><a href="https://www.instagram.com/madei_cafe/" class="ext" target="_blank" rel="noopener">Instagram</a>で<span class="nw">お知らせし</span><span class="nw">ております</span></td></tr>
+            <tr><th><span class="nw">駐車場</span></th><td><span class="nw">有／</span><span class="nw">6〜7台</span></td></tr>
+        </table>
+
+        <!-- 地図：APIキー不要。q= に住所をURLエンコードして入れるだけ -->
+        <div class="map-wrapper reveal">
+            <iframe
+                src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E5%9D%82%E9%96%93212-3&z=16&output=embed"
+                allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="マデイ カフェ の地図"></iframe>
+        </div>
+
+        <!-- ★末尾の予約導線（必須） -->
+        <div class="hero-actions" style="margin-top:24px;">
+            <a href="tel:0280483053" class="btn btn-primary btn-block">お電話でご予約する</a>
+        </div>
+    </div>
+</section>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <p class="footer-name">madei cafe</p>
+        <p class="footer-addr">〒306-0056 <span class="nw">茨城県古河市坂間</span>212-3／0280-48-3053</p>
+        <p class="footer-copy">&copy; <span class="nw">マデイ</span> <span class="nw">カフェ</span></p>
+    </div>
+</footer>
+
+
+<!-- スマホ用 追従バー：営業日（Instagram）／アクセス／お電話の3つ -->
+<div class="sticky-bar" id="sticky-bar">
+    <a href="https://www.instagram.com/madei_cafe/" class="bar-alt ext" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+        営業日を見る
+    </a>
+    <a href="#info" class="bar-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス
+    </a>
+    <a href="tel:0280483053" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        お電話
+    </a>
+</div>
+
+
+<script>
+/* JS が動いた印。CSSの .no-js .reveal が外れて出現演出が有効になる */
+document.body.classList.remove('no-js');
+
+
+/* --------------------------------------------------------------------------
+   1. ヘッダー縮小・追従予約バーの表示切り替え
+   -------------------------------------------------------------------------- */
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+
+var subnavEl = document.querySelector('.subnav');
+var menuBlocks = document.querySelectorAll('.menu-block, .menu-section');
+var lastMenuBlock = menuBlocks.length ? menuBlocks[menuBlocks.length - 1] : null;
+
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+        stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
+    }
+    if (subnavEl && lastMenuBlock) {
+        if (window.getComputedStyle(subnavEl).position !== 'sticky') {
+            subnavEl.classList.remove('is-past');
+        } else {
+            var r = lastMenuBlock.getBoundingClientRect();
+            subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        }
+    }
+}, { passive: true });
+
+
+/* --------------------------------------------------------------------------
+   2. モバイルナビ開閉
+   -------------------------------------------------------------------------- */
+var navToggle = document.getElementById('nav-toggle');
+var navPanel = document.getElementById('mobile-nav');
+function closeNav() {
+    document.body.classList.remove('nav-open');
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'メニューを開く');
+    }
+}
+if (navToggle) {
+    navToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+}
+document.querySelectorAll('[data-nav-link]').forEach(function (a) {
+    a.addEventListener('click', closeNav);
+});
+var navClose = document.getElementById('nav-close');
+if (navClose) {
+    navClose.addEventListener('click', function () {
+        closeNav();
+        if (navToggle) navToggle.focus();
+    });
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (navPanel && navPanel.contains(e.target)) return;
+    if (navToggle && navToggle.contains(e.target)) return;
+    closeNav();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+});
+
+
+/* --------------------------------------------------------------------------
+   3. スクロール出現演出（IntersectionObserver）
+   -------------------------------------------------------------------------- */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+
+/* --------------------------------------------------------------------------
+   4. 営業状況バッジ ★この店では使わない
+   曜日で決まった定休日が無い店（週に二日・不定期。Instagramで告知）のため、
+   「ただいま営業中／本日は定休日です」のような曜日ベースの断定はできない。
+   status-chip には「週に二日だけの営業です」という不変の案内文だけを置き、
+   JSでの動的な開閉判定は行わない（本文.md にない文言を機械が出す事故を防ぐ）。
+   -------------------------------------------------------------------------- */
+</script>
+</body>
+</html>
