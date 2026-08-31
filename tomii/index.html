@@ -703,6 +703,21 @@
     .menu-photos .photo-frame { aspect-ratio: 4 / 3; }
     .menu-photos figcaption { margin-top: 7px; font-size: .78rem; color: var(--dim); text-align: center; }
 
+    /* ★2026-08-31：濃香煮干しそばの一枚が横に倒れていたので左へ90度戻した。
+       縦位置になったぶん、この列だけ真ん中を高く見せて段差をつける
+       （4:3 に切ると器の上下が落ちるため）。 */
+    .menu-photos.is-stagger { align-items: center; }
+    @media (min-width: 620px) {
+        .menu-photos.is-stagger { grid-template-columns: repeat(3, 1fr); }
+        .menu-photos.is-stagger figure:nth-child(2) .photo-frame { aspect-ratio: 3 / 4; }
+    }
+
+    /* ★2026-08-31：写真が1枚しかない列では、枠が本文幅いっぱい（1118px）まで広がり、
+       元が 608px の和え玉が2倍近くに引き伸ばされて粗く見えていた。
+       1枚のときは元の大きさを超えない幅に収める。 */
+    .menu-photos.is-single { grid-template-columns: minmax(0, 360px); justify-content: center; }
+    .menu-photos.is-single .photo-frame { aspect-ratio: 4 / 5; }
+
     /* ══════════════════════════════════════════════════════════════════
        はじめての方へ
        ══════════════════════════════════════════════════════════════════ */
@@ -1062,7 +1077,7 @@
                     <li><span class="name"><span class="nw">季節の</span><span class="nw">一杯</span><span class="desc"><span class="nw">北海道熟成味噌、</span><span class="nw">京の</span><span class="nw">蔵出し</span><span class="nw">醤油、</span><span class="nw">壱岐の</span><span class="nw">コク</span><span class="nw">塩檸檬、</span><span class="nw">冷やし</span><span class="nw">中華</span> <span class="nw">檸檬、</span><span class="nw">冷やし</span><span class="nw">担々麺など。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">黒板で</span><span class="nw">ご案内し</span><span class="nw">ております</span></span></span><span class="dots"></span><span class="price"></span></li>
                 </ul>
             </div>
-            <div class="menu-photos">
+            <div class="menu-photos is-stagger">
                 <figure>
                     <div class="photo-frame">
                         <img src="img/hamaguri-2.jpg" alt="透きとおった塩のスープに鶏チャーシュー2枚、白髪ねぎ、メンマ、三つ葉が並ぶ一杯"
@@ -1073,7 +1088,7 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="img/niboshi.jpg" alt="琥珀色の煮干しのスープに鶏チャーシューと白髪ねぎ、貝割れがのった一杯"
-                             width="1024" height="671" loading="lazy" decoding="async">
+                             width="671" height="1024" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">濃香煮干しそば</span></figcaption>
                 </figure>
@@ -1100,7 +1115,7 @@
                     <li><span class="name"><span class="nw">和え</span>玉<span class="nw">（ハーフ）</span></span><span class="dots"></span><span class="price"></span></li>
                 </ul>
             </div>
-            <div class="menu-photos">
+            <div class="menu-photos is-single">
                 <figure>
                     <div class="photo-frame">
                         <img src="img/aedama.jpg" alt="黒い鉢に細麺を盛り、鶏チャーシュー、刻んだ紫玉ねぎ、青ねぎ、輪切りの檸檬を添えた和え玉"
@@ -1185,7 +1200,7 @@
                     <li><span class="name"><span class="nw">ソフトドリンク</span></span><span class="dots"></span><span class="price"></span></li>
                 </ul>
             </div>
-            <div class="menu-photos">
+            <div class="menu-photos is-single">
                 <figure>
                     <div class="photo-frame">
                         <img src="img/beer.jpg" alt="木のカウンターに置かれた生ビールのグラスと、味玉とメンマを盛った黒い小皿"
@@ -1324,7 +1339,9 @@
             <tr><th><span class="nw">アクセス</span></th><td><span class="nw">JR宇都宮線</span> <span class="nw">古河駅</span> <span class="nw">西口より</span><span class="nw">徒歩約</span><span class="nw">4分</span></td></tr>
         </table>
 
-        <figure class="reveal" style="margin-bottom:clamp(24px,4vw,36px);">
+        <!-- ★2026-08-31：1024px ののれんを本文幅いっぱい（1118px）に敷いて
+             引き伸ばしていたので、元の大きさを超えない幅に収める。 -->
+        <figure class="reveal" style="margin-bottom:clamp(24px,4vw,36px); max-width:1000px; margin-inline:auto;">
             <div class="photo-frame" style="aspect-ratio:16/10;">
                 <img src="img/noren.jpg" alt="白いのれんに「とみい」と染め抜かれ、赤い落款が入っている"
                      width="1024" height="768" loading="lazy" decoding="async">

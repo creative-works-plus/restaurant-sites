@@ -431,6 +431,15 @@
         .dish-grid.cols-3 { grid-template-columns: 1fr; }
     }
     .dish-grid figcaption { margin-top: var(--sp-1); font-size: .78rem; color: var(--muted); }
+    /* ★2026-08-31：写真そのものの寸法で見せる列。高さがそろわないので上でそろえる。
+       枠の縦横比は写真と同じなので、余白は出ない。高さがまちまちになるので、
+       段（column）で積んで隙間をなくす。 */
+    .dish-grid.as-shot {
+        display: block; columns: 2; column-gap: var(--gap);
+    }
+    .dish-grid.as-shot figure { break-inside: avoid; margin-bottom: var(--gap); }
+    .dish-grid.as-shot .photo-frame img { object-fit: contain; background: var(--surface); }
+    @media (max-width: 620px) { .dish-grid.as-shot { columns: 1; } }
     .donburi-link { margin-top: var(--blk-y); }
 
     /* --- セットのこと（たぬきセットの案内＋組み合わせ） ---------------------------- */
@@ -673,19 +682,22 @@
             </div>
         </div>
 
-        <div class="dish-grid cols-2 reveal reveal-delay-2">
-            <figure><div class="photo-frame ar-43">
+        <!-- ★2026-08-31 改訂：4枚とも 4:3 の枠に流し込んでいたため、縦位置の2枚が
+             上下を大きく切られ、どれもお膳の全体が見えなくなっていた。
+             枠を写真そのものの寸法に合わせ、切り取りをやめる。 -->
+        <div class="dish-grid cols-2 as-shot reveal reveal-delay-2">
+            <figure><div class="photo-frame" style="aspect-ratio:813/605;">
                 <img src="img/katsudon-soba-set-01.webp" alt="かつ丼とそば、小鉢を組み合わせたセット" width="813" height="605" loading="lazy" decoding="async">
             </div><figcaption><span class="nw">かつ</span><span class="nw">丼とそば、</span><span class="nw">小鉢を</span><span class="nw">組み</span><span class="nw">合わせた</span><span class="nw">セット</span></figcaption></figure>
-            <figure><div class="photo-frame ar-43">
+            <figure><div class="photo-frame" style="aspect-ratio:531/708;">
                 <img src="img/tendon-kakesoba-set-01.webp" alt="天丼とかけそばを組み合わせたセット" width="531" height="708" loading="lazy" decoding="async">
             </div><figcaption><span class="nw">天丼とかけそばを</span><span class="nw">組み</span><span class="nw">合わせた</span><span class="nw">セット</span></figcaption></figure>
-            <figure><div class="photo-frame ar-43">
+            <figure><div class="photo-frame" style="aspect-ratio:771/1024;">
                 <img src="img/tempura-soba-set-01.webp" alt="天ぷら盛り合わせと、そばを組み合わせたセット" width="771" height="1024" loading="lazy" decoding="async">
-            </div><figcaption><span class="nw">天ぷら</span><span class="nw">盛り</span><span class="nw">合わせと、</span><span class="nw">そばを</span><span class="nw">組み</span><span class="nw">合わせた</span><span class="nw">セット</span></figcaption></figure>
-            <figure><div class="photo-frame ar-43">
-                <img src="img/negitoro-soba-set-01.webp" alt="ねぎとろ丼と、そばを組み合わせたセット" width="750" height="563" loading="lazy" decoding="async">
-            </div><figcaption><span class="nw">ねぎとろ</span><span class="nw">丼と、</span><span class="nw">そばを</span><span class="nw">組み</span><span class="nw">合わせた</span><span class="nw">セット</span></figcaption></figure>
+            </div><figcaption><span class="nw">天ぷらの</span><span class="nw">盛り</span><span class="nw">合わせと、</span><span class="nw">つけつゆ、</span><span class="nw">薬味</span></figcaption></figure>
+            <figure><div class="photo-frame" style="aspect-ratio:1024/498;">
+                <img src="img/soba-curry-nasukabocha-01.webp" alt="なす天とかぼちゃ天をのせたそばに、カレーのつけ汁と香の物を添えたお膳" width="1024" height="498" loading="lazy" decoding="async">
+            </div><figcaption><span class="nw">なす</span><span class="nw">天・かぼちゃ</span><span class="nw">天のそばに、</span><span class="nw">カレーのつけ</span><span class="nw">汁を</span><span class="nw">添えた</span><span class="nw">お膳</span></figcaption></figure>
         </div>
     </div>
 </section>
@@ -699,17 +711,17 @@
         <h2 class="section-title reveal"><span class="nw">丼もの・</span><span class="nw">お重</span></h2>
         <p class="section-lead reveal"><span class="nw">しっかり</span><span class="nw">召し</span><span class="nw">上がりたい</span><span class="nw">お昼に、</span><span class="nw">麺と</span><span class="nw">ご一緒にどうぞ。</span><span class="nw">かつ</span><span class="nw">重、</span><span class="nw">親子重、</span><span class="nw">天重などの</span><span class="nw">お重と、</span><span class="nw">丼と</span><span class="nw">麺を</span><span class="nw">組み</span><span class="nw">合わせた</span><span class="nw">セットを</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
 
-        <div class="dish-grid cols-2 reveal reveal-delay-1">
-            <figure><div class="photo-frame ar-43">
+        <div class="dish-grid cols-2 as-shot reveal reveal-delay-1">
+            <figure><div class="photo-frame" style="aspect-ratio:944/708;">
                 <img src="img/katsudon-01.webp" alt="かつ丼" width="944" height="708" loading="lazy" decoding="async">
             </div><figcaption><span class="nw">かつ</span>丼</figcaption></figure>
-            <figure><div class="photo-frame ar-43">
+            <figure><div class="photo-frame" style="aspect-ratio:691/921;">
                 <img src="img/bento-tempura-karaage-zaru-03.webp" alt="お重に、天ぷらと唐揚げと、海苔をのせた麺" width="691" height="921" loading="lazy" decoding="async">
             </div><figcaption><span class="nw">お重に、</span><span class="nw">天ぷらと</span><span class="nw">唐揚げと、</span><span class="nw">海苔をのせた</span>麺</figcaption></figure>
-            <figure><div class="photo-frame ar-43">
+            <figure><div class="photo-frame" style="aspect-ratio:707/531;">
                 <img src="img/tempuradon-soba-set-01.webp" alt="天丼とそばを組み合わせたセット" width="707" height="531" loading="lazy" decoding="async">
             </div><figcaption><span class="nw">天丼とそばを</span><span class="nw">組み</span><span class="nw">合わせた</span><span class="nw">セット</span></figcaption></figure>
-            <figure><div class="photo-frame ar-43">
+            <figure><div class="photo-frame" style="aspect-ratio:664/498;">
                 <img src="img/soba-curry-nasukabocha-02.webp" alt="なす天とかぼちゃ天をのせた麺" width="664" height="498" loading="lazy" decoding="async">
             </div><figcaption><span class="nw">なす</span><span class="nw">天とかぼちゃ</span><span class="nw">天をのせた</span>麺</figcaption></figure>
         </div>

@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/steak-den/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/steak-den/img/steak-plate.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/steak-den/img/exterior-entrance-day.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -24,7 +24,7 @@
     <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400;500;800&family=Zilla+Slab:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Shippori+Mincho+B1:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- favicon：塗り壁のクリーム地に、こげ茶の角丸四角＋Denの D（角ばったスラブ体） -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='10' fill='%2333241B'/%3E%3Ctext x='50' y='71' font-size='62' text-anchor='middle' fill='%23F6EFDC' font-family='Georgia, serif' font-weight='700'%3ED%3C/text%3E%3C/svg%3E">
@@ -40,7 +40,7 @@
       "telephone": "+81-280-32-0299",
       "paymentAccepted": "Cash, Credit Card",
       "url": "https://creative-works-plus.github.io/restaurant-sites/steak-den/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/steak-den/img/steak-plate.jpg",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/steak-den/img/exterior-entrance-day.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -97,9 +97,12 @@
         --pad-inner: clamp(20px, 5vw, 32px);
 
         /* 書体（§3） */
-        --font-en: "Zilla Slab", Georgia, serif;
-        --font-ja: "Murecho", system-ui, sans-serif;
-        --font-body: var(--font-ja);
+        /* ★2026-08-31 改訂：米沢牛A5の牝を出す店に、丸みのあるゴシック（Murecho）と
+           スラブ（Zilla Slab）の組み合わせは軽すぎた。見出しは明朝、欧字はガラモン、
+           本文は細身のゴシックにして、値段の高い店の面構えに揃える。 */
+        --font-en: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+        --font-ja: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        --font-body: "Zen Kaku Gothic New", system-ui, sans-serif;
         --fz-hero: clamp(32px, 7.4vw, 58px);
         --fz-h2:   clamp(24px, 4.8vw, 36px);
         --fz-h3:   clamp(18px, 3.2vw, 21px);
@@ -281,7 +284,7 @@
 
     /* --- ヘッダー --- */
     .site-header { background: var(--surface); border-bottom: 1px solid var(--line); }
-    .brand { font-family: var(--font-en); font-weight: 700; letter-spacing: .04em; color: var(--deep); }
+    .brand { font-family: var(--font-en); font-weight: 600; letter-spacing: .14em; color: var(--deep); }
     .header-tel { color: var(--accent); }
     .header-tel svg { color: var(--accent); }
     .nav-toggle > span:not([class]) { width: 22px; height: 2px; background: var(--deep); border-radius: 2px; }
@@ -297,10 +300,10 @@
     .nav-close { margin-top: var(--sp-3); align-self: flex-start; font-size: .85rem; color: var(--muted); }
 
     /* --- 汎用パーツ --- */
-    .eyebrow { font-family: var(--font-en); font-size: var(--fz-en); letter-spacing: .08em;
+    .eyebrow { font-family: var(--font-en); font-size: var(--fz-en); letter-spacing: .18em;
                color: var(--accent); font-weight: 600; margin-bottom: var(--sp-2); }
-    .section-title { font-family: var(--font-ja); font-weight: 800; font-size: var(--fz-h2);
-                      line-height: 1.3; letter-spacing: .02em; color: var(--deep); }
+    .section-title { font-family: var(--font-ja); font-weight: 600; font-size: var(--fz-h2);
+                      line-height: 1.4; letter-spacing: .06em; color: var(--deep); }
     .lead { margin-top: var(--sp-3); font-size: var(--fz-body); line-height: 1.8; color: var(--muted);
             max-width: 30em; }
 
@@ -320,15 +323,17 @@
     /* --- ヒーロー -----------------------------------------------------------
        ★2026-08-30 改訂：全幅の外観写真を上に敷いていたため、画面を開いた瞬間は
        建物しか見えず、しかも「Den」の切り文字がスポットの光で飛んでいた。
-       写真を看板料理（鉄板のステーキ）に替え、名乗りと写真を左右に並べて
-       ひと目で両方が入るようにする。元写真は 950px なので枠は 620px までに抑える。 */
+       名乗りと写真を左右に並べて、ひと目で両方が入るようにする。
+       ★2026-08-31 改訂：写真を昼の玄関の一枚に替えた。庇のロゴ・扉・外灯が
+       縦に積まれた絵なので、枠も縦位置にする。元写真は 768×1024 なので
+       枠は 500px までに抑える。 */
     .hero { min-height: auto; background: var(--surface); }
     .hero .hero-inner {
-        display: grid; grid-template-columns: 1fr minmax(300px, 560px);
+        display: grid; grid-template-columns: 1fr minmax(280px, 500px);
         gap: clamp(24px, 4vw, 56px); align-items: center;
         padding-block: clamp(32px, 6vw, 64px);
     }
-    .hero-photo { width: 100%; margin: 0; aspect-ratio: 4 / 3; overflow: hidden;
+    .hero-photo { width: 100%; margin: 0; aspect-ratio: 3 / 4; overflow: hidden;
                   background: var(--surface-2); border-radius: var(--radius);
                   box-shadow: 0 22px 50px rgba(40, 22, 12, .18); }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
@@ -337,10 +342,10 @@
     .hero-band .status-note + .hero-catch { margin-top: var(--sp-4); }
     @media (max-width: 900px) {
         .hero .hero-inner { grid-template-columns: 1fr; }
-        .hero-photo { order: -1; aspect-ratio: 16 / 11; }
+        .hero-photo { order: -1; aspect-ratio: 1 / 1; }
     }
-    .hero-catch { font-family: var(--font-ja); font-weight: 800; font-size: var(--fz-hero);
-                  line-height: 1.3; letter-spacing: .02em; color: var(--deep); }
+    .hero-catch { font-family: var(--font-ja); font-weight: 600; font-size: var(--fz-hero);
+                  line-height: 1.45; letter-spacing: .05em; color: var(--deep); }
     .hero-sub { margin-top: var(--sp-4); font-size: var(--fz-body); line-height: 1.8; color: var(--muted);
                 max-width: 34em; }
 
@@ -351,8 +356,8 @@
         .sig-grid { grid-template-columns: 42% 58%; gap: var(--sp-6); }
     }
     .sig { max-width: 760px; padding-block: clamp(48px, 8vw, 96px); }
-    .sig-lead { font-family: var(--font-ja); font-size: var(--fz-sign); font-weight: 800; line-height: 1.15;
-                letter-spacing: .02em; color: var(--bg); }
+    .sig-lead { font-family: var(--font-ja); font-size: var(--fz-sign); font-weight: 600; line-height: 1.3;
+                letter-spacing: .08em; color: var(--bg); }
     .sig-name { font-family: var(--font-ja); font-size: var(--fz-sign-sub); font-weight: 400; line-height: 1.4;
                 letter-spacing: .04em; color: var(--bg); margin-top: var(--sp-3); }
     .sig-body { font-size: var(--fz-body); line-height: 1.8; color: var(--surface-2); margin-top: var(--sp-4);
@@ -429,7 +434,7 @@
     /* --- フッター --- */
     .site-footer { background: var(--deep); color: var(--surface-2); padding-block: var(--sp-6);
                    text-align: center; }
-    .footer-name { font-family: var(--font-en); font-weight: 700; letter-spacing: .06em; color: var(--bg);
+    .footer-name { font-family: var(--font-en); font-weight: 600; letter-spacing: .16em; color: var(--bg);
                    font-size: 1.1rem; }
     .footer-addr { margin-top: var(--sp-3); font-size: .85rem; }
     .footer-copy { margin-top: var(--sp-2); font-size: .75rem; color: var(--dim); }
@@ -486,8 +491,8 @@
             </div>
         </div>
         <figure class="hero-photo">
-            <img src="img/steak-plate.jpg" alt="熱した鉄板の皿にのせたステーキ。にんにくのチップを散らし、コーンとポテトを添えて"
-                 width="950" height="712" loading="eager" fetchpriority="high" decoding="async">
+            <img src="img/exterior-entrance-day.jpg" alt="昼の玄関。庇の上にDenのロゴ、ランタン型の外灯"
+                 width="768" height="1024" loading="eager" fetchpriority="high" decoding="async">
         </figure>
     </div>
 </section>
@@ -503,9 +508,9 @@
             <p class="sig-name reveal reveal-delay-1"><span class="nw">ステーキ</span> Den</p>
             <p class="sig-body reveal reveal-delay-2"><span class="nw">米沢牛を、</span><span class="nw">直接仕入れ</span><span class="nw">ております。</span><span class="nw">なかでも</span><span class="nw">最高級ランク、</span><span class="nw">A5の</span><span class="nw">牝。</span><span class="nw">きめの</span><span class="nw">細かさと</span><span class="nw">味の</span><span class="nw">濃さ、</span><span class="nw">とろける</span><span class="nw">食感を、</span><span class="nw">まずは</span><span class="nw">一度</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
         </div>
-        <figure class="photo-frame ph-sign sig-photo reveal">
-            <img src="img/signage-cow-emblem.jpg" alt="店頭の看板。丸い袖看板と大看板に「米沢牛・特選和牛専門店　ステーキ Den　食肉販売　ステーキ＆ハンバーグ」の文字、看板の上に黒い牛のシルエットの切り文字"
-                 width="610" height="475" loading="lazy" decoding="async">
+        <figure class="photo-frame ph-4-3 sig-photo reveal">
+            <img src="img/steak-signature.jpg" alt="鉄板の皿にのせたステーキ。格子の焼き目がくっきりと入り、青みと檸檬を添えて"
+                 width="1400" height="1049" loading="lazy" decoding="async">
         </figure>
     </div>
 </section>
@@ -525,9 +530,9 @@
                 <img src="img/steak-closeup.jpg" alt="鉄板の上で焼き目のついたステーキを間近から"
                      width="950" height="712" loading="lazy" decoding="async">
             </figure>
-            <figure class="photo-frame ph-4-3 reveal reveal-delay-1" style="max-width:350px;">
-                <img src="img/steak-with-sauce.jpg" alt="鉄板皿に乗った、格子の焼き目がくっきりついたステーキ"
-                     width="360" height="270" loading="lazy" decoding="async">
+            <figure class="photo-frame ph-4-3 reveal reveal-delay-1">
+                <img src="img/steak-plate.jpg" alt="鉄板の皿にのせたステーキ。にんにくのチップを散らし、コーンとポテトを添えて"
+                     width="950" height="712" loading="lazy" decoding="async">
             </figure>
         </div>
     </div>
@@ -686,9 +691,9 @@
                     <tr><th><span class="nw">お支払い</span></th><td><span class="nw">現金・</span><span class="nw">クレジットカード</span><span class="nw">（税込</span><span class="nw">11,000円以上）</span></td></tr>
                 </table>
             </div>
-            <figure class="photo-frame ph-3-4 reveal">
-                <img src="img/exterior-entrance-day.jpg" alt="昼の玄関。庇の上にDenのロゴ、ランタン型の外灯"
-                     width="562" height="750" loading="lazy" decoding="async">
+            <figure class="photo-frame ph-sign reveal">
+                <img src="img/signage-cow-emblem.jpg" alt="店頭の看板。丸い袖看板と大看板に「米沢牛・特選和牛専門店　ステーキ Den　食肉販売　ステーキ＆ハンバーグ」の文字、看板の上に黒い牛のシルエットの切り文字"
+                     width="610" height="475" loading="lazy" decoding="async">
             </figure>
         </div>
 

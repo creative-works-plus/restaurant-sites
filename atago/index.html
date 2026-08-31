@@ -518,6 +518,41 @@
     .hero-photo .photo-frame { height: 100%; }
     .hero-photo .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
+    /* ★2026-08-31 改訂：ヒーローが「生成りの面に文字と、角丸の写真を1枚置いただけ」で、
+       いまの店のサイトとしては素っ気なかった。骨組みは変えず、次の3つで組み直す。
+         ① 暖簾の写真を画面の右端まで通す（額に入れず、断ち落としにする）
+         ② 屋号を大きく取り、上に朱の細い罫と ATAGO を重ねて置く
+         ③ 左端に藍の縦線を1本通し、文章の始まりを揃える
+       写真は 1024px しかないので、右の段は 42vw（1440pxの窓で約600px）に留める。 */
+    @media (min-width: 901px) {
+        .hero { min-height: min(78svh, 700px); display: grid; align-items: stretch; }
+        .hero-grid {
+            width: 100%; max-width: none; margin: 0;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 42vw);
+            gap: clamp(32px, 4vw, 64px);
+            padding-left: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2));
+            padding-right: 0;
+            min-height: 0;
+        }
+        .hero-left {
+            padding-block: clamp(40px, 6vw, 72px);
+            border-left: 2px solid var(--accent-2);
+            padding-left: clamp(20px, 2.4vw, 32px);
+        }
+        .hero-eyebrow { display: flex; align-items: center; gap: 14px; }
+        .hero-eyebrow::after {
+            content: ''; flex: 1 1 auto; height: 1px; max-width: 120px;
+            background: var(--accent); opacity: .55;
+        }
+        .hero-name { font-size: clamp(2.6rem, 4.4vw, 3.6rem); }
+        .hero-catch { font-size: clamp(1.3rem, 2vw, 1.75rem); }
+        .hero-photo .photo-frame {
+            border-radius: 0; border: none; border-left: 1px solid var(--line-strong);
+            box-shadow: none;
+        }
+        .hero-photo .photo-frame img { object-position: center 38%; }
+    }
+
     @media (max-width: 900px) {
         /* ブリーフ7-a：≤900px はヒーローの高さを決め打ちしない（内容なり） */
         .hero { min-height: 0; }
@@ -528,16 +563,14 @@
 
     /* --- 軒の板（全幅の帯・C-4） -------------------------------------------- */
     .band-section { padding-block: 0 var(--pad-section); }
-    .band-photo { width: 100vw; margin-left: calc(50% - 50vw); aspect-ratio: 4 / 3; overflow: hidden; }
+    /* ★2026-08-31：元の写真が 1024px しかないため、1440px の窓では帯が1.4倍に
+       引き伸ばされて眠く見えていた。帯の幅を元の大きさで止める。 */
+    .band-photo { width: min(100vw, 1024px); margin-left: 50%; transform: translateX(-50%); aspect-ratio: 4 / 3; overflow: hidden; }
     .band-photo img { width: 100%; height: 100%; object-fit: cover; }
     @media (min-width: 621px) { .band-photo { aspect-ratio: 21 / 8; } }
     .band-text { padding-top: clamp(28px, 5vw, 44px); }
 
-    /* --- 刺し身の一皿：1枚を大きく ------------------------------------------ */
-    /* ★2026-08-30：一皿が遠く小さく写っていたので、器いっぱいまで寄せて切り直した。
-       元が 693px しかないので、枠の上限もそこまでに抑える（引き伸ばさない） */
-    .feature-photo { margin-top: 20px; max-width: 693px; }
-    .feature-photo .photo-frame { aspect-ratio: 4 / 3; }
+    /* ★2026-08-31：「刺し身の一皿」の節はまるごと外した。 */
 
     /* --- お食事（定食）4枚を横一列・1:1 ------------------------------------- */
     .photo-row-4 {
@@ -560,7 +593,9 @@
     }
 
     /* --- お品書き：章頭の横長写真 -------------------------------------------- */
-    .menu-head-photo { margin-top: 20px; }
+    /* ★2026-08-31：元の写真が 1000px 角。本文幅（1118px）いっぱいに敷くと
+       横に引き伸ばされるので、この1枚だけ元の大きさで止める。 */
+    .menu-head-photo { margin-top: 20px; max-width: 1000px; margin-inline: auto; }
     .photo-frame.wide { aspect-ratio: 16 / 9; }
     .menu-lead { color: var(--muted); margin-top: 14px; }
     @media (min-width: 900px) {
@@ -772,23 +807,6 @@
     <div class="container band-text">
         <h2 class="section-title reveal"><svg class="cat-mark" viewBox="0 0 8 26" aria-hidden="true"><circle cx="4" cy="4" r="3" fill="var(--accent-2)"/><rect x="3" y="10" width="2" height="16" fill="currentColor"/></svg><span class="nwb"><span class="nw">軒の</span><span class="nw">看板</span></span></h2>
         <p class="reveal"><span class="nw">寿司、</span><span class="nw">天ぷら、</span><span class="nw">うなぎ、</span><span class="nw">そして</span><span class="nw">手打そば。</span><span class="nw">軒の</span><span class="nw">看板に、</span><span class="nw">この</span><span class="nw">四つを</span><span class="nw">掲げ</span><span class="nw">ております。</span></p>
-    </div>
-</section>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     3. 刺し身の一皿
-     ══════════════════════════════════════════════════════════════════════ -->
-<section class="section" id="sashimi-plate">
-    <div class="container">
-        <h2 class="section-title reveal"><svg class="cat-mark" viewBox="0 0 8 26" aria-hidden="true"><circle cx="4" cy="4" r="3" fill="var(--accent-2)"/><rect x="3" y="10" width="2" height="16" fill="currentColor"/></svg><span class="nwb"><span class="nw">刺し</span><span class="nw">身の</span><span class="nw">一皿</span></span></h2>
-        <p class="reveal"><span class="nw">カウンターの</span><span class="nw">内に、</span><span class="nw">ネタの</span><span class="nw">ケースを</span><span class="nw">構え</span><span class="nw">ております。</span><span class="nw">定食に</span><span class="nw">お付けする</span><span class="nw">刺し</span><span class="nw">身は、</span><span class="nw">ここから</span><span class="nw">引いて</span><span class="nw">お出しする</span><span class="nw">もので</span><span class="nw">ございます。</span><span class="nw">刺し</span><span class="nw">身だけの</span><span class="nw">定食も</span><span class="nw">ございます。</span></p>
-        <div class="feature-photo reveal">
-            <div class="photo-frame">
-                <img src="img/sashimi-plate-01.webp" alt="白身魚といかの刺し身。大葉と妻、わさびを添えて"
-                     width="693" height="520" loading="lazy" decoding="async">
-            </div>
-        </div>
     </div>
 </section>
 

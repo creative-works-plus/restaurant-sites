@@ -604,11 +604,33 @@
         .mori-gallery .mori-small-col figure { flex: 1 1 100%; max-width: 340px; }
     }
 
-    /* --- 3 店のなか（C-1 2列） ------------------------------------------------------ */
-    .uchi-grid {
-        display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap);
-        max-width: 720px; margin-inline: auto; margin-top: var(--blk-y);
+    /* --- 2b 麺の帯（全幅） ------------------------------------------------------------
+       ★元写真が 1024px しかないので、帯の幅を 1024px で止める。
+       これ以上に広げると PC で引き伸ばされて眠くなる（→ CLAUDE.md 通し工程11） */
+    /* ★.reveal は is-visible で transform:none を当てるので、はみ出しの
+       translateX(-50%) を figure 自身に書くと打ち消される（実際に右へずれた）。
+       外側の器に幅寄せを持たせ、.reveal は内側の figure に付ける */
+    .soba-band {
+        width: min(100vw, 1024px); margin-left: 50%; transform: translateX(-50%);
+        margin-top: var(--blk-y);
     }
+    .soba-band figure { margin: 0; }
+    .soba-band .photo-frame { aspect-ratio: 3 / 2; border-radius: 0; }
+    .soba-band figcaption { padding-inline: 20px; }
+
+    /* --- 3 つゆと、薬味と（C-2 3列） -------------------------------------------------- */
+    .tsuyu-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap);
+        margin-top: var(--blk-y);
+    }
+    @media (max-width: 760px) { .tsuyu-grid { grid-template-columns: 1fr; max-width: 340px; margin-inline: auto; } }
+
+    /* --- 4 店のなか（C-1 3列） ------------------------------------------------------ */
+    .uchi-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap);
+        margin-top: var(--blk-y);
+    }
+    @media (max-width: 860px) { .uchi-grid { grid-template-columns: repeat(2, 1fr); max-width: 720px; margin-inline: auto; } }
     @media (max-width: 560px) { .uchi-grid { grid-template-columns: 1fr; max-width: 340px; } }
 
     /* --- 4 お品書き（B-3 短冊縦組み。build_menu.py の出力を飾る） -------------------- */
@@ -650,8 +672,10 @@
     }
 
     /* --- 5 お客様の声 ---------------------------------------------------------------- */
+    /* ★1行4枚だと引用5〜6枚のとき最後の1枚だけが次の行に取り残される。
+       280px 下限にして3列で組み、2行に分ける */
     .voice-grid {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: var(--gap); margin-top: var(--blk-y);
     }
     .voice {
@@ -800,6 +824,14 @@
                 <p><span class="nw">お蕎麦を</span><span class="nw">お待ちのあいだ、</span><span class="nw">どうぞごゆっくりなさって</span><span class="nw">ください。</span></p>
             </div>
         </div>
+
+        <figure class="reveal" style="margin-top:var(--blk-y);">
+            <div class="photo-frame ar-32" style="max-width:720px;margin-inline:auto;">
+                <img src="img/ie-ranma.jpg" alt="木の格天井と、欄間の透かし彫り。丸い和紙の吊り提灯"
+                     width="1024" height="690" loading="lazy" decoding="async">
+            </div>
+            <figcaption><span class="nw">板の</span><span class="nw">格天井と、</span><span class="nw">欄間の</span><span class="nw">透かし</span><span class="nw">彫り。</span><span class="nw">丸い</span><span class="nw">和紙の</span><span class="nw">提灯を</span><span class="nw">吊るし</span><span class="nw">ております。</span></figcaption>
+        </figure>
     </div>
 </section>
 
@@ -824,35 +856,80 @@
                 <figure class="reveal">
                     <div class="photo-frame ar-43" style="max-width:340px;margin-inline:auto;">
                         <img src="img/soba-kakiage.jpg" alt="皿からはみ出す大きさのかき揚げ"
-                             width="680" height="510" loading="lazy" decoding="async">
+                             width="1024" height="768" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">天ぷら</span></figcaption>
                 </figure>
                 <figure class="reveal">
                     <div class="photo-frame ar-43" style="max-width:340px;margin-inline:auto;">
-                        <img src="img/soba-nikujiru.jpg" alt="湯気の立つ、温かい肉汁の椀"
-                             width="480" height="360" loading="lazy" decoding="async">
+                        <img src="img/soba-nikujiru.jpg" alt="ねぎと青菜を浮かべた、温かい肉汁の椀"
+                             width="740" height="555" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">肉汁</span><span class="nw">（温かいつけ</span><span class="nw">汁）</span></figcaption>
                 </figure>
                 <figure class="reveal">
                     <div class="photo-frame ar-43" style="max-width:340px;margin-inline:auto;">
-                        <img src="img/soba-zen.jpg" alt="もりそば・天ぷら・お新香を並べた膳"
-                             width="627" height="470" loading="lazy" decoding="async">
+                        <img src="img/soba-zen.jpg" alt="もりそば・かき揚げ・薬味・お新香を並べた膳"
+                             width="1024" height="685" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">もりそばと</span><span class="nw">天ぷら</span></figcaption>
                 </figure>
             </div>
         </div>
+
+        <div class="soba-band">
+            <figure class="reveal">
+                <div class="photo-frame">
+                    <img src="img/soba-close.jpg" alt="朱塗りの角せいろに、細く均一に打った蕎麦を高く盛ったところ"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">細めに</span><span class="nw">打って、</span><span class="nw">冷たく</span><span class="nw">締めて</span><span class="nw">お出しし</span><span class="nw">ております。</span></figcaption>
+            </figure>
+        </div>
     </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     3. 店のなか（C-1 2列）
+     3. つゆと、薬味と（C-2 3列）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="tsuyu">
+    <div class="container">
+        <p class="eyebrow reveal">03</p>
+        <h2 class="section-title reveal"><span class="nw">つゆと、</span><span class="nw">薬味と</span></h2>
+        <p class="lead reveal"><span class="nw">薬味は</span><span class="nw">白ねぎとわさび、</span><span class="nw">お新香を</span><span class="nw">添え</span><span class="nw">ております。</span><span class="nw">天ぷらは、</span><span class="nw">つゆの</span><span class="nw">ジュレでも、</span><span class="nw">卓の</span><span class="nw">岩塩でも</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただけます。</span></p>
+
+        <div class="tsuyu-grid">
+            <figure class="reveal">
+                <div class="photo-frame ar-43">
+                    <img src="img/tsuyu-jure.jpg" alt="匙にのせた、琥珀色の天つゆのジュレ"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">天つゆは、</span><span class="nw">ジュレにして</span><span class="nw">お出しし</span><span class="nw">ております。</span></figcaption>
+            </figure>
+            <figure class="reveal">
+                <div class="photo-frame ar-43">
+                    <img src="img/tsuyu-ganen.jpg" alt="黒い盆にのせた岩塩の瓶と、瓢箪の形の徳利"
+                         width="696" height="522" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">卓に</span><span class="nw">岩塩を</span><span class="nw">置いて</span><span class="nw">ございます。</span><span class="nw">ひとつまみ、</span><span class="nw">お試し</span><span class="nw">くださいませ。</span></figcaption>
+            </figure>
+            <figure class="reveal">
+                <div class="photo-frame ar-43">
+                    <img src="img/tsuyu-sobayu.jpg" alt="そば湯を満たした、朱塗りの湯桶"
+                         width="702" height="526" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">お蕎麦のあとに、</span><span class="nw">そば</span><span class="nw">湯をたっぷりと</span><span class="nw">お持ちします。</span></figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     4. 店のなか（C-1 3列）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="uchi">
     <div class="container">
-        <p class="eyebrow reveal">03</p>
+        <p class="eyebrow reveal">04</p>
         <h2 class="section-title reveal"><span class="nw">店のなか</span></h2>
         <p class="lead reveal"><span class="nw">カウンター</span><span class="nw">席と</span><span class="nw">テーブル</span><span class="nw">席を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">全席禁煙で</span><span class="nw">ございます。</span><span class="nw">お子様連れの</span><span class="nw">方もどうぞ。</span></p>
 
@@ -860,27 +937,34 @@
             <figure class="reveal">
                 <div class="photo-frame ar-43">
                     <img src="img/naka-zashiki.jpg" alt="木の床の奥のお部屋。窓際に木のテーブルと椅子"
-                         width="680" height="510" loading="lazy" decoding="async">
+                         width="1600" height="1200" loading="lazy" decoding="async">
                 </div>
                 <figcaption><span class="nw">奥の</span><span class="nw">お部屋の</span><span class="nw">テーブル</span><span class="nw">席。</span><span class="nw">お連れさまとは、</span><span class="nw">こちらへどうぞ。</span></figcaption>
             </figure>
             <figure class="reveal">
                 <div class="photo-frame ar-43">
                     <img src="img/naka-counter.jpg" alt="窓に向いたカウンター席とギター"
-                         width="531" height="398" loading="lazy" decoding="async">
+                         width="1024" height="637" loading="lazy" decoding="async">
                 </div>
                 <figcaption><span class="nw">カウンター</span><span class="nw">席。</span><span class="nw">お一人さまは、</span><span class="nw">こちらへどうぞ。</span></figcaption>
+            </figure>
+            <figure class="reveal">
+                <div class="photo-frame ar-43">
+                    <img src="img/naka-table.jpg" alt="丸い和紙の提灯を吊るした部屋。掛物と生花、木のテーブル"
+                         width="1024" height="768" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">床の</span><span class="nw">間には</span><span class="nw">掛物を、</span><span class="nw">卓には</span><span class="nw">生花を</span><span class="nw">活けて</span><span class="nw">ございます。</span></figcaption>
             </figure>
         </div>
     </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     4. お品書き（B-3 短冊縦組み。build_menu.py の出力を差し込む）
+     5. お品書き（B-3 短冊縦組み。build_menu.py の出力を差し込む）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="menu">
     <div class="container">
-        <p class="eyebrow reveal">04</p>
+        <p class="eyebrow reveal">05</p>
         <h2 class="section-title reveal"><span class="nw">お品書き</span></h2>
         <p class="lead reveal"><span class="nw">もりそばに、</span><span class="nw">天ぷらと、</span><span class="nw">温かい</span><span class="nw">肉汁を</span><span class="nw">お付け</span><span class="nw">いただけます。</span></p>
     </div>
@@ -916,11 +1000,11 @@
 <!-- menu:auto:end -->
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     5. お客様の声
+     6. お客様の声
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="koe">
     <div class="container">
-        <p class="eyebrow reveal">05</p>
+        <p class="eyebrow reveal">06</p>
         <h2 class="section-title reveal"><span class="nw">お客様の</span>声</h2>
 
         <div class="voice-grid">
@@ -936,16 +1020,28 @@
                 <p><span class="nw">「蕎麦湯ももちろん</span><span class="nw">出してくれました</span>　<span class="nw">たっぷり</span><span class="nw">入っているのがいいですね」</span></p>
                 <cite>お客様の声より</cite>
             </blockquote>
+            <blockquote class="voice reveal">
+                <p><span class="nw">「香りがよい</span><span class="nw">ので</span><span class="nw">何もつけずに</span><span class="nw">1本すすると、</span><span class="nw">そばの</span><span class="nw">香りが</span><span class="nw">鼻から</span><span class="nw">抜けるのを</span><span class="nw">感じた」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice reveal">
+                <p><span class="nw">「冷たくしめられたそばは</span><span class="nw">コシがあり</span><span class="nw">喉ごしもよくとても</span><span class="nw">美味しい」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
+            <blockquote class="voice reveal">
+                <p><span class="nw">「蕎麦はほのかに</span><span class="nw">香って、</span><span class="nw">麺はしっかり、</span><span class="nw">のどごしも</span><span class="nw">良でした。」</span></p>
+                <cite>お客様の声より</cite>
+            </blockquote>
         </div>
     </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     6. お越しになる前に
+     7. お越しになる前に
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="kokoroe">
     <div class="container">
-        <p class="eyebrow reveal">06</p>
+        <p class="eyebrow reveal">07</p>
         <h2 class="section-title reveal"><span class="nw">お越しになる</span><span class="nw">前に</span></h2>
 
         <div class="kokoroe-grid">
@@ -968,11 +1064,11 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     7. アクセス
+     8. アクセス
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="access">
     <div class="container">
-        <p class="eyebrow reveal">07</p>
+        <p class="eyebrow reveal">08</p>
         <h2 class="section-title reveal"><span class="nw">アクセス</span></h2>
         <p class="lead reveal"><span class="nw">当店は</span><span class="nw">古河市駒ケ</span><span class="nw">崎、</span><span class="nw">ヨシダサッカーフィールド</span><span class="nw">（古河市サッカー</span><span class="nw">場）の</span><span class="nw">西側、</span><span class="nw">道の</span><span class="nw">突き</span><span class="nw">当たりで</span><span class="nw">ございます。</span><span class="nw">途中に</span><span class="nw">道幅の</span><span class="nw">狭い</span><span class="nw">ところが</span><span class="nw">ございます</span><span class="nw">ので、</span><span class="nw">お気をつけて</span><span class="nw">お越し</span><span class="nw">くださいませ。</span></p>
 
@@ -987,9 +1083,16 @@
             <figure class="reveal">
                 <div class="photo-frame ar-43" style="max-width:520px;">
                     <img src="img/iriguchi-noren.jpg" alt="瑠璃色の暖簾のかかる入口。木彫りのふくろう"
-                         width="856" height="642" loading="lazy" decoding="async">
+                         width="1067" height="800" loading="lazy" decoding="async">
                 </div>
                 <figcaption><span class="nw">駒の</span><span class="nw">暖簾をくぐって、</span><span class="nw">お入り</span><span class="nw">くださいませ。</span></figcaption>
+            </figure>
+            <figure class="reveal">
+                <div class="photo-frame ar-43" style="max-width:520px;">
+                    <img src="img/nobori-koma.jpg" alt="軒先に立てた藤色の幟。白く「駒」の字が染め抜かれている"
+                         width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">軒先に、</span><span class="nw">この</span><span class="nw">幟を</span><span class="nw">立てて</span><span class="nw">ございます。</span></figcaption>
             </figure>
         </div>
     </div>
@@ -1000,7 +1103,7 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="info">
     <div class="container">
-        <p class="eyebrow reveal">08</p>
+        <p class="eyebrow reveal">09</p>
         <h2 class="section-title reveal"><span class="nw">アクセス・</span><span class="nw">店舗情報</span></h2>
 
         <table class="info-table reveal">
