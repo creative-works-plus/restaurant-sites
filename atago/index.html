@@ -518,24 +518,22 @@
     .hero-photo .photo-frame { height: 100%; }
     .hero-photo .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* ★2026-08-31 改訂：ヒーローが「生成りの面に文字と、角丸の写真を1枚置いただけ」で、
-       いまの店のサイトとしては素っ気なかった。骨組みは変えず、次の3つで組み直す。
-         ① 暖簾の写真を画面の右端まで通す（額に入れず、断ち落としにする）
-         ② 屋号を大きく取り、上に朱の細い罫と ATAGO を重ねて置く
-         ③ 左端に藍の縦線を1本通し、文章の始まりを揃える
-       写真は 1024px しかないので、右の段は 42vw（1440pxの窓で約600px）に留める。 */
+    /* ★2026-09-01 改訂：暖簾の写真を画面の右端まで断ち落としにしていたため、
+       ページ全体が右へ寄って見えた（下の「軒の看板」の帯がずれていたのも重なった）。
+       断ち落としをやめ、本文と同じ器（--maxw）の中に左右同じ余白で収める。
+         ① 文字の段と写真の段を 1 : 0.92 で置き、器の左右の余白を揃える
+         ② 屋号の上に朱の細い罫と ATAGO を重ね、左端に藍の縦線を1本通す
+         ③ 写真は角丸の額に戻し、右下に朱の細い鉤（かぎ）を添えて右側の重心を作る
+       写真は 1024px しかないので、右の段は最大 520px 程度に収まる（引き伸ばさない）。 */
     @media (min-width: 901px) {
-        .hero { min-height: min(78svh, 700px); display: grid; align-items: stretch; }
+        .hero { min-height: min(74svh, 660px); display: grid; align-items: center; }
         .hero-grid {
-            width: 100%; max-width: none; margin: 0;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 42vw);
-            gap: clamp(32px, 4vw, 64px);
-            padding-left: max(var(--pad-inner), calc((100vw - var(--maxw)) / 2));
-            padding-right: 0;
-            min-height: 0;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+            gap: clamp(32px, 4vw, 60px);
+            min-height: min(66svh, 580px);
         }
         .hero-left {
-            padding-block: clamp(40px, 6vw, 72px);
+            padding-block: clamp(24px, 3vw, 44px);
             border-left: 2px solid var(--accent-2);
             padding-left: clamp(20px, 2.4vw, 32px);
         }
@@ -544,11 +542,14 @@
             content: ''; flex: 1 1 auto; height: 1px; max-width: 120px;
             background: var(--accent); opacity: .55;
         }
-        .hero-name { font-size: clamp(2.6rem, 4.4vw, 3.6rem); }
-        .hero-catch { font-size: clamp(1.3rem, 2vw, 1.75rem); }
-        .hero-photo .photo-frame {
-            border-radius: 0; border: none; border-left: 1px solid var(--line-strong);
-            box-shadow: none;
+        .hero-name { font-size: clamp(2.4rem, 3.8vw, 3.2rem); }
+        .hero-catch { font-size: clamp(1.25rem, 1.9vw, 1.6rem); }
+        /* 右下の朱の鉤。写真の額から少しだけ外へ出して、右側に視線の止まりを作る */
+        .hero-photo::after {
+            content: ''; position: absolute; right: -14px; bottom: -14px;
+            width: 84px; height: 84px;
+            border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+            opacity: .5; pointer-events: none;
         }
         .hero-photo .photo-frame img { object-position: center 38%; }
     }
@@ -564,8 +565,13 @@
     /* --- 軒の板（全幅の帯・C-4） -------------------------------------------- */
     .band-section { padding-block: 0 var(--pad-section); }
     /* ★2026-08-31：元の写真が 1024px しかないため、1440px の窓では帯が1.4倍に
-       引き伸ばされて眠く見えていた。帯の幅を元の大きさで止める。 */
-    .band-photo { width: min(100vw, 1024px); margin-left: 50%; transform: translateX(-50%); aspect-ratio: 4 / 3; overflow: hidden; }
+       引き伸ばされて眠く見えていた。帯の幅を元の大きさで止める。
+       ★2026-09-01 修正：`margin-left:50% + translateX(-50%)` で真ん中に寄せていたが、
+       この要素には .reveal が付いており、`.reveal.in-view { transform: none }` が
+       translateX を打ち消していた。帯が右へ 1024px の半分だけずれ、画面からはみ出していた。
+       この帯の親（.band-section）はもともと全幅なので、transform を使わず
+       `margin-inline: auto` で中央に置けば .reveal と喧嘩しない。 */
+    .band-photo { width: min(100%, 1024px); margin-inline: auto; aspect-ratio: 4 / 3; overflow: hidden; }
     .band-photo img { width: 100%; height: 100%; object-fit: cover; }
     @media (min-width: 621px) { .band-photo { aspect-ratio: 21 / 8; } }
     .band-text { padding-top: clamp(28px, 5vw, 44px); }
