@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+<meta name="robots" content="noindex, nofollow">
+<title>お席のご予約｜居酒屋 和が家</title>
+<meta name="description" content="居酒屋 和が家のお席のご予約フォームの見本です。">
+<meta name="theme-color" content="#1f3552">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23b33b2a'/%3E%3Ctext x='50' y='66' font-size='54' text-anchor='middle' fill='%23f7f2e7' font-family='serif'%3E%E5%92%8C%3C/text%3E%3C/svg%3E">
+<style>
+/* ==========================================================
+   和が家 ご予約フォーム（見本）
+   本体サイトと同じトークンを使う。フォームだけ別の見た目にしない。
+   ========================================================== */
+:root{
+  --paper:#f7f2e6; --paper-deep:#efe4cd; --ink:#26221c;
+  --indigo:#1f3552; --indigo-deep:#12233a;
+  --vermillion:#b33b2a; --vermillion-deep:#8f2e21;
+  --gold:#a8843f; --line:#ddccae;
+  --font-serif:'Yu Mincho','YuMincho','BIZ UDMincho','Hiragino Mincho ProN',serif;
+  --font-sans:'BIZ UDPGothic','Hiragino Kaku Gothic ProN','Hiragino Sans',Meiryo,sans-serif;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+body{font-family:var(--font-sans);font-size:16px;line-height:1.9;letter-spacing:.05em;
+  color:var(--ink);background-color:var(--paper);background-image:var(--grain);margin:0;padding:0}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+
+.bar{background:var(--indigo-deep);color:#f7f2e6;padding:14px 20px;
+  display:flex;align-items:center;gap:12px;font-family:var(--font-serif);font-size:1.15rem}
+.bar .hanko{width:30px;height:30px;flex:0 0 30px}
+.bar .hanko circle{fill:var(--vermillion)}
+.bar .hanko text{fill:#f7f2e6;font-family:var(--font-serif)}
+.bar a{margin-left:auto;font-size:.86rem;font-family:var(--font-sans);
+  color:#e8dcc4;text-decoration:none;border-bottom:1px solid rgba(232,220,196,.5);padding-bottom:1px}
+
+.wrap{max-width:640px;margin:0 auto;padding:40px 20px 80px}
+h1{font-family:var(--font-serif);font-size:1.85rem;line-height:1.6;margin:0 0 6px;color:var(--indigo)}
+.sub{font-size:.92rem;color:#7a7161;margin:0 0 30px}
+
+/* 確定ではないことの掲示。ここが要。上と下の2回出す */
+.notice{background:#fffdf8;border:1px solid var(--vermillion);border-left-width:5px;
+  border-radius:4px;padding:18px 20px;margin:0 0 28px}
+.notice b{color:var(--vermillion-deep)}
+.notice p{margin:0;font-size:.95rem;line-height:1.85}
+.notice p+p{margin-top:10px}
+.nw{white-space:nowrap}
+
+fieldset{border:0;margin:0;padding:0}
+.f{margin:0 0 22px}
+.f label{display:block;font-family:var(--font-serif);font-size:1.02rem;color:var(--indigo);margin:0 0 7px}
+.req{display:inline-block;background:var(--vermillion);color:#fff;font-family:var(--font-sans);
+  font-size:.7rem;letter-spacing:.08em;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:2px}
+.opt{display:inline-block;background:var(--paper-deep);color:#7a7161;font-family:var(--font-sans);
+  font-size:.7rem;letter-spacing:.08em;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:2px}
+.hint{font-size:.84rem;color:#7a7161;margin:6px 0 0;line-height:1.7}
+input,select,textarea{width:100%;font-family:var(--font-sans);font-size:16px;color:var(--ink);
+  background:#fffdf8;border:1px solid var(--line);border-radius:5px;padding:13px 14px;
+  line-height:1.6;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237a7161' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--indigo);outline-offset:1px;border-color:var(--indigo)}
+.row{display:flex;gap:12px}
+.row>*{flex:1}
+.err{color:var(--vermillion-deep);font-size:.86rem;margin:6px 0 0;display:none}
+.f.bad input,.f.bad select{border-color:var(--vermillion)}
+.f.bad .err{display:block}
+
+.send{width:100%;background:var(--vermillion);color:#fff;border:1px solid var(--vermillion);
+  font-family:var(--font-serif);font-size:1.15rem;letter-spacing:.1em;padding:17px;border-radius:5px;
+  cursor:pointer;transition:.25s;margin-top:6px}
+.send:hover{background:var(--vermillion-deep);border-color:var(--vermillion-deep)}
+.send[disabled]{opacity:.55;cursor:default}
+
+.tel{display:block;text-align:center;background:var(--indigo);color:#f7f2e6;text-decoration:none;
+  font-family:var(--font-serif);font-size:1.1rem;letter-spacing:.08em;padding:16px;border-radius:5px;margin-top:14px}
+.tel small{display:block;font-family:var(--font-sans);font-size:.8rem;letter-spacing:.04em;opacity:.85;margin-top:3px}
+
+.done{display:none;text-align:center;padding:20px 0}
+.done .mark{width:74px;height:74px;margin:0 auto 22px}
+.done h2{font-family:var(--font-serif);font-size:1.55rem;color:var(--indigo);margin:0 0 16px;line-height:1.6}
+.done p{font-size:.98rem;margin:0 0 14px}
+
+footer{background:var(--indigo-deep);color:#cdbfa6;font-size:.82rem;text-align:center;padding:26px 20px;line-height:1.9}
+.demo{background:var(--paper-deep);border:1px dashed var(--gold);border-radius:4px;
+  padding:12px 16px;font-size:.82rem;color:#6d6252;margin:0 0 26px;line-height:1.8}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <svg class="hanko" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/><text x="50" y="66" font-size="54" text-anchor="middle">和</text></svg>
+  <span>居酒屋 和が家</span>
+  <a href="index.html">お店のページへ</a>
+</div>
+
+<div class="wrap">
+
+  <div id="pane-form">
+    <h1>お席のご予約</h1>
+    <p class="sub"><span class="nw">お電話に出られない時間でも、</span><span class="nw">こちらから承ります。</span></p>
+
+    <p class="demo">※ <span class="nw">こちらは、</span><span class="nw">ご予約フォームの見本のページです。</span><span class="nw">実際のお申し込みは</span><span class="nw">受け付けておりません。</span></p>
+
+    <div class="notice">
+      <p><b><span class="nw">このお申し込みだけでは、</span><span class="nw">お席は確定いたしません。</span></b><span class="nw">お店からご連絡を差し上げ、</span><span class="nw">そのご連絡をもって</span><span class="nw">確定となります。</span></p>
+      <p><b><span class="nw">当日のご予約は、</span><span class="nw">お電話でお願いいたします。</span></b><span class="nw">こちらのフォームは</span><span class="nw">翌日以降のぶんを</span><span class="nw">承っております。</span></p>
+    </div>
+
+    <form id="rsv" novalidate>
+      <fieldset>
+        <div class="f" id="f-name">
+          <label for="q-name">お名前<span class="req">必須</span></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="和賀 太郎">
+          <p class="err">お名前をご記入ください。</p>
+        </div>
+
+        <div class="f" id="f-tel">
+          <label for="q-tel">お電話番号<span class="req">必須</span></label>
+          <input id="q-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678">
+          <p class="hint"><span class="nw">お店からのご連絡に</span><span class="nw">使わせていただきます。</span><span class="nw">ハイフンは有っても</span><span class="nw">無くても構いません。</span></p>
+          <p class="err">お電話番号をご記入ください（10桁または11桁）。</p>
+        </div>
+
+        <div class="f" id="f-date">
+          <label for="q-date">ご来店日<span class="req">必須</span></label>
+          <input id="q-date" name="date" type="date">
+          <p class="err">翌日以降の日付をお選びください。</p>
+        </div>
+
+        <div class="row">
+          <div class="f" id="f-time" style="flex:1">
+            <label for="q-time">ご来店時刻<span class="req">必須</span></label>
+            <select id="q-time" name="time"><option value="">お選びください</option></select>
+            <p class="err">時刻をお選びください。</p>
+          </div>
+          <div class="f" id="f-num" style="flex:1">
+            <label for="q-num">ご人数<span class="req">必須</span></label>
+            <select id="q-num" name="num"><option value="">お選びください</option></select>
+            <p class="err">ご人数をお選びください。</p>
+          </div>
+        </div>
+
+        <div class="f">
+          <label for="q-note">ご要望<span class="opt">任意</span></label>
+          <textarea id="q-note" name="note" placeholder="個室を希望します／お子様がおります　など"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="send" id="btn">この内容で申し込む</button>
+      <a class="tel" href="tel:0280313337">お電話でご予約する<small>0280-31-3337</small></a>
+    </form>
+  </div>
+
+  <div id="pane-done" class="done">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#1f3552" stroke-width="2"/>
+      <path d="M30 52l14 14 27-30" fill="none" stroke="#b33b2a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h2>お申し込みを承りました</h2>
+    <div class="notice" style="text-align:left">
+      <p><b><span class="nw">まだお席は</span><span class="nw">確定しておりません。</span></b><span class="nw">お店から折り返し</span><span class="nw">ご連絡を差し上げ、</span><span class="nw">そのご連絡をもって</span><span class="nw">確定となります。</span></p>
+      <p><span class="nw">お急ぎの場合、</span><span class="nw">営業時間内でしたら</span><span class="nw">お電話が確実でございます。</span></p>
+    </div>
+    <p id="echo" style="font-size:.92rem;color:#7a7161"></p>
+    <a class="tel" href="tel:0280313337">お電話はこちら<small>0280-31-3337</small></a>
+  </div>
+
+</div>
+
+<footer>居酒屋 和が家｜茨城県古河市下山町9-27<br>このページはご予約フォームの見本です。</footer>
+
+<!-- Googleフォームへ渡すための受け皿。画面には出ない -->
+<iframe name="gf-sink" style="display:none" title="送信"></iframe>
+
+<script>
+/* ==========================================================
+   ★設定はここだけ。お店ごとに書き換える。
+   FORM_ID  … GoogleフォームのURL https://docs.google.com/forms/d/e/★ここ★/viewform
+   ENTRY    … 各項目の entry.xxxxxxx（下のコマンドで一覧が出る）
+                python3 Claude/scripts/form_entry_ids.py "<GoogleフォームのURL>"
+   FORM_ID を空のままにしておくと「見本モード」で動く（送信せず完了画面だけ出す）。
+   ========================================================== */
+var FORM_ID = "";
+var ENTRY = { name:"", tel:"", date:"", time:"", num:"", note:"" };
+
+/* ---- お店ごとの決めごと（→ 提案書16ページ「行き違いを防ぐ三つの決めごと」） ---- */
+var LEAD_DAYS = 1;      // 何日先から受けるか。1＝翌日から（当日はお電話）
+var OPEN_H    = 17;     // 受付する時刻の最初
+var CLOSE_H   = 21;     // 受付する時刻の最後
+var MAX_PEOPLE = 20;    // ご人数の上限
+
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+
+  // 時刻の選択肢を30分刻みで作る
+  var t = $("#q-time");
+  for (var h = OPEN_H; h <= CLOSE_H; h++) {
+    for (var m = 0; m < 60; m += 30) {
+      if (h === CLOSE_H && m > 0) break;
+      var v = ("0" + h).slice(-2) + ":" + ("0" + m).slice(-2);
+      t.insertAdjacentHTML("beforeend", '<option value="' + v + '">' + v + "</option>");
+    }
+  }
+  var n = $("#q-num");
+  for (var i = 1; i <= MAX_PEOPLE; i++) {
+    n.insertAdjacentHTML("beforeend", '<option value="' + i + '">' + i + "名</option>");
+  }
+
+  // 当日は選べないようにする（＝当日のご予約はお電話）
+  var d = new Date();
+  d.setDate(d.getDate() + LEAD_DAYS);
+  var min = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  $("#q-date").min = min;
+
+  function mark(id, ok) {
+    document.getElementById(id).classList.toggle("bad", !ok);
+    return ok;
+  }
+
+  $("#rsv").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("#q-name").value.trim();
+    var tel  = $("#q-tel").value.replace(/[-−ー\s]/g, "");
+    var date = $("#q-date").value;
+    var time = $("#q-time").value;
+    var num  = $("#q-num").value;
+    var note = $("#q-note").value.trim();
+
+    var ok = true;
+    ok = mark("f-name", name.length > 0) && ok;
+    ok = mark("f-tel", /^0\d{9,10}$/.test(tel)) && ok;
+    ok = mark("f-date", !!date && date >= min) && ok;
+    ok = mark("f-time", !!time) && ok;
+    ok = mark("f-num", !!num) && ok;
+    if (!ok) { document.querySelector(".f.bad").scrollIntoView({ block: "center" }); return; }
+
+    $("#btn").disabled = true;
+    $("#btn").textContent = "送信しております…";
+
+    if (FORM_ID) {
+      // Googleフォームへ渡す。返事は読めない（別ドメインのため）ので、
+      // 送ったあとは、こちらの完了画面を出す。
+      var f = document.createElement("form");
+      f.action = "https://docs.google.com/forms/d/e/" + FORM_ID + "/formResponse";
+      f.method = "POST";
+      f.target = "gf-sink";
+      var vals = { name: name, tel: tel, date: date, time: time, num: num, note: note };
+      for (var k in ENTRY) {
+        if (!ENTRY[k]) continue;
+        var inp = document.createElement("input");
+        inp.type = "hidden"; inp.name = ENTRY[k]; inp.value = vals[k];
+        f.appendChild(inp);
+      }
+      document.body.appendChild(f);
+      f.submit();
+    }
+
+    setTimeout(function () {
+      $("#echo").textContent = date.replace(/-/g, "/") + " " + time + "／" + num + "名／" + name + " 様";
+      $("#pane-form").style.display = "none";
+      $("#pane-done").style.display = "block";
+      window.scrollTo(0, 0);
+    }, FORM_ID ? 700 : 350);
+  });
+})();
+</script>
+</body>
+</html>
