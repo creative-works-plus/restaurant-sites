@@ -108,7 +108,12 @@ footer{background:var(--indigo-deep);color:#cdbfa6;font-size:.82rem;text-align:c
 
     <p class="demo">※ <span class="nw">こちらは、</span><span class="nw">ご予約フォームの見本のページです。</span><span class="nw">実際のお申し込みは</span><span class="nw">受け付けておりません。</span></p>
 
-    <div class="notice">
+    <div class="notice" id="stopbox" style="display:none;border-color:var(--indigo)">
+      <p><b id="stopmsg"></b></p>
+      <p><span class="nw">お手数をおかけいたしますが、</span><span class="nw">お電話にて承ります。</span></p>
+    </div>
+
+    <div class="notice" id="rulebox">
       <p><b><span class="nw">このお申し込みだけでは、</span><span class="nw">お席は確定いたしません。</span></b><span class="nw">お店からご連絡を差し上げ、</span><span class="nw">そのご連絡をもって</span><span class="nw">確定となります。</span></p>
       <p><b><span class="nw">当日のご予約は、</span><span class="nw">お電話でお願いいたします。</span></b><span class="nw">こちらのフォームは</span><span class="nw">翌日以降のぶんを</span><span class="nw">承っております。</span></p>
     </div>
@@ -131,7 +136,7 @@ footer{background:var(--indigo-deep);color:#cdbfa6;font-size:.82rem;text-align:c
         <div class="f" id="f-date">
           <label for="q-date">ご来店日<span class="req">必須</span></label>
           <input id="q-date" name="date" type="date">
-          <p class="err">翌日以降の日付をお選びください。</p>
+          <p class="err">翌日以降の、空いている日をお選びください。</p>
         </div>
 
         <div class="row">
@@ -145,6 +150,12 @@ footer{background:var(--indigo-deep);color:#cdbfa6;font-size:.82rem;text-align:c
             <select id="q-num" name="num"><option value="">お選びください</option></select>
             <p class="err">ご人数をお選びください。</p>
           </div>
+        </div>
+
+        <div class="f">
+          <label for="q-alt">第二希望の時刻<span class="opt">任意</span></label>
+          <select id="q-alt" name="alt"><option value="">とくにありません</option></select>
+          <p class="hint"><span class="nw">ご希望の時刻が埋まっていた場合、</span><span class="nw">こちらでご相談させていただきます。</span></p>
         </div>
 
         <div class="f">
@@ -176,25 +187,31 @@ footer{background:var(--indigo-deep);color:#cdbfa6;font-size:.82rem;text-align:c
 
 <footer>居酒屋 和が家｜茨城県古河市下山町9-27<br>このページはご予約フォームの見本です。</footer>
 
-<!-- Googleフォームへ渡すための受け皿。画面には出ない -->
+<!-- 送信の受け皿。画面には出ない -->
 <iframe name="gf-sink" style="display:none" title="送信"></iframe>
 
 <script>
 /* ==========================================================
    ★設定はここだけ。お店ごとに書き換える。
-   FORM_ID  … GoogleフォームのURL https://docs.google.com/forms/d/e/★ここ★/viewform
-   ENTRY    … 各項目の entry.xxxxxxx（下のコマンドで一覧が出る）
-                python3 Claude/scripts/form_entry_ids.py "<GoogleフォームのURL>"
-   FORM_ID を空のままにしておくと「見本モード」で動く（送信せず完了画面だけ出す）。
+   ENDPOINT … Google Apps Script のウェブアプリのURL（…/exec）
+              作り方は Claude/_共通パーツ/予約フォーム/使い方.md
+              空のままだと「見本モード」で動く（送らずに完了画面だけ出す）
    ========================================================== */
-var FORM_ID = "";
-var ENTRY = { name:"", tel:"", date:"", time:"", num:"", note:"" };
+var ENDPOINT = "";
 
 /* ---- お店ごとの決めごと（→ 提案書16ページ「行き違いを防ぐ三つの決めごと」） ---- */
-var LEAD_DAYS = 1;      // 何日先から受けるか。1＝翌日から（当日はお電話）
-var OPEN_H    = 17;     // 受付する時刻の最初
-var CLOSE_H   = 21;     // 受付する時刻の最後
-var MAX_PEOPLE = 20;    // ご人数の上限
+var LEAD_DAYS  = 1;      // 何日先から受けるか。1＝翌日から（当日はお電話）
+var OPEN_H     = 17;     // 受付する時刻の最初
+var CLOSE_H    = 21;     // 受付する時刻の最後
+var MAX_PEOPLE = 20;     // ご人数の上限
+
+/* ★満席の日は、はじめから選ばせない。月1回の更新でお店から伺って書き足す */
+var FULL_DATES = [];     // 例：["2026-12-24","2026-12-25"]
+
+/* ★繁忙期は、フォームを閉じてお電話だけにする。空なら閉じない
+     例：STOP_FROM="2026-12-01", STOP_TO="2026-12-31" */
+var STOP_FROM = "";
+var STOP_TO   = "";
 
 (function () {
   var $ = function (s) { return document.querySelector(s); };
@@ -208,6 +225,11 @@ var MAX_PEOPLE = 20;    // ご人数の上限
       t.insertAdjacentHTML("beforeend", '<option value="' + v + '">' + v + "</option>");
     }
   }
+  var alt = $("#q-alt");
+  for (var j = 0; j < t.options.length; j++) {
+    if (t.options[j].value) alt.appendChild(t.options[j].cloneNode(true));
+  }
+
   var n = $("#q-num");
   for (var i = 1; i <= MAX_PEOPLE; i++) {
     n.insertAdjacentHTML("beforeend", '<option value="' + i + '">' + i + "名</option>");
@@ -218,6 +240,21 @@ var MAX_PEOPLE = 20;    // ご人数の上限
   d.setDate(d.getDate() + LEAD_DAYS);
   var min = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
   $("#q-date").min = min;
+
+  // ★繁忙期はフォームを閉じ、お電話だけにする
+  var today = new Date();
+  var td = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2);
+  if (STOP_FROM && STOP_TO && td >= STOP_FROM && td <= STOP_TO) {
+    var f2 = function (x) {
+      return parseInt(x.slice(5, 7), 10) + "月" + parseInt(x.slice(8, 10), 10) + "日";
+    };
+    $("#stopmsg").textContent =
+      f2(STOP_FROM) + "から" + f2(STOP_TO) + "までのご予約は、お電話のみで承っております。";
+    $("#stopbox").style.display = "block";
+    $("#rsv").style.display = "none";
+    $("#rulebox").style.display = "none";
+    $("#pane-form").appendChild($(".tel") || document.createElement("span"));
+  }
 
   function mark(id, ok) {
     document.getElementById(id).classList.toggle("bad", !ok);
@@ -236,7 +273,7 @@ var MAX_PEOPLE = 20;    // ご人数の上限
     var ok = true;
     ok = mark("f-name", name.length > 0) && ok;
     ok = mark("f-tel", /^0\d{9,10}$/.test(tel)) && ok;
-    ok = mark("f-date", !!date && date >= min) && ok;
+    ok = mark("f-date", !!date && date >= min && FULL_DATES.indexOf(date) < 0) && ok;
     ok = mark("f-time", !!time) && ok;
     ok = mark("f-num", !!num) && ok;
     if (!ok) { document.querySelector(".f.bad").scrollIntoView({ block: "center" }); return; }
@@ -244,18 +281,16 @@ var MAX_PEOPLE = 20;    // ご人数の上限
     $("#btn").disabled = true;
     $("#btn").textContent = "送信しております…";
 
-    if (FORM_ID) {
-      // Googleフォームへ渡す。返事は読めない（別ドメインのため）ので、
+    if (ENDPOINT) {
+      // Apps Script へ渡す。返事は読めない（別ドメインのため）ので、
       // 送ったあとは、こちらの完了画面を出す。
       var f = document.createElement("form");
-      f.action = "https://docs.google.com/forms/d/e/" + FORM_ID + "/formResponse";
-      f.method = "POST";
-      f.target = "gf-sink";
-      var vals = { name: name, tel: tel, date: date, time: time, num: num, note: note };
-      for (var k in ENTRY) {
-        if (!ENTRY[k]) continue;
+      f.action = ENDPOINT; f.method = "POST"; f.target = "gf-sink";
+      var vals = { name: name, tel: tel, date: date, time: time, num: num,
+                   alt: $("#q-alt").value, note: note };
+      for (var k in vals) {
         var inp = document.createElement("input");
-        inp.type = "hidden"; inp.name = ENTRY[k]; inp.value = vals[k];
+        inp.type = "hidden"; inp.name = k; inp.value = vals[k];
         f.appendChild(inp);
       }
       document.body.appendChild(f);
@@ -267,7 +302,7 @@ var MAX_PEOPLE = 20;    // ご人数の上限
       $("#pane-form").style.display = "none";
       $("#pane-done").style.display = "block";
       window.scrollTo(0, 0);
-    }, FORM_ID ? 700 : 350);
+    }, ENDPOINT ? 1200 : 350);
   });
 })();
 </script>
