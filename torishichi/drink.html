@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>お飲みもの - とり七｜小山市 鳥料理・焼き鳥</title>
+    <meta name="description" content="とり七のお飲みもの。地酒の日本酒をはじめ、ハイボール・サワー・果実酒まで。栃木県小山市、JR小山駅東口から徒歩1分。">
+
+    <meta property="og:title" content="お飲みもの｜とり七">
+    <meta property="og:description" content="地酒を中心にそろえたお飲みもの一覧。">
+    <meta property="og:type" content="restaurant">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/torishichi/drink.html">
+    <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/torishichi/img/hero-entrance.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="theme-color" content="#2E1C11">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- favicon：丸+「七」。地は --bg-deep、文字と輪は --washi -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%231C1009' stroke='%23F2EAD8' stroke-width='4'/%3E%3Ctext x='50' y='67' font-size='52' text-anchor='middle' fill='%23F2EAD8' font-family='sans-serif' font-weight='700'%3E%E4%B8%83%3C/text%3E%3C/svg%3E">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "とり七",
+      "servesCuisine": ["Yakitori", "Japanese"],
+      "priceRange": "¥¥",
+      "telephone": "+81-285-20-3707",
+      "paymentAccepted": "Cash, Credit Card, Electronic Money, PayPay, Rakuten Pay, d Payment, au PAY",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/torishichi/",
+      "image": "img/hero-entrance.jpg",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+          "opens": "17:00",
+          "closes": "23:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Friday", "Saturday"],
+          "opens": "17:00",
+          "closes": "23:30"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "駅東通り1-4-3 駅東ビル1F",
+        "addressLocality": "小山市",
+        "addressRegion": "栃木県",
+        "postalCode": "323-0022",
+        "addressCountry": "JP"
+      },
+      "hasMap": "https://maps.google.com/maps?q=%E6%A0%83%E6%9C%A8%E7%9C%8C%E5%B0%8F%E5%B1%B1%E5%B8%82%E9%A7%85%E6%9D%B1%E9%80%9A%E3%82%8A1-4-3%20%E9%A7%85%E6%9D%B1%E3%83%93%E3%83%AB1F",
+      "hasMenu": ["menu.html", "drink.html"],
+      "acceptsReservations": "True"
+    }
+    </script>
+
+    <style>
+    :root{
+        --bg:       #2E1C11;
+        --bg-deep:  #1C1009;
+        --surface:  #3B2517;
+        --surface-2:#452C1B;
+        --washi:    #F2EAD8;
+        --ink:      #EDE2CE;
+        --muted:    #B79C7C;
+        --dim:      #B79C7C;
+        --sumi:     #241608;
+        --line:     rgba(237,226,206,.16);
+        --line-strong: rgba(237,226,206,.26);
+
+        --accent:      var(--washi);
+        --accent-hi:   #FBF6EA;
+        --accent-deep: #DED0B2;
+        --accent-2:    ;
+
+        --shadow:      0 24px 60px rgba(0,0,0,.55);
+        --shadow-bar:  0 -10px 30px rgba(0,0,0,.45);
+
+        --open:  #7fc383;
+        --closed:#d98a7e;
+
+        --font-head: 'Zen Kaku Gothic New', sans-serif;
+        --font-body: 'Zen Kaku Gothic New', sans-serif;
+
+        --tex-paper:   none;
+        --tex-size:    clamp(360px, 33vw, 480px);
+        --tex-opacity: 0.06;
+        --tex-tint:    var(--accent);
+        --orn-blank:   url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
+
+        --radius: 4px;
+        --maxw:   1080px;
+        --gap:    clamp(16px, 4vw, 40px);
+
+        --sp-1:4px; --sp-2:8px; --sp-3:16px; --sp-4:26px; --sp-5:44px; --sp-6:72px;
+        --sec-y: clamp(64px, 10vw, 120px);
+        --blk-y: clamp(24px, 4vw, 44px);
+        --pad-section: var(--sec-y);
+        --pad-inner:   clamp(20px, 5vw, 40px);
+
+        --fz-hero: clamp(28px, 6.4vw, 48px);
+        --fz-h2:   clamp(22px, 4.4vw, 33px);
+        --fz-h3:   clamp(17px, 3.0vw, 20px);
+        --fz-body: 16px;
+        --fz-cap:  13px;
+    }
+
+    /* ============================= 04-base.css ============================= */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.85;
+        overflow-x: hidden;
+    }
+    img, svg, video { display: block; max-width: 100%; height: auto; }
+
+    :root { --header-h: 74px; }
+    @media (max-width: 768px) { :root { --header-h: 64px; } }
+
+    body { padding-top: var(--header-h); }
+    .site-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: var(--header-h);
+    }
+    .header-inner { display: flex; align-items: center; height: 100%; }
+    .brand { text-decoration: none; color: inherit; white-space: nowrap;
+             font-size: clamp(16px, 4.2vw, 20px); line-height: 1;
+             display: inline-flex; align-items: center; min-height: 44px; }
+    .header-tel { margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+                  min-height: 44px; padding: 0 8px; text-decoration: none; color: inherit;
+                  white-space: nowrap; }
+    .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
+    .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
+    .nav-toggle { margin-left: 6px; }
+    .hero { min-height: calc(100svh - var(--header-h)); }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; }
+
+    h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption {
+        word-break: auto-phrase;
+        text-wrap: pretty;
+    }
+    .nw { display: inline-block; }
+    .br-sp { display: none; }
+    @media (max-width: 600px) {
+        .br-sp { display: inline; }
+        .br-pc { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    .btn svg { width: 1.1em; height: 1.1em; flex: 0 0 auto; }
+    .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .section   { padding-top: var(--sec-y); padding-bottom: var(--blk-y); }
+
+    .reveal {
+        opacity: 0; transform: translateY(26px);
+        transition: opacity 0.8s cubic-bezier(0.16, 0.7, 0.3, 1),
+                    transform 0.8s cubic-bezier(0.16, 0.7, 0.3, 1);
+    }
+    .reveal.in-view       { opacity: 1; transform: none; }
+    .reveal-delay-1       { transition-delay: 0.08s; }
+    .reveal-delay-2       { transition-delay: 0.16s; }
+    .reveal-delay-3       { transition-delay: 0.24s; }
+    .no-js .reveal        { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    .photo-frame {
+        position: relative; overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow);
+        background: var(--surface-2);
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .map-wrapper {
+        position: relative; width: 100%; aspect-ratio: 16 / 10;
+        border-radius: var(--radius); overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+    @media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+
+    .sticky-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+        display: none; gap: 1px; background: var(--line);
+        transform: translateY(100%); transition: transform 0.35s ease;
+        box-shadow: var(--shadow-bar, 0 -10px 30px rgba(0, 0, 0, 0.45));
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar a {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 16px 10px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sticky-bar .bar-tel { background: var(--washi); color: var(--sumi); }
+    .sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
+
+    .subnav a {
+        min-height: 44px;
+        display: inline-flex; align-items: center;
+        padding-inline: 16px;
+    }
+    .subnav { transition: transform .25s ease, opacity .25s ease; }
+    .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 60px); }
+
+    .btn-tel .tel-num { white-space: nowrap; }
+    .btn-tel .tel-cap { font-weight: 500; }
+    .btn-tel .tel-cap::before { content: '｜'; }
+    @media (max-width: 460px) {
+        .btn-tel { flex-wrap: wrap; padding: 12px 18px; line-height: 1.45; }
+        .btn-tel .tel-cap { flex-basis: 100%; text-align: center; font-size: .82rem; }
+        .btn-tel .tel-cap::before { content: none; }
+    }
+
+    .status-chip {
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 5px 13px; border-radius: 4px;
+        border: 1px solid var(--line-strong);
+        font-size: 0.8rem; letter-spacing: 0.04em;
+    }
+    .status-chip::before {
+        content: ''; width: 6px; height: 6px; flex: 0 0 auto;
+        background: transparent; border: 1.5px solid var(--sumi);
+    }
+    .status-chip.is-open::before   { background: var(--sumi); border-color: var(--sumi); }
+    .status-chip.is-closed::before { background: transparent; border-color: var(--sumi); }
+    .status-chip.is-break::before  { background: transparent; border-color: var(--sumi); }
+
+    .mobile-nav {
+        position: fixed; z-index: 200;
+        visibility: hidden; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    body.nav-open .mobile-nav {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+    body.nav-open .site-header { z-index: 300; }
+    .nav-toggle {
+        width: 44px; height: 44px;
+        flex: 0 0 44px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 5px; background: none; border: 0; cursor: pointer;
+    }
+    .nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+    body.nav-open { overflow: hidden; }
+
+    @media (max-width: 620px) {
+        .sticky-bar { display: flex; }
+        body { padding-bottom: 68px; }
+    }
+    @media (min-width: 621px) {
+        .sticky-bar { display: none; }
+        body { padding-bottom: 0; }
+    }
+
+    /* ============================= 店固有CSS ============================= */
+
+    /* --- ヘッダー --- */
+    .site-header { background: var(--bg-deep); border-bottom: 1px solid var(--line); }
+    .brand { font-family: var(--font-head); font-weight: 900; letter-spacing: .08em; color: var(--ink); }
+    .header-tel { color: var(--ink); }
+    .header-tel svg { color: var(--muted); }
+    .nav-toggle > span:not([class]) { width: 22px; height: 2px; background: var(--ink); display: block; }
+
+    .mobile-nav {
+        top: 0; right: 0; height: 100vh; width: min(78vw, 320px);
+        background: var(--bg-deep); border-left: 1px solid var(--line);
+        display: flex; flex-direction: column; gap: 4px;
+        padding: calc(var(--header-h) + 20px) 28px 28px;
+        transform: translateX(12px);
+    }
+    body.nav-open .mobile-nav { transform: translateX(0); }
+    .mobile-nav a { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 1rem; letter-spacing: .04em; }
+    .nav-close { margin-top: 20px; text-align: left; font-size: .9rem; color: var(--muted); }
+
+    /* --- 見出し共通 --- */
+    .section-title {
+        display: flex; align-items: center; gap: 12px;
+        font-family: var(--font-head); font-weight: 900; letter-spacing: .06em;
+        font-size: var(--fz-h2); line-height: 1.3; color: var(--ink);
+    }
+    .orn-taruki { width: 3px; height: 14px; flex: 0 0 auto; color: var(--muted); }
+    .lead { margin-top: var(--sp-3); font-size: 15px; color: var(--muted); max-width: 46em; letter-spacing: .04em; line-height: 1.9; }
+    .yomi-eyebrow { font-size: var(--fz-cap); letter-spacing: .18em; color: var(--muted); margin-bottom: var(--sp-2); }
+
+    /* --- ヒーロー A-78 灯りの柱 --- */
+    .hero {
+        background: var(--bg-deep);
+        display: flex; align-items: center; justify-content: center;
+        padding-block: var(--sp-6) calc(var(--sp-6) + 150px);
+    }
+    .hero-inner {
+        position: relative;
+        width: min(360px, 100%);
+        margin-inline: auto;
+    }
+    @media (max-width: 620px) {
+        .hero-inner { width: calc(100% - 32px); }
+    }
+    .hero-photo {
+        width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+    }
+    .hero-pillar {
+        position: absolute; top: calc(100% - 28px); left: 51.8%;
+        transform: translateX(-51.8%);
+        width: 220px;
+        background: var(--washi); color: var(--sumi);
+        box-shadow: var(--shadow);
+        padding: 22px 16px 20px;
+        text-align: center;
+        opacity: 0; transform: translateX(-51.8%) translateY(-12px);
+        animation: pillar-in .9s cubic-bezier(.16,.7,.3,1) .15s forwards;
+    }
+    @keyframes pillar-in {
+        to { opacity: 1; transform: translateX(-51.8%) translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .hero-pillar { opacity: 1; transform: translateX(-51.8%); animation: none; }
+    }
+    .hero-name {
+        font-family: var(--font-head); font-weight: 900; font-size: 28px;
+        letter-spacing: .06em; line-height: 1.2;
+    }
+    .hero-cap {
+        margin-top: 4px; font-size: var(--fz-cap); letter-spacing: .14em; color: var(--sumi); opacity: .72;
+    }
+    .hero-pillar .status-chip {
+        margin-top: 14px; border-color: rgba(36,22,8,.28);
+        color: var(--sumi);
+    }
+    .hero-tel {
+        margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 6px;
+        font-weight: 700; font-size: .92rem; color: var(--sumi);
+        border-top: 1px solid rgba(36,22,8,.16); padding-top: 12px;
+    }
+    .hero-tel svg { width: 15px; height: 15px; color: var(--sumi); }
+
+    /* --- 全幅帯（手羽先） --- */
+    .band-wrap { width: 100%; overflow: hidden; background: var(--bg-deep); }
+    .band-wrap img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+
+    /* --- 手羽先セクション --- */
+    .tebasaki-lead { margin-top: var(--sp-4); font-size: var(--fz-body); line-height: 1.85; }
+    .tebasaki-lead + .tebasaki-lead { margin-top: var(--sp-2); }
+    .tebasaki-body { margin-top: var(--blk-y); display: flex; flex-direction: column; gap: var(--sp-2); color: var(--ink); }
+
+    .masu-panel {
+        margin-top: var(--sec-y);
+        max-width: 560px; margin-inline: auto;
+        min-height: 480px;
+        background: var(--washi); color: var(--sumi);
+        padding: 44px 40px;
+        display: flex; flex-direction: column;
+        box-shadow: var(--shadow);
+    }
+    @media (max-width: 620px) {
+        .masu-panel { width: calc(100% - 32px); padding: 36px 24px; }
+    }
+    .masu-rows { display: flex; flex-direction: column; gap: 18px; }
+    .masu-row { display: flex; align-items: center; gap: 20px; }
+    .masu-row.gap-before { margin-top: 100px; }
+    .masu {
+        width: 64px; height: 64px; flex: 0 0 auto;
+    }
+    @media (max-width: 620px) {
+        .masu { width: 52px; height: 52px; }
+    }
+    .masu.is-fill   { background: var(--sumi); }
+    .masu.is-outline{ background: var(--washi); border: 1.5px solid var(--sumi); }
+    .masu-label { font-family: var(--font-head); font-weight: 700; font-size: var(--fz-h3); }
+    .masu-footer {
+        margin-top: var(--sp-5); padding-top: var(--sp-3);
+        border-top: 1px solid rgba(36,22,8,.2);
+        display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-3);
+        flex: 1;
+    }
+    .masu-price { font-size: var(--fz-cap); letter-spacing: .16em; }
+    .masu-source { width: 120px; height: 120px; object-fit: cover; flex: 0 0 auto; border: 3px solid var(--bg); box-shadow: var(--shadow); }
+
+    /* --- 四つの柱 --- */
+    .pillars-grid {
+        margin-top: var(--sec-y);
+        display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap);
+    }
+    @media (max-width: 620px) { .pillars-grid { grid-template-columns: 1fr; } }
+    .pillar-card { display: flex; flex-direction: column; }
+    .pillar-card .photo-frame { aspect-ratio: 4 / 3; }
+    .pillar-card img { max-width: 520px; }
+    .pillar-card h3 {
+        margin-top: var(--sp-3); font-family: var(--font-head); font-weight: 700;
+        font-size: var(--fz-h3); color: var(--ink);
+    }
+    .pillar-card p { margin-top: var(--sp-1); color: var(--muted); font-size: .94rem; }
+
+    /* --- お席 --- */
+    .seats-grid {
+        margin-top: var(--sec-y);
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap);
+    }
+    @media (max-width: 768px) { .seats-grid { grid-template-columns: 1fr; } }
+    .seat-card .photo-frame { aspect-ratio: 1 / 1; }
+    .seat-card img { max-width: 347px; }
+    .seat-card figcaption { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--muted); letter-spacing: .06em; }
+    .seats-copy { margin-top: var(--blk-y); max-width: 46em; }
+
+    /* --- ご宴会 --- */
+    .enkai-wrap { margin-top: var(--sec-y); display: grid; grid-template-columns: 340px 1fr; gap: var(--gap); align-items: center; }
+    @media (max-width: 768px) { .enkai-wrap { grid-template-columns: 1fr; } }
+    .enkai-wrap .photo-frame { aspect-ratio: 1 / 1; }
+    .enkai-wrap img { max-width: 480px; }
+    .enkai-copy p { margin-top: var(--sp-2); }
+    .enkai-tel {
+        margin-top: var(--sp-4); display: inline-flex; align-items: center; gap: 8px;
+        background: var(--washi); color: var(--sumi); font-weight: 700;
+        padding: 14px 22px; border-radius: var(--radius);
+    }
+    .enkai-tel svg { width: 16px; height: 16px; }
+
+    /* --- お品書きへ --- */
+    .linkcards-photo-wrap { margin-top: var(--blk-y); max-width: 340px; margin-inline: auto; }
+    .linkcards-photo-wrap .photo-frame { aspect-ratio: 1 / 1; }
+    .linkcards-photo-wrap img { max-width: 340px; }
+    .linkcards-grid { margin-top: var(--sec-y); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
+    @media (max-width: 768px) { .linkcards-grid { grid-template-columns: 1fr; } }
+    .linkcard {
+        display: block; background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: 24px 22px;
+        transition: border-color .2s ease, transform .2s ease;
+    }
+    .linkcard:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+    .linkcard h3 { font-family: var(--font-head); font-weight: 700; font-size: var(--fz-h3); display: flex; align-items: center; gap: 8px; }
+    .linkcard h3 svg { width: 15px; height: 15px; color: var(--muted); }
+    .linkcard p { margin-top: var(--sp-2); font-size: .9rem; color: var(--muted); }
+
+    /* --- お客様の声 --- */
+    .voices-grid { margin-top: var(--sec-y); display: grid; gap: var(--sp-3); }
+    .voice {
+        background: var(--surface); border-left: 3px solid var(--muted);
+        padding: 22px 24px; border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .voice p { font-size: 1rem; line-height: 1.9; }
+    .voice cite { display: block; margin-top: var(--sp-2); font-style: normal; font-size: var(--fz-cap); color: var(--muted); }
+
+    /* --- お越しになる前に --- */
+    .info-table { margin-top: var(--sec-y); width: 100%; }
+    .info-table tr { border-bottom: 1px solid var(--line); }
+    .info-table tr:first-child { border-top: 1px solid var(--line); }
+    .info-table th, .info-table td { text-align: left; padding: 16px 0; vertical-align: top; }
+    .info-table th { width: 7em; font-weight: 700; color: var(--muted); font-size: .92rem; letter-spacing: .06em; }
+    .info-table td { line-height: 1.85; }
+    .pay-chip { display: inline-block; }
+
+    /* --- アクセス --- */
+    .access-wrap { margin-top: var(--sec-y); display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+    @media (max-width: 768px) { .access-wrap { grid-template-columns: 1fr; } }
+    .access-wrap .photo-frame { aspect-ratio: 4 / 3; margin-bottom: var(--sp-3); }
+    .access-wrap img { max-width: 640px; }
+    .access-copy address { font-style: normal; margin-top: var(--sp-2); color: var(--muted); }
+    .access-closing { margin-top: var(--sp-4); font-family: var(--font-head); font-weight: 700; }
+    .access-cta { margin-top: var(--sp-5); }
+    .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        padding: 16px 28px; border-radius: var(--radius); font-weight: 700; letter-spacing: .03em;
+    }
+    .btn-primary { background: var(--washi); color: var(--sumi); }
+    .btn-block { display: flex; width: 100%; }
+
+    /* --- フッター --- */
+    .site-footer { background: var(--bg-deep); border-top: 1px solid var(--line); padding-block: var(--sp-5); text-align: center; }
+    .site-footer p { font-size: var(--fz-cap); color: var(--muted); }
+
+    /* --- お品書き（build_menu.py が出す構造） --- */
+    .subnav { position: sticky; top: var(--header-h); z-index: 90; background: var(--bg-deep);
+              border-bottom: 1px solid var(--line); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .subnav-inner { display: flex; gap: 2px; padding-inline: var(--pad-inner); }
+    .subnav a { color: var(--muted); font-size: .85rem; white-space: nowrap; }
+    .subnav a:hover, .subnav a:focus { color: var(--ink); }
+
+    .lead-box { margin-bottom: var(--blk-y); max-width: 46em; color: var(--muted); }
+
+    .menu-block { padding-block: var(--blk-y); border-bottom: 1px solid var(--line); }
+    .menu-block:last-child { border-bottom: none; }
+    .menu-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .menu-head h2 { font-family: var(--font-head); font-weight: 900; font-size: 26px;
+                    letter-spacing: .04em; color: var(--ink); }
+    .menu-head h2::before { content: ''; display: inline-block; width: 3px; height: 14px; margin-right: 12px;
+                    background: var(--muted); vertical-align: -1px; }
+    .menu-head .yomi { font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+    .menu-note { margin-top: var(--sp-2); color: var(--muted); font-size: .92rem; max-width: 42em; }
+    .menu-after { margin-top: var(--sp-3); color: var(--muted); font-size: .9rem; }
+
+    .menu-grid { margin-top: var(--sp-4); display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 var(--gap); }
+    .menu-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 620px) { .menu-grid, .menu-grid.cols-3 { grid-template-columns: 1fr; } }
+
+    .menu-list li {
+        display: flex; align-items: baseline; gap: 4px;
+        padding: 11px 0; border-bottom: 1px dashed var(--line);
+    }
+    .menu-list--solo { grid-column: 1 / -1; }
+    .menu-list .name { font-weight: 700; }
+    .menu-list .desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 3px; }
+    .menu-list .dots { flex: 1; border-bottom: 1px dotted var(--line-strong); margin: 0 6px; transform: translateY(-5px); min-width: 12px; }
+    .menu-list .price { white-space: nowrap; font-weight: 700; color: var(--ink); }
+    .menu-list .price small { display: block; text-align: right; font-size: .7rem; color: var(--muted); font-weight: 400; }
+
+    .menu-photos { margin-top: var(--sp-4); display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-3); }
+    .menu-photos .photo-frame { aspect-ratio: 4 / 3; }
+    .menu-photos figcaption { margin-top: var(--sp-1); font-size: var(--fz-cap); color: var(--muted); }
+    @media (max-width: 620px) { .menu-photos { grid-template-columns: 1fr; } }
+
+    .page-lead { padding-block: calc(var(--header-h) + var(--sp-5)) var(--sp-3); }
+    .page-lead h1 { font-family: var(--font-head); font-weight: 900; font-size: 40px; color: var(--ink); }
+    .page-lead p { margin-top: var(--sp-2); color: var(--muted); }
+    </style>
+</head>
+<body class="no-js">
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="brand">とり七</a>
+        <a href="tel:0285203707" class="header-tel" aria-label="電話でご予約 0285-20-3707">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+            <span class="tel-label">0285-20-3707</span>
+        </a>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="index.html" data-nav-link>トップへ</a>
+    <a href="menu.html" data-nav-link>お品書き</a>
+    <a href="drink.html" data-nav-link>お飲みもの</a>
+    <a href="index.html#access" data-nav-link>アクセス</a>
+    <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
+</nav>
+
+<div class="container page-lead">
+    <h1 class="reveal"><span class="nw">お飲み</span><span class="nw">もの</span></h1>
+    <p class="reveal"><span class="nw">地酒を</span><span class="nw">中心に、</span><span class="nw">ハイボール・</span><span class="nw">サワー・</span><span class="nw">果実酒までそろえ</span><span class="nw">ております。</span></p>
+</div>
+
+<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#beer">ビール</a>
+        <a href="#highball">ハイボール</a>
+        <a href="#sour">サワー・チューハイ</a>
+        <a href="#nihonshu">日本酒</a>
+        <a href="#shochu">焼酎</a>
+        <a href="#kajitsushu">果実酒・ワイン</a>
+        <a href="#cocktail">カクテル</a>
+        <a href="#soft">ソフトドリンク</a>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="menu-block reveal" id="beer">
+            <div class="menu-head"><h2><span class="nw">ビール</span></h2><span class="yomi">BEER</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">【生ビール】キリン</span><span class="nw">一番搾り</span></span><span class="dots"></span><span class="price"><span class="nw">748円</span></span></li>
+                    <li><span class="name"><span class="nw">【瓶ビール】サッポロラガー</span> <span class="nw">中瓶</span></span><span class="dots"></span><span class="price"><span class="nw">792円</span></span></li>
+                </ul>
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">【ノンアルコール】キリン</span> <span class="nw">グリーンズフリー</span></span><span class="dots"></span><span class="price"><span class="nw">605円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="highball">
+            <div class="menu-head"><h2><span class="nw">ハイボール</span></h2><span class="yomi">HIGHBALL</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ご褒美ハイボール</span><span class="desc"><span class="nw">3種類の</span><span class="nw">銘柄から</span><span class="nw">お選び</span><span class="nw">いただけます</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,078円</span></span></li>
+                    <li><span class="name"><span class="nw">ハイボール</span></span><span class="dots"></span><span class="price"><span class="nw">594円</span></span></li>
+                    <li><span class="name"><span class="nw">ジンジャーハイボール</span></span><span class="dots"></span><span class="price"><span class="nw">627円</span></span></li>
+                    <li><span class="name"><span class="nw">コーラハイボール</span></span><span class="dots"></span><span class="price"><span class="nw">627円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">各種メガジョッキ</span></span><span class="dots"></span><span class="price">＋<span class="nw">451円</span></span></li>
+                    <li><span class="name"><span class="nw">各種ダブル</span></span><span class="dots"></span><span class="price">＋<span class="nw">451円</span></span></li>
+                    <li><span class="name"><span class="nw">【ボトル】サントリー</span> <span class="nw">角瓶</span></span><span class="dots"></span><span class="price"><span class="nw">5,280円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="sour">
+            <div class="menu-head"><h2><span class="nw">サワー・</span><span class="nw">チューハイ</span></h2><span class="yomi">SOUR</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">レモンサワー</span></span><span class="dots"></span><span class="price"><span class="nw">528円</span></span></li>
+                    <li><span class="name"><span class="nw">みかん</span><span class="nw">サワー</span></span><span class="dots"></span><span class="price"><span class="nw">528円</span></span></li>
+                    <li><span class="name"><span class="nw">カルピスサワー</span></span><span class="dots"></span><span class="price"><span class="nw">528円</span></span></li>
+                    <li><span class="name"><span class="nw">男梅サワー</span></span><span class="dots"></span><span class="price"><span class="nw">528円</span></span></li>
+                    <li><span class="name"><span class="nw">巨峰サワー</span></span><span class="dots"></span><span class="price"><span class="nw">528円</span></span></li>
+                    <li><span class="name"><span class="nw">生搾り</span><span class="nw">レモンサワー</span></span><span class="dots"></span><span class="price"><span class="nw">638円</span></span></li>
+                    <li><span class="name"><span class="nw">生搾り</span><span class="nw">グレープフルーツサワー</span></span><span class="dots"></span><span class="price"><span class="nw">638円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">柚子果汁サワー</span></span><span class="dots"></span><span class="price"><span class="nw">638円</span></span></li>
+                    <li><span class="name"><span class="nw">トマトハイ</span></span><span class="dots"></span><span class="price"><span class="nw">583円</span></span></li>
+                    <li><span class="name"><span class="nw">濃厚マンゴーハイ</span></span><span class="dots"></span><span class="price"><span class="nw">583円</span></span></li>
+                    <li><span class="name"><span class="nw">黒烏龍ハイ</span></span><span class="dots"></span><span class="price"><span class="nw">583円</span></span></li>
+                    <li><span class="name"><span class="nw">まろやか</span><span class="nw">緑茶ハイ</span></span><span class="dots"></span><span class="price"><span class="nw">583円</span></span></li>
+                    <li><span class="name"><span class="nw">加賀棒ほうじ</span><span class="nw">茶ハイ</span></span><span class="dots"></span><span class="price"><span class="nw">583円</span></span></li>
+                    <li><span class="name"><span class="nw">こうばし</span><span class="nw">茶ハイ</span></span><span class="dots"></span><span class="price"><span class="nw">583円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="nihonshu">
+            <div class="menu-head"><h2><span class="nw">日本酒</span></h2><span class="yomi">NIHONSHU</span></div>
+            <p class="menu-note"><span class="nw">栃木の</span><span class="nw">地酒を</span><span class="nw">中心に、</span><span class="nw">辛口を</span><span class="nw">厚めにそろえ</span><span class="nw">ております。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">鳳凰美田</span> Black Phenix <span class="nw">純米吟醸愛山</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">若駒</span> <span class="nw">キレコマ</span> <span class="nw">無濾過原酒</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">570円</span></span></li>
+                    <li><span class="name"><span class="nw">仙禽</span> <span class="nw">モダン</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">600円</span></span></li>
+                    <li><span class="name">姿 <span class="nw">特別純米辛口</span> <span class="nw">斬れすがた</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">570円</span></span></li>
+                    <li><span class="name"><span class="nw">新政</span> NO.6 S-Type<span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">990円</span></span></li>
+                    <li><span class="name"><span class="nw">山本</span> <span class="nw">特別純米</span> <span class="nw">潤黒ピュアブラック</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">630円</span></span></li>
+                    <li><span class="name"><span class="nw">田酒</span> <span class="nw">特別純米種</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">600円</span></span></li>
+                    <li><span class="name"><span class="nw">小左衛門</span> <span class="nw">純米吟醸</span> <span class="nw">鳥ラベル</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">570円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">秀鳳</span> <span class="nw">純米大吟醸</span> <span class="nw">雪女神</span> <span class="nw">超辛口</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">630円</span></span></li>
+                    <li><span class="name"><span class="nw">秀鳳</span> <span class="nw">特別純米</span> <span class="nw">超辛口</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">490円</span></span></li>
+                    <li><span class="name"><span class="nw">寒紅梅</span> <span class="nw">純米吟醸</span> ＋Plus<span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">570円</span></span></li>
+                    <li><span class="name"><span class="nw">國権</span> <span class="nw">辛口純米酒</span> <span class="nw">俺の</span><span class="nw">出番</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">550円</span></span></li>
+                    <li><span class="name"><span class="nw">日高見</span> <span class="nw">超辛口純米</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">490円</span></span></li>
+                    <li><span class="name"><span class="nw">五橋</span> five <span class="nw">純米辛口</span> RED<span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">570円</span></span></li>
+                    <li><span class="name"><span class="nw">庭のうぐいす</span> <span class="nw">辛口</span> <span class="nw">鶯辛</span><span class="desc"><span class="nw">小徳利</span></span></span><span class="dots"></span><span class="price"><span class="nw">960円</span></span></li>
+                    <li><span class="name"><span class="nw">明鏡止水</span> <span class="nw">辛口</span> <span class="nw">本醸造</span><span class="desc"><span class="nw">小徳利</span></span></span><span class="dots"></span><span class="price"><span class="nw">960円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="shochu">
+            <div class="menu-head"><h2><span class="nw">焼酎</span></h2><span class="yomi">SHOCHU</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">【麦】銀座のすずめ</span><span class="desc"><span class="nw">グラス</span></span></span><span class="dots"></span><span class="price"><span class="nw">682円</span></span></li>
+                    <li><span class="name"><span class="nw">【麦】一粒の</span>麦<span class="desc"><span class="nw">グラス</span></span></span><span class="dots"></span><span class="price"><span class="nw">682円</span></span></li>
+                    <li><span class="name"><span class="nw">【芋】DAIYAME</span><span class="desc"><span class="nw">グラス</span></span></span><span class="dots"></span><span class="price"><span class="nw">682円</span></span></li>
+                    <li><span class="name"><span class="nw">【芋】赤兎馬</span> 赤<span class="desc"><span class="nw">グラス</span></span></span><span class="dots"></span><span class="price"><span class="nw">715円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">【芋】赤兎馬</span> 紫<span class="desc"><span class="nw">グラス</span></span></span><span class="dots"></span><span class="price"><span class="nw">715円</span></span></li>
+                    <li><span class="name"><span class="nw">【芋】赤兎馬</span> 緑<span class="desc"><span class="nw">グラス</span></span></span><span class="dots"></span><span class="price"><span class="nw">748円</span></span></li>
+                    <li><span class="name"><span class="nw">【芋】富乃宝山</span><span class="desc"><span class="nw">グラス</span></span></span><span class="dots"></span><span class="price"><span class="nw">682円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="kajitsushu">
+            <div class="menu-head"><h2><span class="nw">果実酒・</span><span class="nw">ワイン</span></h2><span class="yomi">KAJITSUSHU</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">鳳凰美田</span> <span class="nw">熟成秘蔵梅酒</span></span><span class="dots"></span><span class="price"><span class="nw">715円</span></span></li>
+                    <li><span class="name"><span class="nw">鳳凰美田</span> <span class="nw">あんず</span>酒</span><span class="dots"></span><span class="price"><span class="nw">715円</span></span></li>
+                    <li><span class="name"><span class="nw">鳳凰美田</span> <span class="nw">もも</span>酒</span><span class="dots"></span><span class="price"><span class="nw">715円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">鳳凰美田</span> <span class="nw">レモン</span>酒</span><span class="dots"></span><span class="price"><span class="nw">715円</span></span></li>
+                    <li><span class="name"><span class="nw">グラスワイン</span><span class="nw">（白・</span><span class="nw">赤）</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="cocktail">
+            <div class="menu-head"><h2><span class="nw">カクテル</span></h2><span class="yomi">COCKTAIL</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">カシスオレンジ</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">カシスグレープフルーツ</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">カシス</span><span class="nw">黒ウーロン</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">ファジーネーブル</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">ピーチウーロン</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">ジントニック</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ジンバック</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">シャンディガフ</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">レッドアイ</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">キティ</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">オペレーター</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                    <li><span class="name"><span class="nw">カリモーチョ</span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="soft">
+            <div class="menu-head"><h2><span class="nw">ソフトドリンク</span></h2><span class="yomi">SOFT DRINK</span></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">コーラ</span></span><span class="dots"></span><span class="price"><span class="nw">418円</span></span></li>
+                    <li><span class="name"><span class="nw">ジンジャーエール</span></span><span class="dots"></span><span class="price"><span class="nw">418円</span></span></li>
+                    <li><span class="name"><span class="nw">みかん</span><span class="nw">ジュース</span></span><span class="dots"></span><span class="price"><span class="nw">418円</span></span></li>
+                    <li><span class="name"><span class="nw">みかん</span><span class="nw">ソーダ</span></span><span class="dots"></span><span class="price"><span class="nw">418円</span></span></li>
+                    <li><span class="name"><span class="nw">加賀棒ほうじ</span>茶</span><span class="dots"></span><span class="price"><span class="nw">418円</span></span></li>
+                    <li><span class="name"><span class="nw">まろやか</span><span class="nw">緑茶</span></span><span class="dots"></span><span class="price"><span class="nw">418円</span></span></li>
+                    <li><span class="name"><span class="nw">カルピス</span></span><span class="dots"></span><span class="price"><span class="nw">418円</span></span></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ぶどう</span><span class="nw">ソーダ</span></span><span class="dots"></span><span class="price"><span class="nw">418円</span></span></li>
+                    <li><span class="name"><span class="nw">柚子ジュース</span></span><span class="dots"></span><span class="price"><span class="nw">462円</span></span></li>
+                    <li><span class="name"><span class="nw">柚子スカッシュ</span></span><span class="dots"></span><span class="price"><span class="nw">462円</span></span></li>
+                    <li><span class="name"><span class="nw">オレンジジュース</span></span><span class="dots"></span><span class="price"><span class="nw">462円</span></span></li>
+                    <li><span class="name"><span class="nw">グレープフルーツジュース</span></span><span class="dots"></span><span class="price"><span class="nw">462円</span></span></li>
+                    <li><span class="name"><span class="nw">濃厚マンゴージュース</span></span><span class="dots"></span><span class="price"><span class="nw">462円</span></span></li>
+                    <li><span class="name"><span class="nw">黒烏龍茶</span></span><span class="dots"></span><span class="price"><span class="nw">462円</span></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- menu:auto:end -->
+
+<footer class="site-footer">
+    <p>〒323-0022 <span class="nw">栃木県小山市駅東通り</span>1-4-3 <span class="nw">駅東ビル</span>1F｜<span class="nw">とり</span>七</p>
+</footer>
+
+<div class="sticky-bar" id="sticky-bar">
+    <a href="index.html#access" class="bar-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス・地図
+    </a>
+    <a href="tel:0285203707" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        電話で予約
+    </a>
+</div>
+
+<script>
+document.body.classList.remove('no-js');
+
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+var subnavEl = document.querySelector('.subnav');
+var menuBlocks = document.querySelectorAll('.menu-block, .menu-section');
+var lastMenuBlock = menuBlocks.length ? menuBlocks[menuBlocks.length - 1] : null;
+
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 0;
+        stickyBar.classList.toggle('visible', y > heroBottom + 200);
+    }
+    if (subnavEl && lastMenuBlock) {
+        if (window.getComputedStyle(subnavEl).position !== 'sticky') {
+            subnavEl.classList.remove('is-past');
+        } else {
+            var r = lastMenuBlock.getBoundingClientRect();
+            subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        }
+    }
+}, { passive: true });
+
+var navToggle = document.getElementById('nav-toggle');
+var navPanel = document.getElementById('mobile-nav');
+function closeNav() {
+    document.body.classList.remove('nav-open');
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'メニューを開く');
+    }
+}
+if (navToggle) {
+    navToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+}
+document.querySelectorAll('[data-nav-link]').forEach(function (a) {
+    a.addEventListener('click', closeNav);
+});
+var navClose = document.getElementById('nav-close');
+if (navClose) {
+    navClose.addEventListener('click', function () {
+        closeNav();
+        if (navToggle) navToggle.focus();
+    });
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (navPanel && navPanel.contains(e.target)) return;
+    if (navToggle && navToggle.contains(e.target)) return;
+    closeNav();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+});
+
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+</script>
+</body>
+</html>
