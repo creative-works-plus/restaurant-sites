@@ -500,7 +500,10 @@
             label: b.textContent.trim(),
             key: no ? 'bin' + no : 'g' + groups.length,
             sent: el.classList.contains('done'),
-            n: ul.querySelectorAll('li > a').length   /* li.sub は <a> が無いので数に入らない */
+            /* ★数えるのは店の行だけ。:not(.tel) を外すと、店名の隣の電話ボタン（もう1つの
+               <a>）まで数えて通数が倍近くになる（2026-09-05 に第3便が 45→88 と出た）。
+               li.sub は <a> が無いので、もともと数に入らない */
+            n: ul.querySelectorAll('li > a:not(.tel)').length
         });
     }
     if (groups.length < 2) return;
@@ -559,7 +562,7 @@
             var name = h.firstChild.textContent.trim(), n = 0;
             groups.forEach(function (g) {
                 if (g.head.hidden) return;
-                Array.prototype.forEach.call(g.list.querySelectorAll('li > a'), function (a) {
+                Array.prototype.forEach.call(g.list.querySelectorAll('li > a:not(.tel)'), function (a) {
                     var da = a.parentNode.getAttribute('data-area');
                     if (da ? da === name : g.area === h) n++;
                 });
