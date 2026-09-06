@@ -388,9 +388,12 @@
     }
 
     /* --- 全幅の帯（焼鮭）----------------------------------------------------- */
+    /* ★2026-09-06：540px（1440px幅時）は大きすぎるとのご指摘。帯の高さを
+       clamp で頭打ちにし、object-fit: cover で中央を保ったまま薄く仕上げる */
     .band-wrap { width: 100vw; margin-left: calc(50% - 50vw); background: var(--surface-2);
-                 display: flex; justify-content: center; }
-    .band-wrap img { width: 100%; max-width: 1600px; height: auto; display: block; }
+                 display: flex; justify-content: center; overflow: hidden; }
+    .band-wrap img { width: 100%; max-width: 1600px; height: clamp(140px, 20vw, 280px);
+                      object-fit: cover; object-position: 50% 55%; display: block; }
 
     /* --- 署名的な仕掛け：折り目（_ブリーフ.md 7-d） -------------------------- */
     .fold        { max-width: 620px; margin: var(--sp-5) auto 0; opacity: 1; transform: none; transition: none; }
@@ -652,22 +655,22 @@
         <p class="lead reveal"><span class="nw">肉の</span><span class="nw">主菜から</span><span class="nw">焼き</span><span class="nw">魚、</span><span class="nw">丼ものまで</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">ぬか</span><span class="nw">漬けは</span><span class="nw">店で</span><span class="nw">漬けている</span><span class="nw">自家製です。</span><span class="nw">玉子焼きを</span><span class="nw">焼いて</span><span class="nw">定食に</span><span class="nw">お付けするのが、</span><span class="nw">当店の</span><span class="nw">変わらぬやり</span><span class="nw">方です。</span><span class="nw">味噌汁は</span><span class="nw">赤味噌仕立てで</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
 
         <div class="photo-cluster reveal">
-            <div class="photo-frame" style="max-width:520px;aspect-ratio:4/3">
-                <img src="img/shogayaki-teishoku-zen-43.jpg" alt="生姜焼き定食の膳。主菜・玉子焼き・漬物・味噌汁・ご飯"
-                     width="1600" height="1200" loading="lazy" decoding="async">
+            <div class="photo-frame" style="max-width:520px;aspect-ratio:3/4">
+                <img src="img/manzoku-teishoku-zen-34.jpg" alt="満足定食の膳。ご飯・香味唐揚げに、小鉢・焼鮭・漬物と玉子焼き・味噌汁"
+                     width="768" height="1024" loading="lazy" decoding="async">
             </div>
             <div class="photo-stack">
                 <div class="photo-frame" style="max-width:400px;aspect-ratio:4/3">
-                    <img src="img/tamagoyaki-yori-43.jpg" alt="玉子焼きの寄り。奥に漬物"
-                         width="1600" height="1200" loading="lazy" decoding="async">
+                    <img src="img/gobou-karaage-43.jpg" alt="ごぼうの唐揚げ。細く切ったごぼうを揚げ、黒い角皿に紙を敷いて盛りつけ"
+                         width="1024" height="768" loading="lazy" decoding="async">
                 </div>
                 <div class="photo-frame" style="max-width:400px;aspect-ratio:4/3">
-                    <img src="img/nukazuke-tamagoyaki.jpg" alt="自家製ぬか漬けと玉子焼き"
-                         width="817" height="612" loading="lazy" decoding="async">
+                    <img src="img/staminadon-yori-34.jpg" alt="スタミナ丼の寄り。豚肉と玉ねぎ、青ねぎ"
+                         width="772" height="1024" loading="lazy" decoding="async">
                 </div>
                 <div class="photo-frame" style="max-width:400px;aspect-ratio:4/3">
-                    <img src="img/manzoku-teishoku-43.jpg" alt="満足定食。焼鮭と香味唐揚げに、玉子焼きと漬物"
-                         width="1600" height="1200" loading="lazy" decoding="async">
+                    <img src="img/butapiman-teishoku-zen-43.jpg" alt="豚肉とピーマン細切り炒め定食の膳。玉子焼き・漬物・ご飯・味噌汁"
+                         width="1024" height="768" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>

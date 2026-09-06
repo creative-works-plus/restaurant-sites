@@ -505,12 +505,17 @@
     .menu-part-lead .lead { margin-top: 0; }
 
     /* --- お品書き（自動生成分） -------------------------------------------- */
+    /* ★経営者指摘③：タブが左に寄っていた（横スクロール前提の1行組みのため）。
+       中央そろえ・折り返しに直す。1行に収まらないときは2段になり、2段目も中央そろえ
+       （横スクロールで隠さない）。 */
     .subnav {
         position: sticky; top: var(--header-h); z-index: 20;
         background: var(--bg); border-bottom: 1px solid var(--line);
-        overflow-x: auto; -webkit-overflow-scrolling: touch;
     }
-    .subnav-inner { display: flex; gap: var(--sp-4); padding: var(--sp-2) var(--sp-4); white-space: nowrap; }
+    .subnav-inner {
+        display: flex; flex-wrap: wrap; justify-content: center;
+        gap: var(--sp-2) var(--sp-4); padding: var(--sp-2) var(--sp-4);
+    }
     .subnav a { font-size: .85rem; color: var(--muted); }
     .subnav a:hover { color: var(--accent); }
 
@@ -640,16 +645,6 @@
         <a href="#lunch">ランチのセット</a>
         <a href="#lunch-pasta">お選びいただけるパスタ</a>
         <a href="#lunch-pizza">お選びいただけるピッツァ</a>
-        <a href="#antipasto">前菜とおつまみ</a>
-        <a href="#insalata">サラダ</a>
-        <a href="#pane">パン</a>
-        <a href="#pasta">パスタ</a>
-        <a href="#pizza">ピッツァ</a>
-        <a href="#riso">米料理</a>
-        <a href="#dolce">ドルチェ</a>
-        <a href="#dinner-set">ディナーセット</a>
-        <a href="#soft-drink">お飲みもの</a>
-        <a href="#alcohol">お酒</a>
     </div>
 </nav>
 <section class="section">
@@ -705,6 +700,20 @@
         <p class="lead reveal"><span class="nw">前菜から</span><span class="nw">ドルチェ、</span><span class="nw">お酒まで、</span><span class="nw">一品ずつ</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
     </div>
 </section>
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#antipasto">前菜とおつまみ</a>
+        <a href="#insalata">サラダ</a>
+        <a href="#pane">パン</a>
+        <a href="#pasta">パスタ</a>
+        <a href="#pizza">ピッツァ</a>
+        <a href="#riso">米料理</a>
+        <a href="#dolce">ドルチェ</a>
+        <a href="#dinner-set">ディナーセット</a>
+        <a href="#soft-drink">お飲みもの</a>
+        <a href="#alcohol">お酒</a>
+    </div>
+</nav>
 <section class="section">
     <div class="container">
         <div class="menu-block reveal" id="antipasto">
@@ -918,19 +927,24 @@ document.body.classList.remove('no-js');
 var heroEl = document.getElementById('hero');
 var stickyBar = document.getElementById('sticky-bar');
 
-/* ★お品書きサブナビの引っ込め（2026-08-10 追加）
+/* ★お品書きサブナビの引っ込め（2026-08-10 追加／2026-09-06 複数ナビ対応）
    04-base.css は前から `.subnav.is-past` を用意していたのに、こちら側に
    付け外しの実装が無かった＝骨格ライブラリの穴。そのため `position: sticky` の
    効き目が文書の最後まで続き、お品書きを通り過ぎたあとも
    お客様の声・アクセス・フッターの上に帯が貼り付いたままになっていた
    （こびとカフェで発覚 → ゆるりの森でレビュアー3人が独立に再指摘）。
-   最後の `.menu-block` の下端が帯の高さより上に抜けたら引っ込める。 */
-var subnavEl = document.querySelector('.subnav');
-/* 章立ての箱の呼び名は店によって .menu-block だったり .menu-section だったりする（竜美亭）。
-   両方拾う。どちらも無い店＝帯が「お食事／お飲み物」のページ切替（玖・源氏）なので、
-   これは通り過ぎても引っ込めない（引っ込めると行き先が消える）。 */
-var menuBlocks = document.querySelectorAll('.menu-block, .menu-section');
-var lastMenuBlock = menuBlocks.length ? menuBlocks[menuBlocks.length - 1] : null;
+   ★このページは「昼」「夜」で `.subnav` が2本ある（経営者指摘④の直しで分割）。
+   1本目が2本目の位置まで居座ると2本が重なって見えるので、**自分のリンク先の
+   いちばん最後の章**を過ぎた時点でそのナビだけを引っ込める（ナビが1本の店は
+   従来どおり、最後の章を過ぎたら引っ込む）。 */
+var subnavEls = Array.prototype.slice.call(document.querySelectorAll('.subnav'));
+subnavEls.forEach(function (nav) {
+    var hrefs = Array.prototype.map.call(nav.querySelectorAll('a[href^="#"]'), function (a) {
+        return a.getAttribute('href').slice(1);
+    });
+    var lastId = hrefs.length ? hrefs[hrefs.length - 1] : null;
+    nav._lastBlock = lastId ? document.getElementById(lastId) : null;
+});
 
 window.addEventListener('scroll', function () {
     var y = window.scrollY;
@@ -939,17 +953,18 @@ window.addEventListener('scroll', function () {
         var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
         stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
     }
-    if (subnavEl && lastMenuBlock) {
+    subnavEls.forEach(function (nav) {
+        if (!nav._lastBlock) return;
         /* ★2026-08-11 追記：画面幅によって帯を追従させない店がある
            （PCでは position: static に戻す作りが既存店に複数あった）。
            追従していないのに引っ込めると、ただ消えるだけの帯になるので何もしない。 */
-        if (window.getComputedStyle(subnavEl).position !== 'sticky') {
-            subnavEl.classList.remove('is-past');
+        if (window.getComputedStyle(nav).position !== 'sticky') {
+            nav.classList.remove('is-past');
         } else {
-            var r = lastMenuBlock.getBoundingClientRect();
-            subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+            var r = nav._lastBlock.getBoundingClientRect();
+            nav.classList.toggle('is-past', r.bottom < nav.offsetHeight + 8);
         }
-    }
+    });
 }, { passive: true });
 
 

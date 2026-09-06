@@ -543,13 +543,25 @@
                    margin-top: var(--sp-3); letter-spacing: .04em; }
     .day-card p { margin-top: var(--sp-1); color: var(--muted); }
 
-    /* --- 節6「甘いものと、お飲みもの」：可変幅の写真クラスタ ---------------- */
-    .sweets-cluster { display: block; margin-top: var(--blk-y); }
-    .sweets-cluster figure { margin-top: var(--blk-y); }
-    .sweets-cluster .w-cheesecake { max-width: 680px; margin-right: auto; }
-    .sweets-cluster .w-purin      { max-width: 500px; margin-left: auto; }
-    .sweets-cluster .w-latte      { max-width: 420px; margin-right: auto; }
-    .sweets-cluster .w-tart       { max-width: 740px; margin-left: auto; }
+    /* --- 節6「甘いものと、お飲みもの」：写真＋品名キャプションの2カラム ------ */
+    .sweets-grid { display: flex; gap: var(--gap); margin-top: var(--sec-y); align-items: flex-start; }
+    .sweets-col  { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--blk-y); }
+    .sweet-card  { position: relative; }
+    .sweet-index {
+        position: absolute; top: var(--sp-2); right: var(--sp-2); z-index: 2;
+        font-family: var(--font-head); font-style: italic; font-size: .78rem; line-height: 1;
+        color: var(--surface); background: rgba(42, 33, 24, .5);
+        padding: 6px 10px; border-radius: 999px; letter-spacing: .02em;
+    }
+    .sweet-cap {
+        margin-top: var(--sp-2); display: flex; align-items: center; gap: var(--sp-2);
+        font-family: var(--font-head); color: var(--ink); font-size: 1rem;
+        font-weight: 600; letter-spacing: .04em;
+    }
+    .sweet-cap::before { content: ''; display: block; width: 22px; height: 1px; background: var(--accent); flex: none; }
+    @media (max-width: 640px) {
+        .sweets-grid { flex-direction: column; }
+    }
 
     /* --- 節7「お品書き」：build_menu.py が出すクラスへ見た目を当てる -------- */
     .menu-heading .lead { margin-top: var(--sp-2); }
@@ -909,19 +921,40 @@
         <h2 class="section-title reveal"><svg class="brace" viewBox="0 0 20 20" aria-hidden="true"><use href="#orn-brace"></use></svg><span class="nwb"><span class="nw">甘い</span><span class="nw">ものと、</span><span class="nw">お飲み</span><span class="nw">もの</span></span></h2>
         <p class="lead reveal"><span class="nw">甘い</span><span class="nw">ものをひと</span><span class="nw">切れと、</span><span class="nw">あたたかい</span><span class="nw">一杯。</span><span class="nw">読みかけの</span><span class="nw">本でも</span><span class="nw">持って、</span><span class="nw">午後をゆっくり</span><span class="nw">お過ごし</span><span class="nw">ください。</span></p>
 
-        <div class="sweets-cluster">
-            <figure class="photo-frame w-cheesecake ar-4-3 reveal">
-                <img src="img/cheesecake.jpg" width="2270" height="1702" loading="lazy" alt="チーズケーキのひと切れ">
-            </figure>
-            <figure class="photo-frame w-purin ar-3-4 reveal">
-                <img src="img/purin.jpg" width="1024" height="768" loading="lazy" alt="プリン">
-            </figure>
-            <figure class="photo-frame w-latte ar-3-4 reveal">
-                <img src="img/latte.jpg" width="1124" height="1498" loading="lazy" alt="ラテアートの一杯">
-            </figure>
-            <figure class="photo-frame w-tart ar-16-9 reveal">
-                <img src="img/tart.jpg" width="1553" height="874" loading="lazy" alt="タルトのひと切れ">
-            </figure>
+        <div class="sweets-grid">
+            <div class="sweets-col">
+                <figure class="sweet-card reveal">
+                    <span class="sweet-index" aria-hidden="true">01</span>
+                    <div class="photo-frame ar-4-3">
+                        <img src="img/cheesecake.jpg" width="2270" height="1702" loading="lazy" alt="チーズケーキのひと切れ">
+                    </div>
+                    <figcaption class="sweet-cap"><span class="nwb"><span class="nw">チーズケーキ</span><span class="nw">各種</span></span></figcaption>
+                </figure>
+                <figure class="sweet-card reveal">
+                    <span class="sweet-index" aria-hidden="true">02</span>
+                    <div class="photo-frame ar-3-4">
+                        <img src="img/purin.jpg" width="1024" height="768" loading="lazy" alt="プリン">
+                    </div>
+                    <figcaption class="sweet-cap"><span class="nwb"><span class="nw">かぼちゃ</span><span class="nw">プリン</span></span></figcaption>
+                </figure>
+            </div>
+            <div class="sweets-col">
+                <figure class="sweet-card reveal">
+                    <span class="sweet-index" aria-hidden="true">03</span>
+                    <div class="photo-frame ar-3-4">
+                        <img src="img/latte.jpg" width="1124" height="1498" loading="lazy" alt="ラテアートの一杯">
+                    </div>
+                    <figcaption class="sweet-cap"><span class="nw">黒糖抹茶ラテ</span></figcaption>
+                </figure>
+                <!-- タルトの写真はここから外した。抹茶タルトは現行のお品書きに該当品が無く（季節終了品の可能性）、頼めない品を名指ししないため -->
+                <figure class="sweet-card reveal">
+                    <span class="sweet-index" aria-hidden="true">04</span>
+                    <div class="photo-frame ar-3-4">
+                        <img src="img/ginger-ale.jpg" width="768" height="1024" loading="lazy" alt="自家製ジンジャーエール">
+                    </div>
+                    <figcaption class="sweet-cap"><span class="nw">自家製ジンジャーエール</span></figcaption>
+                </figure>
+            </div>
         </div>
     </div>
 </section>
@@ -947,7 +980,7 @@
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal"><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします</span><span class="nw">ので、</span><span class="nw">お気軽に</span><span class="nw">お尋ね</span><span class="nw">ください。</span></div>
+        <div class="lead-box reveal"><p><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします</span><span class="nw">ので、</span><span class="nw">お気軽に</span><span class="nw">お尋ね</span><span class="nw">ください。</span></p></div>
 
         <div class="menu-block reveal" id="morning">
             <div class="menu-head"><h2><span class="nw">モーニング</span></h2><span class="yomi">MORNING</span></div>
@@ -1098,7 +1131,7 @@
         <div class="use-list">
             <div class="use-item reveal">
                 <h3><span class="nw">おひとりでも</span></h3>
-                <p><span class="nw">おひとりでの</span><span class="nw">ご来店も、</span><span class="nw">どうぞ</span><span class="nw">ご遠慮なく。</span><span class="nw">長く</span><span class="nw">いらして</span><span class="nw">くださって</span><span class="nw">構いません。</span></p>
+                <p><span class="nw">おひとりでの</span><span class="nw">ご来店も、</span><span class="nw">どうぞ</span><span class="nw">ご遠慮なく。</span><span class="nw">長くいらしてくださって</span><span class="nw">構いません。</span></p>
             </div>
             <div class="use-item reveal">
                 <h3><span class="nw">お子様連れの</span><span class="nw">方へ</span></h3>

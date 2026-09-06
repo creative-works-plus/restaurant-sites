@@ -510,14 +510,17 @@
 
     /* --- ヒーロー（A-8「枠のなかの1枚」＝店頭のガラスケースを模した窓口） ---------- */
     .hero { display: flex; align-items: center; padding-block: calc(var(--header-h) + var(--sp-6)) var(--sp-6); }
-    .hero .container { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--gap); align-items: center; }
+    /* ★2026-09-06 修正：写真が右側だけ小さく浮いて見える指摘を受け、
+       ヒーローだけ横幅を広げ、列比を1:1にして窓口そのものを大きくした（下の .hero-window 参照） */
+    .hero .container { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: center;
+        width: min(100% - 2 * var(--pad-inner), 1120px); }
     .hero-copy .eyebrow { display: block; font-size: var(--fz-cap); color: var(--accent); letter-spacing: .12em; margin-bottom: var(--sp-3); }
     .hero h1 { font-size: var(--fz-hero); color: var(--ink); }
     .hero .lead { margin-top: var(--sp-4); font-size: 1.05rem; color: var(--ink); max-width: 32em; }
     .hero .lead-note { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--muted); }
 
     /* ガラスケースの枠（ステンレスの縁＋ガラスの照り。動かさない） */
-    .hero-window { position: relative; justify-self: center; width: min(100%, 420px); }
+    .hero-window { position: relative; justify-self: center; width: min(100%, 560px); }
     .hero-window .frame {
         position: relative; border-radius: 12px; padding: 4px;
         background: linear-gradient(180deg, #C9D0D8, #EEF2F6 18%, #AAB3BD 52%, #E6EBF0 78%, #B7C0CA);
@@ -525,7 +528,7 @@
     }
     .hero-window .glass {
         position: relative; border-radius: 9px; overflow: hidden; background: var(--surface-2);
-        padding: clamp(14px, 2vw, 24px);
+        padding: clamp(10px, 1.2vw, 16px);
     }
     .hero-window .glass::after {
         content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -533,7 +536,9 @@
             rgba(255,255,255,.26) 0 18%, transparent 18.5% 46%,
             rgba(255,255,255,.10) 46.5% 55%, transparent 55.5%);
     }
-    .hero-window .glass img { max-width: 320px; width: 100%; height: auto; aspect-ratio: 640 / 423;
+    /* 元画像は640×423（半分の320pxに抑えていたのを見直し、
+       check_upscale.py の許容線＝実寸に対して2倍未満まで480pxへ拡大。ratio 640/480=1.33 で余裕がある） */
+    .hero-window .glass img { max-width: 480px; width: 100%; height: auto; aspect-ratio: 640 / 423;
         object-fit: cover; display: block; margin-inline: auto; border-radius: 6px; }
 
     @media (max-width: 820px) {
@@ -544,48 +549,24 @@
         .hero-actions { justify-content: center; }
     }
 
-    /* --- 署名「魚へんの字は、たくさんございます。」 -------------------------------- */
+    /* --- 「その日の魚も、ございます。」 --------------------------------------------
+       ★2026-09-06 修正：旧「魚へんの字」の漢字グリッド（店の中身を見せていない、との
+       指摘）を撤去し、実際に扱っている魚の写真そのものに差し替えた。
+       ★まぐろのこと／並んでいる皿と同じ .photo-grid-3 を使わない（章の切り替わりが
+       伝わらなくなるため）。1枚を横長で大きく見せ、下に縦長2枚を並べる非対称の組み方。 */
     .sig { padding-block: calc(var(--sec-y) * 1.35); background: var(--surface); }
     .sig .section-title { text-align: center; }
     .sig-lead { max-width: 40em; margin: var(--sp-3) auto 0; text-align: center; color: var(--muted); }
 
-    .sig-visual { margin-top: var(--blk-y); }
-    .sig-frame { max-width: 640px; margin-inline: auto;
-        border: 1.5px solid var(--accent); border-radius: 4px; padding: 6px; }
-    .sig-frame-inner { border: 1px solid var(--line); padding: clamp(20px, 4vw, 40px); background: var(--bg); }
-    .sig-grid { display: grid; grid-template-columns: repeat(6, 1fr);
-        max-width: min(480px, 100%); margin-inline: auto;
-        gap: clamp(10px, 2.4vw, 20px); justify-items: center; }
-    .sig-grid span {
-        font-family: var(--font-head); font-size: var(--fz-kanji); color: var(--kanji); line-height: 1;
-        opacity: 0; transform: translateY(6px);
-        transition: opacity .5s ease, transform .5s ease;
-        transition-delay: calc(var(--i) * .05s);
-    }
-    .sig-grid.is-in span { opacity: 1; transform: none; }
-    .sig-grid span.is-maguro {
-        color: var(--kanji);
-        transition: opacity .5s ease, transform .5s ease, color .6s ease;
-        transition-delay: calc(var(--i) * .05s), calc(var(--i) * .05s), calc(var(--i) * .05s + .4s);
-    }
-    .sig-grid.is-in span.is-maguro { color: var(--aka); font-size: var(--fz-maguro); }
-    @media (prefers-reduced-motion: reduce) {
-        .sig-grid span, .sig-grid span.is-maguro { transition: none; opacity: 1; transform: none; }
-        .sig-grid span.is-maguro { color: var(--aka); font-size: var(--fz-maguro); }
-    }
+    .variety-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 460px));
+        justify-content: center; gap: var(--sp-3); margin-top: var(--blk-y); }
+    .variety-wide { grid-column: 1 / -1; justify-self: center; width: 100%; max-width: 640px; }
+    .variety-grid .photo-frame { aspect-ratio: 3 / 4; width: 100%; }
+    .variety-wide .photo-frame { aspect-ratio: 640 / 430; }
     @media (max-width: 600px) {
-        .sig-grid { grid-template-columns: repeat(4, 1fr); }
+        .variety-grid { grid-template-columns: repeat(2, minmax(0, 220px)); }
     }
 
-    .sig-visual-foot { margin-top: var(--sp-5); max-width: 640px; margin-inline: auto;
-        display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); }
-    .sig-caption { margin-top: var(--sp-3); text-align: left; max-width: 22em; font-size: var(--fz-cap); color: var(--muted); }
-    .sig-gaku { flex: none; }
-    .sig-gaku .photo-frame { width: 216px; aspect-ratio: 3 / 4; }
-    @media (max-width: 640px) {
-        .sig-visual-foot { flex-direction: column; align-items: center; gap: var(--sp-3); }
-        .sig-caption { text-align: center; }
-    }
 
     /* --- まぐろのこと／並んでいる皿（写真グリッド。C-1のみ・2列は作らない） -------- */
     .sec-photo-lead { max-width: 42em; margin-top: var(--sp-3); color: var(--ink); }
@@ -694,7 +675,7 @@
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
     <a href="#maguro" data-nav-link>まぐろのこと</a>
-    <a href="#sig"    data-nav-link>魚へんの字</a>
+    <a href="#sig"    data-nav-link>その日の魚</a>
     <a href="#menu"   data-nav-link>お品書き</a>
     <a href="#info"   data-nav-link>アクセス</a>
     <!-- 「閉じる」を必ず置く（リンクを選ばないと戻せない、という指摘が実際に出た）。
@@ -768,7 +749,7 @@
                 <img src="img/maguro-1.jpg" alt="発泡トレーに並んだまぐろの刺身。切り身の皿と角切りの皿" width="640" height="480" loading="lazy" decoding="async">
             </div>
             <div class="photo-frame">
-                <img src="img/maguro-2.jpg" alt="白い発泡皿に並んだまぐろの刺身と、大葉・わさび" width="640" height="480" loading="lazy" decoding="async">
+                <img src="img/maguro-2.jpg" alt="白い発泡皿に敷き詰められた、厚切りのまぐろの刺身。大葉・わさび添え" width="480" height="360" loading="lazy" decoding="async">
             </div>
             <div class="photo-frame">
                 <img src="img/maguro-3.jpg" alt="白い楕円皿に並んだ厚切りのまぐろの刺身。大根のツマ添え" width="640" height="480" loading="lazy" decoding="async">
@@ -776,40 +757,29 @@
         </div>
     </div>
 </section>
-
-
 <!-- ══════════════════════════════════════════════════════════════════════
-     署名「魚へんの字は、たくさんございます。」
+     「その日の魚も、ございます。」
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section sig" id="sig">
     <div class="container">
-        <h2 class="section-title reveal"><span class="nw">魚へんの</span><span class="nw">字は、</span><span class="nw">たくさん</span><span class="nw">ございます。</span></h2>
-        <p class="sig-lead reveal"><span class="nw">店の</span><span class="nw">壁には、</span><span class="nw">魚へんの</span><span class="nw">字を</span><span class="nw">集めた</span><span class="nw">額が</span><span class="nw">掛かっ</span><span class="nw">ております。</span><span class="nw">魚の</span><span class="nw">数だけ</span><span class="nw">字が</span><span class="nw">ございますが、</span><span class="nw">当店が</span><span class="nw">商いの</span><span class="nw">真ん</span><span class="nw">中に</span><span class="nw">据え</span><span class="nw">ておりますのは、</span><span class="nw">ただの</span><span class="nw">一字で</span><span class="nw">ございます。</span></p>
+        <h2 class="section-title reveal"><span class="nw">その</span><span class="nw">日の</span><span class="nw">魚も、</span><span class="nw">ございます。</span></h2>
+        <p class="sig-lead reveal"><span class="nw">かつお、</span><span class="nw">あじ、</span><span class="nw">真鯛、</span><span class="nw">さば。</span><span class="nw">甘えびに、</span><span class="nw">ほっき</span><span class="nw">貝、</span><span class="nw">つぶ</span><span class="nw">貝。</span><span class="nw">入荷のあった</span><span class="nw">日に、</span><span class="nw">まぐろの</span><span class="nw">隣へ</span><span class="nw">お並べし</span><span class="nw">ております。</span></p>
 
-        <div class="sig-visual reveal">
-            <div class="sig-frame">
-                <div class="sig-frame-inner">
-                    <div class="sig-grid" id="sig-grid" aria-hidden="true">
-                        <span style="--i:0">鮭</span><span style="--i:1">鯛</span><span style="--i:2">鯖</span><span style="--i:3">鰹</span><span style="--i:4">鰤</span><span style="--i:5">鮫</span>
-                        <span style="--i:6">鯉</span><span style="--i:7">鮎</span><span style="--i:8">鰻</span><span style="--i:9">鯨</span><span style="--i:10">鰯</span><span style="--i:11">鮮</span>
-                        <span style="--i:12">鰺</span><span style="--i:13">鮨</span><span style="--i:14">鮑</span><span style="--i:15">鱈</span><span style="--i:16">鮒</span><span style="--i:17">鯰</span>
-                        <span style="--i:18">鱒</span><span style="--i:19">鰈</span><span style="--i:20">鮃</span><span style="--i:21">鰆</span><span style="--i:22">鰭</span><span style="--i:23" class="is-maguro">鮪</span>
-                    </div>
+        <div class="variety-grid reveal">
+            <div class="variety-wide">
+                <div class="photo-frame">
+                    <img src="img/variety-1.jpg" alt="白い丸皿に並んだ、まぐろ・サーモン・えび・白身魚の刺身の盛り合わせ" width="640" height="430" loading="lazy" decoding="async">
                 </div>
             </div>
-            <div class="sig-visual-foot">
-                <p class="sig-caption"><span class="nw">並んで</span><span class="nw">おりますのは、</span><span class="nw">ほとんどが</span><span class="nw">鮪で</span><span class="nw">ございます。</span></p>
-
-                <figure class="sig-gaku">
-                    <div class="photo-frame">
-                        <img src="img/gaku.jpg" alt="店の壁に掛かる、魚へんの漢字を集めた額" width="432" height="576" loading="lazy" decoding="async">
-                    </div>
-                </figure>
+            <div class="photo-frame">
+                <img src="img/variety-2.jpg" alt="頭のついた一尾の魚をたたきにした刺身。生姜・大葉・レモンが添えられている" width="480" height="640" loading="lazy" decoding="async">
+            </div>
+            <div class="photo-frame">
+                <img src="img/variety-3.jpg" alt="発泡容器に並んだ、皮目が銀色に光る魚と赤身の魚の刺身" width="480" height="640" loading="lazy" decoding="async">
             </div>
         </div>
     </div>
 </section>
-
 
 <!-- ══════════════════════════════════════════════════════════════════════
      並んでいる皿
@@ -817,7 +787,7 @@
 <section class="section sec-case" id="sara">
     <div class="container">
         <h2 class="section-title reveal"><span class="diamond" aria-hidden="true"></span><span class="nw">一皿から、</span><span class="nw">どうぞ。</span></h2>
-        <p class="sec-photo-lead reveal"><span class="nw">お刺身はあらかじめ</span><span class="nw">小分けの</span><span class="nw">皿にして</span><span class="nw">お並べし</span><span class="nw">ております。</span><span class="nw">今晩の</span><span class="nw">一品に</span><span class="nw">一皿、</span><span class="nw">ご家族の</span><span class="nw">人数分に</span><span class="nw">数皿と、</span><span class="nw">ご入用なだけ</span><span class="nw">お求め</span><span class="nw">ください。</span><span class="nw">まぐろのほかにも、</span><span class="nw">かつおや</span><span class="nw">真鯛、</span><span class="nw">貝の</span><span class="nw">お刺身、</span><span class="nw">天ぷらや</span><span class="nw">串焼きも</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+        <p class="sec-photo-lead reveal"><span class="nw">お刺身はあらかじめ</span><span class="nw">小分けの</span><span class="nw">皿にして</span><span class="nw">お並べし</span><span class="nw">ております。</span><span class="nw">今晩の</span><span class="nw">一品に</span><span class="nw">一皿、</span><span class="nw">ご家族の</span><span class="nw">人数分に</span><span class="nw">数皿と、</span><span class="nw">ご入用なだけ</span><span class="nw">お求め</span><span class="nw">ください。</span><span class="nw">天ぷらや</span><span class="nw">串焼きも</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
 
         <div class="photo-grid photo-grid-3 reveal">
             <div class="photo-frame">
@@ -1115,30 +1085,6 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
         });
     }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
     revealEls.forEach(function (el) { io.observe(el); });
-}
-
-
-/* --------------------------------------------------------------------------
-   3-b. 署名「魚へんの字は、たくさんございます。」の点灯演出
-   沈めた24字が先に出そろい、最後に「鮪」だけが赤く灯る（一度だけ）。
-   ★親の <section id="sig"> を観測する（グリッドの子要素は観測しない）
-   -------------------------------------------------------------------------- */
-var sigSection = document.getElementById('sig');
-var sigGrid = document.getElementById('sig-grid');
-if (sigSection && sigGrid) {
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-        sigGrid.classList.add('is-in');
-    } else {
-        var sigIo = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    sigGrid.classList.add('is-in');
-                    sigIo.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-        sigIo.observe(sigSection);
-    }
 }
 
 

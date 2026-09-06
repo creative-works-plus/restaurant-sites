@@ -552,8 +552,11 @@
         /* ★2026-08-28 レビュー裁定：align-items:center だと写真列（約507px）の高さに
            コピー列が縦センタリングされ、実測924pxの余白が生まれる（180px相当がCTA手前に
            かかっていた）。start に変えて上端を揃え、CTAとの間隔は --sp-6 の実値で決める */
-        .hero-grid { grid-template-columns: minmax(0, 1.15fr) 380px; gap: var(--sp-6); align-items: start; }
-        .hero-photo { width: 380px; margin-inline: 0; }
+        /* ★2026-09-06 代表指摘：1.15fr が余白を628pxまで広げ、46ch(429px)しか使わない
+           コピー列との差（199px）+ gap(72px)＝271pxの空白が写真との間に生まれていた。
+           コピー列を実寸に近い固定幅へ絞り、gapも詰めて「離れすぎ」を解消する */
+        .hero-grid { grid-template-columns: minmax(0, 460px) 440px; gap: var(--sp-5); align-items: start; }
+        .hero-photo { width: 440px; margin-inline: 0; }
     }
     .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-6); }
 

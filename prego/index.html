@@ -521,23 +521,46 @@
     .btn-block { width: 100%; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 
-    /* --- ヒーロー（A-2改：外観写真＋情報帯） -------------------------------- */
+    /* --- ヒーロー（A-2改→写真に情報を重ねる型：2026-09-06 修正）--------------
+       ★経営者指摘①：開いた瞬間に外観写真だけが見え、店の情報が一画面目に無かった
+       （情報帯が写真の下に続いていたため、初めのひと目には写真しか映らなかった）。
+       写真は主役のまま残し、店名・一言・お電話を写真の上に重ねて
+       「開いた瞬間に情報が見える」ようにする。営業時間・駐車場などの詳細チップは
+       これまでどおり写真の下の帯に置く（情報の場所は増やさない）。 */
     .hero { min-height: auto; }
-    .hero-photo { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-2); }
+    .hero-photo { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 300px; overflow: hidden; background: var(--surface-2); }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-info-wrap { border-top: 3px solid var(--accent-hi); background: var(--bg); }
-    .hero-info { padding-block: var(--sp-5) var(--sec-y); }
+    /* 幕：写真の下側だけを --deep に近い色で沈め、白文字が 4.5:1 を割らないようにする。
+       ★実測で直した点（2026-09-06）：帯を「写真全体に対する％」で引くと、情報帯（この上の
+       チップ・タイトル・キャッチ）の分量が変わるたびに文字の位置が動き、
+       上のほうの文字（欧文ラベル）が薄い部分に乗って 2.5:1 まで落ちた（390px 実測）。
+       **文字を包む帯（.hero-overlay）自身に幕を敷き、px基準でごく短く立ち上げる**ことで、
+       帯の高さが変わっても文字の乗る場所は必ず幕の濃い部分になる。 */
+    .hero-overlay {
+        position: absolute; inset: auto 0 0 0;
+        background: linear-gradient(180deg, rgba(27,23,16,0) 0, rgba(27,23,16,.88) 36px, rgba(27,23,16,.94) 100%);
+    }
+    .hero-overlay-inner {
+        padding: var(--sp-4) var(--pad-inner) var(--sp-4);
+        max-width: var(--maxw); margin-inline: auto;
+    }
+    .hero-overlay .status-chip { background: rgba(255,255,255,.95); border-color: transparent; color: var(--ink); }
+    .hero-overlay .hero-eyebrow { color: var(--accent-hi); margin-top: var(--sp-3); }
+    .hero-overlay .hero-title { color: #fff; margin-top: var(--sp-2); text-shadow: 0 2px 14px rgba(0,0,0,.4); }
+    .hero-overlay .hero-catch { color: #fff; margin-top: var(--sp-2); text-shadow: 0 1px 10px rgba(0,0,0,.35); }
+    .hero-overlay .hero-actions { margin-top: var(--sp-4); }
     .hero-eyebrow {
         font-family: var(--font-en); font-size: var(--fz-en); text-transform: uppercase;
-        letter-spacing: .14em; color: var(--accent); margin-top: var(--sp-3);
+        letter-spacing: .14em; color: var(--accent);
     }
     .hero-title {
         font-family: var(--font-head); font-weight: 700; font-size: var(--fz-hero);
         line-height: var(--lh-head); letter-spacing: .02em; color: var(--ink);
-        margin-top: var(--sp-2);
     }
-    .hero-catch { font-size: 1.2rem; color: var(--ink); margin-top: var(--sp-3); }
-    .hero-sub { color: var(--muted); max-width: 620px; margin-top: var(--sp-2); }
+    .hero-catch { font-size: 1.2rem; color: var(--ink); }
+    .hero-info-wrap { border-top: 3px solid var(--accent-hi); background: var(--bg); }
+    .hero-info { padding-block: var(--sp-4) var(--sec-y); }
+    .hero-sub { color: var(--muted); max-width: 620px; }
     .hero-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); max-width: 760px; }
     .hero-chips li {
         background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
@@ -545,9 +568,8 @@
     }
     .hero .hero-actions { margin-top: var(--sp-4); }
     /* ★B-1（デザインレビュー）：1440px で本文が左半分に寄り、右がまるごと空いていた。
-       幅のある画面だけ「名前と文（左）／チップとご予約（右）」の2段に組んで、
-       CTAを帯の下辺にそろえる。★1120px 未満はこれまでどおり縦に積む——1000〜1119px では
-       店名（58px・折り返し禁止で473px）が左の段からはみ出すため（実測）。 */
+       幅のある画面だけ「一言（左）／チップとご予約（右）」の2段に組んで、
+       CTAを帯の下辺にそろえる。★1120px 未満はこれまでどおり縦に積む。 */
     @media (min-width: 1120px) {
         .hero-info { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); column-gap: var(--sp-6); align-items: end; }
         .hero-aside { display: flex; flex-direction: column; align-items: flex-start; }
@@ -561,17 +583,6 @@
     .mark-section .eyebrow, .mark-section .section-title { margin-inline: auto; }
     .mark-intro { max-width: 560px; margin: 0 auto var(--sp-5); color: var(--muted); }
     .mark-device { display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); }
-    .mark-svg { width: clamp(120px, 26vw, 220px); height: auto; }
-    .mark-ring { stroke-dasharray: 327; stroke-dashoffset: 327; transition: stroke-dashoffset .6s ease-out; }
-    .mark-dot { opacity: 0; transition: opacity .25s ease-out; transition-delay: .45s; }
-    .mark-device.mark-draw .mark-ring { stroke-dashoffset: 0; }
-    .mark-device.mark-draw .mark-dot { opacity: 1; }
-    .no-js .mark-ring { stroke-dashoffset: 0 !important; }
-    .no-js .mark-dot { opacity: 1 !important; }
-    @media (prefers-reduced-motion: reduce) {
-        .mark-ring { transition: none; stroke-dashoffset: 0; }
-        .mark-dot { transition: none; opacity: 1; }
-    }
     .mark-caption { font-size: var(--fz-h3); color: var(--muted); max-width: 560px; }
     .mark-dishes { display: flex; flex-direction: column; gap: var(--sp-2); margin-top: var(--sp-3); font-size: var(--fz-h3); color: var(--ink); }
     .mark-dishes li { display: flex; align-items: flex-start; justify-content: center; gap: 8px; }
@@ -685,15 +696,26 @@
 <section class="hero" id="hero">
     <div class="hero-photo">
         <img src="images/hero-facade.jpg" alt="キッチンプレーゴの外観。白い下見板の壁に、橙の「キッチン プレーゴ」看板が掛かる" width="1600" height="900" loading="eager">
-    </div>
-    <div class="hero-info-wrap">
-        <div class="container hero-info">
-            <div class="hero-main">
+        <div class="hero-overlay">
+            <div class="hero-overlay-inner">
             <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
             <p class="hero-eyebrow nw">CUCINA ITALIANA</p>
             <h1 class="hero-title"><span class="nw">キッチンプレーゴ</span></h1>
             <p class="hero-catch"><span class="nw">シンプルで、</span><span class="nw">体にやさしい</span><span class="nw">イタリアン。</span></p>
+
+            <div class="hero-actions">
+                <a href="tel:0280231777" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    0280-23-1777｜ご予約はこちら
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-info-wrap">
+        <div class="container hero-info">
+            <div class="hero-main">
             <p class="hero-sub"><span class="nw">お昼の</span><span class="nw">パスタから、</span><span class="nw">夜の</span><span class="nw">お食事と</span><span class="nw">お酒まで。</span><span class="nw">古河の</span><span class="nw">町で、</span><span class="nw">気どらない</span><span class="nw">イタリアンを</span><span class="nw">営んで</span><span class="nw">おります。</span></p>
             </div>
 
@@ -708,10 +730,6 @@
             </ul>
 
             <div class="hero-actions">
-                <a href="tel:0280231777" class="btn btn-primary">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                    0280-23-1777｜ご予約はこちら
-                </a>
                 <a href="menu.html" class="btn btn-ghost">お品書きを見る</a>
             </div>
             </div>
@@ -756,10 +774,6 @@
         <p class="mark-intro reveal"><span class="nw">当店の</span><span class="nw">お品書きには、</span><span class="nw">小さな</span><span class="nw">印がひとつ</span><span class="nw">ございます。</span><span class="nw">めんを</span><span class="nw">店の</span><span class="nw">中で</span><span class="nw">打っ</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">この</span><span class="nw">ご用意ができます。</span></p>
 
         <div class="mark-device reveal">
-            <svg class="mark-svg" viewBox="0 0 120 120" aria-hidden="true">
-                <circle class="mark-ring" cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="3"/>
-                <circle class="mark-dot" cx="60" cy="60" r="11.5" fill="var(--accent-hi)"/>
-            </svg>
             <p class="mark-caption"><span class="nw">⊙印の</span><span class="nw">パスタは、</span><span class="nw">自家製の</span><span class="nw">平打ちめん</span><span class="nw">（フェットチーネ）にもできます。</span><span class="nw">ご希望でしたら</span><span class="nw">お声かけ</span><span class="nw">ください</span></p>
             <ul class="mark-dishes">
                 <li><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="60" cy="60" r="11.5" fill="var(--accent-hi)"/></svg><span class="nwb"><span class="nw">ボローニャ</span><span class="nw">風本格ミートソーススパゲッティ</span></span></li>
@@ -1023,24 +1037,6 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
 }
 
 
-/* --------------------------------------------------------------------------
-   3-b. 署名 ⊙ の描画演出（#mark 章に入って一度だけ）
-   ★この⊙は「お替えできる」の意味専用（7-d）。他の飾りには流用しない。
-   -------------------------------------------------------------------------- */
-var markDevice = document.querySelector('.mark-device');
-if (markDevice && !reduceMotion && 'IntersectionObserver' in window) {
-    var markIo = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('mark-draw');
-                markIo.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.4 });
-    markIo.observe(markDevice);
-} else if (markDevice) {
-    markDevice.classList.add('mark-draw');
-}
 
 
 /* --------------------------------------------------------------------------

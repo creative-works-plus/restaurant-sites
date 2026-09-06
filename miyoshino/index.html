@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/miyoshino/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/miyoshino/images/hero-band.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/miyoshino/images/building.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -40,7 +40,7 @@
       "priceRange": "¥",
       "telephone": "+81-280-32-0748",
       "url": "https://creative-works-plus.github.io/restaurant-sites/miyoshino/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/miyoshino/images/hero-band.jpg",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/miyoshino/images/building.jpg",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "本町3丁目2-17",
@@ -514,14 +514,26 @@
     .btn-block { width: 100%; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-5); }
 
-    /* --- ヒーロー（A-2：写真＋帯。全画面にしない） ----------------------------
-       上＝実写の帯（32/7）、下＝--bg の紙面に店名・惹句・ステータス・tel。
-       写真の上に文字は重ねない（帯の明度・色数が390pxで4.5:1を安定して取れないため） */
-    .hero { min-height: auto; }
-    .hero-band { width: 100%; aspect-ratio: 32 / 7; overflow: hidden; background: var(--surface-2); }
-    .hero-band img { width: 100%; height: 100%; object-fit: cover; }
-    @media (max-width: 640px) { .hero-band { aspect-ratio: 2 / 1; } }
-    .hero-paper { padding-block: var(--sp-5) var(--sp-6); }
+    /* --- ヒーロー（左＝店構えの実写・右＝紙面に店名・惹句・ステータス・tel） ----
+       ★以前は全幅の帯（32/7）に店構えの下半分だけを見せていたが、
+       「上が切れて何の写真か分からない」との指摘で、三角屋根から一階の
+       「美よしの」の看板まで一枚で写る建物写真（正方形・1055px角）に差し替えた。
+       元画像が1055pxしかないため全幅の帯にはできない（拡大表示になる）。
+       そこで写真は紙面の中の1枚のカードとして、店名・惹句と並べて置く。 */
+    .hero { min-height: auto; padding-block: var(--sp-6); background: var(--bg); }
+    .hero-grid {
+        display: grid; gap: var(--sp-5);
+        align-items: center;
+    }
+    .hero-photo {
+        max-width: 440px; border-radius: var(--radius);
+        overflow: hidden; box-shadow: var(--shadow);
+    }
+    .hero-photo img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
+    @media (min-width: 860px) {
+        .hero-grid { grid-template-columns: 440px 1fr; gap: var(--sp-6); }
+        .hero-photo { max-width: none; }
+    }
     .hero-paper .status-chip { background: var(--surface); }
     .hero-title {
         font-size: var(--fz-hero); font-weight: 500; color: var(--ink);
@@ -612,12 +624,17 @@
     .panel-deep .lead, .panel-deep p { color: var(--paper-ink); }
     .panel-deep .asa-note { color: var(--paper-muted); font-size: var(--fz-cap); margin-top: var(--sp-4); }
 
-    /* --- 7章「店のこと」の建物写真（★最大表示幅552px。全幅では使わない） ------- */
-    .building-photo { max-width: 520px; margin-top: var(--blk-y); }
-    .building-photo img {
-        width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+    /* --- 7章「店のこと」の店構え写真（★最大表示幅780px。全幅では使わない） -----
+       ★以前はヒーローと同じ建物写真（1055px角）をここでも使っていたが、
+       height:auto を書き忘れていたため 520×1055 に縦長へ潰れて表示されていた
+       （画質が悪いとの指摘の実体はこれ）。ヒーローに建物全景を移したので、
+       ここは入口まわりを写した横長の実写（2880×645・十分な解像度）に差し替える。 */
+    .mise-photo { max-width: 780px; margin-top: var(--blk-y); }
+    .mise-photo img {
+        width: 100%; height: auto; aspect-ratio: 32 / 7; object-fit: cover;
         border-radius: var(--radius); box-shadow: var(--shadow);
     }
+    @media (max-width: 640px) { .mise-photo img { aspect-ratio: 2 / 1; } }
 
     /* --- 8章 アクセス・店舗情報 -------------------------------------------- */
     .info-table { width: 100%; margin-top: var(--blk-y); }
@@ -643,9 +660,12 @@
         background: var(--surface); border-bottom: 1px solid var(--line);
         position: sticky; top: var(--header-h); z-index: 90;
     }
+    /* ★左に寄って見える指摘（2026-09-06）。11章あってPCでも1行に収まらないので、
+       横スクロールで隠すのをやめ、折り返して中央に揃える。タップ領域は .subnav a の
+       min-height:44px（骨格側）のまま変えない。 */
     .subnav-inner {
-        display: flex; flex-wrap: nowrap; overflow-x: auto;
-        -webkit-overflow-scrolling: touch; gap: var(--sp-2);
+        display: flex; flex-wrap: wrap; justify-content: center;
+        gap: var(--sp-2); padding-block: var(--sp-2);
         padding-inline: var(--pad-inner);
     }
     .subnav a { flex: 0 0 auto; white-space: nowrap; font-size: var(--fz-cap); color: var(--muted); }
@@ -715,12 +735,13 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-band">
-        <img src="images/hero-band.jpg"
-             alt="美よしのの店構え。入口には駐車場の案内看板とオレンジ色ののぼり、黄色いこっぺパンの掲示、黒レンガの壁画が並ぶ"
-             width="2880" height="645" loading="eager" fetchpriority="high" decoding="async">
-    </div>
-    <div class="container hero-paper">
+    <div class="container hero-grid">
+        <figure class="hero-photo">
+            <img src="images/building.jpg"
+                 alt="美よしのの店構え。三角屋根のレンガ積み二階建てで、一階の黒レンガの壁に「美よしの」の看板とパン職人の白い線画がある"
+                 width="1055" height="1055" loading="eager" fetchpriority="high" decoding="async">
+        </figure>
+        <div class="hero-paper">
         <span class="status-chip" id="status-chip"><span class="status-text">本日の営業は、お電話でお確かめください</span></span>
 
         <h1 class="hero-title"><span class="nw">美よしの</span></h1>
@@ -734,6 +755,7 @@
                 <span class="tel-num">0280-32-0748</span><span class="tel-cap">お問い合わせ</span>
             </a>
             <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
+        </div>
         </div>
     </div>
 </section>
@@ -1099,8 +1121,8 @@
         <h2 class="section-title reveal"><span class="orn" aria-hidden="true"></span><span class="nwb"><span class="nw">本郷の</span><span class="nw">和菓子屋から、</span><span class="nw">古河のこっぺ</span><span class="nw">パンへ</span></span></h2>
         <p class="lead reveal"><span class="nw">当店は</span><span class="nw">明治四十年頃、</span><span class="nw">東京・</span><span class="nw">本郷で</span><span class="nw">和菓子屋として</span><span class="nw">始まりました。</span><span class="nw">修業先からのれん</span><span class="nw">分けで</span><span class="nw">「美よし</span><span class="nw">乃菓子店」の</span><span class="nw">屋号を</span><span class="nw">頂き、</span><span class="nw">戦中の</span><span class="nw">疎開で、</span><span class="nw">昭和十八年にこの</span><span class="nw">古河へ</span><span class="nw">移っ</span><span class="nw">ております。</span><span class="nw">パン</span><span class="nw">屋での</span><span class="nw">修業を</span><span class="nw">経てこっぺ</span><span class="nw">パンを</span><span class="nw">お作りする</span><span class="nw">ようになり、</span><span class="nw">それから</span><span class="nw">半世紀。</span><span class="nw">季節の</span><span class="nw">変化、</span><span class="nw">気温、</span><span class="nw">湿度を</span><span class="nw">日々肌で</span><span class="nw">感じながら、</span><span class="nw">先代から</span><span class="nw">受け</span><span class="nw">継いだ</span><span class="nw">手法を</span><span class="nw">守ってまいりました。</span></p>
 
-        <figure class="building-photo reveal">
-            <img src="images/building.jpg" alt="三角屋根のレンガ積み二階建て。一階の黒レンガの壁に、白い線で描かれたパン職人の絵と「美よしの」の文字" width="1055" height="1055" loading="lazy" decoding="async">
+        <figure class="mise-photo reveal">
+            <img src="images/hero-band.jpg" alt="美よしのの店構え。入口には駐車場の案内看板とオレンジ色ののぼり、黄色いこっぺパンの掲示、黒レンガの壁画が並ぶ" width="2880" height="645" loading="lazy" decoding="async">
         </figure>
     </div>
 </section>

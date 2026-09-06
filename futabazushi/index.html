@@ -57,7 +57,7 @@
         "streetAddress": "三和137",
         "addressLocality": "古河市",
         "addressRegion": "茨城県",
-        "postalCode": "306-0125",
+        "postalCode": "306-0042",
         "addressCountry": "JP"
       },
       "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E4%B8%89%E5%92%8C137",
@@ -471,7 +471,7 @@
     /* ══════════════════════════════════════════════════════════════════
        ここから下が、この店だけのCSS。
        09-レイアウト選択肢.md：A-5改（文字主体＋外観の縦カード）／B-1改（4章36品・全章no_price）
-       ／D-1改（署名先行）。署名的な仕掛け＝A-75「五つめの行」（デザインブリーフ §7-d の数値のまま）。
+       ／D-1改。署名的な仕掛け「五つめの行」（A-75）は代表の指摘により2026-09-06 に削除。
        ══════════════════════════════════════════════════════════════════ */
 
     .container { max-width: var(--maxw); }
@@ -537,50 +537,6 @@
     .hero-photo .photo-frame { aspect-ratio: 3 / 4; }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
     @media (min-width: 960px) { .hero-photo { margin-inline: 0; margin-left: auto; } }
-
-    /* --- ②五つめの行（署名。デザインブリーフ §7-d のCSSをそのまま使う） -------- */
-    .signature { background: var(--bg); }
-    .soto-card {
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        padding: var(--sp-5) var(--sp-4);
-    }
-    .soto{ max-width:560px; margin-inline:auto }
-    .soto ol{ list-style:none; margin:0; padding:0 }
-    .soto li{ display:grid; grid-template-columns:2.6em 1fr; align-items:baseline;
-              column-gap:var(--sp-3); padding-block:var(--sp-4);
-              border-bottom:1px solid var(--line) }
-    .soto .no{ font-family:"Kaisei HarunoUmi",serif; font-size:var(--fz-h3);
-               color:var(--accent); letter-spacing:.02em }
-    .soto .na{ font-family:"Kaisei HarunoUmi",serif; font-weight:500; font-size:var(--fz-h2);
-               letter-spacing:.12em; line-height:1.35 }
-    .soto li.aki{ border-bottom:0 }                       /* 五行目は灰の罫を引かない */
-    .soto .rule{ display:block; width:min(100%,14em); height:1.35em;
-                 font-size:var(--fz-h2);                   /* ★14emの基準を本文17pxでなく見出し相当にし、上4行の罫幅に揃える */
-                 border-bottom:1.5px solid var(--accent);
-                 transform:scaleX(0); transform-origin:left;
-                 transition:transform .9s ease-out }
-    .soto .rule.on{ transform:scaleX(1) }
-    @media (prefers-reduced-motion:reduce){ .soto .rule{ transform:scaleX(1); transition:none } }
-    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px;
-              overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
-
-    .soto-note, .soto-cta { padding-left: calc(2.6em + var(--sp-3)); } /* ★品名の列に左端を揃える */
-    .soto-note { margin-top: var(--sp-4); color: var(--muted); }
-    .soto-cta { margin-top: var(--sp-4); }
-    .soto-photos-lead { max-width: 640px; margin: var(--sec-y) auto var(--blk-y); color: var(--muted); text-align: center; }
-
-    .soto-photos{ display:grid; gap:var(--sp-4); grid-template-columns:1fr;
-                  margin-top:var(--sp-6) }
-    @media (min-width:760px){ .soto-photos{ grid-template-columns:repeat(3,1fr);
-                  max-width:960px; margin-inline:auto } }
-    .soto-photos img{ width:100%; max-width:320px; height:auto; aspect-ratio:3/4;
-                  object-fit:cover; display:block; margin-inline:auto;
-                  border-radius:var(--radius) }
-    .soto-photos figure { text-align: center; }
-    .soto-photos figcaption { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--dim); }
 
     /* --- ③鮨のこと（横位置3枚グリッド。中とろの寄り＋盛合せ2枚） ---------------- */
     .sushi-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); }
@@ -720,7 +676,6 @@
 </header>
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
-    <a href="#signature" data-nav-link>五つめの行</a>
     <a href="#sushi"    data-nav-link>鮨のこと</a>
     <a href="#menu"     data-nav-link>お品書き</a>
     <a href="#about"    data-nav-link>店のこと</a>
@@ -738,7 +693,7 @@
     <div class="container hero-grid">
         <div class="hero-copy">
             <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
-            <h1 class="reveal"><span class="nw">三和で、</span><span class="nw">鮨を</span><span class="nw">握っております。</span></h1>
+            <h1 class="reveal"><span class="nw">三和で、</span><span class="nw">鮨を</span><span class="nw">握っ</span><span class="nw">ております。</span></h1>
 
             <div class="hero-actions reveal">
                 <a href="tel:0280-48-1488" class="btn btn-primary btn-tel">
@@ -754,56 +709,6 @@
                 <img src="img/gaikan.jpg" alt="紺の暖簾に白抜きの「二葉寿司」の文字、丸い行灯看板、木の格子の引き戸のある外観"
                      width="480" height="640" loading="eager" fetchpriority="high" decoding="async">
             </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     ②五つめの行（署名。この節が画面の主役）
-     ══════════════════════════════════════════════════════════════════════ -->
-<section class="section signature" id="signature">
-    <div class="container">
-        <h2 class="section-title reveal"><span class="nw">五つめの</span>行</h2>
-        <p class="lead reveal">
-            <span class="nw">お品書きの</span><span class="nw">札に</span><span class="nw">刷ってあるのは、</span><span class="nw">にぎり、</span><span class="nw">ちらし、</span><span class="nw">巻き</span><span class="nw">もの、</span><span class="nw">お好み——この</span><span class="nw">四行で</span><span class="nw">ございます。</span><br>
-            <span class="nw">この</span><span class="nw">ページには、</span><span class="nw">五つめの</span><span class="nw">行を</span><span class="nw">空けて</span><span class="nw">置きました。</span><br>
-            <span class="nw">ここへ</span><span class="nw">入るのは</span><span class="nw">鮨の</span><span class="nw">ほかの</span><span class="nw">もので、</span><span class="nw">お客様ごとに</span><span class="nw">変わります</span><span class="nw">ので、</span><span class="nw">刷る</span><span class="nw">ことができません。</span>
-        </p>
-
-        <div class="soto-card reveal">
-            <div class="soto">
-                <ol>
-                    <li><span class="no">一</span><span class="na"><span class="nw">にぎり</span></span></li>
-                    <li><span class="no">二</span><span class="na"><span class="nw">ちらし</span></span></li>
-                    <li><span class="no">三</span><span class="na"><span class="nw">巻き</span><span class="nw">もの</span></span></li>
-                    <li><span class="no">四</span><span class="na"><span class="nw">お好み</span></span></li>
-                    <li class="aki"><span class="no">五</span><span class="rule" aria-hidden="true"></span><span class="sr-only">この行はお客様ごとに変わります</span></li>
-                </ol>
-                <p class="soto-note"><span class="nw">この</span><span class="nw">行に</span><span class="nw">入る</span><span class="nw">ものは、</span><span class="nw">お電話で</span><span class="nw">お聞かせ</span><span class="nw">ください。</span></p>
-                <div class="hero-actions soto-cta">
-                    <a href="tel:0280-48-1488" class="btn btn-primary btn-tel">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                        <span class="tel-num">0280-48-1488</span><span class="tel-cap">ご予約はこちら</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <p class="soto-photos-lead reveal"><span class="nw">品書きには</span><span class="nw">刷っておりませんが、</span><span class="nw">これまでに</span><span class="nw">お出ししてまいりました。</span></p>
-        <div class="soto-photos">
-            <figure class="reveal">
-                <img src="img/sashimi.jpg" alt="お刺身の盛合せ。数種の魚の刺身が並ぶ" width="480" height="640" loading="lazy" decoding="async">
-                <figcaption><span class="nw">お刺身の</span><span class="nw">盛合せ</span></figcaption>
-            </figure>
-            <figure class="reveal reveal-delay-1">
-                <img src="img/watarigani.jpg" alt="ワタリ蟹の身が入ったお味噌汁" width="480" height="640" loading="lazy" decoding="async">
-                <figcaption><span class="nw">ワタリ</span><span class="nw">蟹の</span><span class="nw">お味噌汁</span></figcaption>
-            </figure>
-            <figure class="reveal reveal-delay-2">
-                <img src="img/edamame.jpg" alt="お通しの茹でた枝豆" width="480" height="640" loading="lazy" decoding="async">
-                <figcaption><span class="nw">お通しの</span><span class="nw">枝豆</span></figcaption>
-            </figure>
         </div>
     </div>
 </section>
@@ -945,9 +850,11 @@
 
         <div class="menu-block reveal" id="drink">
             <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">Drink</span></div>
+            <p class="menu-note"><span class="nw">そのほかの</span><span class="nw">お飲み</span><span class="nw">ものは、</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
-                    <li><span class="name"><span class="nw">瓶ビール</span><span class="desc"><span class="nw">アサヒスーパードライ</span> <span class="nw">大瓶</span></span></span></li>
+                    <li><span class="name"><span class="nw">瓶ビール</span><span class="desc"><span class="nw">アサヒスーパードライ</span> <span class="nw">大瓶</span>（633ml）</span></span></li>
+                    <li><span class="name"><span class="nw">瓶コーラ</span><span class="desc"><span class="nw">コカ・</span><span class="nw">コーラの</span><span class="nw">瓶で</span><span class="nw">お出しします</span></span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -972,7 +879,7 @@
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">店の</span><span class="nw">こと</span></h2>
         <p class="reveal">
-            <span class="nw">親方と</span><span class="nw">女将の、</span><span class="nw">二人でやっております。</span><br>
+            <span class="nw">親方と</span><span class="nw">女将の、</span><span class="nw">二人でやっ</span><span class="nw">ております。</span><br>
             <span class="nw">仕込みも、</span><span class="nw">握るのも、</span><span class="nw">お出しするのも、</span><span class="nw">この</span><span class="nw">二人の</span><span class="nw">手で</span><span class="nw">ございます。</span><br>
             <span class="nw">どうぞ、</span><span class="nw">ごゆっくりなさって</span><span class="nw">ください。</span>
         </p>
@@ -989,10 +896,10 @@
         <p class="lead reveal"><span class="nw">木の</span><span class="nw">格子の</span><span class="nw">引き</span><span class="nw">戸を</span><span class="nw">開けて、</span><span class="nw">お入り</span><span class="nw">ください。</span></p>
 
         <table class="info-table reveal">
-            <tr><th><span class="nw">住所</span></th><td>〒306-0125 <span class="nw">茨城県古河市三和</span>137</td></tr>
+            <tr><th><span class="nw">住所</span></th><td>〒306-0042 <span class="nw">茨城県古河市三和</span>137</td></tr>
             <tr><th><span class="nw">電話</span></th><td><a href="tel:0280-48-1488" class="tel-link nw">0280-48-1488</a></td></tr>
-            <tr><th><span class="nw">営業時間</span></th><td><span class="nw">昼</span> 11:30〜14:00<span class="nw">（水曜は</span><span class="nw">お休み）</span></td></tr>
-            <tr><th></th><td><span class="nw">夜</span> 17:00〜21:00</td></tr>
+            <tr><th><span class="nw">営業時間</span></th><td>昼 11:30〜14:00<span class="nw">（水曜は</span><span class="nw">お休み）</span></td></tr>
+            <tr><th></th><td>夜 17:00〜21:00</td></tr>
             <tr><th><span class="nw">定休日</span></th><td><span class="nw">木曜</span></td></tr>
         </table>
 
@@ -1008,8 +915,8 @@
 
         <div class="reserve-box reveal">
             <h3><span class="nw">ご予約について</span></h3>
-            <p><span class="nw">お電話にて</span><span class="nw">承っております。</span><br>
-               <span class="nw">営業時間中に</span><span class="nw">お電話</span><span class="nw">いただけますと</span><span class="nw">幸いで</span><span class="nw">ございます。</span></p>
+            <p><span class="nw">お電話にて</span><span class="nw">承っ</span><span class="nw">ております。</span><br>
+               <span class="nw">営業時間中に</span><span class="nw">お電話いただけますと</span><span class="nw">幸いで</span><span class="nw">ございます。</span></p>
             <div class="hero-actions">
                 <a href="tel:0280-48-1488" class="btn btn-primary btn-tel">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
@@ -1040,7 +947,7 @@
 <footer class="site-footer">
     <div class="container">
         <p class="footer-name"><span class="nw">二葉寿司</span></p>
-        <p class="footer-addr">〒306-0125 <span class="nw">茨城県古河市三和</span>137／<a href="tel:0280-48-1488" class="nw">0280-48-1488</a></p>
+        <p class="footer-addr">〒306-0042 <span class="nw">茨城県古河市三和</span>137／<a href="tel:0280-48-1488" class="nw">0280-48-1488</a></p>
         <p class="footer-copy">&copy; <span class="nw">二葉寿司</span></p>
     </div>
 </footer>
@@ -1170,27 +1077,6 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
         });
     }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
     revealEls.forEach(function (el) { io.observe(el); });
-}
-
-
-/* --------------------------------------------------------------------------
-   3-b. 「五つめの行」の罫（.soto .rule）
-   一度だけ .on を付けて引く。prefers-reduced-motion では CSS 側が最初から
-   scaleX(1) にしているので、ここでは observe するだけで見た目は変わらない。
-   -------------------------------------------------------------------------- */
-var ruleEls = document.querySelectorAll('.soto .rule');
-if (reduceMotion || !('IntersectionObserver' in window)) {
-    ruleEls.forEach(function (el) { el.classList.add('on'); });
-} else {
-    var ioRule = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('on');
-                ioRule.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.4 });
-    ruleEls.forEach(function (el) { ioRule.observe(el); });
 }
 
 

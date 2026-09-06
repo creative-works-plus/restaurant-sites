@@ -469,8 +469,14 @@
     .hero-catch { font-size: var(--fz-hero); margin-bottom: var(--sp-4); }
     .hero-sub { color: var(--muted); line-height: 1.85; margin-bottom: var(--sp-5); max-width: 34em; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
-    @media (min-width: 760px) {
+    /* ★2カラムにする幅は 900px から。760px だと、見出しの中で切ってはいけない
+       「いただきました。」ひと続き（8字 × 7vw ＝ 約460px）が文字側の列を押し広げ、
+       写真の列が 159px まで潰れる（2026-09-06・768pxで実測）。
+       あわせて2カラムのときだけ見出しを 4.4vw に落とし、どの幅でも
+       ひと続きが列に収まるようにしてある（1273px以上では 56px で今までどおり）。 */
+    @media (min-width: 900px) {
         .hero-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
+        .hero-catch { font-size: clamp(34px, 4.4vw, 56px); }
         .hero-photo { order: 2; }
         .hero-copy  { order: 1; }
     }
@@ -566,6 +572,7 @@
     .subnav a { font-size: .85rem; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; }
     .subnav a:hover { color: var(--accent); }
     .lead-box { color: var(--muted); margin-bottom: var(--sp-5); }
+    .lead-box p { margin: 0; }
     .menu-block { margin-bottom: var(--sp-6); padding-top: var(--sp-4); border-top: 1px solid var(--line); }
     .menu-block:first-of-type { border-top: 0; padding-top: 0; }
     .menu-head { display: flex; align-items: baseline; gap: var(--sp-3); margin-bottom: var(--sp-2); }
@@ -633,9 +640,9 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
     <div class="container hero-grid">
-        <figure class="photo-frame hero-photo reveal" style="max-width:520px;aspect-ratio:3/4">
-            <img src="img/hero-shopfront.jpg" width="975" height="1300"
-                 alt="明石屋本店の外観。軒に右書きの銅板葺の看板が掲げられている">
+        <figure class="photo-frame hero-photo reveal" style="max-width:560px;aspect-ratio:4/3">
+            <img src="img/shopfront-night.jpg" width="730" height="548"
+                 alt="灯りの入った夜の明石屋本店の店頭。軒に右書きの銅板葺の看板が見える">
         </figure>
 
         <div class="hero-copy">
@@ -849,9 +856,9 @@
                 <p><span class="nw">明治三十五年、</span><span class="nw">初代・</span><span class="nw">野澤領右衛門が、</span><span class="nw">この</span><span class="nw">横山町に</span><span class="nw">店を</span><span class="nw">開きました。</span><span class="nw">初代の</span><span class="nw">教えは</span><span class="nw">「お客様に</span><span class="nw">満足を」。</span><span class="nw">いまは</span><span class="nw">三代目を</span><span class="nw">中心に、</span><span class="nw">家族みんなで</span><span class="nw">店に</span><span class="nw">立っ</span><span class="nw">ております。</span></p>
                 <p><span class="nw">受け</span><span class="nw">継いだ</span><span class="nw">技の</span><span class="nw">上で、</span><span class="nw">原材料には</span><span class="nw">一切妥協をせず、</span><span class="nw">一品一品丹精を</span><span class="nw">込めて。</span><span class="nw">季節を</span><span class="nw">映す</span><span class="nw">和菓子とともに、</span><span class="nw">新しい</span><span class="nw">和菓子への</span><span class="nw">挑戦も</span><span class="nw">忘れず、</span><span class="nw">日々精進してまいります。</span></p>
             </div>
-            <figure class="photo-frame split-media" style="max-width:480px;aspect-ratio:1000/575">
-                <img src="img/shop-interior.jpg" width="1000" height="575"
-                     alt="店内のショーケースと「御家寳」の掛看板">
+            <figure class="photo-frame split-media" style="max-width:480px;aspect-ratio:618/275">
+                <img src="img/history-signboard.jpg" width="618" height="275"
+                     alt="銅板葺の縁取りが入った、彫りの「明石屋」看板">
             </figure>
         </div>
     </div>
@@ -877,7 +884,7 @@
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal">お値段は店内のお品書きに掲げております。お電話でもお答えいたします。</div>
+        <div class="lead-box reveal"><p><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p></div>
 
         <div class="menu-block reveal" id="kogabrand">
             <div class="menu-head"><h2><span class="nw">古河ブランド</span><span class="nw">認証の</span><span class="nw">銘菓</span></h2><span class="yomi">KOGA BRAND</span></div>
@@ -968,9 +975,9 @@
                 <p><span class="nw">午前九時に</span><span class="nw">開け</span><span class="nw">ております。</span><span class="nw">毎週月曜日は</span><span class="nw">お休みを</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">お閉めする</span><span class="nw">時刻は、</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">くださいませ。</span></p>
                 <p><span class="nw">店は</span><span class="nw">旧日光街道、</span><span class="nw">よこまち</span><span class="nw">柳通りに</span><span class="nw">ございます。</span><span class="nw">JR古河駅の</span><span class="nw">西口から、</span><span class="nw">歩いて</span><span class="nw">十分ほどで</span><span class="nw">ございます。</span><span class="nw">お車を</span><span class="nw">お停め</span><span class="nw">いただく</span><span class="nw">場所が</span><span class="nw">ございます。</span></p>
             </div>
-            <figure class="photo-frame split-media" style="max-width:320px;aspect-ratio:4/3">
-                <img src="img/shopfront-night.jpg" width="730" height="548"
-                     alt="灯りの入った夜の明石屋本店の店頭">
+            <figure class="photo-frame split-media" style="max-width:380px;aspect-ratio:3/4">
+                <img src="img/hero-shopfront.jpg" width="975" height="1300"
+                     alt="明石屋本店の外観。軒に右書きの銅板葺の看板が掲げられている">
             </figure>
         </div>
 
