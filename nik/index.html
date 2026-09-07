@@ -689,7 +689,55 @@
     .footer-addr { font-size: .85rem; opacity: .82; }
     .footer-copy { font-size: .72rem; opacity: .6; margin-top: var(--sp-3); }
 
-    </style>
+    /* news:css:start */
+/* ── お知らせ（build_news.py が入れる。手で書き換えない） ───────────────
+   0件のときは帯も節も出ない。var(…) の第2引数は、その変数が無い店のための逃げ。 */
+.news-band{background:var(--surface,#fff);border-top:1px solid var(--line,rgba(0,0,0,.14));
+  border-bottom:1px solid var(--line,rgba(0,0,0,.14));font-family:var(--font-body,inherit)}
+.news-band__in{width:min(100% - 2 * var(--pad-inner,20px),var(--maxw,1120px));margin-inline:auto;
+  min-height:52px;display:flex;align-items:center;gap:6px 14px;
+  padding:10px 0 10px 14px;border-left:3px solid var(--accent,#888)}
+.news-band__date{color:var(--muted,#666);font-size:.8rem;letter-spacing:.06em;white-space:nowrap}
+.news-band__txt{color:var(--ink,#222);font-size:.92rem;line-height:1.6;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.news-band__more{margin-left:auto;color:var(--accent,#888);font-size:.82rem;white-space:nowrap;
+  text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+@media (max-width:600px){
+  .news-band__in{flex-wrap:wrap;padding-block:12px}
+  .news-band__txt{white-space:normal;flex:1 0 100%;order:3}
+  .news-band__more{order:2;margin-left:auto}
+}
+.news-sec{padding:var(--pad-section,clamp(56px,9vw,100px)) 0;background:var(--bg,transparent)}
+.news-sec__in{width:min(100% - 2 * var(--pad-inner,20px),var(--maxw,1120px));margin-inline:auto}
+.news-sec__h{font-family:var(--font-head,inherit);color:var(--ink,#222);
+  font-size:clamp(1.3rem,3.4vw,1.7rem);letter-spacing:.08em;margin:0 0 24px;line-height:1.6}
+.news-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line,rgba(0,0,0,.14))}
+.news-list>li{border-bottom:1px solid var(--line,rgba(0,0,0,.14));padding:20px 0}
+.news-list time{display:block;color:var(--muted,#666);font-size:.8rem;letter-spacing:.06em;margin:0 0 6px}
+.news-list h3{font-family:var(--font-head,inherit);color:var(--ink,#222);font-size:1.02rem;
+  margin:0 0 8px;line-height:1.75;font-weight:600}
+.news-list p{color:var(--muted,#666);font-size:.9rem;line-height:1.9;margin:0}
+.news-band[hidden],.news-sec[hidden],.news-list>li[hidden]{display:none!important}
+/* news:css:end */
+/* recruit:css:start */
+/* ── スタッフ募集（build_recruit.py が入れる。手で書き換えない） ────────── */
+.recruit{padding:clamp(40px,6vw,64px) 0;background:var(--surface,#f6f6f6);
+  border-top:1px solid var(--line,rgba(0,0,0,.14))}
+.recruit__in{width:min(100% - 2 * var(--pad-inner,20px),var(--maxw,1120px));margin-inline:auto;
+  display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px}
+.recruit__t{flex:1 1 min(100%,420px);min-width:0}
+.recruit__h{font-family:var(--font-head,inherit);color:var(--ink,#222);
+  font-size:clamp(1.15rem,3vw,1.4rem);letter-spacing:.08em;margin:0 0 10px;line-height:1.6}
+.recruit__p{font-family:var(--font-body,inherit);color:var(--muted,#666);
+  font-size:.9rem;line-height:1.95;margin:0}
+.recruit__tel{flex:0 0 auto;display:inline-flex;flex-direction:column;align-items:center;
+  gap:2px;text-decoration:none;background:var(--accent,#888);color:#fff;
+  border-radius:var(--radius,8px);padding:14px 26px;font-family:var(--font-head,inherit);
+  font-size:1.06rem;letter-spacing:.06em;line-height:1.4}
+.recruit__tel small{font-family:var(--font-body,inherit);font-size:.74rem;letter-spacing:.04em;opacity:.9}
+@media (max-width:600px){.recruit__tel{width:100%}}
+/* recruit:css:end */
+</style>
 </head>
 <body class="no-js">
 <!-- no-js クラスは下の script が消す。JS無効の環境で出現演出のコンテンツが
@@ -735,8 +783,8 @@
 
         <div class="hero-text">
             <h1 class="reveal"><span class="nw">ベーカリー</span> <span class="nw">ニック</span></h1>
-            <p class="catch reveal"><span class="nw">朝八時から、</span><span class="nw">売り切れ</span><span class="nw">次第。</span></p>
-            <p class="sub reveal"><span class="nw">古河・</span><span class="nw">中田、</span><span class="nw">国道四号ぞいのパン屋で</span><span class="nw">ございます。</span></p>
+            <p class="catch reveal"><span class="nw">朝八時から、</span><span class="nw">売り</span><span class="nw">切れ</span><span class="nw">次第。</span></p>
+            <p class="sub reveal"><span class="nw">古河・</span><span class="nw">中田、</span><span class="nw">国道四号ぞいの</span><span class="nw">パン</span><span class="nw">屋で</span><span class="nw">ございます。</span></p>
         </div>
 
         <div class="hero-photo reveal">
@@ -755,7 +803,7 @@
         </div>
     </div>
 </section>
-
+<!-- news:band:start --><!-- news:band:end -->
 
 <!-- ══════════════════════════════════════════════════════════════════════
      ★ここに店固有のセクションを組む（お店について／看板料理／お品書き／写真 など）
@@ -780,7 +828,7 @@
         <div class="kiji-photos reveal">
             <figure class="photo-frame ph-11">
                 <div class="frame-inner"><img src="img/sns-dough-raw.jpg" width="1150" height="1150" alt="クッキングシートの上に並べた、丸めた生地" loading="lazy"></div>
-                <figcaption><span class="nw">仕込んだ</span>生地</figcaption>
+                <figcaption><span class="nw">仕込んだ</span><span class="nw">生地</span></figcaption>
             </figure>
             <figure class="photo-frame ph-11">
                 <div class="frame-inner"><img src="img/sns-naan-dough.jpg" width="1150" height="1150" alt="天板に並べた、焼く前の生地" loading="lazy"></div>
@@ -855,77 +903,77 @@
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal"><span class="nw">お値段は、</span><span class="nw">店内のショーケースの</span><span class="nw">値札に</span><span class="nw">掲げております。</span><span class="nw">お電話でも</span><span class="nw">お答えいたします。</span></div>
+        <div class="lead-box reveal">お値段は、店内のショーケースの値札に掲げております。お電話でもお答えいたします。</div>
 
         <div class="menu-block reveal" id="osoozai">
-            <div class="menu-head"><h2>お食事のパン</h2><span class="yomi">O S H O K U J I</span></div>
-            <p class="menu-note">ホシノ天然酵母で仕込んだ生地に、お惣菜を合わせております。</p>
+            <div class="menu-head"><h2><span class="nw">お食事の</span><span class="nw">パン</span></h2><span class="yomi">O S H O K U J I</span></div>
+            <p class="menu-note"><span class="nw">ホシノ</span><span class="nw">天然酵母で</span><span class="nw">仕込んだ</span><span class="nw">生地に、</span><span class="nw">お惣菜を</span><span class="nw">合わせ</span><span class="nw">ております。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name">パニーニ<span class="desc"><span class="nw">ソーセージと</span><span class="nw">半熟の</span><span class="nw">目玉焼き。</span><span class="nw">刻んだ</span><span class="nw">ハラペーニョの</span><span class="nw">入った</span><span class="nw">サルサを</span><span class="nw">効かせております</span></span></span></li>
-                    <li><span class="name">塩ピザ<span class="desc">ピーマンとマッシュルーム。チェダーとモッツァレラを重ねております</span></span></li>
-                    <li><span class="name">じゃがチー<span class="desc">かために焼いた生地に、じゃがいもとチーズ</span></span></li>
-                    <li><span class="name">ベーコンエピ<span class="desc">噛みごたえのある生地に、ベーコンの塩気</span></span></li>
-                    <li><span class="name">クロックムッシュ</span></li>
-                    <li><span class="name">塩ホットドッグ</span></li>
-                    <li><span class="name">ビーフシチューのパン<span class="desc">チーズをのせて焼き上げております</span></span></li>
-                    <li><span class="name">ウインナーロール</span></li>
-                    <li><span class="name">焼きカレーパン</span></li>
-                    <li><span class="name">ちょい辛キーマカレーナン<span class="desc">ナンの生地でお作りしております</span></span></li>
-                    <li><span class="name">塩明太</span></li>
+                    <li><span class="name"><span class="nw">パニーニ</span><span class="desc"><span class="nw">ソーセージと</span><span class="nw">半熟の</span><span class="nw">目玉焼き。</span><span class="nw">刻んだ</span><span class="nw">ハラペーニョの</span><span class="nw">入った</span><span class="nw">サルサを</span><span class="nw">効かせ</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">塩ピザ</span><span class="desc"><span class="nw">ピーマンと</span><span class="nw">マッシュルーム。</span><span class="nw">チェダーと</span><span class="nw">モッツァレラを</span><span class="nw">重ね</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">じゃが</span><span class="nw">チー</span><span class="desc">か<span class="nw">ために</span><span class="nw">焼いた</span><span class="nw">生地に、</span><span class="nw">じゃがいもと</span><span class="nw">チーズ</span></span></span></li>
+                    <li><span class="name"><span class="nw">ベーコンエピ</span><span class="desc"><span class="nw">噛みごたえのある</span><span class="nw">生地に、</span><span class="nw">ベーコンの</span><span class="nw">塩気</span></span></span></li>
+                    <li><span class="name"><span class="nw">クロックムッシュ</span></span></li>
+                    <li><span class="name"><span class="nw">塩ホットドッグ</span></span></li>
+                    <li><span class="name"><span class="nw">ビーフシチューの</span><span class="nw">パン</span><span class="desc"><span class="nw">チーズをのせて</span><span class="nw">焼き</span><span class="nw">上げ</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">ウインナーロール</span></span></li>
+                    <li><span class="name"><span class="nw">焼き</span><span class="nw">カレーパン</span></span></li>
+                    <li><span class="name"><span class="nw">ちょい</span><span class="nw">辛キーマカレーナン</span><span class="desc"><span class="nw">ナンの</span><span class="nw">生地で</span><span class="nw">お作りし</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">塩明太</span></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="shokupan">
-            <div class="menu-head"><h2>食パン・かたいパン</h2><span class="yomi">S H O K U P A N</span></div>
+            <div class="menu-head"><h2><span class="nw">食パン・</span><span class="nw">かたい</span><span class="nw">パン</span></h2><span class="yomi">S H O K U P A N</span></div>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
-                    <li><span class="name">食パン</span></li>
-                    <li><span class="name">バゲット</span></li>
+                    <li><span class="name"><span class="nw">食パン</span></span></li>
+                    <li><span class="name"><span class="nw">バゲット</span></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="amai">
-            <div class="menu-head"><h2>甘いパン</h2><span class="yomi">A M A I P A N</span></div>
+            <div class="menu-head"><h2><span class="nw">甘い</span><span class="nw">パン</span></h2><span class="yomi">A M A I P A N</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name">四角いクリームパン<span class="desc"><span class="nw">冷蔵庫から</span><span class="nw">お出しします。</span><span class="nw">中の</span><span class="nw">クリームは</span><span class="nw">とろりと</span><span class="nw">なめらかに</span></span></span></li>
-                    <li><span class="name">ピーナッツサンド</span></li>
-                    <li><span class="name">メロンパン</span></li>
-                    <li><span class="name">粒あんぱん</span></li>
-                    <li><span class="name">豆あんぱん</span></li>
-                    <li><span class="name">納言</span></li>
-                    <li><span class="name">塩パン<span class="desc">ふっくらとした生地に、軽い塩気</span></span></li>
-                    <li><span class="name">塩バターパン</span></li>
-                    <li><span class="name">くるみパン<span class="desc"><span class="nw">くるみを</span><span class="nw">たっぷりと。</span><span class="nw">生地の</span><span class="nw">噛みごたえと</span><span class="nw">くるみの</span><span class="nw">食感を</span><span class="nw">合わせております</span></span></span></li>
-                    <li><span class="name">くるみメープル<span class="desc">メープルの甘さをきかせたくるみのパン</span></span></li>
-                    <li><span class="name">レーズンパン<span class="desc"><span class="nw">ラム酒に</span><span class="nw">漬けた</span><span class="nw">レーズンと、</span><span class="nw">中心に</span><span class="nw">りんごを</span><span class="nw">入れております</span></span></span></li>
-                    <li><span class="name">塩板チョコパン<span class="desc">板チョコをそのまま挟んでおります</span></span></li>
+                    <li><span class="name"><span class="nw">四角い</span><span class="nw">クリームパン</span><span class="desc"><span class="nw">冷蔵庫から</span><span class="nw">お出しします。</span><span class="nw">中の</span><span class="nw">クリームはとろりとなめらかに</span></span></span></li>
+                    <li><span class="name"><span class="nw">ピーナッツサンド</span></span></li>
+                    <li><span class="name"><span class="nw">メロンパン</span></span></li>
+                    <li><span class="name"><span class="nw">粒あんぱん</span></span></li>
+                    <li><span class="name"><span class="nw">豆あんぱん</span></span></li>
+                    <li><span class="name"><span class="nw">納言</span></span></li>
+                    <li><span class="name"><span class="nw">塩パン</span><span class="desc"><span class="nw">ふっくらとした</span><span class="nw">生地に、</span><span class="nw">軽い</span><span class="nw">塩気</span></span></span></li>
+                    <li><span class="name"><span class="nw">塩バターパン</span></span></li>
+                    <li><span class="name"><span class="nw">くるみ</span><span class="nw">パン</span><span class="desc"><span class="nw">くるみをたっぷりと。</span><span class="nw">生地の</span><span class="nw">噛みごたえとくるみの</span><span class="nw">食感を</span><span class="nw">合わせ</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">くるみ</span><span class="nw">メープル</span><span class="desc"><span class="nw">メープルの</span><span class="nw">甘さをきかせたくるみの</span><span class="nw">パン</span></span></span></li>
+                    <li><span class="name"><span class="nw">レーズンパン</span><span class="desc"><span class="nw">ラム</span><span class="nw">酒に</span><span class="nw">漬けた</span><span class="nw">レーズンと、</span><span class="nw">中心にりんごを</span><span class="nw">入れ</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">塩板チョコパン</span><span class="desc"><span class="nw">板チョコをそのまま</span><span class="nw">挟んで</span><span class="nw">おります</span></span></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="bagel">
-            <div class="menu-head"><h2>ベーグル</h2><span class="yomi">B A G E L</span></div>
+            <div class="menu-head"><h2><span class="nw">ベーグル</span></h2><span class="yomi">B A G E L</span></div>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
-                    <li><span class="name">くるみメープルベーグル</span></li>
-                    <li><span class="name">チョコベーグル</span></li>
-                    <li><span class="name">レーズンベーグル</span></li>
-                    <li><span class="name">チョコミントベーグル<span class="desc">夏のあいだの一品</span></span></li>
+                    <li><span class="name"><span class="nw">くるみ</span><span class="nw">メープルベーグル</span></span></li>
+                    <li><span class="name"><span class="nw">チョコベーグル</span></span></li>
+                    <li><span class="name"><span class="nw">レーズンベーグル</span></span></li>
+                    <li><span class="name"><span class="nw">チョコミントベーグル</span><span class="desc"><span class="nw">夏のあいだの</span><span class="nw">一品</span></span></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="kisetsu">
-            <div class="menu-head"><h2>季節・不定期のもの</h2><span class="yomi">K I S E T S U</span></div>
-            <p class="menu-note"><span class="nw">並ぶ日が</span><span class="nw">決まっておりません。</span><a href="https://www.instagram.com/bakerynik/" class="tel-link nw" target="_blank" rel="noopener">Instagram</a><span class="nw">でお知らせして</span><span class="nw">おります。</span></p>
+            <div class="menu-head"><h2><span class="nw">季節・</span><span class="nw">不定期の</span><span class="nw">もの</span></h2><span class="yomi">K I S E T S U</span></div>
+            <p class="menu-note"><span class="nw">並ぶ</span><span class="nw">日が</span><span class="nw">決まっておりません。</span><a href="https://www.instagram.com/bakerynik/" class="tel-link nw" target="_blank" rel="noopener">Instagram</a>で<span class="nw">お知らせし</span><span class="nw">ております。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
-                    <li><span class="name">シュトーレン<span class="desc">季節にお作りしております</span></span></li>
-                    <li><span class="name">ラスク<span class="desc">並ぶ日と並ばない日がございます</span></span></li>
+                    <li><span class="name"><span class="nw">シュトーレン</span><span class="desc"><span class="nw">季節に</span><span class="nw">お作りし</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">ラスク</span><span class="desc"><span class="nw">並ぶ</span><span class="nw">日と</span><span class="nw">並ばない</span><span class="nw">日が</span><span class="nw">ございます</span></span></span></li>
                 </ul>
             </div>
         </div>
@@ -992,7 +1040,7 @@
 <!-- ══════════════════════════════════════════════════════════════════════
      店のこと
      ══════════════════════════════════════════════════════════════════════ -->
-<section class="section shop" id="shop">
+<!-- news:sec:start --><!-- news:sec:end --><section class="section shop" id="shop">
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">店の</span><span class="nw">こと</span></h2>
         <div class="prose reveal">
@@ -1016,7 +1064,7 @@
         <table class="info-table reveal">
             <tr><th><span class="nw">住所</span></th><td>〒306-0053 <span class="nw">茨城県古河市中田</span>1243-2</td></tr>
             <tr><th><span class="nw">電話</span></th><td><a href="tel:070-1471-3539" class="tel-link nw">070-1471-3539</a></td></tr>
-            <tr><th><span class="nw">営業</span></th><td>朝<span class="nw">8時から</span><span class="nw">（売り切れ次第終了）</span></td></tr>
+            <tr><th><span class="nw">営業</span></th><td>朝<span class="nw">8時から</span><span class="nw">（売り</span><span class="nw">切れ</span><span class="nw">次第終了）</span></td></tr>
             <tr><th><span class="nw">定休日</span></th><td><span class="nw">毎週月曜日・</span><span class="nw">隔週の</span><span class="nw">日曜日</span></td></tr>
             <tr><th><span class="nw">駐車場</span></th><td><span class="nw">店舗前に</span><span class="nw">3台。</span><span class="nw">隣の</span><span class="nw">空き</span><span class="nw">地も</span><span class="nw">お使い</span><span class="nw">いただけます</span></td></tr>
             <tr><th><span class="nw">お支払い</span></th><td><span class="nw">カード・</span><span class="nw">電子マネーが</span><span class="nw">お使い</span><span class="nw">いただけます</span></td></tr>
@@ -1040,7 +1088,7 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section cta" id="cta">
     <div class="container">
-        <p class="cta-line reveal"><span class="nw">お近くを</span><span class="nw">お通りの</span><span class="nw">際は、</span><span class="nw">どうぞ</span><span class="nw">お立ち寄り</span><span class="nw">ください。</span></p>
+        <p class="cta-line reveal"><span class="nw">お近くを</span><span class="nw">お通りの</span><span class="nw">際は、</span><span class="nw">どうぞ</span><span class="nw">お立ち</span><span class="nw">寄り</span><span class="nw">ください。</span></p>
         <div class="hero-actions reveal" style="justify-content:center;">
             <a href="tel:070-1471-3539" class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
@@ -1051,7 +1099,7 @@
 </section>
 
 
-<footer class="site-footer">
+<!-- recruit:start --><!-- recruit:end --><footer class="site-footer">
     <div class="container">
         <p class="footer-name"><span class="nw">ベーカリー</span> <span class="nw">ニック</span></p>
         <p class="footer-addr">〒306-0053 <span class="nw">茨城県古河市中田</span>1243-2／<a href="tel:070-1471-3539" class="nw">070-1471-3539</a></p>
@@ -1218,6 +1266,30 @@ function updateStatus() {
 }
 updateStatus();
 setInterval(updateStatus, 60000);
+</script>
+<script>
+/* news:js:start */
+/* お知らせ ── 掲載の終わった告知を、開いた瞬間に落とす（build_news.py が入れる） */
+(function () {
+  var t = new Date();
+  var kyou = t.getFullYear() + "-" + ("0" + (t.getMonth() + 1)).slice(-2) + "-" + ("0" + t.getDate()).slice(-2);
+  var band = document.querySelector(".news-band");
+  if (band) {
+    var bu = band.getAttribute("data-news-until");
+    if (bu && bu < kyou) { band.hidden = true; }
+  }
+  var sec = document.getElementById("news");
+  if (sec) {
+    var nokori = 0;
+    var ls = sec.querySelectorAll(".news-list > li");
+    for (var i = 0; i < ls.length; i++) {
+      var u = ls[i].getAttribute("data-news-until");
+      if (u && u < kyou) { ls[i].hidden = true; } else { nokori++; }
+    }
+    if (!nokori) { sec.hidden = true; }
+  }
+})();
+/* news:js:end */
 </script>
 </body>
 </html>

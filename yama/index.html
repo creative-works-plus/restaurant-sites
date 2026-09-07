@@ -59,7 +59,7 @@
         "streetAddress": "三杉町1-1-35",
         "addressLocality": "古河市",
         "addressRegion": "茨城県",
-        "postalCode": "306-0041",
+        "postalCode": "306-0002",
         "addressCountry": "JP"
       },
       "hasMap": "https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E4%B8%89%E6%9D%89%E7%94%BA1-1-35",
@@ -696,7 +696,55 @@
        この店だけのCSS ここまで
        ══════════════════════════════════════════════════════════════════ */
 
-    </style>
+    /* news:css:start */
+/* ── お知らせ（build_news.py が入れる。手で書き換えない） ───────────────
+   0件のときは帯も節も出ない。var(…) の第2引数は、その変数が無い店のための逃げ。 */
+.news-band{background:var(--surface,#fff);border-top:1px solid var(--line,rgba(0,0,0,.14));
+  border-bottom:1px solid var(--line,rgba(0,0,0,.14));font-family:var(--font-body,inherit)}
+.news-band__in{width:min(100% - 2 * var(--pad-inner,20px),var(--maxw,1120px));margin-inline:auto;
+  min-height:52px;display:flex;align-items:center;gap:6px 14px;
+  padding:10px 0 10px 14px;border-left:3px solid var(--accent,#888)}
+.news-band__date{color:var(--muted,#666);font-size:.8rem;letter-spacing:.06em;white-space:nowrap}
+.news-band__txt{color:var(--ink,#222);font-size:.92rem;line-height:1.6;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.news-band__more{margin-left:auto;color:var(--accent,#888);font-size:.82rem;white-space:nowrap;
+  text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+@media (max-width:600px){
+  .news-band__in{flex-wrap:wrap;padding-block:12px}
+  .news-band__txt{white-space:normal;flex:1 0 100%;order:3}
+  .news-band__more{order:2;margin-left:auto}
+}
+.news-sec{padding:var(--pad-section,clamp(56px,9vw,100px)) 0;background:var(--bg,transparent)}
+.news-sec__in{width:min(100% - 2 * var(--pad-inner,20px),var(--maxw,1120px));margin-inline:auto}
+.news-sec__h{font-family:var(--font-head,inherit);color:var(--ink,#222);
+  font-size:clamp(1.3rem,3.4vw,1.7rem);letter-spacing:.08em;margin:0 0 24px;line-height:1.6}
+.news-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line,rgba(0,0,0,.14))}
+.news-list>li{border-bottom:1px solid var(--line,rgba(0,0,0,.14));padding:20px 0}
+.news-list time{display:block;color:var(--muted,#666);font-size:.8rem;letter-spacing:.06em;margin:0 0 6px}
+.news-list h3{font-family:var(--font-head,inherit);color:var(--ink,#222);font-size:1.02rem;
+  margin:0 0 8px;line-height:1.75;font-weight:600}
+.news-list p{color:var(--muted,#666);font-size:.9rem;line-height:1.9;margin:0}
+.news-band[hidden],.news-sec[hidden],.news-list>li[hidden]{display:none!important}
+/* news:css:end */
+/* recruit:css:start */
+/* ── スタッフ募集（build_recruit.py が入れる。手で書き換えない） ────────── */
+.recruit{padding:clamp(40px,6vw,64px) 0;background:var(--surface,#f6f6f6);
+  border-top:1px solid var(--line,rgba(0,0,0,.14))}
+.recruit__in{width:min(100% - 2 * var(--pad-inner,20px),var(--maxw,1120px));margin-inline:auto;
+  display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px}
+.recruit__t{flex:1 1 min(100%,420px);min-width:0}
+.recruit__h{font-family:var(--font-head,inherit);color:var(--ink,#222);
+  font-size:clamp(1.15rem,3vw,1.4rem);letter-spacing:.08em;margin:0 0 10px;line-height:1.6}
+.recruit__p{font-family:var(--font-body,inherit);color:var(--muted,#666);
+  font-size:.9rem;line-height:1.95;margin:0}
+.recruit__tel{flex:0 0 auto;display:inline-flex;flex-direction:column;align-items:center;
+  gap:2px;text-decoration:none;background:var(--accent,#888);color:#fff;
+  border-radius:var(--radius,8px);padding:14px 26px;font-family:var(--font-head,inherit);
+  font-size:1.06rem;letter-spacing:.06em;line-height:1.4}
+.recruit__tel small{font-family:var(--font-body,inherit);font-size:.74rem;letter-spacing:.04em;opacity:.9}
+@media (max-width:600px){.recruit__tel{width:100%}}
+/* recruit:css:end */
+</style>
 </head>
 <body class="no-js">
 <!-- no-js クラスは下の script が消す。JS無効の環境で出現演出のコンテンツが
@@ -763,7 +811,7 @@
         </div>
     </div>
 </section>
-
+<!-- news:band:start --><!-- news:band:end -->
 
 <!-- ══════════════════════════════════════════════════════════════════════
      ★ここに店固有のセクションを組む（お店について／看板料理／お品書き／写真 など）
@@ -944,13 +992,13 @@
 <!-- ══════════════════════════════════════════════════════════════════════
      アクセス・店舗情報（全店必須。住所・電話・営業時間・定休日・席数・駐車場・支払い）
      ══════════════════════════════════════════════════════════════════════ -->
-<section class="section" id="info">
+<!-- news:sec:start --><!-- news:sec:end --><section class="section" id="info">
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">道すじと</span><span class="nw">ご予約</span></h2>
         <p class="info-lead reveal"><span class="nw">ご予約と、</span><span class="nw">お持ち</span><span class="nw">帰りの</span><span class="nw">ご注文は、</span><span class="nw">お電話で</span><span class="nw">承ります。</span></p>
 
         <table class="info-table reveal">
-            <tr><th><span class="nw">住所</span></th><td>〒306-0041 <span class="nw">茨城県古河市三杉町</span>1-1-35</td></tr>
+            <tr><th><span class="nw">住所</span></th><td>〒306-0002 <span class="nw">茨城県古河市三杉町</span>1-1-35</td></tr>
             <tr><th><span class="nw">電話</span></th><td><a href="tel:0280-23-5628" class="tel-link">0280-23-5628</a></td></tr>
             <tr><th><span class="nw">営業時間</span></th><td>11:00〜15:00／17:00〜22:00</td></tr>
             <tr><th><span class="nw">席数</span></th><td><span class="nw">33席</span><span class="nw">（最大</span><span class="nw">40名様まで）</span></td></tr>
@@ -979,10 +1027,10 @@
 </section>
 
 
-<footer class="site-footer">
+<!-- recruit:start --><!-- recruit:end --><footer class="site-footer">
     <div class="container">
         <p class="footer-name"><span class="nw">山インドキッチン</span> <span class="nw">古河茨城店</span></p>
-        <p class="footer-addr">〒306-0041 <span class="nw">茨城県古河市三杉町</span>1-1-35／<a href="tel:0280-23-5628" class="footer-tel nw">0280-23-5628</a></p>
+        <p class="footer-addr">〒306-0002 <span class="nw">茨城県古河市三杉町</span>1-1-35／<a href="tel:0280-23-5628" class="footer-tel nw">0280-23-5628</a></p>
         <p class="footer-copy">&copy; <span class="nw">山インドキッチン</span> <span class="nw">古河茨城店</span></p>
     </div>
 </footer>
@@ -1196,6 +1244,30 @@ function updateStatus() {
 }
 updateStatus();
 setInterval(updateStatus, 60000);
+</script>
+<script>
+/* news:js:start */
+/* お知らせ ── 掲載の終わった告知を、開いた瞬間に落とす（build_news.py が入れる） */
+(function () {
+  var t = new Date();
+  var kyou = t.getFullYear() + "-" + ("0" + (t.getMonth() + 1)).slice(-2) + "-" + ("0" + t.getDate()).slice(-2);
+  var band = document.querySelector(".news-band");
+  if (band) {
+    var bu = band.getAttribute("data-news-until");
+    if (bu && bu < kyou) { band.hidden = true; }
+  }
+  var sec = document.getElementById("news");
+  if (sec) {
+    var nokori = 0;
+    var ls = sec.querySelectorAll(".news-list > li");
+    for (var i = 0; i < ls.length; i++) {
+      var u = ls[i].getAttribute("data-news-until");
+      if (u && u < kyou) { ls[i].hidden = true; } else { nokori++; }
+    }
+    if (!nokori) { sec.hidden = true; }
+  }
+})();
+/* news:js:end */
 </script>
 </body>
 </html>
