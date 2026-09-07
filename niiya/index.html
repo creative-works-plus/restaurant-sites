@@ -387,13 +387,22 @@
         }
     }
 
-    /* --- 全幅の帯（焼鮭）----------------------------------------------------- */
-    /* ★2026-09-06：540px（1440px幅時）は大きすぎるとのご指摘。帯の高さを
-       clamp で頭打ちにし、object-fit: cover で中央を保ったまま薄く仕上げる */
-    .band-wrap { width: 100vw; margin-left: calc(50% - 50vw); background: var(--surface-2);
-                 display: flex; justify-content: center; overflow: hidden; }
-    .band-wrap img { width: 100%; max-width: 1600px; height: clamp(140px, 20vw, 280px);
-                      object-fit: cover; object-position: 50% 55%; display: block; }
+    /* --- 定食のこと：膳1枚＋4枚（cluster-5）--------------------------------- */
+    /* ★2026-09-07：焼鮭は全幅の帯で出していたが、帯は object-fit: cover で
+       切り身の上半分しか映らず、何の写真か分からなかった（丸藤さんのご指摘）。
+       帯をやめ、定食の4枚と同じ格でこの組に入れた。
+       左（膳）と右（2×2）の高さがそろうよう、列は 1fr 1fr、枠はすべて 4:3。
+         左  = W × 0.75
+         右  = (W − gap) × 0.75 + gap   ← 差は gap の1/4だけ
+       ★左の膳は 3:4 の縦写真だったのを左90度回転して 4:3 にしてある
+       （膳＝横長のお盆が縦に立って見えていた）。 */
+    .cluster-5 { display: grid; grid-template-columns: 1fr; gap: var(--gap); margin-top: var(--sp-5); }
+    .cluster-5 > .photo-frame,
+    .cluster-5 .quad .photo-frame { aspect-ratio: 4 / 3; width: 100%; }
+    .cluster-5 .quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); }
+    @media (min-width: 900px) {
+        .cluster-5 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+    }
 
     /* --- 署名的な仕掛け：折り目（_ブリーフ.md 7-d） -------------------------- */
     .fold        { max-width: 620px; margin: var(--sp-5) auto 0; opacity: 1; transform: none; transition: none; }
@@ -589,7 +598,7 @@
         <div class="sec1-text">
         <p class="eyebrow reveal"><span class="nw">にい</span><span class="nw">家という</span>店</p>
         <h2 class="section-title reveal"><span class="nw">めし</span><span class="nw">処と、</span><span class="nw">呑み</span><span class="nw">処。</span></h2>
-        <p class="lead reveal"><span class="nw">当店は、</span><span class="nw">二軒ではございません。</span><span class="nw">昼はめし</span><span class="nw">処として</span><span class="nw">定食を、</span><span class="nw">日が</span><span class="nw">暮れてからは</span><span class="nw">呑み</span><span class="nw">処として</span><span class="nw">肴と</span><span class="nw">お酒を</span><span class="nw">お出しし</span><span class="nw">ております。</span><span class="nw">台所はひとつ。</span><span class="nw">昼の</span><span class="nw">定食で</span><span class="nw">お気に</span><span class="nw">召したおかずは、</span><span class="nw">夜にはそのまま</span><span class="nw">一品の</span><span class="nw">肴になります。</span><span class="nw">同じ</span><span class="nw">台所から、</span><span class="nw">同じ</span><span class="nw">手で</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+        <p class="lead reveal"><span class="nw">当店は、</span><span class="nw">二軒ではございません。</span><span class="nw">昼はめし</span><span class="nw">処として</span><span class="nw">定食を、</span><span class="nw">日が</span><span class="nw">暮れてからは</span><span class="nw">呑み</span><span class="nw">処として</span><span class="nw">肴と</span><span class="nw">お酒を</span><span class="nw">お出しして</span><span class="nw">おります。</span><span class="nw">台所はひとつ。</span><span class="nw">昼の</span><span class="nw">定食で</span><span class="nw">お気に</span><span class="nw">召したおかずは、</span><span class="nw">夜にはそのまま</span><span class="nw">一品の</span><span class="nw">肴になります。</span><span class="nw">同じ</span><span class="nw">台所から、</span><span class="nw">同じ</span><span class="nw">手で</span><span class="nw">お出しして</span><span class="nw">おります。</span></p>
         </div>
 
         <div class="fold reveal" id="fold">
@@ -623,7 +632,7 @@
     <div class="container">
         <p class="eyebrow reveal"><span class="nw">看板料理</span></p>
         <h2 class="section-title reveal"><span class="nw">唐揚げの</span><span class="nw">こと</span></h2>
-        <p class="lead reveal"><span class="nw">いちばん</span><span class="nw">多く</span><span class="nw">ご注文いただくのが</span><span class="nw">唐揚げです。</span><span class="nw">やわらかい</span><span class="nw">鶏もも</span><span class="nw">肉に、</span><span class="nw">にんにくは</span><span class="nw">程よく、</span><span class="nw">黒胡椒を</span><span class="nw">効かせて</span><span class="nw">揚げ</span><span class="nw">ております。</span><span class="nw">香味だれをかけた</span><span class="nw">「唐揚げ</span><span class="nw">香味」も</span><span class="nw">ご用意し</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">味を</span><span class="nw">変えてもう</span><span class="nw">一皿、</span><span class="nw">という</span><span class="nw">楽しみ</span><span class="nw">方もどうぞ。</span></p>
+        <p class="lead reveal"><span class="nw">いちばん</span><span class="nw">多く</span><span class="nw">ご注文いただくのが</span><span class="nw">唐揚げです。</span><span class="nw">やわらかい</span><span class="nw">鶏もも</span><span class="nw">肉に、</span><span class="nw">にんにくは</span><span class="nw">程よく、</span><span class="nw">黒胡椒を</span><span class="nw">効かせて</span><span class="nw">揚げて</span><span class="nw">おります。</span><span class="nw">香味だれをかけた</span><span class="nw">「唐揚げ</span><span class="nw">香味」も</span><span class="nw">ご用意して</span><span class="nw">おります</span><span class="nw">ので、</span><span class="nw">味を</span><span class="nw">変えてもう</span><span class="nw">一皿、</span><span class="nw">という</span><span class="nw">楽しみ</span><span class="nw">方もどうぞ。</span></p>
 
         <div class="photo-cluster reveal">
             <div class="photo-frame" style="max-width:480px;aspect-ratio:4/3">
@@ -652,23 +661,27 @@
     <div class="container">
         <p class="eyebrow reveal"><span class="nw">めし</span><span class="nw">処にい</span>家</p>
         <h2 class="section-title reveal"><span class="nw">定食の</span><span class="nw">こと</span></h2>
-        <p class="lead reveal"><span class="nw">肉の</span><span class="nw">主菜から</span><span class="nw">焼き</span><span class="nw">魚、</span><span class="nw">丼ものまで</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">ぬか</span><span class="nw">漬けは</span><span class="nw">店で</span><span class="nw">漬けている</span><span class="nw">自家製です。</span><span class="nw">玉子焼きを</span><span class="nw">焼いて</span><span class="nw">定食に</span><span class="nw">お付けするのが、</span><span class="nw">当店の</span><span class="nw">変わらぬやり</span><span class="nw">方です。</span><span class="nw">味噌汁は</span><span class="nw">赤味噌仕立てで</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+        <p class="lead reveal"><span class="nw">肉の</span><span class="nw">主菜から</span><span class="nw">焼き</span><span class="nw">魚、</span><span class="nw">丼ものまで</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">ぬか</span><span class="nw">漬けは</span><span class="nw">店で</span><span class="nw">漬けている</span><span class="nw">自家製です。</span><span class="nw">玉子焼きを</span><span class="nw">焼いて</span><span class="nw">定食に</span><span class="nw">お付けするのが、</span><span class="nw">当店の</span><span class="nw">変わらぬやり</span><span class="nw">方です。</span><span class="nw">味噌汁は</span><span class="nw">赤味噌仕立てで</span><span class="nw">お出しして</span><span class="nw">おります。</span></p>
 
-        <div class="photo-cluster reveal">
-            <div class="photo-frame" style="max-width:520px;aspect-ratio:3/4">
-                <img src="img/manzoku-teishoku-zen-34.jpg" alt="満足定食の膳。ご飯・香味唐揚げに、小鉢・焼鮭・漬物と玉子焼き・味噌汁"
-                     width="768" height="1024" loading="lazy" decoding="async">
+        <div class="cluster-5 reveal">
+            <div class="photo-frame">
+                <img src="img/manzoku-teishoku-zen-43.jpg" alt="満足定食の膳。ご飯・香味唐揚げに、小鉢・焼鮭・漬物と玉子焼き・味噌汁"
+                     width="1024" height="768" loading="lazy" decoding="async">
             </div>
-            <div class="photo-stack">
-                <div class="photo-frame" style="max-width:400px;aspect-ratio:4/3">
+            <div class="quad">
+                <div class="photo-frame">
                     <img src="img/gobou-karaage-43.jpg" alt="ごぼうの唐揚げ。細く切ったごぼうを揚げ、黒い角皿に紙を敷いて盛りつけ"
                          width="1024" height="768" loading="lazy" decoding="async">
                 </div>
-                <div class="photo-frame" style="max-width:400px;aspect-ratio:4/3">
+                <div class="photo-frame">
+                    <img src="img/yakizake-43.jpg" alt="焼き上げた鮭の切り身。長皿に盛り、玉子焼きと漬物を添えて"
+                         width="736" height="552" loading="lazy" decoding="async">
+                </div>
+                <div class="photo-frame">
                     <img src="img/staminadon-yori-34.jpg" alt="スタミナ丼の寄り。豚肉と玉ねぎ、青ねぎ"
                          width="772" height="1024" loading="lazy" decoding="async">
                 </div>
-                <div class="photo-frame" style="max-width:400px;aspect-ratio:4/3">
+                <div class="photo-frame">
                     <img src="img/butapiman-teishoku-zen-43.jpg" alt="豚肉とピーマン細切り炒め定食の膳。玉子焼き・漬物・ご飯・味噌汁"
                          width="1024" height="768" loading="lazy" decoding="async">
                 </div>
@@ -676,13 +689,6 @@
         </div>
     </div>
 </section>
-
-
-<!-- 全幅の帯（焼鮭）：定食のことと夜のことの継ぎ目 -->
-<div class="band-wrap reveal">
-    <img src="img/band-yakizake-1920x720.jpg" alt="炭火で焼いた鮭の切り身の寄り"
-         width="1920" height="720" loading="lazy" decoding="async">
-</div>
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
@@ -852,7 +858,7 @@
 
         <div class="menu-block reveal" id="drink">
             <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2></div>
-            <p class="menu-note"><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
+            <p class="menu-note"><span class="nw">お値段は</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げて</span><span class="nw">おります。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">生ビール</span><span class="desc"><span class="nw">アサヒスーパードライ</span> <span class="nw">樽生・</span><span class="nw">中ジョッキ</span></span></span></li>
@@ -872,7 +878,7 @@
                     <li><span class="name"><span class="nw">高清水</span> <span class="nw">辛口</span><span class="desc">300ml</span></span></li>
                     <li><span class="name"><span class="nw">菊水</span> <span class="nw">辛口</span><span class="desc">300ml</span></span></li>
                     <li><span class="name"><span class="nw">八海山</span><span class="desc">300ml</span></span></li>
-                    <li><span class="name"><span class="nw">そのほかの</span><span class="nw">日本酒</span><span class="desc"><span class="nw">おすすめを</span><span class="nw">御用意し</span><span class="nw">ております。</span><span class="nw">お声かけ</span><span class="nw">くださいませ</span></span></span></li>
+                    <li><span class="name"><span class="nw">そのほかの</span><span class="nw">日本酒</span><span class="desc"><span class="nw">おすすめを</span><span class="nw">御用意して</span><span class="nw">おります。</span><span class="nw">お声かけ</span><span class="nw">くださいませ</span></span></span></li>
                     <li><span class="name"><span class="nw">ノンアルコールビール</span><span class="desc"><span class="nw">アサヒドライゼロ</span></span></span></li>
                     <li><span class="name"><span class="nw">ノンアルコールカクテル</span><span class="desc"><span class="nw">シャルドネスパークリング・</span><span class="nw">カシスオレンジ</span></span></span></li>
                     <li><span class="name"><span class="nw">ソフトドリンク</span><span class="desc"><span class="nw">ジンジャーエール・</span><span class="nw">コーラ・</span><span class="nw">ラムネ・</span><span class="nw">ウーロン</span><span class="nw">茶・</span><span class="nw">オレンジ・</span><span class="nw">パイン</span></span></span></li>
@@ -890,7 +896,7 @@
 <section class="section" id="sec6">
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">店のなか</span></h2>
-        <p class="lead reveal"><span class="nw">カウンターと、</span><span class="nw">テーブルと、</span><span class="nw">小上がりの</span><span class="nw">お座敷を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">お一人さまは</span><span class="nw">カウンターへ、</span><span class="nw">ご家族や</span><span class="nw">お仲間とは</span><span class="nw">お座敷へどうぞ。</span><span class="nw">一枚板の</span><span class="nw">カウンターの</span><span class="nw">向こうには、</span><span class="nw">その</span><span class="nw">日のおすすめを</span><span class="nw">書いた</span><span class="nw">黒板を</span><span class="nw">掛け</span><span class="nw">ております。</span></p>
+        <p class="lead reveal"><span class="nw">カウンターと、</span><span class="nw">テーブルと、</span><span class="nw">小上がりの</span><span class="nw">お座敷を</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">お一人さまは</span><span class="nw">カウンターへ、</span><span class="nw">ご家族や</span><span class="nw">お仲間とは</span><span class="nw">お座敷へどうぞ。</span><span class="nw">一枚板の</span><span class="nw">カウンターの</span><span class="nw">向こうには、</span><span class="nw">その</span><span class="nw">日のおすすめを</span><span class="nw">書いた</span><span class="nw">黒板を</span><span class="nw">掛けて</span><span class="nw">おります。</span></p>
 
         <div class="photo-cluster cluster-pair reveal">
             <div class="photo-frame" style="max-width:300px;aspect-ratio:3/4">
@@ -943,7 +949,7 @@
             <div><dt><span class="nw">定休</span></dt><dd><span class="nw">不定休</span></dd></div>
         </dl>
 
-        <p class="lead reveal"><span class="nw">お休みは</span><span class="nw">不定で</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">お越しの</span><span class="nw">前に</span><span class="nw">お電話を</span><span class="nw">いただけますと</span><span class="nw">確かです。</span><span class="nw">お支払いは</span><span class="nw">現金のほか、</span><span class="nw">カードも</span><span class="nw">お使い</span><span class="nw">いただけます。</span><span class="nw">電子マネー・</span><span class="nw">QRコード</span><span class="nw">決済は</span><span class="nw">ご容赦くださいませ。</span></p>
+        <p class="lead reveal"><span class="nw">お休みは</span><span class="nw">不定で</span><span class="nw">いただいて</span><span class="nw">おります。</span><span class="nw">お越しの</span><span class="nw">前に</span><span class="nw">お電話を</span><span class="nw">いただけますと</span><span class="nw">確かです。</span><span class="nw">お支払いは</span><span class="nw">現金のほか、</span><span class="nw">カードも</span><span class="nw">お使い</span><span class="nw">いただけます。</span><span class="nw">電子マネー・</span><span class="nw">QRコード</span><span class="nw">決済は</span><span class="nw">ご容赦くださいませ。</span></p>
     </div>
 </section>
 

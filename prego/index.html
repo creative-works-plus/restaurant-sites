@@ -527,28 +527,22 @@
        写真は主役のまま残し、店名・一言・お電話を写真の上に重ねて
        「開いた瞬間に情報が見える」ようにする。営業時間・駐車場などの詳細チップは
        これまでどおり写真の下の帯に置く（情報の場所は増やさない）。 */
-    .hero { min-height: auto; }
-    .hero-photo { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 300px; overflow: hidden; background: var(--surface-2); }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-    /* 幕：写真の下側だけを --deep に近い色で沈め、白文字が 4.5:1 を割らないようにする。
-       ★実測で直した点（2026-09-06）：帯を「写真全体に対する％」で引くと、情報帯（この上の
-       チップ・タイトル・キャッチ）の分量が変わるたびに文字の位置が動き、
-       上のほうの文字（欧文ラベル）が薄い部分に乗って 2.5:1 まで落ちた（390px 実測）。
-       **文字を包む帯（.hero-overlay）自身に幕を敷き、px基準でごく短く立ち上げる**ことで、
-       帯の高さが変わっても文字の乗る場所は必ず幕の濃い部分になる。 */
-    .hero-overlay {
-        position: absolute; inset: auto 0 0 0;
-        background: linear-gradient(180deg, rgba(27,23,16,0) 0, rgba(27,23,16,.88) 36px, rgba(27,23,16,.94) 100%);
-    }
-    .hero-overlay-inner {
-        padding: var(--sp-4) var(--pad-inner) var(--sp-4);
-        max-width: var(--maxw); margin-inline: auto;
-    }
-    .hero-overlay .status-chip { background: rgba(255,255,255,.95); border-color: transparent; color: var(--ink); }
-    .hero-overlay .hero-eyebrow { color: var(--accent-hi); margin-top: var(--sp-3); }
-    .hero-overlay .hero-title { color: #fff; margin-top: var(--sp-2); text-shadow: 0 2px 14px rgba(0,0,0,.4); }
-    .hero-overlay .hero-catch { color: #fff; margin-top: var(--sp-2); text-shadow: 0 1px 10px rgba(0,0,0,.35); }
-    .hero-overlay .hero-actions { margin-top: var(--sp-4); }
+    /* ★2026-09-07：「開いた瞬間にデカデカと画像だけが見える」状態が直っていない、
+       とのご指摘（2度目）。前回は写真の上に店名を重ねただけだったので、
+       1440×900 では写真（16:9＝1440×810）＋ヘッダーで一画面が埋まり、
+       営業時間・定休日・駐車場の帯は**まるごと画面の外**にあった。
+       ★写真の上に文字を重ねる作りをやめ、**写真と情報を横に並べる**。
+       広い画面では左に写真・右に店名／一言／営業時間／ご予約が同時に見え、
+       狭い画面では写真の下に情報が続く。幕（グラデーション）も要らなくなる。 */
+    .hero { min-height: auto; background: var(--bg);
+            padding-block: var(--sp-5) var(--sec-y);
+            border-bottom: 3px solid var(--accent-hi); }
+    .hero-grid { display: grid; gap: var(--sp-5); align-items: center; }
+    .hero-photo { margin: 0; border-radius: var(--radius); overflow: hidden;
+                  box-shadow: 0 18px 44px rgba(34, 30, 20, .18); }
+    .hero-photo img { width: 100%; height: auto; aspect-ratio: 16 / 9;
+                      object-fit: cover; display: block; }
+    .hero-copy > * + * { margin-top: var(--sp-3); }
     .hero-eyebrow {
         font-family: var(--font-en); font-size: var(--fz-en); text-transform: uppercase;
         letter-spacing: .14em; color: var(--accent);
@@ -558,23 +552,22 @@
         line-height: var(--lh-head); letter-spacing: .02em; color: var(--ink);
     }
     .hero-catch { font-size: 1.2rem; color: var(--ink); }
-    .hero-info-wrap { border-top: 3px solid var(--accent-hi); background: var(--bg); }
-    .hero-info { padding-block: var(--sp-4) var(--sec-y); }
     .hero-sub { color: var(--muted); max-width: 620px; }
-    .hero-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); max-width: 760px; }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); max-width: 760px; }
     .hero-chips li {
         background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
         padding: 6px 14px; font-size: .85rem; color: var(--muted);
     }
     .hero .hero-actions { margin-top: var(--sp-4); }
-    /* ★B-1（デザインレビュー）：1440px で本文が左半分に寄り、右がまるごと空いていた。
-       幅のある画面だけ「一言（左）／チップとご予約（右）」の2段に組んで、
-       CTAを帯の下辺にそろえる。★1120px 未満はこれまでどおり縦に積む。 */
-    @media (min-width: 1120px) {
-        .hero-info { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); column-gap: var(--sp-6); align-items: end; }
-        .hero-aside { display: flex; flex-direction: column; align-items: flex-start; }
-        .hero-chips { margin-top: 0; max-width: none; }
-        .hero-aside .hero-actions { margin-top: var(--sp-4); }
+
+    /* 広い画面：写真（左）と情報（右）を横に並べる。
+       ★写真の高さは 4:3 ではなく画面の高さから決める。1440×900 のとき
+         ヘッダー74 ＋ 余白 ＋ 写真 520 ＝ 700 前後に収まり、
+         右の列（店名〜ご予約）も同じ高さの中に全部入る。 */
+    @media (min-width: 1000px) {
+        .hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+                     gap: var(--sp-6); }
+        .hero-photo img { aspect-ratio: auto; height: min(58svh, 520px); }
     }
 
     /* --- 署名章 ⊙（#mark） -------------------------------------------------- */
@@ -694,32 +687,19 @@
      必ず入れるもの：①店名 ②何の店かが3秒でわかる一言 ③tel: の予約導線
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-photo">
-        <img src="images/hero-facade.jpg" alt="キッチンプレーゴの外観。白い下見板の壁に、橙の「キッチン プレーゴ」看板が掛かる" width="1600" height="900" loading="eager">
-        <div class="hero-overlay">
-            <div class="hero-overlay-inner">
+    <div class="container hero-grid">
+        <figure class="hero-photo">
+            <img src="images/hero-facade.jpg" alt="キッチンプレーゴの外観。白い下見板の壁に、橙の「キッチン プレーゴ」看板が掛かる" width="1600" height="900" loading="eager" fetchpriority="high" decoding="async">
+        </figure>
+
+        <div class="hero-copy">
             <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
             <p class="hero-eyebrow nw">CUCINA ITALIANA</p>
             <h1 class="hero-title"><span class="nw">キッチンプレーゴ</span></h1>
             <p class="hero-catch"><span class="nw">シンプルで、</span><span class="nw">体にやさしい</span><span class="nw">イタリアン。</span></p>
-
-            <div class="hero-actions">
-                <a href="tel:0280231777" class="btn btn-primary">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                    0280-23-1777｜ご予約はこちら
-                </a>
-            </div>
-            </div>
-        </div>
-    </div>
-    <div class="hero-info-wrap">
-        <div class="container hero-info">
-            <div class="hero-main">
             <p class="hero-sub"><span class="nw">お昼の</span><span class="nw">パスタから、</span><span class="nw">夜の</span><span class="nw">お食事と</span><span class="nw">お酒まで。</span><span class="nw">古河の</span><span class="nw">町で、</span><span class="nw">気どらない</span><span class="nw">イタリアンを</span><span class="nw">営んで</span><span class="nw">おります。</span></p>
-            </div>
 
-            <div class="hero-aside">
             <ul class="hero-chips">
                 <li><span class="nw">月曜定休</span></li>
                 <li class="nw">ランチ 11:30〜14:30（L.O.14:00）</li>
@@ -730,8 +710,11 @@
             </ul>
 
             <div class="hero-actions">
+                <a href="tel:0280231777" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    0280-23-1777｜ご予約はこちら
+                </a>
                 <a href="menu.html" class="btn btn-ghost">お品書きを見る</a>
-            </div>
             </div>
         </div>
     </div>
@@ -756,7 +739,7 @@
         <div class="flour-text reveal">
             <p class="eyebrow">FARINA</p>
             <h2 class="section-title"><span class="nw">粉から、</span><span class="nw">手でつくる</span></h2>
-            <p><span class="nw">パスタのめんも、</span><span class="nw">ピッツァの</span><span class="nw">生地も、</span><span class="nw">パンも、</span><span class="nw">ドルチェも、</span><span class="nw">当店の</span><span class="nw">厨房で</span><span class="nw">粉からつくっ</span><span class="nw">ております。</span><span class="nw">パスタは</span><span class="nw">セモリナ</span><span class="nw">粉をこねた</span><span class="nw">自家製の</span><span class="nw">生めん、</span><span class="nw">ピッツァは</span><span class="nw">生地から</span><span class="nw">手づくりの、</span><span class="nw">もっちもちの</span><span class="nw">食感です。</span><span class="nw">パンと</span><span class="nw">ドルチェも、</span><span class="nw">一つずつ</span><span class="nw">焼いて</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+            <p><span class="nw">パスタのめんも、</span><span class="nw">ピッツァの</span><span class="nw">生地も、</span><span class="nw">パンも、</span><span class="nw">ドルチェも、</span><span class="nw">当店の</span><span class="nw">厨房で</span><span class="nw">粉からつくって</span><span class="nw">おります。</span><span class="nw">パスタは</span><span class="nw">セモリナ</span><span class="nw">粉をこねた</span><span class="nw">自家製の</span><span class="nw">生めん、</span><span class="nw">ピッツァは</span><span class="nw">生地から</span><span class="nw">手づくりの、</span><span class="nw">もっちもちの</span><span class="nw">食感です。</span><span class="nw">パンと</span><span class="nw">ドルチェも、</span><span class="nw">一つずつ</span><span class="nw">焼いて</span><span class="nw">お出しして</span><span class="nw">おります。</span></p>
         </div>
         <div class="flour-photos reveal">
             <div class="photo-frame ph-43"><img src="images/flour-pizza.jpg" alt="生地から手づくりする四種のチーズのピッツァ。もっちりとした縁" width="1200" height="900" loading="lazy"></div>
@@ -771,7 +754,7 @@
     <div class="container">
         <p class="eyebrow reveal">IL SEGNO</p>
         <h2 class="section-title reveal"><span class="nw">お品書きの、</span><span class="nw">⊙の</span>印</h2>
-        <p class="mark-intro reveal"><span class="nw">当店の</span><span class="nw">お品書きには、</span><span class="nw">小さな</span><span class="nw">印がひとつ</span><span class="nw">ございます。</span><span class="nw">めんを</span><span class="nw">店の</span><span class="nw">中で</span><span class="nw">打っ</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">この</span><span class="nw">ご用意ができます。</span></p>
+        <p class="mark-intro reveal"><span class="nw">当店の</span><span class="nw">お品書きには、</span><span class="nw">小さな</span><span class="nw">印がひとつ</span><span class="nw">ございます。</span><span class="nw">めんを</span><span class="nw">店の</span><span class="nw">中で</span><span class="nw">打って</span><span class="nw">おります</span><span class="nw">ので、</span><span class="nw">この</span><span class="nw">ご用意ができます。</span></p>
 
         <div class="mark-device reveal">
             <p class="mark-caption"><span class="nw">⊙印の</span><span class="nw">パスタは、</span><span class="nw">自家製の</span><span class="nw">平打ちめん</span><span class="nw">（フェットチーネ）にもできます。</span><span class="nw">ご希望でしたら</span><span class="nw">お声かけ</span><span class="nw">ください</span></p>
@@ -790,7 +773,7 @@
     <div class="container">
         <p class="eyebrow reveal">MENU</p>
         <h2 class="section-title reveal"><span class="nw">お品書き</span></h2>
-        <p class="lead reveal"><span class="nw">前菜から</span><span class="nw">パスタ、</span><span class="nw">ピッツァ、</span><span class="nw">米料理、</span><span class="nw">ドルチェ、</span><span class="nw">お飲み</span><span class="nw">ものまで</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">昼と</span><span class="nw">夜、</span><span class="nw">それぞれの</span><span class="nw">お品書きを</span><span class="nw">ご覧ください。</span></p>
+        <p class="lead reveal"><span class="nw">前菜から</span><span class="nw">パスタ、</span><span class="nw">ピッツァ、</span><span class="nw">米料理、</span><span class="nw">ドルチェ、</span><span class="nw">お飲み</span><span class="nw">ものまで</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">昼と</span><span class="nw">夜、</span><span class="nw">それぞれの</span><span class="nw">お品書きを</span><span class="nw">ご覧ください。</span></p>
 
         <div class="menu-teaser-grid reveal">
             <div class="photo-frame teaser-large"><img src="images/pasta-genovese.jpg" alt="大葉のジェノバ風ソースと海老のパスタ" width="1200" height="900" loading="lazy"></div>
@@ -812,7 +795,7 @@
         <div class="interior-text reveal">
             <p class="eyebrow">SALA</p>
             <h2 class="section-title"><span class="nw">店のなか</span></h2>
-            <p><span class="nw">カウンターと、</span><span class="nw">テーブルと、</span><span class="nw">お座敷を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">おひとりでも、</span><span class="nw">ご家族づれでも、</span><span class="nw">どうぞ</span><span class="nw">楽に</span><span class="nw">腰を</span><span class="nw">下ろして</span><span class="nw">ください。</span></p>
+            <p><span class="nw">カウンターと、</span><span class="nw">テーブルと、</span><span class="nw">お座敷を</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">おひとりでも、</span><span class="nw">ご家族づれでも、</span><span class="nw">どうぞ</span><span class="nw">楽に</span><span class="nw">腰を</span><span class="nw">下ろして</span><span class="nw">ください。</span></p>
         </div>
     </div>
 </section>
@@ -847,7 +830,7 @@
     <div class="container">
         <p class="eyebrow reveal">PRENOTAZIONI</p>
         <h2 class="section-title reveal"><span class="nw">ご予約について</span></h2>
-        <p class="lead reveal"><span class="nw">お席の</span><span class="nw">ご予約は、</span><span class="nw">お電話で</span><span class="nw">承っ</span><span class="nw">ております。</span><span class="nw">お料理の</span><span class="nw">お持ち</span><span class="nw">帰りも</span><span class="nw">ご用意いたします</span><span class="nw">ので、</span><span class="nw">お電話で</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span><span class="nw">女子会などの</span><span class="nw">パーティー、</span><span class="nw">貸切の</span><span class="nw">ご相談も</span><span class="nw">承ります。</span><span class="nw">臨時の</span><span class="nw">お休みは、</span><a href="https://www.instagram.com/prego1777/" class="ig-link" target="_blank" rel="noopener"><span class="nw">インスタグラム</span></a>で<span class="nw">お知らせし</span><span class="nw">ております。</span></p>
+        <p class="lead reveal"><span class="nw">お席の</span><span class="nw">ご予約は、</span><span class="nw">お電話で</span><span class="nw">承って</span><span class="nw">おります。</span><span class="nw">お料理の</span><span class="nw">お持ち</span><span class="nw">帰りも</span><span class="nw">ご用意いたします</span><span class="nw">ので、</span><span class="nw">お電話で</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span><span class="nw">女子会などの</span><span class="nw">パーティー、</span><span class="nw">貸切の</span><span class="nw">ご相談も</span><span class="nw">承ります。</span><span class="nw">臨時の</span><span class="nw">お休みは、</span><a href="https://www.instagram.com/prego1777/" class="ig-link" target="_blank" rel="noopener"><span class="nw">インスタグラム</span></a>で<span class="nw">お知らせして</span><span class="nw">おります。</span></p>
 
         <div class="hero-actions reveal">
             <a href="tel:0280231777" class="btn btn-primary">
@@ -896,7 +879,7 @@
 <!-- ══════════════════════════════ 締めの一文 ══════════════════════════════ -->
 <section class="section closing-section">
     <div class="container">
-        <p class="closing-text reveal"><span class="nw">一皿ずつ、</span><span class="nw">店の</span><span class="nw">中でこしらえ</span><span class="nw">ております。</span><span class="nw">どうぞ</span><span class="nw">お気軽に</span><span class="nw">お越し</span><span class="nw">ください。</span></p>
+        <p class="closing-text reveal"><span class="nw">一皿ずつ、</span><span class="nw">店の</span><span class="nw">中でこしらえて</span><span class="nw">おります。</span><span class="nw">どうぞ</span><span class="nw">お気軽に</span><span class="nw">お越し</span><span class="nw">ください。</span></p>
     </div>
 </section>
 

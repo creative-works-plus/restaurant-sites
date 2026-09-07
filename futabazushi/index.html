@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/futaba-sushi/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/futaba-sushi/img/gaikan.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/futaba-sushi/img/gaikan-noren.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -37,7 +37,7 @@
       "servesCuisine": "寿司",
       "telephone": "+81-280-48-1488",
       "url": "https://creative-works-plus.github.io/restaurant-sites/futaba-sushi/",
-      "image": "img/gaikan.jpg",
+      "image": "img/gaikan-noren.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -523,20 +523,44 @@
 
     /* --- ヒーロー（A-5改：文字主体＋外観の縦カード） ---------------------------
        外観写真は 480×640px しか無いので全画面にしない。右に原寸内のカードで置く。 */
-    .hero { display: flex; align-items: center; padding-block: calc(var(--header-h) + var(--sp-5)) var(--sp-6); }
+    /* ★2026-09-07：ヒーローを 100svh の高さで確保していたため、1440×900 では
+       中身（見出し＋ボタン＝約400px）に対して**下半分が空の砂色の面**になり、
+       「HPがしょぼい」というご指摘の一番の原因になっていた。
+       高さの確保をやめ、代わりに**開いた瞬間に読みたい要点（営業時間・定休日・
+       所在地）をヒーローの中に置く**。空白を埋めるのではなく、情報を置いて埋める。 */
+    .hero { display: flex; align-items: center; min-height: auto;
+            padding-block: var(--sp-6); }
     .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); align-items: center; }
-    @media (min-width: 960px) { .hero-grid { grid-template-columns: minmax(0, 1.1fr) minmax(240px, 360px); } }
+    /* ★2026-09-07：2段にする幅を 960px → 1100px に上げた。
+       960px だと文字側の欄が 376px しか残らず、見出しの「握っております。」が
+       欄に入りきらずに**囲みの中で折り返して**しまう（＝語の途中で切れる）。 */
+    @media (min-width: 1100px) { .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(280px, 400px); } }
     .hero-copy { display: flex; flex-direction: column; gap: var(--sp-4); align-items: flex-start; min-width: 0; }
+
+    /* ヒーローの要点。札を並べるのではなく、罫で仕切った表の体にする（店の札の見立て） */
+    .hero-facts { width: 100%; max-width: 30em; margin-top: var(--sp-2);
+                  border-top: 1px solid var(--line); }
+    .hero-facts > div { display: grid; grid-template-columns: 6.5em minmax(0, 1fr);
+                        gap: var(--sp-3); padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .hero-facts dt { font-size: var(--fz-cap); color: var(--muted); letter-spacing: .12em;
+                     line-height: 1.9; }
+    .hero-facts dd { font-size: 15px; line-height: 1.9; }
+    @media (max-width: 480px) {
+        .hero-facts > div { grid-template-columns: 5.5em minmax(0, 1fr); gap: var(--sp-2); }
+        .hero-facts dd { font-size: 14px; }
+    }
     .hero-copy .status-chip { margin-bottom: var(--sp-1); }
     .hero-eyebrow { font-size: var(--fz-cap); letter-spacing: .18em; color: var(--muted); }
     .hero-copy h1 {
         font-size: var(--fz-hero); color: var(--ink); font-weight: 700;
     }
     .hero-lead { color: var(--muted); font-size: 1.05rem; max-width: 30em; }
-    .hero-photo { width: 100%; max-width: 360px; margin-inline: auto; }
+    /* ★2026-09-07：外観の写真が 480×640 しか無かったので枠を 360px に抑えていた。
+       Googleマップから 3120×4160 が取れたので 440px まで広げた（表示の2.4倍を確保）。 */
+    .hero-photo { width: 100%; max-width: 400px; margin-inline: auto; }
     .hero-photo .photo-frame { aspect-ratio: 3 / 4; }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-    @media (min-width: 960px) { .hero-photo { margin-inline: 0; margin-left: auto; } }
+    @media (min-width: 1100px) { .hero-photo { margin-inline: 0; margin-left: auto; } }
 
     /* --- ③鮨のこと（横位置3枚グリッド。中とろの寄り＋盛合せ2枚） ---------------- */
     .sushi-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); }
@@ -544,6 +568,37 @@
     .sushi-grid .photo-frame { aspect-ratio: 4 / 3; }
     .sushi-grid img { width: 100%; height: 100%; max-width: 560px; object-fit: cover; margin-inline: auto; }
     .sushi-grid figcaption { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--dim); text-align: center; }
+
+    /* 鮨のほかにも：縦位置3枚。元写真が 480×640 しかないので、枠は 3:4 のまま
+       1枚あたり 320px 前後（＝原寸の 0.67 倍）に収める。引き伸ばさない。 */
+    .hoka-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); }
+    @media (min-width: 760px) { .hoka-grid { grid-template-columns: repeat(3, 1fr); } }
+    .hoka-grid .photo-frame { aspect-ratio: 3 / 4; max-width: 340px; margin-inline: auto; }
+    .hoka-grid img { width: 100%; height: 100%; object-fit: cover; }
+    .hoka-grid figcaption { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--dim); text-align: center; }
+
+    /* 屋号の帯（全幅）。原寸 1920×864 なので、画面幅いっぱいでも引き伸ばさない。
+       高さは画面の高さで決めない（縦長の端末で帯だけが伸びる）。 */
+    .kanban-band { width: 100%; overflow: hidden; }
+    .kanban-band img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
+                       object-position: center 30%; }   /* 看板を帯の中央に置く */
+    @media (min-width: 600px) { .kanban-band img { aspect-ratio: 20 / 9; } }
+    @media (min-width: 900px) { .kanban-band img { aspect-ratio: 32 / 9; } }
+
+    /* 鮨のこと：上にぎりの1枚（章の主役） */
+    .sushi-lead { max-width: 800px; margin: 0 auto var(--sp-5); }
+    .sushi-lead .photo-frame { aspect-ratio: 20 / 9; }
+    .sushi-lead img { width: 100%; height: 100%; object-fit: cover; }
+    .sushi-lead figcaption { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--dim); text-align: center; }
+
+    /* 鮨のほかにも：3枚→4枚にしたので、広い画面では4列にする */
+    @media (min-width: 760px) { .hoka-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1000px) { .hoka-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    /* 店のこと：カウンターの写真。原寸 1800×810。 */
+    .naikan { margin-top: var(--blk-y); max-width: 900px; margin-inline: auto; }
+    .naikan .photo-frame { aspect-ratio: 20 / 9; }
+    .naikan img { width: 100%; height: 100%; object-fit: cover; }
 
     /* --- ④お品書き（build_menu.py。章見出しの頭に双葉の印） ---------------------
        --orn-futaba：円弧2枚のレンズ形＋茎の直線1本（デザインブリーフ §7-e ②）。
@@ -677,6 +732,7 @@
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
     <a href="#sushi"    data-nav-link>鮨のこと</a>
+    <a href="#hoka"     data-nav-link>鮨のほかにも</a>
     <a href="#menu"     data-nav-link>お品書き</a>
     <a href="#about"    data-nav-link>店のこと</a>
     <a href="#info"     data-nav-link>アクセス</a>
@@ -693,7 +749,7 @@
     <div class="container hero-grid">
         <div class="hero-copy">
             <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
-            <h1 class="reveal"><span class="nw">三和で、</span><span class="nw">鮨を</span><span class="nw">握っ</span><span class="nw">ております。</span></h1>
+            <h1 class="reveal"><span class="nw keep">三和で、</span><span class="nw keep">鮨を</span><span class="nw keep">握っております。</span></h1>
 
             <div class="hero-actions reveal">
                 <a href="tel:0280-48-1488" class="btn btn-primary btn-tel">
@@ -702,12 +758,18 @@
                 </a>
                 <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
             </div>
+
+            <dl class="hero-facts reveal">
+                <div><dt><span class="nw">営業時間</span></dt><dd>昼 11:30〜14:00<span class="nw">（水曜は</span><span class="nw">お休み）</span><br>夜 17:00〜21:00</dd></div>
+                <div><dt><span class="nw">定休日</span></dt><dd><span class="nw">木曜</span></dd></div>
+                <div><dt><span class="nw">所在地</span></dt><dd><span class="nw">茨城県古河市三和</span>137</dd></div>
+            </dl>
         </div>
 
         <div class="hero-photo reveal">
             <div class="photo-frame">
-                <img src="img/gaikan.jpg" alt="紺の暖簾に白抜きの「二葉寿司」の文字、丸い行灯看板、木の格子の引き戸のある外観"
-                     width="480" height="640" loading="eager" fetchpriority="high" decoding="async">
+                <img src="img/gaikan-noren.jpg" alt="紺の暖簾に白抜きの「二葉寿司」の文字、丸い行灯看板、木の格子の引き戸のある玄関"
+                     width="1080" height="1440" loading="eager" fetchpriority="high" decoding="async">
             </div>
         </div>
     </div>
@@ -715,31 +777,94 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     ③鮨のこと（横位置3枚グリッド）
+     ②屋号の帯（全幅）
+     ★2026-09-07 新設。Googleマップから 4080×1836 の看板写真が入ったので置いた。
+       破風に「二 葉 鮨」の三枚看板が掛かっている——**この店で一番強い絵**で、
+       屋号がそのまま写っている。文字は載せない（看板が屋号を言っている）。
+     ══════════════════════════════════════════════════════════════════════ -->
+<div class="kanban-band reveal">
+    <img src="img/kanban-band.jpg" alt="切妻の破風に「二」「葉」「鮨」と一文字ずつ書かれた三枚の看板が掛かっている店の正面"
+         width="2560" height="1152" loading="lazy" decoding="async">
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ③鮨のこと（上にぎりの1枚＋横位置3枚グリッド）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section sushi" id="sushi">
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">鮨の</span><span class="nw">こと</span></h2>
         <p class="lead reveal"><span class="nw">にぎりは</span><span class="nw">並から</span><span class="nw">特上まで。</span><span class="nw">ちらしに、</span><span class="nw">てっか</span><span class="nw">丼に、</span><span class="nw">巻き</span><span class="nw">もの。</span><span class="nw">ご注文を</span><span class="nw">いただいてから、</span><span class="nw">ひとつずつ</span><span class="nw">握って</span><span class="nw">お出しします。</span></p>
 
+        <figure class="sushi-lead reveal">
+            <div class="photo-frame">
+                <img src="img/jo-nigiri.jpg" alt="上にぎり。木の板皿に、うに・白身・いか・あなご・玉子・甘えび・中とろ・ほたて・大とろが並べてある"
+                     width="1600" height="720" loading="lazy" decoding="async">
+            </div>
+            <figcaption><span class="nw">上にぎり</span></figcaption>
+        </figure>
+
         <div class="sushi-grid">
             <figure class="reveal">
                 <div class="photo-frame">
-                    <img src="img/chutoro.jpg" alt="中とろのにぎり寿司を寄りで写した写真" width="640" height="480" loading="lazy" decoding="async">
+                    <img src="img/chutoro.jpg" alt="中とろのにぎり寿司を寄りで写した写真" width="1024" height="768" loading="lazy" decoding="async">
                 </div>
                 <figcaption><span class="nw">中とろ</span></figcaption>
             </figure>
             <figure class="reveal reveal-delay-1">
                 <div class="photo-frame">
-                    <img src="img/nigiri-moriawase.jpg" alt="にぎり寿司の盛合せ。朱塗りの丼に盛られている" width="640" height="480" loading="lazy" decoding="async">
+                    <img src="img/nigiri-moriawase.jpg" alt="にぎり寿司の盛合せ。朱塗りの丼に盛られている" width="1024" height="768" loading="lazy" decoding="async">
                 </div>
                 <figcaption><span class="nw">にぎりの</span><span class="nw">盛合せ</span></figcaption>
             </figure>
             <figure class="reveal reveal-delay-2">
                 <div class="photo-frame">
-                    <img src="img/nigiri-maki.jpg" alt="にぎり寿司と巻きものの盛合せ" width="640" height="480" loading="lazy" decoding="async">
+                    <img src="img/nigiri-maki.jpg" alt="にぎり寿司と巻きものの盛合せ" width="1024" height="768" loading="lazy" decoding="async">
                 </div>
                 <figcaption><span class="nw">にぎりと</span><span class="nw">巻き</span><span class="nw">もの</span></figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ③-2 鮨のほかにも（縦位置3枚グリッド）
+     ★2026-09-07 新設。この店で使える写真10枚のうち、お刺身・ワタリ蟹のお味噌汁・
+       お通しの枝豆の3枚が、署名章「五つめの行」を外した（2026-09-06）ときに
+       行き場を失ったまま残っていた。**持っている写真の3割が一度も出ていない**のが
+       「HPがしょぼい」の実体だったので、仕掛けなしの素の章として置き直す。
+       上の「鮨のこと」は横位置（4:3）なので、こちらは縦位置（3:4）にして体を変える。
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section hoka" id="hoka">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="nw">鮨のほかにも</span></h2>
+        <p class="lead reveal"><span class="nw">品書きには</span><span class="nw">刷っておりませんが、</span><span class="nw">これまでに</span><span class="nw">お出ししてまいりました。</span></p>
+
+        <div class="hoka-grid">
+            <figure class="reveal">
+                <div class="photo-frame">
+                    <img src="img/sashimi.jpg" alt="お刺身の盛合せ。染付の大皿に、まぐろ・かつお・白身・いか・貝が、大葉とけんを添えて盛ってある" width="900" height="1200" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">お刺身の</span><span class="nw">盛合せ</span></figcaption>
+            </figure>
+            <figure class="reveal reveal-delay-1">
+                <div class="photo-frame">
+                    <img src="img/watarigani.jpg" alt="ワタリ蟹のお味噌汁。朱塗りの椀に、蟹が半身のまま入っている" width="900" height="1200" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">ワタリ</span><span class="nw">蟹の</span><span class="nw">お味噌汁</span></figcaption>
+            </figure>
+            <figure class="reveal reveal-delay-2">
+                <div class="photo-frame">
+                    <img src="img/gunkan.jpg" alt="うにといくらの軍艦巻き。木の板皿にふたつ並べてある" width="900" height="1200" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">うに・</span><span class="nw">いくらの</span><span class="nw">軍艦</span></figcaption>
+            </figure>
+            <figure class="reveal reveal-delay-3">
+                <div class="photo-frame">
+                    <img src="img/edamame.jpg" alt="お通しの枝豆。紺の小鉢に盛ってある" width="768" height="1024" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">お通しの</span><span class="nw">枝豆</span></figcaption>
             </figure>
         </div>
     </div>
@@ -752,7 +877,7 @@
 <section class="section" id="menu">
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">お品書き</span></h2>
-        <p class="lead reveal"><span class="nw">店の</span><span class="nw">札を、</span><span class="nw">そのままこちらに</span><span class="nw">写し</span><span class="nw">ております。</span><span class="nw">お値段は、</span><span class="nw">お電話で</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
+        <p class="lead reveal"><span class="nw">店の</span><span class="nw">札を、</span><span class="nw">そのままこちらに</span><span class="nw">写して</span><span class="nw">おります。</span><span class="nw">お値段は、</span><span class="nw">お電話で</span><span class="nw">お答え</span><span class="nw">いたします。</span></p>
     </div>
 </section>
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
@@ -785,14 +910,14 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="img/naka-nigiri.jpg" alt="中にぎり。木の板皿に盛られたにぎり寿司"
-                             width="480" height="640" loading="lazy" decoding="async">
+                             width="768" height="1024" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">中にぎり</span></figcaption>
                 </figure>
                 <figure>
                     <div class="photo-frame">
                         <img src="img/nami-chirashi.jpg" alt="並ちらし。朱塗りの丼に盛られたちらし寿司"
-                             width="480" height="640" loading="lazy" decoding="async">
+                             width="720" height="960" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">並ちらし</span></figcaption>
                 </figure>
@@ -812,6 +937,15 @@
                     <li><span class="name"><span class="nw">梅しそ</span></span></li>
                     <li><span class="name"><span class="nw">納豆</span></span></li>
                 </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/makimono.jpg" alt="巻きものの盛合せ。朱塗りの丸い桶に、鉄火・かっぱ・かんぴょうなどが並べてある"
+                             width="300" height="400" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">巻き</span><span class="nw">ものの</span><span class="nw">盛合せ</span></figcaption>
+                </figure>
             </div>
         </div>
 
@@ -846,11 +980,20 @@
                     <li><span class="name"><span class="nw">玉子</span></span></li>
                 </ul>
             </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/maguro-nigiri.jpg" alt="まぐろのにぎり。木の板皿に並べてあり、手前に屋号入りの箸袋が置いてある"
+                             width="720" height="900" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">まぐろ</span></figcaption>
+                </figure>
+            </div>
         </div>
 
         <div class="menu-block reveal" id="drink">
             <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2><span class="yomi">Drink</span></div>
-            <p class="menu-note"><span class="nw">そのほかの</span><span class="nw">お飲み</span><span class="nw">ものは、</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">そのほかの</span><span class="nw">お飲み</span><span class="nw">ものは、</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げて</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">瓶ビール</span><span class="desc"><span class="nw">アサヒスーパードライ</span> <span class="nw">大瓶</span>（633ml）</span></span></li>
@@ -861,7 +1004,7 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="img/bin-beer.jpg" alt="アサヒスーパードライの瓶ビールとコップ"
-                             width="480" height="640" loading="lazy" decoding="async">
+                             width="768" height="1024" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">瓶ビール</span></figcaption>
                 </figure>
@@ -879,10 +1022,20 @@
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">店の</span><span class="nw">こと</span></h2>
         <p class="reveal">
-            <span class="nw">親方と</span><span class="nw">女将の、</span><span class="nw">二人でやっ</span><span class="nw">ております。</span><br>
+            <span class="nw">親方と</span><span class="nw">女将の、</span><span class="nw">二人でやって</span><span class="nw">おります。</span><br>
             <span class="nw">仕込みも、</span><span class="nw">握るのも、</span><span class="nw">お出しするのも、</span><span class="nw">この</span><span class="nw">二人の</span><span class="nw">手で</span><span class="nw">ございます。</span><br>
             <span class="nw">どうぞ、</span><span class="nw">ごゆっくりなさって</span><span class="nw">ください。</span>
         </p>
+
+        <!-- ★2026-09-07：内観の写真がこの店に1枚も無かった（調査メモ「内観0枚」）。
+             Googleマップから 4080×1836 のカウンターが取れたので置いた。
+             ネタケース・出前用の寿司桶・一升瓶が写っていて、文章より早い。 -->
+        <figure class="naikan reveal">
+            <div class="photo-frame">
+                <img src="img/naikan-counter.jpg" alt="店内のカウンター。ネタケースの向こうに棚があり、出前用の寿司桶が積んである"
+                     width="1800" height="810" loading="lazy" decoding="async">
+            </div>
+        </figure>
     </div>
 </section>
 
@@ -915,7 +1068,7 @@
 
         <div class="reserve-box reveal">
             <h3><span class="nw">ご予約について</span></h3>
-            <p><span class="nw">お電話にて</span><span class="nw">承っ</span><span class="nw">ております。</span><br>
+            <p><span class="nw">お電話にて</span><span class="nw">承って</span><span class="nw">おります。</span><br>
                <span class="nw">営業時間中に</span><span class="nw">お電話いただけますと</span><span class="nw">幸いで</span><span class="nw">ございます。</span></p>
             <div class="hero-actions">
                 <a href="tel:0280-48-1488" class="btn btn-primary btn-tel">
@@ -933,7 +1086,7 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section cta-final" id="cta">
     <div class="container">
-        <p class="cta-line reveal"><span class="nw">今日も、</span><span class="nw">握って</span><span class="nw">お待ちし</span><span class="nw">ております。</span></p>
+        <p class="cta-line reveal"><span class="nw">今日も、</span><span class="nw">握って</span><span class="nw">お待ちして</span><span class="nw">おります。</span></p>
         <div class="hero-actions reveal">
             <a href="tel:0280-48-1488" class="btn btn-primary btn-block btn-tel">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
