@@ -497,6 +497,31 @@
     .plate-photo img { width: 100%; height: 100%; object-fit: cover; }
     .plate-cap { font-size: var(--fz-cap); color: var(--dim); max-width: 36em; }
 
+    /* ★2026-09-07 改訂：ヒーローの主役を「お店の入口」に変えた。
+       れんがの門柱・オリーブ・いちじく・うぐいす色の扉が、一枚で分かる。
+       三十の点の輪（＝ひと皿に入る食材の数）と丸皿は、その話をしている
+       「ひと皿のこと」の節へ移した（署名の仕掛けは残す）。
+       ★横幅は 760px までに留める。原寸が 1800px なので、これ以上広げると
+         2倍解像度を割ってぼやける（→ CLAUDE.md 通し工程11・check_upscale.py）。 */
+    .hero-photo { width: min(100%, 620px); margin: 0; }
+    .hero-photo .photo-frame { aspect-ratio: 16 / 10; }
+    .hero-photo img { object-position: center 44%; }   /* 扉と木を中心に。空と手前の芝を落とす */
+    @media (min-width: 700px) {
+        .hero-photo { width: min(100%, 760px); }
+        .hero-photo .photo-frame { aspect-ratio: 2 / 1; }
+    }
+    /* 背の低い画面では、電話のボタンが折り返しの下に落ちないように帯を薄くする */
+    @media (min-width: 900px) and (max-height: 940px) {
+        .hero-photo { width: min(100%, 680px); }
+        .hero-photo .photo-frame { aspect-ratio: 24 / 9; }
+    }
+    @media (max-width: 430px) { .hero-photo { width: 100%; } }
+    .hero-cap { font-size: var(--fz-cap); color: var(--dim); max-width: 36em; }
+
+    /* 移設した丸皿（「ひと皿のこと」の節の見出し下） */
+    #about .plate { width: min(66vw, 360px); margin: var(--sp-4) auto var(--sp-1); }
+    #about .plate-cap { text-align: center; margin: 0 auto var(--sp-5); }
+
     /* --- ご予約について（帯） -------------------------------------------------- */
     .band { background: var(--surface-2); }
     .reserve-list { display: grid; gap: var(--sp-3); grid-template-columns: 1fr; }
@@ -694,44 +719,12 @@
 
         <p class="hero-sub"><span class="nw">月替わりの</span><span class="nw">献立で、</span><span class="nw">旬の</span><span class="nw">お野菜を</span><span class="nw">中心に</span><span class="nw">お出しして</span><span class="nw">おります。</span><br class="br-pc"><span class="nw">ご予約を</span><span class="nw">いただいてから</span><span class="nw">お作りする、</span><span class="nw">小さな</span><span class="nw">カフェです。</span></p>
 
-        <figure class="plate">
-            <svg class="plate-ring" viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50.00" cy="3.00" r="1.6" fill="var(--accent)"/>
-            <circle cx="59.77" cy="4.03" r="1.6" fill="var(--accent-2)"/>
-            <circle cx="69.12" cy="7.06" r="1.15" fill="var(--dim)"/>
-            <circle cx="77.63" cy="11.98" r="1.15" fill="var(--accent-deep)"/>
-            <circle cx="84.93" cy="18.55" r="1.6" fill="var(--accent)"/>
-            <circle cx="90.70" cy="26.50" r="1.6" fill="var(--accent-2)"/>
-            <circle cx="94.70" cy="35.48" r="1.15" fill="var(--dim)"/>
-            <circle cx="96.74" cy="45.09" r="1.15" fill="var(--accent-deep)"/>
-            <circle cx="96.74" cy="54.91" r="1.6" fill="var(--accent)"/>
-            <circle cx="94.70" cy="64.52" r="1.6" fill="var(--accent-2)"/>
-            <circle cx="90.70" cy="73.50" r="1.15" fill="var(--dim)"/>
-            <circle cx="84.93" cy="81.45" r="1.15" fill="var(--accent-deep)"/>
-            <circle cx="77.63" cy="88.02" r="1.6" fill="var(--accent)"/>
-            <circle cx="69.12" cy="92.94" r="1.6" fill="var(--accent-2)"/>
-            <circle cx="59.77" cy="95.97" r="1.15" fill="var(--dim)"/>
-            <circle cx="50.00" cy="97.00" r="1.15" fill="var(--accent-deep)"/>
-            <circle cx="40.23" cy="95.97" r="1.6" fill="var(--accent)"/>
-            <circle cx="30.88" cy="92.94" r="1.6" fill="var(--accent-2)"/>
-            <circle cx="22.37" cy="88.02" r="1.15" fill="var(--dim)"/>
-            <circle cx="15.07" cy="81.45" r="1.15" fill="var(--accent-deep)"/>
-            <circle cx="9.30" cy="73.50" r="1.6" fill="var(--accent)"/>
-            <circle cx="5.30" cy="64.52" r="1.6" fill="var(--accent-2)"/>
-            <circle cx="3.26" cy="54.91" r="1.15" fill="var(--dim)"/>
-            <circle cx="3.26" cy="45.09" r="1.15" fill="var(--accent-deep)"/>
-            <circle cx="5.30" cy="35.48" r="1.6" fill="var(--accent)"/>
-            <circle cx="9.30" cy="26.50" r="1.6" fill="var(--accent-2)"/>
-            <circle cx="15.07" cy="18.55" r="1.15" fill="var(--dim)"/>
-            <circle cx="22.37" cy="11.98" r="1.15" fill="var(--accent-deep)"/>
-            <circle cx="30.88" cy="7.06" r="1.6" fill="var(--accent)"/>
-            <circle cx="40.23" cy="4.03" r="1.6" fill="var(--accent-2)"/>
-            </svg>
-            <div class="plate-photo">
-                <img src="plate-hero.jpg" alt="一枚の丸皿に、パンと小さなお料理を九品ほど盛り合わせたランチプレート" width="1080" height="1440" fetchpriority="high">
+        <figure class="hero-photo reveal">
+            <div class="photo-frame">
+                <img src="exterior-hero.jpg" alt="れんがの門柱の奥に、オリーブといちじくの木、うぐいす色の扉がある店の入口" width="1800" height="1128" fetchpriority="high">
             </div>
         </figure>
-        <p class="plate-cap"><span class="nw">ある</span><span class="nw">日の</span><span class="nw">ランチプレートです。</span><span class="nw">多い</span><span class="nw">日は、</span><span class="nw">ひと</span><span class="nw">皿に</span><span class="nw">三十種ほどの</span><span class="nw">食材が</span><span class="nw">入ります。</span></p>
+        <p class="hero-cap"><span class="nw">れんがの</span><span class="nw">門柱を</span><span class="nw">入って、</span><span class="nw">オリーブといちじくの</span><span class="nw">木の</span><span class="nw">奥。</span><span class="nw">うぐいす</span><span class="nw">色の</span><span class="nw">扉が</span><span class="nw">お店の</span><span class="nw">入口です。</span></p>
 
         <p class="hero-price"><span class="nw">ランチプレート</span> <b><span class="nw">1,500円</span></b><span class="nw">（税込・</span><span class="nw">お飲み</span><span class="nw">物付き）</span><span class="sep">／</span><br class="br-sp"><span class="nw">ご予約は</span><span class="nw">前日までに</span></p>
 
@@ -800,9 +793,48 @@
         <span class="section-kicker reveal">OUR PLATE</span>
         <h2 class="section-title reveal"><span class="nw">からだにやさしい</span><span class="nw">ものを、</span><span class="nw">月替わりで</span></h2>
 
+        <figure class="plate reveal">
+            <svg class="plate-ring" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50.00" cy="3.00" r="1.6" fill="var(--accent)"/>
+            <circle cx="59.77" cy="4.03" r="1.6" fill="var(--accent-2)"/>
+            <circle cx="69.12" cy="7.06" r="1.15" fill="var(--dim)"/>
+            <circle cx="77.63" cy="11.98" r="1.15" fill="var(--accent-deep)"/>
+            <circle cx="84.93" cy="18.55" r="1.6" fill="var(--accent)"/>
+            <circle cx="90.70" cy="26.50" r="1.6" fill="var(--accent-2)"/>
+            <circle cx="94.70" cy="35.48" r="1.15" fill="var(--dim)"/>
+            <circle cx="96.74" cy="45.09" r="1.15" fill="var(--accent-deep)"/>
+            <circle cx="96.74" cy="54.91" r="1.6" fill="var(--accent)"/>
+            <circle cx="94.70" cy="64.52" r="1.6" fill="var(--accent-2)"/>
+            <circle cx="90.70" cy="73.50" r="1.15" fill="var(--dim)"/>
+            <circle cx="84.93" cy="81.45" r="1.15" fill="var(--accent-deep)"/>
+            <circle cx="77.63" cy="88.02" r="1.6" fill="var(--accent)"/>
+            <circle cx="69.12" cy="92.94" r="1.6" fill="var(--accent-2)"/>
+            <circle cx="59.77" cy="95.97" r="1.15" fill="var(--dim)"/>
+            <circle cx="50.00" cy="97.00" r="1.15" fill="var(--accent-deep)"/>
+            <circle cx="40.23" cy="95.97" r="1.6" fill="var(--accent)"/>
+            <circle cx="30.88" cy="92.94" r="1.6" fill="var(--accent-2)"/>
+            <circle cx="22.37" cy="88.02" r="1.15" fill="var(--dim)"/>
+            <circle cx="15.07" cy="81.45" r="1.15" fill="var(--accent-deep)"/>
+            <circle cx="9.30" cy="73.50" r="1.6" fill="var(--accent)"/>
+            <circle cx="5.30" cy="64.52" r="1.6" fill="var(--accent-2)"/>
+            <circle cx="3.26" cy="54.91" r="1.15" fill="var(--dim)"/>
+            <circle cx="3.26" cy="45.09" r="1.15" fill="var(--accent-deep)"/>
+            <circle cx="5.30" cy="35.48" r="1.6" fill="var(--accent)"/>
+            <circle cx="9.30" cy="26.50" r="1.6" fill="var(--accent-2)"/>
+            <circle cx="15.07" cy="18.55" r="1.15" fill="var(--dim)"/>
+            <circle cx="22.37" cy="11.98" r="1.15" fill="var(--accent-deep)"/>
+            <circle cx="30.88" cy="7.06" r="1.6" fill="var(--accent)"/>
+            <circle cx="40.23" cy="4.03" r="1.6" fill="var(--accent-2)"/>
+            </svg>
+            <div class="plate-photo">
+                <img src="plate-hero.jpg" alt="一枚の丸皿に、パンと小さなお料理を九品ほど盛り合わせたランチプレート" width="1080" height="1440" fetchpriority="high">
+            </div>
+        </figure>
+        <p class="plate-cap reveal"><span class="nw">ある</span><span class="nw">日の</span><span class="nw">ランチプレートです。</span><span class="nw">多い</span><span class="nw">日は、</span><span class="nw">ひと</span><span class="nw">皿に</span><span class="nw">三十種ほどの</span><span class="nw">食材が</span><span class="nw">入ります。</span></p>
+
         <div class="about-grid">
             <div class="about-body reveal">
-                <p><span class="nw">自宅の</span><span class="nw">リビングを</span><span class="nw">改装してはじめた、</span><span class="nw">小さな</span><span class="nw">カフェです。</span><span class="nw">お出しするのは</span><span class="nw">月替わりの</span><span class="nw">ランチプレート。</span>
+                <p><span class="nw">自宅の</span><span class="nw">リビングを</span><span class="nw">改装してはじめた</span><span class="nw">カフェです。</span><span class="nw">お出しするのは</span><span class="nw">月替わりの</span><span class="nw">ランチプレート。</span>
                     <span class="nw">国産の</span><span class="nw">食材だけを</span><span class="nw">使い、</span><span class="nw">旬の</span><span class="nw">お野菜を</span><span class="nw">中心に、</span><span class="nw">ひと</span><span class="nw">皿にできるだけ</span><span class="nw">多くの</span><span class="nw">種類を</span><span class="nw">盛り</span><span class="nw">込んで</span><span class="nw">おります。</span></p>
                 <p><span class="nw">お米は、</span><span class="nw">契約農家さんの</span><span class="nw">減農薬の</span><span class="nw">お米を</span><span class="nw">酵素玄米に</span><span class="nw">炊いて</span><span class="nw">おります。</span><span class="nw">白い</span><span class="nw">ご飯も</span><span class="nw">ご用意して</span><span class="nw">おります</span><span class="nw">ので、</span>
                     <span class="nw">ご予約の</span><span class="nw">ときに</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span><span class="nw">ビーツなど</span><span class="nw">一部の</span><span class="nw">お野菜は、</span><span class="nw">無農薬の</span><span class="nw">ものを</span><span class="nw">お取り</span><span class="nw">寄せして</span><span class="nw">おります。</span></p>
@@ -1019,10 +1051,10 @@
 
         <div class="duo">
             <figure class="reveal">
-                <img src="window.jpg" alt="窓の外の庭。トレリスに這うつる草と、白いあじさいや赤い花が咲いている" width="1400" height="875" loading="lazy" style="height:auto">
+                <img src="room-table.jpg" alt="一枚板のテーブルと白い椅子。右手の窓にレースのカーテンが掛かっている" width="1400" height="875" loading="lazy" style="height:auto">
             </figure>
             <figure class="reveal reveal-delay-1">
-                <img src="garden-front.jpg" alt="お店の前の庭。れんがの門柱にKARINの表札、オリーブといちじくの木の奥に、うぐいす色の扉がある" width="1400" height="875" loading="lazy" style="height:auto">
+                <img src="window.jpg" alt="窓の外の庭。トレリスに這うつる草と、白いあじさいや赤い花が咲いている" width="1400" height="875" loading="lazy" style="height:auto">
             </figure>
         </div>
     </div>

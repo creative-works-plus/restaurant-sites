@@ -577,13 +577,17 @@
     .hoka-grid img { width: 100%; height: 100%; object-fit: cover; }
     .hoka-grid figcaption { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--dim); text-align: center; }
 
-    /* 屋号の帯（全幅）。原寸 1920×864 なので、画面幅いっぱいでも引き伸ばさない。
-       高さは画面の高さで決めない（縦長の端末で帯だけが伸びる）。 */
-    .kanban-band { width: 100%; overflow: hidden; }
-    .kanban-band img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
-                       object-position: center 30%; }   /* 看板を帯の中央に置く */
-    @media (min-width: 600px) { .kanban-band img { aspect-ratio: 20 / 9; } }
-    @media (min-width: 900px) { .kanban-band img { aspect-ratio: 32 / 9; } }
+    /* 屋号の帯。原寸 2560×1152（20:9）。
+       ★2026-09-07 改訂：全幅＋32/9 にしていたため、20:9 の原寸を縦に大きく切って
+         「拡大表示」になっていた（看板だけが画面いっぱいに膨らんで見える）。
+         本文と同じ幅に収め、切り取りを 24/9 までに留めて拡大をやめる。 */
+    .kanban-band { width: min(100% - 2 * var(--pad-inner), 960px);
+                   margin-inline: auto; margin-block: var(--blk-y); }
+    .kanban-band .photo-frame { aspect-ratio: 16 / 9; }
+    @media (min-width: 600px) { .kanban-band .photo-frame { aspect-ratio: 20 / 9; } }
+    @media (min-width: 900px) { .kanban-band .photo-frame { aspect-ratio: 28 / 9; } }
+    .kanban-band img { width: 100%; height: 100%; object-fit: cover;
+                       object-position: center 34%; }   /* 三枚看板を帯の中に収め、暗い玄関を落とす */
 
     /* 鮨のこと：上にぎりの1枚（章の主役） */
     .sushi-lead { max-width: 800px; margin: 0 auto var(--sp-5); }
@@ -783,8 +787,10 @@
        屋号がそのまま写っている。文字は載せない（看板が屋号を言っている）。
      ══════════════════════════════════════════════════════════════════════ -->
 <div class="kanban-band reveal">
-    <img src="img/kanban-band.jpg" alt="切妻の破風に「二」「葉」「鮨」と一文字ずつ書かれた三枚の看板が掛かっている店の正面"
-         width="2560" height="1152" loading="lazy" decoding="async">
+    <div class="photo-frame">
+        <img src="img/kanban-band.jpg" alt="切妻の破風に「二」「葉」「鮨」と一文字ずつ書かれた三枚の看板が掛かっている店の正面"
+             width="2560" height="1152" loading="lazy" decoding="async">
+    </div>
 </div>
 
 
