@@ -75,6 +75,20 @@
         content: "✉"; margin-left: 7px; font-size: 0.78rem; color: #8f7a4e;
     }
 
+    /* ★お店から「勝手に作られて困る」とお申し出があって公開を止めた店（2026-09-09 ステーキハウス千里）。
+       <li> は残す（制作の実績としては数えるので check_index_counts.py の軒数を動かさない）が、
+       サイトへのリンクと電話ボタンは外す。中身は <a> ではなく <div class="row"> なので、
+       add_tel_buttons.py の正規表現に当たらず、電話ボタンが再び足されることもない。 */
+    li.off .row {
+        display: flex; align-items: baseline; gap: 10px;
+        background: #121214; border: 1px dashed #4a3535; border-radius: 8px;
+        padding: 14px 16px; font-size: 0.98rem; color: #6f6d69;
+    }
+    li.off .stop {
+        font-size: 0.68rem; letter-spacing: 0.06em; flex: none;
+        padding: 3px 8px; border-radius: 4px; border: 1px solid #b06a6a; color: #b06a6a;
+    }
+
     /* 店名の行の右端に置く電話ボタン。★楽天リンクで発信するために、
        素の <a href="tel:…"> で置いている。JSで発信させたり <button> にすると、
        iPhone の長押しメニューに「Link」が出なくなる（楽天モバイルの案内に
@@ -315,7 +329,7 @@
         <li class="done envelope"><a href="rikuzen-koga/"><span class="nm">りくぜん 古河店</span><span class="area">東3</span><span class="who ma">営業マンD</span></a><a class="tel" href="tel:0280-33-0125" aria-label="りくぜん 古河店 に電話（0280-33-0125）" title="0280-33-0125"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a></li>
         <li class="done envelope"><a href="ocha-nova/"><span class="nm">Cafe 5438 Ocha-Nova</span><span class="area">本町4</span><span class="who ma">営業マンD</span></a><a class="tel" href="tel:0280-32-5577" aria-label="Cafe 5438 Ocha-Nova に電話（0280-32-5577）" title="0280-32-5577"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a></li>
         <li class="done envelope"><a href="asunaro/"><span class="nm">あすなろ（三和本店・古河店）</span><span class="area">仁連</span><span class="who ma">営業マンD</span></a><a class="tel" href="tel:0280-76-8735" aria-label="あすなろ（三和本店・古河店） に電話（0280-76-8735）" title="0280-76-8735"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a></li>
-        <li class="done envelope"><a href="senri/"><span class="nm">ステーキハウス千里</span><span class="area">横山町</span><span class="who ma">営業マンD</span></a><a class="tel" href="tel:0280-22-7790" aria-label="ステーキハウス千里 に電話（0280-22-7790）" title="0280-22-7790"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a></li>
+        <li class="done envelope off"><div class="row"><span class="nm">ステーキハウス千里</span><span class="area">横山町</span><span class="who ma">営業マンD</span><span class="stop">公開停止</span></div></li>
         <li class="done envelope"><a href="ryubitei/"><span class="nm">串焼き居酒屋 竜美亭</span><span class="area">本町1</span><span class="who ma">営業マンD</span></a><a class="tel" href="tel:0280-33-7013" aria-label="串焼き居酒屋 竜美亭 に電話（0280-33-7013）" title="0280-33-7013"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a></li>
         <li class="done envelope"><a href="ramen-ichiban/"><span class="nm">ラーメン一番</span><span class="area">上辺見2310</span><span class="who ma">営業マンD</span></a><a class="tel" href="tel:0280-32-3865" aria-label="ラーメン一番 に電話（0280-32-3865）" title="0280-32-3865"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a></li>
         <li class="done envelope"><a href="daruma/"><span class="nm">焼肉だるま</span><span class="area">小堤</span><span class="who ma">営業マンD</span></a><a class="tel" href="tel:0280-98-5507" aria-label="焼肉だるま に電話（0280-98-5507）" title="0280-98-5507"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a></li>
