@@ -94,6 +94,43 @@ html:not(.notes) .hint{display:none!important}
 /* 改行保護のspanは、必ずインラインのまま。span指定のCSSに巻き込ませない */
 .nw{display:inline!important}
 
+/* ─────────── 3案のちがい（制作メモ層。お客様の画面には出ない） ─────────── */
+.cmp{background:#0A2A33;color:#fff;border-top:1px solid rgba(255,255,255,.10)}
+html:not(.notes) .cmp{display:none!important}
+.cmp__in{padding:13px 0 17px}
+.cmp__lb{display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#F3C978;margin-bottom:9px}
+.cmp .scroll{overflow-x:auto}
+.cmp table{width:100%;min-width:520px;border-collapse:collapse;font-size:12.5px;line-height:1.6}
+.cmp th,.cmp td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.09);text-align:left;vertical-align:top}
+.cmp thead th{color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.06em;font-weight:700;white-space:nowrap}
+.cmp thead th + th{text-align:center}
+.cmp tbody th{font-weight:500;color:rgba(255,255,255,.86);white-space:nowrap}
+.cmp td{text-align:center;width:9.5em;white-space:nowrap;color:rgba(255,255,255,.52)}
+.cmp td.on{color:#F3C978;font-weight:700}
+.cmp .cur{background:rgba(243,201,120,.13)}
+.cmp thead th.cur{color:#F3C978}
+
+/* ─────────── 「この案だけ」「この案には無い」（制作メモ層） ─────────── */
+.mark__t{
+  display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.03em;
+  color:#231602;background:var(--amber);border-radius:99px;padding:3px 12px;margin-bottom:11px;
+  /* flex・grid の子になっても伸びない。カードの中で全幅の帯にならないようにする */
+  align-self:flex-start;justify-self:start;width:fit-content;max-width:100%;
+}
+html:not(.notes) .mark__t{display:none!important}
+.ghost{
+  border:1px dashed #C6D1D6;border-radius:var(--r);background:#F5F8F9;
+  padding:15px 18px;margin:20px 0;max-width:52em;
+}
+html:not(.notes) .ghost{display:none!important}
+.ghost__t{
+  display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;
+  color:#4E6069;background:#E3EAEE;border-radius:99px;padding:3px 12px;margin-bottom:9px;
+}
+.ghost .gt{font-size:15.5px;font-weight:700;color:#31434B;margin:0 0 5px}
+.ghost .d{font-size:13.4px;line-height:1.9;color:#63757D;margin:0}
+.ghost .dd{margin-top:7px;color:#8B9BA2}
+
 /* ─────────── ヘッダー ─────────── */
 .hd{
   position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);
@@ -598,6 +635,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
     <span class="now">C案 工事別ページつき</span>
   </div>
 </div>
+
 <!-- ══════════ ヘッダー ══════════ -->
 <header class="hd">
   <div class="wrap hd__in">

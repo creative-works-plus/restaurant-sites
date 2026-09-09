@@ -94,6 +94,43 @@ html:not(.notes) .hint{display:none!important}
 /* 改行保護のspanは、必ずインラインのまま。span指定のCSSに巻き込ませない */
 .nw{display:inline!important}
 
+/* ─────────── 3案のちがい（制作メモ層。お客様の画面には出ない） ─────────── */
+.cmp{background:#0A2A33;color:#fff;border-top:1px solid rgba(255,255,255,.10)}
+html:not(.notes) .cmp{display:none!important}
+.cmp__in{padding:13px 0 17px}
+.cmp__lb{display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#F3C978;margin-bottom:9px}
+.cmp .scroll{overflow-x:auto}
+.cmp table{width:100%;min-width:520px;border-collapse:collapse;font-size:12.5px;line-height:1.6}
+.cmp th,.cmp td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.09);text-align:left;vertical-align:top}
+.cmp thead th{color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.06em;font-weight:700;white-space:nowrap}
+.cmp thead th + th{text-align:center}
+.cmp tbody th{font-weight:500;color:rgba(255,255,255,.86);white-space:nowrap}
+.cmp td{text-align:center;width:9.5em;white-space:nowrap;color:rgba(255,255,255,.52)}
+.cmp td.on{color:#F3C978;font-weight:700}
+.cmp .cur{background:rgba(243,201,120,.13)}
+.cmp thead th.cur{color:#F3C978}
+
+/* ─────────── 「この案だけ」「この案には無い」（制作メモ層） ─────────── */
+.mark__t{
+  display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.03em;
+  color:#231602;background:var(--amber);border-radius:99px;padding:3px 12px;margin-bottom:11px;
+  /* flex・grid の子になっても伸びない。カードの中で全幅の帯にならないようにする */
+  align-self:flex-start;justify-self:start;width:fit-content;max-width:100%;
+}
+html:not(.notes) .mark__t{display:none!important}
+.ghost{
+  border:1px dashed #C6D1D6;border-radius:var(--r);background:#F5F8F9;
+  padding:15px 18px;margin:20px 0;max-width:52em;
+}
+html:not(.notes) .ghost{display:none!important}
+.ghost__t{
+  display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;
+  color:#4E6069;background:#E3EAEE;border-radius:99px;padding:3px 12px;margin-bottom:9px;
+}
+.ghost .gt{font-size:15.5px;font-weight:700;color:#31434B;margin:0 0 5px}
+.ghost .d{font-size:13.4px;line-height:1.9;color:#63757D;margin:0}
+.ghost .dd{margin-top:7px;color:#8B9BA2}
+
 /* ─────────── ヘッダー ─────────── */
 .hd{
   position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);
@@ -599,6 +636,15 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
     <span class="now">C案 工事別ページつき</span>
   </div>
 </div>
+<div class="cmp">
+  <div class="wrap cmp__in">
+    <span class="cmp__lb">3案のちがい ／ いまご覧になっているのは C案です。ページの中の<b>黄色い印</b>が、その案だけの場所です</span>
+    <div class="scroll"><table>
+      <thead><tr><th scope="col"><span class="nw">できる</span><span class="nw">こと</span></th><th scope="col"><span class="nw">A案</span></th><th scope="col"><span class="nw">B案</span></th><th scope="col" class="cur"><span class="nw">C案</span></th></tr></thead>
+      <tbody><tr><th scope="row"><span class="nw">施工事例</span><span class="nw">（1件＝1ページ）</span></th><td class="on"><span class="nw">10件</span></td><td class="on"><span class="nw">20件</span></td><td class="on cur"><span class="nw">25件</span></td></tr><tr><th scope="row"><span class="nw">種類での</span><span class="nw">絞り</span><span class="nw">込み</span></th><td>—</td><td class="on">○</td><td class="on cur">○</td></tr><tr><th scope="row"><span class="nw">工事ごとの</span><span class="nw">費用の</span><span class="nw">目安</span></th><td class="on">○</td><td class="on">○</td><td class="on cur">○</td></tr><tr><th scope="row"><span class="nw">工程ごとの</span><span class="nw">単価の</span>表</th><td>—</td><td class="on">○</td><td class="on cur">○</td></tr><tr><th scope="row"><span class="nw">その</span><span class="nw">場でおおよその</span><span class="nw">金額を</span><span class="nw">出す</span></th><td>—</td><td>—</td><td class="on cur">○</td></tr><tr><th scope="row"><span class="nw">工事別のくわしい</span><span class="nw">ページ</span></th><td>—</td><td>—</td><td class="on cur"><span class="nw">3本</span></td></tr><tr><th scope="row"><span class="nw">お客様の</span><span class="nw">お声</span></th><td class="on"><span class="nw">2件</span></td><td class="on"><span class="nw">3件</span></td><td class="on cur"><span class="nw">5件</span></td></tr><tr><th scope="row"><span class="nw">職人の</span><span class="nw">皆さんの</span><span class="nw">お写真</span></th><td>—</td><td class="on">○</td><td class="on cur">○</td></tr><tr><th scope="row"><span class="nw">求人</span></th><td>—</td><td class="on"><span class="nw">節のみ</span></td><td class="on cur"><span class="nw">専用ページ</span></td></tr><tr><th scope="row"><span class="nw">写真の</span><span class="nw">集め</span>方</th><td class="on"><span class="nw">お預かり</span></td><td class="on"><span class="nw">お伺いして</span><span class="nw">撮影</span></td><td class="on cur"><span class="nw">お伺いして</span><span class="nw">撮影</span></td></tr></tbody>
+    </table></div>
+  </div>
+</div>
 <!-- ══════════ ヘッダー ══════════ -->
 <header class="hd">
   <div class="wrap hd__in">
@@ -768,7 +814,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
           </div>
           <p><span class="nw">高圧洗浄で</span><span class="nw">汚れと</span><span class="nw">コケを</span><span class="nw">落とし、</span><span class="nw">ひび</span><span class="nw">割れを</span><span class="nw">埋めてから、</span><span class="nw">下塗り・</span><span class="nw">中塗り・</span><span class="nw">上塗りの</span><span class="nw">三度塗りで</span><span class="nw">仕上げます。</span><span class="nw">塗料は</span><span class="nw">建物の</span><span class="nw">傷み</span><span class="nw">方と</span><span class="nw">ご予算に</span><span class="nw">合わせて</span><span class="nw">お選び</span><span class="nw">いただけるよう、</span><span class="nw">複数</span><span class="nw">ご提案いたします。</span></p>
           <ul class="work__tags"><li><span class="nw">足場の</span><span class="nw">設置</span></li><li><span class="nw">高圧洗浄</span></li><li><span class="nw">下地の</span><span class="nw">補修</span></li><li><span class="nw">三度塗り</span></li><li><span class="nw">雨樋・</span><span class="nw">戸袋も</span><span class="nw">一緒に</span></li></ul>
-          <p class="case__go" style="margin-top:14px"><a href="service/gaiheki.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px"><span class="nwb"><span class="nw">外壁塗装の</span><span class="nw">ページを</span><span class="nw">見る</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></p>
+          <span class="mark__t">C案だけ</span><p class="case__go" style="margin-top:14px"><a href="service/gaiheki.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px"><span class="nwb"><span class="nw">外壁塗装の</span><span class="nw">ページを</span><span class="nw">見る</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></p>
         </div>
       </article>
 
@@ -785,7 +831,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
           </div>
           <p><span class="nw">屋根は</span><span class="nw">ご自身では</span><span class="nw">見えない</span><span class="nw">場所です。</span><span class="nw">傷みは</span><span class="nw">外壁より</span><span class="nw">早く</span><span class="nw">進みます</span><span class="nw">ので、</span><span class="nw">外壁の</span><span class="nw">塗り</span><span class="nw">替えと</span><span class="nw">同時に</span><span class="nw">行う</span><span class="nw">ことをおすすめして</span><span class="nw">おります。</span><span class="nw">足場代が</span><span class="nw">一度で</span><span class="nw">済み、</span><span class="nw">そのぶん</span><span class="nw">総額を</span><span class="nw">抑えられます。</span></p>
           <ul class="work__tags"><li><span class="nw">スレート</span><span class="nw">屋根</span></li><li><span class="nw">金属屋根</span></li><li><span class="nw">屋根てっぺんの</span><span class="nw">板金</span></li><li><span class="nw">縁切り</span><span class="nw">（水の</span><span class="nw">逃げ</span><span class="nw">道）</span></li></ul>
-          <p class="case__go" style="margin-top:14px"><a href="service/yane.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px"><span class="nwb"><span class="nw">屋根の</span><span class="nw">塗装・</span><span class="nw">補修の</span><span class="nw">ページを</span><span class="nw">見る</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></p>
+          <span class="mark__t">C案だけ</span><p class="case__go" style="margin-top:14px"><a href="service/yane.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px"><span class="nwb"><span class="nw">屋根の</span><span class="nw">塗装・</span><span class="nw">補修の</span><span class="nw">ページを</span><span class="nw">見る</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></p>
         </div>
       </article>
 
@@ -802,7 +848,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
           </div>
           <p><span class="nw">ベランダ・</span><span class="nw">バルコニー、</span><span class="nw">陸屋根</span><span class="nw">（りくやね＝平らな</span><span class="nw">屋根）、</span><span class="nw">階段や</span><span class="nw">廊下の</span><span class="nw">防水を</span><span class="nw">承ります。</span><span class="nw">下地の</span><span class="nw">状態を</span><span class="nw">見て、</span><span class="nw">適した</span><span class="nw">工法を</span><span class="nw">ご提案いたします。</span></p>
           <ul class="work__tags"><li><span class="nw">ベランダ</span></li><li><span class="nw">陸屋根</span><span class="nw">（平らな</span><span class="nw">屋根）</span></li><li><span class="nw">階段・</span><span class="nw">廊下</span></li><li><span class="nw">表面の</span><span class="nw">塗り</span><span class="nw">替え</span></li></ul>
-          <p class="case__go" style="margin-top:14px"><a href="service/bousui.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px"><span class="nwb"><span class="nw">防水工事の</span><span class="nw">ページを</span><span class="nw">見る</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></p>
+          <span class="mark__t">C案だけ</span><p class="case__go" style="margin-top:14px"><a href="service/bousui.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px"><span class="nwb"><span class="nw">防水工事の</span><span class="nw">ページを</span><span class="nw">見る</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></p>
         </div>
       </article>
 
@@ -822,6 +868,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
         </div>
       </article>
     </div>
+
 
     <p class="hint">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
@@ -858,7 +905,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
     </div>
 
 
-
+<span class="mark__t">B案・C案だけ</span>
     <h3 class="sub2 rv"><span class="nw">工程ごとの</span><span class="nw">単価</span><span class="prov">仮</span></h3>
     <p class="provnote rv"><span class="nw">お見積書を</span><span class="nw">「外壁塗装工事</span> <span class="nw">一式」で</span><span class="nw">受け</span><span class="nw">取ると、</span><span class="nw">お客様は</span><span class="nw">高いのか</span><span class="nw">安いのかを</span><span class="nw">判断できません。</span><b><span class="nw">工程ごとに</span><span class="nw">単価を</span><span class="nw">出しておくと、</span><span class="nw">他社様の</span><span class="nw">お見積りと</span><span class="nw">一行ずつ</span><span class="nw">見比べて</span><span class="nw">いただけます。</span></b><span class="nw">この</span><span class="nw">表は、</span><span class="nw">お伺いした</span><span class="nw">日に</span><span class="nw">御社から</span><span class="nw">伺って</span><span class="nw">埋める</span><span class="nw">ところです。</span></p>
     <div class="scroll rv">
@@ -881,7 +928,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
       </table>
     </div>
 
-
+<span class="mark__t">C案だけ</span>
     <h3 class="sub2 rv"><span class="nw">その</span><span class="nw">場で、</span><span class="nw">おおよその</span><span class="nw">金額を</span><span class="nw">出す</span><span class="prov">仮</span></h3>
     <p class="provnote rv"><span class="nw">下の</span><span class="nw">計算は、</span><span class="nw">上の</span><span class="nw">「一般的な</span><span class="nw">相場」で</span><span class="nw">動かしています。</span><b><span class="nw">ご契約後に</span><span class="nw">御社の</span><span class="nw">単価へ</span><span class="nw">入れ</span><span class="nw">替えると、</span><span class="nw">この</span><span class="nw">場で</span><span class="nw">御社の</span><span class="nw">金額が</span><span class="nw">出ます。</span></b><span class="nw">お客様は</span><span class="nw">金額を</span><span class="nw">ご自分で</span><span class="nw">確かめてから</span><span class="nw">お電話を</span><span class="nw">くださる</span><span class="nw">ので、</span><span class="nw">話が</span><span class="nw">早く</span><span class="nw">進みます。</span></p>
     <div class="sim rv">
@@ -1004,6 +1051,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
       <p class="provnote"><b><span class="nw">ここに</span><span class="nw">並んでいる</span><span class="nw">25件は、</span><span class="nw">形を</span><span class="nw">お見せする</span><span class="nw">ための</span><span class="nw">仮の</span><span class="nw">枠です。</span></b><span class="nw">工事の</span><span class="nw">種類だけこちらで</span><span class="nw">置いてあり、</span><span class="nw">写真・</span><span class="nw">費用・</span><span class="nw">工期・</span><span class="nw">施工年月は</span><span class="nw">空欄です。</span><span class="nw">実際に</span><span class="nw">お手伝いされた</span><span class="nw">工事に、</span><span class="nw">一件ずつ</span><span class="nw">入れ</span><span class="nw">替えます。</span></p>
     </div>
 
+<span class="mark__t">B案・C案だけ</span>
     <div class="filter rv" id="caseFilter">
       <span class="filter__lb">絞り込む</span>
       <button type="button" data-cat="" aria-pressed="true">すべて</button>
@@ -1442,7 +1490,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
               <tr><th scope="row"><span class="nw">加入している</span><span class="nw">保険</span></th><td><span class="blank">〔　　　　　　　〕</span></td></tr>
             </tbody>
           </table>
-
+<span class="mark__t">B案・C案だけ</span>
           <div class="slot" style="aspect-ratio:16/10;margin-top:4px">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
             <span class="slot__t">ここに<b>職人の皆さんのお写真</b>が入ります</span>
@@ -1591,7 +1639,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
 </section>
 
 <!-- ══════════ 採用 ══════════ -->
-
+<div class="wrap" style="padding-top:26px"><span class="mark__t">B案・C案だけ</span></div>
 <section class="sec sec--band" id="recruit">
   <div class="wrap">
     <div class="sec__hd rv">
@@ -1616,7 +1664,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
     </div>
     <p class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
       <span><b><span class="nw">条件をあえて</span><span class="nw">細かく</span><span class="nw">書いておりません。</span></b><span class="nw">時給や</span><span class="nw">休日を</span><span class="nw">書くと、</span><span class="nw">その</span><span class="nw">数字だけで</span><span class="nw">比べられて</span><span class="nw">電話が</span><span class="nw">来なくなります。</span><b><span class="nw">まず</span><span class="nw">声を</span><span class="nw">聞いて</span><span class="nw">いただく</span><span class="nw">入口として</span><span class="nw">置いています。</span></b><span class="nw">求人サイトからの</span><span class="nw">応募者は、</span><span class="nw">必ず</span><span class="nw">会社の</span><span class="nw">ホームページを</span><span class="nw">見てから</span><span class="nw">決めます。</span><span class="nw">この</span><span class="nw">節が</span><span class="nw">無いと、</span><span class="nw">そこで</span><span class="nw">落ちます。</span></span></p>
-
+<span class="mark__t">C案だけ</span>
     <p class="access__btns rv" style="margin-top:22px"><a class="btn btn--solid" href="recruit.html"><span class="nwb"><span class="nw">募集要項をくわしく</span><span class="nw">見る</span></span></a></p>
 
   </div>
