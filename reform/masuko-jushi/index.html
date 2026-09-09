@@ -77,6 +77,23 @@ ul,ol{margin:0;padding:0;list-style:none}
 .layers rect:nth-child(2){fill:var(--deep-3)}
 .layers rect:nth-child(3){fill:var(--amber)}
 
+/* ─────────── 叩き台バー（制作メモの出し入れ） ─────────── */
+.draft{background:#08262F;color:rgba(255,255,255,.78);font-size:12.5px;line-height:1.6}
+.draft__in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:8px 0;min-height:38px}
+.draft p{margin:0;flex:1;min-width:200px}
+.draft b{color:#F3C978}
+.draft button{
+  font:inherit;font-weight:700;cursor:pointer;white-space:nowrap;
+  background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);
+  border-radius:99px;padding:4px 14px;transition:.18s;display:inline-flex;align-items:center;gap:7px;
+}
+.draft button:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.draft button svg{width:13px;height:13px}
+/* 既定では制作メモを隠す。お客様が見る画面と同じ状態で読めるようにするため */
+html:not(.notes) .hint{display:none!important}
+/* 改行保護のspanは、必ずインラインのまま。span指定のCSSに巻き込ませない */
+.nw{display:inline!important}
+
 /* ─────────── ヘッダー ─────────── */
 .hd{
   position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);
@@ -198,6 +215,55 @@ ul,ol{margin:0;padding:0;list-style:none}
 .promise h3{font-size:clamp(17px,3.2vw,20px);margin-bottom:11px;color:var(--deep)}
 .promise p{font-size:14.5px;line-height:2;color:var(--sub)}
 
+/* ─────────── 塗り替えの目安 ─────────── */
+.signs{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:760px){.signs{grid-template-columns:repeat(3,1fr)}}
+.signs>li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,3.6vw,30px);display:flex;flex-direction:column;gap:13px}
+.signs>li>svg{width:44px;height:44px;color:var(--deep-3);flex:none}
+.signs h3{font-size:clamp(16.5px,3vw,18.5px);color:var(--deep);line-height:1.6}
+.signs p{font-size:14.5px;line-height:2;color:var(--sub)}
+.calm{margin-top:24px;background:var(--deep);color:#fff;border-radius:var(--r);padding:clamp(24px,4vw,36px);display:flex;flex-direction:column;gap:15px}
+.calm h3{font-size:clamp(17px,3.2vw,21px);color:#F3C978;line-height:1.65}
+.calm p{font-size:15px;line-height:2.05;color:rgba(255,255,255,.88)}
+.calm b{color:#fff}
+.calm__cta{margin-top:6px}
+
+/* ─────────── 保証とお支払い ─────────── */
+.wp{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:840px){.wp{grid-template-columns:repeat(2,1fr)}}
+.wp__box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,3.6vw,30px)}
+.wp__box h3{display:flex;align-items:center;gap:10px;font-size:18px;color:var(--deep);margin-bottom:14px}
+.wp__box h3 svg{width:21px;height:21px;color:var(--amber-ink);flex:none}
+.wp__box .profile th{width:46%}
+.wp__note{margin-top:16px;font-size:13.2px;line-height:1.9;color:var(--muted);border-top:1px solid var(--line-soft);padding-top:14px}
+.wp__note b{color:var(--sub)}
+
+/* ─────────── 法人・管理会社の方へ ─────────── */
+.biz{display:grid;gap:1px;background:rgba(255,255,255,.2);grid-template-columns:1fr;border:1px solid rgba(255,255,255,.2);border-radius:var(--r);overflow:hidden}
+@media(min-width:780px){.biz{grid-template-columns:repeat(3,1fr)}}
+.biz>li{background:var(--deep);padding:clamp(22px,3.6vw,30px)}
+.biz h3{font-size:17.5px;color:#F3C978;margin-bottom:11px}
+.biz p{font-size:14.5px;line-height:2;color:rgba(255,255,255,.84)}
+
+/* ─────────── 採用 ─────────── */
+.rec{display:grid;gap:clamp(22px,4vw,38px);grid-template-columns:1fr;align-items:start}
+@media(min-width:840px){.rec{grid-template-columns:1fr 1fr}}
+.rec__cta{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,3.6vw,30px);display:flex;flex-direction:column;gap:15px;align-items:flex-start}
+.rec__cta>p{font-size:14.5px;line-height:2;color:var(--sub)}
+.rec__sub{font-size:13.2px;line-height:1.9;color:var(--muted);border-top:1px solid var(--line-soft);padding-top:14px;margin-top:2px}
+
+/* ─────────── ごあいさつ ─────────── */
+.greet{display:grid;gap:clamp(20px,3.5vw,32px);grid-template-columns:1fr;align-items:start;margin-bottom:clamp(30px,5vw,46px)}
+@media(min-width:820px){.greet{grid-template-columns:290px 1fr}}
+.greet__slot{aspect-ratio:16/10}
+@media(min-width:820px){.greet__slot{aspect-ratio:3/4}}
+.greet__body{display:flex;flex-direction:column;gap:16px}
+.greet__body h3{font-size:clamp(19px,3.6vw,24px);color:var(--deep);line-height:1.6}
+.greet__lead{font-size:14.8px;line-height:2.05;color:#4A6068;background:repeating-linear-gradient(135deg,rgba(13,58,71,.05) 0 1px,transparent 1px 9px);border:1.5px dashed #A9BCC2;border-radius:var(--r);padding:18px}
+.greet__sign{font-family:var(--fd);font-weight:700;font-size:16px;color:var(--deep)}
+.greet__sign .role{display:block;font-size:12.5px;color:var(--muted);font-weight:500;letter-spacing:.06em;margin-bottom:3px}
+.sub2{font-family:var(--fd);font-weight:700;font-size:clamp(18px,3.4vw,22px);color:var(--deep);margin:clamp(34px,5vw,48px) 0 16px;padding-left:13px;border-left:4px solid var(--amber)}
+
 /* ─────────── 施工メニュー ─────────── */
 .works{display:grid;gap:20px;grid-template-columns:1fr}
 @media(min-width:700px){.works{grid-template-columns:repeat(2,1fr)}}
@@ -316,6 +382,29 @@ ul,ol{margin:0;padding:0;list-style:none}
 }
 .licence p{font-size:13.5px;line-height:1.95;color:rgba(255,255,255,.8)}
 
+/* ─────────── アクセス ─────────── */
+.access{display:grid;gap:clamp(22px,4vw,38px);grid-template-columns:1fr;align-items:start}
+@media(min-width:920px){.access{grid-template-columns:.82fr 1.18fr}}
+.access__map{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.access__bar{
+  display:flex;align-items:center;gap:9px;padding:11px 15px;border-bottom:1px solid var(--line);
+  font-size:13px;color:var(--sub);font-weight:500;letter-spacing:.02em;
+}
+.access__bar svg{width:15px;height:15px;color:var(--amber-ink);flex:none}
+.access__bar b{color:var(--deep);font-family:var(--fd)}
+.access__frame{position:relative;aspect-ratio:4/3;background:#E4E9EA}
+@media(min-width:920px){.access__frame{aspect-ratio:16/11}}
+.access__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.access__info{display:flex;flex-direction:column;gap:22px}
+.access__addr{font-family:var(--fd);font-weight:700;font-size:clamp(17px,3.2vw,20px);line-height:1.75;color:var(--deep)}
+.access__addr .lbl{display:block;font-family:var(--fn);font-weight:600;font-size:13px;letter-spacing:.1em;color:var(--muted);margin-bottom:5px}
+.access__rows{display:grid;gap:0}
+.access__rows>div{display:grid;grid-template-columns:5.5em 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft);font-size:14.5px;line-height:1.9}
+.access__rows dt{font-family:var(--fd);font-weight:700;color:var(--deep)}
+.access__rows dd{margin:0;color:var(--sub)}
+.access__btns{display:flex;flex-wrap:wrap;gap:10px}
+.access__btns .btn{padding:13px 20px;font-size:14.5px}
+
 /* ─────────── エリア ─────────── */
 .area{display:flex;flex-wrap:wrap;gap:9px}
 .area li{
@@ -413,6 +502,17 @@ ul,ol{margin:0;padding:0;list-style:none}
 </head>
 <body>
 
+<!-- ══════════ 叩き台バー ══════════ -->
+<div class="draft">
+  <div class="wrap draft__in">
+    <p><span class="nw">これは、</span><span class="nw">ご依頼を</span><span class="nw">いただく</span><span class="nw">前に</span><span class="nw">お作りした</span><b><span class="nw">叩き</span>台</b><span class="nw">です。</span><span class="nw">写真と、</span><span class="nw">空欄の</span><span class="nw">数字はこれから</span><span class="nw">入ります。</span></p>
+    <button type="button" id="notesBtn" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <span id="notesLbl">制作メモを表示</span>
+    </button>
+  </div>
+</div>
+
 <!-- ══════════ ヘッダー ══════════ -->
 <header class="hd">
   <div class="wrap hd__in">
@@ -424,11 +524,12 @@ ul,ol{margin:0;padding:0;list-style:none}
       </span>
     </a>
     <nav class="hd__nav" aria-label="サイト内">
-      <a href="#works">工事の内容</a>
-      <a href="#price">費用の目安</a>
+      <a href="#timing">塗り替えの目安</a>
+      <a href="#price">費用</a>
+      <a href="#warranty">保証</a>
       <a href="#cases">施工事例</a>
-      <a href="#flow">工事の流れ</a>
       <a href="#about">会社概要</a>
+      <a href="#access">アクセス</a>
       <a href="#contact">お問い合わせ</a>
     </nav>
     <a class="hd__tel" href="tel:0280482812">
@@ -480,7 +581,7 @@ ul,ol{margin:0;padding:0;list-style:none}
       <div><dt><span class="nw">創業</span></dt><dd>1992<small>年</small></dd></div>
       <div><dt><span class="nw">建設業許可</span></dt><dd><span class="nw">塗装</span><small>・</small><span class="nw">防水</span></dd></div>
       <div><dt><span class="nw">ご相談・</span><span class="nw">お見積り</span></dt><dd><span class="nw">無料</span></dd></div>
-      <div><dt><span class="nw">本社</span></dt><dd><span class="nw">古河市</span><small><span class="nw">中田</span></small></dd></div>
+      <div><dt><span class="nw">公共工事</span></dt><dd><span class="nw">入札参加</span><small><span class="nw">資格</span></small></dd></div>
     </dl>
   </div>
 </section>
@@ -497,12 +598,12 @@ ul,ol{margin:0;padding:0;list-style:none}
       <li>
         <span class="promise__n">01</span>
         <h3><span class="nwb"><span class="nw">建物を</span><span class="nw">見てから</span></span><br><span class="nwb"><span class="nw">お見積り</span><span class="nw">いたします</span></span></h3>
-        <p><span class="nw">お電話や</span><span class="nw">図面だけで</span><span class="nw">金額を</span><span class="nw">出す</span><span class="nw">ことはいたしません。</span><span class="nw">実際に</span><span class="nw">建物を</span><span class="nw">拝見し、</span><span class="nw">傷んでいる</span><span class="nw">場所と、</span><span class="nw">その</span><span class="nw">原因を</span><span class="nw">確かめたうえで</span><span class="nw">お出しします。</span><span class="nw">お見積りは</span><span class="nw">無料です。</span></p>
+        <p><span class="nw">一般の</span><span class="nw">お住まいは、</span><span class="nw">お電話だけで</span><span class="nw">金額を</span><span class="nw">出す</span><span class="nw">ことはいたしません。</span><span class="nw">実際に</span><span class="nw">建物を</span><span class="nw">拝見し、</span><span class="nw">傷んでいる</span><span class="nw">場所とその</span><span class="nw">原因を</span><span class="nw">確かめたうえで</span><span class="nw">お出しします。</span><b><span class="nw">目視による</span><span class="nw">お見積りは</span><span class="nw">無料です。</span></b><span class="nw">（法人・</span><span class="nw">管理会社様の、</span><span class="nw">図面からの</span><span class="nw">概算は</span><span class="nw">承って</span><span class="nw">おります）</span></p>
       </li>
       <li>
         <span class="promise__n">02</span>
         <h3><span class="nwb"><span class="nw">使う</span><span class="nw">材料と</span><span class="nw">工程を、</span></span><br><span class="nwb"><span class="nw">書面で</span><span class="nw">お出しします</span></span></h3>
-        <p><span class="nw">お見積書には、</span><span class="nw">どの</span><span class="nw">塗料をどの</span><span class="nw">面に、</span><span class="nw">何回塗るのかを</span><span class="nw">記載いたします。</span><span class="nw">下塗り・</span><span class="nw">中塗り・</span><span class="nw">上塗りの</span><span class="nw">三度塗りが</span><span class="nw">基本です。</span><span class="nw">工事の</span><span class="nw">途中でも、</span><span class="nw">写真で</span><span class="nw">ご報告いたします。</span></p>
+        <p><span class="nw">お見積書には、</span><span class="nw">どの</span><span class="nw">塗料をどの</span><span class="nw">面に、</span><span class="nw">何回塗るのかを</span><span class="nw">記載いたします。</span><b><span class="nw">他社様の</span><span class="nw">お見積りと</span><span class="nw">見比べて</span><span class="nw">いただいて</span><span class="nw">構いません。</span></b><span class="nw">下塗り・</span><span class="nw">中塗り・</span><span class="nw">上塗りの</span><span class="nw">三度塗りが</span><span class="nw">基本です。</span><span class="nw">工事の</span><span class="nw">途中の</span><span class="nw">写真も、</span><span class="nw">ご希望に</span><span class="nw">応じて</span><span class="nw">お出し</span><span class="nw">いたします。</span></p>
       </li>
       <li>
         <span class="promise__n">03</span>
@@ -517,8 +618,47 @@ ul,ol{margin:0;padding:0;list-style:none}
   </div>
 </section>
 
+<!-- ══════════ 塗り替えの目安 ══════════ -->
+<section class="sec sec--white" id="timing">
+  <div class="wrap">
+    <div class="sec__hd rv">
+      <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
+      <span class="sec__label">TIMING</span>
+      <h2><span class="nw">そろそろ</span><span class="nw">塗り</span><span class="nw">替えでしょうか</span></h2>
+      <p><span class="nw">ご自身で</span><span class="nw">確かめられる</span><span class="nw">目安を</span><span class="nw">三つ</span><span class="nw">挙げます。</span><span class="nw">当てはまる</span><span class="nw">ものがあれば、</span><span class="nw">一度拝見しに</span><span class="nw">お伺いします。</span></p>
+    </div>
+
+    <ul class="signs rv">
+      <li>
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 30V13l13-7 13 7v17"/><path d="M14 22h12"/><circle cx="29" cy="30" r="6" fill="none"/><path d="m33.5 34.5 3.5 3.5"/></svg>
+        <h3><span class="nw">手でこすると</span><br><span class="nwb"><span class="nw">白い</span><span class="nw">粉が</span><span class="nw">付く</span></span></h3>
+        <p><span class="nw">塗膜が</span><span class="nw">寿命を</span><span class="nw">迎えたしるしです。</span><span class="nw">壁を</span><span class="nw">守る</span><span class="nw">膜が</span><span class="nw">痩せて、</span><span class="nw">粉になって</span><span class="nw">落ちてきている</span><span class="nw">状態です。</span></p>
+      </li>
+      <li>
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v30"/><path d="M28 5v30"/><path d="M12 14c4 1 12 1 16 0"/><path d="M12 24c4-1 12-1 16 0"/><path d="M5 5h30v30H5z"/></svg>
+        <h3><span class="nwb"><span class="nw">外壁の</span><span class="nw">目地の</span><span class="nw">ゴムが</span></span><br><span class="nwb"><span class="nw">切れている・</span><span class="nw">痩せている</span></span></h3>
+        <p><span class="nw">板と</span><span class="nw">板のつなぎ</span><span class="nw">目に</span><span class="nw">入っている</span><span class="nw">ゴム</span><span class="nw">（シーリング）です。</span><span class="nw">ここが</span><span class="nw">切れると、</span><span class="nw">壁の</span><span class="nw">内側へ</span><span class="nw">水が</span><span class="nw">入ります。</span></p>
+      </li>
+      <li>
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 33h30"/><path d="M11 33V17l9-6 9 6v16"/><path d="M14 26c2.5-.5 5-.5 7 .5"/><path d="M22 21c2 .5 4 .5 5.5 0"/></svg>
+        <h3><span class="nwb"><span class="nw">北側の</span><span class="nw">壁や</span><span class="nw">屋根に</span></span><br><span class="nwb"><span class="nw">コケ・</span><span class="nw">黒ずみが</span><span class="nw">出ている</span></span></h3>
+        <p><span class="nw">水が</span><span class="nw">乾かずに</span><span class="nw">残っている</span><span class="nw">場所です。</span><span class="nw">放っておくと</span><span class="nw">下地が</span><span class="nw">傷み、</span><span class="nw">塗り</span><span class="nw">替えだけでは</span><span class="nw">済まなくなります。</span></p>
+      </li>
+    </ul>
+
+    <div class="calm rv">
+      <h3><span class="nwb"><span class="nw">「今すぐ</span><span class="nw">塗らないと</span><span class="nw">家が</span><span class="nw">傷みます」と</span><span class="nw">言われて、</span><span class="nw">不安になった</span><span class="nw">方へ</span></span></h3>
+      <p><span class="nw">外壁に</span><span class="nw">白い</span><span class="nw">粉が</span><span class="nw">付くのは、</span><span class="nw">すぐに</span><span class="nw">家が</span><span class="nw">壊れるという</span><span class="nw">意味ではありません。</span><span class="nw">一概には</span><span class="nw">申せませんが、</span><span class="nw">そこから</span><span class="nw">塗り</span><span class="nw">替えまでに</span><span class="nw">一年から</span><span class="nw">二年の</span><span class="nw">余裕がある</span><span class="nw">ことも</span><span class="nw">多く</span><span class="nw">ございます。</span><b><span class="nw">急ぐのかどうかだけを</span><span class="nw">知りたい、</span><span class="nw">という</span><span class="nw">方は</span><span class="nw">お電話ください。</span></b><span class="nw">お手元の</span><span class="nw">お写真を</span><span class="nw">お送り</span><span class="nw">いただくだけでも</span><span class="nw">お答えできます。</span><span class="nw">費用は</span><span class="nw">いただきません。</span></p>
+      <p class="calm__cta"><a class="btn btn--tel" href="tel:0280482812"><b>0280-48-2812</b><span><span class="nw">急ぐかどうかだけ、</span><span class="nw">確かめたい</span><span class="nw">方も</span></span></a></p>
+    </div>
+
+    <p class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <span><b><span class="nw">この</span><span class="nw">節の</span><span class="nw">言い</span><span class="nw">切りは、</span><span class="nw">御社の</span><span class="nw">お考えに</span><span class="nw">合わせて</span><span class="nw">直します。</span></b><span class="nw">「うちはもっと</span><span class="nw">早く</span><span class="nw">見たほうがいいと</span><span class="nw">言っている」という</span><span class="nw">お考えであれば、</span><span class="nw">その</span><span class="nw">ように</span><span class="nw">書き</span><span class="nw">換えます。</span><b><span class="nw">訪問販売で</span><span class="nw">不安になった</span><span class="nw">方に、</span><span class="nw">電話をかけて</span><span class="nw">いただく</span><span class="nw">入口として</span><span class="nw">置いています。</span></b></span></p>
+  </div>
+</section>
+
 <!-- ══════════ 工事の内容 ══════════ -->
-<section class="sec sec--white" id="works">
+<section class="sec sec--band" id="works">
   <div class="wrap">
     <div class="sec__hd rv">
       <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
@@ -540,7 +680,7 @@ ul,ol{margin:0;padding:0;list-style:none}
             <h3><span class="nw">外壁塗装</span></h3>
           </div>
           <p><span class="nw">高圧洗浄で</span><span class="nw">汚れと</span><span class="nw">コケを</span><span class="nw">落とし、</span><span class="nw">ひび</span><span class="nw">割れを</span><span class="nw">埋めてから、</span><span class="nw">下塗り・</span><span class="nw">中塗り・</span><span class="nw">上塗りの</span><span class="nw">三度塗りで</span><span class="nw">仕上げます。</span><span class="nw">塗料は</span><span class="nw">建物の</span><span class="nw">傷み</span><span class="nw">方と</span><span class="nw">ご予算に</span><span class="nw">合わせて</span><span class="nw">お選び</span><span class="nw">いただけるよう、</span><span class="nw">複数</span><span class="nw">ご提案いたします。</span></p>
-          <ul class="work__tags"><li><span class="nw">足場の</span><span class="nw">設置</span></li><li><span class="nw">高圧洗浄</span></li><li><span class="nw">下地の</span><span class="nw">補修</span></li><li><span class="nw">三度塗り</span></li><li><span class="nw">付帯部の</span><span class="nw">塗装</span></li></ul>
+          <ul class="work__tags"><li><span class="nw">足場の</span><span class="nw">設置</span></li><li><span class="nw">高圧洗浄</span></li><li><span class="nw">下地の</span><span class="nw">補修</span></li><li><span class="nw">三度塗り</span></li><li><span class="nw">雨樋・</span><span class="nw">戸袋も</span><span class="nw">一緒に</span></li></ul>
         </div>
       </article>
 
@@ -556,7 +696,7 @@ ul,ol{margin:0;padding:0;list-style:none}
             <h3><span class="nwb"><span class="nw">屋根の</span><span class="nw">塗装・</span><span class="nw">補修</span></span></h3>
           </div>
           <p><span class="nw">屋根は</span><span class="nw">ご自身では</span><span class="nw">見えない</span><span class="nw">場所です。</span><span class="nw">傷みは</span><span class="nw">外壁より</span><span class="nw">早く</span><span class="nw">進みます</span><span class="nw">ので、</span><span class="nw">外壁の</span><span class="nw">塗り</span><span class="nw">替えと</span><span class="nw">同時に</span><span class="nw">行う</span><span class="nw">ことをおすすめして</span><span class="nw">おります。</span><span class="nw">足場代が</span><span class="nw">一度で</span><span class="nw">済み、</span><span class="nw">そのぶん</span><span class="nw">総額を</span><span class="nw">抑えられます。</span></p>
-          <ul class="work__tags"><li><span class="nw">スレート</span><span class="nw">屋根</span></li><li><span class="nw">金属屋根</span></li><li><span class="nw">棟板金の</span><span class="nw">交換</span></li><li><span class="nw">縁切り</span></li></ul>
+          <ul class="work__tags"><li><span class="nw">スレート</span><span class="nw">屋根</span></li><li><span class="nw">金属屋根</span></li><li><span class="nw">屋根てっぺんの</span><span class="nw">板金</span></li><li><span class="nw">縁切り</span><span class="nw">（水の</span><span class="nw">逃げ</span><span class="nw">道）</span></li></ul>
         </div>
       </article>
 
@@ -571,8 +711,8 @@ ul,ol{margin:0;padding:0;list-style:none}
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3c5.5 7 9 11.5 9 15.5a9 9 0 0 1-18 0C7 14.5 10.5 10 16 3Z"/><path d="M12 18.5a4 4 0 0 0 4 4"/></svg>
             <h3><span class="nw">防水工事</span></h3>
           </div>
-          <p><span class="nw">ベランダ・</span><span class="nw">バルコニー、</span><span class="nw">陸屋根、</span><span class="nw">階段や</span><span class="nw">廊下の</span><span class="nw">防水を</span><span class="nw">承ります。</span><span class="nw">ウレタン</span><span class="nw">防水・</span><span class="nw">シート</span><span class="nw">防水・</span><span class="nw">FRP防水のいずれも</span><span class="nw">施工して</span><span class="nw">おります。</span><span class="nw">下地の</span><span class="nw">状態を</span><span class="nw">見て、</span><span class="nw">適した</span><span class="nw">工法を</span><span class="nw">ご提案いたします。</span></p>
-          <ul class="work__tags"><li><span class="nw">ウレタン</span><span class="nw">防水</span></li><li><span class="nw">シート</span><span class="nw">防水</span></li><li><span class="nw">FRP防水</span></li><li><span class="nw">トップコートの</span><span class="nw">塗り</span><span class="nw">替え</span></li></ul>
+          <p><span class="nw">ベランダ・</span><span class="nw">バルコニー、</span><span class="nw">陸屋根</span><span class="nw">（りくやね＝平らな</span><span class="nw">屋根）、</span><span class="nw">階段や</span><span class="nw">廊下の</span><span class="nw">防水を</span><span class="nw">承ります。</span><span class="nw">下地の</span><span class="nw">状態を</span><span class="nw">見て、</span><span class="nw">適した</span><span class="nw">工法を</span><span class="nw">ご提案いたします。</span></p>
+          <ul class="work__tags"><li><span class="nw">ベランダ</span></li><li><span class="nw">陸屋根</span><span class="nw">（平らな</span><span class="nw">屋根）</span></li><li><span class="nw">階段・</span><span class="nw">廊下</span></li><li><span class="nw">表面の</span><span class="nw">塗り</span><span class="nw">替え</span></li></ul>
         </div>
       </article>
 
@@ -587,8 +727,8 @@ ul,ol{margin:0;padding:0;list-style:none}
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="14" r="9"/><path d="m21 21 7 7"/><path d="M14 10c2 2.5 3.2 4 3.2 5.3a3.2 3.2 0 0 1-6.4 0c0-1.3 1.2-2.8 3.2-5.3Z"/></svg>
             <h3><span class="nwb"><span class="nw">雨漏りの</span><span class="nw">調査と</span><span class="nw">補修</span></span></h3>
           </div>
-          <p><span class="nw">天井にしみが</span><span class="nw">出ていても、</span><span class="nw">水の</span><span class="nw">入り</span><span class="nw">口は</span><span class="nw">別の</span><span class="nw">場所という</span><span class="nw">ことがほとんどです。</span><span class="nw">散水しながら</span><span class="nw">経路を</span><span class="nw">確かめ、</span><span class="nw">原因を</span><span class="nw">突き</span><span class="nw">止めてから</span><span class="nw">直します。</span><span class="nw">原因が</span><span class="nw">分からないまま</span><span class="nw">塗り</span><span class="nw">重ねる</span><span class="nw">ことはいたしません。</span></p>
-          <ul class="work__tags"><li><span class="nw">散水調査</span></li><li><span class="nw">シーリングの</span><span class="nw">打ち</span><span class="nw">替え</span></li><li><span class="nw">板金の</span><span class="nw">補修</span></li><li><span class="nw">部分補修</span></li></ul>
+          <p><span class="nw">天井にしみが</span><span class="nw">出ていても、</span><span class="nw">水の</span><span class="nw">入り</span><span class="nw">口は</span><span class="nw">別の</span><span class="nw">場所という</span><span class="nw">ことがほとんどです。</span><b><span class="nw">可能性の</span><span class="nw">高い</span><span class="nw">ところから</span><span class="nw">順に</span><span class="nw">確かめ、</span><span class="nw">原因を</span><span class="nw">絞ってから</span><span class="nw">直します。</span></b><span class="nw">原因が</span><span class="nw">分からないまま</span><span class="nw">塗り</span><span class="nw">重ねる</span><span class="nw">ことはいたしません。</span><span class="nw">台風のあとの</span><span class="nw">応急処置</span><span class="nw">（シート</span><span class="nw">掛け・</span><span class="nw">仮のふさぎ）も</span><span class="nw">承ります。</span></p>
+          <ul class="work__tags"><li><span class="nw">原因の</span><span class="nw">調査</span></li><li><span class="nw">目地の</span><span class="nw">ゴムの</span><span class="nw">詰め</span><span class="nw">替え</span></li><li><span class="nw">板金の</span><span class="nw">補修</span></li><li><span class="nw">部分補修</span></li></ul>
         </div>
       </article>
     </div>
@@ -601,7 +741,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 </section>
 
 <!-- ══════════ 費用 ══════════ -->
-<section class="sec sec--band" id="price">
+<section class="sec sec--white" id="price">
   <div class="wrap">
     <div class="sec__hd rv">
       <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
@@ -612,24 +752,89 @@ ul,ol{margin:0;padding:0;list-style:none}
 
     <div class="scroll rv">
       <table class="price">
-        <caption>※ 足場代・高圧洗浄・養生・廃材処分を含んだ金額です。／ 表示は税込です。</caption>
+        <caption>※ 足場代・高圧洗浄・養生・廃材処分を含んだ金額です。表示は税込です。／ <b>下記は一般的な相場で、当社の価格ではありません。</b>正しい金額は建物を拝見のうえお見積書にてお出しいたします。</caption>
         <thead>
           <tr><th scope="col"><span class="nw">工事の</span><span class="nw">内容</span></th><th scope="col"><span class="nw">費用の</span><span class="nw">目安</span></th><th scope="col"><span class="nw">工期の</span><span class="nw">目安と</span><span class="nw">補足</span></th></tr>
         </thead>
         <tbody>
-          <tr><th scope="row"><span class="nw">外壁塗装</span><span class="nw">（30坪程度）</span></th><td class="num">60〜120<small><span class="nw">万円</span></small></td><td class="note"><span class="nw">10〜14日。</span><span class="nw">塗料の</span><span class="nw">グレードで</span><span class="nw">幅が</span><span class="nw">出ます</span></td></tr>
-          <tr><th scope="row"><span class="nw">屋根塗装</span></th><td class="num">40〜80<small><span class="nw">万円</span></small></td><td class="note"><span class="nw">5〜8日。</span><span class="nw">棟板金の</span><span class="nw">交換が</span><span class="nw">入る</span><span class="nw">場合は</span><span class="nw">別途</span></td></tr>
+          <tr><th scope="row"><span class="nw">外壁塗装</span><span class="nw">（30坪程度）</span><br><small style="font-weight:400;color:var(--muted);font-size:12.5px"><span class="nw">30坪＝二階建て</span><span class="nw">4LDKくらい</span></small></th><td class="num">60〜120<small><span class="nw">万円</span></small></td><td class="note"><span class="nw">10〜14日。</span><span class="nw">塗料の</span><span class="nw">グレードで</span><span class="nw">幅が</span><span class="nw">出ます</span></td></tr>
+          <tr><th scope="row"><span class="nw">屋根塗装</span></th><td class="num">40〜80<small><span class="nw">万円</span></small></td><td class="note"><span class="nw">5〜8日。</span><span class="nw">屋根てっぺんの</span><span class="nw">板金を</span><span class="nw">替える</span><span class="nw">場合は</span><span class="nw">別途</span></td></tr>
           <tr><th scope="row"><span class="nw">外壁＋</span><span class="nw">屋根</span><span class="nw">（同時）</span></th><td class="num">80〜150<small><span class="nw">万円</span></small></td><td class="note"><span class="nw">14〜20日。</span><b><span class="nw">足場代が</span><span class="nw">一度で</span><span class="nw">済みます</span></b></td></tr>
           <tr><th scope="row"><span class="nw">ベランダ</span><span class="nw">防水</span><span class="nw">（10㎡程度）</span></th><td class="num">10〜25<small><span class="nw">万円</span></small></td><td class="note"><span class="nw">2〜4日。</span><span class="nw">下地の</span><span class="nw">傷み</span><span class="nw">具合によります</span></td></tr>
-          <tr><th scope="row"><span class="nw">雨漏りの</span><span class="nw">調査・</span><span class="nw">部分補修</span></th><td class="num">5〜30<small><span class="nw">万円</span></small></td><td class="note"><span class="nw">まず</span><span class="nw">調査に</span><span class="nw">お伺いします</span></td></tr>
+          <tr><th scope="row"><span class="nw">雨漏りの</span><span class="nw">調査・</span><span class="nw">補修</span></th><td class="num"><span class="nw">お見積り</span></td><td class="note"><span class="nw">傷み</span><span class="nw">方で</span><span class="nw">大きく</span><span class="nw">変わります。</span><span class="nw">まず</span><span class="nw">拝見しに</span><span class="nw">お伺いします</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub2 rv"><span class="nw">塗料の</span><span class="nw">種類と、</span><span class="nw">もつ</span><span class="nw">年数</span></h3>
+    <div class="scroll rv">
+      <table class="price">
+        <caption>※ 一般的な目安です。建物の向き・日当たり・お住まいの地域で変わります。</caption>
+        <thead><tr><th scope="col"><span class="nw">塗料の</span><span class="nw">種類</span></th><th scope="col"><span class="nw">もつ</span><span class="nw">年数の</span><span class="nw">目安</span></th><th scope="col"><span class="nw">向いている</span><span class="nw">建物・</span><span class="nw">お考え</span></th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><span class="nw">シリコン</span></th><td class="num">8〜12<small>年</small></td><td class="note"><span class="nw">いちばん</span><span class="nw">多く</span><span class="nw">使われています。</span><span class="nw">費用と</span><span class="nw">持ちのつり</span><span class="nw">合いが</span><span class="nw">取れた</span><span class="nw">種類です</span></td></tr>
+          <tr><th scope="row"><span class="nw">ラジカル</span><span class="nw">制御</span></th><td class="num">10〜14<small>年</small></td><td class="note"><span class="nw">シリコンより</span><span class="nw">少し</span><span class="nw">長く。</span><span class="nw">色あせがしにくい</span><span class="nw">種類です</span></td></tr>
+          <tr><th scope="row"><span class="nw">フッ</span>素</th><td class="num">13〜18<small>年</small></td><td class="note"><span class="nw">次の</span><span class="nw">塗り</span><span class="nw">替えまでの</span><span class="nw">間を</span><span class="nw">長く</span><span class="nw">取りたい</span><span class="nw">方に</span></td></tr>
+          <tr><th scope="row"><span class="nw">無機</span></th><td class="num">15〜20<small>年</small></td><td class="note"><span class="nw">いちばん</span><span class="nw">長く。</span><span class="nw">足場を</span><span class="nw">組む</span><span class="nw">回数を</span><span class="nw">減らしたい</span><span class="nw">方に</span></td></tr>
         </tbody>
       </table>
     </div>
 
     <p class="hint">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <span><b><span class="nw">御社が</span><span class="nw">扱っておられる</span><span class="nw">塗料に</span><span class="nw">入れ</span><span class="nw">替えます。</span></b><span class="nw">取り</span><span class="nw">扱いのある</span><span class="nw">メーカー</span>名<span class="nw">（日本ペイント・</span><span class="nw">エスケー</span><span class="nw">化研など）を</span><span class="nw">伺えれば、</span><span class="nw">そのまま</span><span class="nw">書きます。</span><b><span class="nw">メーカー</span><span class="nw">名は</span><span class="nw">お客様が</span><span class="nw">ご自分で</span><span class="nw">調べて</span><span class="nw">確かめられる</span><span class="nw">ので、</span><span class="nw">書いてあるほうが</span><span class="nw">信じて</span><span class="nw">いただけます。</span></b></span>
+    </p>
+
+    <p class="hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
       <span><b><span class="nw">この</span><span class="nw">金額は</span><span class="nw">一般的な</span><span class="nw">相場で、</span><span class="nw">御社の</span><span class="nw">価格ではありません。</span></b><span class="nw">ご契約後に、</span><span class="nw">御社の</span><span class="nw">実際の</span><span class="nw">単価に</span><span class="nw">丸ごと</span><span class="nw">差し</span><span class="nw">替えます。</span><span class="nw">「金額を</span><span class="nw">出したくない」という</span><span class="nw">お考えであれば、</span><span class="nw">この</span><span class="nw">節ごと</span><span class="nw">外す</span><span class="nw">こともできます。</span><span class="nw">ただし</span><b><span class="nw">お客様がいちばん</span><span class="nw">知りたいのはここ</span></b><span class="nw">です</span><span class="nw">ので、</span><span class="nw">目安だけでも</span><span class="nw">出す</span><span class="nw">ことをおすすめして</span><span class="nw">おります。</span></span>
     </p>
+  </div>
+</section>
+
+<!-- ══════════ 保証とお支払い ══════════ -->
+<section class="sec sec--band" id="warranty">
+  <div class="wrap">
+    <div class="sec__hd rv">
+      <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
+      <span class="sec__label">WARRANTY &amp; PAYMENT</span>
+      <h2><span class="nw">保証と、</span><span class="nw">お支払いについて</span></h2>
+      <p><span class="nw">工事が</span><span class="nw">終わったあとの</span><span class="nw">ことと、</span><span class="nw">お支払いのしかたを、</span><span class="nw">先に</span><span class="nw">書いておきます。</span><span class="nw">他社様と</span><span class="nw">見比べて</span><span class="nw">いただく</span><span class="nw">ための</span><span class="nw">ものです。</span></p>
+    </div>
+
+    <div class="wp rv">
+      <div class="wp__box">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 6v6c0 5.2 3.7 9.4 9 10 5.3-.6 9-4.8 9-10V6Z"/><path d="m9 12 2 2 4-4"/></svg><span class="nwb"><span class="nw">保証の</span><span class="nw">年数</span></span></h3>
+        <table class="profile">
+          <tbody>
+            <tr><th scope="row"><span class="nw">外壁の</span><span class="nw">塗装</span></th><td><span class="blank">〔　〕</span>年</td></tr>
+            <tr><th scope="row"><span class="nw">屋根の</span><span class="nw">塗装</span></th><td><span class="blank">〔　〕</span>年</td></tr>
+            <tr><th scope="row"><span class="nw">防水工事</span></th><td><span class="blank">〔　〕</span>年</td></tr>
+            <tr><th scope="row"><span class="nw">目地の</span><span class="nw">ゴム</span></th><td><span class="blank">〔　〕</span>年</td></tr>
+            <tr><th scope="row"><span class="nw">塗料メーカーの</span><span class="nw">保証</span></th><td><span class="blank">〔　　　　　〕</span></td></tr>
+            <tr><th scope="row"><span class="nw">お引き</span><span class="nw">渡し</span><span class="nw">後の</span><span class="nw">点検</span></th><td><span class="blank">〔　〕</span><span class="nw">年目・</span><span class="blank">〔　〕</span><span class="nw">年目に</span><span class="nw">伺います</span></td></tr>
+          </tbody>
+        </table>
+        <p class="wp__note"><span class="nw">保証の</span><span class="nw">対象とならない</span><span class="nw">もの</span> … <span class="nw">地震・</span><span class="nw">台風などの</span><span class="nw">天災による</span><span class="nw">もの／</span><span class="nw">もとの</span><span class="nw">下地に</span><span class="nw">原因がある</span><span class="nw">もの／</span><span class="nw">お客様</span><span class="nw">ご自身、</span><span class="nw">または</span><span class="nw">当社以外の</span><span class="nw">手が</span><span class="nw">入った</span><span class="nw">箇所。</span><b><span class="nw">先に</span><span class="nw">書いておきます。</span></b></p>
+      </div>
+
+      <div class="wp__box">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span class="nw">お支払い</span></h3>
+        <table class="profile">
+          <tbody>
+            <tr><th scope="row"><span class="nw">着手時</span></th><td><span class="blank">〔　〕</span>％</td></tr>
+            <tr><th scope="row"><span class="nw">お引き</span><span class="nw">渡し</span>時</th><td><span class="blank">〔　〕</span>％</td></tr>
+            <tr><th scope="row"><span class="nw">お支払いの</span><span class="nw">方法</span></th><td><span class="blank">〔　　　　　　　　〕</span></td></tr>
+            <tr><th scope="row"><span class="nw">リフォームローン</span></th><td><span class="blank">〔　　　　　〕</span></td></tr>
+            <tr><th scope="row"><span class="nw">加入している</span><span class="nw">保険</span></th><td><span class="blank">〔　　　　　　　　〕</span></td></tr>
+          </tbody>
+        </table>
+        <p class="wp__note"><span class="nw">足場の</span><span class="nw">設置で</span><span class="nw">万一</span><span class="nw">お車や</span><span class="nw">植木を</span><span class="nw">傷めた</span><span class="nw">場合に</span><span class="nw">備え、</span><span class="nw">保険に</span><span class="nw">加入して</span><span class="nw">おります。</span><b><span class="nw">その</span><span class="nw">内容もここに</span><span class="nw">書きます。</span></b></p>
+      </div>
+    </div>
+
+    <p class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <span><b><span class="nw">ここは、</span><span class="nw">御社に</span><span class="nw">伺わないと</span><span class="nw">一行も</span><span class="nw">書けない</span><span class="nw">節です。</span></b><span class="nw">そして</span><b><span class="nw">お客様が</span><span class="nw">他社様と</span><span class="nw">最後に</span><span class="nw">見比べるのは、</span><span class="nw">ここです。</span></b><span class="nw">保証の</span><span class="nw">年数・</span><span class="nw">点検・</span><span class="nw">着手金・</span><span class="nw">ローンの</span><span class="nw">有無・</span><span class="nw">加入されている</span><span class="nw">保険。</span><span class="nw">この</span><span class="nw">五つを</span><span class="nw">伺えれば</span><span class="nw">埋まります。</span><b><span class="nw">保証の</span><span class="nw">対象外を</span><span class="nw">先に</span><span class="nw">書いておくのは、</span><span class="nw">あとで</span><span class="nw">「書いてあったはずだ」と</span><span class="nw">言われない</span><span class="nw">ためです。</span></b></span></p>
   </div>
 </section>
 
@@ -675,14 +880,14 @@ ul,ol{margin:0;padding:0;list-style:none}
       <article class="case">
         <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前・施工後の<b>2枚</b>が入ります</span><span class="slot__d">1200 × 900 px</span></div>
         <div class="case__b">
-          <h3><span class="nwb">〔　　　<span class="nw">市〕</span> ／ <span class="nw">ベランダの</span><span class="nw">トップコート</span></span></h3>
+          <h3><span class="nwb">〔　　　<span class="nw">市〕</span> ／ <span class="nw">ベランダの</span><span class="nw">防水</span></span></h3>
           <p class="case__meta"><span><span class="nw">費用</span> 〔　　　<span class="nw">〕万円</span></span><span><span class="nw">工期</span> 〔　<span class="nw">〕日</span></span><span>〔　　<span class="nw">〕年</span>〔　<span class="nw">〕月</span></span></p>
         </div>
       </article>
       <article class="case">
         <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前・施工後の<b>2枚</b>が入ります</span><span class="slot__d">1200 × 900 px</span></div>
         <div class="case__b">
-          <h3><span class="nwb">〔　　　<span class="nw">市〕</span> ／ <span class="nw">シーリングの</span><span class="nw">打ち</span><span class="nw">替え</span></span></h3>
+          <h3><span class="nwb">〔　　　<span class="nw">市〕</span> ／ <span class="nw">目地の</span><span class="nw">ゴムの</span><span class="nw">詰め</span><span class="nw">替え</span></span></h3>
           <p class="case__meta"><span><span class="nw">費用</span> 〔　　　<span class="nw">〕万円</span></span><span><span class="nw">工期</span> 〔　<span class="nw">〕日</span></span><span>〔　　<span class="nw">〕年</span>〔　<span class="nw">〕月</span></span></p>
         </div>
       </article>
@@ -728,11 +933,11 @@ ul,ol{margin:0;padding:0;list-style:none}
       </li>
       <li>
         <h3><span class="nwb"><span class="nw">洗浄・</span><span class="nw">下地の</span><span class="nw">補修・</span><span class="nw">塗装</span></span></h3>
-        <p><span class="nw">高圧洗浄で</span><span class="nw">汚れを</span><span class="nw">落とし、</span><span class="nw">乾かしてから、</span><span class="nw">ひび</span><span class="nw">割れと</span><span class="nw">シーリングを</span><span class="nw">直します。</span><span class="nw">そのうえで</span><span class="nw">下塗り・</span><span class="nw">中塗り・</span><span class="nw">上塗りを</span><span class="nw">行います。</span><b><span class="nw">工程ごとに</span><span class="nw">写真で</span><span class="nw">ご報告いたします。</span></b></p>
+        <p><span class="nw">高圧洗浄で</span><span class="nw">汚れを</span><span class="nw">落とし、</span><span class="nw">乾かしてから、</span><span class="nw">ひび</span><span class="nw">割れと</span><span class="nw">目地の</span><span class="nw">ゴム</span><span class="nw">（シーリング）を</span><span class="nw">直します。</span><span class="nw">そのうえで</span><span class="nw">下塗り・</span><span class="nw">中塗り・</span><span class="nw">上塗りを</span><span class="nw">行います。</span><b><span class="nw">ご希望を</span><span class="nw">いただければ、</span><span class="nw">工程ごとに</span><span class="nw">写真で</span><span class="nw">ご報告いたします。</span></b></p>
       </li>
       <li>
         <h3><span class="nwb"><span class="nw">お立ち</span><span class="nw">会いでの</span><span class="nw">確認・</span><span class="nw">お引き</span><span class="nw">渡し</span></span></h3>
-        <p><span class="nw">足場を</span><span class="nw">外す</span><span class="nw">前に、</span><span class="nw">お客様と</span><span class="nw">ご一緒に</span><span class="nw">仕上がりを</span><span class="nw">確認いたします。</span><span class="nw">気になる</span><span class="nw">ところがあればその</span><span class="nw">場で</span><span class="nw">手直し</span><span class="nw">いたします。</span><span class="nw">保証書を</span><span class="nw">お渡しして</span><span class="nw">完了です。</span></p>
+        <p><span class="nw">足場を</span><span class="nw">外す</span><span class="nw">前に、</span><span class="nw">お客様と</span><span class="nw">ご一緒に</span><span class="nw">仕上がりを</span><span class="nw">確認いたします。</span><span class="nw">気になる</span><span class="nw">ところがあればその</span><span class="nw">場で</span><span class="nw">手直し</span><span class="nw">いたします。</span><b><span class="nw">保証の</span><span class="nw">対象となる</span><span class="nw">工事では、</span><span class="nw">保証書を</span><span class="nw">お渡しして</span><span class="nw">完了です。</span></b></p>
       </li>
     </ol>
 
@@ -777,6 +982,25 @@ ul,ol{margin:0;padding:0;list-style:none}
   </div>
 </section>
 
+<!-- ══════════ 法人・管理会社の方へ ══════════ -->
+<section class="sec sec--deep" id="biz">
+  <div class="wrap">
+    <div class="sec__hd rv">
+      <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
+      <span class="sec__label">FOR BUSINESS</span>
+      <h2><span class="nw">法人・</span><span class="nw">管理会社・</span><span class="nw">オーナー</span><span class="nw">様へ</span></h2>
+      <p><span class="nw">住宅のほか、</span><span class="nw">公共の</span><span class="nw">建物・</span><span class="nw">工場・</span><span class="nw">倉庫・</span><span class="nw">共同住宅の</span><span class="nw">塗装と</span><span class="nw">防水も</span><span class="nw">承って</span><span class="nw">おります。</span><span class="nw">古河市の</span><span class="nw">入札参加資格を</span><span class="nw">受けて</span><span class="nw">おります。</span></p>
+    </div>
+    <ul class="biz rv">
+      <li><h3><span class="nwb"><span class="nw">図面からの</span><span class="nw">概算</span></span></h3><p><span class="nw">お立ち</span><span class="nw">会いが</span><span class="nw">難しい</span><span class="nw">場合、</span><span class="nw">図面から</span><span class="nw">概算を</span><span class="nw">お出し</span><span class="nw">いたします。</span><span class="nw">現地の</span><span class="nw">調査は</span><span class="nw">日程を</span><span class="nw">合わせて</span><span class="nw">改めて</span><span class="nw">伺います。</span></p></li>
+      <li><h3><span class="nwb"><span class="nw">年度の</span><span class="nw">ご予算に</span><span class="nw">合わせて</span></span></h3><p><span class="nw">工期と</span><span class="nw">お支払いの</span><span class="nw">時期を、</span><span class="nw">年度の</span><span class="nw">ご予算に</span><span class="nw">合わせて</span><span class="nw">組みます。</span><span class="nw">分割しての</span><span class="nw">ご発注も</span><span class="nw">承ります。</span></p></li>
+      <li><h3><span class="nw">複数棟をまとめて</span></h3><p><span class="nw">共同住宅や</span><span class="nw">工場が</span><span class="nw">複数ある</span><span class="nw">場合、</span><span class="nw">まとめて</span><span class="nw">お受けする</span><span class="nw">ことで</span><span class="nw">足場と</span><span class="nw">管理の</span><span class="nw">費用を</span><span class="nw">抑えられます。</span></p></li>
+    </ul>
+    <p class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <span><b><span class="nw">この</span><span class="nw">節を</span><span class="nw">入れたのは、</span><span class="nw">御社が</span><span class="nw">古河市の</span><span class="nw">入札参加資格者名簿に</span><span class="nw">載っている</span><span class="nw">ためです。</span></b><span class="nw">公共・</span><span class="nw">法人の</span><span class="nw">お仕事が</span><span class="nw">売上の</span><span class="nw">柱であれば、</span><span class="nw">この</span><span class="nw">節をもっと</span><span class="nw">前へ、</span><span class="nw">もっと</span><span class="nw">大きく</span><span class="nw">出します。</span><span class="nw">反対に</span><span class="nw">一般の</span><span class="nw">お住まいが</span><span class="nw">中心であれば、</span><span class="nw">この</span><span class="nw">節ごと</span><span class="nw">外します。</span><b><span class="nw">どちらが</span><span class="nw">柱かを</span><span class="nw">伺わせて</span><span class="nw">ください。</span></b></span></p>
+  </div>
+</section>
+
 <!-- ══════════ 会社概要 ══════════ -->
 <section class="sec sec--band" id="about">
   <div class="wrap">
@@ -784,6 +1008,19 @@ ul,ol{margin:0;padding:0;list-style:none}
       <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
       <span class="sec__label">COMPANY</span>
       <h2><span class="nw">会社概要</span></h2>
+    </div>
+
+    <div class="greet rv">
+      <div class="slot greet__slot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        <span class="slot__t">ここに<b>代表のお写真</b>が入ります</span>
+        <span class="slot__d">900 × 1200 px</span>
+      </div>
+      <div class="greet__body">
+        <h3><span class="nw">ごあいさつ</span></h3>
+        <p class="greet__lead"><span class="nw">ここに、</span><span class="nw">社長</span><span class="nw">ご自身の</span><span class="nw">お言葉が</span><span class="nw">入ります。</span><br><span class="nw">職人として</span><span class="nw">何年やってこられたか、</span><span class="nw">いま</span><span class="nw">現場にどう</span><span class="nw">関わっておられるか、</span><span class="nw">この</span><span class="nw">先どうしていきたいか。</span><b><span class="nw">六行から</span><span class="nw">八行、</span><span class="nw">伺ったとおりに</span><span class="nw">書きます。</span></b><br><span class="nw">地元の</span><span class="nw">会社を</span><span class="nw">選ぶ</span><span class="nw">とき、</span><span class="nw">お客様は</span><span class="nw">最後に</span><span class="nw">「誰がやるのか」を</span><span class="nw">見ます。</span><span class="nw">保証を</span><span class="nw">十年守る</span><span class="nw">会社かどうかも、</span><span class="nw">ここで</span><span class="nw">見られます。</span></p>
+        <p class="greet__sign"><span class="role"><span class="nw">代表取締役</span></span><span class="nw">益子</span> <span class="nw">公一郎</span></p>
+      </div>
     </div>
 
     <div class="about rv">
@@ -802,6 +1039,12 @@ ul,ol{margin:0;padding:0;list-style:none}
             <tr><th scope="row"><span class="nw">従業員数</span></th><td><span class="blank">〔　　〕</span>名</td></tr>
           </tbody>
         </table>
+
+        <div class="slot" style="aspect-ratio:16/10;margin-top:20px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span class="slot__t">ここに<b>社屋・作業場・社用車</b>の写真が入ります</span>
+          <span class="slot__d">1200 × 750 px</span>
+        </div>
       </div>
 
       <div style="display:grid;gap:20px">
@@ -818,11 +1061,23 @@ ul,ol{margin:0;padding:0;list-style:none}
           <p><span class="nw">建設業の</span><span class="nw">許可は、</span><span class="nw">5年ごとに</span><span class="nw">更新の</span><span class="nw">審査を</span><span class="nw">受けなければ</span><span class="nw">続けられません。</span><span class="nw">工事の</span><span class="nw">実績・</span><span class="nw">技術者の</span><span class="nw">資格・</span><span class="nw">財産の</span><span class="nw">状況を、</span><span class="nw">県に</span><span class="nw">確かめて</span><span class="nw">いただいたうえで</span><span class="nw">営業して</span><span class="nw">おります。</span></p>
         </div>
 
-        <div class="slot" style="aspect-ratio:16/10">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-          <span class="slot__t">ここに<b>社屋・作業場・社用車</b>の写真が入ります</span>
-          <span class="slot__d">1200 × 750 px</span>
+        <div class="licence" style="background:var(--surface);color:var(--ink);border:1px solid var(--line)">
+          <h3 style="color:var(--deep)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--amber-ink)"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7L12 18l5 3-1.5-7"/></svg>
+            <span class="nwb"><span class="nw">資格を</span><span class="nw">持った</span><span class="nw">職人が</span><span class="nw">伺います</span></span>
+          </h3>
+          <table class="profile">
+            <tbody>
+              <tr><th scope="row"><span class="nw">一級塗装技能士</span></th><td><span class="blank">〔　〕</span>名</td></tr>
+              <tr><th scope="row"><span class="nw">防水施工技能士</span></th><td><span class="blank">〔　〕</span>名</td></tr>
+              <tr><th scope="row"><span class="nw">その</span><span class="nw">他の</span><span class="nw">資格</span></th><td><span class="blank">〔　　　　　　　〕</span></td></tr>
+              <tr><th scope="row"><span class="nw">工事を</span><span class="nw">行う</span>者</th><td><span class="blank">〔　　　　　　　〕</span></td></tr>
+              <tr><th scope="row"><span class="nw">加入している</span><span class="nw">保険</span></th><td><span class="blank">〔　　　　　　　〕</span></td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:13.2px;line-height:1.9;color:var(--muted);border-top:1px solid var(--line-soft);padding-top:13px;margin-top:2px"><span class="nw">お客様から</span><span class="nw">必ず</span><span class="nw">伺われるのは</span><span class="nw">「来るのは</span><span class="nw">社員さんですか、</span><span class="nw">下請けさんですか」です。</span><b style="color:var(--sub)"><span class="nw">ここに</span><span class="nw">書いておけば、</span><span class="nw">その</span><span class="nw">場で</span><span class="nw">お答えできます。</span></b></p>
         </div>
+
       </div>
     </div>
 
@@ -833,8 +1088,58 @@ ul,ol{margin:0;padding:0;list-style:none}
   </div>
 </section>
 
+<!-- ══════════ アクセス ══════════ -->
+<section class="sec sec--white" id="access">
+  <div class="wrap">
+    <div class="sec__hd rv">
+      <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
+      <span class="sec__label">ACCESS</span>
+      <h2><span class="nw">会社の</span><span class="nw">場所</span></h2>
+      <p><span class="nw">古河市中田、</span><span class="nw">利根川のほど</span><span class="nw">近くに</span><span class="nw">事務所と</span><span class="nw">作業場が</span><span class="nw">ございます。</span><span class="nw">お近くを</span><span class="nw">お通りの</span><span class="nw">際は、</span><span class="nw">お気軽に</span><span class="nw">お立ち</span><span class="nw">寄り</span><span class="nw">ください。</span></p>
+    </div>
+
+    <div class="access rv">
+      <div class="access__info">
+        <p class="access__addr"><span class="lbl">ADDRESS</span>〒306-0053<br><span class="nw">茨城県古河市中田</span><span class="nw">1270番地</span>5</p>
+
+        <dl class="access__rows">
+          <div><dt><span class="nw">お電話</span></dt><dd><a href="tel:0280482812" style="color:var(--deep);font-weight:700;text-decoration:none">0280-48-2812</a></dd></div>
+          <div><dt><span class="nw">お車で</span></dt><dd><span class="blank">〔　　　　　　　　〕</span><br><span class="nw">目印になる</span><span class="nw">建物や</span><span class="nw">交差点を</span><span class="nw">伺って</span><span class="nw">書きます</span></dd></div>
+          <div><dt><span class="nw">駐車場</span></dt><dd><span class="blank">〔　〕</span>台</dd></div>
+        </dl>
+
+        <div class="access__btns">
+          <a class="btn btn--solid" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E4%B8%AD%E7%94%B01270-5" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 19-9-9 19-2-8-8-2Z"/></svg>
+            ここまでの道順を調べる
+          </a>
+          <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E4%B8%AD%E7%94%B01270-5" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            地図アプリで開く
+          </a>
+        </div>
+      </div>
+
+      <div class="access__map">
+        <p class="access__bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <b><span class="nw">有限会社益子樹脂興業</span></b>　<span class="nwb"><span class="nw">茨城県古河市中田</span>1270-5</span>
+        </p>
+        <div class="access__frame">
+          <iframe title="有限会社益子樹脂興業の所在地（Googleマップ）" src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E4%B8%AD%E7%94%B01270-5&amp;hl=ja&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <p class="hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <span><b><span class="nw">地図の</span><span class="nw">ピンは、</span><span class="nw">住所から</span><span class="nw">出して</span><span class="nw">おります。</span></b><span class="nw">いま</span><span class="nw">Googleマップで</span><span class="nw">「益子樹脂興業」と</span><span class="nw">会社名で</span><span class="nw">調べても、</span><span class="nw">写真も</span><span class="nw">営業時間も</span><span class="nw">出てまいりません。</span><b><span class="nw">Googleマップの</span><span class="nw">登録</span><span class="nw">（Googleビジネスプロフィール）を</span><span class="nw">整えると、</span><span class="nw">会社名で</span><span class="nw">調べた</span><span class="nw">ときに</span><span class="nw">地図に</span><span class="nw">出る</span><span class="nw">ようになります。</span></b><span class="nw">この</span><span class="nw">整備は</span><span class="nw">月額に</span><span class="nw">含めて</span><span class="nw">承ります。</span></span>
+    </p>
+  </div>
+</section>
+
 <!-- ══════════ 対応エリア ══════════ -->
-<section class="sec sec--white" id="area">
+<section class="sec sec--band" id="area">
   <div class="wrap">
     <div class="sec__hd rv">
       <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
@@ -860,7 +1165,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 </section>
 
 <!-- ══════════ FAQ ══════════ -->
-<section class="sec sec--band" id="faq">
+<section class="sec sec--white" id="faq">
   <div class="wrap">
     <div class="sec__hd rv">
       <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
@@ -871,11 +1176,11 @@ ul,ol{margin:0;padding:0;list-style:none}
     <div class="faq rv">
       <details>
         <summary><span class="nw">見積りだけ</span><span class="nw">お願いしても</span><span class="nw">大丈夫ですか。</span></summary>
-        <p class="faq__a"><span class="nw">はい、</span><span class="nw">構いません。</span><span class="nw">ご相談・</span><span class="nw">現地の</span><span class="nw">調査・</span><span class="nw">お見積りに</span><span class="nw">費用はかかりません。</span><span class="nw">お見積りを</span><span class="nw">ご覧いただいたうえで</span><span class="nw">お断り</span><span class="nw">いただいても</span><span class="nw">結構です。</span><span class="nw">その</span><span class="nw">後にこちらからしつこく</span><span class="nw">ご連絡する</span><span class="nw">こともございません。</span></p>
+        <p class="faq__a"><span class="nw">はい、</span><span class="nw">構いません。</span><span class="nw">ご相談と、</span><b><span class="nw">目視による</span><span class="nw">現地の</span><span class="nw">調査・</span><span class="nw">お見積り</span></b>に<span class="nw">費用はかかりません。</span><span class="nw">（足場や</span><span class="nw">高所作業車が</span><span class="nw">必要な</span><span class="nw">調査、</span><span class="nw">散水しての</span><span class="nw">調査は</span><span class="nw">別途申し</span><span class="nw">受けます。</span><span class="nw">かかる</span><span class="nw">場合は、</span><span class="nw">金額を</span><span class="nw">先に</span><span class="nw">お伝えしてから</span><span class="nw">行います）</span><span class="nw">お見積りを</span><span class="nw">ご覧いただいたうえで</span><span class="nw">お断り</span><span class="nw">いただいても</span><span class="nw">結構です。</span><span class="nw">その</span><span class="nw">後にこちらからしつこく</span><span class="nw">ご連絡する</span><span class="nw">こともございません。</span></p>
       </details>
       <details>
         <summary><span class="nw">塗り</span><span class="nw">替えの</span><span class="nw">時期は、</span><span class="nw">どう</span><span class="nw">判断すればよいですか。</span></summary>
-        <p class="faq__a"><span class="nw">外壁を</span><span class="nw">手でこすって</span><span class="nw">白い</span><span class="nw">粉が</span><span class="nw">付く、</span><span class="nw">シーリング</span><span class="nw">（外壁の</span><span class="nw">目地の</span><span class="nw">ゴム）が</span><span class="nw">切れている、</span><span class="nw">屋根や</span><span class="nw">北面に</span><span class="nw">コケが</span><span class="nw">出ている、</span><span class="nw">といった</span><span class="nw">ところが</span><span class="nw">目安です。</span><span class="nw">ご自身で</span><span class="nw">判断がつかない</span><span class="nw">場合は、</span><span class="nw">お電話を</span><span class="nw">いただければ</span><span class="nw">拝見しに</span><span class="nw">お伺いします。</span><span class="nw">まだ</span><span class="nw">早ければ、</span><span class="nw">その</span><span class="nw">ように</span><span class="nw">申し</span><span class="nw">上げます。</span></p>
+        <p class="faq__a"><span class="nw">外壁を</span><span class="nw">手でこすって</span><span class="nw">白い</span><span class="nw">粉が</span><span class="nw">付く、</span><span class="nw">外壁の</span><span class="nw">目地の</span><span class="nw">ゴム</span><span class="nw">（シーリング）が</span><span class="nw">切れている、</span><span class="nw">屋根や</span><span class="nw">北側の</span><span class="nw">壁に</span><span class="nw">コケが</span><span class="nw">出ている、</span><span class="nw">といった</span><span class="nw">ところが</span><span class="nw">目安です。</span><span class="nw">ご自身で</span><span class="nw">判断がつかない</span><span class="nw">場合は、</span><span class="nw">お電話を</span><span class="nw">いただければ</span><span class="nw">拝見しに</span><span class="nw">お伺いします。</span><span class="nw">まだ</span><span class="nw">早ければ、</span><span class="nw">その</span><span class="nw">ように</span><span class="nw">申し</span><span class="nw">上げます。</span></p>
       </details>
       <details>
         <summary><span class="nw">工事中は</span><span class="nw">家にいなければいけませんか。</span></summary>
@@ -886,6 +1191,18 @@ ul,ol{margin:0;padding:0;list-style:none}
         <p class="faq__a"><span class="nw">着工前に、</span><span class="nw">両隣と</span><span class="nw">向かい・</span><span class="nw">裏の</span><span class="nw">お宅へ</span><span class="nw">当社から</span><span class="nw">ご挨拶に</span><span class="nw">お伺いします。</span><span class="nw">足場には</span><span class="nw">飛散を</span><span class="nw">防ぐ</span><span class="nw">シートを</span><span class="nw">張り、</span><span class="nw">高圧洗浄の</span><span class="nw">日は</span><span class="nw">特に</span><span class="nw">気をつけて</span><span class="nw">作業いたします。</span><span class="nw">工事中に</span><span class="nw">何か</span><span class="nw">ございましたら、</span><span class="nw">お客様ではなく</span><span class="nw">当社へ</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">いただくよう</span><span class="nw">お伝えして</span><span class="nw">おります。</span></p>
       </details>
       <details>
+        <summary><span class="nw">工事のあいだ、</span><span class="nw">洗濯物や</span><span class="nw">車はどうなりますか。</span></summary>
+        <p class="faq__a"><span class="nw">高圧洗浄の</span><span class="nw">日と、</span><span class="nw">塗装をしている</span><span class="nw">日は、</span><span class="nw">外に</span><span class="nw">お洗濯物を</span><span class="nw">干すのを</span><span class="nw">お控え</span><span class="nw">いただいて</span><span class="nw">おります。</span><span class="nw">日数は</span><span class="nw">工程によりますが、</span><span class="nw">あらかじめ</span><span class="nw">「この</span><span class="nw">日は</span><span class="nw">控えて</span><span class="nw">ください」と</span><span class="nw">お伝え</span><span class="nw">いたします。</span><span class="nw">お車は</span><span class="nw">敷地の</span><span class="nw">外か、</span><span class="nw">足場のかからない</span><span class="nw">場所へ</span><span class="nw">移動を</span><span class="nw">お願いする</span><span class="nw">ことが</span><span class="nw">ございます。</span><span class="nw">犬や</span><span class="nw">猫を</span><span class="nw">飼っておられる</span><span class="nw">場合は、</span><span class="nw">着工前に</span><span class="nw">お知らせ</span><span class="nw">ください。</span><span class="nw">庭に</span><span class="nw">職人が</span><span class="nw">入る</span><span class="nw">日を</span><span class="nw">お伝え</span><span class="nw">いたします。</span></p>
+      </details>
+      <details>
+        <summary><span class="nw">においや</span><span class="nw">音は</span><span class="nw">気になりますか。</span><span class="nw">窓は</span><span class="nw">開けられますか。</span></summary>
+        <p class="faq__a"><span class="nw">いまは</span><span class="nw">水で</span><span class="nw">薄める</span><span class="nw">塗料が</span><span class="nw">主です</span><span class="nw">ので、</span><span class="nw">以前よりにおいはかなり</span><span class="nw">少なくなって</span><span class="nw">おります。</span><span class="nw">それでも</span><span class="nw">塗っている</span><span class="nw">面の</span><span class="nw">窓は、</span><span class="nw">その</span><span class="nw">日のあいだ</span><span class="nw">開けられません。</span><span class="nw">エアコンは、</span><span class="nw">室外機を</span><span class="nw">覆っていても</span><span class="nw">お使い</span><span class="nw">いただける</span><span class="nw">ようにして</span><span class="nw">おります。</span><span class="nw">音がいちばん</span><span class="nw">出るのは、</span><span class="nw">高圧洗浄の</span><span class="nw">日と、</span><span class="nw">足場を</span><span class="nw">組む</span><span class="nw">日・</span><span class="nw">外す</span><span class="nw">日です。</span></p>
+      </details>
+      <details>
+        <summary><span class="nw">作業は</span><span class="nw">何時から</span><span class="nw">何時までですか。</span></summary>
+        <p class="faq__a"><span class="blank">〔　<span class="nw">こちらは</span><span class="nw">伺ってから</span><span class="nw">書きます</span>　〕</span><br><span class="nw">朝の</span><span class="nw">開始時刻と</span><span class="nw">夕方の</span><span class="nw">終了時刻、</span><span class="nw">日曜や</span><span class="nw">祝日に</span><span class="nw">作業をされるかを</span><span class="nw">伺って</span><span class="nw">書きます。</span><b><span class="nw">ご近所への</span><span class="nw">配慮として、</span><span class="nw">お客様がいちばん</span><span class="nw">気にされる</span><span class="nw">ところです。</span></b></p>
+      </details>
+      <details>
         <summary><span class="nw">お支払いはいつになりますか。</span></summary>
         <p class="faq__a"><span class="blank">〔　<span class="nw">こちらは</span><span class="nw">伺ってから</span><span class="nw">書きます</span>　〕</span><br><span class="nw">着手金の</span><span class="nw">有無、</span><span class="nw">お支払いの</span><span class="nw">回数、</span><span class="nw">現金・</span><span class="nw">お振込・</span><span class="nw">ローンの</span><span class="nw">お取り</span><span class="nw">扱いを</span><span class="nw">ご記入いただければ、</span><span class="nw">そのまま</span><span class="nw">文章に</span><span class="nw">いたします。</span></p>
       </details>
@@ -894,6 +1211,33 @@ ul,ol{margin:0;padding:0;list-style:none}
         <p class="faq__a"><span class="blank">〔　<span class="nw">こちらは</span><span class="nw">伺ってから</span><span class="nw">書きます</span>　〕</span><br><span class="nw">保証書を</span><span class="nw">お出しされているか、</span><span class="nw">年数は</span><span class="nw">何年か、</span><span class="nw">塗料メーカーの</span><span class="nw">保証が</span><span class="nw">付くかを</span><span class="nw">伺って</span><span class="nw">書きます。</span><b><span class="nw">保証の</span><span class="nw">年数は、</span><span class="nw">お客様が</span><span class="nw">他社と</span><span class="nw">比べる</span><span class="nw">ときにいちばん</span><span class="nw">見る</span><span class="nw">項目です。</span></b></p>
       </details>
     </div>
+  </div>
+</section>
+
+<!-- ══════════ 採用 ══════════ -->
+<section class="sec sec--band" id="recruit">
+  <div class="wrap">
+    <div class="sec__hd rv">
+      <svg class="layers" viewBox="0 0 64 14" aria-hidden="true"><rect x="0" y="0" width="64" height="4" rx="2"/><rect x="0" y="5" width="48" height="4" rx="2"/><rect x="0" y="10" width="28" height="4" rx="2"/></svg>
+      <span class="sec__label">RECRUIT</span>
+      <h2><span class="nw">一緒に</span><span class="nw">働く</span><span class="nw">方を</span><span class="nw">募集しています</span></h2>
+      <p><span class="nw">塗装と</span><span class="nw">防水の</span><span class="nw">職人を</span><span class="nw">募集して</span><span class="nw">おります。</span><span class="nw">経験のある</span><span class="nw">方も、</span><span class="nw">これから</span><span class="nw">覚えたい</span><span class="nw">方も、</span><span class="nw">まずは</span><span class="nw">お電話ください。</span></p>
+    </div>
+    <div class="rec rv">
+      <dl class="access__rows">
+        <div><dt><span class="nw">職種</span></dt><dd><span class="nw">塗装工・</span><span class="nw">防水工</span><span class="blank">〔　　　　　〕</span></dd></div>
+        <div><dt><span class="nw">経験</span></dt><dd><span class="blank">〔　　　　　　　　〕</span></dd></div>
+        <div><dt><span class="nw">待遇</span></dt><dd><span class="blank">〔　　　　　　　　〕</span></dd></div>
+        <div><dt><span class="nw">資格</span></dt><dd><span class="nw">取得の</span><span class="nw">費用について</span> <span class="blank">〔　　　　　〕</span></dd></div>
+      </dl>
+      <div class="rec__cta">
+        <p><span class="nw">詳しい</span><span class="nw">ことは、</span><span class="nw">お電話で</span><span class="nw">お話しさせて</span><span class="nw">ください。</span><span class="nw">履歴書はあとで</span><span class="nw">結構です。</span></p>
+        <a class="btn btn--tel" href="tel:0280482812"><b>0280-48-2812</b><span>「求人を見ました」とお伝えください</span></a>
+        <p class="rec__sub"><span class="nw">足場・</span><span class="nw">板金など、</span><span class="nw">一緒に</span><span class="nw">現場に</span><span class="nw">入って</span><span class="nw">いただける</span><span class="nw">協力会社様の</span><span class="nw">ご連絡も</span><span class="nw">お待ちして</span><span class="nw">おります。</span></p>
+      </div>
+    </div>
+    <p class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <span><b><span class="nw">条件をあえて</span><span class="nw">細かく</span><span class="nw">書いておりません。</span></b><span class="nw">時給や</span><span class="nw">休日を</span><span class="nw">書くと、</span><span class="nw">その</span><span class="nw">数字だけで</span><span class="nw">比べられて</span><span class="nw">電話が</span><span class="nw">来なくなります。</span><b><span class="nw">まず</span><span class="nw">声を</span><span class="nw">聞いて</span><span class="nw">いただく</span><span class="nw">入口として</span><span class="nw">置いています。</span></b><span class="nw">求人サイトからの</span><span class="nw">応募者は、</span><span class="nw">必ず</span><span class="nw">会社の</span><span class="nw">ホームページを</span><span class="nw">見てから</span><span class="nw">決めます。</span><span class="nw">この</span><span class="nw">節が</span><span class="nw">無いと、</span><span class="nw">そこで</span><span class="nw">落ちます。</span></span></p>
   </div>
 </section>
 
@@ -957,14 +1301,19 @@ ul,ol{margin:0;padding:0;list-style:none}
       </address>
     </div>
     <nav class="ft__nav" aria-label="フッター">
+      <a href="#timing">塗り替えの目安</a>
       <a href="#works">工事の内容</a>
       <a href="#price">費用の目安</a>
+      <a href="#warranty">保証とお支払い</a>
       <a href="#cases">施工事例</a>
       <a href="#flow">工事の流れ</a>
       <a href="#voice">お客様のお声</a>
+      <a href="#biz">法人の方へ</a>
       <a href="#about">会社概要</a>
+      <a href="#access">アクセス</a>
       <a href="#area">対応エリア</a>
       <a href="#faq">よくあるご質問</a>
+      <a href="#recruit">求人</a>
       <a href="#contact">お問い合わせ</a>
     </nav>
   </div>
@@ -1001,6 +1350,7 @@ ul,ol{margin:0;padding:0;list-style:none}
     "addressLocality": "古河市",
     "streetAddress": "中田1270-5"
   },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E4%B8%AD%E7%94%B01270-5",
   "knowsAbout": ["外壁塗装", "屋根塗装", "防水工事", "雨漏り修理", "シーリング工事"],
   "hasCredential": {
     "@type": "EducationalOccupationalCredential",
@@ -1031,6 +1381,21 @@ document.documentElement.classList.add('js');
       if (el.getBoundingClientRect().top < innerHeight) el.classList.add('is-in');
     });
   });
+})();
+
+<script>
+(function(){
+  var btn = document.getElementById('notesBtn'), lbl = document.getElementById('notesLbl'), root = document.documentElement;
+  function set(on){
+    root.classList.toggle('notes', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    lbl.textContent = on ? '制作メモを隠す' : '制作メモを表示';
+    try { localStorage.setItem('masuko-notes', on ? '1' : '0'); } catch (e) {}
+  }
+  var saved = '0';
+  try { saved = localStorage.getItem('masuko-notes') || '0'; } catch (e) {}
+  set(saved === '1');
+  btn.addEventListener('click', function(){ set(!root.classList.contains('notes')); });
 })();
 </script>
 </body>
