@@ -154,6 +154,13 @@ html:not(.notes) .ghost{display:none!important}
 .hd__tel svg{width:17px;height:17px;flex:none}
 .hd__tel em{font-style:normal;font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.08em;opacity:.85;display:block;line-height:1.2}
 @media(min-width:900px){.hd__nav{display:flex}.hd__tel{display:inline-flex}}
+@media(min-width:900px){
+  .hd__in{flex-wrap:wrap;row-gap:0;padding-block:8px 0;min-height:0}
+  .brand b{white-space:nowrap}
+  .hd__nav{order:3;flex-basis:100%;gap:28px;justify-content:flex-end;border-top:1px solid rgba(15,59,72,.12);padding-block:2px}
+  .hd__nav a{white-space:nowrap;padding-block:7px 6px;line-height:1.3}
+}
+@media(min-width:900px) and (max-width:1079px){.hd__nav{gap:22px}}
 
 /* ─────────── ヒーロー ─────────── */
 .hero{position:relative;background:var(--deep);color:#fff;overflow:hidden;isolation:isolate}
@@ -537,8 +544,30 @@ html:not(.notes) .ghost{display:none!important}
 .est li{counter-increment:e;position:relative;padding-left:40px;font-size:14.5px;line-height:1.95;color:var(--sub)}
 .est li::before{content:counter(e);position:absolute;left:0;top:2px;width:27px;height:27px;border-radius:50%;background:var(--deep);color:#fff;font-family:var(--fn);font-weight:600;font-size:13px;display:grid;place-items:center}
 .est li b{color:var(--deep)}
-.mailaddr{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;font-size:14.5px;color:#fff;margin-bottom:8px}
-.mailaddr__lb{font-size:12.5px;letter-spacing:.08em;color:rgba(255,255,255,.7)}
+.hero__name{margin:-6px 0 clamp(18px,3.5vw,24px);font-size:13.6px;line-height:1.9;letter-spacing:.03em;color:#E8C98A}
+.hero__row{display:grid;gap:26px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:960px){.hero__row{grid-template-columns:minmax(0,1fr) minmax(0,330px);column-gap:clamp(36px,4vw,56px);align-items:start}}
+.hero__photo{aspect-ratio:16/10}
+@media(min-width:960px){.hero__photo{aspect-ratio:4/5}}
+.slot--dark{background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 1px,transparent 1px 9px),rgba(255,255,255,.05);border-color:rgba(255,255,255,.34);color:rgba(255,255,255,.78)}
+.slot--dark .slot__t{color:rgba(255,255,255,.9)}
+.slot--dark .slot__d{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.28);color:rgba(255,255,255,.75)}
+.contact__staff{aspect-ratio:16/9;margin-top:18px}
+.work__meth{font-size:13.4px;line-height:1.9;color:var(--sub)}
+.work__meth b{color:var(--deep)}
+.biz__go{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.voice__sheet{aspect-ratio:4/3;margin-top:16px}
+@media(min-width:820px){.voice__sheet{aspect-ratio:16/6}}
+.crew{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:820px){.crew{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}}
+.crew__p{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 12px 16px;display:grid;gap:10px;align-content:start}
+.crew__p .slot{aspect-ratio:4/5;padding:12px}
+.crew__p .slot__t{font-size:12.6px}
+.crew__n{font-family:var(--fd);font-weight:700;font-size:16px;color:var(--deep)}
+.crew__p dl{display:grid;gap:2px;font-size:13px;line-height:1.85;color:var(--sub)}
+.crew__p dl div{display:flex;gap:8px}
+.crew__p dt{flex:none;color:var(--muted)}
+.crew__w{font-size:12.8px;line-height:1.85;color:var(--muted);border-top:1px solid var(--line-soft);padding-top:9px}
 .cases.is-folded>.case:nth-child(n+7){display:none}
 .cases-more{margin-top:22px;text-align:center}
 .cases-more button{font:inherit;cursor:pointer}
@@ -595,8 +624,9 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
 .case__tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.05em;color:var(--deep-3);background:#EAF2F4;border-radius:99px;padding:4px 10px;margin-bottom:10px}
 .case__go{display:inline-flex;align-items:center;gap:6px;margin-top:13px;font-size:13px;font-weight:700;color:var(--deep-3);font-family:var(--fd)}
 .case__go svg{width:13px;height:13px}
-.filter{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px;align-items:center}
-.filter__lb{font-family:var(--fb);font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-right:2px}
+.filter{display:grid;gap:10px;margin-bottom:22px}
+.filter__row{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.filter__lb{font-family:var(--fb);font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-right:2px;min-width:2.8em}
 .filter button{
   font-family:var(--fd);font-size:13.5px;font-weight:700;cursor:pointer;border-radius:99px;padding:8px 16px;
   border:1px solid var(--line);background:var(--surface);color:var(--sub);transition:.16s;
@@ -676,6 +706,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
       <a href="../#price">費用</a>
       <a href="../#warranty">保証</a>
       <a href="../#cases">施工事例</a>
+      <a href="../#biz">法人・管理会社様</a>
       <a href="../#about">会社概要</a>
       <a href="../#access">アクセス</a>
       <a href="../#contact">お問い合わせ</a>
@@ -731,7 +762,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
 
     <h2 class="sub2 rv"><span class="nw">外壁塗装の</span><span class="nw">施工事例</span><span class="prov">仮</span></h2>
     <div class="cases rv">
-      <a class="case" href="../works/w01.html" data-cat="gaiheki">
+      <a class="case" href="../works/w01.html" data-cat="gaiheki" data-bk="house">
         <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前・施工後の<b>2枚</b>が入ります</span><span class="slot__d">1200 × 900 px</span></div>
         <div class="case__b">
           <span class="case__tag">外壁塗装</span>
@@ -740,7 +771,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
           <span class="case__go">この工事のページを見る<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
         </div>
       </a>
-      <a class="case" href="../works/w06.html" data-cat="gaiheki">
+      <a class="case" href="../works/w06.html" data-cat="gaiheki" data-bk="house">
         <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前・施工後の<b>2枚</b>が入ります</span><span class="slot__d">1200 × 900 px</span></div>
         <div class="case__b">
           <span class="case__tag">外壁塗装</span>
@@ -749,7 +780,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
           <span class="case__go">この工事のページを見る<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
         </div>
       </a>
-      <a class="case" href="../works/w07.html" data-cat="gaiheki">
+      <a class="case" href="../works/w07.html" data-cat="gaiheki" data-bk="house">
         <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前・施工後の<b>2枚</b>が入ります</span><span class="slot__d">1200 × 900 px</span></div>
         <div class="case__b">
           <span class="case__tag">外壁塗装</span>
@@ -758,7 +789,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
           <span class="case__go">この工事のページを見る<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
         </div>
       </a>
-      <a class="case" href="../works/w11.html" data-cat="gaiheki">
+      <a class="case" href="../works/w11.html" data-cat="gaiheki" data-bk="house">
         <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前・施工後の<b>2枚</b>が入ります</span><span class="slot__d">1200 × 900 px</span></div>
         <div class="case__b">
           <span class="case__tag">外壁塗装</span>
@@ -767,7 +798,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
           <span class="case__go">この工事のページを見る<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
         </div>
       </a>
-      <a class="case" href="../works/w16.html" data-cat="gaiheki">
+      <a class="case" href="../works/w16.html" data-cat="gaiheki" data-bk="house">
         <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前・施工後の<b>2枚</b>が入ります</span><span class="slot__d">1200 × 900 px</span></div>
         <div class="case__b">
           <span class="case__tag">外壁塗装</span>
@@ -776,7 +807,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
           <span class="case__go">この工事のページを見る<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
         </div>
       </a>
-      <a class="case" href="../works/w19.html" data-cat="gaiheki">
+      <a class="case" href="../works/w19.html" data-cat="gaiheki" data-bk="house">
         <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前・施工後の<b>2枚</b>が入ります</span><span class="slot__d">1200 × 900 px</span></div>
         <div class="case__b">
           <span class="case__tag">外壁塗装</span>
@@ -851,9 +882,9 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
     お電話する
   </a>
-  <a class="dock__mail" href="../#mail">
+  <a class="dock__mail" href="../#contact">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg>
-    メールで相談
+    お問い合わせ
   </a>
 </div>
 
