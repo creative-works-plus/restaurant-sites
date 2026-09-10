@@ -246,7 +246,7 @@ html:not(.notes) .ghost{display:none!important}
 
 /* ─────────── お約束 ─────────── */
 .promise{display:grid;gap:1px;background:var(--line);grid-template-columns:1fr}
-@media(min-width:760px){.promise{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:760px){.promise{grid-template-columns:repeat(2,1fr)}}
 .promise>li{background:var(--surface);padding:clamp(24px,4vw,34px)}
 .promise__n{font-family:var(--fn);font-weight:600;font-size:13px;letter-spacing:.14em;color:var(--amber-ink);display:block;margin-bottom:12px}
 .promise h3{font-size:clamp(17px,3.2vw,20px);margin-bottom:11px;color:var(--deep)}
@@ -518,6 +518,30 @@ html:not(.notes) .ghost{display:none!important}
 .dock a svg{width:18px;height:18px;flex:none}
 .dock__tel{background:var(--amber);color:#231602}
 .dock__mail{background:var(--deep);color:#fff}
+
+/* ─────────── 2026-09-10 社長役・お客様役のレビューで足したもの ─────────── */
+.hero__note{margin-top:14px;font-size:13.6px;line-height:1.95;color:rgba(255,255,255,.8);max-width:36em}
+.hero .blank,.sec--deep .blank{color:#F3C978}
+.hero__facts .blank{min-width:1.6em}
+.promise__sign{margin-top:18px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;font-size:13.5px;color:var(--sub)}
+.promise__sign b{font-family:var(--fd);font-size:15.5px;color:var(--deep)}
+.promise__sign a{color:var(--deep);font-weight:700}
+.wp__box--wide{grid-column:1/-1}
+.wp__box--wide p{font-size:14.5px;line-height:2;color:var(--sub)}
+.wp__box--wide p + p{margin-top:10px}
+.est{display:grid;gap:18px;grid-template-columns:1fr;align-items:start}
+@media(min-width:820px){.est{grid-template-columns:.85fr 1.15fr}}
+.est .slot{aspect-ratio:4/3}
+@media(min-width:820px){.est .slot{aspect-ratio:3/4}}
+.est ol{counter-reset:e;display:grid;gap:14px}
+.est li{counter-increment:e;position:relative;padding-left:40px;font-size:14.5px;line-height:1.95;color:var(--sub)}
+.est li::before{content:counter(e);position:absolute;left:0;top:2px;width:27px;height:27px;border-radius:50%;background:var(--deep);color:#fff;font-family:var(--fn);font-weight:600;font-size:13px;display:grid;place-items:center}
+.est li b{color:var(--deep)}
+.mailaddr{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;font-size:14.5px;color:#fff;margin-bottom:8px}
+.mailaddr__lb{font-size:12.5px;letter-spacing:.08em;color:rgba(255,255,255,.7)}
+.cases.is-folded>.case:nth-child(n+7){display:none}
+.cases-more{margin-top:22px;text-align:center}
+.cases-more button{font:inherit;cursor:pointer}
 @media(min-width:900px){.dock{display:none}}
 
 /* ─────────── 出現演出（JSなし・動きを減らす設定では出ない） ─────────── */
@@ -606,6 +630,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
 .wk__ba .slot{aspect-ratio:4/3}
 .wk__cap{font-family:var(--fb);font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--muted);margin-bottom:8px}
 .wk__grid{display:grid;gap:clamp(26px,4.5vw,44px);grid-template-columns:1fr;margin-top:clamp(30px,5vw,48px)}
+.wk__grid>*{min-width:0} /* 1frは中身の最小幅より縮まない。空欄の長い文字列で390pxが575pxまで押し広げられていた */
 @media(min-width:920px){.wk__grid{grid-template-columns:1.1fr .9fr;align-items:start}}
 .wk__steps{display:grid;gap:13px;grid-template-columns:repeat(2,1fr)}
 .wk__steps .slot{aspect-ratio:4/3}
@@ -620,7 +645,7 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
 <!-- ══════════ 叩き台バー ══════════ -->
 <div class="draft">
   <div class="wrap draft__in">
-    <p><span class="nw">ご依頼を</span><span class="nw">いただく</span><span class="nw">前に</span><span class="nw">お作りした</span><b><span class="nw">叩き</span>台</b><span class="nw">です。</span><b><span class="nw">写真・</span><span class="nw">費用・</span><span class="nw">保証の</span><span class="nw">年数・</span><span class="nw">お客様の</span><span class="nw">お声は、</span><span class="nw">こちらで</span><span class="nw">仮に</span><span class="nw">入れた</span><span class="nw">もの</span></b><span class="nw">で、</span><span class="nw">御社の</span><span class="nw">数字ではありません。</span><b class="pv">仮</b>の<span class="nw">付いた</span><span class="nw">場所は、</span><span class="nw">伺って</span><span class="nw">お話を</span><span class="nw">伺ってから</span><span class="nw">入れ</span><span class="nw">替えます。</span></p>
+    <p><span class="nw">ご依頼を</span><span class="nw">いただく</span><span class="nw">前に</span><span class="nw">お作りした</span><b><span class="nw">叩き</span>台</b><span class="nw">です。</span><b><span class="nw">写真・</span><span class="nw">費用・</span><span class="nw">保証の</span><span class="nw">年数・</span><span class="nw">お客様の</span><span class="nw">お声は、</span><span class="nw">こちらで</span><span class="nw">仮に</span><span class="nw">入れた</span><span class="nw">もの</span></b><span class="nw">で、</span><span class="nw">御社の</span><span class="nw">数字ではありません。</span><b class="pv">仮</b>の<span class="nw">付いた</span><span class="nw">場所は、</span><span class="nw">お話を</span><span class="nw">伺ってから</span><span class="nw">入れ</span><span class="nw">替えます。</span></p>
     <button type="button" id="notesBtn" aria-pressed="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
       <span id="notesLbl">制作メモを表示</span>
@@ -686,10 +711,12 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
 
         <h2 class="sub2"><span class="nw">工程の</span><span class="nw">お写真</span><span class="prov">仮</span></h2>
         <div class="wk__steps">
+          <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">施工前の傷み（寄り）</span></div>
           <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">足場を組んだところ</span></div>
           <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">高圧洗浄</span></div>
           <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">下地の補修</span></div>
           <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">仕上げの塗り</span></div>
+          <div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span class="slot__t">仕上がり（寄り）</span></div>
         </div>
         <p style="font-size:13.2px;line-height:1.95;color:var(--muted);margin-top:12px"><span class="nw">工程の</span><span class="nw">お写真は、</span><span class="nw">現場で</span><span class="nw">スマホで</span><span class="nw">撮って</span><span class="nw">いただいた</span><span class="nw">ものをそのまま</span><span class="nw">使えます。</span></p>
 
@@ -707,11 +734,15 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
             <tr><th scope="row"><span class="nw">お住まいの</span><span class="nw">地域</span></th><td>〔　　　<span class="nw">市〕</span></td></tr>
             <tr><th scope="row"><span class="nw">建物の</span><span class="nw">種類</span></th><td><span class="nw">木造二階建て</span></td></tr>
             <tr><th scope="row"><span class="nw">築年数</span></th><td><span class="blank">〔　　〕</span>年</td></tr>
+            <tr><th scope="row"><span class="nw">防水した</span><span class="nw">場所</span></th><td><span class="blank">〔　　　　　　〕</span></td></tr>
+            <tr><th scope="row"><span class="nw">お困りだった</span><span class="nw">こと</span></th><td><span class="blank">〔　　　　　　〕</span></td></tr>
+            <tr><th scope="row"><span class="nw">ご依頼のきっかけ</span></th><td><span class="blank">〔　　　　　　〕</span></td></tr>
             <tr><th scope="row"><span class="nw">工事の</span><span class="nw">内容</span></th><td><span class="nw">ベランダの</span><span class="nw">防水</span></td></tr>
-            <tr><th scope="row"><span class="nw">使った</span><span class="nw">塗料</span></th><td><span class="blank">〔　　　　　　　〕</span></td></tr>
+            <tr><th scope="row"><span class="nw">使った</span><span class="nw">材料</span></th><td><span class="blank">〔　　　　　　　〕</span></td></tr>
             <tr><th scope="row"><span class="nw">費用</span></th><td><span class="blank">〔　　　〕</span><span class="nw">万円</span></td></tr>
             <tr><th scope="row"><span class="nw">工期</span></th><td><span class="blank">〔　〕</span>日</td></tr>
             <tr><th scope="row"><span class="nw">施工年月</span></th><td><span class="blank">〔　　〕</span>年<span class="blank">〔　〕</span>月</td></tr>
+            <tr><th scope="row"><span class="nw">担当した</span><span class="nw">職人</span></th><td><span class="blank">〔　　　　〕</span></td></tr>
           </tbody>
         </table>
         <p class="provnote"><span class="nw">施工年月は</span><span class="nw">必ず</span><span class="nw">出します。</span><span class="nw">日付のない</span><span class="nw">金額は、</span><span class="nw">いまの</span><span class="nw">お見積りと</span><span class="nw">食い</span><span class="nw">違った</span><span class="nw">ときに、</span><span class="nw">嘘をついた</span><span class="nw">ことになってしまいます。</span></p>
@@ -802,9 +833,9 @@ a.case:hover{border-color:var(--deep-3);box-shadow:0 8px 26px rgba(13,58,71,.1);
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
     お電話する
   </a>
-  <a class="dock__mail" href="../#contact">
+  <a class="dock__mail" href="../#mail">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg>
-    お問い合わせ
+    メールで相談
   </a>
 </div>
 
