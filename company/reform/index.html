@@ -207,7 +207,9 @@ a { color: inherit; }
 
 h1, h2, h3, p, dd, dt, li, summary { word-break: auto-phrase; }
 h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
-.nw { display: inline-block; }
+/* text-indent は inline-block の中へ受け継がれる。ぶら下げ字下げの行に置くと
+   文節ごとに左へずれて重なるので、箱の中では 0 に戻す */
+.nw { display: inline-block; text-indent: 0; }
 .br-sp { display: none; }
 
 .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
@@ -372,8 +374,9 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 .price-inc { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 26px clamp(28px, 4vw, 46px) 30px; }
 .price-inc h3 { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 8px; }
 .price-inc ul { list-style: none; font-size: 15px; color: var(--ink-2); }
-.price-inc li { padding-left: 1.1em; text-indent: -1.1em; }
-.price-inc li::before { content: "—"; color: var(--line-2); margin-right: 0.3em; }
+.price-inc li { position: relative; padding-left: 1.7em; }
+.price-inc li + li { margin-top: 2px; }
+.price-inc li::before { content: "—"; position: absolute; left: 0; color: var(--line-2); }
 .price-inc p { margin-top: 10px; font-size: 14px; color: var(--muted); }
 .price-a {
   display: grid; grid-template-columns: 5fr 7fr; gap: var(--col-gap);
@@ -419,12 +422,16 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 .cta p { color: rgba(241, 241, 238, 0.76); font-size: 15.5px; max-width: 34em; }
 .cta .mail { margin-top: 26px; font-size: 14.5px; color: rgba(241, 241, 238, 0.66); }
 .cta .mail a { color: var(--gold-soft); }
-.line-box {
-  display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center;
-  padding: 26px; border: 1px solid rgba(241, 241, 238, 0.2);
+/* ボタンは枠の幅いっぱいに1行で置き、QRと説明はその下に横並び。
+   QR・ボタン・説明を1行に並べていたころは、ボタンが190px幅に押し込まれて2行に折れていた */
+.line-box { padding: clamp(24px, 3vw, 32px); border: 1px solid rgba(241, 241, 238, 0.2); }
+.line-box .btn { display: flex; justify-content: space-between; width: 100%; white-space: nowrap; padding: 18px 24px 18px 26px; }
+.line-qr {
+  display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center;
+  margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(241, 241, 238, 0.14);
 }
-.line-box img { width: 116px; height: 116px; background: var(--paper); padding: 8px; box-sizing: content-box; }
-.line-box small { display: block; margin-top: 12px; font-size: 12.5px; line-height: 1.8; color: rgba(241, 241, 238, 0.62); }
+.line-qr img { width: 96px; height: 96px; background: var(--paper); padding: 6px; box-sizing: content-box; }
+.line-qr small { display: block; font-size: 12.5px; line-height: 1.85; color: rgba(241, 241, 238, 0.62); }
 
 /* ---------- フッター（自社LPと同じ＋飲食店のご案内へ戻る道） ---------- */
 .site-footer { background: var(--dark-2); color: rgba(241, 241, 238, 0.68); padding: 44px 0 34px; font-size: 13px; }
@@ -459,7 +466,6 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
   .faq summary { padding: 20px 40px 20px 28px; font-size: 15.5px; }
   .faq summary::before { top: 20px; }
   .faq details p { padding: 0 4px 22px 28px; }
-  .line-box { grid-template-columns: 1fr; justify-items: start; }
   .br-sp { display: inline; }
   .global-nav { gap: 12px; }
   .nav-sns { gap: 5px; }
@@ -730,10 +736,10 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
         <p class="mail"><span class="nw">メールでも</span><span class="nw">承ります</span> —— <a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a></p>
       </div>
       <div class="line-box">
-        <img src="../line/line-qr.png" alt="公式LINE 友だち追加のQRコード" width="116" height="116" loading="lazy">
-        <div>
-          <a href="https://lin.ee/nFu0bnO" class="btn btn-line" target="_blank" rel="noopener">公式LINEで相談する<span class="arw" aria-hidden="true">→</span></a>
-          <small>QRコードを読み取るか、ボタンから友だち追加してください。そのままメッセージをお送りいただけます。</small>
+        <a href="https://lin.ee/nFu0bnO" class="btn btn-line" target="_blank" rel="noopener">公式LINEで相談する<span class="arw" aria-hidden="true">→</span></a>
+        <div class="line-qr">
+          <img src="../line/line-qr.png" alt="公式LINE 友だち追加のQRコード" width="96" height="96" loading="lazy">
+          <small><span class="nw">QRコードを</span><span class="nw">読み取るか、</span><span class="nw">ボタンから</span><span class="nw">友だち追加して</span><span class="nw">ください。</span><span class="nw">そのまま</span><span class="nw">メッセージを</span><span class="nw">お送り</span><span class="nw">いただけます。</span></small>
         </div>
       </div>
     </div>

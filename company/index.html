@@ -687,6 +687,22 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 .price-other { font-size: 14.5px; color: var(--muted); margin: -4px 0 30px; }
 .price-other a { color: var(--green); font-weight: 700; text-underline-offset: 3px; margin-left: 0.4em; }
 
+/* ---------- 工事店・リフォーム会社様へ（別のご案内への入口） ----------
+   FAQ（生成り）と会社概要（沈めた帯）のあいだに白い面で置き、ここだけ読み手が違うと分かるようにする。
+   金額は並べない（150,000円と同じ画面に出すと、飲食店の方が読み違える） */
+.reform-band { background: var(--card); }
+.reform-grid { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+.reform-lead { color: var(--muted); font-size: 15.5px; max-width: 30em; }
+.reform-rows { border-top: 1px solid var(--line); margin-top: 6px; }
+.reform-row {
+  display: grid; grid-template-columns: 92px 1fr; gap: 16px;
+  padding: 20px 0; border-bottom: 1px solid var(--line);
+}
+.reform-row dt { font-weight: 700; color: var(--green); font-size: 14.5px; }
+.reform-row dd { color: var(--ink-2); font-size: 15px; }
+.reform-cta { margin-top: 32px; }
+.reform-cta .arw { font-family: var(--font-latin); font-weight: 500; margin-left: 12px; }
+
 /* ---------- 制作の流れ ---------- */
 .flow-list { counter-reset: step; display: grid; gap: 0; max-width: 880px; }
 .flow-item {
@@ -832,6 +848,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   .case { grid-template-columns: 1fr; gap: 32px; }
   .compare { grid-template-columns: 1fr; }
   .compare-col.right { border-left: none; }
+  .reform-grid { grid-template-columns: 1fr; gap: 24px; }
   .global-nav a:not(.btn) { display: none; }
   /* ただしSNSアイコンは残す（文字メニューと違って幅を食わず、スマホでこそ押される導線のため） */
   .global-nav .nav-sns a.nav-ico { display: inline-flex; }
@@ -844,6 +861,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   .section { padding: 56px 0; }
   .section-title { font-size: 24px; }
   .cta-band h2 { font-size: 23px; }
+  .reform-row { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
   /* 数字帯: 4列だと数字がつぶれるので2列2段に */
   .stats .container { grid-template-columns: repeat(2, 1fr); }
   .stat { padding: 24px 12px; }
@@ -1759,6 +1777,25 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
           <summary>制作事例のお店は、お客さんなのですか?</summary>
           <p>いいえ。掲載しているものは、いずれもご契約前におつくりした叩き台です。まずこの状態までお作りしてお持ちする、というやり方をしているためで、お取引のあるお店という意味ではありません。</p>
         </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 工事店・リフォーム会社様へ（→ サービスの定義.md ⑯。料金はここに並べず、ご案内のページで出す） -->
+  <section class="section ruled reform-band" id="reform">
+    <div class="container reform-grid">
+      <div>
+        <span class="eyebrow">工事店・リフォーム会社様へ</span>
+        <h2 class="section-title"><span class="nw">施工事例を、</span><br><span class="nw">1件ずつページにして</span><span class="nw">お作りします。</span></h2>
+        <p class="reform-lead"><span class="nw">飲食店の</span><span class="nw">ホームページとは、</span><span class="nw">載せるものも</span><span class="nw">料金も</span><span class="nw">違うため、</span><span class="nw">ご案内を</span><span class="nw">分けています。</span><span class="nw">塗装・防水・屋根・</span><span class="nw">外構・水まわりの</span><span class="nw">会社様は、</span><span class="nw">こちらを</span><span class="nw">ご覧ください。</span></p>
+      </div>
+      <div>
+        <dl class="reform-rows">
+          <div class="reform-row reveal"><dt>作るもの</dt><dd><span class="nw">施工事例を</span><span class="nw">1件ずつ</span><span class="nw">1ページに。</span><span class="nw">所在地・建物・</span><span class="nw">工事・塗料・</span><span class="nw">工期・費用・</span><span class="nw">施工年月・写真の</span><span class="nw">8つを</span><span class="nw">そろえます。</span></dd></div>
+          <div class="reform-row reveal"><dt>作り方</dt><dd><span class="nw">半日伺って</span><span class="nw">お作りする形と、</span><span class="nw">お預かりした</span><span class="nw">写真で</span><span class="nw">お作りする形の</span><span class="nw">2つです。</span></dd></div>
+          <div class="reform-row reveal"><dt>料金</dt><dd><span class="nw">飲食店の</span><span class="nw">ホームページとは</span><span class="nw">別の料金です。</span><span class="nw">金額は</span><span class="nw">ご案内のページに</span><span class="nw">載せています。</span></dd></div>
+        </dl>
+        <p class="reform-cta"><a href="reform/" class="btn btn-primary"><span class="nw">リフォーム会社様への</span><span class="nw">ご案内<span class="arw" aria-hidden="true">→</span></span></a></p>
       </div>
     </div>
   </section>
