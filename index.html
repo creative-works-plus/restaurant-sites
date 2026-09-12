@@ -5,10 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 社内向けの一覧ページ。検索エンジンには出さない -->
 <meta name="robots" content="noindex, nofollow">
-<title>制作サイト一覧</title>
+<title>制作サイト一覧（飲食店）</title>
 <style>
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
+
+    /* 一覧の切り替え（飲食店 ⇄ リフォーム、工事）。★2026-09-12 新設。
+       リフォームの一覧は reform-list/index.html。叩き台そのものは別の公開先
+       （creative-works-plus.github.io）に置いてあり、あちらの / には一覧を置かない決まり
+       （頭を削られても一覧が開けないように）なので、一覧だけこちらに置いている。
+       ★<li> と <ul> を使わない。check_index_counts.py・add_tel_buttons.py などが
+         <li><a href=…> を店の行として数えるため */
+    .kind {
+        display: flex; width: max-content; max-width: 100%; margin: 0 auto 20px;
+        border: 1px solid #2a2a2e; border-radius: 8px; overflow: hidden;
+    }
+    .kind a, .kind span {
+        display: block; padding: 8px 16px; font-size: 0.76rem; letter-spacing: 0.06em;
+        background: #131316; color: #8a8782; border: 0; border-radius: 0; white-space: nowrap;
+    }
+    .kind > :nth-child(2) { border-left: 1px solid #2a2a2e; }
+    .kind .on { background: #1f1c15; color: #e8c98f; }
+    .kind a:hover, .kind a:focus-visible { color: #e8c98f; border-color: #2a2a2e; }
     body {
         margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
         background: #0b0b0d; color: #e8e6e1;
@@ -31,7 +49,13 @@
         display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
     }
     h2:first-of-type { margin-top: 0; }
-    h2 .count { font-size: 0.74rem; font-weight: 400; color: #6f6d69; letter-spacing: 0.06em; flex: none; }
+    /* ★flex:none だと野木町の長い但し書き（「17軒（うち7軒は…）」）が折り返せず、
+         390px幅で横に96pxはみ出していた（2026-09-12 に測って直した）。縮めて右寄せで折り返す */
+    h2 .count { font-size: 0.74rem; font-weight: 400; color: #6f6d69; letter-spacing: 0.06em; flex: 0 1 auto; min-width: 0; text-align: right; }
+    h2 { flex-wrap: nowrap; }
+    /* 語の途中で折り返さないための囲み（見出しの「制作サイト一覧（飲食店）」）。
+       ★span を要素セレクタで狙う指定を書かないこと（.nw が巻き込まれて1文節ずつ改行される） */
+    .nw { display: inline-block; text-indent: 0; }
 
     /* 発送の便（1便＝1週ぶん）。この見出しの中では同じ町丁を2軒入れない */
     .batch {
@@ -160,7 +184,12 @@
 </head>
 <body>
 <div class="wrap">
-    <h1>制作サイト一覧</h1>
+    <nav class="kind" aria-label="一覧の切り替え">
+        <span class="on" aria-current="page">飲食店</span>
+        <a href="reform-list/">リフォーム、工事</a>
+    </nav>
+
+    <h1><span class="nw">制作サイト一覧</span><span class="nw">（飲食店）</span></h1>
     <p class="total">全147軒</p>
 
     <div class="filter" id="filter"></div>

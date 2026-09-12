@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 社内向けの一覧ページ。検索エンジンには出さない -->
+<meta name="robots" content="noindex, nofollow">
+<title>制作サイト一覧（リフォーム、工事）</title>
+<style>
+    /* 飲食店の一覧（../index.html）と同じ見た目にそろえてある。色や寸法を変えるときは両方直す */
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        background: #0b0b0d; color: #e8e6e1;
+        font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+        padding: 40px 20px;
+    }
+    .wrap { max-width: 560px; width: 100%; }
+    h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 8px; text-align: center; letter-spacing: 0.04em; }
+    .total { margin: 0 0 10px; text-align: center; font-size: 0.82rem; color: #7c7a75; letter-spacing: 0.06em; }
+    .note {
+        margin: 0 0 30px; padding: 14px 16px; border: 1px solid #2a2a2e; border-radius: 8px;
+        background: #131316; font-size: 0.76rem; line-height: 1.75; color: #9b9892;
+    }
+    .note b { color: #c9a063; font-weight: 600; }
+
+    /* 一覧の切り替え（飲食店 ⇄ リフォーム、工事）。飲食店の一覧と同じ部品 */
+    .kind {
+        display: flex; width: max-content; max-width: 100%; margin: 0 auto 20px;
+        border: 1px solid #2a2a2e; border-radius: 8px; overflow: hidden;
+    }
+    .kind a, .kind span {
+        display: block; padding: 8px 16px; font-size: 0.76rem; letter-spacing: 0.06em;
+        background: #131316; color: #8a8782; border: 0; border-radius: 0; white-space: nowrap;
+    }
+    .kind > :nth-child(2) { border-left: 1px solid #2a2a2e; }
+    .kind .on { background: #1f1c15; color: #e8c98f; }
+    .kind a:hover, .kind a:focus-visible { color: #e8c98f; border-color: #2a2a2e; }
+
+    /* 地域ごとの見出し。新しい地域はこの h2 + ul を1組ずつ足す */
+    h2 {
+        font-size: 0.86rem; font-weight: 600; letter-spacing: 0.1em; color: #c9a063;
+        margin: 34px 0 14px; padding-bottom: 9px; border-bottom: 1px solid #2a2a2e;
+        display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+    }
+    h2:first-of-type { margin-top: 0; }
+    h2 .count { font-size: 0.74rem; font-weight: 400; color: #6f6d69; letter-spacing: 0.06em; flex: none; }
+
+    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+    a {
+        display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: #e8e6e1;
+        background: #17171a; border: 1px solid #2a2a2e; border-radius: 8px;
+        padding: 14px 16px; font-size: 0.98rem; transition: 0.2s;
+    }
+    a:hover, a:focus-visible { border-color: #c9a063; color: #e8c98f; }
+    .nm { flex: 1; min-width: 0; }
+    .area { font-size: 0.72rem; color: #6f6d69; letter-spacing: 0.04em; flex: none; }
+    li.envelope .nm::after {
+        content: "✉"; margin-left: 7px; font-size: 0.78rem; color: #8f7a4e;
+    }
+
+    /* 1社の行＝上段が「会社名（本命の案が開く）＋電話」、下段が「案ごとのボタン」。
+       飲食店と違い、1社に案が3つ（A・B・C）あるので下段を足している */
+    li { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+    li > a:first-child { flex: 1; min-width: 0; }
+    a.tel {
+        flex: none; width: 54px; padding: 0; justify-content: center; align-items: center;
+        color: #8fbf9a; background: #161a17; border-color: #2f3a32;
+    }
+    a.tel:hover, a.tel:focus-visible { color: #b6dcbe; background: #1b241d; border-color: #8fbf9a; }
+    .plans { flex-basis: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .plans a {
+        flex-direction: column; align-items: flex-start; gap: 2px;
+        padding: 9px 12px; font-size: 0.8rem; background: #131316;
+    }
+    .plans a small { font-size: 0.68rem; color: #6f6d69; letter-spacing: 0.02em; }
+    .plans a.main { border-color: #4a412d; }
+    .plans a.main small { color: #a58a5c; }
+
+    .own {
+        margin-top: 34px; padding-top: 22px; border-top: 1px solid #26262a;
+        display: flex; flex-direction: column; gap: 12px;
+    }
+    .own a { background: #1b1a16; border-color: #35322a; }
+
+    /* 語の途中で折り返さないための囲み（iPhoneは word-break:auto-phrase が効かない）。
+       ★span を要素セレクタで狙う指定を書かないこと（.nw が巻き込まれて1文節ずつ改行される） */
+    .nw { display: inline-block; text-indent: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <nav class="kind" aria-label="一覧の切り替え">
+        <a href="../">飲食店</a>
+        <span class="on" aria-current="page">リフォーム、工事</span>
+    </nav>
+
+    <h1><span class="nw">制作サイト一覧</span><span class="nw">（リフォーム、工事）</span></h1>
+    <p class="total">全1社</p>
+
+    <!-- ================================================================
+         ★2026-09-12 新設。飲食店の一覧（../index.html）とは別のページ。
+
+         ・叩き台は restaurant-sites ではなく **creative-works-plus.github.io** に置いてある
+           （公開フォルダは リフォームサイト/.publish/）。リンクは必ず絶対URLで書く。
+           ★あちらの / と 404 は「ページが見つかりません」だけにしてある（頭を削られても
+             一覧が開けないように）。一覧はこのページだけ。あちらへ一覧を移さない。
+         ・会社を足すときは、その地域の <ul> に次の形の <li> を1つ足し、
+           <h2> の「◯社」と上の「全◯社」も一緒に直す（このページは機械で数えていない）。
+
+           <li>
+               <a href="https://creative-works-plus.github.io/＜スラッグ＞/"><span class="nm">＜会社名＞</span><span class="area">＜町名＞・＜業種＞</span></a>
+               <a class="tel" href="tel:＜電話＞" aria-label="＜会社名＞ に電話（＜電話＞）" title="＜電話＞">＜電話のSVG＞</a>
+               <div class="plans"> … 案が1つだけの会社は、この div ごと消す … </div>
+           </li>
+
+         ・新しい地域の1社目のときは <h2> + <ul> を1組複製する。地域名は「都道府県 市区町村」
+         ・電話ボタンは素の <a href="tel:…">（飲食店の一覧と同じ。楽天リンクで発信するため）
+         ・手紙を出したら <li class="envelope"> にする（会社名の後ろに ✉ が付く）
+         ================================================================ -->
+
+    <p class="note">
+        <b>会社名を押すと、本命の案（B案）が開きます。</b>
+        下の3つのボタンで、A案・B案・C案を見比べられます。<br>
+        <b>緑のボタンが、その会社への電話です。</b>
+        Androidはタップしてから「Rakuten Link」を選び、iPhoneは長押しして「Link」を選びます。<br>
+        <b>✉</b> ＝ 手紙を出した会社。
+    </p>
+
+    <h2>茨城県 古河市<span class="count">1社</span></h2>
+    <ul>
+        <li>
+            <a href="https://creative-works-plus.github.io/masuko-jushi/"><span class="nm"><span class="nw">有限会社</span><span class="nw">益子樹脂興業</span></span><span class="area">中田・塗装／防水</span></a>
+            <a class="tel" href="tel:0280-48-2812" aria-label="有限会社益子樹脂興業 に電話（0280-48-2812）" title="0280-48-2812"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
+            <div class="plans">
+                <a href="https://creative-works-plus.github.io/masuko-jushi/a/">A案<small>確かめる</small></a>
+                <a class="main" href="https://creative-works-plus.github.io/masuko-jushi/">B案<small>比べる・本命</small></a>
+                <a href="https://creative-works-plus.github.io/masuko-jushi/c/">C案<small>探す</small></a>
+            </div>
+        </li>
+    </ul>
+
+    <div class="own">
+        <a href="../company/reform/"><span class="nm"><span class="nw">工事店・リフォーム会社様への</span><span class="nw">ご案内</span><span class="nw">（自社サイト）</span></span></a>
+    </div>
+</div>
+</body>
+</html>
