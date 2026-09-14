@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>いつもの処 - 公式サイト｜小山市 鳥料理・居酒屋</title>
+    <meta name="description" content="小山駅西口から徒歩2分、城山町の路地にある鳥料理の居酒屋です。開店のときからの看板・丼ぶりほどの茶わんむしと、焼き鳥。夫婦で営んでおります。17:30〜23:00、日曜・月曜定休。">
+
+    <meta property="og:title" content="いつもの処｜小山市の鳥料理・居酒屋">
+    <meta property="og:description" content="小山駅西口から徒歩2分。開店のときからの看板、丼ぶりほどの茶わんむしと、焼き鳥。夫婦で営んでおります。">
+    <meta property="og:type" content="restaurant">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/itsumo/">
+    <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/itsumo/img/hero-iriguchi.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
+    <meta name="theme-color" content="#F8F6F0">
+
+    <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- favicon：墨の正方形に卵地の円（茶わんむしを上から見た形）。文字は無し -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231F1D1A'/%3E%3Ccircle cx='50' cy='50' r='30' fill='%23F2E6BF'/%3E%3C/svg%3E">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "いつもの処",
+      "servesCuisine": ["鳥料理", "焼き鳥", "居酒屋"],
+      "telephone": "+81-285-22-2506",
+      "paymentAccepted": "現金",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/itsumo/",
+      "image": "img/hero-iriguchi.jpg",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "17:30",
+          "closes": "23:00"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "城山町3-6-37",
+        "addressLocality": "小山市",
+        "addressRegion": "栃木県",
+        "postalCode": "323-0025",
+        "addressCountry": "JP"
+      },
+      "hasMap": "https://www.google.com/maps/search/?api=1&query=%E3%81%84%E3%81%A4%E3%82%82%E3%81%AE%E5%87%A6%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E5%B0%8F%E5%B1%B1%E5%B8%82%E5%9F%8E%E5%B1%B1%E7%94%BA3-6-37",
+      "acceptsReservations": "True"
+    }
+    </script>
+
+    <style>
+    :root {
+        /* --- 面（背景） 3段。明るい店なら明度の向きを逆にする ----------------- */
+        --bg:          #F8F6F0;   /* のれんの温かい白 */
+        --surface:     #FFFFFF;
+        --surface-2:   #F1ECDF;
+
+        /* --- 文字（--bg 上でのコントラスト比を必ず確認） ------------------------ */
+        --ink:         #1F1D1A;   /* 行灯の墨 */
+        --muted:       #5E5A53;   /* 6.3:1 */
+        --dim:         #726C60;   /* 4.8:1 */
+
+        /* --- 差し色＝予約CTA・見出し罫。店の1色 -------------------------------- */
+        --accent:      #34558B;   /* 呉須 */
+        --accent-hi:   #4A6BA3;
+        --accent-deep: #26436F;
+
+        /* --- この店だけの帯の面。茶わんむしの章にだけ使う ----------------------- */
+        --custard:     #F2E6BF;
+
+        /* --- 罫線 -------------------------------------------------------------- */
+        --line:        rgba(31, 29, 26, .14);
+        --line-strong: rgba(31, 29, 26, .24);
+
+        /* --- 影（明るい店なので弱く） -------------------------------------------- */
+        --shadow:      0 18px 40px rgba(31, 29, 26, 0.10);
+        --shadow-bar:  0 -10px 30px rgba(31, 29, 26, 0.12);
+
+        /* --- 営業状況バッジ（このサイトでは使わない。値だけ残す） ---------------- */
+        --open:        #7fc383;
+        --closed:      #d98a7e;
+
+        /* --- 書体 ---------------------------------------------------------------- */
+        --font-head:   'Zen Old Mincho', serif;
+        --font-body:   'Zen Kaku Gothic New', sans-serif;
+
+        /* --- タイポの階層（7-b） -------------------------------------------------- */
+        --fz-hero:     clamp(44px, 5.2vw, 72px);
+        --fz-h2:       clamp(26px, 3.4vw, 38px);
+        --fz-h3:       clamp(19px, 2.4vw, 24px);
+        --fz-body:     16px;
+        --fz-cap:      13px;
+
+        /* --- 地紋のスロット（素材が無いので none のまま。完成している状態） --------- */
+        --tex-paper:   none;
+        --tex-size:    clamp(360px, 33vw, 480px);
+        --tex-opacity: 0.06;
+        --tex-tint:    var(--accent);
+        --orn-blank:   url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
+
+        /* --- 形・間 ---------------------------------------------------------------- */
+        --radius:      2px;
+        --maxw:        1200px;
+        --gap:         clamp(16px, 4vw, 40px);
+        --pad-section: clamp(64px, 10vw, 120px);
+        --pad-inner:   clamp(20px, 5vw, 40px);
+    }
+
+    /* --- リセット ------------------------------------------------------------- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.85;
+        overflow-x: hidden;              /* 横スクロール事故の保険 */
+    }
+    img, svg, video { display: block; max-width: 100%; }
+
+    /* --- 固定ヘッダーの高さ（全店必須・世界観に関係しない仕組み） -------------- */
+    :root { --header-h: 74px; }
+    @media (max-width: 768px) { :root { --header-h: 64px; } }
+
+    body { padding-top: var(--header-h); }
+    .site-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: var(--header-h);
+    }
+    .header-inner { display: flex; align-items: center; height: 100%; }
+    .brand { text-decoration: none; color: inherit; white-space: nowrap;
+             font-size: clamp(16px, 4.2vw, 20px); line-height: 1;
+             display: inline-flex; align-items: center; min-height: 44px; }
+    .header-tel { margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+                  min-height: 44px; padding: 0 8px; text-decoration: none; color: inherit;
+                  white-space: nowrap; }
+    .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
+    .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
+    .nav-toggle { margin-left: 6px; }
+    .hero { min-height: calc(100svh - var(--header-h)); }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; }
+
+    /* --- 日本語の折り返し（全店必須） ------------------------------------------ */
+    h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption {
+        word-break: auto-phrase;
+        text-wrap: pretty;
+    }
+    .nw { display: inline-block; }
+    .br-sp { display: none; }
+    @media (max-width: 600px) {
+        .br-sp { display: inline; }
+        .br-pc { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    /* --- レイアウト ----------------------------------------------------------- */
+    .btn svg { width: 1.1em; height: 1.1em; flex: 0 0 auto; }
+    .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .section   { padding-block: var(--pad-section); }
+
+    /* --- スクロール出現演出 ----------------------------------------------------- */
+    .reveal {
+        opacity: 0; transform: translateY(26px);
+        transition: opacity 0.8s cubic-bezier(0.16, 0.7, 0.3, 1),
+                    transform 0.8s cubic-bezier(0.16, 0.7, 0.3, 1);
+    }
+    .reveal.in-view       { opacity: 1; transform: none; }
+    .reveal-delay-1       { transition-delay: 0.08s; }
+    .reveal-delay-2       { transition-delay: 0.16s; }
+    .reveal-delay-3       { transition-delay: 0.24s; }
+    .no-js .reveal        { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* --- 写真枠 --------------------------------------------------------------- */
+    .photo-frame {
+        position: relative; overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line-strong);
+        box-shadow: none;
+        background: var(--surface-2);
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* --- 地図枠（このサイトでは未使用。骨格として残す） -------------------------- */
+    .map-wrapper {
+        position: relative; width: 100%; aspect-ratio: 16 / 10;
+        border-radius: var(--radius); overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+    @media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+
+    /* --- 追従予約バー（スマホのみ） --------------------------------------------- */
+    .sticky-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+        display: none; gap: 1px; background: var(--line);
+        transform: translateY(100%); transition: transform 0.35s ease;
+        box-shadow: 0 -1px 0 var(--line);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar a {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 16px 10px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sticky-bar .bar-tel { background: var(--accent); color: #fff; }
+    .sticky-bar .bar-alt { background: var(--bg);  color: var(--ink); }
+
+    /* --- お品書き内サブナビ（build_menu.py が出す `.subnav`。仕組みだけ規定） --- */
+    .subnav a {
+        min-height: 44px;
+        display: inline-flex; align-items: center;
+        padding-inline: 16px;
+    }
+    .subnav { transition: transform .25s ease, opacity .25s ease; }
+    .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 60px); }
+
+    /* --- 電話番号を入れたボタン（番号を絶対に折り返させない） ------------------ */
+    .btn-tel .tel-num { white-space: nowrap; }
+    .btn-tel .tel-cap { font-weight: 500; }
+    .btn-tel .tel-cap::before { content: '｜'; }
+    @media (max-width: 460px) {
+        .btn-tel { flex-wrap: wrap; padding: 12px 18px; line-height: 1.45; }
+        .btn-tel .tel-cap { flex-basis: 100%; text-align: center; font-size: .82rem; }
+        .btn-tel .tel-cap::before { content: none; }
+    }
+
+    /* --- 営業状況バッジ（このサイトでは使わない。骨格の値だけ残す） -------------- */
+    .status-chip {
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 5px 13px; border-radius: 999px;
+        border: 1px solid var(--line-strong);
+        font-size: 0.8rem; letter-spacing: 0.04em;
+    }
+    .status-chip::before {
+        content: ''; width: 7px; height: 7px; border-radius: 50%;
+        background: var(--dim);
+    }
+    .status-chip.is-open::before   { background: var(--open); }
+    .status-chip.is-closed::before { background: var(--closed); }
+    .status-chip.is-break::before  { background: var(--accent); }
+
+    /* --- モバイルナビ（このサイトはハンバーガーを作らないので未使用） ----------- */
+    .mobile-nav {
+        position: fixed; z-index: 200;
+        visibility: hidden; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    body.nav-open .mobile-nav {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+    body.nav-open .site-header { z-index: 300; }
+    .nav-toggle {
+        width: 44px; height: 44px;
+        flex: 0 0 44px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 5px; background: none; border: 0; cursor: pointer;
+    }
+    .nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+    body.nav-open { overflow: hidden; }
+
+    /* ==========================================================================
+       レスポンシブ：ブレークポイントは 620 / 900 の2点で統一する
+       ========================================================================== */
+    @media (max-width: 620px) {
+        .sticky-bar { display: flex; }
+        body { padding-bottom: 68px; }
+    }
+    @media (min-width: 621px) {
+        .sticky-bar { display: none; }
+        body { padding-bottom: 0; }
+    }
+
+
+    /* ══════════════════════════════════════════════════════════════════
+       ここから下が、いつもの処だけのCSS。
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* --- 見出し・リードの共通部品 ---------------------------------------------- */
+    .eyebrow { font-size: var(--fz-cap); color: var(--muted); letter-spacing: .14em; margin-bottom: 8px; }
+    .section-title {
+        font-family: var(--font-head); font-weight: 500; font-size: var(--fz-h2);
+        line-height: 1.35; letter-spacing: .05em; color: var(--ink);
+    }
+    .lead { margin-top: 16px; max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.95; }
+
+    /* --- ボタン（6-b 13：長方形・細枠。電話だけ濃い色の塊） --------------------- */
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 15px 28px; font-size: 15px; letter-spacing: .03em;
+        border: 1px solid var(--line-strong); border-radius: var(--radius);
+    }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-hi); border-color: var(--accent-hi); }
+    .btn-ghost { background: transparent; color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--ink); }
+    .btn-block { width: 100%; justify-content: center; }
+
+    /* --- ヘッダー ---------------------------------------------------------------- */
+    .header-inner { justify-content: space-between; gap: 20px; background: color-mix(in srgb, var(--bg) 94%, transparent);
+                    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+    .site-header { background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+    .brand { flex-direction: column; align-items: flex-start; gap: 0; }
+    .brand-sub { font-size: 11px; color: var(--muted); letter-spacing: .12em; line-height: 1.5; }
+    .brand-name { font-family: var(--font-head); font-weight: 700; font-size: clamp(18px, 2.4vw, 22px); color: var(--ink); line-height: 1.25; }
+    .pc-nav { display: none; }
+    @media (min-width: 900px) {
+        .pc-nav { display: flex; gap: 32px; font-size: 14px; letter-spacing: .03em; }
+        .pc-nav a { padding-block: 6px; border-bottom: 1px solid transparent; }
+        .pc-nav a:hover { border-color: var(--accent); color: var(--accent); }
+    }
+    .header-tel { margin-left: 0; background: var(--accent); color: #fff; padding-inline: 18px; }
+    .header-tel:hover { background: var(--accent-hi); }
+
+    /* --- ① ヒーロー -------------------------------------------------------------- */
+    .hero { min-height: auto; }
+    .hero-grid {
+        display: grid; grid-template-columns: auto 1fr; align-items: center;
+        gap: clamp(32px, 5vw, 64px); padding-block: clamp(32px, 5vw, 72px);
+    }
+    @media (max-width: 899px) { .hero-grid { grid-template-columns: 1fr; } }
+
+    .hero-photo-frame { width: clamp(300px, 38vw, 540px); aspect-ratio: 3 / 4; }
+    .hero-photo-frame img { object-position: 50% 40%; }
+    @media (max-width: 899px) { .hero-photo-frame { width: 100%; aspect-ratio: 4 / 5; } }
+
+    .hero-copy .eyebrow { margin-bottom: 12px; }
+    .hero-copy h1 {
+        font-family: var(--font-head); font-weight: 700; font-size: var(--fz-hero);
+        line-height: 1.2; letter-spacing: .03em; color: var(--ink);
+    }
+    .hero-catch {
+        margin-top: 24px; max-width: 30em; font-family: var(--font-head); font-weight: 500;
+        font-size: clamp(19px, 1.5vw, 24px); letter-spacing: .04em; color: var(--ink); line-height: 1.9;
+    }
+    .hero-sub { margin-top: 8px; max-width: 30em; font-size: 15px; color: var(--muted); line-height: 1.9; }
+    .hours-chip {
+        display: block; margin-top: 26px; padding-block: 4px; padding-inline-start: 14px;
+        border-inline-start: 2px solid var(--line-strong);
+        font-size: 14px; letter-spacing: .06em; color: var(--ink); line-height: 1.7;
+    }
+    .hours-chip .day-off { display: block; color: var(--muted); font-size: 13px; }
+    .hero-copy .hero-actions { margin-top: 26px; }
+    .hero-walk { margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+    /* --- ② 茶わんむし＝署名 A-103 ------------------------------------------------ */
+    .chawan-band { background: var(--custard); padding-block: 140px; }
+    .chawan-grid {
+        display: grid; row-gap: 40px;
+    }
+    .sig {
+        writing-mode: vertical-rl; display: flex; flex-direction: column; align-items: flex-start; gap: .14em;
+        font-family: 'Zen Old Mincho', serif; font-weight: 700; color: var(--ink);
+        font-size: clamp(52px, 6.4vw, 92px); line-height: 1;
+        width: fit-content; margin-inline: auto;
+    }
+    .sig .w, .sig .to { display: block; }
+    .sig .to { font-size: .34em; font-weight: 500; padding-block-start: 0; padding-inline-start: .25em; }
+    .chawan-copy { align-self: start; }
+    .chawan-photo .photo-frame { aspect-ratio: 1 / 1; max-width: 560px; width: 100%; }
+    @media (min-width: 900px) {
+        .chawan-grid {
+            grid-template-columns: 1fr auto;
+            grid-template-areas: "sig photo" "copy photo";
+            column-gap: clamp(40px, 6vw, 96px);
+        }
+        .sig { grid-area: sig; }
+        .chawan-copy { grid-area: copy; }
+        .chawan-photo { grid-area: photo; align-self: start; }
+    }
+    @media (max-width: 899px) {
+        .chawan-copy { order: 1; }
+        .sig { order: 2; margin-inline: auto; }
+        .chawan-photo { order: 3; width: 100%; }
+    }
+
+    /* --- ③ 串 ------------------------------------------------------------------- */
+    .split-84 { display: grid; grid-template-columns: 2fr 1fr; align-items: end; gap: var(--gap); margin-top: var(--blk-y, 40px); }
+    .split-84 .photo-frame { aspect-ratio: 4 / 3; }
+    @media (max-width: 620px) {
+        .split-84 { grid-template-columns: 1fr; }
+        .split-84 .photo-frame:last-child { width: 60%; margin-left: auto; }
+    }
+
+    /* --- ④ 鳥刺しと鳥わさ --------------------------------------------------------- */
+    .tori-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-top: 40px; }
+    .tori-tall { aspect-ratio: 587 / 783; }
+    .tori-stack { display: flex; flex-direction: column; gap: var(--gap); }
+    .tori-stack .photo-frame { aspect-ratio: 16 / 9; }
+    @media (max-width: 620px) { .tori-grid { grid-template-columns: 1fr; } }
+
+    /* --- ⑤ 黒板とお通し ----------------------------------------------------------- */
+    .kokuban-grid { display: grid; grid-template-columns: minmax(220px, 34%) 1fr; gap: var(--gap); align-items: start; }
+    .kokuban-photos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+    .kokuban-photos .photo-frame:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+    .kokuban-photos .photo-frame:not(:first-child) { aspect-ratio: 4 / 3; }
+    @media (max-width: 768px) { .kokuban-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 769px) { .kokuban-copy { position: sticky; top: 96px; } }
+
+    /* --- ⑥ 鳥に酒 ------------------------------------------------------------------ */
+    .sake-photos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-bottom: 40px; }
+    .sake-photos .photo-frame { aspect-ratio: 4 / 3; }
+
+    /* --- ⑦ 店のなか ------------------------------------------------------------------ */
+    .mise-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 32px; }
+    .mise-andon { width: clamp(160px, 20vw, 260px); aspect-ratio: 3 / 4; }
+    .mise-copy { max-width: 560px; }
+    .mise-counter { width: 100%; max-width: 768px; aspect-ratio: 768 / 584; }
+    @media (min-width: 900px) {
+        .mise-stack { display: grid; grid-template-columns: 1fr auto; column-gap: 64px; align-items: end; }
+        .mise-copy { grid-column: 1; grid-row: 1; }
+        .mise-andon { grid-column: 2; grid-row: 1; width: 280px; }
+        .mise-counter { grid-column: 1 / -1; grid-row: 2; margin-top: 40px; }
+    }
+
+    /* --- ⑧ お品書き ----------------------------------------------------------------- */
+    .menu-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 4px; }
+    .menu-head h2 { font-family: var(--font-head); font-weight: 500; font-size: clamp(22px, 2.8vw, 28px); letter-spacing: .04em; }
+    .yomi { font-size: 12px; color: var(--dim); letter-spacing: .12em; white-space: nowrap; }
+    .menu-note { margin-top: 10px; color: var(--muted); font-size: 14px; }
+    .menu-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 22px; }
+    @media (min-width: 700px) { .menu-grid.cols-3, .menu-grid { grid-template-columns: 1fr; } }
+    .menu-list { display: flex; flex-direction: column; }
+    .menu-list li { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+    @media (min-width: 900px) { .menu-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; } }
+    .menu-list .name { font-size: 16px; color: var(--ink); }
+    .menu-list .desc { display: block; font-size: 13px; color: var(--dim); margin-top: 3px; }
+    .menu-block { padding-block: 48px; border-top: 1px solid var(--line); }
+    .menu-block:first-of-type { border-top: none; padding-top: 8px; }
+    #menu { padding-bottom: 0; }
+    .subnav { margin-top: 28px; }
+    .subnav + .section { padding-top: 32px; }
+    .subnav {
+        position: sticky; top: var(--header-h); z-index: 60;
+        background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(6px);
+        border-block: 1px solid var(--line);
+    }
+    .subnav-inner { display: flex; gap: 6px; overflow-x: auto; }
+    .subnav a { font-size: 14px; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; }
+    .subnav a:hover { color: var(--ink); border-color: var(--accent); }
+
+    /* --- ⑨ お客様の声 ----------------------------------------------------------------- */
+    #koe, #info { padding-block: 88px; }
+    .voice-list { margin-top: 28px; border-top: 1px solid var(--line); }
+    .voice-list li { padding-block: 28px; border-bottom: 1px solid var(--line); }
+    .voice-list blockquote { margin: 0; }
+    .voice-list p { font-size: 16px; line-height: 1.9; color: var(--ink); }
+    .voice-list cite { display: block; margin-top: 12px; font-size: 13px; color: var(--dim); font-style: normal; }
+
+    /* --- ⑩ お越しになる前に ------------------------------------------------------------ */
+    .visit-dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px 40px; margin-top: 30px; }
+    .visit-dl > div { display: flex; gap: 16px; border-bottom: 1px solid var(--line); padding-block: 14px; }
+    .visit-dl dt { flex: 0 0 92px; color: var(--muted); font-size: 14px; }
+    .visit-dl dd { color: var(--ink); font-size: 16px; }
+    @media (max-width: 620px) { .visit-dl { grid-template-columns: 1fr; } }
+    .visit-dl .visit-note { display: block; margin-top: 6px; font-size: 13px; color: var(--dim); line-height: 1.7; }
+
+    /* --- ⑪ アクセス --------------------------------------------------------------------- */
+    .access-grid { display: grid; grid-template-columns: auto 1fr; gap: clamp(28px, 4vw, 56px); align-items: start; }
+    .access-photo { width: clamp(220px, 26vw, 420px); aspect-ratio: 3 / 4; }
+    @media (max-width: 899px) { .access-photo img { object-position: 50% 62%; } }
+    .access-dl { margin-block: 22px; display: flex; flex-direction: column; gap: 10px; }
+    .access-dl > div { display: flex; gap: 14px; }
+    .access-dl dt { flex: 0 0 60px; color: var(--muted); font-size: 14px; }
+    .access-dl dd { font-size: 16px; }
+    .tel-link { color: var(--accent); font-weight: 500; }
+    .closing-line { margin-top: 40px; font-family: var(--font-head); font-weight: 500; font-size: 18px; letter-spacing: .04em; color: var(--ink); }
+    .access-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 24px; }
+    .access-actions .btn-primary { width: auto; padding-inline: 36px; }
+    @media (max-width: 768px) {
+        .access-grid { grid-template-columns: 1fr; }
+        .access-photo { width: 100%; max-width: 320px; }
+    }
+    @media (max-width: 620px) {
+        .access-actions { flex-direction: column; }
+        .access-actions .btn-primary,
+        .access-actions .btn-ghost { width: 100%; justify-content: center; }
+    }
+
+    /* --- フッター --------------------------------------------------------------------- */
+    .site-footer { border-top: 1px solid var(--line); padding-block: 40px; background: var(--surface-2); }
+    .footer-name { font-family: var(--font-head); font-weight: 500; font-size: 18px; }
+    .footer-addr { margin-top: 10px; font-size: 14px; color: var(--muted); }
+    .footer-copy { margin-top: 18px; font-size: 12px; color: var(--dim); }
+
+    </style>
+</head>
+<body class="no-js">
+<!-- no-js クラスは下の script が消す -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ヘッダー（固定）
+     ══════════════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="#hero" class="brand">
+            <span class="brand-sub">鳥料理</span>
+            <span class="brand-name">いつもの処</span>
+        </a>
+
+        <nav class="pc-nav" aria-label="サイト内リンク">
+            <a href="#chawanmushi">茶わんむし</a>
+            <a href="#menu">お品書き</a>
+            <a href="#info">お越しになる前に</a>
+            <a href="#access">アクセス</a>
+        </nav>
+
+        <a href="tel:0285222506" class="header-tel" aria-label="電話でご予約 0285-22-2506">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+            <span class="tel-label">0285-22-2506</span>
+        </a>
+    </div>
+</header>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ① ヒーロー
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+    <div class="container hero-grid">
+        <figure class="photo-frame hero-photo-frame reveal">
+            <img src="img/hero-iriguchi.jpg" alt="夜、白い暖簾と灯りのついた入口" width="768" height="1024" loading="eager" decoding="async">
+        </figure>
+
+        <div class="hero-copy">
+            <p class="eyebrow reveal"><span class="nw">鳥料理</span></p>
+            <h1 class="reveal"><span class="nw">いつ</span><span class="nw">もの</span>処</h1>
+            <p class="hero-catch reveal"><span class="nw">今夜も、</span><span class="nw">いつ</span><span class="nw">もの</span><span class="nw">処で。</span></p>
+            <p class="hero-sub reveal"><span class="nw">夫婦で</span><span class="nw">営む、</span><span class="nw">鳥料理の</span><span class="nw">店です。</span><span class="nw">どうぞ</span><span class="nw">お気軽に</span><span class="nw">お立ち寄りください。</span></p>
+            <p class="hours-chip reveal">17:30〜23:00<span class="day-off"><span class="nw">日曜・</span><span class="nw">月曜</span> <span class="nw">休み</span></span></p>
+
+            <div class="hero-actions reveal">
+                <a href="tel:0285222506" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                    0285-22-2506｜ご予約はこちら
+                </a>
+            </div>
+            <p class="hero-walk reveal"><span class="nw">JR小山駅</span> <span class="nw">西口から</span><span class="nw">徒歩</span><span class="nw">2分</span></p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ② 茶わんむし＝署名 A-103「鳥と、酒と、茶わんむし。」
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section chawan-band" id="chawanmushi">
+    <div class="container chawan-grid">
+        <p class="sig reveal" aria-label="鳥と酒と茶わんむし"><span class="w">鳥</span><span class="to">と</span><span class="w">酒</span><span class="to">と</span><span class="w"><span class="nw">茶わんむし</span></span></p>
+
+        <div class="chawan-copy reveal">
+            <h2 class="section-title"><span class="nw">丼ぶりほどの、</span><span class="nw">茶わんむし。</span></h2>
+            <p class="lead"><span class="nw">開店の</span><span class="nw">ときから</span><span class="nw">変わらず</span><span class="nw">お出ししている、</span><span class="nw">当店の</span><span class="nw">看板です。</span><span class="nw">ゆずを</span><span class="nw">香らせた</span><span class="nw">お出汁で、</span><span class="nw">レンゲですくって</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">ください。</span></p>
+        </div>
+
+        <figure class="chawan-photo reveal">
+            <div class="photo-frame">
+                <img src="img/chawanmushi.jpg" alt="茶わんむし。海老・椎茸・三つ葉が入ります" width="640" height="640" loading="lazy" decoding="async">
+            </div>
+        </figure>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ③ 串は、一本ずつ。
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="kushi">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="nw">串は、</span><span class="nw">一本ずつ。</span></h2>
+        <p class="lead reveal"><span class="nw">ねぎま、</span><span class="nw">皮、</span><span class="nw">レバー、</span><span class="nw">ぼんじり、</span><span class="nw">かしら、</span><span class="nw">なん</span><span class="nw">骨。</span><span class="nw">一本ずつ</span><span class="nw">焼いて</span><span class="nw">お出しします。</span><span class="nw">お好きな</span><span class="nw">串を、</span><span class="nw">お好きな</span><span class="nw">本数でどうぞ。</span></p>
+
+        <div class="split-84 reveal">
+            <figure class="photo-frame">
+                <img src="img/yakitori-oo.jpg" alt="ねぎま・レバー・つくねなどの串" width="1024" height="768" loading="lazy" decoding="async">
+            </figure>
+            <figure class="photo-frame">
+                <img src="img/yakitori-hashibukuro.jpg" alt="箸袋に店名の入った串" width="760" height="570" loading="lazy" decoding="async">
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ④ 鳥刺しと、鳥わさ。
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="torisashi">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="nw">鳥刺しと、</span><span class="nw">鳥わさ。</span></h2>
+        <p class="lead reveal"><span class="nw">鳥刺しは、</span><span class="nw">黄身和え・</span><span class="nw">大葉はさみ・</span><span class="nw">納豆巻きの</span><span class="nw">三種を、</span><span class="nw">ひと</span><span class="nw">皿に</span><span class="nw">盛って</span><span class="nw">お出しします。</span><span class="nw">鳥わさ、</span><span class="nw">唐揚げ、</span><span class="nw">コロッケ、</span><span class="nw">そして</span><span class="nw">締めの</span><span class="nw">鳥雑炊まで、</span><span class="nw">鳥はひと</span><span class="nw">通り</span><span class="nw">ご用意して</span><span class="nw">おります。</span></p>
+
+        <div class="tori-grid reveal">
+            <figure class="photo-frame tori-tall">
+                <img src="img/torisashi-sanshu.jpg" alt="鳥刺しの三種盛り" width="587" height="783" loading="lazy" decoding="async">
+            </figure>
+            <div class="tori-stack">
+                <figure class="photo-frame">
+                    <img src="img/toriwasa.jpg" alt="鳥わさ" width="640" height="360" loading="lazy" decoding="async">
+                </figure>
+                <figure class="photo-frame">
+                    <img src="img/karaage.jpg" alt="鳥の唐揚げ" width="640" height="360" loading="lazy" decoding="async">
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑤ 黒板と、お通し。
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="kokuban">
+    <div class="container kokuban-grid">
+        <div class="kokuban-copy reveal">
+            <h2 class="section-title"><span class="nw">黒板と、</span><span class="nw">お通し。</span></h2>
+            <p class="lead"><span class="nw">刺身や</span><span class="nw">焼き</span><span class="nw">魚など、</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">品は</span><span class="nw">黒板で</span><span class="nw">ご案内します。</span><span class="nw">お通しも、</span><span class="nw">日ごとに</span><span class="nw">変えて</span><span class="nw">お出しして</span><span class="nw">おります。</span><span class="nw">まずはこれで</span><span class="nw">一杯どうぞ。</span></p>
+        </div>
+        <div class="kokuban-photos reveal">
+            <figure class="photo-frame">
+                <img src="img/otoshi.jpg" alt="お通し" width="1024" height="768" loading="lazy" decoding="async">
+            </figure>
+            <figure class="photo-frame">
+                <img src="img/sashimi.jpg" alt="刺身の盛り合わせ" width="1100" height="618" loading="lazy" decoding="async">
+            </figure>
+            <figure class="photo-frame">
+                <img src="img/yakizakana.jpg" alt="焼き魚" width="1100" height="619" loading="lazy" decoding="async">
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑥ 鳥に、酒。
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="sake">
+    <div class="container">
+        <div class="sake-photos reveal">
+            <figure class="photo-frame">
+                <img src="img/namabiiru.jpg" alt="生ビールのジョッキ" width="768" height="684" loading="lazy" decoding="async">
+            </figure>
+            <figure class="photo-frame">
+                <img src="img/shochu-bottle.jpg" alt="焼酎のボトルとアイスペール" width="1100" height="619" loading="lazy" decoding="async">
+            </figure>
+        </div>
+        <h2 class="section-title reveal"><span class="nw">鳥に、</span><span class="nw">酒。</span></h2>
+        <p class="lead reveal"><span class="nw">生ビール、</span><span class="nw">ハイボール、</span><span class="nw">レモンサワー。</span><span class="nw">焼酎は</span><span class="nw">ボトルで</span><span class="nw">お預かりします。</span><span class="nw">地酒と、</span><span class="nw">梅酒・</span><span class="nw">ゆず</span><span class="nw">酒も</span><span class="nw">ございます。</span></p>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑦ カウンターと、小上がり。
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="mise">
+    <div class="container mise-stack">
+        <figure class="photo-frame mise-andon reveal">
+            <img src="img/andon.jpg" alt="灯の入った行灯「鳥料理 いつもの処」" width="720" height="960" loading="lazy" decoding="async">
+        </figure>
+        <div class="mise-copy reveal">
+            <h2 class="section-title"><span class="nw">カウンターと、</span><span class="nw">小上がり。</span></h2>
+            <p class="lead"><span class="nw">カウンターと、</span><span class="nw">小上がりの</span><span class="nw">お席が</span><span class="nw">ございます。</span><span class="nw">お一人なら</span><span class="nw">カウンターへ、</span><span class="nw">お仲間と</span><span class="nw">ご一緒なら</span><span class="nw">小上がりへどうぞ。</span></p>
+        </div>
+        <figure class="photo-frame mise-counter reveal">
+            <img src="img/counter.jpg" alt="白いカウンターと座布団の席" width="768" height="584" loading="lazy" decoding="async">
+        </figure>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑧ お品書き
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="menu">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="nw">お品書き</span></h2>
+        <p class="lead reveal"><span class="nw">お品書きは、</span><span class="nw">壁の</span><span class="nw">札と</span><span class="nw">黒板で</span><span class="nw">ご案内して</span><span class="nw">おります。</span><span class="nw">価格は、</span><span class="nw">お席で</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
+    </div>
+</section>
+
+<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#yakitori">やきとり</a>
+        <a href="#tori">鳥料理</a>
+        <a href="#board">黒板の品</a>
+        <a href="#drink">お飲みもの</a>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="menu-block reveal" id="yakitori">
+            <div class="menu-head"><h2><span class="nw">やきとり</span></h2></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">ねぎま</span>焼</span></li>
+                    <li><span class="name"><span class="nw">皮焼</span></span></li>
+                    <li><span class="name"><span class="nw">レバー</span>焼</span></li>
+                    <li><span class="name"><span class="nw">つくね</span>焼</span></li>
+                    <li><span class="name"><span class="nw">砂ぎも</span>焼</span></li>
+                    <li><span class="name"><span class="nw">ハツ</span>焼</span></li>
+                    <li><span class="name"><span class="nw">手羽焼</span></span></li>
+                    <li><span class="name"><span class="nw">小肉焼</span></span></li>
+                    <li><span class="name"><span class="nw">ささみ</span>焼</span></li>
+                    <li><span class="name"><span class="nw">ぼんじり</span></span></li>
+                    <li><span class="name"><span class="nw">かしら</span>焼</span></li>
+                    <li><span class="name"><span class="nw">なん</span>骨</span></li>
+                    <li><span class="name"><span class="nw">トントロ</span>焼</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="tori">
+            <div class="menu-head"><h2><span class="nw">鳥料理</span></h2></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">特製ちゃわんむし</span></span></li>
+                    <li><span class="name"><span class="nw">鳥刺し</span></span></li>
+                    <li><span class="name"><span class="nw">鳥わさ</span></span></li>
+                    <li><span class="name"><span class="nw">鳥唐揚げ</span></span></li>
+                    <li><span class="name"><span class="nw">鳥コロッケ</span></span></li>
+                    <li><span class="name"><span class="nw">鳥雑炊</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="board">
+            <div class="menu-head"><h2><span class="nw">黒板の</span>品</h2></div>
+            <p class="menu-note"><span class="nw">その</span><span class="nw">日の</span><span class="nw">仕入れで</span><span class="nw">変わります。</span><span class="nw">ある</span><span class="nw">日の</span><span class="nw">黒板から</span><span class="nw">載せて</span><span class="nw">おります。</span></p>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">まぐろ</span><span class="desc"><span class="nw">盛り</span><span class="nw">合わせも</span><span class="nw">お作りします</span></span></span></li>
+                    <li><span class="name"><span class="nw">いか</span>刺<span class="desc"><span class="nw">白いか</span></span></span></li>
+                    <li><span class="name"><span class="nw">クジラ</span>刺</span></li>
+                    <li><span class="name"><span class="nw">かつを</span></span></li>
+                    <li><span class="name"><span class="nw">おでん</span></span></li>
+                    <li><span class="name"><span class="nw">貝柱</span></span></li>
+                    <li><span class="name"><span class="nw">枝豆</span></span></li>
+                    <li><span class="name"><span class="nw">アスパラベーコン</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span></span></li>
+                    <li><span class="name"><span class="nw">ピーマン</span><span class="nw">肉詰</span></span></li>
+                    <li><span class="name"><span class="nw">いか</span>焼<span class="desc"><span class="nw">一夜干し</span></span></span></li>
+                    <li><span class="name"><span class="nw">ロースカツ</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-block reveal" id="drink">
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2></div>
+            <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">生ビール</span></span></li>
+                    <li><span class="name"><span class="nw">ハイボール</span></span></li>
+                    <li><span class="name"><span class="nw">レモンサワー</span></span></li>
+                    <li><span class="name"><span class="nw">焼酎</span></span></li>
+                    <li><span class="name"><span class="nw">地酒</span></span></li>
+                    <li><span class="name"><span class="nw">梅酒・</span><span class="nw">ゆず</span>酒</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- menu:auto:end -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑨ お客様の声
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="koe">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="nw">お客様の</span>声</h2>
+
+        <ul class="voice-list reveal">
+            <li>
+                <blockquote>
+                    <p><span class="nw">「いつ</span><span class="nw">もの</span><span class="nw">お通しも</span><span class="nw">手が</span><span class="nw">込んでて</span><span class="nw">美味い。</span><span class="nw">刺身も</span><span class="nw">鳥わさも</span><span class="nw">間違いない</span><span class="nw">味だ。</span><span class="nw">焼き</span><span class="nw">鳥も</span><span class="nw">何本でも</span><span class="nw">食べられる</span><span class="nw">味付け。」</span></p>
+                    <cite><span class="nw">食べ</span><span class="nw">ログ</span><span class="nw">（2025年</span><span class="nw">8月）</span></cite>
+                </blockquote>
+            </li>
+            <li>
+                <blockquote>
+                    <p><span class="nw">「串物が</span><span class="nw">業務用ではなく</span><span class="nw">お店で</span><span class="nw">打った</span><span class="nw">ものみたいで</span><span class="nw">美味しい」</span></p>
+                    <cite><span class="nw">食べ</span><span class="nw">ログ</span><span class="nw">（2026年</span><span class="nw">2月）</span></cite>
+                </blockquote>
+            </li>
+            <li>
+                <blockquote>
+                    <p><span class="nw">「初めて</span><span class="nw">行っても</span><span class="nw">常連さんの</span><span class="nw">ように</span><span class="nw">接してくれる</span> <span class="nw">お母さん</span><span class="nw">（女将さん）がいる</span><span class="nw">昭和感たっぷりな</span><span class="nw">お店」</span></p>
+                    <cite><span class="nw">食べ</span><span class="nw">ログ</span><span class="nw">（2024年</span><span class="nw">10月）</span></cite>
+                </blockquote>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑩ お越しになる前に
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="info">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="nw">お越しになる</span><span class="nw">前に</span></h2>
+        <p class="lead reveal"><span class="nw">ご来店の</span><span class="nw">前に、</span><span class="nw">ご確認を</span><span class="nw">お願い</span><span class="nw">いたします。</span></p>
+
+        <dl class="visit-dl reveal">
+            <div><dt><span class="nw">営業時間</span></dt><dd>17:30〜23:00</dd></div>
+            <div><dt><span class="nw">定休日</span></dt><dd><span class="nw">日曜・</span><span class="nw">月曜</span><span class="visit-note"><span class="nw">お休みが</span><span class="nw">変わる</span><span class="nw">ことが</span><span class="nw">ございます。</span><span class="nw">お越しの</span><span class="nw">前に、</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span></span></dd></div>
+            <div><dt><span class="nw">お支払い</span></dt><dd><span class="nw">現金のみで</span><span class="nw">お願いして</span><span class="nw">おります。</span></dd></div>
+            <div><dt><span class="nw">ご予約</span></dt><dd><span class="nw">承ります。</span><span class="nw">人数と</span><span class="nw">お時間を、</span><span class="nw">お電話で</span><span class="nw">お知らせ</span><span class="nw">ください。</span></dd></div>
+            <div><dt><span class="nw">貸切</span></dt><dd><span class="nw">ご相談ください。</span></dd></div>
+            <div><dt><span class="nw">駐車場</span></dt><dd><span class="nw">ございます。</span></dd></div>
+        </dl>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑪ アクセス
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="access">
+    <div class="container access-grid">
+        <figure class="photo-frame access-photo reveal">
+            <img src="img/roji.jpg" alt="夜の路地" width="768" height="1024" loading="lazy" decoding="async">
+        </figure>
+
+        <div class="access-copy reveal">
+            <h2 class="section-title"><span class="nw">アクセス</span></h2>
+            <p class="lead"><span class="nw">JR小山駅</span> <span class="nw">西口から</span><span class="nw">徒歩</span><span class="nw">2分、</span><span class="nw">城山町の</span><span class="nw">路地の</span><span class="nw">中です。</span><span class="nw">白いのれんと、</span><span class="nw">「鳥料理」の</span><span class="nw">置き</span><span class="nw">看板が</span><span class="nw">目印です。</span></p>
+
+            <dl class="access-dl">
+                <div><dt><span class="nw">住所</span></dt><dd><span class="nw keep">〒323-0025</span> <span class="nw keep">栃木県小山市城山町3-6-37</span></dd></div>
+                <div><dt><span class="nw">電話</span></dt><dd><a href="tel:0285222506" class="tel-link">0285-22-2506</a></dd></div>
+            </dl>
+
+            <!-- ★末尾の予約導線（必須） -->
+            <div class="access-actions">
+                <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=%E3%81%84%E3%81%A4%E3%82%82%E3%81%AE%E5%87%A6%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E5%B0%8F%E5%B1%B1%E5%B8%82%E5%9F%8E%E5%B1%B1%E7%94%BA3-6-37" target="_blank" rel="noopener">Googleマップを開く</a>
+                <a href="tel:0285222506" class="btn btn-primary">お電話でご予約する</a>
+            </div>
+
+            <p class="closing-line"><span class="nw">のれんを</span><span class="nw">掛けて、</span><span class="nw">お待ちして</span><span class="nw">おります。</span></p>
+        </div>
+    </div>
+</section>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <p class="footer-name"><span class="nw">いつ</span><span class="nw">もの</span>処</p>
+        <p class="footer-addr">〒323-0025 <span class="nw">栃木県小山市城山町</span>3-6-37／0285-22-2506</p>
+        <p class="footer-copy">&copy; <span class="nw">いつ</span><span class="nw">もの</span>処</p>
+    </div>
+</footer>
+
+
+<!-- スマホ用 追従予約バー -->
+<div class="sticky-bar" id="sticky-bar">
+    <a href="#access" class="bar-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス
+    </a>
+    <a href="tel:0285222506" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        電話で予約
+    </a>
+</div>
+
+
+<script>
+/* JS が動いた印。CSSの .no-js .reveal が外れて出現演出が有効になる */
+document.body.classList.remove('no-js');
+
+
+/* --------------------------------------------------------------------------
+   1. ヘッダー縮小・追従予約バーの表示切り替え・お品書きサブナビの引っ込め
+   -------------------------------------------------------------------------- */
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+var subnavEl = document.querySelector('.subnav');
+var menuBlocks = document.querySelectorAll('.menu-block, .menu-section');
+var lastMenuBlock = menuBlocks.length ? menuBlocks[menuBlocks.length - 1] : null;
+
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+        stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
+    }
+    if (subnavEl && lastMenuBlock) {
+        if (window.getComputedStyle(subnavEl).position !== 'sticky') {
+            subnavEl.classList.remove('is-past');
+        } else {
+            var r = lastMenuBlock.getBoundingClientRect();
+            subnavEl.classList.toggle('is-past', r.bottom < subnavEl.offsetHeight + 8);
+        }
+    }
+}, { passive: true });
+
+
+/* --------------------------------------------------------------------------
+   2. スクロール出現演出（IntersectionObserver）
+   -------------------------------------------------------------------------- */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+</script>
+</body>
+</html>
