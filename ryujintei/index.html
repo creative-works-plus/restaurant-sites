@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>龍神亭 - 公式サイト｜古河市 焼肉</title>
+    <meta name="description" content="茨城県古河市上辺見の焼肉店。お肉屋直営の食べ放題と、全席半個室のお席をご案内しております。ご予約はお電話、またはネット予約から承ります。">
+
+    <meta property="og:title" content="龍神亭｜古河市の焼肉">
+    <meta property="og:description" content="お肉屋直営の焼肉食べ放題。全席半個室、73席。週末はお昼からご利用いただけます。">
+    <meta property="og:type" content="restaurant">
+    <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/ryujintei/">
+    <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/ryujintei/img/hero-ext.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
+    <meta name="theme-color" content="#FAE8E1">
+
+    <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Zen+Antique&family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- favicon：--bg の正方形に2px --ink の枠、上端に --accent の帯（署名のラベルの縮小） -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' fill='%23FAE8E1' stroke='%231D1A19' stroke-width='2'/%3E%3Crect x='3' y='3' width='58' height='7' fill='%23D0741E'/%3E%3C/svg%3E">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "焼肉 龍神亭",
+      "servesCuisine": "焼肉",
+      "priceRange": "¥¥",
+      "telephone": "+81-280-23-4129",
+      "paymentAccepted": "Cash, Credit Card, Electronic Money, QR Code Payment",
+      "url": "https://creative-works-plus.github.io/restaurant-sites/ryujintei/",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/ryujintei/img/hero-ext.jpg",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "17:00",
+          "closes": "23:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "11:00",
+          "closes": "15:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "17:00",
+          "closes": "22:00"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "上辺見2300",
+        "addressLocality": "古河市",
+        "addressRegion": "茨城県",
+        "postalCode": "306-0234",
+        "addressCountry": "JP"
+      },
+      "hasMap": "https://maps.google.com/maps?q=茨城県古河市上辺見2300",
+      "hasMenu": ["menu.html"],
+      "acceptsReservations": "True",
+      "sameAs": ["https://www.instagram.com/yakiniku.ryujintei/"]
+    }
+    </script>
+
+    <style>
+    :root {
+        /* --- 面（背景） -------------------------------------------------------- */
+        --bg:          #FAE8E1;   /* 塗り壁の桃 */
+        --surface:     #FFF7F3;   /* 帯・ヒーローの帯・署名の紙 */
+        --surface-2:   #FFF7F3;
+
+        /* --- 文字 --------------------------------------------------------------- */
+        --ink:         #1D1A19;   /* 看板の墨 */
+        --muted:       #6A5550;
+        --dim:         #6A5550;
+
+        /* --- 差し色（文字には使わない。h2の罫・署名ラベルの上端・faviconの帯だけ） -- */
+        --accent:      #D0741E;   /* 柱の橙 */
+        --accent-hi:   #DB7911;
+        --accent-deep: #B5620F;
+        --accent-2:    ;
+
+        /* --- 罫線 -------------------------------------------------------------- */
+        --line:        rgba(29,26,25,.18);
+        --line-strong: rgba(29,26,25,.28);
+
+        /* --- 影：この店は写真もラベルも影なし ----------------------------------- */
+        --shadow:      none;
+        --shadow-bar:  0 -10px 30px rgba(29,26,25,.16);
+
+        /* --- 黒い皿の章だけの面 --------------------------------------------------- */
+        --night:       #333233;
+        --ink-inv:     #FAE8E1;
+
+        /* --- 営業状況バッジは使わない（祝日を判定できないため。JSも置かない） ------- */
+        --open:        #7fc383;
+        --closed:      #d98a7e;
+
+        /* --- 書体 ---------------------------------------------------------------- */
+        --font-brand:  'Yuji Boku', serif;        /* h1・ヘッダーの屋号だけ */
+        --font-head:   'Zen Antique', serif;       /* h2・h3・コース名 */
+        --font-body:   'BIZ UDPGothic', sans-serif; /* 本文・ボタン・署名・dl */
+
+        /* --- 地紋：写真が多いので要らない ------------------------------------------ */
+        --tex-paper:   none;
+        --tex-size:    clamp(360px, 33vw, 480px);
+        --tex-opacity: 0.06;
+        --tex-tint:    var(--accent);
+
+        --orn-blank:   url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
+
+        /* --- 形・間：この店の箱は1240px ------------------------------------------- */
+        --radius:      0px;
+        --maxw:        1240px;
+        --gap:         clamp(16px, 4vw, 40px);
+        --pad-section: clamp(72px, 10vw, 140px);
+        --pad-inner:   clamp(16px, 4vw, 48px);
+
+        /* --- 余白のスケール（7-a） -------------------------------------------------- */
+        --sp-1: 4px;  --sp-2: 8px;  --sp-3: 16px;
+        --sp-4: 24px; --sp-5: 40px; --sp-6: 64px;
+        --sec-y: clamp(72px, 10vw, 140px);
+        --blk-y: clamp(28px, 3.4vw, 48px);
+
+        /* --- タイポの段（7-b） ------------------------------------------------------ */
+        --fz-hero: clamp(48px, 6vw, 84px);
+        --fz-h2:   clamp(26px, 3vw, 36px);
+        --fz-h3:   clamp(19px, 1.9vw, 24px);
+        --fz-lead: clamp(18px, 1.6vw, 21px);
+        --fz-body: 16px;
+        --fz-cap:  13px;
+    }
+
+    /* --- リセット ------------------------------------------------------------- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.85;
+        overflow-x: hidden;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+
+    :root { --header-h: 74px; }
+    @media (max-width: 768px) { :root { --header-h: 64px; } }
+    /* ≤767px：ハンバーガーの代わりに「コースと料金／お席／アクセス」を常時1行で出す */
+    @media (max-width: 767px) { :root { --header-h: 108px; } }
+
+    body { padding-top: var(--header-h); }
+    .site-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: var(--header-h);
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+    }
+    .header-inner { display: flex; align-items: center; height: 74px; gap: 20px; }
+    @media (max-width: 768px) { .header-inner { height: 64px; } }
+    .mini-nav { display: none; }
+    @media (max-width: 767px) {
+        .site-header { display: flex; flex-direction: column; }
+        .mini-nav {
+            display: flex; align-items: center; gap: var(--sp-4);
+            height: 44px; flex: 0 0 auto;
+            padding-inline: var(--pad-inner);
+            border-top: 1px solid var(--line);
+        }
+        .mini-nav a { font-size: 14px; height: 100%; display: inline-flex; align-items: center; white-space: nowrap; }
+        .nav-toggle { display: none; }
+    }
+    .brand { text-decoration: none; color: inherit; white-space: nowrap;
+             font-size: clamp(16px, 4.2vw, 20px); line-height: 1;
+             display: inline-flex; align-items: center; min-height: 44px; }
+    .header-tel { margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+                  min-height: 44px; padding: 0 8px; text-decoration: none; color: inherit;
+                  white-space: nowrap; }
+    .header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
+    .header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
+    .nav-toggle { margin-left: 6px; }
+    .hero { min-height: 0; }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; }
+
+    h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption {
+        word-break: auto-phrase;
+        text-wrap: pretty;
+    }
+    .nw { display: inline-block; }
+    .nowrap { white-space: nowrap; }
+    .br-sp { display: none; }
+    @media (max-width: 600px) {
+        .br-sp { display: inline; }
+        .br-pc { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    .btn svg { width: 1.1em; height: 1.1em; flex: 0 0 auto; }
+    .container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .section   { padding-block: var(--pad-section); }
+
+    .reveal {
+        opacity: 0; transform: translateY(26px);
+        transition: opacity 0.8s cubic-bezier(0.16, 0.7, 0.3, 1),
+                    transform 0.8s cubic-bezier(0.16, 0.7, 0.3, 1);
+    }
+    .reveal.in-view       { opacity: 1; transform: none; }
+    .reveal-delay-1       { transition-delay: 0.08s; }
+    .reveal-delay-2       { transition-delay: 0.16s; }
+    .reveal-delay-3       { transition-delay: 0.24s; }
+    .no-js .reveal        { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    .map-wrapper {
+        position: relative; width: 100%; aspect-ratio: 16 / 10;
+        overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+    @media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+
+    .sticky-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+        display: none; gap: 1px; background: var(--line);
+        transform: translateY(100%); transition: transform 0.35s ease;
+        box-shadow: var(--shadow-bar);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar a {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 16px 10px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sticky-bar .bar-tel { background: var(--ink); color: var(--ink-inv); }
+    .sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
+
+    .btn-tel .tel-num { white-space: nowrap; }
+    .btn-tel .tel-cap { font-weight: 500; }
+    .btn-tel .tel-cap::before { content: '｜'; }
+
+    .mobile-nav {
+        position: fixed; z-index: 200;
+        visibility: hidden; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    body.nav-open .mobile-nav {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+    body.nav-open .site-header { z-index: 300; }
+    .nav-toggle {
+        width: 44px; height: 44px;
+        flex: 0 0 44px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 5px; background: none; border: 0; cursor: pointer;
+    }
+    .nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+    body.nav-open { overflow: hidden; }
+
+    @media (max-width: 620px) {
+        .sticky-bar { display: flex; }
+        body { padding-bottom: 68px; }
+    }
+    @media (min-width: 621px) {
+        .sticky-bar { display: none; }
+        body { padding-bottom: 0; }
+    }
+
+
+    /* ══════════════════════════════════════════════════════════════════
+       ここから下が、龍神亭だけのCSS
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* --- ヘッダー：屋号（縦積み）＋PCナビ＋電話 --------------------------------- */
+    .brand { flex-direction: column; align-items: flex-start; justify-content: center; gap: 0; }
+    .brand-sub { font-family: var(--font-body); font-size: 13px; color: var(--muted); line-height: 1.3; }
+    .brand-main { font-family: var(--font-brand); font-size: 26px; line-height: 1.2; color: var(--ink); }
+    .nav-desktop { display: none; gap: 28px; margin-left: 8px; }
+    .nav-desktop a { font-size: 14px; letter-spacing: .04em; white-space: nowrap; }
+    @media (min-width: 768px) {
+        .nav-desktop { display: flex; }
+        .nav-toggle { display: none; }
+    }
+    /* 三本線は使わない（768px以上はヘッダー内の .nav-desktop、767px以下はヘッダー下の1行 .mini-nav）。骨格の .nav-toggle{display:flex} が
+       後ろにあるので、詳細度を上げて消す。消さないと見えない44pxが右端を取り、電話番号が中央へ寄る */
+    .header-inner .nav-toggle { display: none; }
+
+    /* --- 見出しの罫（h2の前に置く40×2pxの横線） --------------------------------- */
+    .rule { width: 40px; height: 2px; background: var(--accent); margin-bottom: var(--sp-3); }
+
+    h2 { font-family: var(--font-head); font-weight: 400; font-size: var(--fz-h2); line-height: 1.3; letter-spacing: .06em; color: var(--ink); }
+    h3 { font-family: var(--font-head); font-weight: 400; font-size: var(--fz-h3); line-height: 1.35; letter-spacing: .06em; }
+    .lead { font-size: var(--fz-lead); line-height: 1.7; color: var(--ink); margin-top: var(--sp-3); }
+    .body-text { font-size: var(--fz-body); line-height: 1.95; letter-spacing: .02em; color: var(--ink); margin-top: var(--blk-y); }
+
+    .photo-box { overflow: hidden; background: var(--surface-2); }
+    .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* --- ① ヒーロー -------------------------------------------------------------
+       1つの grid に写真2枚・添え書き・帯をすべて置き、grid-template-areas だけを
+       ブレークポイントごとに差し替えて並び順を変える（DOM 上の写真は1枚ずつしか無い。
+       SPで帯の下に立て看板の写真を移すのに、同じ画像をもう1つ複製すると
+       絶対ルール⑦＝1ファイル内の画像重複になるため） ----------------------------- */
+    .hero-grid {
+        width: min(100% - 2 * var(--pad-inner), var(--maxw));
+        margin-inline: auto;
+        display: grid;
+        grid-template-columns: minmax(0,640px) minmax(0,270px) 1fr;
+        grid-template-areas:
+            "main sub eyebrow"
+            "band band band";
+        column-gap: 16px;
+        align-items: end;
+        padding-top: var(--sp-4);
+    }
+    .hero-photo-main { grid-area: main; }
+    .hero-photo-sub  { grid-area: sub; }
+    .hero-photo-main img, .hero-photo-sub img { width: 100%; height: auto; display: block; }
+    .hero-eyebrow-wrap { grid-area: eyebrow; align-self: start; }
+    .hero-eyebrow { font-size: var(--fz-cap); color: var(--muted); letter-spacing: .04em; }
+    /* ≥1024px：3列目は添え書きを縦書きで立てる。左端・上端をtbl-021の上端に揃える */
+    @media (min-width: 1024px) {
+        .hero-eyebrow-wrap { justify-self: start; }
+        .hero-eyebrow {
+            writing-mode: vertical-rl; text-orientation: mixed;
+            letter-spacing: .2em;
+        }
+        .hero-eyebrow .num-tate { text-combine-upright: all; }
+    }
+
+    /* 帯だけは grid の箱(1240px)から外れて画面いっぱいに広がる */
+    .hero-band {
+        grid-area: band;
+        width: 100vw;
+        margin-inline: calc(50% - 50vw);
+        margin-top: 16px;
+        background: var(--surface);
+    }
+    .hero-band-inner {
+        width: min(100% - 2 * var(--pad-inner), var(--maxw));
+        margin-inline: auto;
+        padding-block: 28px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 32px;
+        align-items: center;
+    }
+    .hero-h1 { font-family: var(--font-brand); font-size: var(--fz-hero); line-height: 1; color: var(--ink);
+               display: flex; flex-direction: column; gap: 6px; }
+    .hero-h1-sub { font-family: var(--font-body); font-size: 16px; font-weight: 400; letter-spacing: .04em; }
+    .hero-mid { display: flex; flex-direction: column; gap: 10px; }
+    .hero-line { font-size: var(--fz-lead); line-height: 1.7; color: var(--ink); }
+    .hero-hours { font-size: var(--fz-cap); color: var(--muted); line-height: 1.7; }
+    .hero-cta { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+    .btn-tel-hero {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        height: 52px; padding: 0 24px; background: var(--ink); color: var(--ink-inv);
+        border-radius: 2px; font-size: 16px; white-space: nowrap;
+    }
+    .btn-tel-hero svg { width: 18px; height: 18px; flex: 0 0 18px; }
+    .hero-net-link { font-size: 13px; color: var(--ink); text-decoration: underline; white-space: nowrap; }
+
+    @media (max-width: 1023px) and (min-width: 768px) {
+        .hero-grid {
+            grid-template-columns: 7fr 3fr;
+            grid-template-areas:
+                "main sub"
+                "eyebrow eyebrow"
+                "band band";
+        }
+    }
+
+    @media (max-width: 767px) {
+        .hero-grid {
+            grid-template-columns: 44% 1fr;
+            grid-template-areas:
+                "main main"
+                "band band"
+                "sub eyebrow";
+            row-gap: 16px;
+            padding-top: 0;
+        }
+        .hero-photo-sub { align-self: end; }
+        .hero-eyebrow-wrap { align-self: end; }
+        .hero-band { margin-top: 0; }
+        .hero-band-inner { grid-template-columns: 1fr; text-align: left; padding-block: 24px; }
+        .hero-cta { align-items: stretch; }
+        .btn-tel-hero { width: 100%; }
+        .hero-net-link { text-align: center; }
+    }
+
+    /* --- ② 肉屋のこと（署名：パックの表示） ------------------------------------- */
+    .niku-grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+    @media (max-width: 900px) { .niku-grid { grid-template-columns: 1fr; gap: var(--blk-y); } }
+
+    .hyouji { max-width: 560px; justify-self: start; background: #FFFFFF; border: 2px solid var(--ink); border-top: 8px solid var(--accent); }
+    @media (max-width: 900px) { .hyouji { justify-self: stretch; max-width: none; } }
+    .hyouji-row1 { padding: 18px 22px; border-bottom: 2px solid var(--ink); display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+    .hyouji-label { font-size: 13px; color: var(--muted); flex: 0 0 auto; }
+    .hyouji-value { font-weight: 700; font-size: clamp(26px, 2.8vw, 36px); color: var(--ink); }
+    .hyouji-item { display: grid; grid-template-columns: 6.5em 1fr; column-gap: 16px; padding: 12px 22px; border-top: 1px solid var(--line); }
+    .hyouji-item dt { font-size: 13px; color: var(--muted); }
+    .hyouji-item dd { font-size: 16px; color: var(--ink); }
+    .hyouji-item dd.addr-dd { white-space: normal; }
+    @media (max-width: 600px) {
+        .hyouji-item { grid-template-columns: 5.5em 1fr; }
+    }
+
+    /* --- ③ 看板のお肉 ------------------------------------------------------------ */
+    .kanban-head { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(24px, 4vw, 60px); align-items: start; }
+    @media (max-width: 900px) { .kanban-head { grid-template-columns: 1fr; gap: var(--blk-y); } }
+    .kanban-photos { display: grid; grid-template-columns: 7fr 5fr; gap: 16px; margin-top: var(--blk-y); align-items: start; }
+    .kanban-main-col { display: flex; flex-direction: column; }
+    .kanban-main { aspect-ratio: 4/3; max-width: 720px; }
+    .kanban-sub { display: grid; grid-template-rows: 1fr 1fr; gap: 16px; }
+    .kanban-sub .photo-box { aspect-ratio: 4/3; }
+    @media (max-width: 767px) { .kanban-photos { grid-template-columns: 1fr; } .kanban-main { max-width: none; } }
+    .photo-cap { margin-top: 8px; font-size: var(--fz-cap); color: var(--muted); }
+    .kanban-note { max-width: 68ch; }
+
+    /* --- ④ 食べ放題の四つ ---------------------------------------------------------- */
+    .tabehodai-grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(24px, 4vw, 60px); align-items: start; }
+    @media (max-width: 767px) { .tabehodai-grid { grid-template-columns: 1fr; gap: var(--blk-y); } }
+    .tabehodai-left { display: flex; flex-direction: column; }
+    .tabehodai-photo { aspect-ratio: 4/3; max-width: 520px; }
+    .course-rows { margin-top: var(--blk-y); }
+    .course-row { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: var(--sp-3); padding-block: 16px; border-top: 1px solid var(--line); }
+    .course-row:last-child { border-bottom: 1px solid var(--line); }
+    .course-name { font-family: var(--font-head); font-size: var(--fz-h3); font-weight: 400; letter-spacing: .04em; color: var(--ink); }
+    .course-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .course-note { font-size: var(--fz-cap); color: var(--muted); white-space: nowrap; }
+    .course-price { font-size: var(--fz-body); color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .tabehodai-foot { margin-top: var(--blk-y); display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
+    .btn-outline {
+        display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px;
+        border: 1px solid var(--ink); color: var(--ink); font-size: 14px; white-space: nowrap;
+    }
+
+    /* --- ⑤ 黒い皿 ------------------------------------------------------------------ */
+    .sec-kurosara { background: var(--night); color: var(--ink-inv); padding-block: calc(var(--sec-y) * 1.15); }
+    .sec-kurosara .rule { background: var(--accent); }
+    .sec-kurosara h2 { color: var(--ink-inv); }
+    .sec-kurosara .lead { color: var(--ink-inv); }
+    .kurosara-sub { margin-top: var(--sec-y); margin-bottom: var(--sp-4); color: var(--ink-inv); }
+    .sec-kurosara .lead + .kurosara-sub { margin-top: var(--blk-y); }
+    .kurosara-grid + .kurosara-sub { margin-top: calc(var(--blk-y) * 1.5); }
+    .kurosara-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .kurosara-grid .photo-box { aspect-ratio: 4/3; }
+    @media (max-width: 620px) { .kurosara-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* --- ⑥ 半個室と、掘りごたつ ------------------------------------------------------ */
+    .seats-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 16px; align-items: start; }
+    @media (max-width: 767px) { .seats-grid { grid-template-columns: 1fr; gap: var(--blk-y); } }
+    .seats-photo-main { aspect-ratio: 3/4; max-width: 480px; }
+    .seats-sub-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: var(--blk-y); }
+    .seats-sub-photos .photo-box { aspect-ratio: 4/3; }
+    .seats-note { max-width: 72ch; margin-top: var(--blk-y); }
+
+    /* --- ⑦ お客様の声 ---------------------------------------------------------------- */
+    .koe-list { margin-top: var(--blk-y); display: grid; gap: var(--sp-5); }
+    @media (min-width: 900px) { .koe-list { grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); } }
+    .koe-item { border-left: 2px solid var(--line); padding-left: 20px; }
+    .koe-item p { font-size: var(--fz-body); line-height: 1.9; color: var(--ink); }
+    .koe-item cite { display: block; margin-top: var(--sp-3); font-size: var(--fz-cap); color: var(--muted); font-style: normal; }
+
+    /* --- ⑧ お越しになる前に ---------------------------------------------------------- */
+    .sec-before { background: var(--surface); }
+    /* ★行ごとの罫は外し、表の上下だけ1pxにする（署名のラベルと同じ「1行ずつ罫で区切る」印象を残さない） */
+    .info-dl { margin-top: var(--blk-y); border-top: 1px solid var(--line); }
+    .info-row { display: grid; grid-template-columns: 9em 1fr; gap: 16px; padding-block: 14px; }
+    .info-dl .info-row:last-child { border-bottom: 1px solid var(--line); }
+    .info-row dt { font-size: var(--fz-cap); color: var(--muted); letter-spacing: .08em; }
+    .info-row dd { font-size: var(--fz-body); color: var(--ink); }
+    .info-row dd .link-inline,
+    .info-row dd .link-inline .nw { text-decoration: underline; text-underline-offset: .2em; }
+    @media (max-width: 620px) { .info-row { grid-template-columns: 1fr; gap: 4px; } }
+
+    /* --- ⑨ アクセス ------------------------------------------------------------------ */
+    .access-grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--sp-5); margin-top: var(--blk-y); align-items: start; }
+    @media (max-width: 900px) { .access-grid { grid-template-columns: 1fr; gap: var(--blk-y); } }
+    .access-buttons { margin-top: var(--sp-5); display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+    .access-buttons .btn-fill-ink { background: var(--ink); color: var(--ink-inv); border-color: var(--ink); }
+    @media (max-width: 600px) {
+        .access-buttons { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--sp-3); }
+        .access-buttons .btn-outline {
+            width: 100%; min-width: 0; white-space: normal; text-align: center;
+            padding: 0 10px; height: auto; min-height: 48px; line-height: 1.3;
+        }
+    }
+
+    /* --- フッター ---------------------------------------------------------------------- */
+    .site-footer { background: var(--ink); color: var(--ink-inv); padding-block: var(--sp-6); }
+    .footer-lead { font-size: var(--fz-lead); }
+    .footer-links { margin-top: var(--sp-4); }
+    .footer-links a { text-decoration: underline; font-size: 14px; }
+    .footer-name { margin-top: var(--sp-5); font-family: var(--font-brand); font-size: 22px; }
+    .footer-addr { margin-top: var(--sp-2); font-size: 14px; opacity: .85; }
+    .footer-tel { margin-top: var(--sp-1); font-size: 14px; opacity: .85; }
+    .footer-tel a { text-decoration: underline; }
+    .footer-copy { margin-top: var(--sp-4); font-size: 12px; opacity: .6; }
+
+    </style>
+</head>
+<body class="no-js">
+<!-- no-js クラスは下の script が消す。JS無効の環境で出現演出のコンテンツが
+     見えなくなるのを防ぐ保険なので、必ず付けたまま公開する -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ヘッダー
+     ══════════════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="brand"><span class="brand-sub">焼肉</span><span class="brand-main">龍神亭</span></a>
+
+        <nav class="nav-desktop" aria-label="メインナビゲーション">
+            <a href="menu.html">コースと料金</a>
+            <a href="index.html#seats">お席</a>
+            <a href="index.html#access">アクセス</a>
+        </nav>
+
+        <a href="tel:0280234129" class="header-tel" aria-label="電話でご予約 0280-23-4129">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+            <span class="tel-label">0280-23-4129</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    <nav class="mini-nav" aria-label="サブナビゲーション">
+        <a href="menu.html">コースと料金</a>
+        <a href="index.html#seats">お席</a>
+        <a href="index.html#access">アクセス</a>
+    </nav>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
+    <a href="menu.html" data-nav-link>コースと料金</a>
+    <a href="index.html#seats" data-nav-link>お席</a>
+    <a href="index.html#access" data-nav-link>アクセス</a>
+    <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ① ヒーロー
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+    <div class="hero-grid">
+        <div class="hero-photo-main photo-box reveal">
+            <img src="img/hero-ext.jpg" alt="桃色の壁に木の柱を並べた龍神亭の外観。白地に黒文字の看板が2枚と、食べ放題ののぼりが立つ" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async">
+        </div>
+        <div class="hero-photo-sub photo-box reveal">
+            <img src="img/hero-signboard.jpg" alt="雨の夜、店頭に立つ「肉屋直営店　龍神亭　焼肉　食べ放題」の立て看板" width="759" height="1012" loading="eager" decoding="async">
+        </div>
+        <div class="hero-eyebrow-wrap">
+            <p class="hero-eyebrow reveal"><span class="nw">県道</span><span class="num-tate">250</span><span class="nw">号沿い、</span><span class="nw">古河市上辺見</span></p>
+        </div>
+
+        <div class="hero-band">
+            <div class="hero-band-inner">
+                <h1 class="hero-h1"><span class="hero-h1-sub"><span class="nw">焼肉</span></span><span class="nw">龍神亭</span></h1>
+                <div class="hero-mid">
+                    <p class="hero-line reveal"><span class="nw">お肉屋直営の</span><span class="nw">食べ</span><span class="nw">放題。</span><span class="nw">週末は</span><span class="nw">お昼から。</span></p>
+                    <p class="hero-hours"><span class="nw">平日</span> 17:00〜23:00<br><span class="nw">土・</span><span class="nw">日・</span>祝 <span class="nw">11:00〜15:00・</span>17:00〜22:00<br><span class="nw">毎月</span> 第<span class="nw">3火曜日と、</span><span class="nw">その</span><span class="nw">翌日の</span><span class="nw">水曜日は</span><span class="nw">お休み</span></p>
+                </div>
+                <div class="hero-cta">
+                    <a href="tel:0280234129" class="btn-tel-hero">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                        <span class="tel-num nowrap">お電話　0280-23-4129</span>
+                    </a>
+                    <a href="https://www.hotpepper.jp/strJ003893836/yoyaku/hpds/?ROUTE_KBN=20" target="_blank" rel="noopener" class="hero-net-link">ネット予約・空席確認（ホットペッパーグルメ）→</a>
+                    <a href="menu.html" class="hero-net-link">コースと料金を見る　→</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ② 肉屋のこと（署名：パックの表示）
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="niku">
+    <div class="container niku-grid">
+        <div class="niku-text">
+            <div class="rule" aria-hidden="true"></div>
+            <h2 class="reveal"><span class="nw">肉屋が、</span><span class="nw">焼肉屋を</span><span class="nw">開きました。</span></h2>
+            <p class="lead reveal"><span class="nw">選ぶのも、</span><span class="nw">お出しするのも、</span><span class="nw">お肉屋です。</span></p>
+            <p class="body-text reveal"><span class="nw">直営だからこそ、</span><span class="nw">選び</span><span class="nw">抜いた</span><span class="nw">お肉を、</span><span class="nw">お手頃な</span><span class="nw">価格で、</span><span class="nw">食べ</span><span class="nw">放題で</span><span class="nw">お出しできます。</span><span class="nw">黒毛和牛、</span><span class="nw">国産牛、</span><span class="nw">牛タン、</span><span class="nw">ハラミ、</span><span class="nw">ホルモンまで、</span><span class="nw">お肉の</span><span class="nw">種類の</span><span class="nw">多さも</span><span class="nw">お肉屋ならではです。</span><span class="nw">ご家族そろって、</span><span class="nw">お越し</span><span class="nw">ください。</span></p>
+        </div>
+
+        <div class="hyouji reveal">
+            <div class="hyouji-row1">
+                <span class="hyouji-label">名称</span>
+                <span class="hyouji-value">焼肉　食べ放題</span>
+            </div>
+            <dl>
+                <div class="hyouji-item">
+                    <dt><span class="nw">運営者</span></dt>
+                    <dd><span class="nw">株式会社セントラルフード</span><br class="br-sp"> <span class="nw">外食事業部</span></dd>
+                </div>
+                <div class="hyouji-item">
+                    <dt><span class="nw">本業</span></dt>
+                    <dd><span class="nw">食肉加工</span><span class="nw">（1986年</span><span class="nw">5月設立）</span></dd>
+                </div>
+                <div class="hyouji-item">
+                    <dt><span class="nw">店舗</span></dt>
+                    <dd class="addr-dd"><span class="nw">焼肉</span>　<span class="nw">龍神亭</span><span class="nw">（茨城県古河市上辺見</span>2300）</dd>
+                </div>
+                <div class="hyouji-item">
+                    <dt><span class="nw">開店</span></dt>
+                    <dd><span class="nw">2024年</span><span class="nw">8月</span><span class="nw">20日</span></dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ③ 看板のお肉
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="kanban">
+    <div class="container">
+        <div class="kanban-head">
+            <div>
+                <div class="rule" aria-hidden="true"></div>
+                <h2 class="reveal"><span class="nw">一皿に、</span><span class="nw">タンの</span><span class="nw">三つの</span><span class="nw">部位。</span></h2>
+            </div>
+            <p class="lead reveal"><span class="nw">看板は</span><span class="nw">「龍神亭牛タン」です。</span><span class="nw">タン</span><span class="nw">元、</span><span class="nw">タン</span><span class="nw">中、</span><span class="nw">タン</span><span class="nw">先を、</span><span class="nw">一皿で</span><span class="nw">お出しします。</span></p>
+        </div>
+
+        <div class="kanban-photos">
+            <div class="kanban-main-col">
+                <div class="kanban-main photo-box reveal">
+                    <img src="img/plate-meat-2.jpg" alt="木目の卓に置いた黒い波皿に並べたタン肉の薄切り" width="950" height="712" loading="lazy" decoding="async">
+                </div>
+                <p class="photo-cap reveal"><span class="nw">龍神亭牛タン</span></p>
+                <p class="body-text kanban-note reveal"><span class="nw">レモンを</span><span class="nw">添えて、</span><span class="nw">部位ごとの</span><span class="nw">歯ごたえの</span><span class="nw">違いを</span><span class="nw">お楽しみ</span><span class="nw">ください。</span><span class="nw">ほかの</span><span class="nw">お肉は、</span><span class="nw">品ごとに</span><span class="nw">「タレ・</span><span class="nw">塩」</span><span class="nw">「塩・</span><span class="nw">レモン」</span><span class="nw">「塩・</span><span class="nw">味噌・</span><span class="nw">タレ」の</span><span class="nw">中から</span><span class="nw">お好みで</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">カルビや</span><span class="nw">ロース、</span><span class="nw">タンには</span><span class="nw">厚切りも</span><span class="nw">ございます。</span></p>
+            </div>
+            <div class="kanban-sub">
+                <div class="photo-box reveal">
+                    <img src="img/plate-meat-1.jpg" alt="木目の卓に置いた黒い波皿に並べた牛肉の薄切り5枚" width="1100" height="825" loading="lazy" decoding="async">
+                </div>
+                <div class="photo-box reveal">
+                    <img src="img/grill-close.jpg" alt="網の上で焼いているお肉" width="807" height="605" loading="lazy" decoding="async">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ④ 食べ放題の四つ
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="tabehodai">
+    <div class="container tabehodai-grid">
+        <div class="tabehodai-left">
+            <div class="tabehodai-photo photo-box reveal">
+                <img src="img/spread-platter.jpg" alt="黒い皿に盛った焼肉と、野菜・スープ・キムチを卓に並べたところ" width="1040" height="780" loading="lazy" decoding="async">
+            </div>
+            <div class="tabehodai-foot">
+                <p class="body-text reveal" style="margin-top:0"><span class="nw">飲み</span><span class="nw">放題は、</span><span class="nw">どの</span><span class="nw">コースにも</span><span class="nw">お付け</span><span class="nw">いただけます。</span><span class="nw">ソフトドリンクだけの</span><span class="nw">飲み</span><span class="nw">放題も</span><span class="nw">ございます。</span></p>
+                <a href="menu.html" class="btn-outline reveal">コースと料金を見る　→</a>
+            </div>
+        </div>
+        <div>
+            <div class="rule" aria-hidden="true"></div>
+            <h2 class="reveal"><span class="nw">食べ</span><span class="nw">放題は、</span><span class="nw">四つ。</span></h2>
+            <p class="lead reveal"><span class="nw">違いは、</span><span class="nw">お肉の</span><span class="nw">顔ぶれと</span><span class="nw">品数です。</span><span class="nw">ご一緒の</span><span class="nw">方と、</span><span class="nw">お好みで</span><span class="nw">お選び</span><span class="nw">ください。</span></p>
+
+            <ul class="course-rows">
+                <li class="course-row reveal"><span class="course-name"><span class="nw">ランチコース</span></span><span class="course-right"><span class="course-note"><span class="nw">土・</span><span class="nw">日・</span><span class="nw">祝の</span><span class="nw">お昼</span>　<span class="nw">40種以上</span></span><span class="course-price"><span class="nw">2,068円</span></span></span></li>
+                <li class="course-row reveal"><span class="course-name"><span class="nw">国産牛特選カルビ</span>　<span class="nw">50品コース</span></span><span class="course-right"><span class="course-note">全<span class="nw">50品</span></span><span class="course-price"><span class="nw">2,948円</span></span></span></li>
+                <li class="course-row reveal"><span class="course-name"><span class="nw">龍神コース</span></span><span class="course-right"><span class="course-note"><span class="nw">60種以上</span></span><span class="course-price"><span class="nw">3,388円</span></span></span></li>
+                <li class="course-row reveal"><span class="course-name"><span class="nw">ドラゴンコース</span></span><span class="course-right"><span class="course-note"><span class="nw">60種以上</span></span><span class="course-price"><span class="nw">4,268円</span></span></span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑤ 黒い皿
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="sec-kurosara" id="kurosara">
+    <div class="container">
+        <div class="rule" aria-hidden="true"></div>
+        <h2 class="reveal"><span class="nw">一皿ずつ、</span><span class="nw">お席へ。</span></h2>
+        <p class="lead reveal"><span class="nw">食べ</span><span class="nw">放題でも、</span><span class="nw">ご注文を</span><span class="nw">いただいてから</span><span class="nw">お持ちします。</span><span class="nw">お肉も、</span><span class="nw">ごはん</span><span class="nw">ものも、</span><span class="nw">一品も、</span><span class="nw">甘い</span><span class="nw">ものも、</span><span class="nw">お好きな</span><span class="nw">順に</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span></p>
+
+        <h3 class="kurosara-sub reveal"><span class="nw">お肉</span></h3>
+        <div class="kurosara-grid">
+            <div class="photo-box reveal"><img src="img/black-01.jpg" alt="黒い角皿に盛った牛肉の薄切り" width="620" height="465" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-02.jpg" alt="黒い角皿に盛った牛肉の薄切り" width="620" height="465" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-03.jpg" alt="黒い角皿に盛った牛肉の薄切り数枚" width="620" height="465" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-04.jpg" alt="黒い角皿に盛った牛肉の薄切り数枚" width="620" height="465" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-05.jpg" alt="黒い角皿に盛った牛肉の薄切り数枚" width="620" height="465" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-06.jpg" alt="黒い角皿に盛った牛肉の薄切り数枚" width="620" height="465" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-07.jpg" alt="黒い角皿に盛った牛肉の薄切り数枚" width="620" height="465" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-08.jpg" alt="黒い角皿に盛った牛肉の薄切り数枚" width="620" height="465" loading="lazy" decoding="async"></div>
+        </div>
+
+        <h3 class="kurosara-sub reveal"><span class="nw">ごはん・</span><span class="nw">一品・</span><span class="nw">甘い</span><span class="nw">もの</span></h3>
+        <div class="kurosara-grid">
+            <div class="photo-box reveal"><img src="img/black-09.jpg" alt="石鍋に盛ったビビンバ。上に卵黄とナムルをのせたもの" width="465" height="349" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-10.jpg" alt="黒い器に入ったスープ。ゆで卵と麺が入ったもの" width="465" height="349" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-11.jpg" alt="黒い角皿に盛った一品料理" width="465" height="349" loading="lazy" decoding="async"></div>
+            <div class="photo-box reveal"><img src="img/black-12.jpg" alt="透明な器に盛ったケーキの一切れ" width="350" height="262" loading="lazy" decoding="async"></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑥ 半個室と、掘りごたつ
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="seats">
+    <div class="container">
+        <div class="seats-grid">
+            <div class="seats-photo-main photo-box reveal">
+                <img src="img/room-table-1.jpg" alt="木目のテーブルに埋め込みロースターを据えた半個室。両側に黒いベンチ席" width="960" height="1280" loading="lazy" decoding="async">
+            </div>
+            <div>
+                <div class="rule" aria-hidden="true"></div>
+                <h2 class="reveal"><span class="nw">半個室と、</span><span class="nw">掘りごたつ。</span></h2>
+                <p class="lead reveal"><span class="nw">73席、</span><span class="nw">すべて</span><span class="nw">半個室です。</span></p>
+                <div class="seats-sub-photos">
+                    <div class="photo-box reveal"><img src="img/room-table-2.jpg" alt="無煙ロースターを埋め込んだ長卓の半個室。両側に黒い座布団を並べた掘りごたつ席" width="950" height="712" loading="lazy" decoding="async"></div>
+                    <div class="photo-box reveal"><img src="img/room-table-3.jpg" alt="無煙ロースターを埋め込んだ長卓の半個室。障子と朱色の壁のある掘りごたつ席" width="950" height="712" loading="lazy" decoding="async"></div>
+                </div>
+                <p class="body-text seats-note reveal"><span class="nw">4名様と</span><span class="nw">6名様の</span><span class="nw">お部屋のほか、</span><span class="nw">掘りごたつの</span><span class="nw">お部屋を</span><span class="nw">8名様用と</span><span class="nw">13名様用で</span><span class="nw">ご用意しています。</span><span class="nw">まわりを</span><span class="nw">気にせず、</span><span class="nw">お子さま</span><span class="nw">連れでもゆっくり</span><span class="nw">お過ごし</span><span class="nw">いただけます。</span><span class="nw">30名様から</span><span class="nw">73名様までの</span><span class="nw">貸切も</span><span class="nw">承ります</span><span class="nw">ので、</span><span class="nw">お電話で</span><span class="nw">ご相談ください。</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑦ お客様の声
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="koe" style="padding-block: calc(var(--sec-y) * 0.8)">
+    <div class="container">
+        <div class="rule" aria-hidden="true"></div>
+        <h2 class="reveal"><span class="nw">お客様の</span>声</h2>
+
+        <div class="koe-list">
+            <blockquote class="koe-item reveal">
+                <p><span class="nw">「娘の</span><span class="nw">誕生日に、</span><span class="nw">家族で</span><span class="nw">焼肉食べ</span><span class="nw">放題…注文した</span><span class="nw">料理の</span><span class="nw">提供も</span><span class="nw">早かった…家族みんなで</span><span class="nw">お腹いっぱい</span><span class="nw">食べられて</span><span class="nw">大満足」</span></p>
+                <cite>ホットペッパーグルメ（2026年9月）</cite>
+            </blockquote>
+            <blockquote class="koe-item reveal">
+                <p><span class="nw">「個室な</span><span class="nw">ので</span><span class="nw">リラックス</span><span class="nw">出来ます</span>　<span class="nw">色々な</span><span class="nw">お肉を</span><span class="nw">お腹いっぱい</span><span class="nw">食べられて</span>　<span class="nw">幼児用の</span><span class="nw">食事や</span><span class="nw">アイスクリーム</span><span class="nw">等も</span><span class="nw">食べ</span><span class="nw">放題で</span><span class="nw">大満足」</span></p>
+                <cite>ホットペッパーグルメ（2026年8月）</cite>
+            </blockquote>
+            <blockquote class="koe-item reveal">
+                <p><span class="nw">「火力もすごいよくて</span><span class="nw">母は</span><span class="nw">好きな</span><span class="nw">カルビを</span><span class="nw">自分は</span><span class="nw">ホルモンを</span><span class="nw">沢山食べて</span><span class="nw">楽しみました」</span></p>
+                <cite>ホットペッパーグルメ（2026年9月）</cite>
+            </blockquote>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑧ お越しになる前に
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section sec-before" id="before-visit">
+    <div class="container">
+        <div class="rule" aria-hidden="true"></div>
+        <h2 class="reveal"><span class="nw">お越しになる</span><span class="nw">前に</span></h2>
+        <p class="lead reveal"><span class="nw">ご来店の</span><span class="nw">前に、</span><span class="nw">ひととおり</span><span class="nw">ご確認ください。</span></p>
+
+        <dl class="info-dl reveal">
+            <div class="info-row">
+                <dt><span class="nw">営業時間</span></dt>
+                <dd><span class="nw">月〜金</span>　17:00〜23:00（L.O. 22:30）<br><span class="nw">土・</span><span class="nw">日・</span>祝　11:00〜15:00（L.O. 14:30）<br>　　　　　 17:00〜22:00（L.O. 21:30）</dd>
+            </div>
+            <!-- 土日祝の中休みは Instagram のプロフィールだけ通しで書いている。商談で確認 -->
+            <div class="info-row">
+                <dt><span class="nw">定休日</span></dt>
+                <dd><span class="nw">毎月</span>　第<span class="nw">3火曜日と、</span><span class="nw">その</span><span class="nw">翌日の</span><span class="nw">水曜日</span></dd>
+            </div>
+            <div class="info-row">
+                <dt><span class="nw">駐車場</span></dt>
+                <dd><span class="nw">無料</span><span class="nw">22台</span></dd>
+            </div>
+            <div class="info-row">
+                <dt><span class="nw">お支払い</span></dt>
+                <dd><span class="nw">各種クレジットカード・</span><span class="nw">電子マネー・</span><span class="nw">QRコード</span><span class="nw">決済</span></dd>
+            </div>
+            <div class="info-row">
+                <dt><span class="nw">おたばこ</span></dt>
+                <dd><span class="nw">全席禁煙</span></dd>
+            </div>
+            <div class="info-row">
+                <dt><span class="nw">お子さま</span><span class="nw">連れ</span></dt>
+                <dd><span class="nw">歓迎。</span><span class="nw">お子さま</span><span class="nw">カレー・</span><span class="nw">お子さまうどんが</span><span class="nw">ございます。</span><span class="nw">食べ</span><span class="nw">放題は、</span><span class="nw">幼児の</span><span class="nw">お子さまは</span><span class="nw">無料、</span><span class="nw">小学生以下は</span><span class="nw">半額で</span><span class="nw">ご案内します。</span></dd>
+            </div>
+            <div class="info-row">
+                <dt><span class="nw">貸切</span></dt>
+                <dd><span class="nw">30名様から</span><span class="nw">73名様まで</span><span class="nw">承ります。</span><span class="nw">お電話で</span><span class="nw">ご相談ください。</span></dd>
+            </div>
+            <div class="info-row">
+                <dt><span class="nw">ご予約</span></dt>
+                <dd>
+                    <span class="nw">土・</span><span class="nw">日・</span><span class="nw">祝の</span><span class="nw">ランチの</span><span class="nw">ご予約は、</span><span class="nw">11:00〜13:00の</span><span class="nw">ご来店で、</span><span class="nw">2名様から</span><span class="nw">承ります。</span><br>
+                    <a href="tel:0280234129" class="link-inline"><span class="nw">お電話</span>　0280-23-4129</a>　<a href="https://www.hotpepper.jp/strJ003893836/yoyaku/hpds/?ROUTE_KBN=20" target="_blank" rel="noopener" class="link-inline"><span class="nw">ネット</span><span class="nw">予約・</span><span class="nw">空席確認</span><span class="nw">（ホットペッパーグルメ）</span></a>
+                </dd>
+            </div>
+        </dl>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ⑨ アクセス
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="access">
+    <div class="container">
+        <div class="rule" aria-hidden="true"></div>
+        <h2 class="reveal"><span class="nw">アクセス</span></h2>
+        <p class="lead reveal"><span class="nw">お車でも、</span><span class="nw">古河駅からの</span><span class="nw">バスでも</span><span class="nw">お越し</span><span class="nw">いただけます。</span></p>
+
+        <div class="access-grid">
+            <dl class="info-dl reveal">
+                <div class="info-row">
+                    <dt><span class="nw">住所</span></dt>
+                    <dd>〒306-0234<br><span class="nw">茨城県古河市上辺見</span>2300</dd>
+                </div>
+                <div class="info-row">
+                    <dt><span class="nw">駐車場</span></dt>
+                    <dd><span class="nw">無料</span><span class="nw">22台</span></dd>
+                </div>
+                <div class="info-row">
+                    <dt><span class="nw">目印</span></dt>
+                    <dd><span class="nw">県道</span><span class="nw">250号</span><span class="nw">（古河総和線）沿い、</span><span class="nw">大きな</span><span class="nw">「焼肉</span>　<span class="nw">龍神亭」の</span><span class="nw">看板が</span><span class="nw">目印です。</span></dd>
+                </div>
+                <div class="info-row">
+                    <dt><span class="nw">バス</span></dt>
+                    <dd><span class="nw">「日赤入口」下車</span>　<span class="nw">徒歩約</span><span class="nw">1分</span></dd>
+                </div>
+                <div class="info-row">
+                    <dt><span class="nw">電車</span></dt>
+                    <dd><span class="nw">古河駅東口から</span><span class="nw">徒歩約</span><span class="nw">27分</span></dd>
+                </div>
+            </dl>
+
+            <div class="map-wrapper reveal">
+                <iframe
+                    src="https://maps.google.com/maps?q=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E4%B8%8A%E8%BE%BA%E8%A6%8B2300&z=16&output=embed"
+                    allowfullscreen loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="龍神亭 の地図"></iframe>
+            </div>
+        </div>
+
+        <div class="access-buttons">
+            <a class="btn-outline" href="https://www.google.com/maps/dir/?api=1&destination=%E8%8C%A8%E5%9F%8E%E7%9C%8C%E5%8F%A4%E6%B2%B3%E5%B8%82%E4%B8%8A%E8%BE%BA%E8%A6%8B2300" target="_blank" rel="noopener">Googleマップで経路</a>
+            <a class="btn-outline btn-fill-ink" href="tel:0280234129">お電話　0280-23-4129</a>
+            <a class="btn-outline" href="https://www.hotpepper.jp/strJ003893836/yoyaku/hpds/?ROUTE_KBN=20" target="_blank" rel="noopener">ネット予約</a>
+            <a class="btn-outline" href="https://www.instagram.com/yakiniku.ryujintei/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+    </div>
+</section>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <p class="footer-lead"><span class="nw">ご予約と、</span><span class="nw">お誕生日の</span><span class="nw">お席の</span><span class="nw">ご相談は、</span><span class="nw">お電話で</span><span class="nw">承ります。</span></p>
+        <div class="footer-links">
+            <a href="https://www.instagram.com/yakiniku.ryujintei/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+        <p class="footer-name"><span class="nw">焼肉</span>　<span class="nw">龍神亭</span></p>
+        <p class="footer-addr">〒306-0234　<span class="nw">茨城県古河市上辺見</span>2300</p>
+        <p class="footer-tel"><a href="tel:0280234129" class="nowrap">0280-23-4129</a></p>
+        <p class="footer-copy">&copy; <span class="nw">龍神亭</span></p>
+    </div>
+</footer>
+
+
+<!-- スマホ用 追従予約バー -->
+<div class="sticky-bar" id="sticky-bar">
+    <a href="index.html#access" class="bar-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス・地図
+    </a>
+    <a href="tel:0280234129" class="bar-tel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        電話で予約
+    </a>
+</div>
+
+
+<script>
+/* JS が動いた印。CSSの .no-js .reveal が外れて出現演出が有効になる */
+document.body.classList.remove('no-js');
+
+
+/* --------------------------------------------------------------------------
+   1. 追従予約バーの表示切り替え
+   -------------------------------------------------------------------------- */
+var heroEl = document.getElementById('hero');
+var stickyBar = document.getElementById('sticky-bar');
+
+window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > 60);
+    if (stickyBar) {
+        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+        stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
+    }
+}, { passive: true });
+
+
+/* --------------------------------------------------------------------------
+   2. モバイルナビ開閉
+   -------------------------------------------------------------------------- */
+var navToggle = document.getElementById('nav-toggle');
+var navPanel = document.getElementById('mobile-nav');
+function closeNav() {
+    document.body.classList.remove('nav-open');
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'メニューを開く');
+    }
+}
+if (navToggle) {
+    navToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+}
+document.querySelectorAll('[data-nav-link]').forEach(function (a) {
+    a.addEventListener('click', closeNav);
+});
+var navClose = document.getElementById('nav-close');
+if (navClose) {
+    navClose.addEventListener('click', function () {
+        closeNav();
+        if (navToggle) navToggle.focus();
+    });
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (navPanel && navPanel.contains(e.target)) return;
+    if (navToggle && navToggle.contains(e.target)) return;
+    closeNav();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+});
+
+
+/* --------------------------------------------------------------------------
+   3. スクロール出現演出（IntersectionObserver）
+   -------------------------------------------------------------------------- */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+} else {
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+}
+
+/* ★営業中表示のJSは付けない（祝日を判定できないため。→ デザインブリーフ①） */
+</script>
+</body>
+</html>
