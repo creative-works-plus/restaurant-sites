@@ -457,7 +457,6 @@
     .section-title { font-family: var(--font-head); font-weight: 600; letter-spacing: .06em;
                       line-height: 1.32; font-size: var(--fz-h2); color: var(--ink);
                       display: flex; align-items: center; gap: 10px; margin-bottom: var(--blk-y); }
-    .orn-taru { width: 17px; height: auto; flex: 0 0 auto; color: var(--accent); }
 
     .text-block { display: grid; gap: var(--sp-3); max-width: 62ch; }
     .text-block p { color: var(--ink); }
@@ -517,7 +516,6 @@
     /* --- ② みそ家と、米ぞう。（署名の章・反転面） -------------------------- */
     .sec-taru { background: var(--miso); color: var(--bg); }
     .sec-taru .section-title { color: var(--bg); }
-    .sec-taru .orn-taru { color: var(--bg); }
     .sec-taru .text-block p,
     .sec-taru .taru-photo-text p { color: var(--bg); }
     .sec-taru .photo-frame { border-color: rgba(245, 239, 227, .28);
@@ -593,13 +591,22 @@
     .oshinagaki { padding-top: var(--sp-2); }
     .oshinagaki [id] { scroll-margin-top: calc(var(--header-h) + 76px); }
 
+    /* ★2026-09-17 丸藤さん「タブが左に寄っている／長すぎて右へ伸びている」→ 型A（menu-tabs）。
+       真ん中にそろえ、横スクロールにせず何行かに折り返して1画面で全部見せる */
     .subnav { position: sticky; top: var(--header-h); z-index: 90;
               background: var(--surface-2); border-bottom: 1px solid var(--line); }
-    .subnav-inner { display: flex; gap: 4px; overflow-x: auto; padding-inline: var(--pad-inner);
-                    -webkit-overflow-scrolling: touch; }
-    .subnav a { white-space: nowrap; color: var(--muted); font-size: .85rem;
+    .subnav-inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 8px;
+                    max-width: var(--maxw); margin-inline: auto;
+                    padding: 6px var(--pad-inner); }
+    .subnav a { white-space: nowrap; color: var(--muted); font-size: .88rem; padding-inline: 12px;
                 border-bottom: 2px solid transparent; }
     .subnav a:hover, .subnav a:focus-visible { color: var(--accent); border-color: var(--accent); }
+    @media (max-width: 640px) {
+        /* 3列だと「ミックスフライ御／膳」と語の途中で割れたので2列にし、1行で収める */
+        .subnav-inner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 4px; padding-block: 2px; }
+        .subnav a { justify-content: center; text-align: center; white-space: nowrap;
+                    line-height: 1.3; font-size: .84rem; padding-inline: 2px; }
+    }
 
     .menu-block { padding-block: var(--blk-y) 0; }
     .menu-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: var(--sp-2); }
@@ -663,15 +670,6 @@
     <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
 </nav>
 
-<!-- 署名の印（屋根つきの樽）★ h2 の左に14pxで使い回すためのスプライト。ここ自体は非表示 -->
-<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
-    <symbol id="mark-taru" viewBox="0 0 120 130">
-        <path d="M60 6 L112 32 L8 32 Z" fill="currentColor"/>
-        <rect x="6" y="32" width="108" height="3" fill="currentColor"/>
-        <path d="M22 40 Q14 82 24 122 L96 122 Q106 82 98 40 Z" fill="none" stroke="currentColor" stroke-width="4"/>
-        <rect x="27" y="60" width="66" height="6" fill="currentColor"/>
-    </symbol>
-</svg>
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
@@ -812,7 +810,6 @@
 <section class="section" id="info">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nwb"><span class="nw">アクセス・</span><span class="nw">店舗情報</span></span>
         </h2>
 

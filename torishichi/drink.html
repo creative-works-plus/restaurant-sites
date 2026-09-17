@@ -307,7 +307,6 @@
         font-family: var(--font-head); font-weight: 900; letter-spacing: .06em;
         font-size: var(--fz-h2); line-height: 1.3; color: var(--ink);
     }
-    .orn-taruki { width: 3px; height: 14px; flex: 0 0 auto; color: var(--muted); }
     .lead { margin-top: var(--sp-3); font-size: 15px; color: var(--muted); max-width: 46em; letter-spacing: .04em; line-height: 1.9; }
     .yomi-eyebrow { font-size: var(--fz-cap); letter-spacing: .18em; color: var(--muted); margin-bottom: var(--sp-2); }
 
@@ -500,21 +499,36 @@
     .site-footer p { font-size: var(--fz-cap); color: var(--muted); }
 
     /* --- お品書き（build_menu.py が出す構造） --- */
+    /* 章のタブ（8章＝menu-tabs 型A'：中央そろえ・折り返し） */
     .subnav { position: sticky; top: var(--header-h); z-index: 90; background: var(--bg-deep);
-              border-bottom: 1px solid var(--line); overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .subnav-inner { display: flex; gap: 2px; padding-inline: var(--pad-inner); }
-    .subnav a { color: var(--muted); font-size: .85rem; white-space: nowrap; }
-    .subnav a:hover, .subnav a:focus { color: var(--ink); }
+              border-bottom: 1px solid var(--line-strong); }
+    .subnav-inner {
+        width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 0 4px; padding-block: 6px;
+    }
+    .subnav a {
+        position: relative; color: var(--ink); font-size: 16px; font-weight: 700; letter-spacing: .06em;
+        white-space: nowrap; min-height: 48px; justify-content: center; padding-inline: 16px;
+    }
+    .subnav a::after { content: ''; position: absolute; left: 16px; right: 16px; bottom: 10px; height: 1px;
+        background: var(--washi); transform: scaleX(0); transition: transform .2s ease; }
+    .subnav a:hover::after, .subnav a:focus-visible::after { transform: scaleX(1); }
+    @media (max-width: 640px) {
+        .subnav-inner { width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding-block: 0; }
+        .subnav a { min-height: 50px; padding-inline: 6px; white-space: normal; text-align: center; line-height: 1.3;
+            font-size: 13px; letter-spacing: 0; border-right: 1px solid var(--line); }
+        .subnav a:nth-child(4n) { border-right: 0; }
+        .subnav a:nth-child(-n+4) { border-bottom: 1px solid var(--line); }
+        .subnav a::after { display: none; }
+    }
 
     .lead-box { margin-bottom: var(--blk-y); max-width: 46em; color: var(--muted); }
 
     .menu-block { padding-block: var(--blk-y); border-bottom: 1px solid var(--line); }
     .menu-block:last-child { border-bottom: none; }
     .menu-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .menu-head h2 { font-family: var(--font-head); font-weight: 900; font-size: 26px;
+    .menu-head h2 { font-family: var(--font-head); font-weight: 900; font-size: clamp(26px, 3.4vw, 34px);
                     letter-spacing: .04em; color: var(--ink); }
-    .menu-head h2::before { content: ''; display: inline-block; width: 3px; height: 14px; margin-right: 12px;
-                    background: var(--muted); vertical-align: -1px; }
     .menu-head .yomi { font-size: 11px; letter-spacing: .14em; color: var(--muted); }
     .menu-note { margin-top: var(--sp-2); color: var(--muted); font-size: .92rem; max-width: 42em; }
     .menu-after { margin-top: var(--sp-3); color: var(--muted); font-size: .9rem; }
@@ -569,7 +583,7 @@
 
 <div class="container page-lead">
     <h1 class="reveal"><span class="nw">お飲み</span><span class="nw">もの</span></h1>
-    <p class="reveal"><span class="nw">地酒を</span><span class="nw">中心に、</span><span class="nw">ハイボール・</span><span class="nw">サワー・</span><span class="nw">果実酒までそろえ</span><span class="nw">ております。</span></p>
+    <p class="reveal"><span class="nw">地酒を</span><span class="nw">中心に、</span><span class="nw">ハイボール・</span><span class="nw">サワー・</span><span class="nw">果実酒までそろえて</span><span class="nw">おります。</span></p>
 </div>
 
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
@@ -577,12 +591,12 @@
     <div class="subnav-inner">
         <a href="#beer">ビール</a>
         <a href="#highball">ハイボール</a>
-        <a href="#sour">サワー・チューハイ</a>
+        <a href="#sour"><span class="nwb"><span class="nw">サワー・</span><span class="nw">チューハイ</span></span></a>
         <a href="#nihonshu">日本酒</a>
         <a href="#shochu">焼酎</a>
-        <a href="#kajitsushu">果実酒・ワイン</a>
+        <a href="#kajitsushu"><span class="nwb"><span class="nw">果実酒・</span><span class="nw">ワイン</span></span></a>
         <a href="#cocktail">カクテル</a>
-        <a href="#soft">ソフトドリンク</a>
+        <a href="#soft"><span class="nwb"><span class="nw">ソフト</span><span class="nw">ドリンク</span></span></a>
     </div>
 </nav>
 <section class="section">
@@ -643,7 +657,7 @@
 
         <div class="menu-block reveal" id="nihonshu">
             <div class="menu-head"><h2><span class="nw">日本酒</span></h2><span class="yomi">NIHONSHU</span></div>
-            <p class="menu-note"><span class="nw">栃木の</span><span class="nw">地酒を</span><span class="nw">中心に、</span><span class="nw">辛口を</span><span class="nw">厚めにそろえ</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">栃木の</span><span class="nw">地酒を</span><span class="nw">中心に、</span><span class="nw">辛口を</span><span class="nw">厚めにそろえて</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">鳳凰美田</span> Black Phenix <span class="nw">純米吟醸愛山</span><span class="desc"><span class="nw">半合</span></span></span><span class="dots"></span><span class="price"><span class="nw">660円</span></span></li>

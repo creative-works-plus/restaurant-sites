@@ -585,16 +585,54 @@
     .site-footer .sns-links a { color: #fff; border-color: rgba(255,255,255,.4); }
     .site-footer .footer-copy { color: #8E9296; font-size: .8rem; margin-top: var(--sp-4); }
 
-    /* --- 扉ナビ：6つの扉の名だけを文字で固定（sticky）。ピル・アイコンにしない ---
-       現在の扉は --accent の下線2px（ブリーフ4）。build_menu.py が章ごとに出す
-       .subnav（3〜4扉ぶん自動で出る）は、この帯と役割が重なるので非表示にする。 */
-    .door-nav { position: sticky; top: var(--header-h); z-index: 90;
-                background: var(--surface); border-bottom: 1px solid var(--line); }
-    .door-nav-inner { display: flex; gap: var(--sp-4); overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .door-nav a { flex: 0 0 auto; padding: 14px 0; min-height: 44px; display: inline-flex; align-items: center;
-                  font-size: .86rem; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; }
+    /* --- 扉ナビ（2026-09-17 組み直し・スキル menu-tabs）----------------------
+       1タブ＝1章。11の扉を中央そろえで折り返し、1画面で全部見せる（横スクロールにしない）。
+       PC（901px〜）は2行に収まるので上に貼り付ける。スマホ・タブレットは3列×4行になり
+       画面の2割を超えるので貼り付けず、通り過ぎたら右下に「お品書きの目次へ」を出す。
+       現在の扉は --accent の下線2px。ピル・アイコン・印は付けない。 */
+    .door-nav { background: var(--surface); border-bottom: 1px solid var(--line); }
+    .door-nav-inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 var(--sp-4); }
+    .door-nav a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+                  padding: 0 2px; font-size: .86rem; color: var(--muted);
+                  border-bottom: 2px solid transparent; white-space: nowrap; }
+    .door-nav a:hover { color: var(--ink); }
     .door-nav a.is-current { color: var(--ink); border-bottom-color: var(--accent); }
-    .subnav { display: none !important; }
+    @media (min-width: 901px) {
+        .door-nav { position: sticky; top: var(--header-h); z-index: 90; }
+        .menu-part-lead[id], .menu-block[id] { scroll-margin-top: calc(var(--header-h) + var(--door-h, 100px) + 12px); }
+    }
+    @media (max-width: 900px) {
+        /* 3列。最後の行（2つ）も中央に寄せたいので grid ではなく幅1/3の flex で折り返す */
+        .door-nav-inner { gap: 0; padding-block: 6px; }
+        /* 「うなぎ・とんかつ」が語の途中で割れないよう1行で出す（8文字が1/3幅に収まる大きさ） */
+        .door-nav a { flex: 0 0 33.333%; white-space: nowrap; text-align: center; font-size: min(.84rem, 3.4vw); padding-inline: 2px; }
+    }
+
+    /* 章の中の目次（build_menu.py の .subnav）。扉ナビに章が出ている「うなぎ・とんかつ」
+       「そば・うどん」の扉では重複するので出さない。「膳・定食」「お飲みもの・お酒」だけ出す。
+       貼り付けない。中央そろえで折り返す。 */
+    #d3 + .subnav, #d5 + .subnav { display: none; }
+    .subnav-inner { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+                    display: flex; flex-wrap: wrap; justify-content: center; gap: 0 var(--sp-3);
+                    padding-top: var(--sp-4); }
+    .subnav a { font-size: .86rem; color: var(--muted); padding-inline: 8px;
+                text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 5px; }
+    .subnav a:hover { color: var(--ink); }
+    .menu-part-lead + .subnav + .section { padding-top: 0; }
+    .menu-part-lead + .subnav + .section .menu-block:first-child { padding-top: var(--blk-y); }
+    /* スマホ：品目名が語の途中で割れないよう、文字の長さなりに中央で折り返す */
+    @media (max-width: 640px) {
+        .subnav-inner { gap: 0 var(--sp-2); }
+        .subnav a { white-space: nowrap; font-size: .82rem; padding-inline: 6px; }
+    }
+
+    /* スマホ・タブレットだけ：扉ナビを通り過ぎたら右下に出す（追従予約バーの上に置く） */
+    .to-index { position: fixed; right: 12px; bottom: 16px; z-index: 140; display: none;
+                min-height: 44px; align-items: center; padding: 0 14px; font-size: .84rem;
+                background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong);
+                box-shadow: 0 4px 14px rgba(0,0,0,.12); }
+    @media (max-width: 900px) { .to-index.is-shown { display: inline-flex; } }
+    @media (max-width: 620px) { .to-index { bottom: 80px; } }
 
     /* --- 扉見出し（build_menu.py の part_lead。木組みの桁を疑似要素で足す） -------- */
     .menu-part-lead .section-title::before {
@@ -605,10 +643,6 @@
         .split, .split.split-rev { grid-template-columns: 1fr; }
         .split.split-rev .split-photos { order: 0; }
         .split-photos { max-width: 100%; margin-bottom: var(--sp-4); }
-        /* 扉タブが横に収まりきらないとき、右端が切れて見えないよう余白とフェードを足す */
-        .door-nav-inner { padding-right: var(--sp-5);
-            -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--sp-5)), transparent 100%);
-            mask-image: linear-gradient(to right, #000 calc(100% - var(--sp-5)), transparent 100%); }
     }
 
 
@@ -683,15 +717,20 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     扉ナビ（6つ。文字だけ・ピル/アイコンにしない。現在の扉は --accent の下線）
+     扉ナビ（11。1タブ＝1章。文字だけ・ピル/アイコンにしない。現在の扉は --accent の下線）
      ══════════════════════════════════════════════════════════════════════ -->
 <nav class="door-nav" id="door-nav" aria-label="お品書きの扉">
     <div class="container door-nav-inner">
         <a href="#d1" data-door="d1">釜めし</a>
         <a href="#d2" data-door="d2">海鮮・寿し</a>
         <a href="#d3" data-door="d3">うなぎ・とんかつ</a>
+        <a href="#teppan" data-door="teppan">鉄板焼・雑炊</a>
+        <a href="#salad" data-door="salad">サラダ</a>
         <a href="#d4" data-door="d4">膳・定食</a>
-        <a href="#d5" data-door="d5">そば・お飲みもの</a>
+        <a href="#d5" data-door="d5">そば・うどん</a>
+        <a href="#kids" data-door="kids">お子様料理</a>
+        <a href="#dessert" data-door="dessert">デザート</a>
+        <a href="#d7" data-door="d7">お飲みもの</a>
         <a href="#d6" data-door="d6">ご宴会・仕出し</a>
     </div>
 </nav>
@@ -890,7 +929,7 @@
         <a href="#lunch-kodawari">こだわりの昼の膳</a>
         <a href="#lunch-don">まんぷく丼もの</a>
         <a href="#lunch-minidon">ミニ丼セット</a>
-        <a href="#osusume">月替わりのおすすめ（2026年5月の一例）</a>
+        <a href="#osusume">月替わりのおすすめ</a>
     </div>
 </nav>
 <section class="section">
@@ -1029,7 +1068,7 @@
 </section>
 <section class="section menu-part-lead" id="d5">
     <div class="container">
-        <h2 class="section-title reveal"><span class="nw">そば・</span><span class="nw">うどん・</span><span class="nw">お子様・</span><span class="nw">デザート・</span><span class="nw">お飲み</span><span class="nw">もの・</span><span class="nw">お酒</span></h2>
+        <h2 class="section-title reveal"><span class="nw">そば・</span><span class="nw">うどん・</span><span class="nw">お子様・</span><span class="nw">デザート</span></h2>
     </div>
 </section>
 <nav class="subnav" aria-label="お品書き内のナビゲーション">
@@ -1037,9 +1076,6 @@
         <a href="#soba">そば・うどん</a>
         <a href="#kids">お子様料理</a>
         <a href="#dessert">デザート</a>
-        <a href="#drink">お飲みもの</a>
-        <a href="#lunch-drink">ランチのお飲みもの</a>
-        <a href="#sake">お酒</a>
     </div>
 </nav>
 <section class="section">
@@ -1098,7 +1134,22 @@
                 </ul>
             </div>
         </div>
-
+    </div>
+</section>
+<section class="section menu-part-lead" id="d7">
+    <div class="container">
+        <h2 class="section-title reveal"><span class="nw">お飲み</span><span class="nw">もの・</span><span class="nw">お酒</span></h2>
+    </div>
+</section>
+<nav class="subnav" aria-label="お品書き内のナビゲーション">
+    <div class="subnav-inner">
+        <a href="#drink">お飲みもの</a>
+        <a href="#lunch-drink">ランチのお飲みもの</a>
+        <a href="#sake">お酒</a>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
         <div class="menu-block reveal" id="drink">
             <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2></div>
             <div class="menu-grid">
@@ -1242,6 +1293,8 @@
     </div>
 </footer>
 
+
+<a class="to-index" id="to-index" href="#door-nav">お品書きの目次へ</a>
 
 <!-- スマホ用 追従予約バー -->
 <div class="sticky-bar" id="sticky-bar">
@@ -1449,41 +1502,41 @@ setInterval(updateStatus, 60000);
 
 
 /* --------------------------------------------------------------------------
-   5. 扉ナビの現在地（scroll-spy）
-   6つの扉見出し（.menu-part-lead[id]）のうち、画面上部にいちばん近いものへ
-   下線を付ける。build_menu.py が生成する要素なので、IDは menu.json の
-   part_lead.id（d1〜d6）と一致している。
+   5. 扉ナビの現在地（scroll-spy）と「お品書きの目次へ」
+   扉ナビの各リンクの飛び先（扉見出し d1〜d7 と、扉を持たない章 teppan / salad /
+   kids / dessert）のうち、画面上部を通り過ぎた最後のものへ下線を付ける。
    -------------------------------------------------------------------------- */
+var doorNav = document.getElementById('door-nav');
 var doorLinks = document.querySelectorAll('.door-nav a[data-door]');
-var doorSections = document.querySelectorAll('.menu-part-lead[id]');
-var doorStrip = document.querySelector('.door-nav-inner');
-if (doorLinks.length && doorSections.length) {
-    var scrollDoorIntoView = function (a) {
-        if (!doorStrip || doorStrip.scrollWidth <= doorStrip.clientWidth) return;
-        var padding = 16;
-        var target = a.offsetLeft - padding;
-        var max = doorStrip.scrollWidth - doorStrip.clientWidth;
-        if (target < 0) target = 0;
-        if (target > max) target = max;
-        doorStrip.scrollTo({ left: target, behavior: reduceMotion ? 'auto' : 'smooth' });
-    };
-    var setCurrentDoor = function (id) {
-        doorLinks.forEach(function (a) {
-            var isCurrent = a.getAttribute('data-door') === id;
-            a.classList.toggle('is-current', isCurrent);
-            if (isCurrent) scrollDoorIntoView(a);
+var doorTargets = [];
+doorLinks.forEach(function (a) {
+    var t = document.getElementById(a.getAttribute('data-door'));
+    if (t) doorTargets.push({ id: t.id, el: t });
+});
+var toIndex = document.getElementById('to-index');
+var updateDoors = function () {
+    var navH = 0;
+    if (doorNav && window.getComputedStyle(doorNav).position === 'sticky') navH = doorNav.offsetHeight;
+    document.documentElement.style.setProperty('--door-h', navH + 'px');
+    if (doorTargets.length) {
+        var line = window.innerHeight * 0.4;
+        var current = doorTargets[0].id;
+        doorTargets.forEach(function (d) {
+            if (d.el.getBoundingClientRect().top <= line) current = d.id;
         });
-    };
-    if ('IntersectionObserver' in window) {
-        var doorIO = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) setCurrentDoor(entry.target.id);
-            });
-        }, { rootMargin: '-40% 0px -55% 0px' });
-        doorSections.forEach(function (sec) { doorIO.observe(sec); });
+        doorLinks.forEach(function (a) {
+            a.classList.toggle('is-current', a.getAttribute('data-door') === current);
+        });
     }
-    setCurrentDoor(doorSections[0].id);
-}
+    if (toIndex && doorNav) {
+        var past = doorNav.getBoundingClientRect().bottom < 0;
+        var before = lastMenuBlock ? lastMenuBlock.getBoundingClientRect().bottom > window.innerHeight * 0.5 : true;
+        toIndex.classList.toggle('is-shown', past && before);
+    }
+};
+window.addEventListener('scroll', updateDoors, { passive: true });
+window.addEventListener('resize', updateDoors);
+updateDoors();
 </script>
 </body>
 </html>

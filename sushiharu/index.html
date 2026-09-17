@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/sushiharu/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/sushiharu/img/hero-noren.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/sushiharu/img/hero-noren-nolight.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -38,7 +38,7 @@
       "telephone": "+81-285-23-6808",
       "paymentAccepted": "Cash",
       "url": "https://creative-works-plus.github.io/restaurant-sites/sushiharu/",
-      "image": "https://creative-works-plus.github.io/restaurant-sites/sushiharu/img/hero-noren.jpg",
+      "image": "https://creative-works-plus.github.io/restaurant-sites/sushiharu/img/hero-noren-nolight.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -336,13 +336,14 @@
     .hero { display: flex; align-items: center; }
     .hero-grid {
         display: grid;
-        grid-template-columns: min(480px, 44%) minmax(0, 1fr);
+        grid-template-columns: min(560px, 48%) minmax(0, 1fr);
         gap: var(--sp-6);
-        align-items: end;
+        align-items: center;
         padding-block: var(--sp-6);
     }
-    .hero-photo { width: 100%; max-width: 480px; }
-    .hero-photo .photo-frame { aspect-ratio: 3 / 4; }
+    .hero-photo { width: 100%; max-width: 560px; }
+    /* 照明を外して正方形に裁った写真。枠線を外し、写真の面だけで見せる */
+    .hero-photo .photo-frame { aspect-ratio: 1 / 1; border: 0; }
     .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3); }
     .hero-copy h1 { font-size: var(--fz-hero); color: var(--ink); }
     .hero-lead { font-size: 1.05rem; color: var(--ink); }
@@ -354,7 +355,7 @@
         .hero { min-height: 0; }
         .hero-grid { grid-template-columns: 1fr; gap: var(--sp-4); align-items: stretch; padding-block: var(--sp-4); }
         .hero-photo { max-width: none; }
-        .hero-photo .photo-frame { aspect-ratio: 3 / 4; }
+        .hero-photo .photo-frame { aspect-ratio: 1 / 1; }
     }
 
     /* --- 署名 A-93「二枚目に、続く。」------------------------------------------------
@@ -454,8 +455,12 @@
         border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
         width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
     }
-    .subnav-inner { display: flex; overflow-x: auto; gap: var(--sp-2); }
+    .subnav-inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 var(--sp-2); }
     .subnav a { color: var(--muted); font-size: .86rem; white-space: nowrap; }
+    @media (max-width: 640px) {
+        .subnav-inner { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+        .subnav a { justify-content: center; text-align: center; white-space: normal; line-height: 1.3; font-size: .8rem; padding-inline: 2px; }
+    }
     .subnav a:hover { color: var(--ink); }
     .menu-block { padding-block: var(--blk-y); border-top: 1px solid var(--line); }
     .menu-block:first-child { border-top: none; }
@@ -531,7 +536,7 @@
     <div class="container hero-grid">
         <div class="hero-photo">
             <figure class="photo-frame">
-                <img src="img/hero-noren.jpg" width="696" height="928" alt="紺地に「晴」の大のれんが揺れる、夜の入口。" loading="eager">
+                <img src="img/hero-noren-nolight.jpg" width="700" height="700" alt="紺地に「晴」の大のれんが揺れる、夜の入口。" loading="eager">
             </figure>
         </div>
         <div class="hero-copy">
@@ -676,14 +681,14 @@
     <div class="container">
         <div class="chapter-photos">
             <figure class="photo-frame photo-lg reveal">
-                <img src="img/nigiri-nagazara.jpg" width="747" height="560" alt="藍の長皿に一列のにぎりと、お椀。" loading="lazy">
+                <img src="img/nigiri-cut3.jpg" width="768" height="576" alt="にぎりの盛り合わせ。" loading="lazy">
             </figure>
             <div class="photo-row" style="--cols:3">
                 <figure class="photo-frame reveal">
                     <img src="img/nigiri-cut2.jpg" width="768" height="576" alt="にぎりの盛り合わせ。" loading="lazy">
                 </figure>
                 <figure class="photo-frame reveal">
-                    <img src="img/nigiri-cut3.jpg" width="768" height="576" alt="にぎりの盛り合わせ。" loading="lazy">
+                    <img src="img/nigiri-nagazara.jpg" width="747" height="560" alt="藍の長皿に一列のにぎりと、お椀。" loading="lazy">
                 </figure>
                 <figure class="photo-frame reveal">
                     <img src="img/nigiri-cut4.jpg" width="768" height="576" alt="にぎりの盛り合わせ。" loading="lazy">
@@ -907,11 +912,11 @@
     <div class="container">
         <div class="chapter-text">
             <h2 class="section-title reveal"><span class="nw">天神町へ</span></h2>
-            <p class="reveal"><span class="nw">JR小山駅の</span><span class="nw">東口から</span><span class="nw">歩いて</span><span class="nw">お越し</span><span class="nw">いただけます。</span><span class="nw">バス停「天神町」から</span><span class="nw">すぐです。</span><span class="nw">紺ののれんと</span><span class="nw">行灯が</span><span class="nw">目印です。</span></p>
+            <p class="reveal"><span class="nw">JR小山駅の</span><span class="nw">東口から</span><span class="nw">歩いて</span><span class="nw">お越し</span><span class="nw">いただけます。</span><span class="nw">バス</span>停<span class="nw">「天神町」からすぐです。</span><span class="nw">紺ののれんと</span><span class="nw">行灯が</span><span class="nw">目印です。</span></p>
             <table class="info-table reveal">
                 <tr><th><span class="nw">住所</span></th><td>〒323-0032 <span class="nw">栃木県小山市天神町</span>1-4-25</td></tr>
                 <tr><th><span class="nw">電話</span></th><td><a href="tel:0285236808" class="tel-link nw">0285-23-6808</a></td></tr>
-                <tr><th><span class="nw">アクセス</span></th><td><span class="nw">JR小山駅</span> <span class="nw">東口から</span><span class="nw">徒歩</span><span class="nw">12分／</span><span class="nw">バス停「天神町」から</span><span class="nw">徒歩</span><span class="nw">1分</span></td></tr>
+                <tr><th><span class="nw">アクセス</span></th><td><span class="nw">JR小山駅</span> <span class="nw">東口から</span><span class="nw">徒歩</span><span class="nw">12分／</span><span class="nw">バス</span>停<span class="nw">「天神町」から</span><span class="nw">徒歩</span><span class="nw">1分</span></td></tr>
             </table>
             <div class="map-wrapper reveal">
                 <iframe
@@ -937,7 +942,7 @@
     <div class="container">
         <p class="footer-name"><span class="nw">すし</span>晴</p>
         <p class="footer-lead"><span class="nw">日が</span><span class="nw">暮れたら、</span><span class="nw">天神町へ。</span></p>
-        <p class="footer-addr">〒323-0032 <span class="nw">栃木県小山市天神町</span><span class="nw">1-4-25／</span><span class="nw">0285-23-6808</span></p>
+        <p class="footer-addr">〒323-0032 <span class="nw">栃木県小山市天神町</span>1-4-25／0285-23-6808</p>
         <p class="footer-copy">&copy; <span class="nw">すし</span>晴</p>
     </div>
 </footer>

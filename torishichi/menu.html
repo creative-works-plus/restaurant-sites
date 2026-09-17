@@ -307,7 +307,6 @@
         font-family: var(--font-head); font-weight: 900; letter-spacing: .06em;
         font-size: var(--fz-h2); line-height: 1.3; color: var(--ink);
     }
-    .orn-taruki { width: 3px; height: 14px; flex: 0 0 auto; color: var(--muted); }
     .lead { margin-top: var(--sp-3); font-size: 15px; color: var(--muted); max-width: 46em; letter-spacing: .04em; line-height: 1.9; }
     .yomi-eyebrow { font-size: var(--fz-cap); letter-spacing: .18em; color: var(--muted); margin-bottom: var(--sp-2); }
 
@@ -500,21 +499,43 @@
     .site-footer p { font-size: var(--fz-cap); color: var(--muted); }
 
     /* --- お品書き（build_menu.py が出す構造） --- */
-    .subnav { position: sticky; top: var(--header-h); z-index: 90; background: var(--bg-deep);
-              border-bottom: 1px solid var(--line); overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .subnav-inner { display: flex; gap: 2px; padding-inline: var(--pad-inner); }
-    .subnav a { color: var(--muted); font-size: .85rem; white-space: nowrap; }
-    .subnav a:hover, .subnav a:focus { color: var(--ink); }
+    /* 章の目次（13章＝menu-tabs 型B：貼り付けず、1画面で全部見せる） */
+    .subnav { position: static; background: transparent; }
+    .subnav-inner {
+        width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 0 4px;
+        padding-block: 18px; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong);
+    }
+    .subnav a {
+        position: relative; color: var(--ink); font-size: 16px; font-weight: 700; letter-spacing: .06em;
+        white-space: nowrap; min-height: 48px; justify-content: center; padding-inline: 18px;
+    }
+    .subnav a::after { content: ''; position: absolute; left: 18px; right: 18px; bottom: 10px; height: 1px;
+        background: var(--washi); transform: scaleX(0); transition: transform .2s ease; }
+    .subnav a:hover::after, .subnav a:focus-visible::after { transform: scaleX(1); }
+    @media (max-width: 640px) {
+        .subnav-inner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; padding-block: 4px; border-bottom: 0; }
+        .subnav a { justify-content: flex-start; padding-inline: 2px; white-space: normal; line-height: 1.35;
+            font-size: 15px; border-bottom: 1px solid var(--line-strong); }
+        .subnav a::after { display: none; }
+    }
+    .to-index {
+        position: fixed; right: 16px; bottom: 24px; z-index: 140;
+        display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+        background: var(--bg-deep); color: var(--washi); border: 1px solid rgba(242,234,216,.55); border-radius: 2px;
+        font-size: 14px; font-weight: 700; letter-spacing: .08em;
+        opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .25s ease, transform .25s ease;
+    }
+    .to-index.is-shown { opacity: 1; pointer-events: auto; transform: none; }
+    @media (max-width: 620px) { .to-index { bottom: 84px; } }
 
     .lead-box { margin-bottom: var(--blk-y); max-width: 46em; color: var(--muted); }
 
     .menu-block { padding-block: var(--blk-y); border-bottom: 1px solid var(--line); }
     .menu-block:last-child { border-bottom: none; }
     .menu-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .menu-head h2 { font-family: var(--font-head); font-weight: 900; font-size: 26px;
+    .menu-head h2 { font-family: var(--font-head); font-weight: 900; font-size: clamp(26px, 3.4vw, 34px);
                     letter-spacing: .04em; color: var(--ink); }
-    .menu-head h2::before { content: ''; display: inline-block; width: 3px; height: 14px; margin-right: 12px;
-                    background: var(--muted); vertical-align: -1px; }
     .menu-head .yomi { font-size: 11px; letter-spacing: .14em; color: var(--muted); }
     .menu-note { margin-top: var(--sp-2); color: var(--muted); font-size: .92rem; max-width: 42em; }
     .menu-after { margin-top: var(--sp-3); color: var(--muted); font-size: .9rem; }
@@ -572,6 +593,7 @@
     <p class="reveal"><span class="nw">鶏づくしの</span><span class="nw">料理を</span><span class="nw">ご紹介します。</span><span class="nw">ご不明な</span><span class="nw">点は</span><span class="nw">お電話で</span><span class="nw">お尋ね</span><span class="nw">ください。</span></p>
 </div>
 
+<div id="menu-index" aria-hidden="true"></div>
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
 <nav class="subnav" aria-label="お品書き内のナビゲーション">
     <div class="subnav-inner">
@@ -594,7 +616,7 @@
     <div class="container">
         <div class="menu-block reveal" id="tebasaki">
             <div class="menu-head"><h2><span class="nw">手羽先唐揚げ</span></h2><span class="yomi">TEBASAKI KARAAGE</span></div>
-            <p class="menu-note"><span class="nw">独自に</span><span class="nw">ブレンドした</span><span class="nw">スパイスと、</span><span class="nw">一ヶ</span><span class="nw">月寝かせた</span><span class="nw">タレで</span><span class="nw">仕上げ</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">独自に</span><span class="nw">ブレンドした</span><span class="nw">スパイスと、</span><span class="nw">一ヶ</span><span class="nw">月寝かせた</span><span class="nw">タレで</span><span class="nw">仕上げて</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">大山鶏の</span><span class="nw">手羽先唐揚</span> <span class="nw">甘口</span><span class="desc"><span class="nw">1人前</span><span class="nw">5本</span></span></span><span class="dots"></span><span class="price"><span class="nw">748円</span></span></li>
@@ -703,7 +725,7 @@
 
         <div class="menu-block reveal" id="sashimi">
             <div class="menu-head"><h2><span class="nw">お刺身</span></h2><span class="yomi">SASHIMI</span></div>
-            <p class="menu-note"><span class="nw">全国の</span><span class="nw">漁港から</span><span class="nw">毎日直送し</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">全国の</span><span class="nw">漁港から</span><span class="nw">毎日直送して</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">お造り</span><span class="nw">盛り</span><span class="nw">合わせ</span><span class="desc"><span class="nw">1〜2人前</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,958円</span></span></li>
@@ -822,6 +844,8 @@
     <p>〒323-0022 <span class="nw">栃木県小山市駅東通り</span>1-4-3 <span class="nw">駅東ビル</span>1F｜<span class="nw">とり</span>七</p>
 </footer>
 
+<a class="to-index" id="to-index" href="#menu-index">目次へ</a>
+
 <div class="sticky-bar" id="sticky-bar">
     <a href="index.html#access" class="bar-alt">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -858,6 +882,13 @@ window.addEventListener('scroll', function () {
         }
     }
 }, { passive: true });
+
+var toIndex = document.getElementById('to-index');
+if (toIndex && subnavEl) {
+    window.addEventListener('scroll', function () {
+        toIndex.classList.toggle('is-shown', subnavEl.getBoundingClientRect().bottom < 0);
+    }, { passive: true });
+}
 
 var navToggle = document.getElementById('nav-toggle');
 var navPanel = document.getElementById('mobile-nav');

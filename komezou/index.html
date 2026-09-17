@@ -501,7 +501,6 @@
     .section-title { font-family: var(--font-head); font-weight: 600; letter-spacing: .06em;
                       line-height: 1.32; font-size: var(--fz-h2); color: var(--ink);
                       display: flex; align-items: center; gap: 10px; margin-bottom: var(--blk-y); }
-    .orn-taru { width: 17px; height: auto; flex: 0 0 auto; color: var(--accent); }
 
     .text-block { display: grid; gap: var(--sp-3); max-width: 62ch; }
     .text-block p { color: var(--ink); }
@@ -541,18 +540,21 @@
     .hero-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
     .hero-chips li { padding: 6px 14px; border-radius: 999px; background: var(--surface-2);
                       color: var(--ink); font-size: .82rem; letter-spacing: .02em; }
-    .hero-photo { max-width: 620px; }
+    /* ★2026-09-17 丸藤さん「ヒーローの写真が小さい」→ 縦の外観（1500×2000）を大きく。
+       表示幅の上限＝750px（素材幅÷2）。PCは画面の高さに合わせて幅を決める */
+    .hero-photo { width: 100%; justify-self: center; }
 
     @media (max-width: 900px) {
         .hero-grid { grid-template-columns: 1fr; }
-        .hero-photo { order: -1; max-width: none; }
+        .hero-photo { order: -1; max-width: 560px; }
     }
 
     /* --- ヒーロー（PCのみ。オーナーレビュー2026-09-06：上余白を詰め、写真を広げる） --- */
     @media (min-width: 901px) {
         .hero { align-items: flex-start; padding-top: 96px; }
-        .hero-grid { grid-template-columns: 46fr 54fr; }
-        .hero-photo { max-width: 800px; }
+        .hero { padding-top: 48px; }
+        .hero-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+        .hero-photo { max-width: min(600px, calc((100svh - var(--header-h) - 72px) * .75)); min-width: 420px; }
         /* ★文の列を狭くしたので、ヒーローの電話ボタンだけ番号と用途を2段にする。
            1段のままだと「…お電／話で」と語の途中で折り返した（2026-09-06 実測） */
         .hero .btn-tel { flex-wrap: wrap; line-height: 1.45; }
@@ -565,79 +567,58 @@
     .hero-link:hover { color: var(--accent-hi); }
 
     /* --- 写真枠：比率は3種類だけ ------------------------------------------ */
-    .ratio-2-1 { aspect-ratio: 2 / 1; }   /* ヒーロー専用。駐車中の車を外すため下を切った 1600×800 */
+    .ratio-2-1 { aspect-ratio: 2 / 1; }   /* アクセスの節。駐車中の車を外すため下を切った 1600×800 */
     .ratio-4-3 { aspect-ratio: 4 / 3; }
     .ratio-3-4 { aspect-ratio: 3 / 4; }
 
     /* --- 汎用グリッド ------------------------------------------------------- */
-    .photo-grid-2, .photo-grid-6, .photo-grid-bento, .taru-photos {
+    .photo-grid-2, .photo-grid-6, .photo-grid-bento {
         display: grid; gap: var(--gap); margin-bottom: var(--blk-y);
     }
     .photo-grid-2 { grid-template-columns: repeat(2, 1fr); }
     .photo-grid-6 { grid-template-columns: repeat(3, 1fr); }
     .photo-grid-bento { grid-template-columns: repeat(3, 1fr); }
-    .taru-photos { grid-template-columns: repeat(3, 1fr); }
 
     @media (max-width: 620px) {
         .photo-grid-2 { grid-template-columns: 1fr; }
         .photo-grid-6 { grid-template-columns: repeat(2, 1fr); }
         .photo-grid-bento { grid-template-columns: 1fr; }
-        .taru-photos { grid-template-columns: 1fr; }
     }
 
     /* --- ② みそ家と、米ぞう。（署名の章・反転面） -------------------------- */
     .sec-taru { background: var(--miso); color: var(--bg); }
     .sec-taru .section-title { color: var(--bg); }
-    .sec-taru .orn-taru { color: var(--bg); }
     .sec-taru .text-block p,
     .sec-taru .taru-photo-text p { color: var(--bg); }
     .sec-taru .photo-frame { border-color: rgba(245, 239, 227, .28);
                               box-shadow: 0 20px 48px rgba(0, 0, 0, .28); }
 
-    .taru-intro { display: grid; grid-template-columns: minmax(240px, 320px) 1fr;
-                  align-items: center; gap: var(--gap); margin-bottom: var(--sec-y); }
-    .taru-visual { display: flex; justify-content: center; }
-    .taru { width: clamp(240px, 26vw, 320px); height: auto; }
-    .hoop { transform-box: fill-box; transform-origin: center; transform: scaleX(0);
-            transition: transform .55s cubic-bezier(.2, .7, .3, 1); }
-    .hoop-1 { transition-delay: 0ms; }
-    .hoop-2 { transition-delay: 110ms; }
-    .hoop-3 { transition-delay: 220ms; }
-    .taru.in-view .hoop { transform: scaleX(1); }
-    .no-js .hoop { transform: scaleX(1); }
-    @media (prefers-reduced-motion: reduce) {
-        .hoop { transform: scaleX(1); transition: none; }
-    }
-
-    .taru-photo-text { display: grid; gap: var(--sp-3); justify-items: start; }
-    /* ★450px を超えさせない。sig-taru.jpg は 900×1200 なので、表示幅の上限＝素材幅÷2＝450px。
-       640px にすると1.42倍に引き伸ばされる（check_upscale は2倍で線を引いているので通ってしまう） */
-    .taru-photo { max-width: 450px; width: 100%; }
-    .taru-photo-text p { max-width: 52ch; }
-    .taru-text-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
-    @media (min-width: 621px) {
-        .taru-photo-text { width: 100%; }
-    }
+    /* ★2026-09-17 丸藤さん「画像いらない」→ 樽の図と写真を外し、文だけで組む */
+    .taru-lead { margin-bottom: var(--blk-y); }
+    .taru-lead p { font-family: var(--font-head); font-size: clamp(1.08rem, 2.2vw, 1.4rem);
+                   line-height: 1.9; letter-spacing: .04em; max-width: 34em; color: var(--bg); }
+    .taru-text-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap);
+                      padding-top: var(--blk-y); border-top: 1px solid rgba(245, 239, 227, .28); }
+    .taru-text-cols p { color: var(--bg); }
     @media (max-width: 620px) {
-        .taru-intro { grid-template-columns: 1fr; justify-items: center; text-align: center; }
-        .taru-photo-text { justify-items: center; }
-        .taru-photo-text p { max-width: none; }
         .taru-text-cols { grid-template-columns: 1fr; }
     }
 
     /* --- ⑦ お品書き入口 ----------------------------------------------------- */
-    .oshinagaki-intro { display: grid; grid-template-columns: minmax(160px, 280px) 1fr;
+    /* ★2026-09-17 丸藤さん「もっとインパクトのある画像に」→ 御膳の全景を大きく（上限800px） */
+    .oshinagaki-intro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
                          gap: var(--gap); align-items: center; }
-    .oshinagaki-photo { max-width: 280px; width: 100%; }
+    .oshinagaki-photo { max-width: 800px; width: 100%; }
     @media (max-width: 620px) {
         .oshinagaki-intro { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+        .oshinagaki-intro .hero-actions { justify-content: center; }
         .oshinagaki-intro .text-block { justify-items: center; max-width: none; }
     }
 
     /* --- ⑩ アクセス --------------------------------------------------------- */
-    .info-intro { display: grid; grid-template-columns: minmax(160px, 260px) 1fr;
+    .info-intro { display: grid; grid-template-columns: minmax(0, 480px) 1fr;
                   gap: var(--gap); align-items: center; margin-bottom: var(--blk-y); }
-    .info-photo { max-width: 260px; width: 100%; }
+    .info-photo { max-width: 480px; width: 100%; }
     @media (max-width: 620px) {
         .info-intro { grid-template-columns: 1fr; justify-items: center; text-align: center; }
     }
@@ -745,15 +726,6 @@
     <button type="button" class="nav-close" id="nav-close">✕ メニューを閉じる</button>
 </nav>
 
-<!-- 署名の印（屋根つきの樽）★ h2 の左に14pxで使い回すためのスプライト。ここ自体は非表示 -->
-<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
-    <symbol id="mark-taru" viewBox="0 0 120 130">
-        <path d="M60 6 L112 32 L8 32 Z" fill="currentColor"/>
-        <rect x="6" y="32" width="108" height="3" fill="currentColor"/>
-        <path d="M22 40 Q14 82 24 122 L96 122 Q106 82 98 40 Z" fill="none" stroke="currentColor" stroke-width="4"/>
-        <rect x="27" y="60" width="66" height="6" fill="currentColor"/>
-    </symbol>
-</svg>
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
@@ -768,7 +740,7 @@
             <p class="hero-yomi nw keep">みそや こめぞう ／ MISOYA KOMEZOU</p>
             <h1 class="hero-title"><span class="nw">みそ</span><span class="nw">家米ぞう</span></h1>
             <p class="hero-catch reveal"><span class="nw">小山の、</span><span class="nw keep">ごはんや。</span></p>
-            <p class="hero-sub reveal"><span class="nw">屋号の</span><span class="nw">半分は</span><span class="nw">お味噌汁、</span><span class="nw">あとの</span><span class="nw">半分はごはん。</span><span class="nw">盆にのせた</span><span class="nw">御膳を</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+            <p class="hero-sub reveal"><span class="nw">屋号の</span><span class="nw">半分は</span><span class="nw">お味噌汁、</span><span class="nw">あとの</span><span class="nw">半分はごはん。</span><span class="nw">盆にのせた</span><span class="nw">御膳を</span><span class="nw">お出しして</span><span class="nw">おります。</span></p>
 
             <ul class="hero-chips reveal">
                 <li><span class="nw">ご予約なし・</span><span class="nw">お越しの</span>順</li>
@@ -787,9 +759,9 @@
         </div>
 
         <div class="hero-photo reveal">
-            <div class="photo-frame ratio-2-1">
-                <img src="img/hero-gaikan.jpg" alt="県道沿いに建つみそ家米ぞうの外観。筆文字の大看板と白い暖簾"
-                     width="1600" height="800" loading="eager" fetchpriority="high" decoding="async">
+            <div class="photo-frame ratio-3-4">
+                <img src="img/hero-tate.jpg" alt="みそ家米ぞうの外観。「おいしいごはん」と入った屋号の大看板と橙の木戸"
+                     width="1500" height="2000" loading="eager" fetchpriority="high" decoding="async" style="height:auto">
             </div>
         </div>
     </div>
@@ -814,47 +786,11 @@
 <section class="section sec-taru" id="about">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nwb"><span class="nw">みそ</span><span class="nw">家と、</span><span class="nw">米ぞう。</span></span>
         </h2>
 
-        <div class="taru-intro">
-            <div class="taru-visual reveal">
-                <svg class="taru reveal" viewBox="0 0 240 300" aria-hidden="true">
-                    <path d="M120 36 L222 92 L18 92 Z" fill="var(--bg)"/>
-                    <path d="M120 52 L196 94 L44 94 Z" fill="var(--miso)"/>
-                    <rect x="10" y="92" width="220" height="4" fill="var(--bg)"/>
-                    <path d="M44 96 Q28 191 52 286 L188 286 Q212 191 196 96 Z" fill="none" stroke="var(--bg)" stroke-width="2"/>
-                    <line x1="68" y1="100" x2="68" y2="282" stroke="var(--bg)" stroke-width="1" opacity=".38"/>
-                    <line x1="92" y1="100" x2="92" y2="282" stroke="var(--bg)" stroke-width="1" opacity=".38"/>
-                    <line x1="116" y1="100" x2="116" y2="282" stroke="var(--bg)" stroke-width="1" opacity=".38"/>
-                    <line x1="140" y1="100" x2="140" y2="282" stroke="var(--bg)" stroke-width="1" opacity=".38"/>
-                    <line x1="164" y1="100" x2="164" y2="282" stroke="var(--bg)" stroke-width="1" opacity=".38"/>
-                    <rect class="hoop hoop-1" x="44" y="118" width="152" height="9" fill="var(--bg)" opacity=".92"/>
-                    <rect class="hoop hoop-2" x="47" y="186" width="146" height="9" fill="var(--bg)" opacity=".92"/>
-                    <rect class="hoop hoop-3" x="50" y="254" width="140" height="9" fill="var(--bg)" opacity=".92"/>
-                </svg>
-            </div>
-
-            <div class="taru-photo-text reveal">
-                <div class="photo-frame ratio-3-4 taru-photo">
-                    <img src="img/sig-taru.jpg" alt="県道脇に据えられた大きな味噌樽。上に切妻の屋根が載っている"
-                         width="900" height="1200" loading="lazy" decoding="async">
-                </div>
-                <p><span class="nw">店の</span><span class="nw">前に</span><span class="nw">据えた</span><span class="nw">大きな</span><span class="nw">味噌樽と、</span><span class="nw">その</span><span class="nw">上に</span><span class="nw">載せた</span><span class="nw">「ごはんや」の</span><span class="nw">屋根。</span><span class="nw">樽がみそ</span><span class="nw">家、</span><span class="nw">屋根が</span><span class="nw">米ぞう。</span><span class="nw">汁と</span><span class="nw">飯、</span><span class="nw">二つで</span><span class="nw">一つの</span><span class="nw">屋号です。</span></p>
-            </div>
-        </div>
-
-        <div class="taru-photos reveal">
-            <div class="photo-frame ratio-4-3">
-                <img src="img/gohan.jpg" alt="盛り付けられた白いごはん" width="1000" height="1000" loading="lazy" decoding="async">
-            </div>
-            <div class="photo-frame ratio-4-3">
-                <img src="img/shiru-asari.jpg" alt="あさりの日替り味噌汁" width="1000" height="1000" loading="lazy" decoding="async">
-            </div>
-            <div class="photo-frame ratio-4-3">
-                <img src="img/shiru-kani.jpg" alt="ずわいがにの脚が立った日替り味噌汁" width="1000" height="750" loading="lazy" decoding="async">
-            </div>
+        <div class="taru-lead reveal">
+            <p><span class="nw">店の</span><span class="nw">前に</span><span class="nw">据えた</span><span class="nw">大きな</span><span class="nw">味噌樽と、</span><span class="nw">その</span><span class="nw">上に</span><span class="nw">載せた</span><span class="nw">「ごはんや」の</span><span class="nw">屋根。</span><span class="nw">樽がみそ</span><span class="nw">家、</span><span class="nw">屋根が</span><span class="nw">米ぞう。</span><span class="nw">汁と</span><span class="nw">飯、</span><span class="nw">二つで</span><span class="nw">一つの</span><span class="nw">屋号です。</span></p>
         </div>
 
         <div class="taru-text-cols reveal">
@@ -871,7 +807,6 @@
 <section class="section" id="hamburg">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nwb"><span class="nw">米ぞう</span><span class="nw">煮込み</span><span class="nw">ハンバーグ</span></span>
         </h2>
 
@@ -900,7 +835,6 @@
 <section class="section" id="umi">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nwb"><span class="nw">海と、</span><span class="nw">肉と</span></span>
         </h2>
 
@@ -957,7 +891,6 @@
 <section class="section" id="higawari">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nwb"><span class="nw">平日の、</span><span class="nw">日替り</span></span>
         </h2>
 
@@ -975,7 +908,6 @@
 <section class="section" id="bento">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nwb"><span class="nw">お弁当と、</span><span class="nw">お持ち</span><span class="nw">帰り</span></span>
         </h2>
 
@@ -992,8 +924,8 @@
         </div>
 
         <div class="text-block reveal">
-            <p><span class="nw">お弁当は、</span><span class="nw">お電話で</span><span class="nw">承ります。</span><span class="nw">豚スタミナ</span><span class="nw">焼肉丼から</span><span class="nw">ミックスフライ</span><span class="nw">弁当まで、</span><span class="nw">800円から</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">本日の</span><span class="nw">お味噌汁も</span><span class="nw">お付けできます。</span></p>
-            <p><span class="nw">とちぎ</span><span class="nw">和牛サーロイン</span><span class="nw">角切り</span><span class="nw">ステーキ</span><span class="nw">弁当と</span><span class="nw">幕の</span><span class="nw">内弁当は</span><span class="nw">数に</span><span class="nw">限りが</span><span class="nw">ございます</span><span class="nw">ので、</span><span class="nw">ご予約を</span><span class="nw">お願いし</span><span class="nw">ております。</span></p>
+            <p><span class="nw">お弁当は、</span><span class="nw">お電話で</span><span class="nw">承ります。</span><span class="nw">豚スタミナ</span><span class="nw">焼肉丼から</span><span class="nw">ミックスフライ</span><span class="nw">弁当まで、</span><span class="nw">800円から</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">本日の</span><span class="nw">お味噌汁も</span><span class="nw">お付けできます。</span></p>
+            <p><span class="nw">とちぎ</span><span class="nw">和牛サーロイン</span><span class="nw">角切り</span><span class="nw">ステーキ</span><span class="nw">弁当と</span><span class="nw">幕の</span><span class="nw">内弁当は</span><span class="nw">数に</span><span class="nw">限りが</span><span class="nw">ございます</span><span class="nw">ので、</span><span class="nw">ご予約を</span><span class="nw">お願いして</span><span class="nw">おります。</span></p>
             <p><span class="nw">お持ち</span><span class="nw">帰り</span><span class="nw">限定に、</span><span class="nw">おやま</span><span class="nw">和牛ステーキ</span><span class="nw">串、</span><span class="nw">とちぎゆめ</span><span class="nw">ポークステーキ</span><span class="nw">串、</span><span class="nw">おやま</span><span class="nw">和牛コロッケ、</span><span class="nw">手作りずわいがに</span><span class="nw">クリームコロッケ、</span><span class="nw">鶏の</span><span class="nw">唐揚げ。</span><span class="nw">各種フライも</span><span class="nw">お持ち</span><span class="nw">帰り</span><span class="nw">いただけます。</span></p>
         </div>
 
@@ -1014,13 +946,12 @@
 <section class="section" id="oshinagaki">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nw">お品書き</span>
         </h2>
 
         <div class="oshinagaki-intro reveal">
-            <div class="photo-frame ratio-3-4 oshinagaki-photo">
-                <img src="img/kinpira.jpg" alt="器に屋号の筆文字が入ったきんぴら" width="1000" height="1334" loading="lazy" decoding="async">
+            <div class="photo-frame ratio-4-3 oshinagaki-photo">
+                <img src="img/gozen-zenkei.jpg" alt="朱塗りの盆にのせた御膳。牛肉の重、エビフライとコロッケ、小付、デザート、汁物" width="1600" height="1200" loading="lazy" decoding="async" style="height:auto">
             </div>
             <div class="text-block">
                 <p><span class="nw">御膳と</span><span class="nw">海鮮、</span><span class="nw">日替り、</span><span class="nw">お弁当、</span><span class="nw">お飲み</span><span class="nw">もの。</span><span class="nw">お品書きはこちらで</span><span class="nw">ご覧いただけます。</span><span class="nw">御膳は</span> <span class="nw">1,680円から、</span><span class="nw">平日の</span><span class="nw">日替り</span><span class="nw">ランチは</span> <span class="nw">1,380円から</span><span class="nw">（いずれも</span><span class="nw">税込）。</span><span class="nw">お飲み</span><span class="nw">ものには、</span><span class="nw">小山と</span><span class="nw">栃木の</span><span class="nw">地酒も</span><span class="nw">ございます。</span></p>
@@ -1040,7 +971,6 @@
 <section class="section" id="uchi">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nw">店のなか</span>
         </h2>
 
@@ -1054,7 +984,7 @@
         </div>
 
         <div class="text-block reveal">
-            <p><span class="nw">テーブル</span><span class="nw">席と、</span><span class="nw">小上がりの</span><span class="nw">お座敷が</span><span class="nw">ございます。</span><span class="nw">小学生以下の</span><span class="nw">お子様には、</span><span class="nw">お子様ランチを</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+            <p><span class="nw">テーブル</span><span class="nw">席と、</span><span class="nw">小上がりの</span><span class="nw">お座敷が</span><span class="nw">ございます。</span><span class="nw">小学生以下の</span><span class="nw">お子様には、</span><span class="nw">お子様ランチを</span><span class="nw">ご用意して</span><span class="nw">おります。</span></p>
         </div>
     </div>
 </section>
@@ -1066,14 +996,13 @@
 <section class="section" id="nijunen">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nwb"><span class="nw">二十年と、</span><span class="nw">いま</span></span>
         </h2>
 
         <div class="text-group reveal">
             <div class="text-block">
                 <p><span class="nw">おかげさまで</span><span class="nw">二十年。</span><span class="nw">この</span><span class="nw">場所で、</span><span class="nw">お味噌汁とごはんの</span><span class="nw">御膳を</span><span class="nw">続けてまいりました。</span><span class="nw">これからも</span><span class="nw">変わらず、</span><span class="nw">お迎え</span><span class="nw">いたします。</span></p>
-                <p><span class="nw">定休日はございません。</span><span class="nw">水曜と</span><span class="nw">木曜は、</span><span class="nw">昼だけの</span><span class="nw">営業です。</span><span class="nw">その</span><span class="nw">月の</span><span class="nw">営業は、</span><span class="nw">毎月はじめに</span><span class="nw">Instagramで</span><span class="nw">営業カレンダーを</span><span class="nw">お知らせし</span><span class="nw">ております。</span><span class="nw">年末年始と</span><span class="nw">臨時の</span><span class="nw">お休みも、</span><span class="nw">そちらで</span><span class="nw">ご確認ください。</span></p>
+                <p><span class="nw">定休日はございません。</span><span class="nw">水曜と</span><span class="nw">木曜は、</span><span class="nw">昼だけの</span><span class="nw">営業です。</span><span class="nw">その</span><span class="nw">月の</span><span class="nw">営業は、</span><span class="nw">毎月はじめに</span><span class="nw">Instagramで</span><span class="nw">営業カレンダーを</span><span class="nw">お知らせして</span><span class="nw">おります。</span><span class="nw">年末年始と</span><span class="nw">臨時の</span><span class="nw">お休みも、</span><span class="nw">そちらで</span><span class="nw">ご確認ください。</span></p>
             </div>
             <div class="text-block">
                 <p><span class="nw">お席の</span><span class="nw">ご予約は</span><span class="nw">承っておりません。</span><span class="nw">ご来店の</span><span class="nw">順に</span><span class="nw">ご案内いたします</span><span class="nw">ので、</span><span class="nw">混み</span><span class="nw">合う</span><span class="nw">時間帯は</span><span class="nw">お待ち</span><span class="nw">いただく</span><span class="nw">ことが</span><span class="nw">ございます。</span></p>
@@ -1090,14 +1019,13 @@
 <!-- news:sec:start --><!-- news:sec:end --><section class="section" id="info">
     <div class="container">
         <h2 class="section-title reveal">
-            <svg class="orn-taru" viewBox="0 0 120 130" aria-hidden="true"><use href="#mark-taru"></use></svg>
             <span class="nwb"><span class="nw">アクセス・</span><span class="nw">店舗情報</span></span>
         </h2>
 
         <div class="info-intro reveal">
-            <div class="photo-frame ratio-3-4 info-photo">
-                <img src="img/gaikan-tate.jpg" alt="みそ家米ぞうの外観。屋号の看板と橙の木戸"
-                     width="1000" height="1334" loading="lazy" decoding="async">
+            <div class="photo-frame ratio-2-1 info-photo">
+                <img src="img/hero-gaikan.jpg" alt="県道沿いに建つみそ家米ぞうの外観。筆文字の大看板"
+                     width="1600" height="800" loading="lazy" decoding="async" style="height:auto">
             </div>
             <div class="text-block">
                 <p><span class="nw">県道</span><span class="nw">191号沿い。</span><span class="nw">JR小山駅東口から、</span><span class="nw">お車で</span><span class="nw">5分ほどです。</span><span class="nw">駐車場は</span><span class="nw">18台ございます。</span></p>
@@ -1121,7 +1049,7 @@
         </div>
 
         <!-- ★末尾の予約導線（必須） -->
-        <p class="closing-line reveal"><span class="nw">今日の</span><span class="nw">お味噌汁を、</span><span class="nw">盆にのせて</span><span class="nw">お待ちし</span><span class="nw">ております。</span></p>
+        <p class="closing-line reveal"><span class="nw">今日の</span><span class="nw">お味噌汁を、</span><span class="nw">盆にのせて</span><span class="nw">お待ちして</span><span class="nw">おります。</span></p>
         <div class="hero-actions reveal" style="margin-top:24px;">
             <a href="tel:0285-31-3711" class="btn btn-primary btn-block btn-tel">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>

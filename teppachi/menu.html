@@ -612,10 +612,57 @@
     @media (min-width: 760px) { .hero-sub-photo .photo-frame { width: 100%; } }
 
     /* --- お品書き（build_menu.py の出力に当てる見た目） ---------------------------- */
-    .subnav { background: var(--bg); border-bottom: 1px solid var(--line); }
-    .subnav-inner { display: flex; gap: 4px; overflow-x: auto; padding-inline: var(--pad-inner); }
-    .subnav a { color: var(--muted); font-size: .82rem; white-space: nowrap; }
-    .subnav a:hover { color: var(--accent); }
+    /* ★2026-09-17 丸藤さん「タブが左に寄っている」→ スキル menu-tabs の型で組み直した。
+       章は12。升目（品書きの表）に見立て、1px の罫で割った格子に全部を並べる。
+       ・横スクロールにしない（折り返して1画面で全部見せる）・真ん中にそろえる
+       ・スマホは3列×4行になり2行を超えるので**貼り付けない**（型B：右下に「目次へ」）
+       ・PC(900px〜)は6列×2行で、ヘッダーの下に貼り付ける
+       ・札（ピル）にしない。選んでいる章は文字色と下の1本線だけで示す */
+    .subnav { background: var(--bg); padding-block: clamp(16px, 3vw, 28px); padding-inline: var(--pad-inner); }
+    .subnav-inner {
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px; background: var(--line);
+        border: 1px solid var(--line);
+        max-width: var(--maxw); margin-inline: auto;
+    }
+    .subnav a {
+        position: relative;
+        display: flex; align-items: center; justify-content: center; text-align: center;
+        flex-wrap: wrap; align-content: center;
+        min-height: 52px; padding: 8px 6px;
+        background: var(--bg); color: var(--ink);
+        font-family: var(--font-head); font-weight: 600; font-size: .82rem; line-height: 1.35;
+        letter-spacing: .04em; white-space: normal;
+        transition: color .18s ease, background-color .18s ease;
+    }
+    .subnav a::after {
+        content: ""; position: absolute; left: 50%; bottom: 9px;
+        width: 0; height: 1px; background: var(--accent);
+        transition: width .2s ease, left .2s ease;
+    }
+    .subnav a:hover, .subnav a:focus-visible { color: var(--accent); background: var(--surface-2); }
+    .subnav a.is-current { color: var(--accent); }
+    @media (max-width: 899px) { .subnav a { letter-spacing: 0; padding: 8px 4px; } }
+    .subnav a .nw { display: inline-block; }
+    .subnav a:hover::after, .subnav a.is-current::after { width: 2.2em; left: calc(50% - 1.1em); }
+    @media (min-width: 900px) {
+        .subnav { position: sticky; top: var(--header-h); z-index: 20;
+                  padding-block: 12px; border-bottom: 1px solid var(--line); }
+        .subnav-inner { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        .subnav a { min-height: 46px; font-size: .88rem; }
+        .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 130px); }
+    }
+    /* スマホで目次を通り過ぎたら右下に出す「目次へ」。追従予約バー（高さ約54px）の上に置く */
+    .to-index {
+        position: fixed; right: 12px; bottom: calc(66px + env(safe-area-inset-bottom, 0px)); z-index: 40;
+        display: inline-flex; align-items: center; min-height: 44px; padding-inline: 14px;
+        background: var(--bg); color: var(--ink); border: 1px solid var(--line-strong);
+        font-family: var(--font-head); font-size: .8rem; letter-spacing: .06em;
+        opacity: 0; transform: translateY(8px); pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+    }
+    .to-index.visible { opacity: 1; transform: none; pointer-events: auto; }
+    @media (min-width: 900px) { .to-index { display: none; } }
 
     .lead-box { color: var(--muted); font-size: .95rem; line-height: 1.8; max-width: 42em;
                 margin: 0 auto var(--sec-y); text-align: center; }
@@ -646,6 +693,23 @@
     .menu-list .price small { display: block; font-family: var(--font-body); font-size: .7rem; color: var(--muted); font-weight: 400; }
 
     .menu-photos { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 420px; margin: var(--blk-y) auto 0; }
+    .ar-4x3 { aspect-ratio: 4 / 3; }
+    .ar-3x2 { aspect-ratio: 3 / 2; }
+    /* ★2026-09-17「もう少し美味しそうな画像を」→ 写真のある章は、PCでは品書きの右に写真の列を立てる。
+       列の幅は 340px に止める（ポータルの写真は 720px が上限なので、高精細の画面でも2倍を割らない） */
+    @media (min-width: 900px) {
+        .menu-block:has(> .menu-photos) {
+            display: grid; grid-template-columns: minmax(0, 1fr) 340px;
+            column-gap: clamp(32px, 4vw, 56px); align-items: start;
+        }
+        .menu-block:has(> .menu-photos) > * { grid-column: 1; }
+        .menu-block:has(> .menu-photos) > .menu-photos {
+            grid-column: 2; grid-row: 1 / span 6; margin: 0; max-width: none;
+            position: sticky; top: calc(var(--header-h) + 150px);
+        }
+        .menu-block:has(> .menu-photos) .menu-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+        .menu-block:has(> .menu-photos) .menu-grid:has(> ul:only-child) { grid-template-columns: minmax(0, 1fr); }
+    }
 
 
 
@@ -696,7 +760,7 @@
         <div class="hero-sub-grid">
             <div class="hero-copy">
                 <h1 class="hero-title" style="font-size:var(--fz-hero);margin:14px 0 18px;"><span class="nw">お料理</span></h1>
-                <p class="hero-lead"><span class="nw">手始めから、</span><span class="nw">刺身、</span><span class="nw">炙りもん、</span><span class="nw">揚げもん、</span><span class="nw">串もん、</span><span class="nw">〆めし、</span><span class="nw">甘味まで。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">魚は</span><span class="nw">板に</span><span class="nw">書き</span><span class="nw">出し</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">ここに</span><span class="nw">無い</span><span class="nw">一品も</span><span class="nw">ございます。</span><span class="nw">お席で</span><span class="nw">板を</span><span class="nw">ご覧のうえ、</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span></p>
+                <p class="hero-lead"><span class="nw">手始めから、</span><span class="nw">刺身、</span><span class="nw">炙りもん、</span><span class="nw">揚げもん、</span><span class="nw">串もん、</span><span class="nw">〆めし、</span><span class="nw">甘味まで。</span><span class="nw">その</span><span class="nw">日の</span><span class="nw">魚は</span><span class="nw">板に</span><span class="nw">書き</span><span class="nw">出して</span><span class="nw">おります</span><span class="nw">ので、</span><span class="nw">ここに</span><span class="nw">無い</span><span class="nw">一品も</span><span class="nw">ございます。</span><span class="nw">お席で</span><span class="nw">板を</span><span class="nw">ご覧のうえ、</span><span class="nw">お申し</span><span class="nw">付け</span><span class="nw">ください。</span></p>
             </div>
             <figure class="hero-sub-photo">
                 <div class="photo-frame ar-1x1">
@@ -719,27 +783,28 @@
 <!-- ══════════════════════════════════════════════════════════════════════
      お料理のお品書き（build_menu.py が menu.json から生成する）
      ══════════════════════════════════════════════════════════════════════ -->
+<div id="menu-index" style="scroll-margin-top:var(--header-h)"></div>
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
 <nav class="subnav" aria-label="お品書き内のナビゲーション">
     <div class="subnav-inner">
-        <a href="#course">ご宴会のコース</a>
-        <a href="#osusume">当店のおすすめ</a>
-        <a href="#sashimi">魚屋が仕入れる刺身</a>
-        <a href="#aburi">自慢の炙りもん</a>
+        <a href="#course"><span class="nwb"><span class="nw">ご宴会の</span><span class="nw">コース</span></span></a>
+        <a href="#osusume"><span class="nwb"><span class="nw">当店の</span><span class="nw">おすすめ</span></span></a>
+        <a href="#sashimi"><span class="nwb"><span class="nw">魚屋が</span><span class="nw">仕入れる刺身</span></span></a>
+        <a href="#aburi"><span class="nwb"><span class="nw">自慢の</span><span class="nw">炙りもん</span></span></a>
         <a href="#hajime">手始め</a>
         <a href="#salad">サラダ</a>
         <a href="#age">揚げもん</a>
         <a href="#kushi">串もん</a>
         <a href="#shime">〆めし</a>
         <a href="#kanmi">甘味</a>
-        <a href="#hibi">日替わりのおすすめ</a>
-        <a href="#season">季節のおすすめ</a>
+        <a href="#hibi"><span class="nwb"><span class="nw">日替わりの</span><span class="nw">おすすめ</span></span></a>
+        <a href="#season"><span class="nwb"><span class="nw">季節の</span><span class="nw">おすすめ</span></span></a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
 
-        <div class="lead-box reveal"><p><span class="nw">お品書きに</span><span class="nw">載せていない</span><span class="nw">お値段は、</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げ</span><span class="nw">ております。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p></div>
+        <div class="lead-box reveal"><p><span class="nw">お品書きに</span><span class="nw">載せていない</span><span class="nw">お値段は、</span><span class="nw">店内の</span><span class="nw">お品書きに</span><span class="nw">掲げて</span><span class="nw">おります。</span><span class="nw">お電話でも</span><span class="nw">お答え</span><span class="nw">いたします。</span></p></div>
 
         <div class="menu-block reveal" id="course">
             <div class="menu-head"><h2><span class="nw">ご宴会の</span><span class="nw">コース</span></h2><span class="yomi">C O U R S E</span></div>
@@ -787,6 +852,14 @@
                     <li><span class="name"><span class="nw">おまかせ</span> <span class="nw">五点刺盛り</span><span class="desc"><span class="nw">二〜三人前</span></span></span></li>
                 </ul>
             </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame ar-1x1">
+                        <img src="img/menu-sashimi.jpg" alt="まぐろやサーモン、白身、いかを盛り合わせた刺身"
+                             width="720" height="720" loading="lazy" decoding="async">
+                    </div>
+                </figure>
+            </div>
         </div>
 
         <div class="menu-block reveal" id="aburi">
@@ -800,6 +873,14 @@
                     <li><span class="name"><span class="nw">ほっけ</span><span class="desc"><span class="nw">半身も</span><span class="nw">承ります</span></span></span></li>
                     <li><span class="name"><span class="nw">いそべもち</span><span class="desc"><span class="nw">二個</span></span></span></li>
                 </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame ar-1x1">
+                        <img src="img/menu-hanpen.jpg" alt="こんがりと炙った黒はんぺんに、おろし生姜を添えて"
+                             width="720" height="720" loading="lazy" decoding="async">
+                    </div>
+                </figure>
             </div>
         </div>
 
@@ -825,6 +906,14 @@
                     <li><span class="name"><span class="nw">シーザーサラダ</span><span class="desc"><span class="nw">自社サイトでは</span><span class="nw">温玉シーザーサラダ</span></span></span></li>
                     <li><span class="name"><span class="nw">ポテトサラダ</span></span></li>
                 </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame ar-1x1">
+                        <img src="img/menu-potesara.jpg" alt="コーンとトルティーヤチップスをのせたポテトサラダ"
+                             width="720" height="720" loading="lazy" decoding="async">
+                    </div>
+                </figure>
             </div>
         </div>
 
@@ -856,7 +945,7 @@
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">お気楽極楽串盛り</span><span class="desc"><span class="nw">丸ごとえび・</span><span class="nw">鮭ハラス・</span><span class="nw">トントロ・</span><span class="nw">豚タン・</span><span class="nw">ししとう・</span><span class="nw">プチトマトの</span><span class="nw">六本盛り</span><span class="nw">合わせ</span></span></span></li>
-                    <li><span class="name"><span class="nw">小山和牛串</span><span class="desc"><span class="nw">二本。</span><span class="nw">数量限定で</span><span class="nw">ご用意し</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">小山和牛串</span><span class="desc"><span class="nw">二本。</span><span class="nw">数量限定で</span><span class="nw">ご用意して</span><span class="nw">おります</span></span></span></li>
                     <li><span class="name"><span class="nw">まぐろねぎ</span></span></li>
                     <li><span class="name"><span class="nw">丸ごとえび</span></span></li>
                     <li><span class="name"><span class="nw">鮭ハラス</span></span></li>
@@ -867,6 +956,14 @@
                     <li><span class="name"><span class="nw">ししとう</span></span></li>
                 </ul>
             </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame ar-1x1">
+                        <img src="img/menu-harasu-ebi.jpg" alt="焼き目をつけた鮭ハラスと丸ごとのえび"
+                             width="720" height="720" loading="lazy" decoding="async">
+                    </div>
+                </figure>
+            </div>
         </div>
 
         <div class="menu-block reveal" id="shime">
@@ -874,7 +971,7 @@
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">てっぱち</span><span class="nw">海鮮焼そば</span><span class="desc"><span class="nw">まっくろくろのてっぱち</span><span class="nw">オリジナル</span></span></span></li>
-                    <li><span class="name"><span class="nw">炎の</span><span class="nw">焼そば</span><span class="desc"><span class="nw">辛口と、</span><span class="nw">ハバネロを</span><span class="nw">三倍入れた</span><span class="nw">激辛を</span><span class="nw">ご用意し</span><span class="nw">ております</span></span></span></li>
+                    <li><span class="name"><span class="nw">炎の</span><span class="nw">焼そば</span><span class="desc"><span class="nw">辛口と、</span><span class="nw">ハバネロを</span><span class="nw">三倍入れた</span><span class="nw">激辛を</span><span class="nw">ご用意して</span><span class="nw">おります</span></span></span></li>
                     <li><span class="name"><span class="nw">明太子茶づけ</span></span></li>
                     <li><span class="name"><span class="nw">紀州梅茶漬け</span></span></li>
                     <li><span class="name"><span class="nw">てっぱち</span>TKG</span></li>
@@ -893,7 +990,7 @@
 
         <div class="menu-block reveal" id="hibi">
             <div class="menu-head"><h2><span class="nw">日替わりのおすすめ</span></h2><span class="yomi">H I B I</span></div>
-            <p class="menu-note"><span class="nw">その</span><span class="nw">日に</span><span class="nw">届いた</span><span class="nw">魚を、</span><span class="nw">産地とともに</span><span class="nw">紙に</span><span class="nw">書いて</span><span class="nw">お出しし</span><span class="nw">ております。</span><span class="nw">下は</span><span class="nw">二〇二六年五月十五日の</span><span class="nw">一例です。</span></p>
+            <p class="menu-note"><span class="nw">その</span><span class="nw">日に</span><span class="nw">届いた</span><span class="nw">魚を、</span><span class="nw">産地とともに</span><span class="nw">紙に</span><span class="nw">書いて</span><span class="nw">お出しして</span><span class="nw">おります。</span><span class="nw">下は</span><span class="nw">二〇二六年五月十五日の</span><span class="nw">一例です。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="origin"><span class="nw">長崎</span></span><span class="name"><span class="nw">あじ</span><span class="nw">タタキ</span></span></li>
@@ -918,6 +1015,14 @@
                     <li><span class="name"><span class="nw">鮎の</span><span class="nw">塩焼き</span></span></li>
                     <li><span class="name"><span class="nw">炙り</span><span class="nw">焼きいか</span></span></li>
                 </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame ar-4x3">
+                        <img src="img/menu-ayu.jpg" alt="塩をまとわせて焼き上げた鮎の塩焼き"
+                             width="960" height="720" loading="lazy" decoding="async">
+                    </div>
+                </figure>
             </div>
         </div>
     </div>
@@ -950,6 +1055,8 @@
     </div>
 </footer>
 
+
+<a class="to-index" id="to-index" href="#menu-index">目次へ</a>
 
 <!-- スマホ用 追従予約バー -->
 <div class="sticky-bar" id="sticky-bar">
@@ -1158,6 +1265,35 @@ function updateStatus() {
 }
 updateStatus();
 setInterval(updateStatus, 60000);
+
+
+/* --------------------------------------------------------------------------
+   お品書きの目次（2026-09-17）
+   ①今読んでいる章のタブに .is-current を付ける
+   ②スマホで目次を通り過ぎたら右下に「目次へ」を出す（お品書きの最後を過ぎたら引っ込める）
+   -------------------------------------------------------------------------- */
+(function () {
+    var nav = document.querySelector('.subnav');
+    var toIndex = document.getElementById('to-index');
+    if (!nav) return;
+    var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+    var blocks = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var lastBlock = blocks[blocks.length - 1];
+    function update() {
+        var line = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 64) + nav.offsetHeight + 160;
+        var cur = -1;
+        blocks.forEach(function (b, i) { if (b && b.getBoundingClientRect().top <= line) cur = i; });
+        links.forEach(function (a, i) { a.classList.toggle('is-current', i === cur); });
+        if (toIndex) {
+            var navBottom = nav.getBoundingClientRect().bottom;
+            var endBottom = lastBlock ? lastBlock.getBoundingClientRect().bottom : 0;
+            toIndex.classList.toggle('visible', navBottom < 0 && endBottom > window.innerHeight * 0.5);
+        }
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+})();
 </script>
 </body>
 </html>

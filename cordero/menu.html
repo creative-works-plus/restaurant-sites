@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/cordero/menu.html">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/cordero/img/hero-gaikan.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/cordero/img/hero-jingisukan.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <meta name="theme-color" content="#191b1a">
@@ -230,26 +230,42 @@
         body { padding-bottom: 0; }
     }
 
-    /* --- お品書き内サブナビ（build_menu.py が .subnav を出す） ------------------- */
-    .subnav {
-        position: sticky; top: var(--header-h); z-index: 60;
-        background: rgba(25,27,26,.96); backdrop-filter: blur(6px);
-        border-bottom: 1px solid var(--line);
+    /* --- お品書きの目次（menu-tabs 型B：27章なので貼り付けず、1画面で全部見せる） ---------
+       グループごとに1本の罫で区切る（札・丸・下線の飾りは使わない）。各グループの最後の行は、
+       残りの列ぶんを最後の項目に持たせて行を埋める（--span2 / --span4 を HTML に書いている） */
+    .menu-index-wrap { padding-block: 0 var(--sp-5); }
+    .menu-index { border-top: 1px solid var(--line-2); }
+    .menu-index-group { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0;
+                        padding-block: var(--sp-3); border-bottom: 1px solid var(--line); }
+    .menu-index-label { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px;
+                        font-size: 13px; letter-spacing: .12em; color: var(--accent); }
+    .menu-index-links { display: grid; column-gap: 20px;
+                     grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .menu-index a { grid-column: span var(--span2, 1); }
+    .menu-index a { min-height: 46px; display: flex; align-items: center; gap: 10px;
+                    font-size: .9rem; line-height: 1.4; color: var(--ink); }
+    .menu-index a::after { content: '\2193'; font-size: .8rem; color: var(--dim); }
+    .menu-index a:hover { color: var(--accent); }
+    .menu-index a:hover::after { color: var(--accent); }
+    @media (max-width: 380px) { .menu-index a { font-size: .84rem; } }
+    @media (min-width: 700px) {
+        .menu-index-links { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 28px; }
+        .menu-index a { grid-column: span var(--span4, 1); }
     }
-    .subnav-inner {
-        display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-        padding: 10px var(--pad-inner);
-        scrollbar-width: none;
+    @media (min-width: 960px) {
+        .menu-index-group { grid-template-columns: 180px minmax(0, 1fr); column-gap: 32px; padding-block: 8px; }
+        .menu-index-label { flex-direction: column; gap: 2px; margin: 0; padding-top: 12px; font-size: 14px; }
     }
-    .subnav-inner::-webkit-scrollbar { display: none; }
-    .subnav a {
-        min-height: 44px;
-        display: inline-flex; align-items: center;
-        padding-inline: 16px;
-        font-size: .84rem; color: var(--muted); white-space: nowrap;
-        border: 1px solid var(--line-2); border-radius: 999px;
+    .to-index {
+        position: fixed; right: 16px; bottom: 20px; z-index: 90;
+        min-height: 44px; display: inline-flex; align-items: center; padding-inline: 16px;
+        background: rgba(34,37,35,.96); color: var(--ink); font-size: .84rem; letter-spacing: .08em;
+        border: 1px solid var(--line-2); border-radius: var(--radius);
+        opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility .2s ease;
     }
-    .subnav a:hover { color: var(--accent); border-color: var(--accent); }
+    .to-index:hover { color: var(--accent); border-color: var(--accent); }
+    .to-index.visible { opacity: 1; visibility: visible; }
+    @media (max-width: 620px) { .to-index { bottom: calc(68px + 12px); } }
 
     /* ══════════════════════════════════════════════════════════════════
        ここから下が、この店だけのCSS
@@ -281,6 +297,7 @@
     /* --- タイトル帯（menu.html はフルヒーローを作らない。見出しと予約導線だけの帯） ------- */
     .menu-head-band { padding-block: clamp(40px, 8vw, 72px) clamp(28px, 5vw, 44px); }
     .menu-head-band .eyebrow { margin-bottom: var(--sp-2); }
+    .menu-head-band .status-chip { padding: 0; border: 0; border-radius: 0; font-size: 13px; }
     .menu-head-band h1 { font-family: var(--font-head); font-weight: 700; font-size: var(--fz-hero);
                           letter-spacing: .04em; color: var(--ink); }
     .menu-head-band .lead { margin-top: var(--sp-3); }
@@ -391,7 +408,7 @@
         <div class="reveal" style="margin-top:16px;">
             <p class="eyebrow">MENU</p>
             <h1><span class="nw">お品書き</span></h1>
-            <p class="lead"><span class="nw">料理、</span><span class="nw">コース、</span><span class="nw">お飲み</span><span class="nw">ものの</span><span class="nw">全品を、</span><span class="nw">こちらにまとめ</span><span class="nw">ております。</span><span class="nw">ご予算の</span><span class="nw">目安は、</span><span class="nw">おひとり</span><span class="nw">4,000〜5,000円ほどで</span><span class="nw">ございます。</span></p>
+            <p class="lead"><span class="nw">料理、</span><span class="nw">コース、</span><span class="nw">お飲み</span><span class="nw">ものの</span><span class="nw">全品を、</span><span class="nw">こちらにまとめて</span><span class="nw">おります。</span><span class="nw">ご予算の</span><span class="nw">目安は、</span><span class="nw">おひとり</span><span class="nw">4,000〜5,000円ほどで</span><span class="nw">ございます。</span></p>
             <a href="index.html" class="back-link">← TOPへ戻る</a>
         </div>
 
@@ -405,38 +422,63 @@
 </section>
 
 
-<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
-<nav class="subnav" aria-label="お品書き内のナビゲーション">
-    <div class="subnav-inner">
-        <a href="#start">ジンギスカン スタートセット</a>
-        <a href="#genteiryo">数量限定</a>
-        <a href="#kisho">アイスランドラムの希少部位</a>
-        <a href="#new">新しいお品</a>
-        <a href="#tare">期間限定のタレ</a>
-        <a href="#otomo">ジンギスカンのおとも</a>
-        <a href="#tsuika-niku">お肉の追加</a>
-        <a href="#yasai">お野菜の追加</a>
-        <a href="#shime">最後の〆</a>
-        <a href="#gohan">ご飯もの</a>
-        <a href="#snack">おつまみ</a>
-        <a href="#salad">サラダ</a>
-        <a href="#soup-cocotte">スープとココット</a>
-        <a href="#ajillo">アヒージョ</a>
-        <a href="#dessert">デザート</a>
-        <a href="#course">コース</a>
-        <a href="#nomihodai">飲み放題つきコース</a>
-        <a href="#beer">ビール</a>
-        <a href="#craft">タップ・マルシェのクラフトビール</a>
-        <a href="#highball">超炭酸ハイボール</a>
-        <a href="#whisky">ウイスキー</a>
-        <a href="#taru-wine">樽生ワイン</a>
-        <a href="#wine-red">赤ワイン</a>
-        <a href="#wine-white">白ワイン・スパークリング</a>
-        <a href="#cocktail">季節のカクテル・サワー・カクテル</a>
-        <a href="#shochu-sake">焼酎・日本酒</a>
-        <a href="#soft">ノンアルコール・ソフトドリンク</a>
+<!-- ★お品書きの目次（2026-09-17・menu-tabs 型B）。build_menu.py を回し直すと .subnav が下に戻るので、そのときは消す -->
+<section class="menu-index-wrap" id="menu-index">
+    <div class="container">
+        <nav class="menu-index" aria-label="お品書きの目次">
+            <div class="menu-index-group">
+                <p class="menu-index-label"><span class="nw">ジンギスカン</span></p>
+                <div class="menu-index-links">
+                    <a href="#start">スタートセット</a>
+                    <a href="#genteiryo">数量限定</a>
+                    <a href="#kisho">希少部位</a>
+                    <a href="#new"><span class="nwb">新しいお品</span></a>
+                    <a href="#tare"><span class="nwb">期間限定のタレ</span></a>
+                    <a href="#otomo"><span class="nwb"><span class="nw">ジンギスカンの</span><span class="nw">おとも</span></span></a>
+                    <a href="#tsuika-niku"><span class="nwb">お肉の追加</span></a>
+                    <a href="#yasai"><span class="nwb">お野菜の追加</span></a>
+                    <a href="#shime" style="--span2:2;--span4:4"><span class="nwb">最後の〆</span></a>
+                </div>
+            </div>
+            <div class="menu-index-group">
+                <p class="menu-index-label"><span class="nw">一品料理</span></p>
+                <div class="menu-index-links">
+                    <a href="#gohan">ご飯もの</a>
+                    <a href="#snack">おつまみ</a>
+                    <a href="#salad">サラダ</a>
+                    <a href="#soup-cocotte"><span class="nwb">スープとココット</span></a>
+                    <a href="#ajillo">アヒージョ</a>
+                    <a href="#dessert" style="--span2:1;--span4:3">デザート</a>
+                </div>
+            </div>
+            <div class="menu-index-group">
+                <p class="menu-index-label"><span class="nw">コース</span></p>
+                <div class="menu-index-links">
+                    <a href="#course">コース</a>
+                    <a href="#nomihodai" style="--span2:1;--span4:3"><span class="nwb">飲み放題つきコース</span></a>
+                </div>
+            </div>
+            <div class="menu-index-group">
+                <p class="menu-index-label"><span class="nwb"><span class="nw">お飲み</span><span class="nw">もの</span></span></p>
+                <div class="menu-index-links">
+                    <a href="#beer">ビール</a>
+                    <a href="#craft">クラフトビール</a>
+                    <a href="#highball">超炭酸ハイボール</a>
+                    <a href="#whisky">ウイスキー</a>
+                    <a href="#taru-wine">樽生ワイン</a>
+                    <a href="#wine-red">赤ワイン</a>
+                    <a href="#wine-white"><span class="nwb">白ワイン・スパークリング</span></a>
+                    <a href="#cocktail"><span class="nwb">カクテル・サワー</span></a>
+                    <a href="#shochu-sake"><span class="nwb">焼酎・日本酒</span></a>
+                    <a href="#soft" style="--span2:1;--span4:3">ノンアルコール</a>
+                </div>
+            </div>
+        </nav>
     </div>
-</nav>
+</section>
+<a class="to-index" id="to-index" href="#menu-index">目次へ</a>
+
+<!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
 <section class="section">
     <div class="container">
         <div class="menu-block reveal" id="start">
@@ -445,14 +487,14 @@
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">厳選！</span><span class="nw">極上ラム</span><span class="nw keep">肉（100g）＋野菜</span><span class="desc"><span class="nw">生後</span><span class="nw">4〜5か</span><span class="nw">月の</span><span class="nw">アイスランドラム。</span><span class="nw">オーガニックの</span><span class="nw">放牧で、</span><span class="nw">ベリー</span><span class="nw">類や</span><span class="nw">海藻を</span><span class="nw">食べて</span><span class="nw">育ちます。</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,800円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
-                    <li><span class="name"><span class="nw">タレ</span><span class="nw">漬け</span><span class="nw">極上ラム</span><span class="nw keep">肉（100g）＋野菜</span><span class="desc"><span class="nw">りんごとしょうがの</span><span class="nw">入った</span><span class="nw">タレに</span><span class="nw">漬け</span><span class="nw">込み、</span><span class="nw">いっそう</span><span class="nw">柔らかく</span><span class="nw">仕上げ</span><span class="nw">ております。</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,800円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
+                    <li><span class="name"><span class="nw">タレ</span><span class="nw">漬け</span><span class="nw">極上ラム</span><span class="nw keep">肉（100g）＋野菜</span><span class="desc"><span class="nw">りんごとしょうがの</span><span class="nw">入った</span><span class="nw">タレに</span><span class="nw">漬け</span><span class="nw">込み、</span><span class="nw">いっそう</span><span class="nw">柔らかく</span><span class="nw">仕上げて</span><span class="nw">おります。</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,800円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="genteiryo">
             <div class="menu-head"><h2><span class="nw">数量限定</span></h2><span class="yomi">G E N T E I</span></div>
-            <p class="menu-note"><span class="nw">その</span><span class="nw">日に</span><span class="nw">入った</span><span class="nw">最高品質の</span><span class="nw">部位を</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">その</span><span class="nw">日に</span><span class="nw">入った</span><span class="nw">最高品質の</span><span class="nw">部位を</span><span class="nw">ご用意して</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">ラムチョップ</span><span class="nw">（骨付リブロース）1本</span><span class="desc"><span class="nw">最高級部位。</span><span class="nw">コルデロの</span><span class="nw">オリジナルカットで</span><span class="nw">お出しします。</span><span class="nw">大きさにより</span><span class="nw">1,250〜1,300円。</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,300円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
@@ -463,7 +505,7 @@
 
         <div class="menu-block reveal" id="kisho">
             <div class="menu-head"><h2><span class="nw">アイスランドラムの</span><span class="nw">希少部位</span></h2><span class="yomi">R A R E   C U T S</span></div>
-            <p class="menu-note"><span class="nw">希少度・</span><span class="nw">柔らかさ・</span><span class="nw">赤身度を、</span><span class="nw">部位ごとに</span><span class="nw">書き</span><span class="nw">添え</span><span class="nw">ております。</span><span class="nw">仕入れの</span><span class="nw">状況により</span><span class="nw">お値段が</span><span class="nw">変わる</span><span class="nw">ことが</span><span class="nw">ございます。</span></p>
+            <p class="menu-note"><span class="nw">希少度・</span><span class="nw">柔らかさ・</span><span class="nw">赤身度を、</span><span class="nw">部位ごとに</span><span class="nw">書き</span><span class="nw">添えて</span><span class="nw">おります。</span><span class="nw">仕入れの</span><span class="nw">状況により</span><span class="nw">お値段が</span><span class="nw">変わる</span><span class="nw">ことが</span><span class="nw">ございます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">アイスランドラムの</span><span class="nw">ラムチョップカブリ</span><span class="desc"><span class="nw">リブロースの</span><span class="nw">外側。</span><span class="nw">旨みが</span><span class="nw">強く、</span><span class="nw">脂がおいしい</span><span class="nw">部位で</span><span class="nw">ございます。</span><br><span class="nw">希少度★★★★☆</span>　<span class="nw">柔らかさ★★☆☆☆</span>　<span class="nw">赤身度★☆☆☆☆</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,300円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
@@ -609,7 +651,7 @@
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">ミネラル</span><span class="nw">玉ねぎの</span><span class="nw">オニオングラタンスープ</span><span class="desc"><span class="nw">淡路島産・</span><span class="nw">中嶋農法の</span><span class="nw">ミネラル</span><span class="nw">玉ねぎを、</span><span class="nw">砂糖を</span><span class="nw">使わずに</span><span class="nw">仕込みました。</span></span></span><span class="dots"></span><span class="price"><span class="nw">800円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
-                    <li><span class="name"><span class="nw">ペコリーノグラタン</span><span class="desc"><span class="nw">羊乳の</span><span class="nw">ペコリーノロマーノを</span><span class="nw">使っ</span><span class="nw">ております。</span></span></span><span class="dots"></span><span class="price"><span class="nw">799円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
+                    <li><span class="name"><span class="nw">ペコリーノグラタン</span><span class="desc"><span class="nw">羊乳の</span><span class="nw">ペコリーノロマーノを</span><span class="nw">使って</span><span class="nw">おります。</span></span></span><span class="dots"></span><span class="price"><span class="nw">799円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">ミネラル</span><span class="nw">玉ねぎの</span><span class="nw">丸ごと</span><span class="nw">ココット</span><span class="nw">焼き</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                 </ul>
             </div>
@@ -631,12 +673,12 @@
 
         <div class="menu-block reveal" id="dessert">
             <div class="menu-head"><h2><span class="nw">デザート</span></h2><span class="yomi">D E S S E R T</span></div>
-            <p class="menu-note"><span class="nw">料理王国</span><span class="nw">100選</span><span class="nw">2018認定の</span><span class="nw">ジェラート</span><span class="nw">「トゥロワムスカテール」。</span><span class="nw">産地や</span><span class="nw">銘柄までこだわった</span><span class="nw">素材を、</span><span class="nw">職人が</span><span class="nw">手づくりで</span><span class="nw">仕上げ</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">料理王国</span><span class="nw">100選</span><span class="nw">2018認定の</span><span class="nw">ジェラート</span><span class="nw">「トゥロワムスカテール」。</span><span class="nw">産地や</span><span class="nw">銘柄までこだわった</span><span class="nw">素材を、</span><span class="nw">職人が</span><span class="nw">手づくりで</span><span class="nw">仕上げて</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">ロイヤルブルボン</span><span class="nw">（バニラ）</span><span class="desc"><span class="nw">上品で</span><span class="nw">コクのある</span><span class="nw">味わいに</span><span class="nw">仕上げた、</span><span class="nw">本格的な</span><span class="nw">バニラで</span><span class="nw">ございます。</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
-                    <li><span class="name"><span class="nw">ほうじ</span>茶<span class="desc"><span class="nw">大臣賞を</span><span class="nw">受けた</span><span class="nw">京都の</span><span class="nw">老舗のほうじ</span><span class="nw">茶を</span><span class="nw">使っ</span><span class="nw">ております。</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
-                    <li><span class="name"><span class="nw">ピスタチオ</span><span class="desc"><span class="nw">特製の</span><span class="nw">ミルクベースに、</span><span class="nw">シリア</span><span class="nw">産の</span><span class="nw">高級ピスタチオを</span><span class="nw">贅沢に</span><span class="nw">使っ</span><span class="nw">ております。</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
+                    <li><span class="name"><span class="nw">ほうじ</span>茶<span class="desc"><span class="nw">大臣賞を</span><span class="nw">受けた</span><span class="nw">京都の</span><span class="nw">老舗のほうじ</span><span class="nw">茶を</span><span class="nw">使って</span><span class="nw">おります。</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
+                    <li><span class="name"><span class="nw">ピスタチオ</span><span class="desc"><span class="nw">特製の</span><span class="nw">ミルクベースに、</span><span class="nw">シリア</span><span class="nw">産の</span><span class="nw">高級ピスタチオを</span><span class="nw">贅沢に</span><span class="nw">使って</span><span class="nw">おります。</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                 </ul>
             </div>
         </div>
@@ -685,7 +727,7 @@
 
         <div class="menu-block reveal" id="craft">
             <div class="menu-head"><h2><span class="kata"><span class="nw">お飲み</span><span class="nw">もの｜</span></span><span class="nw">タップ・</span><span class="nw">マルシェの</span><span class="nw">クラフトビール</span></h2><span class="yomi">C R A F T   B E E R</span></div>
-            <p class="menu-note"><span class="nw">常時</span><span class="nw">4種類を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">時期により</span><span class="nw">銘柄が</span><span class="nw">入れ</span><span class="nw">替わる</span><span class="nw">ことが</span><span class="nw">ございます。</span></p>
+            <p class="menu-note"><span class="nw">常時</span><span class="nw">4種類を</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">時期により</span><span class="nw">銘柄が</span><span class="nw">入れ</span><span class="nw">替わる</span><span class="nw">ことが</span><span class="nw">ございます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name">Brooklyn Brewery <span class="nw">ディフェンダー</span>IPA</span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
@@ -699,7 +741,7 @@
 
         <div class="menu-block reveal" id="highball">
             <div class="menu-head"><h2><span class="kata"><span class="nw">お飲み</span><span class="nw">もの｜</span></span><span class="nw">超炭酸ハイボール</span></h2><span class="yomi">H I G H B A L L</span></div>
-            <p class="menu-note"><span class="nw">6.0volの</span><span class="nw">超炭酸と、</span><span class="nw">凍る</span><span class="nw">直前</span><span class="nw">1℃の</span><span class="nw">ソーダを</span><span class="nw">使っ</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">6.0volの</span><span class="nw">超炭酸と、</span><span class="nw">凍る</span><span class="nw">直前</span><span class="nw">1℃の</span><span class="nw">ソーダを</span><span class="nw">使って</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">超炭酸</span> <span class="nw">角ハイボール</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
@@ -736,7 +778,7 @@
 
         <div class="menu-block reveal" id="wine-red">
             <div class="menu-head"><h2><span class="kata"><span class="nw">お飲み</span><span class="nw">もの｜</span></span><span class="nw">赤ワイン</span></h2><span class="yomi">R E D   W I N E</span></div>
-            <p class="menu-note"><span class="nw">当店の</span><span class="nw">ラムには</span><span class="nw">白、</span><span class="nw">タレ</span><span class="nw">漬けには</span><span class="nw">赤をおすすめし</span><span class="nw">ております。</span><span class="nw">すべて</span><span class="nw">750mlの</span><span class="nw">ボトルで</span><span class="nw">ございます</span><span class="nw">（表記のある</span><span class="nw">ものは</span><span class="nw">ハーフボトル）。</span></p>
+            <p class="menu-note"><span class="nw">当店の</span><span class="nw">ラムには</span><span class="nw">白、</span><span class="nw">タレ</span><span class="nw">漬けには</span><span class="nw">赤をおすすめして</span><span class="nw">おります。</span><span class="nw">すべて</span><span class="nw">750mlの</span><span class="nw">ボトルで</span><span class="nw">ございます</span><span class="nw">（表記のある</span><span class="nw">ものは</span><span class="nw">ハーフボトル）。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">カーニヴォ</span><span class="nw">（フルボディ）</span><span class="desc"><span class="nw">カベルネ・</span><span class="nw">ソーヴィニョンほか。</span><span class="nw">肉専用の</span><span class="nw">黒ワインと</span><span class="nw">呼ばれる</span><span class="nw">1本で</span><span class="nw">ございます。</span></span></span><span class="dots"></span><span class="price"><span class="nw">5,500円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
@@ -750,7 +792,7 @@
                     <li><span class="name"><span class="nw">フェウド・</span><span class="nw">アランチョ</span> <span class="nw">シラー</span><span class="nw">（ミディアムボディ）</span><span class="desc"><span class="nw">シラー</span>100%。</span></span><span class="dots"></span><span class="price"><span class="nw">3,900円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">ビーニャ・</span><span class="nw">マルチグエ</span> <span class="nw">パヌール</span> <span class="nw">カルメネール</span><span class="nw">（フルボディ）</span><span class="desc"><span class="nw">カルメネール</span>100%。</span></span><span class="dots"></span><span class="price"><span class="nw">4,500円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">バルディビエソ</span> <span class="nw">カベルネ・</span><span class="nw">ソーヴィニヨン</span><span class="nw">（ハーフボトル・</span><span class="nw">フルボディ）</span></span><span class="dots"></span><span class="price"><span class="nw">2,200円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
-                    <li><span class="name"><span class="nw">ドメーヌ・</span><span class="nw">ポール・</span><span class="nw">マス</span> <span class="nw">ラ・</span><span class="nw">フォルジュ・</span><span class="nw">エステイト</span><span class="nw">（フルボディ）</span><span class="desc"><span class="nw">カベルネ・</span><span class="nw">ソーヴィニヨン</span>100%。<span class="nw">オーク</span><span class="nw">樽で</span><span class="nw">熟成させ</span><span class="nw">ております。</span></span></span><span class="dots"></span><span class="price"><span class="nw">3,300円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
+                    <li><span class="name"><span class="nw">ドメーヌ・</span><span class="nw">ポール・</span><span class="nw">マス</span> <span class="nw">ラ・</span><span class="nw">フォルジュ・</span><span class="nw">エステイト</span><span class="nw">（フルボディ）</span><span class="desc"><span class="nw">カベルネ・</span><span class="nw">ソーヴィニヨン</span>100%。<span class="nw">オーク</span><span class="nw">樽で</span><span class="nw">熟成させて</span><span class="nw">おります。</span></span></span><span class="dots"></span><span class="price"><span class="nw">3,300円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                 </ul>
             </div>
         </div>
@@ -778,7 +820,7 @@
 
         <div class="menu-block reveal" id="cocktail">
             <div class="menu-head"><h2><span class="kata"><span class="nw">お飲み</span><span class="nw">もの｜</span></span><span class="nw">季節の</span><span class="nw">カクテル・</span><span class="nw">サワー・</span><span class="nw">カクテル</span></h2><span class="yomi">C O C K T A I L</span></div>
-            <p class="menu-note"><span class="nw">季節の</span><span class="nw">カクテルは、</span><span class="nw">モヒート／</span><span class="nw">スイカ／</span><span class="nw">生オレンジ／</span><span class="nw">生キウイ／</span><span class="nw">梨／</span><span class="nw">いちご／</span><span class="nw">桃などを</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">季節の</span><span class="nw">カクテルは、</span><span class="nw">モヒート／</span><span class="nw">スイカ／</span><span class="nw">生オレンジ／</span><span class="nw">生キウイ／</span><span class="nw">梨／</span><span class="nw">いちご／</span><span class="nw">桃などを</span><span class="nw">ご用意して</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">フレッシュモヒート</span><span class="desc"><span class="nw">ノンアルコールは</span><span class="nw">700円。</span><span class="nw">季節限定で</span><span class="nw">ございます。</span></span></span><span class="dots"></span><span class="price"><span class="nw">800円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
@@ -786,7 +828,7 @@
                     <li><span class="name"><span class="nw">生キウイカクテル</span><span class="desc"><span class="nw">ノンアルコールは</span><span class="nw">700円。</span><span class="nw">季節限定で</span><span class="nw">ございます。</span></span></span><span class="dots"></span><span class="price"><span class="nw">800円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">生オレンジカクテル</span><span class="desc"><span class="nw">ノンアルコールは</span><span class="nw">700円。</span><span class="nw">季節限定で</span><span class="nw">ございます。</span></span></span><span class="dots"></span><span class="price"><span class="nw">800円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">生レモンサワー</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
-                    <li><span class="name"><span class="nw">自家製</span> <span class="nw">無農薬レモン</span>酒<span class="desc"><span class="nw">時期により</span><span class="nw">無農薬レモンを</span><span class="nw">使った</span><span class="nw">レモン</span><span class="nw">酒などを</span><span class="nw">ご用意し</span><span class="nw">ております。</span></span></span><span class="dots"></span><span class="price"><span class="nw">時価</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
+                    <li><span class="name"><span class="nw">自家製</span> <span class="nw">無農薬レモン</span>酒<span class="desc"><span class="nw">時期により</span><span class="nw">無農薬レモンを</span><span class="nw">使った</span><span class="nw">レモン</span><span class="nw">酒などを</span><span class="nw">ご用意して</span><span class="nw">おります。</span></span></span><span class="dots"></span><span class="price"><span class="nw">時価</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">サワー</span><span class="nw">各種</span><span class="desc"><span class="nw">ピンクグレープフルーツ／</span><span class="nw">カルピス／</span><span class="nw">シークヮサー／</span><span class="nw">白桃／</span><span class="nw">キウイ</span></span></span><span class="dots"></span><span class="price"><span class="nw">650円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">ウォッカベース</span><span class="desc"><span class="nw">スクリュードライバー／</span><span class="nw">ブルドッグ／</span><span class="nw">ソルティドッグ／</span><span class="nw">ウォッカリッキー</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">ジンベース</span><span class="desc"><span class="nw">ジントニック／</span><span class="nw">ジンリッキー／</span><span class="nw">ジンバック／</span><span class="nw">オレンジブロッサム</span></span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
@@ -817,7 +859,7 @@
                     <li><span class="name"><span class="nw">とうもろこしのひげ</span><span class="nw">茶ハイ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">ウーロンハイ</span></span><span class="dots"></span><span class="price"><span class="nw">650円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">玄米茶ハイ</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
-                    <li><span class="name"><span class="nw">本醸造</span> <span class="nw">生酒</span>（300ml）<span class="desc"><span class="nw">銘柄は</span><span class="nw">掲載媒体により</span><span class="nw">表記が</span><span class="nw">分かれ</span><span class="nw">ております。</span><span class="nw">店内の</span><span class="nw">お品書きで</span><span class="nw">お確かめ</span><span class="nw">くださいませ。</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,500円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
+                    <li><span class="name"><span class="nw">本醸造</span> <span class="nw">生酒</span>（300ml）<span class="desc"><span class="nw">銘柄は</span><span class="nw">掲載媒体により</span><span class="nw">表記が</span><span class="nw">分かれて</span><span class="nw">おります。</span><span class="nw">店内の</span><span class="nw">お品書きで</span><span class="nw">お確かめ</span><span class="nw">くださいませ。</span></span></span><span class="dots"></span><span class="price"><span class="nw">1,500円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">【小山市】西堀</span> <span class="nw">門外不出</span> <span class="nw">純米大吟醸</span> <span class="nw">夢ささら</span>（300ml）</span><span class="dots"></span><span class="price"><span class="nw">2,000円</span><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                     <li><span class="name"><span class="nw">ボトルのおとも</span><span class="desc"><span class="nw">超炭酸水</span><span class="nw">（600ml）350円／</span><span class="nw">ウーロン</span>茶<span class="nw">（600ml）1,000円／</span><span class="nw">水・</span>氷 各<span class="nw">200円／</span><span class="nw">レモン</span> <span class="nw">200円</span></span></span><span class="dots"></span><span class="price"><small><span class="nw">2026年</span><span class="nw">8月現在</span></small></span></li>
                 </ul>
@@ -906,11 +948,19 @@ document.body.classList.remove('no-js');
 var heroEl = document.getElementById('hero');
 var stickyBar = document.getElementById('sticky-bar');
 var subnavEl = document.querySelector('.subnav');
+var toIndex = document.getElementById('to-index');
+var menuIndex = document.getElementById('menu-index');
+var infoEl = document.getElementById('info');
 var menuBlocks = document.querySelectorAll('.menu-block, .menu-section');
 var lastMenuBlock = menuBlocks.length ? menuBlocks[menuBlocks.length - 1] : null;
 
 window.addEventListener('scroll', function () {
     var y = window.scrollY;
+    if (toIndex && menuIndex) {
+        var past = menuIndex.getBoundingClientRect().bottom < 0;
+        var atInfo = infoEl ? infoEl.getBoundingClientRect().top < window.innerHeight * 0.5 : false;
+        toIndex.classList.toggle('visible', past && !atInfo);
+    }
     document.body.classList.toggle('scrolled', y > 60);
     if (stickyBar) {
         var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;

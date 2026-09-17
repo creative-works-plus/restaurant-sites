@@ -109,11 +109,6 @@
 
         --orn-blank:   url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
 
-        /* --- 構造装飾＝お品書き3章の見出し左の8mm角の菱形（デザインブリーフ §11②） ------- */
-        --orn-him-1:   var(--accent);
-        --orn-him-2:   var(--accent-deep);
-        --orn-him-3:   var(--accent-hi);
-
         /* --- 形・間 ---------------------------------------------------------------- */
         --radius:      4px;
         --maxw:        1080px;
@@ -245,7 +240,7 @@
     }
     .subnav { transition: transform .25s ease, opacity .25s ease; }
     .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
-    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 60px); }
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 88px); }
 
     .btn-tel { flex-wrap: wrap; row-gap: 2px; line-height: 1.3; }
     .btn-tel .tel-num { white-space: nowrap; }
@@ -328,31 +323,59 @@
     .btn-ghost:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
     .btn-block { width: 100%; }
 
-    /* --- ヒーロー：A-2系（外観写真を上、下に白い面で名乗り） ---------------------- */
-    .hero { display: flex; flex-direction: column; }
-    .hero-photo { width: 100%; max-width: var(--maxw); margin-inline: auto;
-                  aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-2); }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-band { background: var(--surface); flex: 1; display: flex; align-items: center; }
-    .hero-band .container { padding-block: var(--sp-6); text-align: center; }
-    .hero-band .status-chip { margin-bottom: var(--sp-4); }
+    /* --- ヒーロー（2026-09-17 作り直し）
+           外観写真の上に、左から暗い幕を敷いて店名を重ねる。写真の箱はヘッダーと同じ幅
+           （最大1080px＝写真の実寸1081px）で、高さも実寸608pxを上限にして引き伸ばさない。
+           電話の導線は写真のすぐ下の帯。1280×800で写真・店名・電話が1画面に入る高さ。 -- */
+    .hero { min-height: 0; padding-top: var(--sp-4); }
+    .hero-stage { position: relative; overflow: hidden; background: #2B251E;
+                  width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
+                  height: clamp(440px, calc(100svh - var(--header-h) - 170px), 600px);
+                  border-radius: var(--radius); }
+    .hero-stage img { position: absolute; inset: 0; width: 100%; height: 100%;
+                      object-fit: cover; object-position: 62% 50%; }
+    .hero-stage::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+                         background: linear-gradient(90deg, rgba(24, 20, 16, .9) 0%,
+                                     rgba(24, 20, 16, .84) 36%, rgba(24, 20, 16, .4) 58%,
+                                     rgba(24, 20, 16, 0) 76%); }
+    .hero-copy { position: absolute; left: 0; bottom: 0; z-index: 1;
+                 width: min(100%, 520px); padding: 56px; color: #fff; }
+    .hero-copy .status-chip { border-radius: var(--radius); margin-bottom: var(--sp-4); color: var(--ink); }
 
-    .hero-name { font-family: var(--font-head); color: var(--ink); }
-    .hero-name-sm { display: block; font-size: clamp(14px, 3vw, 18px); color: var(--muted);
-                    letter-spacing: .3em; text-indent: .3em; margin-bottom: 4px; }
-    .hero-name-lg { display: block; font-size: var(--fz-hero); font-weight: 600;
-                    letter-spacing: .1em; line-height: 1.28; }
-    .hero-name-store { display: block; font-size: clamp(19px, 4vw, 27px); font-weight: 600;
-                        letter-spacing: .32em; text-indent: .32em; color: var(--accent-deep);
-                        margin-top: 14px; }
+    .hero-kind { font-size: var(--fz-cap); letter-spacing: .18em; color: rgba(255, 255, 255, .86); }
+    .hero-kind::before { content: ''; display: inline-block; width: 32px; height: 1px;
+                         background: currentColor; vertical-align: middle; margin-right: 12px; }
+    .hero-name { font-family: var(--font-head); font-weight: 500; margin-top: var(--sp-3);
+                 line-height: 1.2; }
+    .hero-name-sub { display: block; font-size: clamp(20px, 2.6vw, 28px); letter-spacing: .12em; }
+    .hero-name-main { display: block; font-size: clamp(56px, 7.4vw, 84px); letter-spacing: .14em;
+                      margin-top: 6px; color: #fff; }
+    .hero-catch { font-family: var(--font-head); font-size: var(--fz-h3); letter-spacing: .06em;
+                  margin-top: var(--sp-4); padding-top: var(--sp-3);
+                  border-top: 1px solid rgba(255, 255, 255, .35); display: block; }
 
-    .hero-catch { font-family: var(--font-head); font-size: var(--fz-h3);
-                  letter-spacing: .06em; margin-top: var(--sp-5); }
-    .hero-sub { color: var(--muted); font-size: var(--fz-body); margin-top: var(--sp-2);
-                max-width: 30em; margin-inline: auto; }
-
+    .hero-foot { display: flex; align-items: center; justify-content: space-between;
+                 gap: var(--sp-4); padding-block: var(--sp-4) var(--sp-5); }
+    .hero-sub { color: var(--muted); font-size: var(--fz-body); max-width: 30em; }
     .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;
                     margin-top: var(--sp-5); }
+    .hero-foot .hero-actions { margin-top: 0; justify-content: flex-end; flex: 0 0 auto; }
+
+    @media (max-width: 760px) {
+        .hero { padding-top: 0; }
+        .hero-stage { width: 100%; border-radius: 0; height: 520px; }
+        .hero-stage img { object-position: 56% 50%; }
+        .hero-stage::after { background: linear-gradient(0deg, rgba(24, 20, 16, .9) 0%,
+                                         rgba(24, 20, 16, .84) 46%, rgba(24, 20, 16, .35) 68%,
+                                         rgba(24, 20, 16, 0) 84%); }
+        .hero-copy { width: 100%; padding: 24px var(--pad-inner) 28px; }
+        .hero-name-main { font-size: 56px; }
+        .hero-foot { flex-direction: column; align-items: stretch; gap: var(--sp-3);
+                     padding-block: var(--sp-4) var(--sp-2); }
+        .hero-foot .hero-actions { order: -1; justify-content: stretch; display: grid;
+                                   grid-template-columns: 1fr; gap: 10px; }
+        .hero-foot .btn { width: 100%; }
+    }
 
     /* --- セクション共通の見出し --------------------------------------------------- */
     .section-title { font-family: var(--font-head); font-size: var(--fz-h2);
@@ -365,9 +388,6 @@
 
     /* --- ②お箸のこと（署名の章） -------------------------------------------------- */
     .section-hashi { background: var(--surface); }
-    .chopstick-wrap { max-width: 640px; margin: var(--sp-4) auto 0; }
-    .chopstick-sign { width: min(520px, 80vw); height: 150px; margin: 0; display: block; }
-    .section-hashi .prose { margin-top: var(--sp-4); }
 
     /* --- ③ひと皿 -------------------------------------------------------------- */
     .dish-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4);
@@ -382,31 +402,25 @@
     .subnav { position: sticky; top: var(--header-h); z-index: 40;
               background: rgba(245, 241, 231, .95); backdrop-filter: blur(4px);
               border-bottom: 1px solid var(--line); }
-    .subnav-inner { display: flex; gap: 10px; overflow-x: auto;
-                     padding: 12px var(--pad-inner); max-width: var(--maxw); margin-inline: auto; }
-    .subnav a { font-size: .84rem; letter-spacing: .02em; color: var(--muted);
-                border: 1px solid var(--line-strong); border-radius: var(--radius);
-                white-space: nowrap; padding-inline: 14px; gap: 8px; }
-    .subnav a:hover { color: var(--accent-deep); border-color: var(--accent-deep); }
-    .subnav a::before { content: ''; width: 8mm; height: 8mm; transform: rotate(45deg);
-                         flex: 0 0 auto; background: var(--orn-him-1); }
-    .subnav a[href="#dinner"]::before { background: var(--orn-him-2); }
-    .subnav a[href="#drink"]::before  { background: var(--orn-him-3); }
-    .subnav::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0;
-                      width: 28px; pointer-events: none;
-                      background: linear-gradient(to right, transparent, rgba(245, 241, 231, .95) 72%); }
-    @media (min-width: 900px) { .subnav::after { display: none; } }
+    /* タブ＝menu-tabs 型A（3つ）。中央そろえ・折り返し・横スクロールなし・図形なし */
+    .subnav-inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 8px;
+                     padding: 8px var(--pad-inner); max-width: var(--maxw); margin-inline: auto; }
+    .subnav a { font-family: var(--font-head); font-size: .95rem; letter-spacing: .06em;
+                color: var(--muted); white-space: nowrap; padding-inline: 20px;
+                border-bottom: 1px solid transparent; }
+    .subnav a:hover { color: var(--ink); border-bottom-color: var(--accent-deep); }
+    @media (max-width: 640px) {
+        .subnav-inner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .subnav a { justify-content: center; text-align: center; padding-inline: 4px; }
+    }
     .menu-block { margin-top: var(--sp-6); }
     .menu-block:first-of-type { margin-top: var(--sp-5); }
-    .menu-head { display: flex; align-items: center; gap: 12px; }
-    .menu-head::before { content: ''; width: 8mm; height: 8mm; transform: rotate(45deg);
-                          flex: 0 0 auto; background: var(--orn-him-1); }
-    #dinner .menu-head::before { background: var(--orn-him-2); }
-    #drink  .menu-head::before { background: var(--orn-him-3); }
+    .menu-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px;
+                 padding-bottom: 10px; border-bottom: 1px solid var(--line-strong); }
     .menu-head h2 { font-family: var(--font-head); font-size: var(--fz-h3); letter-spacing: .05em; }
     .menu-head .yomi { font-family: var(--font-head); font-style: italic; font-size: .78rem;
                         letter-spacing: .1em; color: var(--accent-deep); white-space: nowrap; }
-    .menu-note { color: var(--muted); font-size: .92rem; margin-top: 8px; padding-left: 21px; }
+    .menu-note { color: var(--muted); font-size: .92rem; margin-top: 12px; }
     .menu-grid { margin-top: var(--sp-4); }
     .menu-list { display: grid; gap: 16px; }
     .menu-list li { border-bottom: 1px solid var(--line); padding-bottom: 14px; }
@@ -501,54 +515,45 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     ヒーロー（A-2系：外観写真を上、下の白い面に三段の名乗り）
+     ヒーロー（2026-09-17 作り直し：外観写真の上に幕を敷いて名乗りを重ね、
+     写真のすぐ下に電話の導線。写真はヘッダーと同じ幅の箱に収め、実寸以上に広げない）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-    <div class="hero-photo">
+    <div class="hero-stage">
         <img src="img/hero-gaikan.jpg" alt="瓦屋根と格子戸の入り口、庭木に囲まれた向日葵の外観"
              width="1081" height="608" loading="eager" fetchpriority="high" decoding="async">
+
+        <div class="hero-copy">
+            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+            <p class="hero-kind nw">小山市のフレンチ</p>
+            <h1 class="hero-name">
+                <span class="hero-name-sub nw">お箸でふれんち</span>
+                <span class="hero-name-main nw">向日葵</span>
+            </h1>
+            <p class="hero-catch nw">フランス料理を、お箸で。</p>
+        </div>
     </div>
 
-    <div class="hero-band">
-        <div class="container">
-            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+    <div class="container hero-foot">
+        <p class="hero-sub"><span class="nw">小山の</span><span class="nw">家で、</span><span class="nw">構えずに</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただく</span><span class="nw">本格の</span><span class="nw">フランス</span><span class="nw">料理です。</span></p>
 
-            <p class="hero-name">
-                <span class="hero-name-sm nw">お箸で</span>
-                <span class="hero-name-lg nw">ふれんち</span>
-                <span class="hero-name-store nw">向日葵</span>
-            </p>
-
-            <p class="hero-catch nw">フランス料理を、お箸で。</p>
-            <p class="hero-sub"><span class="nw">小山の</span><span class="nw">家で、</span><span class="nw">構えずに</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただく</span><span class="nw">本格の</span><span class="nw">フランス</span><span class="nw">料理です。</span></p>
-
-            <div class="hero-actions">
-                <a href="tel:0285223621" class="btn btn-primary btn-tel">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                    <span class="tel-num nw">0285-22-3621</span><span class="tel-cap">ご予約はこちら</span>
-                </a>
-                <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
-            </div>
+        <div class="hero-actions">
+            <a href="tel:0285223621" class="btn btn-primary btn-tel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                <span class="tel-num nw">0285-22-3621</span><span class="tel-cap">ご予約はこちら</span>
+            </a>
+            <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
         </div>
     </div>
 </section>
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     ②お箸のこと（署名の章／A-86「箸先は、左」）
+     ②お箸のこと（2026-09-17 箸の図形を外し、見出しと文だけで組む）
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section section-hashi" id="hashi">
     <div class="container">
         <h2 class="section-title reveal"><span class="nw">お箸の</span><span class="nw">こと</span></h2>
-
-        <!-- A-86「箸先は、左」。箸2本と箸置きのみ。動かさない -->
-        <div class="chopstick-wrap">
-            <svg class="chopstick-sign reveal" viewBox="0 0 520 150" aria-hidden="true" focusable="false">
-                <polygon points="513,83.0 54,51.9 54,54.9 513,88.0" fill="var(--ink)"></polygon>
-                <polygon points="513,94.0 54,62.9 54,65.9 513,99.0" fill="var(--ink)"></polygon>
-                <polygon points="79,66 113,66 123,88 69,88" fill="var(--accent)"></polygon>
-            </svg>
-        </div>
 
         <div class="prose">
             <p class="reveal"><span class="nw">おもてなしは</span><span class="nw">一流に、</span><span class="nw">お料理は</span><span class="nw">本格に。</span><span class="nw">それでいて、</span><span class="nw">気軽に</span><span class="nw">味わって</span><span class="nw">いただきたい。</span><br class="br-pc">

@@ -339,15 +339,34 @@
     @media (max-width: 620px) { .menu-photos { grid-template-columns: repeat(2, 1fr); } }
     .menu-photos figcaption.cap { margin-top: 6px; font-size: .78rem; color: var(--muted); text-align: center; }
 
-    /* ---- 章内サブナビ ---- */
-    .subnav {
-        position: sticky; top: var(--header-h); z-index: 50;
-        background: rgba(251,248,243,.94); backdrop-filter: blur(6px);
-        border-bottom: 1px solid var(--line);
+    /* ---- お品書きの目次（2026-09-17 タブ18個を目次に。スキル menu-tabs 型B） ----
+       build_menu.py が生成する .subnav は、作り直しても戻らないようCSSで隠す */
+    .subnav { display: none !important; }
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
+    .menu-index-wrap { padding-block: var(--sp-5) 0; }
+    .menu-index { max-width: 880px; margin-inline: auto; }
+    .menu-index-title { font-family: var(--font-head); font-size: 1.05rem; text-align: center; margin-bottom: var(--sp-3); }
+    .menu-index-group + .menu-index-group { margin-top: var(--sp-4); }
+    .menu-index-label { font-family: var(--font-head); font-size: .84rem; color: var(--muted); letter-spacing: .08em; text-align: center; margin-bottom: 4px; }
+    .menu-index-links { display: flex; flex-wrap: wrap; gap: 0 12px; }
+    .menu-index a {
+        flex: 1 1 10em; min-height: 44px; display: flex; align-items: center; justify-content: center; text-align: center;
+        border-bottom: 1px solid var(--line); color: var(--ink); font-size: .92rem; line-height: 1.35;
     }
-    .subnav-inner { display: flex; overflow-x: auto; gap: var(--sp-2); padding: 6px var(--pad-inner); }
-    .subnav a { white-space: nowrap; font-size: .84rem; color: var(--muted); border-radius: 999px; }
-    .subnav a:hover { color: var(--accent); }
+    .menu-index a:hover { color: var(--accent); }
+    @media (max-width: 640px) {
+        .menu-index a { flex-basis: calc(50% - 6px); }
+        .menu-index a { font-size: .86rem; }
+    }
+    .to-index {
+        position: fixed; right: 16px; bottom: 24px; z-index: 140;
+        min-height: 44px; display: inline-flex; align-items: center; padding-inline: 16px;
+        background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong, var(--line));
+        font-size: .84rem; box-shadow: 0 4px 14px rgba(0,0,0,.12);
+        opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease;
+    }
+    .to-index.visible { opacity: 1; visibility: visible; }
+    @media (max-width: 620px) { .to-index { bottom: calc(68px + 12px); } }
 
     /* ---- 末尾の予約導線 ---- */
     .info-table { width: 100%; margin-top: var(--sp-3); border-top: 1px solid var(--line); }
@@ -396,7 +415,7 @@
 
         <p class="hero-name">FELICITARE LUMINO</p>
         <h1><span class="nw">お品書き</span></h1>
-        <p class="sub"><span class="nw">前菜から</span><span class="nw">ドルチェまで、</span><span class="nw">当店の</span><span class="nw">アラカルトです。</span><span class="nw">ドリンクは</span><a href="drink.html" style="text-decoration:underline; text-underline-offset:3px;"><span class="nw">お飲み</span><span class="nw">ものの</span><span class="nw">ページ</span></a><span class="nw">にまとめ</span><span class="nw">ております。</span></p>
+        <p class="sub"><span class="nw">前菜から</span><span class="nw">ドルチェまで、</span><span class="nw">当店の</span><span class="nw">アラカルトです。</span><span class="nw">ドリンクは</span><a href="drink.html" style="text-decoration:underline; text-underline-offset:3px;"><span class="nwb"><span class="nw">お飲み</span><span class="nw">ものの</span><span class="nw">ページ</span></span></a><span class="nw">にまとめて</span><span class="nw">おります。</span></p>
 
         <div class="hero-actions">
             <a href="tel:0285396575" class="btn btn-primary btn-tel">
@@ -407,6 +426,31 @@
     </div>
 </section>
 
+
+<section class="menu-index-wrap" id="menu-index">
+    <div class="container">
+        <nav class="menu-index" aria-label="お品書きの目次">
+            <p class="menu-index-title"><span class="nw">目次</span></p>
+            <div class="menu-index-group">
+                <p class="menu-index-label"><span class="nw">ランチ</span></p>
+                <div class="menu-index-links"><a href="#lunch">ランチ</a><a href="#lunch-dolce"><span class="nwb">ランチのデザート</span></a></div>
+            </div>
+            <div class="menu-index-group">
+                <p class="menu-index-label"><span class="nw">コース・</span><span class="nw">ご宴会</span></p>
+                <div class="menu-index-links"><a href="#set">セットメニュー</a><a href="#corso">コース</a><a href="#party"><span class="nwb">ご宴会・パーティープラン</span></a></div>
+            </div>
+            <div class="menu-index-group">
+                <p class="menu-index-label"><span class="nw">アラカルト</span></p>
+                <div class="menu-index-links"><a href="#antipasto">前菜</a><a href="#insalata">サラダ</a><a href="#contorno">副菜</a><a href="#risotto">リゾット</a><a href="#pesce">魚料理</a><a href="#carne">肉料理</a><a href="#dolce">ドルチェ</a><a href="#lavagna">黒板のおすすめ</a><a href="#takeout">テイクアウト</a></div>
+            </div>
+            <div class="menu-index-group">
+                <p class="menu-index-label"><span class="nw">パスタ</span></p>
+                <div class="menu-index-links"><a href="#pasta-pomodoro">トマトソース</a><a href="#pasta-crema">クリームソース</a><a href="#pasta-olio"><span class="nwb">オイル・塩ベース</span></a><a href="#pasta-specialita">スペシャリテ</a></div>
+            </div>
+        </nav>
+    </div>
+</section>
+<a class="to-index" id="to-index" href="#menu-index">目次へ</a>
 
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
 <nav class="subnav" aria-label="お品書き内のナビゲーション">
@@ -767,6 +811,14 @@
 
 <script>
 document.body.classList.remove('no-js');
+
+var toIndex = document.getElementById('to-index');
+var menuIndex = document.getElementById('menu-index');
+if (toIndex && menuIndex) {
+    window.addEventListener('scroll', function () {
+        toIndex.classList.toggle('visible', menuIndex.getBoundingClientRect().bottom < 0);
+    }, { passive: true });
+}
 
 var heroEl = document.getElementById('hero');
 var stickyBar = document.getElementById('sticky-bar');

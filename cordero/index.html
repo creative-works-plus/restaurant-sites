@@ -15,7 +15,7 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:url" content="https://creative-works-plus.github.io/restaurant-sites/cordero/">
     <!-- OGP画像：公開時は必ずドメイン込みの絶対URLにする（相対パスだとSNSで表示されない） -->
-    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/cordero/img/hero-gaikan.jpg">
+    <meta property="og:image" content="https://creative-works-plus.github.io/restaurant-sites/cordero/img/hero-jingisukan.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
@@ -39,7 +39,7 @@
       "telephone": "+81-80-9772-2299",
       "paymentAccepted": "Credit Card, Electronic Money, QR Code Payment",
       "url": "https://creative-works-plus.github.io/restaurant-sites/cordero/",
-      "image": "img/hero-gaikan.jpg",
+      "image": "img/hero-jingisukan.jpg",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -342,24 +342,40 @@
     .grill-photos.photo-grid { display: flex; flex-direction: column; gap: var(--sp-4); max-width: 335px; margin-inline: 0; }
     @media (max-width: 820px) { .grill-photos.photo-grid { max-width: none; } }
 
-    /* --- ヒーロー --------------------------------------------------------------- */
-    .hero .container { display: flex; flex-direction: column; justify-content: center;
-                        min-height: calc(100svh - var(--header-h)); padding-block: var(--sp-6); gap: var(--sp-5); }
-    .hero-left { display: flex; flex-direction: column; gap: var(--sp-5); }
-    .hero-head { display: flex; flex-direction: column; gap: var(--sp-4); }
-    .hero-title { font-family: var(--font-head); font-weight: 700; font-size: var(--fz-hero);
-                  line-height: 1.3; letter-spacing: .04em; color: var(--ink); max-width: 14ch; }
-    .hero-sub { font-size: var(--fz-body); color: var(--muted); max-width: 40ch; }
-    .hero-plate { max-width: 779px; }
-    .hero-plate .plate { aspect-ratio: 1559 / 640; }
+    /* --- ヒーロー（2026-09-17 組み直し）---------------------------------------------
+       主役＝ジンギスカン鍋に仔羊を並べた1枚（img/hero-jingisukan.jpg 1080×860）。
+       ★写真は素材の半分＝540pxを超えて出さない（高精細画面で2倍を確保）。
+       SP：写真 → 店名 → 見出し → 一文 → 電話 の縦積み。PC：左に文字、右に写真。
+       左右の端はヘッダー（.container）とそろえる（6-b ⑭）。 */
+    .hero { min-height: 0; }
+    .hero .container { display: grid; grid-template-columns: minmax(0, 1fr);
+                        gap: var(--sp-5); padding-block: var(--sp-4) var(--sp-6); }
+    .hero-plate { order: -1; margin: 0; }
+    .hero-plate .plate { aspect-ratio: 1080 / 860; border: 0; border-radius: 0; }
     .hero-plate .plate img { width: 100%; height: 100%; object-fit: cover; }
-    /* ★PCは2列組（左：文字、右：写真＝皿）。写真列は779pxを超えない。SPは今までどおり縦積み */
+    .hero-plate figcaption { margin-top: var(--sp-2); font-size: var(--fz-cap); color: var(--dim); letter-spacing: .02em; }
+    .hero-left { display: flex; flex-direction: column; gap: var(--sp-4); }
+    .hero-name { display: block; font-size: 13px; letter-spacing: .14em;
+                 color: var(--muted); line-height: 1.5; }
+    .hero-name::before { content: ''; display: inline-block; vertical-align: middle; width: 32px; height: 1px;
+                         margin-right: 14px; background: var(--accent); }
+    .hero-head { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .hero-title { font-family: var(--font-head); font-weight: 500; font-size: var(--fz-hero);
+                  line-height: 1.32; letter-spacing: .05em; color: var(--ink); }
+    .hero-sub { font-size: var(--fz-body); color: var(--muted); max-width: 34ch; line-height: 1.9; }
+    .hero .status-chip { padding: 0; border: 0; border-radius: 0; font-size: 13px; }
+    .hero .hero-actions { margin-top: var(--sp-2); }
+    .hero .hero-actions .btn { padding-inline: 22px; }
+    @media (max-width: 859px) {
+        .hero .hero-actions .btn { width: 100%; }
+    }
     @media (min-width: 860px) {
-        .hero .container { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-                            align-items: end; gap: var(--gap); max-width: 1280px; }
-        /* ★左列を比で持たせる。1fr + 779px 固定にすると 1440px でも左が 300px しか残らず、
-           見出しが4行に折れ、バッジとボタンまで折り返す（2026-09-06 に実際に起きた）。
-           右列は 1.4fr ＝ 最大でも (1280-40)*.583 ≒ 723px で、素材 1559px の半分を超えない */
+        .hero .container { grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
+                            align-items: center; column-gap: clamp(40px, 6vw, 96px);
+                            padding-block: clamp(56px, 7vw, 104px); }
+        .hero-plate { order: 0; }
+        .hero-left { gap: var(--sp-5); }
+        .hero-title { font-size: clamp(40px, 4.4vw, 58px); }
     }
 
     /* --- ② 三つの物差し（署名章） ------------------------------------------------ */
@@ -539,12 +555,13 @@
 <section class="hero" id="hero">
     <div class="container">
         <div class="hero-left">
-            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
-
             <div class="hero-head reveal">
+                <p class="hero-name"><span class="nw">極上ラム</span><span class="nw">肉の</span><span class="nw">ジンギスカン</span> <span class="nw">コルデロ</span></p>
                 <h1 class="hero-title"><span class="nw">今夜の</span><span class="nw">仔羊は、</span><span class="nw">赤身で</span><span class="nw">選ぶ。</span></h1>
-                <p class="hero-sub"><span class="nw">アイスランド</span><span class="nw">産の</span><span class="nw">仔羊の</span><span class="nw">ジンギスカン。</span><span class="nw">2014年から</span><span class="nw">小山で</span><span class="nw">お出しし</span><span class="nw">ております。</span></p>
+                <p class="hero-sub"><span class="nw">アイスランド</span><span class="nw">産の</span><span class="nw">仔羊の</span><span class="nw">ジンギスカン。</span><span class="nw">2014年から</span><span class="nw">小山で</span><span class="nw">お出しして</span><span class="nw">おります。</span></p>
             </div>
+
+            <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
             <div class="hero-actions">
                 <a href="tel:080-9772-2299" class="btn btn-primary">
@@ -554,10 +571,10 @@
             </div>
         </div>
 
-        <figure class="hero-plate reveal">
+        <figure class="hero-plate">
             <div class="plate">
-                <img src="img/hero-gaikan.jpg" alt="夜のコルデロの外観。黒い外壁の建物に庇の灯りがともり、右手に白い筆文字の縦看板が光る"
-                     width="1559" height="640" loading="eager" fetchpriority="high" decoding="async">
+                <img src="img/hero-jingisukan.jpg" alt="黒いジンギスカン鍋のまわりにもやしと玉ねぎを並べ、まん中にアイスランドラムの赤身を盛った様子"
+                     width="1080" height="860" loading="eager" fetchpriority="high" decoding="async" style="height:auto;">
             </div>
         </figure>
     </div>
@@ -580,8 +597,8 @@
             <div class="sig-body reveal">
                 <p class="eyebrow">THREE MEASURES</p>
                 <h2 class="section-title"><span class="nw">三つの</span><span class="nw">物差し</span></h2>
-                <p class="lead"><span class="nw">お品書きの</span><span class="nw">希少部位には、</span><span class="nw">一つひとつに</span><span class="nw">「希少度」</span><span class="nw">「柔らかさ」</span><span class="nw">「赤身度」を</span><span class="nw">書き</span><span class="nw">添え</span><span class="nw">ております。</span></p>
-                <p class="lead"><span class="nw">仔羊の</span><span class="nw">部位は、</span><span class="nw">名前を</span><span class="nw">見ただけでは</span><span class="nw">味の</span><span class="nw">見当がつきにくい</span><span class="nw">ものです。</span><span class="nw">歯ざわりで</span><span class="nw">選びたい</span><span class="nw">方、</span><span class="nw">脂の</span><span class="nw">少ない</span><span class="nw">赤身で</span><span class="nw">選びたい</span><span class="nw">方、</span><span class="nw">めったに</span><span class="nw">入らない</span><span class="nw">部位を</span><span class="nw">試してみたい</span><span class="nw">方——選び</span><span class="nw">方は</span><span class="nw">お客様ごとに</span><span class="nw">違います。</span><span class="nw">ですから</span><span class="nw">当店の</span><span class="nw">見立てを、</span><span class="nw">先に</span><span class="nw">三つの</span><span class="nw">目印にして</span><span class="nw">お伝えし</span><span class="nw">ております。</span></p>
+                <p class="lead"><span class="nw">お品書きの</span><span class="nw">希少部位には、</span><span class="nw">一つひとつに</span><span class="nw">「希少度」</span><span class="nw">「柔らかさ」</span><span class="nw">「赤身度」を</span><span class="nw">書き</span><span class="nw">添えて</span><span class="nw">おります。</span></p>
+                <p class="lead"><span class="nw">仔羊の</span><span class="nw">部位は、</span><span class="nw">名前を</span><span class="nw">見ただけでは</span><span class="nw">味の</span><span class="nw">見当がつきにくい</span><span class="nw">ものです。</span><span class="nw">歯ざわりで</span><span class="nw">選びたい</span><span class="nw">方、</span><span class="nw">脂の</span><span class="nw">少ない</span><span class="nw">赤身で</span><span class="nw">選びたい</span><span class="nw">方、</span><span class="nw">めったに</span><span class="nw">入らない</span><span class="nw">部位を</span><span class="nw">試してみたい</span><span class="nw">方——選び</span><span class="nw">方は</span><span class="nw">お客様ごとに</span><span class="nw">違います。</span><span class="nw">ですから</span><span class="nw">当店の</span><span class="nw">見立てを、</span><span class="nw">先に</span><span class="nw">三つの</span><span class="nw">目印にして</span><span class="nw">お伝えして</span><span class="nw">おります。</span></p>
 
                 <div class="sig-wrap">
                     <h3 class="sig-part"><span class="nw">クリミ</span></h3>
@@ -636,7 +653,7 @@
             <h2 class="section-title reveal"><span class="nw">アイスランドの</span><span class="nw">こと</span></h2>
             <p class="lead reveal"><span class="nw">当店の</span><span class="nw">仔羊は、</span><span class="nw">アイスランドから</span><span class="nw">届きます。</span></p>
             <p class="lead reveal"><span class="nw">生後</span><span class="nw">4〜5か</span><span class="nw">月。</span><span class="nw">夏のあいだ</span><span class="nw">野に</span><span class="nw">放され、</span><span class="nw">草と</span><span class="nw">ハーブ、</span><span class="nw">ベリー、</span><span class="nw">海辺の</span><span class="nw">海藻を</span><span class="nw">食べて</span><span class="nw">育った</span><span class="nw">古代種です。</span><span class="nw">羊らしい</span><span class="nw">香りは</span><span class="nw">穏やかで、</span><span class="nw">赤身の</span><span class="nw">味がまっすぐに</span><span class="nw">出ます。</span></p>
-            <p class="lead reveal"><span class="nw">日本で</span><span class="nw">流通する</span><span class="nw">ラム</span><span class="nw">肉のうち、</span><span class="nw">アイスランド</span><span class="nw">産はわずか</span><span class="nw">1％ほど。</span><span class="nw">この</span><span class="nw">仔羊で、</span><span class="nw">当店は</span><span class="nw">看板を</span><span class="nw">掲げ</span><span class="nw">ております。</span></p>
+            <p class="lead reveal"><span class="nw">日本で</span><span class="nw">流通する</span><span class="nw">ラム</span><span class="nw">肉のうち、</span><span class="nw">アイスランド</span><span class="nw">産はわずか</span><span class="nw">1％ほど。</span><span class="nw">この</span><span class="nw">仔羊で、</span><span class="nw">当店は</span><span class="nw">看板を</span><span class="nw">掲げて</span><span class="nw">おります。</span></p>
         </div>
 
         <figure class="iceland-media reveal">
@@ -699,8 +716,8 @@
                 <p class="eyebrow reveal">HOW WE GRILL</p>
                 <h2 class="section-title reveal"><span class="nw">焼き</span><span class="nw">方の</span><span class="nw">こと</span></h2>
                 <p class="lead reveal"><span class="nw">焼くのは、</span><span class="nw">煙の</span><span class="nw">立たない</span><span class="nw">平らな</span><span class="nw">鉄板です。</span><span class="nw">間接の</span><span class="nw">熱で</span><span class="nw">低めの</span><span class="nw">温度から</span><span class="nw">火を</span><span class="nw">入れます</span><span class="nw">ので、</span><span class="nw">赤身の</span><span class="nw">水分が</span><span class="nw">逃げません。</span><span class="nw">表に</span><span class="nw">焼き</span><span class="nw">色がついたら、</span><span class="nw">召し</span><span class="nw">上がりどきで</span><span class="nw">ございます。</span></p>
-                <p class="lead reveal"><span class="nw">味つけは、</span><span class="nw">特製の</span><span class="nw">タレと</span><span class="nw">特製の</span><span class="nw">ハーブ</span><span class="nw">塩の</span><span class="nw">二つを</span><span class="nw">お付けします。</span><span class="nw">タレ</span><span class="nw">漬けには、</span><span class="nw">特製ダレ</span><span class="nw">入りの</span><span class="nw">生たまごを</span><span class="nw">ご一緒に。</span><span class="nw">わさびとすりおろしにんにくは</span><span class="nw">無料で</span><span class="nw">お付けし</span><span class="nw">ております。</span><span class="nw">焼きしゃぶと</span><span class="nw">野菜には、</span><span class="nw">季節替わりの</span><span class="nw">タレも</span><span class="nw">ございます。</span></p>
-                <p class="lead reveal"><span class="nw">野菜は、</span><span class="nw">淡路島・</span><span class="nw">中嶋農法の</span><span class="nw">ミネラル</span><span class="nw">玉ねぎと、</span><span class="nw">もやし。</span><span class="nw">サニーレタスで</span><span class="nw">包んで</span><span class="nw">召し</span><span class="nw">上がる</span><span class="nw">ギョプサルの</span><span class="nw">セットも</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+                <p class="lead reveal"><span class="nw">味つけは、</span><span class="nw">特製の</span><span class="nw">タレと</span><span class="nw">特製の</span><span class="nw">ハーブ</span><span class="nw">塩の</span><span class="nw">二つを</span><span class="nw">お付けします。</span><span class="nw">タレ</span><span class="nw">漬けには、</span><span class="nw">特製ダレ</span><span class="nw">入りの</span><span class="nw">生たまごを</span><span class="nw">ご一緒に。</span><span class="nw">わさびとすりおろしにんにくは</span><span class="nw">無料で</span><span class="nw">お付けして</span><span class="nw">おります。</span><span class="nw">焼きしゃぶと</span><span class="nw">野菜には、</span><span class="nw">季節替わりの</span><span class="nw">タレも</span><span class="nw">ございます。</span></p>
+                <p class="lead reveal"><span class="nw">野菜は、</span><span class="nw">淡路島・</span><span class="nw">中嶋農法の</span><span class="nw">ミネラル</span><span class="nw">玉ねぎと、</span><span class="nw">もやし。</span><span class="nw">サニーレタスで</span><span class="nw">包んで</span><span class="nw">召し</span><span class="nw">上がる</span><span class="nw">ギョプサルの</span><span class="nw">セットも</span><span class="nw">ご用意して</span><span class="nw">おります。</span></p>
             </div>
 
             <div class="photo-grid grill-photos">
@@ -728,7 +745,7 @@
         <p class="eyebrow reveal">TO FINISH</p>
         <h2 class="section-title reveal"><span class="nw">〆と</span><span class="nw">一品</span></h2>
         <p class="lead reveal"><span class="nw">肉と</span><span class="nw">野菜を</span><span class="nw">焼き</span><span class="nw">終えた</span><span class="nw">タレには、</span><span class="nw">旨みが</span><span class="nw">溶け</span><span class="nw">込んで</span><span class="nw">おります。</span><span class="nw">そこにひと</span><span class="nw">味足して、</span><span class="nw">〆の</span><span class="nw">麺のつけ</span><span class="nw">ダレに</span><span class="nw">いたします。</span><span class="nw">熱盛・</span><span class="nw">硬めの</span><span class="nw">「極ツヤつけ</span><span class="nw">麺」、</span><span class="nw">「わかめ</span><span class="nw">麺」、</span><span class="nw">汁なしの</span><span class="nw">「和え</span><span class="nw">玉」から</span><span class="nw">お選び</span><span class="nw">ください。</span></p>
-        <p class="lead reveal"><span class="nw">焼く</span><span class="nw">前と</span><span class="nw">合間には、</span><span class="nw">アヒージョ、</span><span class="nw">羊乳の</span><span class="nw">ペコリーノロマーノを</span><span class="nw">使った</span><span class="nw">グラタン、</span><span class="nw">砂糖を</span><span class="nw">使わずに</span><span class="nw">仕込む</span><span class="nw">ミネラル</span><span class="nw">玉ねぎの</span><span class="nw">オニオングラタンスープ、</span><span class="nw">ラム</span><span class="nw">肉の</span><span class="nw">コブサラダなどを</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">ココット</span><span class="nw">料理は</span><span class="nw">当店の</span><span class="nw">自家製です。</span><span class="nw">〆のあとには、</span><span class="nw">ジェラートを</span><span class="nw">三種。</span></p>
+        <p class="lead reveal"><span class="nw">焼く</span><span class="nw">前と</span><span class="nw">合間には、</span><span class="nw">アヒージョ、</span><span class="nw">羊乳の</span><span class="nw">ペコリーノロマーノを</span><span class="nw">使った</span><span class="nw">グラタン、</span><span class="nw">砂糖を</span><span class="nw">使わずに</span><span class="nw">仕込む</span><span class="nw">ミネラル</span><span class="nw">玉ねぎの</span><span class="nw">オニオングラタンスープ、</span><span class="nw">ラム</span><span class="nw">肉の</span><span class="nw">コブサラダなどを</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">ココット</span><span class="nw">料理は</span><span class="nw">当店の</span><span class="nw">自家製です。</span><span class="nw">〆のあとには、</span><span class="nw">ジェラートを</span><span class="nw">三種。</span></p>
 
         <div class="photo-grid mix">
             <figure class="reveal">
@@ -782,7 +799,7 @@
         </div>
 
         <p class="lead reveal"><span class="nw">ウイスキーは、</span><span class="nw">ジャパニーズ、</span><span class="nw">アイラ、</span><span class="nw">スコッチ、</span><span class="nw">バーボンを</span><span class="nw">1ショット</span><span class="nw">30mlの</span><span class="nw">時価で</span><span class="nw">お出しします。</span><span class="nw">お品書きに</span><span class="nw">載せていない</span><span class="nw">お酒も</span><span class="nw">多数ございます</span><span class="nw">ので、</span><span class="nw">スタッフに</span><span class="nw">お声がけ</span><span class="nw">ください。</span></p>
-        <p class="lead reveal"><span class="nw">イタリアから</span><span class="nw">直輸入する</span><span class="nw">樽生ワインは、</span><span class="nw">加熱処理をしていないぶん</span><span class="nw">フレッシュに。</span><span class="nw">ボトルは、</span><span class="nw">当店の</span><span class="nw">ラムには</span><span class="nw">白、</span><span class="nw">タレ</span><span class="nw">漬けには</span><span class="nw">赤をおすすめし</span><span class="nw">ております。</span><span class="nw">クラフトビールは</span><span class="nw">常時</span><span class="nw">4種。</span><span class="nw">超炭酸の</span><span class="nw">ハイボール、</span><span class="nw">季節の</span><span class="nw">果実の</span><span class="nw">カクテルは</span><span class="nw">ノンアルコールでも</span><span class="nw">お作りします。</span></p>
+        <p class="lead reveal"><span class="nw">イタリアから</span><span class="nw">直輸入する</span><span class="nw">樽生ワインは、</span><span class="nw">加熱処理をしていないぶん</span><span class="nw">フレッシュに。</span><span class="nw">ボトルは、</span><span class="nw">当店の</span><span class="nw">ラムには</span><span class="nw">白、</span><span class="nw">タレ</span><span class="nw">漬けには</span><span class="nw">赤をおすすめして</span><span class="nw">おります。</span><span class="nw">クラフトビールは</span><span class="nw">常時</span><span class="nw">4種。</span><span class="nw">超炭酸の</span><span class="nw">ハイボール、</span><span class="nw">季節の</span><span class="nw">果実の</span><span class="nw">カクテルは</span><span class="nw">ノンアルコールでも</span><span class="nw">お作りします。</span></p>
     </div>
 </section>
 
@@ -794,8 +811,8 @@
     <div class="container">
         <p class="eyebrow reveal">MENU</p>
         <h2 class="section-title reveal"><span class="nw">お品書き</span></h2>
-        <p class="lead reveal"><span class="nw">料理、</span><span class="nw">コース、</span><span class="nw">お飲み</span><span class="nw">ものの</span><span class="nw">全品を、</span><span class="nw">お品書きの</span><span class="nw">ページにまとめ</span><span class="nw">ております。</span><span class="nw">ご予算の</span><span class="nw">目安は、</span><span class="nw">おひとり</span><span class="nw">4,000〜5,000円ほど。</span><span class="nw">はじめての</span><span class="nw">方は、</span><span class="nw">お肉</span><span class="nw">100gと</span><span class="nw">野菜、</span><span class="nw">特製の</span><span class="nw">タレと</span><span class="nw">ハーブ</span><span class="nw">塩を</span><span class="nw">お付けした</span><span class="nw">「ジンギスカン</span> <span class="nw">スタートセット」1,800円から、</span><span class="nw">お好きな</span><span class="nw">部位を</span><span class="nw">足して</span><span class="nw">いただくのが</span><span class="nw">ご案内しやすう</span><span class="nw">ございます。</span></p>
-        <p class="lead reveal"><span class="nw">コースは、</span><span class="nw">おすすめの</span><span class="nw">ラム</span><span class="nw">肉を</span><span class="nw">少しずつ</span><span class="nw">お出しする</span><span class="nw">組み</span><span class="nw">立てです。</span><span class="nw">飲み</span><span class="nw">放題つきの</span><span class="nw">コースと</span><span class="nw">お試し</span><span class="nw">コースは、</span><span class="nw">平日</span><span class="nw">（火〜木）限定。</span><span class="nw">グループで</span><span class="nw">お越しの</span><span class="nw">際は、</span><span class="nw">人数分の</span><span class="nw">ご注文を</span><span class="nw">お願いし</span><span class="nw">ております。</span></p>
+        <p class="lead reveal"><span class="nw">料理、</span><span class="nw">コース、</span><span class="nw">お飲み</span><span class="nw">ものの</span><span class="nw">全品を、</span><span class="nw">お品書きの</span><span class="nw">ページにまとめて</span><span class="nw">おります。</span><span class="nw">ご予算の</span><span class="nw">目安は、</span><span class="nw">おひとり</span><span class="nw">4,000〜5,000円ほど。</span><span class="nw">はじめての</span><span class="nw">方は、</span><span class="nw">お肉</span><span class="nw">100gと</span><span class="nw">野菜、</span><span class="nw">特製の</span><span class="nw">タレと</span><span class="nw">ハーブ</span><span class="nw">塩を</span><span class="nw">お付けした</span><span class="nw">「ジンギスカン</span> <span class="nw">スタートセット」1,800円から、</span><span class="nw">お好きな</span><span class="nw">部位を</span><span class="nw">足して</span><span class="nw">いただくのが</span><span class="nw">ご案内しやすう</span><span class="nw">ございます。</span></p>
+        <p class="lead reveal"><span class="nw">コースは、</span><span class="nw">おすすめの</span><span class="nw">ラム</span><span class="nw">肉を</span><span class="nw">少しずつ</span><span class="nw">お出しする</span><span class="nw">組み</span><span class="nw">立てです。</span><span class="nw">飲み</span><span class="nw">放題つきの</span><span class="nw">コースと</span><span class="nw">お試し</span><span class="nw">コースは、</span><span class="nw">平日</span><span class="nw">（火〜木）限定。</span><span class="nw">グループで</span><span class="nw">お越しの</span><span class="nw">際は、</span><span class="nw">人数分の</span><span class="nw">ご注文を</span><span class="nw">お願いして</span><span class="nw">おります。</span></p>
 
         <div class="menu-gate reveal">
             <div class="menu-gate-cols">
@@ -859,8 +876,8 @@
     <div class="container">
         <p class="eyebrow reveal">INSIDE</p>
         <h2 class="section-title reveal"><span class="nw">店のなか</span></h2>
-        <p class="lead reveal"><span class="nw">28席。</span><span class="nw">厨房に</span><span class="nw">向いた</span><span class="nw">カウンターが</span><span class="nw">6席、</span><span class="nw">テーブル</span><span class="nw">席、</span><span class="nw">そして</span><span class="nw">7名様以上で</span><span class="nw">ご案内する</span><span class="nw">半個室の</span><span class="nw">ソファー</span><span class="nw">席を</span><span class="nw">1組</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
-        <p class="lead reveal"><span class="nw">全席禁煙で、</span><span class="nw">おたばこは</span><span class="nw">店外の</span><span class="nw">喫煙スペースで</span><span class="nw">お願いし</span><span class="nw">ております。</span><span class="nw">壁には、</span><span class="nw">羊たちが</span><span class="nw">育つ</span><span class="nw">土地の</span><span class="nw">風景を</span><span class="nw">映し</span><span class="nw">ております。</span></p>
+        <p class="lead reveal"><span class="nw">28席。</span><span class="nw">厨房に</span><span class="nw">向いた</span><span class="nw">カウンターが</span><span class="nw">6席、</span><span class="nw">テーブル</span><span class="nw">席、</span><span class="nw">そして</span><span class="nw">7名様以上で</span><span class="nw">ご案内する</span><span class="nw">半個室の</span><span class="nw">ソファー</span><span class="nw">席を</span><span class="nw">1組</span><span class="nw">ご用意して</span><span class="nw">おります。</span></p>
+        <p class="lead reveal"><span class="nw">全席禁煙で、</span><span class="nw">おたばこは</span><span class="nw">店外の</span><span class="nw">喫煙スペースで</span><span class="nw">お願いして</span><span class="nw">おります。</span><span class="nw">壁には、</span><span class="nw">羊たちが</span><span class="nw">育つ</span><span class="nw">土地の</span><span class="nw">風景を</span><span class="nw">映して</span><span class="nw">おります。</span></p>
 
         <div class="photo-grid">
             <figure class="reveal">
@@ -895,7 +912,7 @@
                 <cite>お客様の声より</cite>
             </blockquote>
             <blockquote class="voice-card reveal">
-                <p><span class="nw">ラム</span><span class="nw">肉が</span><span class="nw">食べたくなると、</span><span class="nw">いつもこちらに</span><span class="nw">伺います。</span><span class="nw">美味しい</span><span class="nw">ラム</span><span class="nw">肉の</span><span class="nw">色々な</span><span class="nw">部位を</span><span class="nw">食べられる</span><span class="nw">ので、</span><span class="nw">飽きません。</span><span class="nw">お酒の</span><span class="nw">種類も</span><span class="nw">多い</span><span class="nw">ので、</span><span class="nw">何かと</span><span class="nw">重宝し</span><span class="nw">ております。</span><span class="nw">駐車場はありませんが、</span><span class="nw">近くに</span><span class="nw keep">コインパーキングが</span><span class="nw keep">たくさんあります。</span><span class="nw">2軒目、</span><span class="nw">3軒目に</span><span class="nw">行く</span><span class="nw">際にも</span><span class="nw">助かります。</span></p>
+                <p><span class="nw">ラム</span><span class="nw">肉が</span><span class="nw">食べたくなると、</span><span class="nw">いつもこちらに</span><span class="nw">伺います。</span><span class="nw">美味しい</span><span class="nw">ラム</span><span class="nw">肉の</span><span class="nw">色々な</span><span class="nw">部位を</span><span class="nw">食べられる</span><span class="nw">ので、</span><span class="nw">飽きません。</span><span class="nw">お酒の</span><span class="nw">種類も</span><span class="nw">多い</span><span class="nw">ので、</span><span class="nw">何かと</span><span class="nw">重宝して</span><span class="nw">おります。</span><span class="nw">駐車場はありませんが、</span><span class="nw">近くに</span><span class="nw keep">コインパーキングが</span><span class="nw keep">たくさんあります。</span><span class="nw">2軒目、</span><span class="nw">3軒目に</span><span class="nw">行く</span><span class="nw">際にも</span><span class="nw">助かります。</span></p>
                 <cite>お客様の声より</cite>
             </blockquote>
             <blockquote class="voice-card reveal">
@@ -919,8 +936,8 @@
             <p><span class="nw">ご入店は</span><span class="nw">17時</span><span class="nw">30分から、</span><span class="nw">最終の</span><span class="nw">ご入店は</span><span class="nw">21時</span><span class="nw">30分までで</span><span class="nw">ございます。</span><span class="nw">お料理・</span><span class="nw">お飲み</span><span class="nw">ものの</span><span class="nw">ラストオーダーは</span><span class="nw">23時、</span><span class="nw">閉店は</span><span class="nw">24時。</span></p>
             <p><span class="nw">定休日は</span><span class="nw">月曜日。</span><span class="nw">月曜が</span><span class="nw">祝日の</span><span class="nw">場合も</span><span class="nw">お休みを</span><span class="nw">いただきます。</span><span class="nw">ほかに</span><span class="nw">月に</span><span class="nw">1日、</span><span class="nw">不定休が</span><span class="nw">ございます。</span></p>
             <p><span class="nw">駐車場はございません。</span><span class="nw">隣接の</span><span class="nw">コインパーキングを</span><span class="nw">ご利用ください。</span></p>
-            <p><span class="nw">席料を</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">サービス</span><span class="nw">料・</span><span class="nw">チャージ</span><span class="nw">料はございません。</span></p>
-            <p><span class="nw">ご予約は</span><span class="nw">お電話または</span><span class="nw">公式</span><span class="nw">LINEで</span><span class="nw">承ります。</span><span class="nw">お電話は</span><span class="nw">営業時間中に</span><span class="nw">承っ</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">昼のうちに</span><span class="nw">お決めの</span><span class="nw">際は</span><span class="nw">公式</span><span class="nw">LINEへ</span><span class="nw">お送り</span><span class="nw">くださいませ。</span><span class="nw">当日の</span><span class="nw">空席は、</span><span class="nw">Instagramの</span><span class="nw">ハイライトでも</span><span class="nw">お知らせし</span><span class="nw">ております。</span><span class="nw">ご予約の</span><span class="nw">お客様を</span><span class="nw">優先して</span><span class="nw">ご案内いたします。</span><span class="nw">10名様を</span><span class="nw">超える</span><span class="nw">人数で</span><span class="nw">お越しの</span><span class="nw">際は、</span><span class="nw">一度</span><span class="nw">お電話で</span><span class="nw">ご相談くださいませ。</span></p>
+            <p><span class="nw">席料を</span><span class="nw">いただいて</span><span class="nw">おります。</span><span class="nw">サービス</span><span class="nw">料・</span><span class="nw">チャージ</span><span class="nw">料はございません。</span></p>
+            <p><span class="nw">ご予約は</span><span class="nw">お電話または</span><span class="nw">公式</span><span class="nw">LINEで</span><span class="nw">承ります。</span><span class="nw">お電話は</span><span class="nw">営業時間中に</span><span class="nw">承って</span><span class="nw">おります</span><span class="nw">ので、</span><span class="nw">昼のうちに</span><span class="nw">お決めの</span><span class="nw">際は</span><span class="nw">公式</span><span class="nw">LINEへ</span><span class="nw">お送り</span><span class="nw">くださいませ。</span><span class="nw">当日の</span><span class="nw">空席は、</span><span class="nw">Instagramの</span><span class="nw">ハイライトでも</span><span class="nw">お知らせして</span><span class="nw">おります。</span><span class="nw">ご予約の</span><span class="nw">お客様を</span><span class="nw">優先して</span><span class="nw">ご案内いたします。</span><span class="nw">10名様を</span><span class="nw">超える</span><span class="nw">人数で</span><span class="nw">お越しの</span><span class="nw">際は、</span><span class="nw">一度</span><span class="nw">お電話で</span><span class="nw">ご相談くださいませ。</span></p>
             <p><span class="nw">ご都合が</span><span class="nw">変わりましたら、</span><span class="nw">お早めに</span><span class="nw">お電話か</span><span class="nw">公式</span><span class="nw">LINEで</span><span class="nw">お知らせ</span><span class="nw">くださいませ。</span><span class="nw">コースの</span><span class="nw">ご予約は</span><span class="nw">前日・</span><span class="nw">当日の</span><span class="nw">お取り</span><span class="nw">消しで</span><span class="nw">料金の</span><span class="nw">全額、</span><span class="nw">お席のみの</span><span class="nw">ご予約はおひとり</span><span class="nw">4,000円を</span><span class="nw">頂戴する</span><span class="nw">ことが</span><span class="nw">ございます。</span></p>
         </div>
     </div>
@@ -937,7 +954,7 @@
 
         <div class="info-grid">
             <div class="reveal">
-                <p class="lead" style="color:var(--ink);"><span class="nw">JR小山駅西口から</span>約220m。<span class="nw">黒い</span><span class="nw">縦看板に、</span><span class="nw">白い</span><span class="nw">筆文字で</span><span class="nw">「コルデロ」と</span><span class="nw">抜いて</span><span class="nw">ございます。</span><span class="nw">銀色の</span><span class="nw">壁のあいだに</span><span class="nw">黒い</span><span class="nw">扉があり、</span><span class="nw">丸い</span><span class="nw">窓がひとつ</span><span class="nw">付い</span><span class="nw">ております。</span></p>
+                <p class="lead" style="color:var(--ink);"><span class="nw">JR小山駅西口から</span>約220m。<span class="nw">黒い</span><span class="nw">縦看板に、</span><span class="nw">白い</span><span class="nw">筆文字で</span><span class="nw">「コルデロ」と</span><span class="nw">抜いて</span><span class="nw">ございます。</span><span class="nw">銀色の</span><span class="nw">壁のあいだに</span><span class="nw">黒い</span><span class="nw">扉があり、</span><span class="nw">丸い</span><span class="nw">窓がひとつ</span><span class="nw">付いて</span><span class="nw">おります。</span></p>
 
                 <table class="info-table">
                     <tr><th><span class="nw">住所</span></th><td>〒323-0023 <span class="nw">栃木県小山市中央町</span>3-1-10</td></tr>
@@ -957,7 +974,7 @@
                     <a href="https://line.me/R/ti/p/@zvx7548i" target="_blank" rel="noopener">公式LINE</a>
                 </div>
 
-                <p class="info-closing"><span class="nw">今夜の</span><span class="nw">赤身を、</span><span class="nw">ご用意して</span><span class="nw">お待ちし</span><span class="nw">ております。</span></p>
+                <p class="info-closing"><span class="nw">今夜の</span><span class="nw">赤身を、</span><span class="nw">ご用意して</span><span class="nw">お待ちして</span><span class="nw">おります。</span></p>
 
                 <div class="hero-actions">
                     <a href="tel:080-9772-2299" class="btn btn-primary">

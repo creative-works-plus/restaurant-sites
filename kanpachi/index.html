@@ -149,12 +149,6 @@
         --tex-tint:    var(--accent);   /* mask で素材を染める色。既定は店の差し色 */
 
 
-        /* ★mask を読むトークンの既定値は none にしない（2026-08-15・遊季の蔵で発覚）。
-           background-image: none は「描かない」だが、**mask-image: none は「マスクを掛けない」＝全面表示**。
-           none のまま .orn を置くと、素材が入る前に差し色の四角い面がそのまま出る。
-           店ごとに紋のスロットを足すときは、必ずこの透明1pxを既定値にしてから足す。 */
-        --orn-blank:   url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
-
         /* --- 形・間（ブリーフ §2・§7 の値で上書き） ------------------------------ */
         --radius:      3px;
         --maxw:        1060px;
@@ -569,6 +563,14 @@
 
     .lead-photo { margin-top: var(--sp-5); max-width: 620px; }
     .lead-photo.is-right { margin-left: auto; }
+    /* ★屋号の章：紋の図を外したので、PCでは本文と外観写真を左右に並べて間延びさせない */
+    @media (min-width: 900px) {
+        #about .container { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+            column-gap: var(--sp-6); align-items: start; }
+        #about .section-title { grid-column: 1 / -1; }
+        #about .prose { grid-column: 1; }
+        #about .lead-photo { grid-column: 2; grid-row: 2; margin-top: 0; max-width: none; }
+    }
 
     /* ── ヒーロー ─────────────────────────────────────────────────── */
     .hero { display: flex; align-items: center; padding-block: calc(var(--header-h) + var(--sp-3)) var(--sp-6); }
@@ -592,58 +594,18 @@
         .hero-mosaic .m-side { flex-direction: row; }
     }
 
-    /* ── 署名 A-89「看板から、箸袋まで」（ブリーフ §10・動かさない） ───── */
-    .mon-signature { margin-top: var(--sp-6); }
-    .mon-frame { width: min(700px, 88vw); height: 200px; margin-inline: auto;
-        display: flex; align-items: flex-end; justify-content: center; padding-bottom: 22px;
-        transform-origin: center bottom; }
-    @media (max-width: 600px) { .mon-frame { transform: scale(.62); } }
-    @media (max-width: 400px) { .mon-frame { transform: scale(.53); } }
-    /* ★PCで本文（左）・紋（中央）・外観写真（右）と軸が3本にならないよう、
-       紋の枠の左端を本文の左端に揃える（ブリーフ§10の寸法・段数・色は変えない） */
-    @media (min-width: 601px) {
-        .mon-frame { margin-inline: 0; justify-content: flex-start; transform-origin: left bottom; }
-    }
-    .mon-wrap { flex: 0 0 auto; }
-    .mon-wrap svg { display: block; width: 100%; height: 100%; color: var(--accent); }
-    .mon-wrap svg circle { stroke: currentColor; }
-    .mon-wrap svg polygon { fill: currentColor; }
-    .mon-label { font-size: var(--fz-cap); color: var(--muted); white-space: nowrap; padding-bottom: 6px; letter-spacing: .04em; }
-    .mon-label-left { margin-right: 16px; transform-origin: right center; }
-    .mon-label-right { margin-left: 16px; transform-origin: left center; }
-    @media (max-width: 460px) {
-        .mon-label-left { margin-right: 8px; }
-        .mon-label-right { margin-left: 8px; }
-    }
-    /* ★.mon-frame の縮小（上）は「看板」「箸袋」の文字も一緒に縮めてしまい、
-       390px前後では読めない大きさになる。ラベルにだけ逆比率を掛けて、
-       見た目の文字サイズを var(--fz-cap) のまま保つ（紋そのものの縮尺は変えない） */
-    @media (max-width: 600px) { .mon-label { transform: scale(1.6129); } }  /* 1 / .62 */
-    @media (max-width: 400px) { .mon-label { transform: scale(1.8868); } }  /* 1 / .53 */
-
-    /* ── お品書き章見出しの三角（ブリーフ §11-②：紋そのものは繰り返さない） ── */
-    .chap-orn { display: inline-flex; align-items: flex-end; gap: 3px; margin-right: 10px; vertical-align: baseline; }
-    .chap-orn span { display: inline-block; width: 0; height: 0; }
-    .orn-knp-1 span, .orn-knp-2 span, .orn-knp-3 span {
-        border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid var(--accent);
-    }
-
     /* ── お品書き（build_menu.py の出力に見た目を当てる） ─────────────── */
     .subnav { position: sticky; top: var(--header-h); z-index: 40; background: var(--bg);
         border-block: 1px solid var(--line); }
-    .subnav-inner { display: flex; gap: var(--sp-2); overflow-x: auto; padding: var(--sp-2) var(--pad-inner);
-        max-width: var(--maxw); margin-inline: auto; }
+    .subnav-inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px var(--sp-2);
+        padding: var(--sp-2) var(--pad-inner); max-width: var(--maxw); margin-inline: auto; }
     .subnav a { color: var(--muted); font-size: .85rem; border-radius: var(--radius); white-space: nowrap; }
     .subnav a:hover { color: var(--ink); background: var(--surface); }
-    /* ★右端で文字が切れて見えるのを防ぐ。横に続くことが分かるよう --bg へ抜けるグラデを重ねる
-       （8章ぶんのタブ幅が画面に収まらないスマホ・タブレット幅だけ出す） */
-    @media (max-width: 900px) {
-        .subnav { position: sticky; }
-        .subnav::after {
-            content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 36px;
-            background: linear-gradient(to right, transparent, var(--bg));
-            pointer-events: none;
-        }
+    /* ★横スクロールにしない（menu-tabs 型A'）。スマホは3列で折り返して8つを1画面に出す */
+    @media (max-width: 640px) {
+        .subnav-inner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 4px; padding-block: 4px; }
+        .subnav a { justify-content: center; text-align: center; white-space: normal; line-height: 1.3;
+            font-size: .82rem; padding-inline: 4px; }
     }
 
     .menu-block { padding-block: var(--blk-y); border-top: 1px solid var(--line); }
@@ -798,30 +760,6 @@
             <p><span class="nw">この</span><span class="nw">名に</span><span class="nw">丸に</span><span class="nw">三つ</span><span class="nw">鱗の</span><span class="nw">紋を</span><span class="nw">添えて、</span><span class="nw">店の</span><span class="nw">顔にして</span><span class="nw">おります。</span><span class="nw">表の</span><span class="nw">四枚看板から、</span><span class="nw">暖簾、</span><span class="nw">提灯、</span><span class="nw">湯呑み、</span><span class="nw">箸袋、</span><span class="nw">器まで、</span><span class="nw">同じ</span><span class="nw">形で</span><span class="nw">通して</span><span class="nw">おります。</span><span class="nw">どこでこの</span><span class="nw">紋を</span><span class="nw">目にされても、</span><span class="nw">かん</span><span class="nw">八と</span><span class="nw">分かって</span><span class="nw">いただける</span><span class="nw">ように。</span></p>
         </div>
 
-        <div class="mon-signature reveal" role="img" aria-label="丸に三つ鱗の紋を、看板の大きさから箸袋の大きさまで5段階に縮めて並べたもの">
-            <div class="mon-frame" aria-hidden="true">
-                <span class="mon-label mon-label-left">看板</span>
-
-                <div class="mon-wrap" style="width:150px;height:150px;margin-right:51px;">
-                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke-width="7.14"/><polygon points="50,15.3 35,41.3 65,41.3"/><polygon points="35,41.3 20,67.3 50,67.3"/><polygon points="65,41.3 50,67.3 80,67.3"/></svg>
-                </div>
-                <div class="mon-wrap" style="width:96px;height:96px;margin-right:32.64px;">
-                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke-width="7.14"/><polygon points="50,15.3 35,41.3 65,41.3"/><polygon points="35,41.3 20,67.3 50,67.3"/><polygon points="65,41.3 50,67.3 80,67.3"/></svg>
-                </div>
-                <div class="mon-wrap" style="width:61px;height:61px;margin-right:20.74px;">
-                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke-width="7.14"/><polygon points="50,15.3 35,41.3 65,41.3"/><polygon points="35,41.3 20,67.3 50,67.3"/><polygon points="65,41.3 50,67.3 80,67.3"/></svg>
-                </div>
-                <div class="mon-wrap" style="width:39px;height:39px;margin-right:13.26px;">
-                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke-width="7.14"/><polygon points="50,15.3 35,41.3 65,41.3"/><polygon points="35,41.3 20,67.3 50,67.3"/><polygon points="65,41.3 50,67.3 80,67.3"/></svg>
-                </div>
-                <div class="mon-wrap" style="width:25px;height:25px;">
-                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke-width="7.14"/><polygon points="50,15.3 35,41.3 65,41.3"/><polygon points="35,41.3 20,67.3 50,67.3"/><polygon points="65,41.3 50,67.3 80,67.3"/></svg>
-                </div>
-
-                <span class="mon-label mon-label-right">箸袋</span>
-            </div>
-        </div>
-
         <figure class="lead-photo is-right reveal">
             <div class="photo-frame ar-34">
                 <img src="img/mon-shopfront.jpg" alt="建物の外観。丸に三つ鱗の紋の看板と、四枚看板、暖簾"
@@ -968,7 +906,7 @@
 <section class="section">
     <div class="container">
         <div class="menu-block reveal" id="nigiri">
-            <div class="menu-head"><h2><span class="chap-orn orn-knp-3"><span></span><span></span><span></span></span><span class="nw">にぎり</span></h2></div>
+            <div class="menu-head"><h2><span class="nw">にぎり</span></h2></div>
             <p class="menu-note"><span class="nw">その</span><span class="nw">他、</span><span class="nw">お好みにより</span><span class="nw">調整いたします。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
@@ -985,7 +923,7 @@
         </div>
 
         <div class="menu-block reveal" id="kaisendon">
-            <div class="menu-head"><h2><span class="chap-orn orn-knp-2"><span></span><span></span></span><span class="nw">海鮮丼・</span><span class="nw">ちらし</span></h2></div>
+            <div class="menu-head"><h2><span class="nw">海鮮丼・</span><span class="nw">ちらし</span></h2></div>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">大名ちらし</span></span></li>
@@ -1002,7 +940,7 @@
         </div>
 
         <div class="menu-block reveal" id="makimono">
-            <div class="menu-head"><h2><span class="chap-orn orn-knp-2"><span></span><span></span></span>彩 <span class="nw">巻物</span></h2></div>
+            <div class="menu-head"><h2>彩 <span class="nw">巻物</span></h2></div>
             <p class="menu-note"><span class="nw">巻物は</span><span class="nw">一人前二本、</span><span class="nw">太巻は</span><span class="nw">一人前三本となって</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
@@ -1023,7 +961,7 @@
         </div>
 
         <div class="menu-block reveal" id="lunch-don">
-            <div class="menu-head"><h2><span class="chap-orn orn-knp-1"><span></span></span><span class="kata"><span class="nw">ランチのおしながき｜</span></span>丼</h2></div>
+            <div class="menu-head"><h2><span class="kata"><span class="nw">ランチのおしながき｜</span></span>丼</h2></div>
             <p class="menu-note"><span class="nw">旬の</span><span class="nw">素材を</span><span class="nw">使用して</span><span class="nw">おります</span><span class="nw">ので、</span><span class="nw">季節により</span><span class="nw">内容が</span><span class="nw">変わる</span><span class="nw">場合が</span><span class="nw">ございます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
@@ -1036,7 +974,7 @@
         </div>
 
         <div class="menu-block reveal" id="lunch-set">
-            <div class="menu-head"><h2><span class="chap-orn orn-knp-1"><span></span></span><span class="kata"><span class="nw">ランチのおしながき｜</span></span><span class="nw">セット</span></h2></div>
+            <div class="menu-head"><h2><span class="kata"><span class="nw">ランチのおしながき｜</span></span><span class="nw">セット</span></h2></div>
             <p class="menu-note"><span class="nw">コーヒーも</span><span class="nw">お付けできます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
@@ -1049,7 +987,7 @@
         </div>
 
         <div class="menu-block reveal" id="ippin">
-            <div class="menu-head"><h2><span class="chap-orn orn-knp-3"><span></span><span></span><span></span></span><span class="nw">肴・</span><span class="nw">一品</span></h2></div>
+            <div class="menu-head"><h2><span class="nw">肴・</span><span class="nw">一品</span></h2></div>
             <p class="menu-note"><span class="nw">仕入れにより、</span><span class="nw">ご用意できない</span><span class="nw">日が</span><span class="nw">ございます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
@@ -1075,7 +1013,7 @@
         </div>
 
         <div class="menu-block reveal" id="drink">
-            <div class="menu-head"><h2><span class="chap-orn orn-knp-1"><span></span></span><span class="nw">お飲み</span><span class="nw">もの</span></h2></div>
+            <div class="menu-head"><h2><span class="nw">お飲み</span><span class="nw">もの</span></h2></div>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">生ビール</span><span class="desc"><span class="nw">ザ・</span><span class="nw">プレミアム・</span><span class="nw">モルツ</span><span class="nw">（神泡認定店）</span></span></span></li>
@@ -1113,7 +1051,7 @@
         </div>
 
         <div class="menu-block reveal" id="sake">
-            <div class="menu-head"><h2><span class="chap-orn orn-knp-2"><span></span><span></span></span><span class="nw">日本酒・</span><span class="nw">焼酎</span></h2></div>
+            <div class="menu-head"><h2><span class="nw">日本酒・</span><span class="nw">焼酎</span></h2></div>
             <p class="menu-note"><span class="nw">焼酎は</span><span class="nw">ボトルでの</span><span class="nw">お出しになります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">

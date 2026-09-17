@@ -543,28 +543,6 @@
         .hero-photo { order: -1; }
     }
 
-    /* --- 署名 A-91「簀と紙」（ブリーフ10の数値どおり。動かさない） -------------- */
-    .signature { padding-top: var(--sp-5); padding-bottom: var(--sec-y); }
-    .bon { background: var(--ink); padding: 16px; }
-    .bon-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 16px; height: 220px; }
-    .bon-paper { position: relative; overflow: hidden; background: var(--surface); }
-    .bon-paper-tex { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .bon-fold { position: absolute; left: 0; right: 0; top: 14px; height: 1px; background: rgba(42, 38, 33, .3); }
-    .bon-take {
-        position: relative; background: var(--take);
-        background-image: repeating-linear-gradient(to bottom, rgba(42, 38, 33, .55) 0 1px, transparent 1px 5px);
-    }
-    .bon-string { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--accent); }
-    .bon-string-1 { left: 22%; }
-    .bon-string-2 { left: 78%; }
-    .bon-captions { display: grid; grid-template-columns: 5fr 7fr; gap: 16px; padding-inline: 16px; margin-top: var(--sp-2); }
-    .bon-cap { font-size: calc(var(--fz-cap) + 1px); color: var(--muted); }
-    @media (max-width: 620px) {
-        .bon { padding: 12px; }
-        .bon-grid { grid-template-columns: 1fr; grid-template-rows: 88px 132px; gap: 12px; height: auto; }
-        .bon-captions { grid-template-columns: 1fr; gap: 12px; padding-inline: 12px; }
-    }
-
     /* --- 章の中：左5：右7の非対称。章1・3だけ写真を左へ（比は動かさず左右だけ反転） --- */
     .chapter { border-top: 1px solid var(--line); }
     .chapter-grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--gap); align-items: start; margin-top: var(--blk-y); }
@@ -623,13 +601,14 @@
     .menu-list .price { white-space: nowrap; font-variant-numeric: tabular-nums; }
     .menu-list .price small { display: block; font-size: .72rem; color: var(--dim); font-weight: 400; text-align: right; }
     .subnav { position: sticky; top: var(--header-h); z-index: 40; background: var(--surface); border-bottom: 1px solid var(--line); }
-    .subnav-inner { display: flex; flex-wrap: wrap; gap: 0 var(--sp-3); width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
-    .subnav a { font-size: .9rem; color: var(--muted); }
+    .subnav-inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 var(--sp-3); width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+    .subnav a { font-size: .9rem; color: var(--muted); display: inline-flex; align-items: center; min-height: 44px; }
     .subnav a.is-active { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
-    /* スマホは折り返さず横1行でスクロール（ピル・枠にはしない。文字＋現在の章の下線だけ） */
+    /* スマホも横スクロールにせず折り返して1画面で全部見せる（menu-tabs）。ピル・枠にはしない */
     @media (max-width: 620px) {
-        .subnav-inner { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 0 var(--sp-4); }
-        .subnav a { font-size: .875rem; white-space: nowrap; flex: 0 0 auto; }
+        .subnav { position: static; }
+        .subnav-inner { gap: 0 var(--sp-4); }
+        .subnav a { font-size: .875rem; white-space: nowrap; }
     }
 
     /* --- アクセス章（文→写真→表→地図の順。1章にまとめる） ---------------------- */
@@ -731,36 +710,6 @@
      <img> には width/height と height:auto を必ず付ける（08-画像の作法.md）
      同じ画像を1ページの中で2回使わない
      ══════════════════════════════════════════════════════════════════════ -->
-<!-- ══════════════════════════════════════════════════════════════════════
-     署名 A-91「簀と紙」（ブリーフ10のとおり。動かさない）
-     ══════════════════════════════════════════════════════════════════════ -->
-<section class="signature reveal" aria-label="簀と紙">
-    <div class="container">
-        <div class="bon">
-            <div class="bon-grid">
-                <div class="bon-paper">
-                    <svg class="bon-paper-tex" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <filter id="bonPaperTex" x="0" y="0" width="100%" height="100%">
-                            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="9107" stitchTiles="stitch"/>
-                        </filter>
-                        <rect width="100" height="100" filter="url(#bonPaperTex)" opacity="0.11"/>
-                    </svg>
-                    <span class="bon-fold"></span>
-                </div>
-                <div class="bon-take">
-                    <span class="bon-string bon-string-1"></span>
-                    <span class="bon-string bon-string-2"></span>
-                </div>
-            </div>
-        </div>
-        <div class="bon-captions">
-            <!--COPY:S-1-->
-            <p class="bon-cap"><span class="nw">紙には、</span><span class="nw">揚げたてを。</span></p>
-            <!--COPY:S-2-->
-            <p class="bon-cap"><span class="nw">簀には、</span><span class="nw">手打ちを。</span></p>
-        </div>
-    </div>
-</section>
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
@@ -796,7 +745,7 @@
 <!-- ══════════════════════════════════════════════════════════════════════
      2 手打ちのそばと、うどん（末尾にそば湯の段）
      ══════════════════════════════════════════════════════════════════════ -->
-<section class="section chapter" id="soba">
+<section class="section chapter" id="teuchi">
     <div class="container">
         <!--COPY:ch2-heading-->
         <h2 class="section-title h2-accent reveal"><span class="nw">手打ちのそばと、</span><span class="nw">うどん</span></h2>
@@ -805,17 +754,17 @@
                 <!--COPY:ch2-lead-->
                 <p class="lead"><span class="nw">そばも、</span><span class="nw">うどんも、</span><span class="nw">店で</span><span class="nw">手打ちして</span><span class="nw">おります。</span><span class="nw">お品書きのどの</span><span class="nw">品も、</span><span class="nw">そばとうどんのどちらかを</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">冷たいもり・</span><span class="nw">ざるのほか、</span><span class="nw">かも</span><span class="nw">汁、</span><span class="nw">ちたけ、</span><span class="nw">山菜など、</span><span class="nw">温かい</span><span class="nw">汁ものも</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">大盛も</span><span class="nw">承ります。</span></p>
                 <div class="chapter-photos-pair">
-                    <figure class="photo-frame" style="aspect-ratio:3/4">
+                    <figure class="photo-frame" style="aspect-ratio:1/1">
                         <img src="img/ch2-hosouchi.jpg" width="768" height="768" alt="細く打った、手打ちのそば" loading="lazy">
                     </figure>
-                    <figure class="photo-frame" style="aspect-ratio:3/4">
-                        <img src="img/ch2-atatakai.jpg" width="768" height="1024" alt="温かい汁のそば" loading="lazy">
+                    <figure class="photo-frame" style="aspect-ratio:1/1">
+                        <img src="img/ch2-atatakai-rot.jpg" width="1024" height="768" alt="温かい汁のそば" loading="lazy">
                     </figure>
                 </div>
             </div>
             <div class="chapter-photos">
-                <figure class="photo-frame" style="aspect-ratio:4/3; max-width:560px">
-                    <img src="img/ch2-mori.jpg" width="1024" height="768" alt="もりそば" loading="lazy">
+                <figure class="photo-frame" style="aspect-ratio:3/2; max-width:560px">
+                    <img src="img/ch2-mori-trim.jpg" width="964" height="643" alt="もりそば" loading="lazy">
                 </figure>
             </div>
         </div>

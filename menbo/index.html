@@ -179,11 +179,6 @@
         --fz-body: 16px;
         --fz-cap:  13px;
 
-        /* --- お品書き章見出しの切り口の印（ブリーフ11-②。menu.html でのみ使う） ---
-           太線1本＋細線3本の2本線の印。そば章＝太線が上／その他章＝太線が下、と並び順を反転する。
-           mask-image として --ink で塗る（--orn-blank と同じ作法） */
-        --orn-mnb-a: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2028%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2220%22%20height%3D%2213%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2220%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2225%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3C/svg%3E");
-        --orn-mnb-b: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2028%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%225%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2210%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%2213%22%20fill%3D%22%23000%22/%3E%3C/svg%3E");
     }
 
     /* --- リセット ------------------------------------------------------------- */
@@ -543,20 +538,43 @@
     figcaption { font-size: var(--fz-cap); color: var(--dim); margin-top: var(--sp-2); }
 
     /* ══════════════════════════════════════════════════════════════════
-       ① ヒーロー：夜の外観＋文字カラム（署名 A-88 は屋号の直下）
+       ① ヒーロー：夜の外観（縦）を大きく＋屋号を大きく（2026-09-17 図形を外して組み直し）
+       PC：文字 左／写真 右。文字の左端＝ロゴ、写真の右端＝ヘッダーの電話の右端（.container で揃える）
+       スマホ：写真を画面幅いっぱい → 屋号 → 一言 → 電話
+       写真の実寸は 757×1024。PCの表示幅を 500px までに抑えて引き伸ばさない
        ══════════════════════════════════════════════════════════════════ */
     .hero { display: flex; align-items: center; background: var(--bg); }
-    .hero .container { padding-block: clamp(40px, 8vw, 64px); }
-    .hero-grid { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 5vw, 48px); align-items: center; }
-    @media (min-width: 769px) { .hero-grid { grid-template-columns: 1.05fr 1fr; } }
-    .hero-photo { margin: 0; }
-    .hero-photo img { object-fit: cover; }
-    .hero-name { font-size: var(--fz-hero); color: var(--ink); }
-    .a88 { width: min(560px, 82vw); height: auto; display: block; margin: var(--sp-4) 0 var(--sp-5); }
-    .hero-catch { font-family: var(--font-head); font-size: clamp(19px, 3.4vw, 24px); font-weight: 600;
-        color: var(--ink); margin-bottom: var(--sp-3); }
-    .hero-sub { color: var(--dim); font-size: var(--fz-body); margin-bottom: var(--sp-5); max-width: 34em; }
-    .hero .status-chip { margin-bottom: var(--sp-4); }
+    .hero .container { padding-block: clamp(40px, 7vw, 72px); }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+    .hero-photo { margin: 0; overflow: hidden; }
+    .hero-photo img { display: block; width: 100%; height: 100% !important; object-fit: cover; }  /* 枠の比で切る（属性の height:auto を上書き） */
+    .hero-kind { display: block; font-family: var(--font-head); font-size: clamp(15px, 1.6vw, 18px); font-weight: 500;
+        letter-spacing: .32em; color: var(--dim); margin-bottom: clamp(6px, 1.2vw, 14px); }
+    .hero-yago { display: block; font-family: var(--font-head); font-weight: 500; line-height: 1.05;
+        font-size: clamp(64px, 11vw, 124px); letter-spacing: .04em; color: var(--ink); }
+    .hero-catch { font-family: var(--font-head); font-size: clamp(20px, 2.6vw, 28px); font-weight: 500;
+        color: var(--ink); letter-spacing: .06em; line-height: 1.5;
+        margin: clamp(22px, 3vw, 36px) 0 var(--sp-3); padding-top: clamp(22px, 3vw, 36px); border-top: 1px solid var(--line-strong); }
+    .hero-sub { color: var(--dim); font-size: var(--fz-body); line-height: 1.95; margin-bottom: clamp(28px, 4vw, 44px); max-width: 30em; }
+    .hero .status-chip { margin-bottom: var(--sp-4); padding: 0; border: 0; border-radius: 0; background: none; }
+    .hero .hero-actions { align-items: center; gap: 12px 28px; }
+    .hero .btn-primary { min-height: 56px; padding-inline: 26px; font-size: 16px; letter-spacing: .06em; }
+    .hero-more { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--ink); font-size: 15px;
+        border-bottom: 1px solid var(--ink); }
+    .hero-more:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
+    @media (min-width: 900px) {
+        .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 500px); }
+        .hero-photo { aspect-ratio: 4 / 5; }
+    }
+    @media (max-width: 899px) {
+        .hero { align-items: flex-start; }  /* 写真をヘッダーの直下に付ける（縦に余ったとき上に隙間を作らない） */
+        .hero .container { padding-top: 0; }
+        .hero-photo { order: -1; aspect-ratio: 6 / 5; max-height: 62svh; margin-inline: calc(-1 * var(--pad-inner)); }
+        .hero-photo img { object-position: 50% 80%; }
+    }
+    @media (max-width: 480px) {
+        .hero .btn-primary { width: 100%; font-size: 14px; padding-inline: 12px; letter-spacing: 0; gap: 6px; }
+    }
 
     /* ══════════════════════════════════════════════════════════════════
        ② 太いか、細いか：2枚並び
@@ -712,44 +730,24 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
     <div class="container">
-        <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
-
         <div class="hero-grid">
-            <figure class="hero-photo photo-frame ar-169 reveal">
-                <img src="img/hero-night.jpg" width="757" height="426" style="height:auto"
-                     alt="灯りが入った夜の手打ちそば めん坊の外観">
-            </figure>
             <div class="hero-text">
-                <h1 class="hero-name"><span class="nw">手打ちそば</span> <span class="nw">めん</span>坊</h1>
-                <svg class="a88" viewBox="0 0 560 199" width="560" height="199" role="img" aria-label="太い帯4本と細い帯12本の組紋。太麺と細麺を表す">
-                    <rect x="0" y="0"  width="560" height="13" fill="var(--ink)" opacity=".88"/>
-                    <rect x="0" y="22" width="560" height="13" fill="var(--ink)" opacity=".88"/>
-                    <rect x="0" y="44" width="560" height="13" fill="var(--ink)" opacity=".88"/>
-                    <rect x="0" y="66" width="560" height="13" fill="var(--ink)" opacity=".88"/>
-                    <rect x="0" y="119" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="126" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="133" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="140" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="147" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="154" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="161" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="168" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="175" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="182" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="189" width="560" height="3" fill="var(--ink)"/>
-                    <rect x="0" y="196" width="560" height="3" fill="var(--ink)"/>
-                </svg>
+                <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
+                <h1 class="hero-name"><span class="hero-kind"><span class="nw">手打ちそば</span></span><span class="hero-yago"><span class="nw">めん</span>坊</span></h1>
                 <p class="hero-catch"><span class="nw">そばを</span><span class="nw">選び、</span><span class="nw">つけ</span><span class="nw">汁を</span><span class="nw">選ぶ。</span></p>
                 <p class="hero-sub"><span class="nw">手打ちのそばに、</span><span class="nw">七種のつけ</span><span class="nw">汁。</span><span class="nw">小山市松沼で、</span><span class="nw">昼と</span><span class="nw">夜に</span><span class="nw">お迎えして</span><span class="nw">おります。</span></p>
+                <div class="hero-actions">
+                    <a href="tel:0285372800" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                        0285-37-2800｜お電話でのお問い合わせ
+                    </a>
+                    <a href="menu.html" class="hero-more">お品書きを見る<span aria-hidden="true">→</span></a>
+                </div>
             </div>
-        </div>
-
-        <div class="hero-actions">
-            <a href="tel:0285372800" class="btn btn-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                0285-37-2800｜お電話でのお問い合わせ
-            </a>
-            <a href="menu.html" class="btn btn-ghost">お品書きを見る</a>
+            <figure class="hero-photo">
+                <img src="img/hero-night-tate.jpg" width="757" height="1024" style="height:auto"
+                     alt="灯りが入った夜の手打ちそば めん坊の外観" fetchpriority="high">
+            </figure>
         </div>
     </div>
 </section>

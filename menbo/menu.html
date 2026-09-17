@@ -134,11 +134,6 @@
         --fz-body: 16px;
         --fz-cap:  13px;
 
-        /* --- お品書き章見出しの切り口の印（ブリーフ11-②。menu.html でのみ使う） ---
-           太線1本＋細線3本の2本線の印。そば章＝太線が上／その他章＝太線が下、と並び順を反転する。
-           mask-image として --ink で塗る（--orn-blank と同じ作法） */
-        --orn-mnb-a: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2028%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2220%22%20height%3D%2213%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2220%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2225%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3C/svg%3E");
-        --orn-mnb-b: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2028%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%225%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2210%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%23000%22/%3E%3Crect%20x%3D%220%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%2213%22%20fill%3D%22%23000%22/%3E%3C/svg%3E");
     }
 
     /* --- リセット ------------------------------------------------------------- */
@@ -533,41 +528,43 @@
     /* お品書き本編（build_menu.py の出力。クラス名は固定・見た目だけここで決める） */
     .lead-box { max-width: 46em; margin-bottom: var(--sec-y); color: var(--ink); }
 
+    /* お品書きの目次（14章＝menu-tabs 型B）。貼り付けない・横スクロールにしない・折り返して全部見せる */
     .subnav {
-        position: sticky; top: var(--header-h); z-index: 90;
-        background: rgba(232, 223, 202, .95); backdrop-filter: blur(6px);
-        border-bottom: 1px solid var(--line);
-        margin-bottom: var(--sec-y);
+        position: static; background: var(--surface);
+        border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+        margin-bottom: 0; padding-block: var(--sp-3);  /* 下の .section が上の余白を持つので二重にしない */
     }
     .subnav-inner {
-        display: flex; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(11em, 1fr)); gap: 0 var(--sp-4);
         width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
-        scrollbar-width: none;
     }
-    .subnav-inner::-webkit-scrollbar { display: none; }
     .subnav a {
-        color: var(--dim); font-size: 13px; font-weight: 500; white-space: nowrap;
-        border-bottom: 2px solid transparent;
+        display: flex; align-items: center; min-height: 44px; padding-inline: 0;
+        color: var(--ink); font-size: 14px; font-weight: 500; line-height: 1.35;
+        border-bottom: 1px solid var(--line);
     }
-    .subnav a:hover { color: var(--ink); border-bottom-color: var(--line-strong); }
+    .subnav a:hover { color: var(--accent-hi); }
+    @media (max-width: 640px) {
+        .subnav-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--sp-3); }
+        .subnav a { font-size: 13px; padding-inline: 0; white-space: nowrap; letter-spacing: 0; }  /* 最長「トッピング・お取り替え」11字＝143px が1列(約167px)に収まる */
+    }
+    /* 目次を通り過ぎたら右下に出す「目次へ」。スマホは下の電話バーの上に置く */
+    .to-index {
+        position: fixed; right: var(--pad-inner); bottom: 24px; z-index: 95;
+        display: inline-flex; align-items: center; min-height: 44px; padding-inline: 16px;
+        background: var(--bg); color: var(--ink); font-size: 13px; border: 1px solid var(--line-strong);
+        opacity: 0; pointer-events: none; transition: opacity .2s ease;
+    }
+    .to-index.visible { opacity: 1; pointer-events: auto; }
+    #menu-index { display: block; scroll-margin-top: calc(var(--header-h) + 8px); }
+    @media (max-width: 768px) { .to-index { bottom: 76px; } }
 
     .menu-block { margin-bottom: var(--sec-y); }
     .menu-block:last-child { margin-bottom: 0; }
-    .menu-head { display: flex; align-items: baseline; gap: var(--sp-3); margin-bottom: var(--sp-2); position: relative; padding-left: 24px; }
-    .menu-head::before {
-        /* ★必須6：太線1本＋細線3本の印が三本線メニューに見えないよう、
-           高さを --fz-h2 × 1.3 まで上げ、太線：細線の比を 13:3 にする（SVG側は --orn-mnb-a/b） */
-        content: ''; position: absolute; left: 0; top: 2px; width: 10px; height: calc(var(--fz-h2) * 1.3);
-        background: var(--ink); -webkit-mask-image: var(--orn); mask-image: var(--orn);
-        -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
-        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-    }
-    /* そば章＝太線が上（--orn-mnb-a）／その他章＝太線が下（--orn-mnb-b） */
-    #soba, #tsukejiru, #tempura, #atatakai, #sonota-atatakai, #kisetsu, #gozen { --orn: var(--orn-mnb-a); }
-    #lunch, #komoridon, #donlunch, #donmono, #donset, #topping, #drink { --orn: var(--orn-mnb-b); }
+    .menu-head { display: flex; align-items: baseline; gap: var(--sp-3); margin-bottom: var(--sp-2); }
 
     /* ★必須5：そば系7章を --surface の面にまとめ、丼・ランチ系（無地のまま）と
-       視覚的に2群へ割る。既存の --orn-mnb-a グループ（そば系）をそのまま流用する。
+       視覚的に2群へ割る。
        margin-bottom を詰めて同色の面を連続させ、#gozen の後ろだけ通常の間隔に戻す。 */
     #soba, #tsukejiru, #tempura, #atatakai, #sonota-atatakai, #kisetsu, #gozen {
         background: var(--surface);
@@ -582,9 +579,9 @@
     .menu-head h2 { font-size: var(--fz-h3); color: var(--ink); }
     .menu-head .yomi { font-size: 11px; color: var(--dim); letter-spacing: .14em; }
     .menu-head .kata { color: var(--dim); font-weight: 500; }
-    .menu-note { color: var(--dim); font-size: 14px; margin-bottom: var(--sp-3); padding-left: 24px; }
+    .menu-note { color: var(--dim); font-size: 14px; margin-bottom: var(--sp-3); }
 
-    .menu-grid { display: grid; grid-template-columns: 1fr; gap: 0 var(--sp-5); padding-left: 24px; }
+    .menu-grid { display: grid; grid-template-columns: 1fr; gap: 0 var(--sp-5); }
     @media (min-width: 621px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
     @media (min-width: 621px) { .menu-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; } }
     .menu-list { display: grid; }
@@ -600,9 +597,9 @@
     .menu-list .price small { font-size: 11px; color: var(--dim); display: block; text-align: right; }
     .menu-list .origin { display: block; font-size: 11px; color: var(--dim); letter-spacing: .06em; }
 
-    .menu-photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--sp-3); margin-top: var(--sp-4); padding-left: 24px; }
+    .menu-photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--sp-3); margin-top: var(--sp-4); }
     .menu-photos figure { margin: 0; }
-    .menu-after { color: var(--dim); font-size: 14px; margin-top: var(--sp-3); padding-left: 24px; }
+    .menu-after { color: var(--dim); font-size: 14px; margin-top: var(--sp-3); }
     </style>
 </head>
 <body class="no-js">
@@ -674,6 +671,8 @@
      <img> には width/height と height:auto を必ず付ける（08-画像の作法.md）
      同じ画像を1ページの中で2回使わない
      ══════════════════════════════════════════════════════════════════════ -->
+<span id="menu-index" aria-hidden="true"></span>
+<a class="to-index" id="to-index" href="#menu-index">目次へ</a>
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
 <nav class="subnav" aria-label="お品書き内のナビゲーション">
     <div class="subnav-inner">
@@ -1054,6 +1053,12 @@ window.addEventListener('scroll', function () {
     if (stickyBar) {
         var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
         stickyBar.classList.toggle('visible', y > heroBottom * 0.6);
+    }
+    var toIndex = document.getElementById('to-index');
+    if (toIndex && subnavEl) {
+        var nb = subnavEl.getBoundingClientRect().bottom;
+        var lb = lastMenuBlock ? lastMenuBlock.getBoundingClientRect().bottom : 0;
+        toIndex.classList.toggle('visible', nb < 0 && lb > window.innerHeight * 0.5);
     }
     if (subnavEl && lastMenuBlock) {
         /* ★2026-08-11 追記：画面幅によって帯を追従させない店がある
