@@ -623,27 +623,48 @@ body.nav-open .mobile-nav { transform: translateX(0); }
 }
 
 /* --- お品書きの入口（トップの2行） ------------------------------------- */
-.menu-links { border-top: 1px solid var(--line); }
+/* ★2026-09-20：入口の行が「見出し」に見えて、押せることに気づかれなかった。
+   面（--surface）を敷いて、右端の矢印を枠に入れ、1本の帯ごと押せる形にした。
+   角丸・影・カプセル・有彩色は使わない（AI感を外した方針と、差し色＝乳白1色の規約のまま）。 */
+.menu-links { display: grid; gap: 12px; }
 .seat-link { margin-top: clamp(30px, 4vw, 46px); }
 .menu-link {
-    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px 20px;
-    padding: 24px 2px; border-bottom: 1px solid var(--line); color: inherit;
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px 18px;
+    padding: 22px 18px;
+    background: var(--surface); border: 1px solid var(--line);
+    color: inherit;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .menu-link-title { display: block; font-family: var(--font-head); font-size: 1.32rem; letter-spacing: 0.04em; }
 .menu-link-sub   { display: block; margin-top: 8px; color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
-.menu-link-arrow { color: var(--dim); font-size: 1.1rem; transition: transform 0.2s ease, color 0.2s ease; }
-.menu-link:hover { color: var(--accent); }
-.menu-link:hover .menu-link-arrow { color: var(--accent); transform: translateX(5px); }
+.menu-link-arrow {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 46px; height: 46px; flex: 0 0 auto;
+    border: 1px solid var(--line-strong); color: var(--ink); font-size: 1.05rem;
+    transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.menu-link:hover, .menu-link:focus-visible { background: var(--surface-2); border-color: var(--accent); color: var(--accent); }
+.menu-link:active { background: var(--surface); }
+.menu-link:hover .menu-link-arrow, .menu-link:focus-visible .menu-link-arrow {
+    color: var(--accent); border-color: var(--accent); transform: translateX(4px);
+}
 
 /* --- お品書きの2ページ（menu.html / drink.html） ----------------------- */
 .page-head { padding-bottom: clamp(28px, 5vw, 44px); }
 .page-title { font-size: clamp(2rem, 5.6vw, 2.9rem); margin-bottom: 18px; }
 .page-switch { margin-top: 26px; }
+/* ★2026-09-20：文字に下線を引いただけでは押せると分からなかったので、
+   戻りボタン（.btn-ghost）と同じ「細い枠＋面」に揃えた。 */
 .page-switch a {
-    display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
-    color: var(--muted); border-bottom: 1px solid var(--line-strong);
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 50px; padding: 12px 22px;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    color: var(--ink); letter-spacing: 0.04em;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
-.page-switch a:hover { color: var(--accent); border-color: var(--accent); }
+.page-switch a:hover, .page-switch a:focus-visible {
+    background: var(--surface-2); color: var(--accent); border-color: var(--accent);
+}
 .page-banner { max-width: 1024px; margin-inline: auto; padding-inline: var(--pad-inner); }
 .page-banner .photo-frame { aspect-ratio: 4 / 3; }
 @media (min-width: 700px) { .page-banner .photo-frame { aspect-ratio: 21 / 9; } }
@@ -686,29 +707,36 @@ body.nav-open .mobile-nav { transform: translateX(0); }
 }
 .subnav-inner {
     display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 2px 6px; padding: 6px var(--pad-inner);
+    gap: 8px; padding: 10px var(--pad-inner);
     max-width: var(--maxw); margin-inline: auto;
 }
+/* ★2026-09-20：文字が並んでいるだけでは「目次」に見えて押されなかったので、
+   1本の細枠と面を持たせて、1つずつ押せる形にした（角丸・影は無し）。 */
 .subnav a {
     min-height: 44px; display: inline-flex; align-items: center;
-    padding-inline: 12px;
-    font-size: 0.86rem; color: var(--muted); white-space: nowrap;
-    border-bottom: 2px solid transparent;
+    padding-inline: 14px;
+    font-size: 0.86rem; color: var(--ink); white-space: nowrap;
+    background: var(--surface); border: 1px solid var(--line);
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
-.subnav a:hover { color: var(--ink); border-color: var(--line-strong); }
+.subnav a:hover, .subnav a:focus-visible { color: var(--accent); border-color: var(--accent); background: var(--surface-2); }
 /* ★スマホでは10個が4段になる。貼り付けたままだと画面の三割を塞ぐので、
    狭い画面では貼り付けをやめ、お品書きの入口に置いたままにする。 */
 @media (max-width: 640px) {
     .subnav { position: static; }
+    /* ★2026-09-20：文字だけが3列に並んでいると、目次なのか押せるのか分からない。
+       1pxの罫で仕切った「マス」にして、1マスずつ押せることを形で示す。 */
     .subnav-inner {
         display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0; padding-block: 2px;
+        gap: 6px; padding: 8px var(--pad-inner);
     }
     .subnav a {
         justify-content: center; text-align: center;
         white-space: normal; line-height: 1.3;
         font-size: 0.8rem; padding-inline: 4px;
+        background: var(--surface); border: 1px solid var(--line);
     }
+    .subnav a:hover, .subnav a:focus-visible { background: var(--surface-2); }
     .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 }
 @media (min-width: 641px) {
@@ -746,7 +774,9 @@ body.nav-open .mobile-nav { transform: translateX(0); }
 
 .menu-back { margin-top: 8px; text-align: left; }
 .menu-back .container { display: flex; flex-wrap: wrap; gap: 12px 16px; }
-.menu-back .btn { flex: 0 0 auto; }
+/* ★2026-09-20：枠だけだと地の色に沈むので、押せる面を敷いて他の入口と揃えた */
+.menu-back .btn { flex: 0 0 auto; background: var(--surface); }
+.menu-back .btn:hover, .menu-back .btn:focus-visible { background: var(--surface-2); }
 
 /* --- お客様の声 -------------------------------------------------------- */
 .voice-grid {
