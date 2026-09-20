@@ -703,9 +703,10 @@ body.nav-open .mobile-nav { transform: translateX(0); }
     margin-bottom: 34px;
     break-inside: avoid;
 }
-@media (min-width: 1024px) {
-    .menu-wrap .container { column-count: 2; column-gap: 40px; }
-}
+/* ★2026-09-20：章を左右2段に流す（column-count）のをやめた。
+   段に流すと「特選 山形牛」の隣に「お野菜」が並び、どこまでがその章か分からなくなる。
+   1章＝画面の幅いっぱい、その下に次の章、という縦一列に戻す（丸藤さん指示）。 */
+.menu-wrap .menu-block { padding-top: 26px; margin-bottom: 44px; }
 .menu-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
 .menu-head h2 { font-size: 1.22rem; font-weight: 500; }
 .menu-head .yomi { font-size: 0.72rem; letter-spacing: 0.18em; color: var(--dim); white-space: nowrap; }
@@ -713,6 +714,8 @@ body.nav-open .mobile-nav { transform: translateX(0); }
 .menu-grid { display: grid; grid-template-columns: 1fr; gap: 2px 24px; }
 @media (min-width: 560px) {
     .menu-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
     .menu-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 }
 .menu-list li { padding-block: 7px; border-bottom: 1px solid var(--line); }
