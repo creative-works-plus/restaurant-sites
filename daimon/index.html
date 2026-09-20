@@ -24,7 +24,7 @@
     <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700&family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500&family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- favicon：07-favicon.md からモチーフを選び、店のテーマカラーで塗る -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2232%22%20fill%3D%22%232A1E17%22/%3E%20%3Crect%20x%3D%2210%22%20y%3D%2214%22%20width%3D%2244%22%20height%3D%225%22%20fill%3D%22%235C4636%22/%3E%20%3Crect%20x%3D%2212%22%20y%3D%2219%22%20width%3D%225%22%20height%3D%2228%22%20fill%3D%22%235C4636%22/%3E%20%3Crect%20x%3D%2247%22%20y%3D%2219%22%20width%3D%225%22%20height%3D%2228%22%20fill%3D%22%235C4636%22/%3E%20%3Crect%20x%3D%2217%22%20y%3D%2224%22%20width%3D%2230%22%20height%3D%224%22%20fill%3D%22%23C0AE9C%22/%3E%20%3Crect%20x%3D%2219%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%2220%22%20fill%3D%22%23C0AE9C%22/%3E%20%3Crect%20x%3D%2241%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%2220%22%20fill%3D%22%23C0AE9C%22/%3E%20%3Crect%20x%3D%2224%22%20y%3D%2233%22%20width%3D%2216%22%20height%3D%223%22%20fill%3D%22%23B5282A%22/%3E%20%3Crect%20x%3D%2225%22%20y%3D%2236%22%20width%3D%223%22%20height%3D%2213%22%20fill%3D%22%23B5282A%22/%3E%20%3Crect%20x%3D%2236%22%20y%3D%2236%22%20width%3D%223%22%20height%3D%2213%22%20fill%3D%22%23B5282A%22/%3E%20%3C/svg%3E">
@@ -109,7 +109,7 @@
         --closed:      #d98a7e;
 
         /* --- 書体：★世界観の一部なので店ごとに選び直す ------------------------- */
-        --font-head:   'Zen Old Mincho', serif;   /* 700。見出しに使う明朝は03-tokens.cssの実測で描画が確認できているものだけ */
+        --font-head:   'Zen Old Mincho', serif;   /* 500。★太い明朝は「型で作った感じ」の元なので使わない（frontend-design 6-b 8） */
         --font-body:   'BIZ UDPGothic', sans-serif;
 
         /* --- 地紋のスロット（★ここに常設で置いてよいのは「地紋」だけ） -----------
@@ -147,10 +147,10 @@
         --orn-blank:   url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
 
         /* --- 形・間（ここは共通でよい） ---------------------------------------- */
-        --radius:      6px;   /* 門の矩形に合わせて角を締める */
+        --radius:      0px;  /* ★2026-09-20：角は立てる。丸い箱はテンプレの合図（frontend-design 6-b 1） */
         --maxw:        1120px;
         --gap:         clamp(16px, 4vw, 40px);
-        --pad-section: clamp(64px, 10vw, 120px);
+        --pad-section: clamp(64px, 10vw, 128px);
         --pad-inner:   clamp(20px, 5vw, 40px);
     }
 
@@ -296,8 +296,7 @@
     .photo-frame {
         position: relative; overflow: hidden;
         border-radius: var(--radius);
-        border: 1px solid var(--line-strong);
-        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
         background: var(--surface-2);
     }
     .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
@@ -322,7 +321,7 @@
     .sticky-bar.visible { transform: translateY(0); }
     .sticky-bar a {
         flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
-        padding: 16px 10px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.02em;
+        padding: 16px 10px; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em;
     }
     .sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
     .sticky-bar .bar-tel { background: var(--accent); color: var(--bg); }
@@ -375,19 +374,18 @@
     }
 
     /* --- 営業状況バッジ（06-script.js が中身を書き換える） --------------------- */
+    /* ★2026-09-20：カプセル形の札をやめた（frontend-design 6-b 2）。
+       いまの営業状況は、細い縦罫の色と文字だけで示す。 */
     .status-chip {
-        display: inline-flex; align-items: center; gap: 7px;
-        padding: 5px 13px; border-radius: 999px;
-        border: 1px solid var(--line-strong);
-        font-size: 0.8rem; letter-spacing: 0.04em;
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 2px 0 2px 12px;
+        font-size: 0.8rem; letter-spacing: 0.06em;
+        border-left: 2px solid var(--dim);
     }
-    .status-chip::before {
-        content: ''; width: 7px; height: 7px; border-radius: 50%;
-        background: var(--dim);
-    }
-    .status-chip.is-open::before   { background: var(--open); }
-    .status-chip.is-closed::before { background: var(--closed); }
-    .status-chip.is-break::before  { background: var(--accent); }
+    .status-chip::before { content: none; }
+    .status-chip.is-open   { border-left-color: var(--open); }
+    .status-chip.is-closed { border-left-color: var(--closed); }
+    .status-chip.is-break  { border-left-color: var(--accent); }
 
     /* --- モバイルナビの「閉じている状態」（★仕組み。見た目は店ごとに足す） -----
        ★過去の事故（そば善・居酒屋壱・食彩酒 一鶴の3店で発覚）
@@ -461,7 +459,7 @@
        焼肉 大門　店固有のCSS
        ══════════════════════════════════════════════════════════════════ */
 
-    h1, h2, h3 { font-family: var(--font-head); font-weight: 700; line-height: 1.4; }
+    h1, h2, h3 { font-family: var(--font-head); font-weight: 500; line-height: 1.38; letter-spacing: 0.05em; }
     body { font-family: var(--font-body); }
 
     /* --- ヘッダー ------------------------------------------------------ */
@@ -470,7 +468,7 @@
         backdrop-filter: blur(6px);
         border-bottom: 1px solid var(--line);
     }
-    .brand { font-family: var(--font-head); font-weight: 700; letter-spacing: 0.02em; }
+    .brand { font-family: var(--font-head); font-weight: 500; letter-spacing: 0.08em; }
     .header-tel { color: var(--muted); }
     .header-tel svg { color: var(--muted); }
     .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); }
@@ -490,27 +488,29 @@
 
     /* --- 共通：見出し・リード・帯飾り ----------------------------------- */
     .eyebrow {
-        font-size: 0.85rem; letter-spacing: 0.16em; color: var(--muted);
-        margin-bottom: 10px;
+        font-size: 0.82rem; letter-spacing: 0.18em; color: var(--muted);
+        margin-bottom: 14px;
+    }
+    .eyebrow::before {
+        content: ''; display: inline-block;
+        width: 38px; height: 1px; background: var(--line-strong);
+        vertical-align: middle; margin-right: 14px;
     }
     .section-title {
         font-size: clamp(1.5rem, 4vw, 2.15rem);
-        display: flex; align-items: center; gap: 12px;
+        display: flex; align-items: center;
         margin-bottom: 20px;
     }
     .lead { font-size: 1.02rem; color: var(--muted); max-width: 46em; margin-bottom: 28px; }
-    .mon-mark { width: 20px; height: 16px; flex: 0 0 20px; color: var(--muted); opacity: 0.75; }
 
-    .mon-divider { display: flex; justify-content: center; padding: 8px 0; }
-    .mon-divider svg { width: 120px; height: 12px; color: var(--muted); opacity: 0.5; }
 
     /* --- ボタン ---------------------------------------------------------- */
     .btn {
         display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-        min-height: 50px; padding: 13px 26px;
-        border-radius: var(--radius);
-        font-family: var(--font-body); font-weight: 700; font-size: 0.98rem;
-        letter-spacing: 0.02em;
+        min-height: 52px; padding: 14px 28px;
+        border-radius: 0;
+        font-family: var(--font-body); font-weight: 500; font-size: 0.98rem;
+        letter-spacing: 0.06em;
         border: 1px solid transparent;
         transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
@@ -519,7 +519,11 @@
     .btn-primary:active { background: var(--accent-deep); }
     .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    /* 細枠のボタンは、行き先を矢印で示す（塗りの電話ボタンには付けない） */
+    .btn-ghost::after { content: '\2192'; margin-left: 4px; font-size: 1.05em; line-height: 1; }
+    /* ★全幅の塗りボタンは「型」の見え方になるので、広い画面では幅を締める */
     .btn-block { width: 100%; }
+    @media (min-width: 700px) { .btn-block { width: auto; min-width: 22em; } }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
 
     /* --- ヒーロー -------------------------------------------------------- */
@@ -567,7 +571,7 @@
         }
     }
     .hero > .container { position: relative; z-index: 1; }
-    #status-chip { background: rgba(42,30,23,0.55); color: var(--ink); margin-bottom: 22px; }
+    #status-chip { color: var(--ink); margin-bottom: 24px; }
     .hero-catch {
         font-size: clamp(2rem, 6.4vw, 3.4rem);
         line-height: 1.42;
@@ -575,10 +579,8 @@
         margin-bottom: 18px;
     }
     .hero-sub { color: var(--muted); font-size: 1rem; max-width: 34em; }
-    .hero-gate { position: absolute; left: 0; bottom: 0; width: 100%; height: 52px; z-index: 1; }
     @media (min-width: 700px) {
-        .hero-gate { height: 72px; }
-        .hero { padding-block: clamp(24px, 6vw, 48px) calc(32px + 72px); }
+        .hero { padding-block: clamp(24px, 6vw, 48px) clamp(32px, 7vw, 64px); }
     }
 
     /* --- 分割レイアウト（見出しテキスト＋写真） -------------------------- */
@@ -601,7 +603,6 @@
         width: clamp(110px, 26vw, 190px);
         aspect-ratio: 4 / 3;
         border: 4px solid var(--bg);
-        box-shadow: var(--shadow);
         z-index: 2;
     }
     @media (max-width: 899px) {
@@ -609,50 +610,54 @@
     }
 
     /* --- ご案内の帯 ------------------------------------------------------- */
+    /* ★2026-09-20：角丸のカードを5枚並べる組み方をやめ、1本の罫で区切った行にした
+       （frontend-design 6-b 1）。見出しは左の列、中身は右の列。 */
     .guide-grid {
-        display: grid; grid-template-columns: 1fr; gap: 1px;
-        background: var(--line);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        overflow: hidden;
+        display: grid; grid-template-columns: 1fr;
+        border-top: 1px solid var(--line);
+    }
+    .guide-card {
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
     }
     @media (min-width: 700px) {
-        .guide-grid { grid-template-columns: repeat(3, 1fr); }
-        .guide-grid .guide-card:first-child { grid-column: 1 / -1; }
-        /* カード5枚・3列だと最終行に空セルが2つ残るため、最後の1枚（お支払い）も全幅にして詰める */
-        .guide-grid .guide-card:last-child { grid-column: 1 / -1; }
+        .guide-card {
+            display: grid; grid-template-columns: 8.5em 1fr; gap: 6px 28px;
+            align-items: baseline;
+        }
+        .guide-card h3 { margin-bottom: 0; }
+        .guide-card .guide-notes { grid-column: 2; }
     }
-    .guide-card { background: var(--surface); padding: 24px 26px; }
     .guide-card h3 {
-        font-size: 0.92rem; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 10px;
+        font-size: 0.9rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 8px;
+        font-weight: 500;
     }
     .guide-card p { line-height: 1.8; }
     .guide-notes { margin-top: 12px; padding-left: 1.1em; }
     .guide-notes li { color: var(--dim); font-size: 0.86rem; line-height: 1.75; list-style: disc; }
 
-    /* --- 三つの門（署名） -------------------------------------------------- */
-    .signature-section { text-align: center; }
-    .signature-section .section-title { justify-content: center; }
-    .signature-section .lead { margin-inline: auto; }
+    /* --- 三つの門（署名） --------------------------------------------------
+       ★2026-09-20：中央ぞろえ＋3枚の角丸カードは、型で組んだ見え方そのもの
+       だった（frontend-design 6-b 1・11）。左ぞろえの罫の行に組み直した。 */
     /* 2026-08-25：「三つの門」の横に置いていた門の図（SVG）を外した。
        三つの条件は下のカードが名指ししているので、図で言い直す必要が無い。 */
 
     .gate-conditions {
-        display: grid; grid-template-columns: 1fr; gap: 14px;
-        max-width: 640px; margin: 28px auto 0;
-        text-align: left;
+        display: grid; grid-template-columns: 1fr;
+        max-width: 42em; margin-top: 30px;
+        border-top: 1px solid var(--line);
     }
-    @media (min-width: 640px) { .gate-conditions { grid-template-columns: repeat(3, 1fr); } }
     .gate-cond {
-        background: var(--surface); border: 1px solid var(--line);
-        border-radius: var(--radius); padding: 18px 20px;
-        display: flex; align-items: baseline; gap: 12px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
     }
-    .gate-cond h3 { font-size: 1rem; font-weight: 700; }
+    .gate-cond h3 {
+        font-size: 1.06rem; font-weight: 400; letter-spacing: 0.06em;
+    }
 
     .gate-body-wrap { margin-top: 44px; text-align: left; }
     .gate-body-wrap .split-text p { margin-bottom: 16px; }
-    .gate-close { font-weight: 700; color: var(--ink); }
+    .gate-close { color: var(--ink); font-family: var(--font-head); font-size: 1.06rem; line-height: 1.9; }
     .gate-body-wrap .split-photo .photo-frame { aspect-ratio: 4 / 3; }
     /* ★2026-08-25：看板と牛が小さく、まわりの闇が広かったので、写真そのものを
        768×576 に切り寄せた（-寄り.jpg）。表示側で拡大したのではないので
@@ -666,63 +671,60 @@
     .menu-banner .photo-frame { aspect-ratio: 3 / 2; }
 
     /* --- お品書き本体（build_menu.py の出力） ------------------------------ */
+    /* ★2026-09-20：章を27から10へまとめ直したので、タブは横スクロールをやめて
+       折り返す形にした（スキル menu-tabs の型A'）。丸いチップの飾りも外し、
+       いまいる章は文字の色と下の一本線だけで示す。 */
     .subnav {
         position: sticky; top: var(--header-h); z-index: 90;
         background: var(--bg);
         border-block: 1px solid var(--line);
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
     }
-    /* ★27章ぶんのタブは画面に4〜5個しか入らず、横に続くことが伝わらないまま
-       途切れて見える（QA指摘）。.subnav（＝スクロールする枠そのもの）の
-       描画結果を mask-image で両端だけ透けさせ、「まだ続きがある」ことを伝える。
-       build_menu.py が書き換える <nav> の中身には触らずに済む書き方。 */
-    .subnav {
-        -webkit-mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 28px), transparent);
-        mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 28px), transparent);
+    .subnav-inner {
+        display: flex; flex-wrap: wrap; justify-content: center;
+        gap: 2px 6px; padding: 6px var(--pad-inner);
+        max-width: var(--maxw); margin-inline: auto;
     }
-    .subnav-inner { display: flex; gap: 4px; width: max-content; padding-inline: var(--pad-inner); }
-    .subnav a { font-size: 0.86rem; color: var(--muted); white-space: nowrap; border-bottom: 2px solid transparent; }
+    .subnav a {
+        min-height: 44px; display: inline-flex; align-items: center;
+        padding-inline: 12px;
+        font-size: 0.86rem; color: var(--muted); white-space: nowrap;
+        border-bottom: 2px solid transparent;
+    }
     .subnav a:hover { color: var(--ink); border-color: var(--line-strong); }
-
-    /* ★2026-08-25：章が27あるため、PCではタブが左端から右端まで一列に伸び続け、
-       どこまで続くのか目で追えなかった。広い画面では折り返して中央に寄せ、
-       段のあるチップにする（両端をぼかす mask も、折り返せば要らない）。
-       スマホは指で流せる一列のまま（折り返すと画面の半分を占めてしまう）。 */
-    @media (min-width: 900px) {
-        .subnav {
-            overflow-x: visible;
-            -webkit-mask-image: none; mask-image: none;
-        }
+    /* ★スマホでは10個が4段になる。貼り付けたままだと画面の三割を塞ぐので、
+       狭い画面では貼り付けをやめ、お品書きの入口に置いたままにする。 */
+    @media (max-width: 640px) {
+        .subnav { position: static; }
         .subnav-inner {
-            width: auto; flex-wrap: wrap; justify-content: center;
-            row-gap: 2px; padding-block: 6px;
-            max-width: min(100% - 2 * var(--pad-inner), var(--maxw));
-            margin-inline: auto;
+            display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0; padding-block: 2px;
         }
         .subnav a {
-            border: 1px solid var(--line); border-radius: 999px;
-            min-height: 40px; padding-inline: 14px;
+            justify-content: center; text-align: center;
+            white-space: normal; line-height: 1.3;
+            font-size: 0.8rem; padding-inline: 4px;
         }
-        .subnav a:hover { border-color: var(--line-strong); background: var(--surface); }
+        .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+    }
+    @media (min-width: 641px) {
         /* 折り返して背が高くなったぶん、章へ飛んだときの余白も取り直す */
-        .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 172px); }
+        .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 104px); }
     }
 
+    /* ★2026-09-20：章ごとの角丸カードをやめ、章の頭の1本の罫だけで区切る
+       （frontend-design 6-b 1）。 */
     .menu-wrap .menu-block {
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        padding: 26px 26px 22px;
-        margin-bottom: 22px;
+        border-top: 1px solid var(--line-strong);
+        padding: 20px 0 8px;
+        margin-bottom: 34px;
         break-inside: avoid;
     }
     @media (min-width: 1024px) {
         .menu-wrap .container { column-count: 2; column-gap: 40px; }
     }
     .menu-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
-    .menu-head h2 { font-size: 1.15rem; }
-    .menu-head .yomi { font-size: 0.72rem; letter-spacing: 0.18em; color: var(--dim); }
+    .menu-head h2 { font-size: 1.22rem; font-weight: 500; }
+    .menu-head .yomi { font-size: 0.72rem; letter-spacing: 0.18em; color: var(--dim); white-space: nowrap; }
     .menu-note { color: var(--muted); font-size: 0.88rem; margin-bottom: 14px; line-height: 1.75; }
     .menu-grid { display: grid; grid-template-columns: 1fr; gap: 2px 24px; }
     @media (min-width: 560px) {
@@ -734,7 +736,7 @@
     .name { font-size: 0.94rem; }
     .desc { display: block; color: var(--dim); font-size: 0.8rem; margin-top: 3px; line-height: 1.6; }
 
-    .menu-back { margin-top: 8px; }
+    .menu-back { margin-top: 8px; text-align: left; }
 
     /* --- お客様の声 -------------------------------------------------------- */
     .voice-grid {
@@ -742,8 +744,8 @@
     }
     @media (min-width: 720px) { .voice-grid { grid-template-columns: repeat(3, 1fr); } }
     .voice-card {
-        background: var(--surface); border: 1px solid var(--line);
-        border-radius: var(--radius); padding: 22px 22px 20px;
+        border-top: 1px solid var(--line);
+        padding: 20px 0 0;
     }
     .voice-photo {
         width: clamp(120px, 30vw, 180px); aspect-ratio: 3 / 4;
@@ -755,10 +757,9 @@
     .voice-card cite { font-size: 0.8rem; color: var(--dim); font-style: normal; }
 
     /* --- 結びの一文 -------------------------------------------------------- */
-    .closing-section { text-align: center; }
     .closing-text {
-        font-family: var(--font-head); font-size: clamp(1.05rem, 2.6vw, 1.3rem);
-        line-height: 2.1; max-width: 34em; margin-inline: auto; color: var(--ink);
+        font-family: var(--font-head); font-size: clamp(1.08rem, 2.6vw, 1.34rem);
+        line-height: 2.15; max-width: 32em; color: var(--ink);
     }
 
     /* --- アクセス・店舗情報 -------------------------------------------------- */
@@ -766,13 +767,13 @@
     .info-table tr { border-bottom: 1px solid var(--line); }
     .info-table th, .info-table td { text-align: left; padding: 14px 10px; vertical-align: top; }
     .info-table th {
-        width: 6.5em; font-weight: 700; color: var(--muted); font-size: 0.88rem;
-        font-family: var(--font-head);
+        width: 6.5em; font-weight: 500; color: var(--muted); font-size: 0.88rem;
+        font-family: var(--font-head); letter-spacing: 0.06em;
     }
-    .tel-link { color: var(--ink); font-weight: 700; }
+    .tel-link { color: var(--ink); font-weight: 500; }
 
     /* --- フッター ------------------------------------------------------------ */
-    .site-footer { padding-block: 40px 100px; text-align: center; border-top: 1px solid var(--line); }
+    .site-footer { padding-block: 40px 100px; border-top: 1px solid var(--line); }
     .footer-name { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 8px; }
     .footer-addr { color: var(--muted); font-size: 0.9rem; margin-bottom: 6px; }
     .footer-copy { color: var(--dim); font-size: 0.78rem; }
@@ -824,22 +825,17 @@
         <span class="status-chip" id="status-chip"><span class="status-text">営業時間を確認中</span></span>
 
         <h1 class="hero-catch reveal"><span class="nw">三つの</span><span class="nw">条件を、</span><br class="br-pc"><span class="nw">一頭がくぐる。</span></h1>
-        <p class="hero-sub reveal reveal-delay-1"><span class="nw">未経産の</span><span class="nw">雌牛。</span><span class="nw">月齢</span><span class="nw">30ヶ</span><span class="nw">月以上。</span><span class="nw">そして</span><span class="nw">山形牛。</span><span class="nw">三つの</span><span class="nw">条件にかなった</span><span class="nw">一頭を、</span><span class="nw">まるごと</span><span class="nw">買い</span><span class="nw">付け</span><span class="nw">ております。</span></p>
+        <p class="hero-sub reveal reveal-delay-1"><span class="nw">未経産の</span><span class="nw">雌牛。</span><span class="nw">月齢</span><span class="nw">30ヶ</span><span class="nw">月以上。</span><span class="nw">そして</span><span class="nw">山形牛。</span><span class="nw">三つの</span><span class="nw">条件にかなった</span><span class="nw">一頭を、</span><span class="nw">まるごと</span><span class="nw">買い</span><span class="nw">付けて</span><span class="nw">おります。</span></p>
 
         <div class="hero-actions">
-            <a href="tel:0280487029" class="btn btn-primary">
+            <a href="tel:0280487029" class="btn btn-primary btn-tel">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
-                0280-48-7029｜ご予約はこちら
+                <span class="tel-num">0280-48-7029</span><span class="tel-cap">ご予約はこちら</span>
             </a>
             <a href="#menu" class="btn btn-ghost">お品書きを見る</a>
         </div>
     </div>
 
-    <svg class="hero-gate" viewBox="0 0 1200 72" preserveAspectRatio="none" aria-hidden="true">
-        <rect x="0" y="0" width="1200" height="28" fill="var(--line)"/>
-        <rect x="96" y="28" width="26" height="44" fill="var(--line)"/>
-        <rect x="1078" y="28" width="26" height="44" fill="var(--line)"/>
-    </svg>
 </section>
 
 
@@ -860,12 +856,12 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section guide-section" id="guide">
     <div class="container">
-        <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nw">ご案内</span></h2>
+        <h2 class="section-title reveal"><span class="nw">ご案内</span></h2>
 
         <div class="guide-grid">
             <div class="guide-card reveal">
                 <h3><span class="nw">営業時間</span></h3>
-                <p>昼　<span class="nw">11:30〜14:00（L.O.13:30）</span><br class="br-pc">夜　<span class="nw">17:00〜21:30（L.O.20:50）</span></p>
+                <p><span class="nw">昼　11:30〜14:00</span><span class="nw">（L.O.13:30）</span><br class="br-pc"><span class="nw">夜　17:00〜21:30</span><span class="nw">（L.O.20:50）</span></p>
                 <ul class="guide-notes">
                     <li><span class="nw">最終入店は</span><span class="nw">L.O.の</span><span class="nw">20分前までで</span><span class="nw">ございます。</span></li>
                     <li><span class="nw">材料の</span><span class="nw">都合で、</span><span class="nw">閉店が</span><span class="nw">早まる</span><span class="nw">ことが</span><span class="nw">ございます。</span></li>
@@ -892,7 +888,6 @@
     </div>
 </section>
 
-<div class="mon-divider" aria-hidden="true"><svg viewBox="0 0 120 12"><rect x="0" y="0" width="120" height="6"/><rect x="4" y="6" width="6" height="6"/><rect x="110" y="6" width="6" height="6"/></svg></div>
 
 <!-- ══════════════════════════════════════════════════════════════════════
      署名的な仕掛け「三つの門」＝一頭買い（核）
@@ -900,7 +895,7 @@
 <section class="section signature-section" id="signature">
     <div class="container">
         <p class="eyebrow reveal"><span class="nw">一頭買い</span></p>
-        <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nwb"><span class="nw">三つの</span>門</span></h2>
+        <h2 class="section-title reveal"><span class="nwb"><span class="nw">三つの</span>門</span></h2>
         <p class="lead reveal"><span class="nw">当店の</span><span class="nw">仕入れには、</span><span class="nw">三つの</span><span class="nw">条件が</span><span class="nw">ございます。</span></p>
 
 
@@ -930,7 +925,6 @@
     </div>
 </section>
 
-<div class="mon-divider" aria-hidden="true"><svg viewBox="0 0 120 12"><rect x="0" y="0" width="120" height="6"/><rect x="4" y="6" width="6" height="6"/><rect x="110" y="6" width="6" height="6"/></svg></div>
 
 <!-- ══════════════════════════════════════════════════════════════════════
      稀少部位
@@ -939,8 +933,8 @@
     <div class="container split">
         <div class="split-text">
             <p class="eyebrow reveal"><span class="nw">稀少部位</span></p>
-            <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nwb"><span class="nw">週に</span><span class="nw">一本の、</span><span class="nw">特上タン</span>塩</span></h2>
-            <p class="reveal"><span class="nw">特上タン</span><span class="nw">塩は、</span><span class="nw">週に</span><span class="nw">一本しか</span><span class="nw">入荷いたしません。</span><span class="nw">シャトーブリアン、</span><span class="nw">みすじ、</span><span class="nw">ヒレ、</span><span class="nw">サーロイン。</span><span class="nw">一頭からわずかしか</span><span class="nw">取れない</span><span class="nw">山形牛の</span><span class="nw">稀少部位も、</span><span class="nw">一頭買いのまま</span><span class="nw">ご用意し</span><span class="nw">ております。</span> <span class="nw">その</span><span class="nw">日に</span><span class="nw">入る</span><span class="nw">部位と</span><span class="nw">お値段は、</span><span class="nw">どうぞ</span><span class="nw">お気軽に</span><span class="nw">お尋ね</span><span class="nw">くださいませ。</span></p>
+            <h2 class="section-title reveal"><span class="nwb"><span class="nw">週に</span><span class="nw">一本の、</span><span class="nw">特上タン</span>塩</span></h2>
+            <p class="reveal"><span class="nw">特上タン</span><span class="nw">塩は、</span><span class="nw">週に</span><span class="nw">一本しか</span><span class="nw">入荷いたしません。</span><span class="nw">シャトーブリアン、</span><span class="nw">みすじ、</span><span class="nw">ヒレ、</span><span class="nw">サーロイン。</span><span class="nw">一頭からわずかしか</span><span class="nw">取れない</span><span class="nw">山形牛の</span><span class="nw">稀少部位も、</span><span class="nw">一頭買いのまま</span><span class="nw">ご用意して</span><span class="nw">おります。</span> <span class="nw">その</span><span class="nw">日に</span><span class="nw">入る</span><span class="nw">部位と</span><span class="nw">お値段は、</span><span class="nw">どうぞ</span><span class="nw">お気軽に</span><span class="nw">お尋ね</span><span class="nw">くださいませ。</span></p>
         </div>
         <figure class="split-photo reveal">
             <div class="photo-frame">
@@ -964,14 +958,12 @@
             </div>
         </div>
         <div class="split-text">
-            <p class="eyebrow reveal"><span class="nw">六種の</span><span class="nw">スープ</span></p>
-            <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nwb"><span class="nw">六種の</span><span class="nw">スープ、</span><span class="nw">すべて</span><span class="nw">厨房から</span></span></h2>
-            <p class="reveal"><span class="nw">冷麺の</span><span class="nw">スープは、</span><span class="nw">丸鶏から</span><span class="nw">丹念に</span><span class="nw">ダシを</span><span class="nw">取っ</span><span class="nw">ております。</span><span class="nw">厨房で</span><span class="nw">作る</span><span class="nw">六種類の</span><span class="nw">スープは、</span><span class="nw">どれも</span><span class="nw">下ごしらえから</span><span class="nw">一貫して、</span><span class="nw">職人の</span><span class="nw">手で</span><span class="nw">仕上げた</span><span class="nw">ものです。</span><span class="nw">締めの</span><span class="nw">一杯まで、</span><span class="nw">同じ</span><span class="nw">厨房の</span><span class="nw">手仕事で</span><span class="nw">お出しします。</span></p>
+            <h2 class="section-title reveal"><span class="nwb"><span class="nw">六種の</span><span class="nw">スープ、</span><span class="nw">すべて</span><span class="nw">厨房から</span></span></h2>
+            <p class="reveal"><span class="nw">冷麺の</span><span class="nw">スープは、</span><span class="nw">丸鶏から</span><span class="nw">丹念に</span><span class="nw">ダシを</span><span class="nw">取って</span><span class="nw">おります。</span><span class="nw">厨房で</span><span class="nw">作る</span><span class="nw">六種類の</span><span class="nw">スープは、</span><span class="nw">どれも</span><span class="nw">下ごしらえから</span><span class="nw">一貫して、</span><span class="nw">職人の</span><span class="nw">手で</span><span class="nw">仕上げた</span><span class="nw">ものです。</span><span class="nw">締めの</span><span class="nw">一杯まで、</span><span class="nw">同じ</span><span class="nw">厨房の</span><span class="nw">手仕事で</span><span class="nw">お出しします。</span></p>
         </div>
     </div>
 </section>
 
-<div class="mon-divider" aria-hidden="true"><svg viewBox="0 0 120 12"><rect x="0" y="0" width="120" height="6"/><rect x="4" y="6" width="6" height="6"/><rect x="110" y="6" width="6" height="6"/></svg></div>
 
 <!-- ══════════════════════════════════════════════════════════════════════
      手作りの脇役
@@ -980,7 +972,7 @@
     <div class="container split">
         <div class="split-text">
             <p class="eyebrow reveal"><span class="nw">手作りの</span><span class="nw">脇役</span></p>
-            <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nwb"><span class="nw">脇役こそ、</span><span class="nw">手づくりで</span></span></h2>
+            <h2 class="section-title reveal"><span class="nwb"><span class="nw">脇役こそ、</span><span class="nw">手づくりで</span></span></h2>
             <p class="reveal"><span class="nw">ポッサムキムチは、</span><span class="nw">甘エビ・</span><span class="nw">イカ・</span><span class="nw">タコなどの</span><span class="nw">魚介と</span><span class="nw">季節の</span><span class="nw">果物を、</span><span class="nw">手づくりの</span><span class="nw">キムチで</span><span class="nw">包んだ、</span><span class="nw">当店でしか</span><span class="nw">召し</span><span class="nw">上がれない</span><span class="nw">オリジナルです。</span><span class="nw">杏仁豆腐も</span><span class="nw">コーヒーゼリーも</span><span class="nw">店の</span><span class="nw">手づくり、</span><span class="nw">手づくりの</span><span class="nw">絹とうふを</span><span class="nw">使った</span><span class="nw">サラダも</span><span class="nw">ございます。</span></p>
         </div>
         <div class="split-photo photo-pair reveal">
@@ -994,7 +986,6 @@
     </div>
 </section>
 
-<div class="mon-divider" aria-hidden="true"><svg viewBox="0 0 120 12"><rect x="0" y="0" width="120" height="6"/><rect x="4" y="6" width="6" height="6"/><rect x="110" y="6" width="6" height="6"/></svg></div>
 
 <!-- ══════════════════════════════════════════════════════════════════════
      店内のご案内
@@ -1003,8 +994,8 @@
     <div class="container split">
         <div class="split-text">
             <p class="eyebrow reveal"><span class="nw">店内の</span><span class="nw">ご案内</span></p>
-            <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nwb"><span class="nw">六十四席、</span><span class="nw">ゆとりをもって</span></span></h2>
-            <p class="reveal"><span class="nw">ソファー</span><span class="nw">席、</span><span class="nw">掘りごたつ、</span><span class="nw">仕切りのある</span><span class="nw">席を</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">ゆとりを</span><span class="nw">持った</span><span class="nw">テーブル</span><span class="nw">配置で、</span><span class="nw">落ち</span><span class="nw">着いて</span><span class="nw">お食事いただけるよう</span><span class="nw">心がけ</span><span class="nw">ております。</span><span class="nw">お子様連れの</span><span class="nw">ご家族も、</span><span class="nw">どうぞ</span><span class="nw">ご一緒に</span><span class="nw">お越し</span><span class="nw">ください。</span></p>
+            <h2 class="section-title reveal"><span class="nwb"><span class="nw">六十四席、</span><span class="nw">ゆとりをもって</span></span></h2>
+            <p class="reveal"><span class="nw">ソファー</span><span class="nw">席、</span><span class="nw">掘りごたつ、</span><span class="nw">仕切りのある</span><span class="nw">席を</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">ゆとりを</span><span class="nw">持った</span><span class="nw">テーブル</span><span class="nw">配置で、</span><span class="nw">落ち</span><span class="nw">着いて</span><span class="nw">お食事いただけるよう</span><span class="nw">心がけて</span><span class="nw">おります。</span><span class="nw">お子様連れの</span><span class="nw">ご家族も、</span><span class="nw">どうぞ</span><span class="nw">ご一緒に</span><span class="nw">お越し</span><span class="nw">ください。</span></p>
         </div>
         <div class="split-photo photo-pair reveal">
             <div class="photo-frame main-photo">
@@ -1017,16 +1008,14 @@
     </div>
 </section>
 
-<div class="mon-divider" aria-hidden="true"><svg viewBox="0 0 120 12"><rect x="0" y="0" width="120" height="6"/><rect x="4" y="6" width="6" height="6"/><rect x="110" y="6" width="6" height="6"/></svg></div>
 
 <!-- ══════════════════════════════════════════════════════════════════════
      お品書き
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="menu">
     <div class="container">
-        <p class="eyebrow reveal"><span class="nw">お品書き</span></p>
-        <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nw">お品書き</span></h2>
-        <p class="lead reveal"><span class="nw">焼き</span><span class="nw">物のほかにも、</span><span class="nw">クッパ、</span><span class="nw">ピビンバ、</span><span class="nw">チゲ</span><span class="nw">鍋、</span><span class="nw">麺類まで</span><span class="nw">ご用意し</span><span class="nw">ております。</span> <span class="nw">昼は</span><span class="nw">ランチを</span><span class="nw">十種、</span><span class="nw">ご家族で</span><span class="nw">お越しの</span><span class="nw">ときは</span><span class="nw">ファミリーセットも</span><span class="nw">ご用意し</span><span class="nw">ております。</span> <span class="nw">鮮度と</span><span class="nw">清掃の</span><span class="nw">「あたりまえ」を</span><span class="nw">守り</span><span class="nw">続ける</span><span class="nw">生ビール、</span><span class="nw">国内産マッコリも</span><span class="nw">ございます。</span></p>
+        <h2 class="section-title reveal"><span class="nw">お品書き</span></h2>
+        <p class="lead reveal"><span class="nw">焼き</span><span class="nw">物のほかにも、</span><span class="nw">クッパ、</span><span class="nw">ピビンバ、</span><span class="nw">チゲ</span><span class="nw">鍋、</span><span class="nw">麺類まで</span><span class="nw">ご用意して</span><span class="nw">おります。</span> <span class="nw">昼は</span><span class="nw">ランチを</span><span class="nw">十種、</span><span class="nw">ご家族で</span><span class="nw">お越しの</span><span class="nw">ときは</span><span class="nw">ファミリーセットも</span><span class="nw">ご用意して</span><span class="nw">おります。</span> <span class="nw">鮮度と</span><span class="nw">清掃の</span><span class="nw">「あたりまえ」を</span><span class="nw">守り</span><span class="nw">続ける</span><span class="nw">生ビール、</span><span class="nw">国内産マッコリも</span><span class="nw">ございます。</span></p>
         <figure class="menu-banner reveal">
             <div class="photo-frame">
                 <img src="images/hp-お酒の品揃え.jpg" alt="ワイン・マッコリ・生ビールなどお酒の品揃え" width="2200" height="1467" loading="lazy" decoding="async">
@@ -1039,71 +1028,44 @@
 <!-- menu:auto:start   ここから下は build_menu.py が menu.json から生成します。直接編集しない -->
 <nav class="subnav" aria-label="お品書き内のナビゲーション">
     <div class="subnav-inner">
-        <a href="#menu-wagyu">厳選和牛</a>
-        <a href="#menu-kisho">山形牛 厳選稀少部位</a>
-        <a href="#menu-gyu">牛</a>
-        <a href="#menu-buta">豚</a>
-        <a href="#menu-tori">鳥</a>
+        <a href="#menu-tokusen">特選 山形牛</a>
+        <a href="#menu-niku">お肉</a>
         <a href="#menu-kaisen">海鮮</a>
-        <a href="#menu-topping">トッピング</a>
-        <a href="#menu-kimchi">キムチ</a>
         <a href="#menu-ippin">一品</a>
-        <a href="#menu-sashimi">刺身・生物</a>
-        <a href="#menu-salad">サラダ</a>
-        <a href="#menu-yasai">野菜焼き</a>
-        <a href="#menu-kuppa">クッパ</a>
-        <a href="#menu-bibimba">ピビンバ</a>
-        <a href="#menu-gohan">ご飯物</a>
-        <a href="#menu-chige">チゲ鍋</a>
-        <a href="#menu-soup">スープ</a>
-        <a href="#menu-men">麺類</a>
+        <a href="#menu-yasai">野菜</a>
+        <a href="#menu-shokuji">お食事</a>
         <a href="#menu-lunch">ランチ</a>
-        <a href="#menu-beer">ビール</a>
-        <a href="#menu-sour">サワー・酎ハイ・果実酒</a>
-        <a href="#menu-whisky">ウイスキー</a>
-        <a href="#menu-shochu">焼酎・マッコリ</a>
-        <a href="#menu-sake">日本酒</a>
-        <a href="#menu-wine">ワイン</a>
+        <a href="#menu-osake">お酒</a>
         <a href="#menu-soft">ソフトドリンク</a>
         <a href="#menu-dessert">デザート</a>
     </div>
 </nav>
 <section class="section">
     <div class="container">
-        <div class="menu-block reveal" id="menu-wagyu">
-            <div class="menu-head"><h2><span class="nw">厳選和牛</span></h2><span class="yomi">W A G Y U</span></div>
-            <p class="menu-note"><span class="nw">「月齢</span><span class="nw">30ヶ</span><span class="nw">月以上」の</span><span class="nw">「未経産の</span><span class="nw">雌牛」赤身にこだわり、</span><span class="nw">優良な</span><span class="nw">牧場から</span><span class="nw">山形牛を</span><span class="nw">一頭買いし</span><span class="nw">ております。</span></p>
+        <div class="menu-block reveal" id="menu-tokusen">
+            <div class="menu-head"><h2><span class="nw">特選</span> <span class="nw">山形牛</span></h2><span class="yomi">TOKUSEN</span></div>
+            <p class="menu-note"><span class="nw">「月齢</span><span class="nw">30ヶ</span><span class="nw">月以上」の</span><span class="nw">「未経産の</span><span class="nw">雌牛」赤身にこだわり、</span><span class="nw">優良な</span><span class="nw">牧場から</span><span class="nw">山形牛を</span><span class="nw">一頭買いして</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">特選和牛赤身</span></span></li>
                     <li><span class="name"><span class="nw">特選和牛霜降り</span><span class="nw">カルビ</span></span></li>
                     <li><span class="name"><span class="nw">特選和牛ハラミ</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">大門カルビ</span></span></li>
                     <li><span class="name"><span class="nw">和牛中落ち</span><span class="nw">カルビ</span></span></li>
                 </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-kisho">
-            <div class="menu-head"><h2><span class="nw">山形牛</span> <span class="nw">厳選稀少部位</span></h2><span class="yomi">K I S H O</span></div>
-            <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">サーロイン</span><span class="desc"><span class="nw">焼きしゃぶ</span><span class="nw">風にさっと</span><span class="nw">炙って</span><span class="nw">絶品の</span>味</span></span></li>
                     <li><span class="name"><span class="nw">特上タン</span>塩<span class="desc"><span class="nw">週に</span><span class="nw">一本しか</span><span class="nw">入荷されない</span><span class="nw">山形牛の</span><span class="nw">稀少な</span><span class="nw">タン</span></span></span></li>
                     <li><span class="name"><span class="nw">みすじ</span><span class="desc"><span class="nw">肩の</span><span class="nw">部位で</span><span class="nw">霜降りが</span><span class="nw">見事な</span><span class="nw">最高級品質の</span><span class="nw">稀少部位</span></span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ヒレ</span><span class="desc"><span class="nw">脂肪は</span><span class="nw">ロースの</span><span class="nw">半分、</span><span class="nw">やわらかさは</span><span class="nw">断トツの</span><span class="nw">最高級部位</span></span></span></li>
                     <li><span class="name"><span class="nw">シャトーブリアン</span><span class="desc"><span class="nw">牛ヒレ</span><span class="nw">肉の</span><span class="nw">中で</span><span class="nw">幻の</span><span class="nw">部位とまで</span><span class="nw">言われる</span><span class="nw">最も</span><span class="nw">美味な</span><span class="nw">高級部位</span></span></span></li>
                 </ul>
             </div>
         </div>
 
-        <div class="menu-block reveal" id="menu-gyu">
-            <div class="menu-head"><h2>牛</h2><span class="yomi">G Y U</span></div>
-            <p class="menu-note"><span class="nw">タレまたは</span><span class="nw">塩焼きを</span><span class="nw">お選び</span><span class="nw">いただけます。</span></p>
+        <div class="menu-block reveal" id="menu-niku">
+            <div class="menu-head"><h2><span class="nw">お肉</span></h2><span class="yomi">NIKU</span></div>
+            <p class="menu-note"><span class="nw">タレまたは</span><span class="nw">塩焼きを</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">お好みの</span><span class="nw">トッピングも、</span><span class="nw">あわせて</span><span class="nw">ご用意して</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">上タン</span>塩</span></li>
@@ -1117,12 +1079,12 @@
                     <li><span class="name"><span class="nw">タン</span><span class="nw">先塩</span></span></li>
                     <li><span class="name"><span class="nw">カルビ</span></span></li>
                     <li><span class="name"><span class="nw">ロース</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ハラミ</span></span></li>
                     <li><span class="name"><span class="nw">上ミノ</span></span></li>
                     <li><span class="name"><span class="nw">シマチョー</span></span></li>
                     <li><span class="name"><span class="nw">牛コブクロ</span></span></li>
+                </ul>
+                <ul class="menu-list">
                     <li><span class="name"><span class="nw">マルチョー</span></span></li>
                     <li><span class="name"><span class="nw">ハツ</span></span></li>
                     <li><span class="name"><span class="nw">ハツ</span>元</span></li>
@@ -1130,86 +1092,53 @@
                     <li><span class="name"><span class="nw">ネギ</span><span class="nw">塩タン</span><span class="desc"><span class="nw">塩焼ネギまみれ</span></span></span></li>
                     <li><span class="name"><span class="nw">ネギ</span><span class="nw">塩ハツ</span><span class="desc"><span class="nw">塩焼ネギまみれ</span></span></span></li>
                     <li><span class="name"><span class="nw">ネギ</span><span class="nw">塩ロース</span><span class="desc"><span class="nw">塩焼ネギまみれ</span></span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-buta">
-            <div class="menu-head"><h2>豚</h2><span class="yomi">B U T A</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">豚トロ</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">豚ロース</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-tori">
-            <div class="menu-head"><h2>鳥</h2><span class="yomi">T O R I</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">若鶏モモ</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-kaisen">
-            <div class="menu-head"><h2><span class="nw">海鮮</span></h2><span class="yomi">K A I S E N</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">ホタテバター</span><span class="nw">焼き</span></span></li>
-                    <li><span class="name"><span class="nw">イカ</span><span class="nw">焼き</span></span></li>
-                </ul>
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">エビ</span><span class="nw">焼き</span></span></li>
-                    <li><span class="name"><span class="nw">海鮮焼き</span><span class="desc"><span class="nw">エビ・</span><span class="nw">イカ・</span><span class="nw">ホタテ</span></span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-topping">
-            <div class="menu-head"><h2><span class="nw">トッピング</span></h2><span class="yomi">T O P P I N G</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ごま</span><span class="nw">塩タレ</span></span></li>
                     <li><span class="name"><span class="nw">おろし</span><span class="nw">ニンニク</span></span></li>
                     <li><span class="name"><span class="nw">マヨネーズ</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ミジンネギ</span></span></li>
                     <li><span class="name"><span class="nw">オニオンスライス</span></span></li>
                 </ul>
             </div>
         </div>
 
-        <div class="menu-block reveal" id="menu-kimchi">
-            <div class="menu-head"><h2><span class="nw">キムチ</span></h2><span class="yomi">K I M C H I</span></div>
+        <div class="menu-block reveal" id="menu-kaisen">
+            <div class="menu-head"><h2><span class="nw">海鮮</span></h2><span class="yomi">KAISEN</span></div>
             <div class="menu-grid">
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">キムチ</span></span></li>
-                    <li><span class="name"><span class="nw">オイキムチ</span></span></li>
-                    <li><span class="name"><span class="nw">カクテキ</span></span></li>
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">ホタテバター</span><span class="nw">焼き</span></span></li>
+                    <li><span class="name"><span class="nw">イカ</span><span class="nw">焼き</span></span></li>
                 </ul>
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">キムチ</span><span class="nw">盛り</span><span class="nw">合わせ</span></span></li>
-                    <li><span class="name"><span class="nw">ポッサムキムチ</span><span class="desc"><span class="nw">新鮮な</span><span class="nw">魚介類</span><span class="nw">（甘エビ・</span><span class="nw">イカ・</span><span class="nw">タコなど）や</span><span class="nw">季節の</span><span class="nw">果物をてづくりの</span><span class="nw">キムチで</span><span class="nw">包んだ</span><span class="nw">大門でしか</span><span class="nw">食べられない</span><span class="nw">オリジナルキムチです。</span></span></span></li>
+                <ul class="menu-list menu-list--solo">
+                    <li><span class="name"><span class="nw">エビ</span><span class="nw">焼き</span></span></li>
+                    <li><span class="name"><span class="nw">海鮮焼き</span><span class="desc"><span class="nw">エビ・</span><span class="nw">イカ・</span><span class="nw">ホタテ</span></span></span></li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-block reveal" id="menu-ippin">
-            <div class="menu-head"><h2><span class="nw">一品</span></h2><span class="yomi">I P P I N</span></div>
+            <div class="menu-head"><h2><span class="nw">一品</span></h2><span class="yomi">IPPIN</span></div>
+            <p class="menu-note"><span class="nw">生食用の</span><span class="nw">お肉には、</span><span class="nw">注意書きを</span><span class="nw">添えて</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
+                <ul class="menu-list">
+                    <li><span class="name"><span class="nw">キムチ</span></span></li>
+                    <li><span class="name"><span class="nw">オイキムチ</span></span></li>
+                    <li><span class="name"><span class="nw">カクテキ</span></span></li>
+                    <li><span class="name"><span class="nw">キムチ</span><span class="nw">盛り</span><span class="nw">合わせ</span></span></li>
+                    <li><span class="name"><span class="nw">ポッサムキムチ</span><span class="desc"><span class="nw">新鮮な</span><span class="nw">魚介類</span><span class="nw">（甘エビ・</span><span class="nw">イカ・</span><span class="nw">タコなど）や</span><span class="nw">季節の</span><span class="nw">果物をてづくりの</span><span class="nw">キムチで</span><span class="nw">包んだ</span><span class="nw">大門でしか</span><span class="nw">食べられない</span><span class="nw">オリジナルキムチです。</span></span></span></li>
+                    <li><span class="name"><span class="nw">桜ユッケ</span></span></li>
+                    <li><span class="name"><span class="nw">馬刺し</span></span></li>
+                    <li><span class="name"><span class="nw">センマイ</span><span class="nw">刺し</span></span></li>
+                    <li><span class="name"><span class="nw">イカフェ</span></span></li>
+                </ul>
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">ナムル</span><span class="nw">盛り</span><span class="nw">合わせ</span></span></li>
                     <li><span class="name"><span class="nw">コンナムル</span><span class="desc"><span class="nw">大豆もやしの</span><span class="nw">ナムル</span></span></span></li>
                     <li><span class="name"><span class="nw">センナムル</span></span></li>
                     <li><span class="name"><span class="nw">ほうれん</span>草</span></li>
                     <li><span class="name"><span class="nw">小豆もやし</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ゼンマイ</span></span></li>
                     <li><span class="name"><span class="nw">チャンジャ</span></span></li>
                     <li><span class="name"><span class="nw">豚足</span></span></li>
@@ -1218,47 +1147,22 @@
             </div>
         </div>
 
-        <div class="menu-block reveal" id="menu-sashimi">
-            <div class="menu-head"><h2><span class="nw">刺身・</span><span class="nw">生物</span></h2><span class="yomi">S A S H I M I</span></div>
-            <p class="menu-note"><span class="nw">生食用の</span><span class="nw">お肉には、</span><span class="nw">注意書きを</span><span class="nw">添え</span><span class="nw">ております。</span></p>
-            <div class="menu-grid">
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">桜ユッケ</span></span></li>
-                    <li><span class="name"><span class="nw">馬刺し</span></span></li>
-                </ul>
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">センマイ</span><span class="nw">刺し</span></span></li>
-                    <li><span class="name"><span class="nw">イカフェ</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-salad">
-            <div class="menu-head"><h2><span class="nw">サラダ</span></h2><span class="yomi">S A L A D</span></div>
+        <div class="menu-block reveal" id="menu-yasai">
+            <div class="menu-head"><h2><span class="nw">野菜</span></h2><span class="yomi">YASAI</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">手作り</span><span class="nw">絹とうふの</span><span class="nw">サラダ</span><span class="desc"><span class="nw">お品書きに★印のおすすめ</span></span></span></li>
                     <li><span class="name"><span class="nw">チョレギサラダ</span><span class="desc"><span class="nw">お品書きに★印のおすすめ</span></span></span></li>
                     <li><span class="name"><span class="nw">チョレギサラダ</span><span class="nw">（ハーフ）</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">トマトサラダ</span></span></li>
                     <li><span class="name"><span class="nw">ツナサラダ</span></span></li>
                     <li><span class="name"><span class="nw">サンチュ</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-yasai">
-            <div class="menu-head"><h2><span class="nw">野菜焼き</span></h2><span class="yomi">Y A S A I</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">野菜焼きの</span><span class="nw">盛り</span><span class="nw">合わせ</span></span></li>
+                </ul>
+                <ul class="menu-list">
                     <li><span class="name"><span class="nw">しいたけ</span><span class="nw">焼き</span><span class="nw">（3ヶ）</span></span></li>
                     <li><span class="name"><span class="nw">ニンニクオイル</span><span class="nw">焼き</span></span></li>
                     <li><span class="name"><span class="nw">しめじ</span><span class="nw">ホイル</span><span class="nw">焼き</span><span class="nw">（バター）</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">キャベツ</span><span class="nw">焼き</span></span></li>
                     <li><span class="name"><span class="nw">玉ねぎ</span><span class="nw">焼き</span></span></li>
                     <li><span class="name"><span class="nw">ピーマン</span><span class="nw">焼き</span></span></li>
@@ -1267,47 +1171,39 @@
             </div>
         </div>
 
-        <div class="menu-block reveal" id="menu-kuppa">
-            <div class="menu-head"><h2><span class="nw">クッパ</span></h2><span class="yomi">K U P P A</span></div>
-            <p class="menu-note"><span class="nw">ハーフも</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+        <div class="menu-block reveal" id="menu-shokuji">
+            <div class="menu-head"><h2><span class="nw">お食事</span></h2><span class="yomi">SHOKUJI</span></div>
+            <p class="menu-note"><span class="nw">クッパ・</span><span class="nw">ピビンバ・</span><span class="nw">スープ・</span><span class="nw">麺類は、</span><span class="nw">ハーフも</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">チゲ</span><span class="nw">鍋とおかゆは、</span><span class="nw">お時間を</span><span class="nw">いただきます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">クッパ</span></span></li>
                     <li><span class="name"><span class="nw">梅クッパ</span></span></li>
                     <li><span class="name"><span class="nw">カルビクッパ</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">テグタンクッパ</span></span></li>
                     <li><span class="name"><span class="nw">コムタンクッパ</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-bibimba">
-            <div class="menu-head"><h2><span class="nw">ピビンバ</span></h2><span class="yomi">B I B I M B A</span></div>
-            <p class="menu-note"><span class="nw">ハーフも</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ピビンバ</span></span></li>
                     <li><span class="name"><span class="nw">桜ユッケピビンバ</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">石焼ピビンバ</span></span></li>
                     <li><span class="name"><span class="nw">石焼キムチピビンバ</span></span></li>
+                    <li><span class="name"><span class="nw">冷麺</span></span></li>
+                    <li><span class="name"><span class="nw">ピビン</span>麺</span></li>
+                    <li><span class="name"><span class="nw">温麺</span></span></li>
+                    <li><span class="name"><span class="nw">カルビうどん</span></span></li>
+                    <li><span class="name"><span class="nw">玉子うどん</span></span></li>
+                    <li><span class="name"><span class="nw">豆腐チゲ</span></span></li>
                 </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-gohan">
-            <div class="menu-head"><h2><span class="nw">ご飯物</span></h2><span class="yomi">G O H A N</span></div>
-            <div class="menu-grid">
                 <ul class="menu-list">
+                    <li><span class="name"><span class="nw">牛スジチゲ</span></span></li>
+                    <li><span class="name"><span class="nw">わかめ</span><span class="nw">スープ</span></span></li>
+                    <li><span class="name"><span class="nw">野菜スープ</span></span></li>
+                    <li><span class="name"><span class="nw">玉子スープ</span></span></li>
+                    <li><span class="name"><span class="nw">カルビスープ</span></span></li>
+                    <li><span class="name"><span class="nw">テグタンスープ</span></span></li>
+                    <li><span class="name"><span class="nw">コムタンスープ</span></span></li>
                     <li><span class="name"><span class="nw">ライス</span></span></li>
                     <li><span class="name"><span class="nw">小ライス</span></span></li>
                     <li><span class="name"><span class="nw">大盛り</span><span class="nw">ライス</span></span></li>
                     <li><span class="name"><span class="nw">ライスセット</span><span class="desc"><span class="nw">スープ・</span><span class="nw">キムチ・</span><span class="nw">ナムル</span><span class="nw">付き</span></span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">小ライスセット</span></span></li>
                     <li><span class="name"><span class="nw">大盛ライスセット</span></span></li>
                     <li><span class="name"><span class="nw">おかゆ</span><span class="nw">（玉子入り）</span><span class="desc"><span class="nw">お時間を</span><span class="nw">いただきます</span></span></span></li>
@@ -1315,54 +1211,8 @@
             </div>
         </div>
 
-        <div class="menu-block reveal" id="menu-chige">
-            <div class="menu-head"><h2><span class="nw">チゲ</span>鍋</h2><span class="yomi">C H I G E</span></div>
-            <p class="menu-note"><span class="nw">お時間を</span><span class="nw">いただきます。</span></p>
-            <div class="menu-grid">
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">豆腐チゲ</span></span></li>
-                </ul>
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">牛スジチゲ</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-soup">
-            <div class="menu-head"><h2><span class="nw">スープ</span></h2><span class="yomi">S O U P</span></div>
-            <p class="menu-note"><span class="nw">丸鶏から</span><span class="nw">丹念に</span><span class="nw">ダシを</span><span class="nw">取り、</span><span class="nw">下ごしらえから</span><span class="nw">一貫して</span><span class="nw">厨房で</span><span class="nw">作っ</span><span class="nw">ております。</span><span class="nw">ハーフも</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
-            <div class="menu-grid">
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">わかめ</span><span class="nw">スープ</span></span></li>
-                    <li><span class="name"><span class="nw">野菜スープ</span></span></li>
-                    <li><span class="name"><span class="nw">玉子スープ</span></span></li>
-                </ul>
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">カルビスープ</span></span></li>
-                    <li><span class="name"><span class="nw">テグタンスープ</span></span></li>
-                    <li><span class="name"><span class="nw">コムタンスープ</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-men">
-            <div class="menu-head"><h2><span class="nw">麺類</span></h2><span class="yomi">M E N</span></div>
-            <p class="menu-note"><span class="nw">ハーフも</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
-            <div class="menu-grid">
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">冷麺</span></span></li>
-                    <li><span class="name"><span class="nw">ピビン</span>麺</span></li>
-                    <li><span class="name"><span class="nw">温麺</span></span></li>
-                </ul>
-                <ul class="menu-list">
-                    <li><span class="name"><span class="nw">カルビうどん</span></span></li>
-                    <li><span class="name"><span class="nw">玉子うどん</span></span></li>
-                </ul>
-            </div>
-        </div>
-
         <div class="menu-block reveal" id="menu-lunch">
-            <div class="menu-head"><h2><span class="nw">ランチ</span></h2><span class="yomi">L U N C H</span></div>
+            <div class="menu-head"><h2><span class="nw">ランチ</span></h2><span class="yomi">LUNCH</span></div>
             <p class="menu-note"><span class="nw">お飲み</span><span class="nw">ものは、</span><span class="nw">コーヒー・</span><span class="nw">アイスコーヒー・</span><span class="nw">ウーロン</span><span class="nw">茶・</span><span class="nw">メロンソーダを</span><span class="nw">お付けできます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
@@ -1388,95 +1238,45 @@
             </div>
         </div>
 
-        <div class="menu-block reveal" id="menu-beer">
-            <div class="menu-head"><h2><span class="nw">ビール</span></h2><span class="yomi">B E E R</span></div>
+        <div class="menu-block reveal" id="menu-osake">
+            <div class="menu-head"><h2><span class="nw">お酒</span></h2><span class="yomi">OSAKE</span></div>
             <p class="menu-note"><span class="nw">鮮度と</span><span class="nw">清掃</span><span class="nw">「あたりまえ」を</span><span class="nw">守り</span><span class="nw">続ける</span><span class="nw">生ビールで</span><span class="nw">ございます。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">生ビール</span> <span class="nw">中ジョッキ</span>（590ml）</span></li>
                     <li><span class="name"><span class="nw">生ビール</span> <span class="nw">グラス</span>（350ml）</span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">アサヒスーパードライ</span> <span class="nw">中瓶</span></span></li>
                     <li><span class="name"><span class="nw">アサヒドライゼロ</span><span class="desc"><span class="nw">ノンアルコール</span></span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-sour">
-            <div class="menu-head"><h2><span class="nw">サワー・</span><span class="nw">酎ハイ・</span><span class="nw">果実酒</span></h2><span class="yomi">S O U R</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">生レモンサワー</span></span></li>
                     <li><span class="name"><span class="nw">生グレープフルーツサワー</span></span></li>
                     <li><span class="name"><span class="nw">ライムサワー</span></span></li>
                     <li><span class="name"><span class="nw">紅酢</span><span class="nw">（ホンチョ）サワー</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ウーロンハイ</span></span></li>
                     <li><span class="name"><span class="nw">焼酎水割り</span></span></li>
                     <li><span class="name"><span class="nw">梅酒</span><span class="nw">（ロック・</span><span class="nw">ソーダ）</span></span></li>
                     <li><span class="name"><span class="nw">ゆず</span>酒<span class="nw">（ロック・</span><span class="nw">ソーダ）</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-whisky">
-            <div class="menu-head"><h2><span class="nw">ウイスキー</span></h2><span class="yomi">W H I S K Y</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ハイボール</span></span></li>
                     <li><span class="name"><span class="nw">ローヤル</span> <span class="nw">シングル</span><span class="nw">（30ml・</span><span class="nw">ロック／</span><span class="nw">水割り）</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ローヤル</span> <span class="nw">ダブル</span>（60ml）</span></li>
                     <li><span class="name"><span class="nw">ローヤル</span> <span class="nw">ボトル</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-shochu">
-            <div class="menu-head"><h2><span class="nw">焼酎・</span><span class="nw">マッコリ</span></h2><span class="yomi">S H O C H U</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">眞露</span><span class="nw">（700ml・</span><span class="nw">25度）</span></span></li>
+                </ul>
+                <ul class="menu-list">
                     <li><span class="name"><span class="nw">チャミスル</span></span></li>
                     <li><span class="name"><span class="nw">陳年紹興酒</span><span class="nw">（十年陳）</span></span></li>
                     <li><span class="name"><span class="nw">マッコリ</span><span class="desc"><span class="nw">国内産</span> <span class="nw">9度</span> 700ml <span class="nw">純生・</span><span class="nw">発泡性</span></span></span></li>
                     <li><span class="name"><span class="nw">麦ボトル</span> <span class="nw">綺羅麦</span></span></li>
                     <li><span class="name"><span class="nw">麦ボトル</span> <span class="nw">中々</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">芋ボトル</span> <span class="nw">九耀</span></span></li>
                     <li><span class="name"><span class="nw">芋ボトル</span> <span class="nw">㐂六</span></span></li>
                     <li><span class="name"><span class="nw">割り</span>材 <span class="nw">ミネラル</span>（500ml）</span></li>
                     <li><span class="name"><span class="nw">割り</span>材 <span class="nw">ウーロン</span>茶（500ml）</span></li>
                     <li><span class="name"><span class="nw">カットレモン</span><span class="nw">（1ヶ）</span></span></li>
                     <li><span class="name"><span class="nw">ハーフレモン</span><span class="nw">（1ヶ）</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-sake">
-            <div class="menu-head"><h2><span class="nw">日本酒</span></h2><span class="yomi">S A K E</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">清酒</span> <span class="nw">菊正宗</span>（180ml）</span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">冷酒</span></span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="menu-block reveal" id="menu-wine">
-            <div class="menu-head"><h2><span class="nw">ワイン</span></h2><span class="yomi">W I N E</span></div>
-            <div class="menu-grid">
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ハウスワイン</span> <span class="nw">グラス</span><span class="nw">（赤・</span><span class="nw">白）</span></span></li>
                     <li><span class="name"><span class="nw">ワインボトル</span> <span class="nw">カンポアリーバ</span><span class="nw">（赤）</span></span></li>
-                </ul>
-                <ul class="menu-list">
                     <li><span class="name"><span class="nw">ワインボトル</span> <span class="nw">シックス・</span><span class="nw">エイト・</span><span class="nw">ナイン</span> <span class="nw">ナパ</span><span class="nw">（赤）</span></span></li>
                     <li><span class="name"><span class="nw">ワインボトル</span><span class="nw">（白）</span></span></li>
                 </ul>
@@ -1484,7 +1284,7 @@
         </div>
 
         <div class="menu-block reveal" id="menu-soft">
-            <div class="menu-head"><h2><span class="nw">ソフトドリンク</span></h2><span class="yomi">S O F T  D R I N K</span></div>
+            <div class="menu-head"><h2><span class="nw">ソフトドリンク</span></h2><span class="yomi">SOFTDRINK</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">ホットコーヒー</span></span></li>
@@ -1508,7 +1308,7 @@
         </div>
 
         <div class="menu-block reveal" id="menu-dessert">
-            <div class="menu-head"><h2><span class="nw">デザート</span></h2><span class="yomi">D E S S E R T</span></div>
+            <div class="menu-head"><h2><span class="nw">デザート</span></h2><span class="yomi">DESSERT</span></div>
             <div class="menu-grid">
                 <ul class="menu-list">
                     <li><span class="name"><span class="nw">生チョコアイス</span><span class="nw">（4ヶ・</span><span class="nw">バニラ）</span></span></li>
@@ -1532,25 +1332,23 @@
 </div>
 
 <div class="menu-back reveal">
-    <div class="container" style="text-align:center;">
+    <div class="container">
         <a href="#info" class="btn btn-ghost">アクセス・店舗情報へ戻る</a>
     </div>
 </div>
 
-<div class="mon-divider" aria-hidden="true"><svg viewBox="0 0 120 12"><rect x="0" y="0" width="120" height="6"/><rect x="4" y="6" width="6" height="6"/><rect x="110" y="6" width="6" height="6"/></svg></div>
 
 <!-- ══════════════════════════════════════════════════════════════════════
      お客様の声
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="voice">
     <div class="container">
-        <p class="eyebrow reveal"><span class="nw">お客様の</span>声</p>
-        <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nwb"><span class="nw">お客様の</span>声</span></h2>
+        <h2 class="section-title reveal"><span class="nwb"><span class="nw">お客様の</span>声</span></h2>
 
         <div class="voice-grid">
             <figure class="voice-card reveal">
                 <div class="photo-frame voice-photo">
-                    <img src="images/tb-2026-08-石焼ピビンバ.jpg" alt="石焼きのピビンバ" width="768" height="1024" loading="lazy" decoding="async">
+                    <img src="images/tb-2026-08-石焼ピビンバ-トリム.jpg" alt="石焼きのピビンバ" width="768" height="834" loading="lazy" decoding="async">
                 </div>
                 <blockquote>「1頭買いをしている焼肉店は珍しいとおもいます。雌の牛のサーロインが絶品でした。普通のロースも美味しい！」</blockquote>
                 <figcaption><cite><span class="nw">食べ</span><span class="nw">ログの</span><span class="nw">クチコミより</span><span class="nw">（2026年</span><span class="nw">2月）</span></cite></figcaption>
@@ -1578,8 +1376,7 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section closing-section" id="closing">
     <div class="container">
-        <div class="mon-divider" aria-hidden="true"><svg viewBox="0 0 120 12"><rect x="0" y="0" width="120" height="6"/><rect x="4" y="6" width="6" height="6"/><rect x="110" y="6" width="6" height="6"/></svg></div>
-        <p class="closing-text reveal"><span class="nw">茶屋新田のこの</span><span class="nw">場所に</span><span class="nw">移って、</span><span class="nw">二十年になります。</span><span class="nw">牛の</span><span class="nw">目利きも、</span><span class="nw">スープの</span><span class="nw">仕込みも、</span><span class="nw">変わらずに</span><span class="nw">続け</span><span class="nw">ております。</span><span class="nw">皆様の</span><span class="nw">お越しを、</span><span class="nw">心より</span><span class="nw">お待ちし</span><span class="nw">ております。</span></p>
+        <p class="closing-text reveal"><span class="nw">茶屋新田のこの</span><span class="nw">場所に</span><span class="nw">移って、</span><span class="nw">二十年になります。</span><span class="nw">牛の</span><span class="nw">目利きも、</span><span class="nw">スープの</span><span class="nw">仕込みも、</span><span class="nw">変わらずに</span><span class="nw">続けて</span><span class="nw">おります。</span><span class="nw">皆様の</span><span class="nw">お越しを、</span><span class="nw">心より</span><span class="nw">お待ちして</span><span class="nw">おります。</span></p>
     </div>
 </section>
 
@@ -1607,12 +1404,12 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="info">
     <div class="container">
-        <h2 class="section-title reveal"><svg class="mon-mark" viewBox="0 0 20 16" aria-hidden="true"><rect x="0" y="0" width="20" height="3"/><rect x="1" y="3" width="3" height="13"/><rect x="16" y="3" width="3" height="13"/></svg><span class="nwb"><span class="nw">アクセス・</span><span class="nw">店舗情報</span></span></h2>
+        <h2 class="section-title reveal"><span class="nwb"><span class="nw">アクセス・</span><span class="nw">店舗情報</span></span></h2>
 
         <table class="info-table reveal">
             <tr><th><span class="nw">住所</span></th><td>〒306-0051 <span class="nw">茨城県古河市茶屋新田</span>348-5</td></tr>
             <tr><th><span class="nw">電話</span></th><td><a href="tel:0280487029" class="tel-link">0280-48-7029</a></td></tr>
-            <tr><th><span class="nw">営業時間</span></th><td>昼　<span class="nw">11:30〜14:00（L.O.13:30）</span><br class="br-pc">夜　<span class="nw">17:00〜21:30（L.O.20:50）</span></td></tr>
+            <tr><th><span class="nw">営業時間</span></th><td><span class="nw">昼　11:30〜14:00</span><span class="nw">（L.O.13:30）</span><br class="br-pc"><span class="nw">夜　17:00〜21:30</span><span class="nw">（L.O.20:50）</span></td></tr>
             <tr><th><span class="nw">定休日</span></th><td><span class="nw">火曜日、</span><span class="nw">および</span>第<span class="nw">1・</span>第<span class="nw">3・</span>第<span class="nw">5水曜日</span></td></tr>
             <tr><th><span class="nw">席数</span></th><td><span class="nw">64席</span><span class="nw">（ソファー</span><span class="nw">席・</span><span class="nw">掘りごたつ・</span><span class="nw">仕切りのある</span><span class="nw">席）</span></td></tr>
             <tr><th><span class="nw">駐車場</span></th><td><span class="nw">19台</span></td></tr>
@@ -1630,7 +1427,9 @@
 
         <!-- ★末尾の予約導線（必須） -->
         <div class="hero-actions" style="margin-top:24px;">
-            <a href="tel:0280487029" class="btn btn-primary btn-block">お電話でご予約する</a>
+            <a href="tel:0280487029" class="btn btn-primary btn-tel btn-block">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                <span class="tel-num">0280-48-7029</span><span class="tel-cap">ご予約はこちら</span></a>
         </div>
     </div>
 </section>
