@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 契約前のため検索エンジンに出さない。ご契約いただいたらこの2行を削除する -->
+<meta name="robots" content="noindex, nofollow">
+<title>お持ち帰りのご注文フォーム（見本）｜creative works+</title>
+<meta name="description" content="お持ち帰り（テイクアウト）のご注文フォーム（オプション）の見本です。お店のサイトの中に、同じ世界観で作ります。">
+<meta name="theme-color" content="#1f3552">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23b33b2a'/%3E%3Ctext x='50' y='66' font-size='54' text-anchor='middle' fill='%23f7f2e7' font-family='serif'%3E%E6%8C%81%3C/text%3E%3C/svg%3E">
+<style>
+/* ==========================================================
+   お持ち帰りのご注文フォーム（見本）
+   ★ご予約の受付フォーム（予約フォーム見本.html）と同じ作り・同じ見た目にしてある。
+     2つ並べて見せたときに、**同じ会社が作ったものだと一目で分かる**ようにするため。
+   ★どの店にも属さない見本。**店名・電話番号・住所を入れない**。
+   ★品目と金額はすべて仮のもの。本番はお店のお品書きから起こす。
+   ========================================================== */
+:root{
+  --paper:#f7f2e6; --paper-deep:#efe4cd; --ink:#26221c;
+  --indigo:#1f3552; --indigo-deep:#12233a;
+  --vermillion:#b33b2a; --vermillion-deep:#8f2e21;
+  --gold:#a8843f; --line:#ddccae;
+  --font-serif:'Yu Mincho','YuMincho','BIZ UDMincho','Hiragino Mincho ProN',serif;
+  --font-sans:'BIZ UDPGothic','Hiragino Kaku Gothic ProN','Hiragino Sans',Meiryo,sans-serif;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+body{font-family:var(--font-sans);font-size:16px;line-height:1.9;letter-spacing:.05em;
+  color:var(--ink);background-color:var(--paper);background-image:var(--grain);margin:0;padding:0}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+
+.bar{background:var(--indigo-deep);color:#f7f2e6;padding:14px 20px;
+  display:flex;align-items:center;gap:12px;font-family:var(--font-serif);font-size:1.15rem}
+.bar .hanko{width:30px;height:30px;flex:0 0 30px}
+.bar .hanko circle{fill:var(--vermillion)}
+.bar .hanko text{fill:#f7f2e6;font-family:var(--font-serif)}
+.bar .ttl{white-space:nowrap}
+.bar a{margin-left:auto;font-size:.86rem;font-family:var(--font-sans);white-space:nowrap;
+  color:#e8dcc4;text-decoration:none;border-bottom:1px solid rgba(232,220,196,.5);padding-bottom:1px}
+@media (max-width:430px){
+  .bar{font-size:.98rem;gap:8px;padding:12px 15px}
+  .bar a{font-size:.74rem}
+}
+
+.wrap{max-width:640px;margin:0 auto;padding:40px 20px 80px}
+h1{font-family:var(--font-serif);font-size:1.85rem;line-height:1.6;margin:0 0 6px;color:var(--indigo)}
+.sub{font-size:.92rem;color:#7a7161;margin:0 0 30px}
+
+/* 確定ではないことの掲示。ここが要。上と下の2回出す */
+.notice{background:#fffdf8;border:1px solid var(--vermillion);border-left-width:5px;
+  border-radius:4px;padding:18px 20px;margin:0 0 28px}
+.notice b{color:var(--vermillion-deep)}
+.notice p{margin:0;font-size:.95rem;line-height:1.85}
+.notice p+p{margin-top:10px}
+.nw{white-space:nowrap}
+
+fieldset{border:0;margin:0;padding:0}
+.f{margin:0 0 22px}
+.f label{display:block;font-family:var(--font-serif);font-size:1.02rem;color:var(--indigo);margin:0 0 7px}
+.req{display:inline-block;background:var(--vermillion);color:#fff;font-family:var(--font-sans);
+  font-size:.7rem;letter-spacing:.08em;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:2px}
+.opt{display:inline-block;background:var(--paper-deep);color:#7a7161;font-family:var(--font-sans);
+  font-size:.7rem;letter-spacing:.08em;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:2px}
+.hint{font-size:.84rem;color:#7a7161;margin:6px 0 0;line-height:1.7}
+input,select,textarea{width:100%;font-family:var(--font-sans);font-size:16px;color:var(--ink);
+  background:#fffdf8;border:1px solid var(--line);border-radius:5px;padding:13px 14px;
+  line-height:1.6;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237a7161' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--indigo);outline-offset:1px;border-color:var(--indigo)}
+.row{display:flex;gap:12px}
+.row>*{flex:1}
+.err{color:var(--vermillion-deep);font-size:.86rem;margin:6px 0 0;display:none}
+.f.bad input,.f.bad select{border-color:var(--vermillion)}
+.f.bad .err{display:block}
+
+/* ---- お品書き（ここがご予約フォームとの違い）----------------------
+   ★1品＝1行。左に品名と一文、右にお値段と個数。
+     カードを並べると通信販売の顔になるので、罫線だけで区切る。 */
+.dish{margin:0 0 6px}
+.item{display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:center;
+  border-top:1px solid var(--line);padding:15px 0}
+.item:last-of-type{border-bottom:1px solid var(--line)}
+.item .nm{grid-column:1;grid-row:1;font-family:var(--font-serif);font-size:1.08rem;color:var(--indigo)}
+.item .pr{grid-column:2;grid-row:1;font-family:var(--font-serif);font-size:1.02rem;
+  white-space:nowrap;text-align:right}
+.item .ds{grid-column:1;grid-row:2;font-size:.84rem;color:#7a7161;line-height:1.7;margin:2px 0 0}
+.item .qt{grid-column:2;grid-row:2;margin-top:4px}
+.item select{width:96px;padding:9px 12px}
+.item.on{background:#fffdf8}
+.item.on .nm{font-weight:bold}
+
+/* 合計。画面の下に貼り付いて、いま何点いくらかが常に見えるようにする */
+.sum{position:sticky;bottom:0;z-index:2;background:var(--paper-deep);
+  border:1px solid var(--line);border-radius:5px;padding:13px 16px;margin:16px 0 0;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-serif);font-size:1.08rem;color:var(--indigo)}
+.sum .yen{font-size:1.24rem}
+.sum.zero{color:#9a9488}
+#f-dish.bad .item{border-color:var(--vermillion)}
+
+.send{width:100%;background:var(--vermillion);color:#fff;border:1px solid var(--vermillion);
+  font-family:var(--font-serif);font-size:1.15rem;letter-spacing:.1em;padding:17px;border-radius:5px;
+  cursor:pointer;transition:.25s;margin-top:6px}
+.send:hover{background:var(--vermillion-deep);border-color:var(--vermillion-deep)}
+.send[disabled]{opacity:.55;cursor:default}
+
+.tel{display:block;text-align:center;background:var(--indigo);color:#f7f2e6;text-decoration:none;
+  font-family:var(--font-serif);font-size:1.1rem;letter-spacing:.08em;padding:16px;border-radius:5px;margin-top:14px}
+.tel small{display:block;font-family:var(--font-sans);font-size:.8rem;letter-spacing:.04em;opacity:.85;margin-top:3px}
+
+.done{display:none;text-align:center;padding:20px 0}
+.done .mark{width:74px;height:74px;margin:0 auto 22px}
+.done h2{font-family:var(--font-serif);font-size:1.55rem;color:var(--indigo);margin:0 0 16px;line-height:1.6}
+.done p{font-size:.98rem;margin:0 0 14px}
+.done .uke{display:inline-block;text-align:left;background:#fffdf8;border:1px solid var(--line);
+  border-radius:4px;padding:14px 20px;margin:0 0 18px;font-size:.95rem;line-height:1.9}
+.done .uke b{font-family:var(--font-serif);color:var(--indigo)}
+
+footer{background:var(--indigo-deep);color:#cdbfa6;font-size:.82rem;text-align:center;padding:26px 20px;line-height:1.9}
+.demo{background:var(--paper-deep);border:1px dashed var(--gold);border-radius:4px;
+  padding:12px 16px;font-size:.82rem;color:#6d6252;margin:0 0 26px;line-height:1.8}
+
+/* 迷惑送信よけ（ハニーポット）。人の目にも読み上げにも出ない。機械だけがここを埋める */
+.gf-hp{position:absolute!important;left:-9999px!important;top:auto!important;
+  width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;
+  pointer-events:none!important}
+
+/* 個人情報の取り扱い。送信ボタンの直前に、小さく必ず出す */
+.privacy{font-size:.82rem;color:#6d6252;line-height:1.85;margin:24px 0 4px;
+  border-top:1px solid var(--line);padding-top:16px}
+.privacy b{color:var(--indigo)}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <svg class="hanko" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/><text x="50" y="66" font-size="54" text-anchor="middle">持</text></svg>
+  <span class="ttl">お持ち帰りのご注文</span>
+  <a href="../company/">creative works+</a>
+</div>
+
+<div class="wrap">
+
+  <div id="pane-form">
+    <h1>お持ち帰りのご注文</h1>
+    <p class="sub"><span class="nw">お電話が混み合う時間でも、</span><span class="nw">こちらから承ります。</span></p>
+
+    <p class="demo">※ <span class="nw">こちらは、</span><span class="nw">お持ち帰りの</span><span class="nw">ご注文フォームの</span><span class="nw">見本のページです。</span><span class="nw">品目とお値段は</span><span class="nw">すべて仮のものです。</span><span class="nw">送信なさった内容は</span><span class="nw">お店ではなく</span><span class="nw">creative works+ に届きます。</span></p>
+
+    <div class="notice" id="stopbox" style="display:none;border-color:var(--indigo)">
+      <p><b id="stopmsg"></b></p>
+      <p><span class="nw">お手数をおかけいたしますが、</span><span class="nw">お電話にて承ります。</span></p>
+    </div>
+
+    <div class="notice" id="rulebox">
+      <p><b><span class="nw">このお申し込みだけでは、</span><span class="nw">ご注文は確定いたしません。</span></b><span class="nw">お店からご連絡を差し上げ、</span><span class="nw">そのご連絡をもって</span><span class="nw">確定となります。</span></p>
+      <p><b><span class="nw">お受け取りの</span><span class="nw"><span id="rule-h">2</span>時間前まで</span><span class="nw">承っております。</span></b><span class="nw">お急ぎの場合は、</span><span class="nw">お電話でお願いいたします。</span></p>
+      <p><span class="nw">お支払いは、</span><span class="nw">お受け取りの際に</span><span class="nw">お店でお願いいたします。</span></p>
+    </div>
+
+    <form id="odr" novalidate>
+      <fieldset>
+        <!-- 迷惑送信よけ。人の目には見えず、読み上げにも出ない。
+             ここが記入されていたら機械なので、送らずに静かに捨てる -->
+        <div class="gf-hp" aria-hidden="true">
+          <label for="q-hp">こちらはご記入いただかなくて結構です</label>
+          <input id="q-hp" name="hp" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="f" id="f-dish">
+          <label>お品書き<span class="req">必須</span></label>
+          <div class="dish" id="dish"></div>
+          <div class="sum zero" id="sum"><span id="sum-l">まだお選びになっていません</span><span class="yen" id="sum-r"></span></div>
+          <p class="err" id="dish-err">お品物を1つ以上お選びください。</p>
+        </div>
+
+        <div class="f" id="f-date">
+          <label for="q-date">お受け取り日<span class="req">必須</span></label>
+          <input id="q-date" name="date" type="date">
+          <p class="hint" id="date-hint"></p>
+          <p class="err" id="date-err">お受け取りになれる日をお選びください。</p>
+        </div>
+
+        <div class="f" id="f-time">
+          <label for="q-time">お受け取り時刻<span class="req">必須</span></label>
+          <select id="q-time" name="time"><option value="">先にお受け取り日をお選びください</option></select>
+          <p class="hint" id="time-hint"></p>
+          <p class="err" id="time-err">時刻をお選びください。</p>
+        </div>
+
+        <div class="f" id="f-name">
+          <label for="q-name">お名前<span class="req">必須</span></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="山田 太郎">
+          <p class="err">お名前をご記入ください。</p>
+        </div>
+
+        <div class="f" id="f-tel">
+          <label for="q-tel">お電話番号<span class="req">必須</span></label>
+          <input id="q-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678">
+          <p class="hint"><span class="nw">お店からのご連絡に</span><span class="nw">使わせていただきます。</span><span class="nw">ハイフンは有っても</span><span class="nw">無くても構いません。</span></p>
+          <p class="err">お電話番号をご記入ください（10桁または11桁）。</p>
+        </div>
+
+        <div class="f">
+          <label for="q-note">ご要望<span class="opt">任意</span></label>
+          <textarea id="q-note" name="note" placeholder="お箸を3膳お願いします／辛みを控えめに　など"></textarea>
+        </div>
+      </fieldset>
+
+      <p class="privacy"><b><span class="nw">お預かりする内容に</span><span class="nw">ついて。</span></b><span class="nw">いただいたお名前・</span><span class="nw">お電話番号・</span><span class="nw">お受け取りの日時・</span><span class="nw">ご注文の内容・</span><span class="nw">ご要望は、</span><b><span class="nw">このご注文の</span><span class="nw">ご連絡と、</span><span class="nw">お作りするためにのみ</span></b><span class="nw">使わせていただきます。</span><span class="nw">ほかの目的には使わず、</span><span class="nw">お店のほかへ</span><span class="nw">お渡しすることは</span><span class="nw">ございません。</span><span class="nw">お申し込みの内容は、</span><span class="nw">お店のGoogleアカウントの</span><span class="nw">メールと控えの表に</span><span class="nw">届きます。</span><span class="nw">お取り消し・ご変更、</span><span class="nw">お預かりした内容の削除を</span><span class="nw">ご希望のときは、</span><span class="nw">お電話にて</span><span class="nw">お申しつけください。</span></p>
+
+      <button type="submit" class="send" id="btn">この内容で申し込む</button>
+      <div class="tel">お電話でご注文する<small>〔お店のお電話番号が入ります〕</small></div>
+    </form>
+  </div>
+
+  <div id="pane-done" class="done">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#1f3552" stroke-width="2"/>
+      <path d="M30 52l14 14 27-30" fill="none" stroke="#b33b2a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h2>お申し込みを承りました</h2>
+    <div class="notice" style="text-align:left">
+      <p><b><span class="nw">まだご注文は</span><span class="nw">確定しておりません。</span></b><span class="nw">お店から折り返し</span><span class="nw">ご連絡を差し上げ、</span><span class="nw">そのご連絡をもって</span><span class="nw">確定となります。</span></p>
+      <p><span class="nw">お急ぎの場合、</span><span class="nw">営業時間内でしたら</span><span class="nw">お電話が確実でございます。</span></p>
+    </div>
+    <div class="uke" id="echo"></div>
+    <div class="tel">お電話はこちら<small>〔お店のお電話番号が入ります〕</small></div>
+  </div>
+
+</div>
+
+<footer><span class="nw">お持ち帰りのご注文フォームの見本です。</span><br><span class="nw">本番は、</span><span class="nw">お店のホームページの中に、</span><span class="nw">同じ世界観で組み込みます。</span><br>creative works+</footer>
+
+<!-- 送信の受け皿。画面には出ない -->
+<iframe name="gf-sink" style="display:none" title="送信"></iframe>
+
+<script>
+/* ==========================================================
+   ★設定はここだけ。お店ごとに書き換える。
+   ENDPOINT … Google Apps Script のウェブアプリのURL（…/exec）
+              ★ご予約の受付フォームと**同じURLでよい**。
+                受信側が kind=takeout を見て、お持ち帰りとして扱う。
+              空のままだと「見本モード」で動く（送らずに完了画面だけ出す）
+   ========================================================== */
+var ENDPOINT = "https://script.google.com/macros/s/AKfycbx0BZvaB206c_rqmC__86MVLg_ziEcBXZ0wW_oZPsCY5rXQjzF26QlwZwMy7c7u4GfV/exec";
+
+/* ---- お品書き（★お店のお品書きから起こす。ここは全部が仮のもの）----
+     name  … 品名
+     price … お値段（税込）。金額を出さないお店では 0 でよい
+     desc  … 一文。無ければ空でよい
+     max   … おひとりがお選びになれる上限 */
+var MENU = [
+  { name: "松弁当",       price: 1800, max: 10, desc: "その日のお肉を、いちばん良いところで。" },
+  { name: "竹弁当",       price: 1400, max: 10, desc: "焼き物と煮物を、少しずつ詰め合わせて。" },
+  { name: "梅弁当",       price: 1100, max: 10, desc: "毎日の昼どきに、気軽にお持ちいただけるように。" },
+  { name: "日替わり弁当", price:  980, max: 10, desc: "その日の仕入れで、中身が変わります。" },
+  { name: "からあげ弁当", price:  880, max: 10, desc: "揚げたてを、お受け取りの時刻に合わせて。" }
+];
+
+/* ★金額を出すかどうか。
+     false にすると、お客様の画面にも、お店に届くメールにも金額が出ない。
+     **お品書きの価格が今のものだと確かめられていないお店では false にする。**
+     （品名と個数だけが届き、お会計はお店からのお電話でお伝えいただく） */
+var 金額を出す = true;
+
+/* ---- お店ごとの決めごと ------------------------------------- */
+var 何時間前まで = 2;      // ★お受け取りの◯時間前まで承る（当日も受ける）
+var OPEN_H       = 11;     // お渡しできる時刻の最初
+var CLOSE_H      = 20;     // お渡しできる時刻の最後
+var 何日先まで   = 30;     // これより先の日は選べない
+var 一度の上限   = 20;     // 一度にお受けする点数の上限
+
+/* ★定休日は、はじめから選ばせない
+     CLOSED_WDAYS … 毎週のお休み。0=日 1=月 2=火 3=水 4=木 5=金 6=土
+     CLOSED_NTH   … 第n週だけのお休み。[曜日, 第n週] の並び。例 [3,1]＝第1水曜
+   ★見本には「火曜＋第1・3・5水曜」を入れてある。お店ごとに必ず書き換える。 */
+var CLOSED_WDAYS = [2];                       // 火曜
+var CLOSED_NTH   = [[3, 1], [3, 3], [3, 5]];  // 第1・第3・第5水曜
+
+/* ★その日はもうお受けできない、という日。
+     ★1日の件数の上限（受信側の「持ち帰り1日の上限」）に達した日も、ここへ書き足して塞ぐ。
+       フォームからは、その日に何件入っているかが分からないため。 */
+var FULL_DATES = [];     // 例：["2026-12-24","2026-12-31"]
+
+/* ★迷惑送信よけ。読み込みから何秒たたないと送らせないか（機械は一瞬で送ってくる） */
+var MIN_SECONDS = 3;
+
+/* ★繁忙期は、フォームを閉じてお電話だけにする。空なら閉じない */
+var STOP_FROM = "";
+var STOP_TO   = "";
+
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var T0 = Date.now();   // ★読み込んだ時刻。これが早すぎる送信＝機械
+  var 送信済み = false;
+
+  document.getElementById("rule-h").textContent = 何時間前まで;
+
+  function 円(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "円"; }
+
+  /* ---- お品書きを並べる ---------------------------------- */
+  var dish = $("#dish");
+  for (var i = 0; i < MENU.length; i++) {
+    var m = MENU[i];
+    var opts = '<option value="0">0</option>';
+    for (var q = 1; q <= (m.max || 10); q++) {
+      opts += '<option value="' + q + '">' + q + "</option>";
+    }
+    dish.insertAdjacentHTML("beforeend",
+      '<div class="item" data-i="' + i + '">' +
+        '<span class="nm">' + m.name + "</span>" +
+        '<span class="pr">' + (金額を出す && m.price ? 円(m.price) : "") + "</span>" +
+        '<p class="ds">' + (m.desc || "") + "</p>" +
+        '<span class="qt"><label class="gf-hp" for="q-i' + i + '">' + m.name + 'の個数</label>' +
+          '<select id="q-i' + i + '" data-i="' + i + '">' + opts + "</select></span>" +
+      "</div>");
+  }
+
+  /* ---- 合計を出す ---------------------------------------- */
+  function 数える() {
+    var 点 = 0, 金 = 0, 明細 = [];
+    var ss = dish.querySelectorAll("select");
+    for (var i = 0; i < ss.length; i++) {
+      var k = +ss[i].getAttribute("data-i");
+      var n = parseInt(ss[i].value, 10) || 0;
+      ss[i].parentNode.parentNode.classList.toggle("on", n > 0);
+      if (!n) { continue; }
+      点 += n;
+      金 += (MENU[k].price || 0) * n;
+      明細.push(MENU[k].name + " × " + n);
+    }
+    return { 点: 点, 金: 金, 明細: 明細 };
+  }
+
+  function 合計を描く() {
+    var r = 数える();
+    var sum = $("#sum");
+    if (!r.点) {
+      sum.classList.add("zero");
+      $("#sum-l").textContent = "まだお選びになっていません";
+      $("#sum-r").textContent = "";
+      return r;
+    }
+    sum.classList.remove("zero");
+    $("#sum-l").textContent = "ご注文 " + r.点 + "点";
+    $("#sum-r").textContent = (金額を出す && r.金) ? 円(r.金) : "";
+    return r;
+  }
+  dish.addEventListener("change", function () {
+    var r = 合計を描く();
+    document.getElementById("f-dish").classList.remove("bad");
+    if (一度の上限 && r.点 > 一度の上限) {
+      $("#dish-err").textContent =
+        "一度にお受けできるのは " + 一度の上限 + "点までです。お電話でご相談ください。";
+      document.getElementById("f-dish").classList.add("bad");
+    }
+  });
+
+  /* ---- 日付 ---------------------------------------------- */
+  var YOBI = ["日", "月", "火", "水", "木", "金", "土"];
+  function fmt(d) {
+    return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  }
+  function toDate(s) {
+    return new Date(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10));
+  }
+
+  function 休みの理由(ymd) {
+    var d = toDate(ymd), w = d.getDay(), nth = Math.floor((d.getDate() - 1) / 7) + 1;
+    if (CLOSED_WDAYS.indexOf(w) >= 0) {
+      return YOBI[w] + "曜日は定休日でございます。ほかの日をお選びください。";
+    }
+    for (var i = 0; i < CLOSED_NTH.length; i++) {
+      if (CLOSED_NTH[i][0] === w && CLOSED_NTH[i][1] === nth) {
+        return "第" + nth + YOBI[w] + "曜日は定休日でございます。ほかの日をお選びください。";
+      }
+    }
+    if (FULL_DATES.indexOf(ymd) >= 0) {
+      return "その日は、お持ち帰りのご注文が立て込んでおります。ほかの日をお選びください。";
+    }
+    return "";
+  }
+
+  /* ★その日に選べる時刻を組み直す。
+       ご予約のフォームと違い、お持ち帰りは**当日も受ける**。
+       そのぶん「あと何時間あるか」で選択肢が変わるので、日を選ぶたびに作り直す。 */
+  function 時刻を組み直す(ymd) {
+    var t = $("#q-time");
+    /* ★「お選びください」を**先に**入れる。
+         あとから afterbegin で足すと、先に入った時刻のほうが選ばれたままになり、
+         お客様がお選びになっていない時刻で送信できてしまう（2026-09-21 に実測して直した）。 */
+    t.innerHTML = '<option value="">お選びください</option>';
+    var 締切 = new Date(Date.now() + 何時間前まで * 3600000);
+    var 選べる = 0;
+    for (var h = OPEN_H; h <= CLOSE_H; h++) {
+      for (var m = 0; m < 60; m += 30) {
+        if (h === CLOSE_H && m > 0) { break; }
+        var hhmm = ("0" + h).slice(-2) + ":" + ("0" + m).slice(-2);
+        var その時 = toDate(ymd);
+        その時.setHours(h, m, 0, 0);
+        if (その時 < 締切) { continue; }
+        t.insertAdjacentHTML("beforeend", '<option value="' + hhmm + '">' + hhmm + "</option>");
+        選べる++;
+      }
+    }
+    if (!選べる) {
+      t.innerHTML = '<option value="">この日はお受けできません</option>';
+      $("#time-hint").textContent =
+        "この日は、お受け取りまで" + 何時間前まで + "時間を切っております。ほかの日をお選びください。";
+      return false;
+    }
+    $("#time-hint").textContent =
+      "お受け取りの" + 何時間前まで + "時間前まで、お選びいただけます。";
+    return true;
+  }
+
+  // ★最短の日が定休日なら、開いている日まで進めておく（開いた瞬間に休みが出ない）
+  var d = new Date();
+  for (var g = 0; g < 40 && 休みの理由(fmt(d)); g++) { d.setDate(d.getDate() + 1); }
+  var min = fmt(d);
+  var 先 = new Date();
+  先.setDate(先.getDate() + 何日先まで);
+  var max = fmt(先);
+  $("#q-date").min = min;
+  $("#q-date").max = max;
+
+  var 休み文 = [];
+  for (var a = 0; a < CLOSED_WDAYS.length; a++) { 休み文.push(YOBI[CLOSED_WDAYS[a]] + "曜日"); }
+  var 束 = {};
+  for (var b = 0; b < CLOSED_NTH.length; b++) {
+    var w2 = CLOSED_NTH[b][0];
+    (束[w2] = 束[w2] || []).push("第" + CLOSED_NTH[b][1]);
+  }
+  for (var w3 in 束) { 休み文.push(束[w3].join("・") + YOBI[w3] + "曜日"); }
+  $("#date-hint").innerHTML = 休み文.length
+    ? '<span class="nw">本日のぶんも承ります。</span><span class="nw">定休日（' + 休み文.join("・") + '）は、</span><span class="nw">お選びいただけません。</span>'
+    : '<span class="nw">本日のぶんも承ります。</span>';
+
+  $("#q-date").addEventListener("change", function () {
+    var v = this.value;
+    if (!v) { return; }
+    var 理由 = 休みの理由(v)
+            || ((v < min) ? "過ぎた日はお選びいただけません。" : "")
+            || ((v > max) ? 何日先まで + "日より先のご注文は、お電話で承っております。" : "");
+    if (理由) {
+      $("#date-err").textContent = 理由;
+      document.getElementById("f-date").classList.add("bad");
+      this.value = "";
+      $("#q-time").innerHTML = '<option value="">先にお受け取り日をお選びください</option>';
+      this.focus();
+      return;
+    }
+    document.getElementById("f-date").classList.remove("bad");
+    時刻を組み直す(v);
+  });
+
+  // ★繁忙期はフォームを閉じ、お電話だけにする
+  var today = new Date();
+  var td = fmt(today);
+  if (STOP_FROM && STOP_TO && td >= STOP_FROM && td <= STOP_TO) {
+    var f2 = function (x) {
+      return parseInt(x.slice(5, 7), 10) + "月" + parseInt(x.slice(8, 10), 10) + "日";
+    };
+    $("#stopmsg").textContent =
+      f2(STOP_FROM) + "から" + f2(STOP_TO) + "までのお持ち帰りは、お電話のみで承っております。";
+    $("#stopbox").style.display = "block";
+    $("#odr").style.display = "none";
+    $("#rulebox").style.display = "none";
+    $("#pane-form").appendChild($(".tel") || document.createElement("span"));
+  }
+
+  function mark(id, ok) {
+    document.getElementById(id).classList.toggle("bad", !ok);
+    return ok;
+  }
+
+  $("#odr").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (送信済み) { return; }
+    var r    = 合計を描く();
+    var name = $("#q-name").value.trim();
+    var tel  = $("#q-tel").value.replace(/[-−ー\s]/g, "");
+    var date = $("#q-date").value;
+    var time = $("#q-time").value;
+    var note = $("#q-note").value.trim();
+
+    var ok = true;
+    if (!r.点) { $("#dish-err").textContent = "お品物を1つ以上お選びください。"; }
+    else if (一度の上限 && r.点 > 一度の上限) {
+      $("#dish-err").textContent =
+        "一度にお受けできるのは " + 一度の上限 + "点までです。お電話でご相談ください。";
+    }
+    ok = mark("f-dish", r.点 > 0 && !(一度の上限 && r.点 > 一度の上限)) && ok;
+
+    var 日の理由 = !date ? "お受け取りになれる日をお選びください。"
+                 : (休みの理由(date) || ((date < min) ? "過ぎた日はお選びいただけません。" : ""));
+    if (日の理由) { $("#date-err").textContent = 日の理由; }
+    ok = mark("f-date", !日の理由) && ok;
+
+    /* ★時刻は、いまこの瞬間でもう一度測る。
+         フォームを開いたまま時間が経っていると、選んだ時刻が締め切りを過ぎていることがある。 */
+    var 間に合う = true;
+    if (date && time) {
+      var 受取 = toDate(date);
+      受取.setHours(+time.slice(0, 2), +time.slice(3, 5), 0, 0);
+      間に合う = (受取 - Date.now()) >= 何時間前まで * 3600000;
+      if (!間に合う) {
+        $("#time-err").textContent =
+          "お受け取りまで" + 何時間前まで + "時間を切りました。時刻を選び直していただくか、お電話でお願いいたします。";
+        時刻を組み直す(date);
+      }
+    } else if (!time) {
+      $("#time-err").textContent = "時刻をお選びください。";
+    }
+    ok = mark("f-time", !!time && 間に合う) && ok;
+    ok = mark("f-name", name.length > 0) && ok;
+    ok = mark("f-tel", /^0\d{9,10}$/.test(tel)) && ok;
+    if (!ok) { document.querySelector(".f.bad").scrollIntoView({ block: "center" }); return; }
+
+    /* ★迷惑送信よけ。どちらに当たっても、画面は完了のまま「送らずに捨てる」。
+         人が間違って当たることは無い作りなので、断り文句は出さない
+         （出すと、機械に「どこで弾かれたか」を教えることになる）。 */
+    var 機械らしい = $("#q-hp").value !== "" || (Date.now() - T0) < MIN_SECONDS * 1000;
+
+    送信済み = true;
+    $("#btn").disabled = true;
+    $("#btn").textContent = "送信しております…";
+
+    if (ENDPOINT && !機械らしい) {
+      // Apps Script へ渡す。返事は読めない（別ドメインのため）ので、
+      // 送ったあとは、こちらの完了画面を出す。
+      var f = document.createElement("form");
+      f.action = ENDPOINT; f.method = "POST"; f.target = "gf-sink";
+      var vals = { kind: "takeout",                       // ★これでお持ち帰りとして扱われる
+                   name: name, tel: tel, date: date, time: time,
+                   items: r.明細.join("／"),
+                   count: String(r.点),
+                   total: (金額を出す && r.金) ? String(r.金) : "",
+                   note: note,
+                   hp: $("#q-hp").value,                  // ★受信側でももう一度見る
+                   sec: String(Math.round((Date.now() - T0) / 1000)) };
+      for (var k in vals) {
+        var inp = document.createElement("input");
+        inp.type = "hidden"; inp.name = k; inp.value = vals[k];
+        f.appendChild(inp);
+      }
+      document.body.appendChild(f);
+      f.submit();
+    }
+
+    setTimeout(function () {
+      var 明 = "";
+      for (var i = 0; i < r.明細.length; i++) { 明 += "・" + r.明細[i] + "<br>"; }
+      $("#echo").innerHTML =
+        "<b>お受け取り</b>　" + date.replace(/-/g, "/") + "　" + time + "<br>" +
+        "<b>お名前</b>　" + name + " 様<br><br>" + 明 +
+        ((金額を出す && r.金) ? "<br><b>合計</b>　" + 円(r.金) + "（" + r.点 + "点）"
+                             : "<br>" + r.点 + "点");
+      $("#pane-form").style.display = "none";
+      $("#pane-done").style.display = "block";
+      window.scrollTo(0, 0);
+    }, ENDPOINT ? 1200 : 350);
+  });
+})();
+</script>
+</body>
+</html>
