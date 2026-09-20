@@ -624,6 +624,7 @@ body.nav-open .mobile-nav { transform: translateX(0); }
 
 /* --- お品書きの入口（トップの2行） ------------------------------------- */
 .menu-links { border-top: 1px solid var(--line); }
+.seat-link { margin-top: clamp(30px, 4vw, 46px); }
 .menu-link {
     display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px 20px;
     padding: 24px 2px; border-bottom: 1px solid var(--line); color: inherit;
@@ -649,10 +650,30 @@ body.nav-open .mobile-nav { transform: translateX(0); }
 
 /* 章ごとの写真。★元が512pxの写真があるので、PCでの表示幅を 480px までに抑える
    （これ以上に伸ばすと check_upscale.py が ✗ を出し、実際にぼやける）。 */
-.menu-photos { display: grid; gap: 12px; margin: 16px 0 6px; }
+/* ★2026-09-20：2枚ある章は横に並べる（縦に2枚だと章がいたずらに長くなる）。
+   1枚だけの章は右のマスが空くので、figure 側の 480px 上限がそのまま効く。 */
+.menu-photos {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px; margin: 16px 0 6px; max-width: 972px;
+}
 .menu-photos figure { max-width: 480px; }
 .menu-photos .photo-frame { aspect-ratio: 4 / 3; }
 .menu-photos figcaption { margin-top: 7px; color: var(--dim); font-size: 0.78rem; }
+
+/* --- ご宴会・ご法事（party.html） -------------------------------------- */
+/* ★2026-09-20 新設。ご宴会とご法事の一文を左右に並べる。箱は作らず、
+   上下の細い罫だけで区切る（角丸・影・カプセルは使わない＝AI感を外した方針）。 */
+.use-section { padding-top: 0; }
+.use-grid { border-top: 1px solid var(--line); }
+.use-item { border-bottom: 1px solid var(--line); padding: 22px 0; }
+.use-title {
+    font-family: var(--font-head); font-size: 1.16rem; font-weight: 500;
+    letter-spacing: 0.06em; margin-bottom: 10px;
+}
+.use-item p { color: var(--muted); font-size: 0.95rem; }
+@media (min-width: 760px) {
+    .use-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 52px; }
+}
 
 /* --- お品書き本体（build_menu.py の出力） ------------------------------ */
 /* ★2026-09-20：章を27から10へまとめ直したので、タブは横スクロールをやめて
