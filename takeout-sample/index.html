@@ -389,42 +389,56 @@ var STOP_TO   = "";
     return "";
   }
 
-  /* ★その日に選べる時刻を組み直す。
+  /* ★その日にまだ選べる時刻を数え上げる。
        ご予約のフォームと違い、お持ち帰りは**当日も受ける**。
-       そのぶん「あと何時間あるか」で選択肢が変わるので、日を選ぶたびに作り直す。 */
+       そのぶん「あと何時間あるか」で選択肢が変わるので、その場で計算する。
+       ★日付の側（選ばせる最短の日）からも呼ぶので、関数に分けてある。 */
+  function 選べる時刻(ymd) {
+    var 締切 = new Date(Date.now() + 何時間前まで * 3600000);
+    var out = [];
+    for (var h = OPEN_H; h <= CLOSE_H; h++) {
+      for (var m = 0; m < 60; m += 30) {
+        if (h === CLOSE_H && m > 0) { break; }
+        var その時 = toDate(ymd);
+        その時.setHours(h, m, 0, 0);
+        if (その時 < 締切) { continue; }
+        out.push(("0" + h).slice(-2) + ":" + ("0" + m).slice(-2));
+      }
+    }
+    return out;
+  }
+
   function 時刻を組み直す(ymd) {
     var t = $("#q-time");
     /* ★「お選びください」を**先に**入れる。
          あとから afterbegin で足すと、先に入った時刻のほうが選ばれたままになり、
          お客様がお選びになっていない時刻で送信できてしまう（2026-09-21 に実測して直した）。 */
     t.innerHTML = '<option value="">お選びください</option>';
-    var 締切 = new Date(Date.now() + 何時間前まで * 3600000);
-    var 選べる = 0;
-    for (var h = OPEN_H; h <= CLOSE_H; h++) {
-      for (var m = 0; m < 60; m += 30) {
-        if (h === CLOSE_H && m > 0) { break; }
-        var hhmm = ("0" + h).slice(-2) + ":" + ("0" + m).slice(-2);
-        var その時 = toDate(ymd);
-        その時.setHours(h, m, 0, 0);
-        if (その時 < 締切) { continue; }
-        t.insertAdjacentHTML("beforeend", '<option value="' + hhmm + '">' + hhmm + "</option>");
-        選べる++;
-      }
-    }
-    if (!選べる) {
+    var 一覧 = 選べる時刻(ymd);
+    if (!一覧.length) {
       t.innerHTML = '<option value="">この日はお受けできません</option>';
       $("#time-hint").textContent =
         "この日は、お受け取りまで" + 何時間前まで + "時間を切っております。ほかの日をお選びください。";
       return false;
+    }
+    for (var i = 0; i < 一覧.length; i++) {
+      t.insertAdjacentHTML("beforeend", '<option value="' + 一覧[i] + '">' + 一覧[i] + "</option>");
     }
     $("#time-hint").textContent =
       "お受け取りの" + 何時間前まで + "時間前まで、お選びいただけます。";
     return true;
   }
 
-  // ★最短の日が定休日なら、開いている日まで進めておく（開いた瞬間に休みが出ない）
+  /* ★選ばせる最短の日を決める。次の2つで先へ送る。
+       ①定休日　②**その日にもう1枠も残っていない**
+     ★②を見ていないと、本日を選べるのに時刻が空、という行き止まりになる
+       （2026-09-21：18:30 に本日を選んで「この日はお受けできません」が出た）。 */
+  var 今日 = fmt(new Date());
   var d = new Date();
-  for (var g = 0; g < 40 && 休みの理由(fmt(d)); g++) { d.setDate(d.getDate() + 1); }
+  for (var g = 0; g < 40; g++) {
+    if (!休みの理由(fmt(d)) && 選べる時刻(fmt(d)).length) { break; }
+    d.setDate(d.getDate() + 1);
+  }
   var min = fmt(d);
   var 先 = new Date();
   先.setDate(先.getDate() + 何日先まで);
@@ -440,15 +454,21 @@ var STOP_TO   = "";
     (束[w2] = 束[w2] || []).push("第" + CLOSED_NTH[b][1]);
   }
   for (var w3 in 束) { 休み文.push(束[w3].join("・") + YOBI[w3] + "曜日"); }
+  /* ★本日がもう受けられないのに「本日のぶんも承ります」と出すと、嘘になる */
+  var 頭 = (min === 今日)
+    ? '<span class="nw">本日のぶんも承ります。</span>'
+    : '<span class="nw">本日のご注文は、</span><span class="nw">お受け取りまで' + 何時間前まで + '時間を切りましたので</span><span class="nw">締め切りました。</span>';
   $("#date-hint").innerHTML = 休み文.length
-    ? '<span class="nw">本日のぶんも承ります。</span><span class="nw">定休日（' + 休み文.join("・") + '）は、</span><span class="nw">お選びいただけません。</span>'
-    : '<span class="nw">本日のぶんも承ります。</span>';
+    ? 頭 + '<span class="nw">定休日（' + 休み文.join("・") + '）は、</span><span class="nw">お選びいただけません。</span>'
+    : 頭;
 
   $("#q-date").addEventListener("change", function () {
     var v = this.value;
     if (!v) { return; }
     var 理由 = 休みの理由(v)
-            || ((v < min) ? "過ぎた日はお選びいただけません。" : "")
+            || ((v < min) ? (v === 今日
+                  ? "本日は、お受け取りまで" + 何時間前まで + "時間を切りました。お電話でお願いいたします。"
+                  : "過ぎた日はお選びいただけません。") : "")
             || ((v > max) ? 何日先まで + "日より先のご注文は、お電話で承っております。" : "");
     if (理由) {
       $("#date-err").textContent = 理由;
@@ -501,7 +521,9 @@ var STOP_TO   = "";
     ok = mark("f-dish", r.点 > 0 && !(一度の上限 && r.点 > 一度の上限)) && ok;
 
     var 日の理由 = !date ? "お受け取りになれる日をお選びください。"
-                 : (休みの理由(date) || ((date < min) ? "過ぎた日はお選びいただけません。" : ""));
+                 : (休みの理由(date) || ((date < min) ? (date === 今日
+                      ? "本日は、お受け取りまで" + 何時間前まで + "時間を切りました。お電話でお願いいたします。"
+                      : "過ぎた日はお選びいただけません。") : ""));
     if (日の理由) { $("#date-err").textContent = 日の理由; }
     ok = mark("f-date", !日の理由) && ok;
 
