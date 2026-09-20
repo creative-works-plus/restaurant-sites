@@ -1,0 +1,767 @@
+/* 焼肉 大門 ── 3ページ共通のスタイル（index.html / menu.html / drink.html）
+   ★ここ1か所を直せば3ページとも変わる。ページごとにコピーを作らないこと。 */
+:root {
+    /* --- 面（背景） 3段。明るい店なら明度の向きを逆にする ----------------- */
+    --bg:          #2A1E17;   /* 木地の焦茶。店内38点の主色実測（H18-32の暖かい木の茶） */
+    --surface:     #352720;   /* カード・帯の面 */
+    --surface-2:   #4A362A;   /* さらに手前の面・入れ子のカード */
+
+    /* --- 文字（--bg 上でのコントラスト比を必ず確認） ------------------------ */
+    --ink:         #F2EAE0;   /* 乳白＝屋根の白い牛のオブジェ。--bg比 13.59:1 */
+    --muted:       #C0AE9C;   /* --bg比 7.54:1 */
+    --dim:         #A89279;   /* 注記・キャプション。--bg比 5.44:1 */
+
+    /* --- 差し色＝予約CTA・見出し罫。店の1色 -------------------------------- */
+    --accent:      #F2EAE0;   /* 差し色は有彩色にしない。乳白そのもの */
+    --accent-hi:   #FFFFFF;   /* ホバー時の明るい版 */
+    --accent-deep: #D9CAB5;   /* 押下・影の暗い版 */
+    /* --accent-2 は持たない（差し色は乳白1色。→ ブリーフ§2） */
+    --mon:         #B5282A;   /* ロゴ実測の赤。「三の門」1枚とfaviconにだけ使う */
+
+    /* --- 罫線 -------------------------------------------------------------- */
+    --line:        #5C4636;   /* 店の実測色 */
+    --line-strong: #7A5E48;   /* --lineより明るい罫 */
+
+    /* --- 影 ----------------------------------------------------------------
+       既定値はダーク背景向け（黒 0.55）。★明るい地の店では必ず弱く差し替える。
+       白磁・生成りの上に黒0.55を落とすと汚れたグレーの帯に見える。
+       明るい店の例（食彩厨房 魚かつ）：0 18px 40px rgba(11, 53, 73, 0.10)
+       ＝アクセント色（藍）を薄く使うと、影が世界観の一部になる */
+    --shadow:      0 24px 60px rgba(0, 0, 0, 0.55);
+
+    /* --- 追従予約バーの影（04-base.css の .sticky-bar が使う）--------------
+       既定値はダーク背景向け（黒 0.45）。★明るい地の店では必ず --shadow-bar を上書きする。
+       未上書きだと、バーの上に黒い帯が浮いて見える（藤よし・2026-08-20 で実際に発生）。
+       明るい店の例：--shadow-bar: 0 -10px 30px rgba(34, 30, 20, 0.14); */
+    --shadow-bar:  0 -10px 30px rgba(20, 14, 10, 0.5);
+
+    /* --- 営業状況バッジ（06-script.js が使う。全店ほぼ共通でよい） ---------- */
+    --open:        #7fc383;
+    --closed:      #d98a7e;
+
+    /* --- 書体：★世界観の一部なので店ごとに選び直す ------------------------- */
+    --font-head:   'Zen Old Mincho', serif;   /* 500。★太い明朝は「型で作った感じ」の元なので使わない（frontend-design 6-b 8） */
+    --font-body:   'BIZ UDPGothic', sans-serif;
+
+    /* --- 地紋のスロット（★ここに常設で置いてよいのは「地紋」だけ） -----------
+       2026-08-15 に整理した。**それまでは地紋・区切り・紋の3つを全店共通で常設していた**が、
+       これが装飾の「型」そのものになっていた（遊季の蔵で9コマ生成して2コマしか置き場が無く、
+       残り5コマは生成される前から行き場が無かった。→ 11-生成素材の作法.md「なぜ3つ固定をやめたか」）。
+
+       地紋だけをここに残す理由：**敷くだけで、どの店でもレイアウトに影響しない**から。
+       要らない店は none のまま置いておけばよく、コストがゼロ。
+
+       ★区切り・紋・アイコンの類はここに常設しない。
+         要る店だけ frontend-design の「素材設計」で決め、**その店の :root に必要な数だけ足す**
+         （--orn-cat-1 … のように、役割の分かる名前で。全店共通の名前にしない）。
+         そして**かたちのあるものは原則SVGで直接描く**（下記）。
+
+       ★装飾はぜんぶSVGでその場で描く（2026-08-22 に生成AIの画像をやめた）
+         紋・アイコン・区切りは、この場で SVG を書いたほうが
+         1KB以下・拡大しても崩れない・色を後から変えられる・やり直しに丸藤さんの手番が要らない。
+         質感（和紙の繊維・漆喰・木目のムラ）は SVG の feTurbulence で作る。
+         下の --tex-paper は画像を敷く旧来の口で、要る店は feTurbulence を優先する。
+
+       ★説明のための図（図解）は作らない（2026-08-21）。アクセスの目印図・比較図・工程図の類は
+         SVGでもCSSでも入れない。目印も手順も文章で書く。→ CLAUDE.md 絶対ルール⑫
+       → 描き方・feTurbulence の数値・使ってよい範囲は 11-生成素材の作法.md */
+    --tex-paper:   none;      /* 地紋（url("art-tex-paper.webp")）。章の背景に敷く。要らない店は none のまま */
+    --tex-size:    clamp(360px, 33vw, 480px);  /* 地紋の繰り返し寸法。★固定pxにしない——PC幅で同じ模様が
+                                 何枚も並ぶと既製の壁紙に見える（遊季の蔵の 360px 固定で実際に起きた） */
+    --tex-opacity: 0.06;      /* 地紋の濃さ。0.04〜0.10 が目安。これ以上は「柄物」になる */
+    --tex-tint:    var(--accent);   /* mask で素材を染める色。既定は店の差し色 */
+
+    /* ★mask を読むトークンの既定値は none にしない（2026-08-15・遊季の蔵で発覚）。
+       background-image: none は「描かない」だが、**mask-image: none は「マスクを掛けない」＝全面表示**。
+       none のまま .orn を置くと、素材が入る前に差し色の四角い面がそのまま出る。
+       店ごとに紋のスロットを足すときは、必ずこの透明1pxを既定値にしてから足す。 */
+    --orn-blank:   url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
+
+    /* --- 形・間（ここは共通でよい） ---------------------------------------- */
+    --radius:      0px;  /* ★2026-09-20：角は立てる。丸い箱はテンプレの合図（frontend-design 6-b 1） */
+    --maxw:        1120px;
+    --gap:         clamp(16px, 4vw, 40px);
+    --pad-section: clamp(64px, 10vw, 128px);
+    --pad-inner:   clamp(20px, 5vw, 40px);
+}
+
+/* --- リセット ------------------------------------------------------------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.85;
+    overflow-x: hidden;              /* 横スクロール事故の保険 */
+}
+img, svg, video { display: block; max-width: 100%; }
+
+/* --- 固定ヘッダーの高さ（全店必須・世界観に関係しない仕組み） --------------
+   ヘッダーを position:fixed にすると、そのぶんトップの写真に重なって見える。
+   「ヘッダーの高さ」を変数に切り出し、body の padding-top・ヒーローの高さ・
+   モバイルナビの位置・アンカーの着地点をすべてこの1か所に連動させる。
+   （ボンヌカリテで「上のメニューがトップ画像と重なる」指摘を受けて追加）
+   ------------------------------------------------------------------------ */
+:root { --header-h: 74px; }
+@media (max-width: 768px) { :root { --header-h: 64px; } }
+
+body { padding-top: var(--header-h); }
+.site-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--header-h);                           /* 上下 padding ではなく高さで固定する */
+}
+/* ★ position:fixed はここで確定させる（見た目＝背景・罫・ぼかしは店ごとに足す）。
+   body の padding-top はヘッダーが浮いている前提の値なので、片方だけだと
+   本文がヘッダーに潜り込む／上に余白が二重に空く、のどちらかになる */
+.header-inner { display: flex; align-items: center; height: 100%; }
+/* ★ヘッダーの中身（骨格側で持つのは「構造」だけ。色と書体は店ごとに決める）
+   2026-08-07（麺堂 稲葉で発覚）：05-parts.html は .brand / .header-tel の
+   マークアップを出すのに、04-base.css には寸法が1行も無かった。
+   viewBox だけの <svg> は幅の指定が無いと親いっぱいに膨らむので、
+   電話アイコンがヘッダーを覆い尽くしてロゴと番号が押し出されていた。
+   ここを骨格に持たせて、以後の全店で同じ事故が起きないようにする。 */
+/* 2026-08-14（麺処とみいで発覚）：`.brand` は行の高さしか無かったので、
+   390px で 85×16px のタップ領域になり 44px を割っていた（audit の検査に落ちる）。
+   屋号はヘッダーで最も押される導線なので、骨格側で高さを確定させる。 */
+.brand { text-decoration: none; color: inherit; white-space: nowrap;
+         font-size: clamp(16px, 4.2vw, 20px); line-height: 1;
+         display: inline-flex; align-items: center; min-height: 44px; }
+.header-tel { margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+              min-height: 44px; padding: 0 8px; text-decoration: none; color: inherit;
+              white-space: nowrap; }
+.header-tel svg { width: 18px; height: 18px; flex: 0 0 18px; }
+.header-tel .tel-label { font-size: clamp(13px, 3.4vw, 16px); line-height: 1.2; }
+.nav-toggle { margin-left: 6px; }
+.hero { min-height: calc(100svh - var(--header-h)); }  /* 足し算のズレをなくす */
+[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+table { border-collapse: collapse; }
+
+/* --- 日本語の折り返し（全店必須・世界観に関係しない仕組み） ----------------
+   日本語は初期状態だと「ペー／ジ」「大切／な」のように語のまん中で改行される。
+   スマホとPCで幅が変わるたびに変な位置で切れるので、全サイトでこれを入れる。
+     word-break: auto-phrase … 文節（意味のかたまり）で折り返す
+     text-wrap: pretty       … 最終行に1〜2文字だけ取り残されるのを防ぐ
+     .nw                     … 「ここはひとかたまり」（入りきらない時だけ中で折り返す）
+                               例: <span class="nw">090-1234-5678</span>
+     .br-pc / .br-sp         … パソコンだけ・スマホだけで効かせる <br>
+
+   ★ auto-phrase だけでは足りない。これは Chrome系だけの機能で、
+     **iPhoneのSafariは対応していない。**Safariでは指定が丸ごと無視され、
+     初期状態＝「どこで切ってもよい」に戻って語の途中で改行される。
+     PCのChromeで撮ったQAのスクショには写らないため、
+     2026-08-16 に実機で気づくまで当時の全78店が崩れたままだった。
+
+     そこで、本文は **文節ごとに .nw で囲んでおく**（＝ブラウザの機能に頼らない）。
+     手で書くのではなく、HTMLを書き終えたらスクリプトで一括で入れる：
+         python3 Claude/scripts/fix_ja_breaks.py  <店名>   # ①.nw を入れる
+         python3 Claude/scripts/fix_flex_nw.py    <店名>   # ②flexの直下の .nw を .nwb で包み直す
+         python3 Claude/scripts/check_ja_breaks.py <店名>   # ③語の途中の改行が残っていないか測る
+
+   ★ ②を飛ばさない。display:flex の要素は直下の文字を「無名アイテム」という
+     ひとかたまりで扱うので、そこへ①の span を入れると 1つ1つが別々のアイテムになり、
+     間に gap の隙間が入って「豆乳の　カフェラテ」と間延びし、
+     さらに1文字ぶんまで縮んで「スー／プが」と切れる（2026-08-16・43店208箇所）。
+     .nwb は文字のかたまり全体を包んで元の形に戻すための箱で、CSSは当てない
+     （既定の inline のまま。flex の中では無名アイテムと同じように扱われる）。
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, p, li, dt, dd, th, td, summary, figcaption {
+    word-break: auto-phrase;
+    text-wrap: pretty;
+}
+.nw { display: inline-block; }
+.br-sp { display: none; }
+@media (max-width: 600px) {
+    .br-sp { display: inline; }
+    .br-pc { display: none; }
+}
+
+/* 動きを減らす設定の人には演出を止める（アクセシビリティ・全店必須） */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* --- レイアウト ----------------------------------------------------------- */
+/* ★viewBox しか持たない <svg> は、寸法を与えないと 300×150 で描かれる。
+   ボタンの中のアイコンだけは骨格側で 1em 基準にしておく（色と形は店ごとに決める）。
+   2026-08-07（麺堂 稲葉）：電話アイコンがボタンを突き抜けて 300px で出た。 */
+.btn svg { width: 1.1em; height: 1.1em; flex: 0 0 auto; }
+
+/* ★この width を店側のCSSで上書きしない（2026-08-15・静と一平で同じ事故）。
+   ヒーローを全幅にしたくて `.hero .container { width: 100% }` と書くと、
+   **左右の余白（--pad-inner）と --maxw の両方が同時に消える。**
+   390/768/1280 のすべてで文字が画面の端に貼り付き、PCでは 1120px の枠も外れる。
+   全幅にしたいのは「背景」であって「中身」ではないので、
+   **背景は .hero 側（外側）に敷き、.container は触らない。** */
+.container { width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto; }
+.section   { padding-block: var(--pad-section); }
+
+/* --- スクロール出現演出 ---------------------------------------------------
+   .reveal を付けた要素が画面に入ると .in-view が付いてふわっと出る。
+   ★ 背景「写真」の常時アニメーション（ケンバーンズ等）は禁止。動きは原則ここまで。
+      例外はその店で実際に撮った短い実写動画のみ（3〜6秒・無音・1.5MB以下・poster必須）。
+      写真以外の装飾の動き（SVGの波・光の粒など）は可。→ Claude/docs/デザイン方針.md「動きのルール」
+   JS無効・reduced-motion では最初から表示（コンテンツが消えない保険）。
+   -------------------------------------------------------------------------- */
+.reveal {
+    opacity: 0; transform: translateY(26px);
+    transition: opacity 0.8s cubic-bezier(0.16, 0.7, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 0.7, 0.3, 1);
+}
+.reveal.in-view       { opacity: 1; transform: none; }
+.reveal-delay-1       { transition-delay: 0.08s; }
+.reveal-delay-2       { transition-delay: 0.16s; }
+.reveal-delay-3       { transition-delay: 0.24s; }
+.no-js .reveal        { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* --- 写真枠 --------------------------------------------------------------- */
+.photo-frame {
+    position: relative; overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+}
+.photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- 地図枠（Googleマップ埋め込み。APIキー不要の output=embed 方式） ------- */
+.map-wrapper {
+    position: relative; width: 100%; aspect-ratio: 16 / 10;
+    border-radius: var(--radius); overflow: hidden;
+    border: 1px solid var(--line);
+}
+.map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+@media (max-width: 620px) { .map-wrapper { aspect-ratio: 4 / 3; } }
+
+/* --- 追従予約バー（スマホのみ。予約導線の要） ------------------------------ */
+.sticky-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+    display: none; gap: 1px; background: var(--line);
+    transform: translateY(100%); transition: transform 0.35s ease;
+    /* 暗い地の店の既定値。明るい地の店は --shadow-bar を上書きする（03-tokens.css 参照） */
+    box-shadow: var(--shadow-bar, 0 -10px 30px rgba(0, 0, 0, 0.45));
+}
+.sticky-bar.visible { transform: translateY(0); }
+.sticky-bar a {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 16px 10px; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em;
+}
+.sticky-bar a svg { width: 17px; height: 17px; flex-shrink: 0; }
+.sticky-bar .bar-tel { background: var(--accent); color: var(--bg); }
+.sticky-bar .bar-alt { background: var(--surface);  color: var(--ink); }
+
+/* --- お品書き内サブナビ（build_menu.py が出す `.subnav`。★仕組みだけ規定） --
+   ★過去の事故（畑の黒ダイヤで発覚・2026-08-05）
+   `build_menu.py` は `.subnav` のマークアップを出すが**見た目は店ごとに決める**規約なので、
+   店側で `min-height` を小さく書くと **44px を割ってタップ領域の検査に落ちる**
+   （実測 34px。指の腹で隣のタブを踏む）。
+   **高さの下限だけをここで確定させる。** 背景・罫・角丸・文字色は店ごとに足してよい。
+   ※ `audit_sites.py` が 44×44px を見ているのはヘッダーのハンバーガー・追従バーと
+     このサブナビの3か所。ここを骨格で固めておけば、以後の店では起こらない。 */
+.subnav a {
+    min-height: 44px;
+    display: inline-flex; align-items: center;
+    padding-inline: 16px;                 /* 幅も指1本ぶんを確保する */
+}
+/* ★過去の事故（こびとカフェで発覚・2026-08-09）
+   `.subnav` は body 直下に出るので、`position: sticky` の効き目が**文書の最後まで続く**。
+   お品書きを通り過ぎたあとも、アクセス欄・フッターの上に貼り付いたまま残り、
+   「急いで住所を見たいのに関係ないタブが被っている」とお客様レビューで指摘された。
+   06-script.js が最後の `.menu-block` を見て `.is-past` を付け外しする。
+   ※ 店側で `.subnav` の背景・罫を書いても、この2行は消さないこと */
+.subnav { transition: transform .25s ease, opacity .25s ease; }
+.subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+/* ★2026-08-14（タイラーメンで再現。畑の黒ダイヤで既報）
+   `.subnav` が sticky で居座るぶん、章へ飛ぶと**章見出しがサブナビの裏に隠れる**。
+   全体の `[id]` は「ヘッダー＋12px」しか見ていないので、お品書きの章だけ深くする。 */
+.menu-block[id] { scroll-margin-top: calc(var(--header-h) + 60px); }
+
+/* --- 電話番号を入れたボタン（★番号を絶対に折り返させない） ------------------
+   ★過去の事故（こびとカフェで発覚・2026-08-09）
+   市外局番のあとのハイフンが改行の機会になるので、狭い画面のボタンの中では
+   **「0280-54-」「4555」のように2行に割れる**。番号が割れた電話ボタンは、
+   「押す前に番号を目で確認する人」（＝高齢のお客様ほど多い）をそこで止める。
+   `.nw` は `display:inline-block` なので**中では折れる**。ここは `nowrap` で止める。
+   ★このコメントは各店の index.html にそのまま埋め込まれるので、**実在する番号を例に書かない**
+   （2026-08-24 に大門のレビューで指摘。他店の番号が47店のソースに入っていた）。
+   使い方：<a class="btn btn-tel"><svg>…</svg>
+             <span class="tel-num">0280-00-0000</span><span class="tel-cap">ご予約</span></a> */
+.btn-tel .tel-num { white-space: nowrap; }
+.btn-tel .tel-cap { font-weight: 500; }
+.btn-tel .tel-cap::before { content: '｜'; }
+@media (max-width: 460px) {
+    /* 狭い画面では番号と用途を2段にして、番号のほうを1行に保つ */
+    .btn-tel { flex-wrap: wrap; padding: 12px 18px; line-height: 1.45; }
+    .btn-tel .tel-cap { flex-basis: 100%; text-align: center; font-size: .82rem; }
+    .btn-tel .tel-cap::before { content: none; }
+}
+
+/* --- 営業状況バッジ（06-script.js が中身を書き換える） --------------------- */
+/* ★2026-09-20：カプセル形の札をやめた（frontend-design 6-b 2）。
+   いまの営業状況は、細い縦罫の色と文字だけで示す。 */
+.status-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 2px 0 2px 12px;
+    font-size: 0.8rem; letter-spacing: 0.06em;
+    border-left: 2px solid var(--dim);
+}
+.status-chip::before { content: none; }
+.status-chip.is-open   { border-left-color: var(--open); }
+.status-chip.is-closed { border-left-color: var(--closed); }
+.status-chip.is-break  { border-left-color: var(--accent); }
+
+/* --- モバイルナビの「閉じている状態」（★仕組み。見た目は店ごとに足す） -----
+   ★過去の事故（そば善・居酒屋壱・食彩酒 一鶴の3店で発覚）
+   opacity:0 や transform で画面の外に出しただけだと、目には見えていなくても
+   **キーボードのTab順と読み上げソフトには残り続ける**。閉じているのに
+   フォーカスがナビの中へ吸い込まれ、画面の見えない場所を操作することになる。
+   閉じた状態には visibility:hidden と pointer-events:none を必ず入れる。
+
+   ここに書いてあるのは「開閉が壊れないための最低条件」だけ。
+   どこから出すか（右／上／全画面）・背景・文字組みは世界観なので店ごとに書く。
+   -------------------------------------------------------------------------- */
+.mobile-nav {
+    position: fixed; z-index: 200;
+    visibility: hidden; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+body.nav-open .mobile-nav {
+    visibility: visible; opacity: 1; pointer-events: auto;
+}
+/* ★2026-08-15（遊季の蔵で発覚）：全画面（inset:0）のナビは z-index 200 なので、
+   z-index 100 のヘッダーごと覆う。＝開いた状態で「✕」が押せない（閉じられない）。
+   ナビを全画面にするかは店ごとの世界観だが、閉じられないのは事故なので土台で持ち上げる。 */
+body.nav-open .site-header { z-index: 300; }
+/* ★タップ領域 44×44px 以上（42px・38px で作った実例あり。指の太い人が押し外す）
+   ★2026-08-05（阿波家で発覚）：`.header-inner` は display:flex なので、
+     width:44px と書いてあっても **flex アイテムとして縮む**（実測 35×44px で
+     audit_sites.py の検査に落ちた）。`flex: 0 0 44px` で縮まないことを確定させる。 */
+.nav-toggle {
+    width: 44px; height: 44px;
+    flex: 0 0 44px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 5px; background: none; border: 0; cursor: pointer;
+}
+/* ★店側CSSで気をつけること（2026-08-14 昭月堂製パンで発覚）
+   ハンバーガーの3本線を `.nav-toggle span` で書くと、**中の <span> 全部に当たる**。
+   「メニュー」の文字ラベルを足した瞬間に4本目の線が描かれるので、
+   線は必ず `.nav-toggle > span:not([class])` のように限定して書く。
+   ★もうひとつ（2026-08-14 芳流で発覚）：`.hero` は `min-height: calc(100svh - …)` を
+   持つので、その中のグリッドの子に `aspect-ratio` を付けると**行が先に伸ばされ、
+   高さから幅が逆算されて画面より横に広がる**（768px で 39px はみ出した）。
+   `grid-template-rows: auto 1fr` を入れて、伸びる行を明示的に決めること。 */
+.nav-close { min-height: 44px; background: none; border: 0; cursor: pointer; color: inherit; }
+/* 開いている間は背面をスクロールさせない。
+   ★2026-09-20：ここで overflow を止めると **縦スクロールバーが消え、
+     ページ全体が横に数px動いて見える**（丸藤さんの指摘「画面がちょっとズレる」）。
+     ①最初から溝を空けておく（scrollbar-gutter）。
+     ②対応していないブラウザ用に、消える幅を JS が測って --sbw に入れるので、
+       その幅だけ本文と固定ヘッダーを内側に寄せる。どちらも効かない環境＝
+       スクロールバーが重なって出る機種なので、そもそもずれない。 */
+html { scrollbar-gutter: stable; }
+body.nav-open { overflow: hidden; padding-right: var(--sbw, 0px); }
+body.nav-open .site-header { right: var(--sbw, 0px); }
+
+/* ==========================================================================
+   レスポンシブ：ブレークポイントは 620 / 900 の2点で統一する
+   （site-qa は 390 / 768 / 1280 の3画面で確認する）
+   ========================================================================== */
+@media (max-width: 620px) {
+    .sticky-bar { display: flex; }
+    /* ★必須：追従バーの高さ分の余白。無いとフッターの住所・©が隠れる */
+    body { padding-bottom: 68px; }
+}
+@media (min-width: 621px) {
+    .sticky-bar { display: none; }
+    body { padding-bottom: 0; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   ここから下が、この店だけのCSS。
+   上のトークンの値を決めてから書く。骨格側（base）は書き直さない。
+
+   09-レイアウト選択肢.md の「使用済み一覧」を見て、
+   直前2〜3店と違うヒーロー／メニューの型を選ぶこと。
+   背景写真の常時アニメーション（ケンバーンズ）は禁止。
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════════════
+   焼肉 大門　店固有のCSS
+   ══════════════════════════════════════════════════════════════════ */
+
+h1, h2, h3 { font-family: var(--font-head); font-weight: 500; line-height: 1.38; letter-spacing: 0.05em; }
+body { font-family: var(--font-body); }
+
+/* --- ヘッダー ------------------------------------------------------ */
+.site-header {
+    background: rgba(42, 30, 23, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+}
+.brand { font-family: var(--font-head); font-weight: 500; letter-spacing: 0.08em; }
+.header-tel { color: var(--muted); }
+.header-tel svg { color: var(--muted); }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); }
+
+.mobile-nav {
+    top: var(--header-h); right: 0;
+    width: min(78vw, 320px); height: calc(100% - var(--header-h));
+    background: var(--surface);
+    border-left: 1px solid var(--line);
+    padding: 32px 28px;
+    display: flex; flex-direction: column; gap: 22px;
+    transform: translateX(12px);
+}
+body.nav-open .mobile-nav { transform: translateX(0); }
+.mobile-nav a { font-family: var(--font-head); font-size: 1.05rem; min-height: 44px; display: flex; align-items: center; }
+.nav-close { margin-top: auto; text-align: left; font-family: var(--font-body); color: var(--muted); }
+
+/* --- 共通：見出し・リード・帯飾り ----------------------------------- */
+.eyebrow {
+    font-size: 0.82rem; letter-spacing: 0.18em; color: var(--muted);
+    margin-bottom: 14px;
+}
+.eyebrow::before {
+    content: ''; display: inline-block;
+    width: 38px; height: 1px; background: var(--line-strong);
+    vertical-align: middle; margin-right: 14px;
+}
+.section-title {
+    font-size: clamp(1.5rem, 4vw, 2.15rem);
+    display: flex; align-items: center;
+    margin-bottom: 20px;
+}
+.lead { font-size: 1.02rem; color: var(--muted); max-width: 46em; margin-bottom: 28px; }
+
+
+/* --- ボタン ---------------------------------------------------------- */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 52px; padding: 14px 28px;
+    border-radius: 0;
+    font-family: var(--font-body); font-weight: 500; font-size: 0.98rem;
+    letter-spacing: 0.06em;
+    border: 1px solid transparent;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.btn-primary { background: var(--accent); color: var(--bg); }
+.btn-primary:hover { background: var(--accent-hi); }
+.btn-primary:active { background: var(--accent-deep); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+/* 細枠のボタンは、行き先を矢印で示す（塗りの電話ボタンには付けない） */
+.btn-ghost::after { content: '\2192'; margin-left: 4px; font-size: 1.05em; line-height: 1; }
+/* ★全幅の塗りボタンは「型」の見え方になるので、広い画面では幅を締める */
+.btn-block { width: 100%; }
+@media (min-width: 700px) { .btn-block { width: auto; min-width: 22em; } }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+
+/* --- ヒーロー -------------------------------------------------------- */
+.hero {
+    position: relative;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    overflow: hidden;
+    padding-block: clamp(20px, 5vw, 40px) calc(28px + 52px);
+}
+.hero::before {
+    content: ''; position: absolute; inset: 0; z-index: 0;
+    /* 幕（scrim）だけを変数にしてある。★写真のURLをもう一度書かないため
+       （メディアクエリで background-image ごと書き直すと、同じ写真を2回
+         使っているように見えて check_image_dupes.py が ✗ を出す）。 */
+    --hero-scrim:
+        linear-gradient(180deg,
+            rgba(21,14,10,0.08) 0%,
+            rgba(21,14,10,0.30) 30%,
+            rgba(21,14,10,0.74) 62%,
+            rgba(21,14,10,0.92) 100%);
+    background-image:
+        var(--hero-scrim),
+        url('../images/hp-外観-看板と牛のオブジェ-トリム.jpg');
+    background-size: cover;
+    background-position: center top;
+}
+/* ★元画像（hp-外観-看板と牛のオブジェ.jpg）の下部に「PM5:00〜PM10:00LO／
+   火曜・第三水曜定休」の古い営業時間プレートが写り込み、本文の営業時間と
+   食い違っていた。ズームで隠すと元画像の一部しか映さないぶん拡大表示になり
+   引き伸ばしが生じるため、プレートの上（丸い「大門」看板の下）で切った
+   -トリム.jpg（2200×900・屋根の牛のオブジェと丸い看板は残す）に差し替えた。
+   元ファイルは images/ にそのまま残している。 */
+/* ★2026-09-20：スマートフォンで「牛の頭しか見えない」という指摘を受けて組み替えた。
+   2200×900 の横長を 100svh（縦長）の画面に cover で敷くと、**横幅の2割ほどしか映らない**
+   ——ちょうど牛の顔の位置だけが切り取られていた。画面が縦長であるかぎり、
+   cover で敷くかぎり必ずこうなる（写真をどれだけ大きくしても直らない）。
+   そこでスマホだけ、建物と牛が両方入る -スマホ.jpg（1600×900）を
+   **原寸の比のまま横いっぱい**に敷き、その下に文字を置く。写真は一切切られない。
+   幕（scrim）は写真の帯の高さぶんだけに敷き、下端で背景色に溶かして
+   文字の側と地続きに見せる。 */
+@media (max-width: 699.98px) {
+    .hero {
+        --hero-band: 56.25vw;              /* 1600 × 900 ＝ 写真の高さ */
+        min-height: 0;                      /* 全画面ヒーローをやめる（縦に切られる元） */
+        justify-content: flex-start;
+        padding-block: calc(var(--hero-band) - 12px) 36px;
+    }
+    .hero::before {
+        --hero-scrim:
+            linear-gradient(180deg,
+                rgba(42,30,23,0) 0%,
+                rgba(42,30,23,0.06) 55%,
+                rgba(42,30,23,0.62) 84%,
+                var(--bg) 100%);
+        background-image:
+            var(--hero-scrim),
+            url('../images/hp-外観-看板と牛のオブジェ-スマホ.jpg');
+        background-size: 100% var(--hero-band), 100% auto;
+        background-position: top center, top center;
+        background-repeat: no-repeat, no-repeat;
+    }
+    .hero-catch { font-size: clamp(1.9rem, 8.2vw, 2.6rem); }
+}
+.hero > .container { position: relative; z-index: 1; }
+#status-chip { color: var(--ink); margin-bottom: 24px; }
+.hero-catch {
+    font-size: clamp(2rem, 6.4vw, 3.4rem);
+    line-height: 1.42;
+    color: var(--ink);
+    margin-bottom: 18px;
+}
+.hero-sub { color: var(--muted); font-size: 1rem; max-width: 34em; }
+@media (min-width: 700px) {
+    .hero { padding-block: clamp(24px, 6vw, 48px) clamp(32px, 7vw, 64px); }
+}
+
+/* --- 分割レイアウト（見出しテキスト＋写真） -------------------------- */
+.split {
+    display: grid; grid-template-columns: 1fr; gap: var(--gap); align-items: center;
+}
+@media (min-width: 900px) {
+    .split { grid-template-columns: 1.05fr 0.95fr; }
+    .split-reverse .split { grid-template-columns: 0.95fr 1.05fr; }
+    .split-reverse .split-photo { order: -1; }
+}
+.split-photo .photo-frame { aspect-ratio: 4 / 3; }
+/* ★#seat・#access-lead は本文が3行ほどしか無く、写真列だけが縦に長く
+   残ってPCで暗い空白になっていた（レビュー指摘）。この2章だけ写真を低くする。 */
+#seat .split-photo .photo-frame,
+#access-lead .split-photo .photo-frame { aspect-ratio: 3 / 2; }
+.photo-pair { position: relative; }
+.photo-pair .accent-photo {
+    position: absolute; right: -14px; bottom: -22px;
+    width: clamp(110px, 26vw, 190px);
+    aspect-ratio: 4 / 3;
+    border: 4px solid var(--bg);
+    z-index: 2;
+}
+@media (max-width: 899px) {
+    .photo-pair .accent-photo { right: 8px; bottom: -18px; }
+}
+
+/* --- ご案内の帯 ------------------------------------------------------- */
+/* ★2026-09-20：角丸のカードを5枚並べる組み方をやめ、1本の罫で区切った行にした
+   （frontend-design 6-b 1）。見出しは左の列、中身は右の列。 */
+.guide-grid {
+    display: grid; grid-template-columns: 1fr;
+    border-top: 1px solid var(--line);
+}
+.guide-card {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+}
+@media (min-width: 700px) {
+    .guide-card {
+        display: grid; grid-template-columns: 8.5em 1fr; gap: 6px 28px;
+        align-items: baseline;
+    }
+    .guide-card h3 { margin-bottom: 0; }
+    .guide-card .guide-notes { grid-column: 2; }
+}
+.guide-card h3 {
+    font-size: 0.9rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 8px;
+    font-weight: 500;
+}
+.guide-card p { line-height: 1.8; }
+.guide-notes { margin-top: 12px; padding-left: 1.1em; }
+.guide-notes li { color: var(--dim); font-size: 0.86rem; line-height: 1.75; list-style: disc; }
+
+/* --- 三つの門（署名） --------------------------------------------------
+   ★2026-09-20：中央ぞろえ＋3枚の角丸カードは、型で組んだ見え方そのもの
+   だった（frontend-design 6-b 1・11）。左ぞろえの罫の行に組み直した。 */
+/* 2026-08-25：「三つの門」の横に置いていた門の図（SVG）を外した。
+   三つの条件は下のカードが名指ししているので、図で言い直す必要が無い。 */
+
+.gate-conditions {
+    display: grid; grid-template-columns: 1fr;
+    max-width: 42em; margin-top: 30px;
+    border-top: 1px solid var(--line);
+}
+.gate-cond {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+}
+.gate-cond h3 {
+    font-size: 1.06rem; font-weight: 400; letter-spacing: 0.06em;
+}
+
+.gate-body-wrap { margin-top: 44px; text-align: left; }
+.gate-body-wrap .split-text p { margin-bottom: 16px; }
+.gate-close { color: var(--ink); font-family: var(--font-head); font-size: 1.06rem; line-height: 1.9; }
+.gate-body-wrap .split-photo .photo-frame { aspect-ratio: 4 / 3; }
+/* ★2026-08-25：看板と牛が小さく、まわりの闇が広かったので、写真そのものを
+   768×576 に切り寄せた（-寄り.jpg）。表示側で拡大したのではないので
+   画質は落ちていない。切ったぶん元寸が小さくなるぶん、枠の上限も下げる。 */
+@media (max-width: 899px) {
+    .gate-body-wrap .split-photo { max-width: 460px; margin-inline: auto; }
+}
+
+/* --- お品書きの入口（トップの2行） ------------------------------------- */
+.menu-links { border-top: 1px solid var(--line); }
+.menu-link {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px 20px;
+    padding: 24px 2px; border-bottom: 1px solid var(--line); color: inherit;
+}
+.menu-link-title { display: block; font-family: var(--font-head); font-size: 1.32rem; letter-spacing: 0.04em; }
+.menu-link-sub   { display: block; margin-top: 8px; color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
+.menu-link-arrow { color: var(--dim); font-size: 1.1rem; transition: transform 0.2s ease, color 0.2s ease; }
+.menu-link:hover { color: var(--accent); }
+.menu-link:hover .menu-link-arrow { color: var(--accent); transform: translateX(5px); }
+
+/* --- お品書きの2ページ（menu.html / drink.html） ----------------------- */
+.page-head { padding-bottom: clamp(28px, 5vw, 44px); }
+.page-title { font-size: clamp(2rem, 5.6vw, 2.9rem); margin-bottom: 18px; }
+.page-switch { margin-top: 26px; }
+.page-switch a {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+    color: var(--muted); border-bottom: 1px solid var(--line-strong);
+}
+.page-switch a:hover { color: var(--accent); border-color: var(--accent); }
+.page-banner { max-width: 1024px; margin-inline: auto; padding-inline: var(--pad-inner); }
+.page-banner .photo-frame { aspect-ratio: 4 / 3; }
+@media (min-width: 700px) { .page-banner .photo-frame { aspect-ratio: 21 / 9; } }
+
+/* 章ごとの写真。★元が512pxの写真があるので、PCでの表示幅を 480px までに抑える
+   （これ以上に伸ばすと check_upscale.py が ✗ を出し、実際にぼやける）。 */
+.menu-photos { display: grid; gap: 12px; margin: 16px 0 6px; }
+.menu-photos figure { max-width: 480px; }
+.menu-photos .photo-frame { aspect-ratio: 4 / 3; }
+.menu-photos figcaption { margin-top: 7px; color: var(--dim); font-size: 0.78rem; }
+
+/* --- お品書き本体（build_menu.py の出力） ------------------------------ */
+/* ★2026-09-20：章を27から10へまとめ直したので、タブは横スクロールをやめて
+   折り返す形にした（スキル menu-tabs の型A'）。丸いチップの飾りも外し、
+   いまいる章は文字の色と下の一本線だけで示す。 */
+.subnav {
+    position: sticky; top: var(--header-h); z-index: 90;
+    background: var(--bg);
+    border-block: 1px solid var(--line);
+}
+.subnav-inner {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 2px 6px; padding: 6px var(--pad-inner);
+    max-width: var(--maxw); margin-inline: auto;
+}
+.subnav a {
+    min-height: 44px; display: inline-flex; align-items: center;
+    padding-inline: 12px;
+    font-size: 0.86rem; color: var(--muted); white-space: nowrap;
+    border-bottom: 2px solid transparent;
+}
+.subnav a:hover { color: var(--ink); border-color: var(--line-strong); }
+/* ★スマホでは10個が4段になる。貼り付けたままだと画面の三割を塞ぐので、
+   狭い画面では貼り付けをやめ、お品書きの入口に置いたままにする。 */
+@media (max-width: 640px) {
+    .subnav { position: static; }
+    .subnav-inner {
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0; padding-block: 2px;
+    }
+    .subnav a {
+        justify-content: center; text-align: center;
+        white-space: normal; line-height: 1.3;
+        font-size: 0.8rem; padding-inline: 4px;
+    }
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+}
+@media (min-width: 641px) {
+    /* 折り返して背が高くなったぶん、章へ飛んだときの余白も取り直す */
+    .menu-block[id] { scroll-margin-top: calc(var(--header-h) + 104px); }
+}
+
+/* ★2026-09-20：章ごとの角丸カードをやめ、章の頭の1本の罫だけで区切る
+   （frontend-design 6-b 1）。 */
+.menu-wrap .menu-block {
+    border-top: 1px solid var(--line-strong);
+    padding: 20px 0 8px;
+    margin-bottom: 34px;
+    break-inside: avoid;
+}
+@media (min-width: 1024px) {
+    .menu-wrap .container { column-count: 2; column-gap: 40px; }
+}
+.menu-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+.menu-head h2 { font-size: 1.22rem; font-weight: 500; }
+.menu-head .yomi { font-size: 0.72rem; letter-spacing: 0.18em; color: var(--dim); white-space: nowrap; }
+.menu-note { color: var(--muted); font-size: 0.88rem; margin-bottom: 14px; line-height: 1.75; }
+.menu-grid { display: grid; grid-template-columns: 1fr; gap: 2px 24px; }
+@media (min-width: 560px) {
+    .menu-grid { grid-template-columns: repeat(2, 1fr); }
+    .menu-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+.menu-list li { padding-block: 7px; border-bottom: 1px solid var(--line); }
+.menu-list li:last-child { border-bottom: 0; }
+.name { font-size: 0.94rem; }
+.desc { display: block; color: var(--dim); font-size: 0.8rem; margin-top: 3px; line-height: 1.6; }
+
+.menu-back { margin-top: 8px; text-align: left; }
+.menu-back .container { display: flex; flex-wrap: wrap; gap: 12px 16px; }
+.menu-back .btn { flex: 0 0 auto; }
+
+/* --- お客様の声 -------------------------------------------------------- */
+.voice-grid {
+    display: grid; grid-template-columns: 1fr; gap: 24px;
+}
+@media (min-width: 720px) { .voice-grid { grid-template-columns: repeat(3, 1fr); } }
+.voice-card {
+    border-top: 1px solid var(--line);
+    padding: 20px 0 0;
+}
+.voice-photo {
+    width: clamp(120px, 30vw, 180px); aspect-ratio: 3 / 4;
+    margin-bottom: 16px;
+}
+.voice-card blockquote {
+    font-size: 0.94rem; line-height: 1.85; color: var(--ink); margin-bottom: 12px;
+}
+.voice-card cite { font-size: 0.8rem; color: var(--dim); font-style: normal; }
+
+/* --- 結びの一文 -------------------------------------------------------- */
+.closing-text {
+    font-family: var(--font-head); font-size: clamp(1.08rem, 2.6vw, 1.34rem);
+    line-height: 2.15; max-width: 32em; color: var(--ink);
+}
+
+/* --- アクセス・店舗情報 -------------------------------------------------- */
+.info-table { width: 100%; margin-block: 24px 28px; }
+.info-table tr { border-bottom: 1px solid var(--line); }
+.info-table th, .info-table td { text-align: left; padding: 14px 10px; vertical-align: top; }
+.info-table th {
+    width: 6.5em; font-weight: 500; color: var(--muted); font-size: 0.88rem;
+    font-family: var(--font-head); letter-spacing: 0.06em;
+}
+.tel-link { color: var(--ink); font-weight: 500; }
+
+/* --- フッター ------------------------------------------------------------ */
+.site-footer { padding-block: 40px 100px; border-top: 1px solid var(--line); }
+.footer-name { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 8px; }
+.footer-addr { color: var(--muted); font-size: 0.9rem; margin-bottom: 6px; }
+.footer-copy { color: var(--dim); font-size: 0.78rem; }
+@media (min-width: 621px) { .site-footer { padding-bottom: 40px; } }
+
