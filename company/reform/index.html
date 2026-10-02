@@ -153,6 +153,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- JSが動く環境でだけ「出てくる演出」の初めの状態（透明）にする。JSが無ければ全部見えたまま -->
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" as="image" href="img/hero-1-1200.jpg" imagesrcset="img/hero-1-800.jpg 800w, img/hero-1-1200.jpg 1200w" imagesizes="(max-width: 920px) calc(100vw - 40px), 560px" fetchpriority="high">
 <style>
 /* ==========================================================================
    工事店・リフォーム会社様へのご案内（自社LPの下の1枚）
@@ -163,6 +166,11 @@
      ヘッダー・ヒーロー・各章の左右の端をそろえる
    ★料金・保守の中身・お願いすることは サービスの定義.md ⑯ が唯一の正
    ・2026-09-21 1プラン＋オプションに改訂（サービスの定義⑯）
+   ・2026-10-02 写真と動きを足して作り直し（丸藤さん「写真が一枚もなく、そっけない」）
+     写真は Unsplash の無料ライセンス（人の写っていないものだけ）。出典は _work/写真の出典.md
+     動きは「上品に」：ゆっくり入れ替わる写真・現れる文字・流れる工事名・伸びる数字だけ。
+     ★スクロールに連動させる演出（視差・スクロールの乗っ取り）は入れない（2026-08 自社LPの決定）
+     ★写真をゆっくり拡大し続ける演出（ケンバーンズ）も入れない（絶対ルール⑧と同じ理由）
    ========================================================================== */
 :root {
   --paper:      #f6f6f4;
@@ -185,9 +193,11 @@
   --font-body: "Zen Kaku Gothic New", sans-serif;
   --font-latin: "Outfit", sans-serif;
 
+  --wrap: 1200px;                      /* 箱の幅（6-b：大手は 1200〜1320px） */
   --sec-y: clamp(88px, 11vw, 150px);   /* 章の上下 */
   --blk-y: clamp(40px, 5vw, 64px);     /* 章の中の塊（章の上下の半分以下） */
   --col-gap: clamp(32px, 5vw, 72px);
+  --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -203,18 +213,18 @@ body {
 img { max-width: 100%; display: block; height: auto; }
 a { color: inherit; }
 
-h1, h2, h3, p, dd, dt, li, summary { word-break: auto-phrase; }
+h1, h2, h3, p, dd, dt, li, summary, figcaption { word-break: auto-phrase; }
 h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 /* text-indent は inline-block の中へ受け継がれる。ぶら下げ字下げの行に置くと
    文節ごとに左へずれて重なるので、箱の中では 0 に戻す */
 .nw { display: inline-block; text-indent: 0; }
 .br-sp { display: none; }
 
-.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.container { max-width: calc(var(--wrap) + 48px); margin: 0 auto; padding: 0 24px; }
 
 /* ---------- ボタン（長方形・右に矢印） ---------- */
 .btn {
-  display: inline-flex; align-items: center; gap: 16px;
+  display: inline-flex; align-items: center; gap: 16px; white-space: nowrap;
   font-weight: 700; text-decoration: none; border-radius: 2px;
   padding: 15px 24px 15px 26px; font-size: 15px; letter-spacing: 0.06em;
   border: 1px solid transparent;
@@ -261,10 +271,10 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 .nav-ico:hover { color: var(--green); border-color: var(--line-2); }
 .nav-ico:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
-/* ---------- ヒーロー（文字の左端＝ロゴの左端） ---------- */
-.hero { padding: clamp(64px, 9vw, 128px) 0 clamp(72px, 9vw, 120px); border-bottom: 1px solid var(--line); }
+/* ---------- ヒーロー（文字の左端＝ロゴの左端、写真の右端＝ボタンの右端） ---------- */
+.hero { padding: clamp(48px, 6.5vw, 96px) 0 clamp(64px, 7vw, 104px); }
 .hero .container {
-  display: grid; grid-template-columns: 7fr 5fr; gap: var(--col-gap); align-items: end;
+  display: grid; grid-template-columns: 11fr 10fr; gap: var(--col-gap); align-items: center;
 }
 .kicker {
   display: flex; align-items: center; gap: 14px;
@@ -273,21 +283,76 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 .kicker::before { content: ""; width: 40px; height: 1px; background: var(--ink-2); flex: none; }
 .hero h1 {
   font-family: var(--font-display); font-weight: 500;
-  font-size: clamp(31px, 4.5vw, 52px);
+  font-size: clamp(31px, 4.1vw, 54px);
   line-height: 1.45; letter-spacing: 0.06em; margin-bottom: 34px;
 }
-.hero .lead { font-size: 16.5px; color: var(--ink-2); line-height: 2.05; max-width: 34em; margin-bottom: 40px; }
+.hero .lead { font-size: 16.5px; color: var(--ink-2); line-height: 2.05; max-width: 33em; margin-bottom: 40px; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-sub { margin-top: 18px; font-size: 13.5px; color: var(--muted); }
 
+/* 写真3枚をゆっくり入れ替える（拡大・移動はしない。重ねて透明度だけを変える） */
+.hero-photo { position: relative; }
+.hero-frames {
+  position: relative; width: 100%; aspect-ratio: 4 / 5;
+  max-height: min(700px, calc(100svh - 150px));
+  overflow: hidden; background: var(--paper-2);
+}
+.hero-frames img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity 2.4s ease;
+}
+.hero-frames img.is-on { opacity: 1; }
+.hero-photo figcaption { margin-top: 10px; font-size: 12px; color: var(--muted); text-align: right; letter-spacing: 0.06em; }
+/* 自動で動くものは止められるようにする（写真の入れ替えと、工事名の流れを一緒に止める） */
+.hero-pause {
+  position: absolute; right: 12px; bottom: 12px; z-index: 2;
+  width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(246, 246, 244, 0.88); color: var(--ink-2);
+  border: 1px solid rgba(25, 26, 24, 0.12); border-radius: 2px; cursor: pointer;
+}
+.hero-pause svg { width: 14px; height: 14px; display: block; }
+.hero-pause .ico-play { display: none; }
+.hero-pause[aria-pressed="true"] .ico-play { display: block; }
+.hero-pause[aria-pressed="true"] .ico-stop { display: none; }
+.hero-pause:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+html:not(.js) .hero-pause { display: none; }
+
+/* ---------- 流れる工事名（読ませる文字ではないので読み上げからは外す） ---------- */
+.marquee {
+  overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 20px 0; background: var(--paper);
+}
+.marquee-track { display: flex; width: max-content; animation: mq 90s linear infinite; }
+.mq {
+  position: relative; white-space: nowrap; padding: 0 1.5em;
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(19px, 2.2vw, 28px); letter-spacing: 0.14em; color: var(--ink-2);
+}
+.mq::after {
+  content: ""; position: absolute; right: 0; top: 50%; width: 1px; height: 0.8em;
+  background: var(--line-2); transform: translateY(-50%);
+}
+@keyframes mq { to { transform: translateX(-50%); } }
+.marquee:hover .marquee-track, html.is-still .marquee-track { animation-play-state: paused; }
+
 /* 施工事例1件のページに載せる項目（この会社の書類の書き方そのもの。図ではなく罫の表） */
-.sheet { background: var(--card); border: 1px solid var(--line-2); }
+.case-grid {
+  display: grid; grid-template-columns: 5fr 6fr; gap: var(--col-gap); align-items: center;
+}
+.case-grid .sec-en { margin-bottom: 22px; }
+.case-grid h2 {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(22px, 2.5vw, 30px); line-height: 1.6; letter-spacing: 0.06em; margin-bottom: 22px;
+}
+.case-grid p { color: var(--ink-2); font-size: 15.5px; max-width: 30em; }
+.sheet { background: var(--card); border: 1px solid var(--line-2); width: 100%; max-width: 520px; justify-self: end; }
+.section.band .sheet { background: var(--paper); }
 .sheet-head {
   display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
   padding: 15px 22px 13px; border-bottom: 1px solid var(--line-2);
 }
 .sheet-head b { font-family: var(--font-display); font-weight: 500; font-size: 16px; letter-spacing: 0.08em; }
-.sheet-head span { font-family: var(--font-latin); font-size: 12px; letter-spacing: 0.12em; color: var(--muted); }
+.sheet-head i { font-style: normal; font-family: var(--font-latin); font-size: 12px; letter-spacing: 0.12em; color: var(--muted); }
 .sheet-row {
   display: grid; grid-template-columns: 4.6em 1fr; gap: 14px;
   padding: 10px 22px; border-bottom: 1px solid var(--line); font-size: 14.5px; line-height: 1.8;
@@ -296,7 +361,6 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 .sheet-row dt { color: var(--muted); font-size: 13px; letter-spacing: 0.14em; padding-top: 1px; }
 .sheet-row dd { font-variant-numeric: tabular-nums; }
 .sheet .blank { color: var(--muted); }
-.sheet-cap { font-size: 13px; color: var(--muted); margin-top: 14px; line-height: 1.85; }
 
 /* ---------- 章 ---------- */
 .section { padding: var(--sec-y) 0; }
@@ -329,17 +393,46 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 }
 .row dd, .row p { font-size: 15px; color: var(--ink-2); }
 
-/* 調査の数字 */
+/* 調査の数字（数字が数えあがり、下の細い棒が割合の長さまで伸びる） */
 .fig-num {
   display: block; font-family: var(--font-latin); font-weight: 300;
-  font-size: clamp(40px, 4.4vw, 54px); line-height: 1; color: var(--ink);
+  font-size: clamp(40px, 4.4vw, 56px); line-height: 1; color: var(--ink);
   font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
 }
 .fig-num small { font-size: 0.42em; margin-left: 3px; color: var(--muted); font-weight: 400; }
-.fig-label { display: block; margin-top: 12px; font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink-2); line-height: 1.7; }
-.fig-label small { display: block; font-size: 12.5px; font-weight: 400; color: var(--muted); }
+.fig-bar {
+  display: block; position: relative; overflow: hidden;
+  height: 3px; max-width: 360px; margin: 18px 0 14px; background: var(--line);
+}
+.fig-bar::after {
+  content: ""; position: absolute; inset: 0; background: var(--green);
+  transform-origin: left center; transform: scaleX(var(--v));
+  transition: transform 1.5s var(--ease) 0.15s;
+}
+html.js .rv:not(.is-in) .fig-bar::after { transform: scaleX(0); }
 .row.dim .fig-num { color: var(--muted); }
+.row.dim .fig-bar::after { background: var(--line-2); }
+.fig-label { font-size: 14px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink-2); line-height: 1.7; }
+.fig-label small { display: block; font-size: 12.5px; font-weight: 400; color: var(--muted); }
 .source { font-size: 12.5px; color: var(--muted); margin-top: 22px; line-height: 1.85; }
+
+/* ---------- 工事の種類（写真＋工事名＋その工事で載せること） ---------- */
+.trades { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px 20px; }
+.trade-ph { overflow: hidden; background: var(--paper-2); margin-bottom: 18px; }
+.trade-ph img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.trade h3 {
+  font-family: var(--font-display); font-weight: 500; font-size: 17px; letter-spacing: 0.06em; line-height: 1.6;
+  padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--line-2);
+}
+.trade p { font-size: 14px; color: var(--ink-2); line-height: 1.9; }
+.photo-note { margin-top: 28px; font-size: 12.5px; color: var(--muted); }
+
+/* ---------- 写真を横に置く章（作るもの・お願いすること）。写真は画面に残る（スクロールに連動はしない） ---------- */
+.split { display: grid; grid-template-columns: 4fr 8fr; gap: var(--col-gap); align-items: start; }
+.split.rev { grid-template-columns: 8fr 4fr; }
+.split-ph { position: sticky; top: 98px; overflow: hidden; background: var(--paper-2); }
+.split-ph img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.split .row { gap: 32px; }
 
 /* 工事の流れ（本当に順番があるので番号を付ける） */
 .steps { counter-reset: st; }
@@ -351,6 +444,39 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
   letter-spacing: 0.06em; color: var(--gold-ink); flex: none;
 }
 
+/* 公開から12か月で増える施工事例（1マス＝1件。公開時10件＋毎月4件まで×12か月＝最大58件） */
+.growth {
+  display: grid; grid-template-columns: 5fr 7fr; gap: var(--col-gap); align-items: center;
+  margin-top: var(--blk-y); padding-top: var(--blk-y); border-top: 1px solid var(--line-2);
+}
+.growth-k { font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 2vw, 24px); letter-spacing: 0.06em; line-height: 1.6; }
+.growth-num {
+  margin: 14px 0 18px; font-family: var(--font-latin); font-weight: 300; line-height: 1;
+  font-size: clamp(46px, 6vw, 78px); color: var(--green-deep); font-variant-numeric: tabular-nums;
+}
+.growth-num .g-u { font-family: var(--font-body); font-weight: 500; font-size: 0.3em; margin-left: 4px; color: var(--ink-2); letter-spacing: 0.04em; }
+.growth-num .g-arw { font-size: 0.5em; color: var(--line-2); margin: 0 0.35em; vertical-align: 0.25em; }
+.growth-txt { font-size: 15px; color: var(--ink-2); max-width: 30em; }
+.units { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; max-width: 400px; }
+.uc { aspect-ratio: 1; border: 1px solid #a3a49d; background: #a3a49d; }
+.uc.m {
+  border-color: var(--green); background: var(--green);
+  transition: background-color 0.5s ease, border-color 0.5s ease;
+  transition-delay: calc(var(--m) * 150ms + 0.3s);
+}
+html.js .growth:not(.is-in) .uc.m { background: transparent; border-color: var(--line-2); }
+.units-legend { margin-top: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; }
+.units-legend .lg { display: inline-block; width: 11px; height: 11px; margin-right: 7px; vertical-align: -1px; background: #a3a49d; }
+.units-legend .lg.m { background: var(--green); }
+.units-legend .lg.m:not(:first-child) { margin-left: 18px; }
+
+/* ---------- 全幅の写真の帯（元の写真＝2400px より広げない） ---------- */
+.photo-band {
+  position: relative; max-width: 2400px; margin: 0 auto;
+  height: clamp(200px, 30vw, 460px); overflow: hidden; background: var(--paper-2);
+}
+.photo-band img { width: 100%; height: 100%; object-fit: cover; }
+
 /* ---------- 料金 ---------- */
 .price-box {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -361,7 +487,6 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 .p-label { display: block; font-size: 13px; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 18px; }
 .p-line { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
 .p-line + .p-line { margin-top: 10px; }
-.p-key { font-size: 14px; color: var(--ink-2); min-width: 3.2em; }
 .p-amt {
   font-family: var(--font-latin); font-weight: 400; line-height: 1.15;
   font-size: clamp(36px, 4.4vw, 52px); letter-spacing: -0.005em; font-variant-numeric: tabular-nums;
@@ -376,12 +501,6 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 .price-inc li + li { margin-top: 2px; }
 .price-inc li::before { content: "—"; position: absolute; left: 0; color: var(--line-2); }
 .price-inc p { margin-top: 10px; font-size: 14px; color: var(--muted); }
-.price-a {
-  display: grid; grid-template-columns: 5fr 7fr; gap: var(--col-gap);
-  padding: 26px 0; border-bottom: 1px solid var(--line); margin-top: 20px;
-}
-.price-a b { font-family: var(--font-display); font-weight: 500; font-size: 17px; letter-spacing: 0.06em; }
-.price-a p { font-size: 15px; color: var(--ink-2); }
 .notes { margin-top: 22px; font-size: 13.5px; color: var(--muted); line-height: 1.9; }
 .price-cta { margin-top: 36px; }
 
@@ -429,7 +548,7 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
   margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(241, 241, 238, 0.14);
 }
 .line-qr img { width: 96px; height: 96px; background: var(--paper); padding: 6px; box-sizing: content-box; }
-.line-qr small { display: block; font-size: 12.5px; line-height: 1.85; color: rgba(241, 241, 238, 0.62); }
+.line-qr p { font-size: 12.5px; line-height: 1.85; color: rgba(241, 241, 238, 0.62); }
 
 /* ---------- フッター（自社LPと同じ＋飲食店のご案内へ戻る道） ---------- */
 .site-footer { background: var(--dark-2); color: rgba(241, 241, 238, 0.68); padding: 44px 0 34px; font-size: 13px; }
@@ -437,18 +556,56 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
 .site-footer .logo { color: #f1f1ee; display: block; margin-bottom: 8px; }
 .site-footer .to-lp { color: #f1f1ee; text-underline-offset: 3px; }
 .site-footer .copyright { font-family: var(--font-latin); letter-spacing: 0.04em; }
+.site-footer .credit { margin-top: 6px; font-size: 12px; color: rgba(241, 241, 238, 0.5); }
+
+/* ---------- 現れる動き（JSがあるときだけ。1度だけ、ゆっくり） ---------- */
+html.js .rv {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+html.js .rv.is-in { opacity: 1; transform: none; }
+html.js .photo-band.rv { transform: none; transition-duration: 1.6s; }
+/* 写真は下から幕が上がるように出す（拡大はしない） */
+html.js .trade .trade-ph img { clip-path: inset(100% 0 0 0); transition: clip-path 1.3s var(--ease) calc(var(--d, 0s) + 0.1s); }
+html.js .trade.is-in .trade-ph img { clip-path: inset(0 0 0 0); }
+/* 施工事例の表は、1行ずつ書き込まれるように出す */
+html.js .sheet .sheet-row { opacity: 0; transform: translateX(-10px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); transition-delay: calc(var(--i) * 90ms + 0.3s); }
+html.js .sheet.is-in .sheet-row { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .btn, .btn .arw { transition: none; }
+  html.js .rv, html.js .sheet .sheet-row { opacity: 1; transform: none; transition: none; }
+  html.js .trade .trade-ph img { clip-path: none; transition: none; }
+  .fig-bar::after, .uc.m, .hero-frames img { transition: none; }
+  html.js .rv:not(.is-in) .fig-bar::after { transform: scaleX(var(--v)); }
+  html.js .growth:not(.is-in) .uc.m { background: var(--green); border-color: var(--green); }
+  .marquee-track { animation: none; }
+  .hero-pause { display: none; }
 }
 
 /* ---------- レスポンシブ ---------- */
+@media (max-width: 1000px) {
+  .trades { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line-2); }
+  .trade {
+    display: grid; grid-template-columns: clamp(96px, 24vw, 180px) 1fr; gap: 0 22px;
+    padding: 20px 0; border-bottom: 1px solid var(--line); align-items: start;
+  }
+  .trade-ph { margin: 0; grid-row: span 2; }
+  .trade h3 { border-bottom: none; padding-bottom: 0; margin-bottom: 6px; }
+}
 @media (max-width: 920px) {
-  .hero .container, .cta .container { grid-template-columns: 1fr; gap: 48px; }
-  .hero .container { align-items: start; }
+  .hero .container, .cta .container, .case-grid, .growth { grid-template-columns: 1fr; gap: 48px; }
+  .hero .container { align-items: start; gap: 40px; }
+  .hero-frames { aspect-ratio: 4 / 3; max-height: none; }
+  .sheet { justify-self: start; }
   .sec-head { grid-template-columns: 1fr; gap: 18px; align-items: start; }
-  .row, .price-a { grid-template-columns: 1fr; gap: 6px; }
+  .row, .split .row { grid-template-columns: 1fr; gap: 6px; }
+  .split, .split.rev { grid-template-columns: 1fr; gap: 32px; }
+  .split-ph { position: static; }
+  .split-ph img { aspect-ratio: 16 / 9; }
+  .split.rev .split-ph { display: none; }
   .price-box { grid-template-columns: 1fr; }
   .price-cell + .price-cell { border-left: none; border-top: 1px solid var(--line); }
   .global-nav a:not(.btn) { display: none; }
@@ -461,6 +618,8 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
   .sheet-row { padding: 10px 16px; }
   .sheet-head { padding: 14px 16px 12px; }
   .row { padding: 22px 0; }
+  .marquee { padding: 16px 0; }
+  .units { gap: 5px; }
   .faq summary { padding: 20px 40px 20px 28px; font-size: 15.5px; }
   .faq summary::before { top: 20px; }
   .faq details p { padding: 0 4px 22px 28px; }
@@ -521,21 +680,49 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
         <p class="hero-sub"><span class="nw">先に</span><span class="nw">御社名で</span><span class="nw">見本を</span><span class="nw">お作りします。</span><span class="nw">費用はかかりません。</span></p>
       </div>
 
-      <div class="hero-sheet">
-        <div class="sheet" role="group" aria-label="施工事例1件のページに載せる項目">
-          <div class="sheet-head"><b>施工事例</b><span>No.〔　〕</span></div>
-          <dl>
-            <div class="sheet-row"><dt><span class="nw">所在地</span></dt><dd><span class="blank"><span class="nw">〔市町村〕</span></span></dd></div>
-            <div class="sheet-row"><dt><span class="nw">建物</span></dt><dd><span class="nw">木造</span><span class="nw">2階建て・</span>築<span class="blank">〔　〕</span>年</dd></div>
-            <div class="sheet-row"><dt><span class="nw">工事</span></dt><dd><span class="nw">外壁塗装・</span><span class="nw">屋根塗装</span></dd></div>
-            <div class="sheet-row"><dt><span class="nw">塗料</span></dt><dd><span class="blank"><span class="nw">〔製品名〕</span></span></dd></div>
-            <div class="sheet-row"><dt><span class="nw">工期</span></dt><dd><span class="blank">〔　〕</span><span class="nw">日間</span></dd></div>
-            <div class="sheet-row"><dt><span class="nw">費用</span></dt><dd><span class="blank">〔　　〕</span>円<span class="nw">（税込）</span></dd></div>
-            <div class="sheet-row"><dt><span class="nw">施工</span></dt><dd><span class="blank">〔　〕</span>年<span class="blank">〔　〕</span>月</dd></div>
-            <div class="sheet-row"><dt><span class="nw">写真</span></dt><dd><span class="nw">施工前・</span><span class="nw">工程・</span><span class="nw">施工後</span></dd></div>
-          </dl>
+      <figure class="hero-photo">
+        <div class="hero-frames">
+          <img class="is-on" src="img/hero-1-1200.jpg" srcset="img/hero-1-800.jpg 800w, img/hero-1-1200.jpg 1200w" sizes="(max-width: 920px) calc(100vw - 40px), 560px" width="1200" height="1500" alt="" fetchpriority="high">
+          <img src="img/hero-2-1200.jpg" srcset="img/hero-2-800.jpg 800w, img/hero-2-1200.jpg 1200w" sizes="(max-width: 920px) calc(100vw - 40px), 560px" width="1200" height="1500" alt="" loading="lazy" decoding="async">
+          <img src="img/hero-3-1200.jpg" srcset="img/hero-3-800.jpg 800w, img/hero-3-1200.jpg 1200w" sizes="(max-width: 920px) calc(100vw - 40px), 560px" width="1200" height="1500" alt="" loading="lazy" decoding="async">
+          <button type="button" class="hero-pause" aria-pressed="false" aria-label="写真の入れ替えと、流れる文字を止める">
+            <svg class="ico-stop" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="1.5" width="3" height="11" fill="currentColor"/><rect x="8.5" y="1.5" width="3" height="11" fill="currentColor"/></svg>
+            <svg class="ico-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>
+          </button>
         </div>
-        <p class="sheet-cap"><span class="nw">施工事例は</span><span class="nw">1件を</span><span class="nw">1ページにして、</span><span class="nw">この</span><span class="nw">8つを</span><span class="nw">必ずそろえます。</span><span class="nw">施工年月の</span><span class="nw">無い</span><span class="nw">金額は、</span><span class="nw">いまの</span><span class="nw">お見積りと</span><span class="nw">食い</span><span class="nw">違った</span><span class="nw">ときに</span><span class="nw">誤解を</span><span class="nw">生む</span><span class="nw">ためです。</span></p>
+        <figcaption><span class="nw">写真は</span><span class="nw">イメージです</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 流れる工事名（飾り。同じ並びを2回書いて、つなぎ目なく流す） -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="mq">外壁塗装</span><span class="mq">屋根</span><span class="mq">防水</span><span class="mq">外構</span><span class="mq">造園</span><span class="mq">水まわり</span><span class="mq">内装</span><span class="mq">リフォーム</span><span class="mq">増改築</span>
+      <span class="mq">外壁塗装</span><span class="mq">屋根</span><span class="mq">防水</span><span class="mq">外構</span><span class="mq">造園</span><span class="mq">水まわり</span><span class="mq">内装</span><span class="mq">リフォーム</span><span class="mq">増改築</span>
+    </div>
+  </div>
+
+  <!-- 施工事例1件のページ -->
+  <section class="section band" id="case">
+    <div class="container case-grid">
+      <div class="rv">
+        <span class="sec-en" aria-hidden="true">Case</span>
+        <h2><span class="nw">施工事例は、</span><span class="nw">1件を</span><span class="nw">1ページに。</span></h2>
+        <p><span class="nw">どの</span><span class="nw">施工事例にも、</span><span class="nw">この</span><span class="nw">8つを</span><span class="nw">必ずそろえます。</span><span class="nw">施工年月の</span><span class="nw">無い</span><span class="nw">金額は、</span><span class="nw">いまの</span><span class="nw">お見積りと</span><span class="nw">食い違った</span><span class="nw">ときに</span><span class="nw">誤解を</span><span class="nw">生む</span><span class="nw">ためです。</span></p>
+      </div>
+      <div class="sheet rv" role="group" aria-label="施工事例1件のページに載せる項目">
+        <div class="sheet-head"><b>施工事例</b><i>No.〔　〕</i></div>
+        <dl>
+          <div class="sheet-row" style="--i:0"><dt><span class="nw">所在地</span></dt><dd><span class="blank"><span class="nw">〔市町村〕</span></span></dd></div>
+          <div class="sheet-row" style="--i:1"><dt><span class="nw">建物</span></dt><dd><span class="nw">木造</span><span class="nw">2階建て・</span>築<span class="blank">〔　〕</span>年</dd></div>
+          <div class="sheet-row" style="--i:2"><dt><span class="nw">工事</span></dt><dd><span class="nw">外壁塗装・</span><span class="nw">屋根塗装</span></dd></div>
+          <div class="sheet-row" style="--i:3"><dt><span class="nw">塗料</span></dt><dd><span class="blank"><span class="nw">〔製品名〕</span></span></dd></div>
+          <div class="sheet-row" style="--i:4"><dt><span class="nw">工期</span></dt><dd><span class="blank">〔　〕</span><span class="nw">日間</span></dd></div>
+          <div class="sheet-row" style="--i:5"><dt><span class="nw">費用</span></dt><dd><span class="blank">〔　　〕</span>円<span class="nw">（税込）</span></dd></div>
+          <div class="sheet-row" style="--i:6"><dt><span class="nw">施工</span></dt><dd><span class="blank">〔　〕</span>年<span class="blank">〔　〕</span>月</dd></div>
+          <div class="sheet-row" style="--i:7"><dt><span class="nw">写真</span></dt><dd><span class="nw">施工前・</span><span class="nw">工程・</span><span class="nw">施工後</span></dd></div>
+        </dl>
       </div>
     </div>
   </section>
@@ -543,7 +730,7 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
   <!-- なぜこの中身なのか -->
   <section class="section" id="why">
     <div class="container">
-      <div class="sec-head">
+      <div class="sec-head rv">
         <div>
           <span class="sec-en" aria-hidden="true">Why</span>
           <h2><span class="nw">選ばれた</span><span class="nw">理由は、</span><span class="nw">見た</span><span class="nw">目より、</span><span class="nw">人と</span><span class="nw">金額でした。</span></h2>
@@ -551,20 +738,20 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
         <p><span class="nw">リフォームをした</span><span class="nw">方に、</span><span class="nw">その</span><span class="nw">会社を</span><span class="nw">選んだ</span><span class="nw">理由を</span><span class="nw">尋ねた</span><span class="nw">調査があります。</span><span class="nw">デザインを</span><span class="nw">挙げた</span><span class="nw">方は、</span><span class="nw">1割ほどでした。</span><span class="nw">作る</span><span class="nw">ホームページの</span><span class="nw">中身は、</span><span class="nw">この</span><span class="nw">順に</span><span class="nw">決めています。</span></p>
       </div>
       <div class="rows">
-        <div class="row">
-          <div><span class="fig-num">44.6<small>%</small></span><span class="fig-label">担当者の対応・人柄</span></div>
-          <p><span class="nw">代表と</span><span class="nw">職人の</span><span class="nw">お顔と、</span><span class="nw">お人柄の</span><span class="nw">伝わる</span><span class="nw">お話を</span><span class="nw">載せます。</span><span class="nw">写真は</span><span class="nw">伺ってこちらで</span><span class="nw">撮り、</span><span class="nw">お話は</span><span class="nw">伺って</span><span class="nw">書き</span><span class="nw">起こします。</span></p>
+        <div class="row rv">
+          <div><span class="fig-num" data-to="44.6">44.6<small>%</small></span><span class="fig-bar" style="--v:.446" aria-hidden="true"></span><p class="fig-label"><span class="nw">担当者の</span><span class="nw">対応・</span><span class="nw">人柄</span></p></div>
+          <p><span class="nw">代表と</span><span class="nw">職人の</span><span class="nw">お顔と、</span><span class="nw">お人柄の</span><span class="nw">伝わる</span><span class="nw">お話を</span><span class="nw">載せます。</span><span class="nw">写真は</span><span class="nw">伺ってこちらで</span><span class="nw">撮り、</span><span class="nw">お話は</span><span class="nw">伺って</span><span class="nw">書き起こします。</span></p>
         </div>
-        <div class="row">
-          <div><span class="fig-num">29.3<small>%</small></span><span class="fig-label">工事価格の透明さ・明朗さ</span></div>
+        <div class="row rv">
+          <div><span class="fig-num" data-to="29.3">29.3<small>%</small></span><span class="fig-bar" style="--v:.293" aria-hidden="true"></span><p class="fig-label"><span class="nw">工事価格の</span><span class="nw">透明さ・</span><span class="nw">明朗さ</span></p></div>
           <p><span class="nw">費用の</span><span class="nw">目安と、</span><span class="nw">工程ごとの</span><span class="nw">単価の</span><span class="nw">表を</span><span class="nw">載せます。</span><span class="nw">「一式」とまとめずに、</span><span class="nw">分けて</span><span class="nw">お見せします。</span></p>
         </div>
-        <div class="row">
-          <div><span class="fig-num">30.5<small>%</small></span><span class="fig-label">見積もりの相場や適正価格がわからない<small>検討中の方の不安</small></span></div>
+        <div class="row rv">
+          <div><span class="fig-num" data-to="30.5">30.5<small>%</small></span><span class="fig-bar" style="--v:.305" aria-hidden="true"></span><p class="fig-label"><span class="nw">見積もりの</span><span class="nw">相場や</span><span class="nw">適正価格がわからない</span><small><span class="nw">検討中の</span><span class="nw">方の</span><span class="nw">不安</span></small></p></div>
           <p><span class="nw">御社の</span><span class="nw">お見積書に</span><span class="nw">書いてある</span><span class="nw">ことを、</span><span class="nw">項目ごとに</span><span class="nw">ご説明する</span><span class="nw">ページを</span><span class="nw">作ります。</span></p>
         </div>
-        <div class="row dim">
-          <div><span class="fig-num">12.7<small>%</small></span><span class="fig-label">デザインセンス</span></div>
+        <div class="row dim rv">
+          <div><span class="fig-num" data-to="12.7">12.7<small>%</small></span><span class="fig-bar" style="--v:.127" aria-hidden="true"></span><p class="fig-label"><span class="nw">デザインセンス</span></p></div>
           <p><span class="nw">見た</span><span class="nw">目は、</span><span class="nw">写真が</span><span class="nw">大きく</span><span class="nw">見えて、</span><span class="nw">文字が</span><span class="nw">読みやすい</span><span class="nw">ことを</span><span class="nw">第一にしています。</span></p>
         </div>
       </div>
@@ -572,36 +759,80 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
     </div>
   </section>
 
-  <!-- 作るもの -->
-  <section class="section band" id="scope">
+  <!-- 工事の種類 -->
+  <section class="section band" id="trades">
     <div class="container">
-      <div class="sec-head">
+      <div class="sec-head rv">
+        <div>
+          <span class="sec-en" aria-hidden="true">Trades</span>
+          <h2><span class="nw">工事ごとに、</span><span class="nw">確かめたい</span><span class="nw">ことは</span><span class="nw">違います。</span></h2>
+        </div>
+        <p><span class="nw">施工事例は、</span><span class="nw">どの</span><span class="nw">工事でも</span><span class="nw">1件を</span><span class="nw">1ページにします。</span><span class="nw">そのうえで、</span><span class="nw">載せる</span><span class="nw">項目を</span><span class="nw">工事に</span><span class="nw">合わせて</span><span class="nw">変えます。</span></p>
+      </div>
+      <ul class="trades">
+        <li class="trade rv" style="--d:0s">
+          <div class="trade-ph"><img src="img/trade-build-600.jpg" width="600" height="800" alt="" loading="lazy" decoding="async"></div>
+          <h3><span class="nwb"><span class="nw">建築・</span><span class="nw">リフォーム</span></span></h3>
+          <p><span class="nw">間取りの</span><span class="nw">変更や</span><span class="nw">増改築は、</span><span class="nw">施工前と</span><span class="nw">施工後の</span><span class="nw">写真を</span><span class="nw">並べ、</span><span class="nw">工期と</span><span class="nw">費用を</span><span class="nw">添えます。</span></p>
+        </li>
+        <li class="trade rv" style="--d:.08s">
+          <div class="trade-ph"><img src="img/trade-paint-600.jpg" width="600" height="800" alt="" loading="lazy" decoding="async"></div>
+          <h3><span class="nwb"><span class="nw">塗装・</span><span class="nw">防水・</span><span class="nw">屋根</span></span></h3>
+          <p><span class="nw">塗料や</span><span class="nw">防水材の</span><span class="nw">製品名と、</span><span class="nw">下塗りから</span><span class="nw">仕上げまでの</span><span class="nw">工程の</span><span class="nw">写真を</span><span class="nw">載せます。</span></p>
+        </li>
+        <li class="trade rv" style="--d:.16s">
+          <div class="trade-ph"><img src="img/trade-garden-600.jpg" width="600" height="800" alt="" loading="lazy" decoding="async"></div>
+          <h3><span class="nwb"><span class="nw">造園・</span><span class="nw">外構</span></span></h3>
+          <p><span class="nw">お庭や</span><span class="nw">駐車場は、</span><span class="nw">使った</span><span class="nw">石や</span><span class="nw">素材の</span><span class="nw">名前と、</span><span class="nw">施工した</span><span class="nw">季節を</span><span class="nw">添えます。</span></p>
+        </li>
+        <li class="trade rv" style="--d:.24s">
+          <div class="trade-ph"><img src="img/trade-water-600.jpg" width="600" height="800" alt="" loading="lazy" decoding="async"></div>
+          <h3><span class="nwb"><span class="nw">水まわり・</span><span class="nw">設備</span></span></h3>
+          <p><span class="nw">キッチンや</span><span class="nw">浴室、</span><span class="nw">トイレは、</span><span class="nw">入れ替えた</span><span class="nw">機器の</span><span class="nw">品番を</span><span class="nw">載せます。</span></p>
+        </li>
+        <li class="trade rv" style="--d:.32s">
+          <div class="trade-ph"><img src="img/trade-interior-600.jpg" width="600" height="800" alt="" loading="lazy" decoding="async"></div>
+          <h3><span class="nw">内装</span></h3>
+          <p><span class="nw">クロスや</span><span class="nw">床は、</span><span class="nw">選ばれた</span><span class="nw">品番と、</span><span class="nw">張り替えた</span><span class="nw">お部屋の</span><span class="nw">広さを</span><span class="nw">載せます。</span></p>
+        </li>
+      </ul>
+      <p class="photo-note"><span class="nw">写真は</span><span class="nw">イメージです。</span><span class="nw">御社の</span><span class="nw">ページには、</span><span class="nw">御社の</span><span class="nw">現場の</span><span class="nw">写真を</span><span class="nw">載せます。</span></p>
+    </div>
+  </section>
+
+  <!-- 作るもの -->
+  <section class="section" id="scope">
+    <div class="container">
+      <div class="sec-head rv">
         <div>
           <span class="sec-en" aria-hidden="true">Contents</span>
           <h2><span class="nw">作る</span><span class="nw">もの</span></h2>
         </div>
         <p><span class="nw">半日伺って</span><span class="nw">作る</span><span class="nw">形で</span><span class="nw">お作りする</span><span class="nw">中身です。</span><span class="nw">どれも</span><span class="nw">御社に</span><span class="nw">伺って、</span><span class="nw">御社の</span><span class="nw">実際に</span><span class="nw">合わせて</span><span class="nw">書きます。</span></p>
       </div>
-      <dl class="rows">
-        <div class="row"><dt><span class="nw">施工事例</span><span class="nw">（1件＝1ページ）</span></dt><dd><span class="nw">施工前・</span><span class="nw">工程・</span><span class="nw">施工後の</span><span class="nw">写真と、</span><span class="nw">費用・</span><span class="nw">工期・</span><span class="nw">塗料・</span><span class="nw">築年数・</span><span class="nw">施工年月。</span><span class="nw">工事の</span><span class="nw">種類と</span><span class="nw">建物</span><span class="nw">（戸建て・</span><span class="nw">アパート・</span><span class="nw">工場など）で</span><span class="nw">絞り</span><span class="nw">込める</span><span class="nw">ようにします。</span><span class="nw">公開の</span><span class="nw">ときは</span><span class="nw">10件から</span><span class="nw">始めます</span><span class="nw">（オプションの</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」を</span><span class="nw">選ばれた</span><span class="nw">場合は</span><span class="nw">20件から）。</span></dd></div>
-        <div class="row"><dt><span class="nw">費用の</span><span class="nw">目安</span></dt><dd><span class="nw">金額の</span><span class="nw">表、</span><span class="nw">含まれる</span><span class="nw">もの、</span><span class="nw">金額が</span><span class="nw">変わる</span><span class="nw">条件、</span><span class="nw">あくまで</span><span class="nw">目安である</span><span class="nw">こと。</span><span class="nw">この</span><span class="nw">4つを</span><span class="nw">1組にして</span><span class="nw">お見せします。</span></dd></div>
-        <div class="row"><dt><span class="nw">工程ごとの</span><span class="nw">単価</span><span class="nw">（オプション）</span></dt><dd><span class="nw">「外壁塗装工事</span> <span class="nw">一式」を、</span><span class="nw">足場・</span><span class="nw">高圧洗浄・</span><span class="nw">下塗り・</span><span class="nw">中塗り・</span><span class="nw">上塗りの</span><span class="nw">ように</span><span class="nw">工程に</span><span class="nw">分けた</span><span class="nw">表です。</span><span class="nw">30,000円の</span><span class="nw">オプションで、</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」と</span><span class="nw">あわせて</span><span class="nw">お願いされた</span><span class="nw">場合に、</span><span class="nw">伺って</span><span class="nw">単価を</span><span class="nw">決めて</span><span class="nw">いただきます。</span><span class="nw">基本の</span><span class="nw">料金には</span><span class="nw">含みません。</span></dd></div>
-        <div class="row"><dt><span class="nw">お見積書の</span><span class="nw">見方</span></dt><dd><span class="nw">御社の</span><span class="nw">お見積書に</span><span class="nw">書いてある</span><span class="nw">ことを、</span><span class="nw">項目ごとに</span><span class="nw">ご説明します。</span></dd></div>
-        <div class="row"><dt><span class="nw">保証と</span><span class="nw">点検</span></dt><dd><span class="nw">保証の</span><span class="nw">年数と、</span><span class="nw">点検に</span><span class="nw">伺う</span><span class="nw">時期。</span><span class="nw">ご契約のあとの、</span><span class="nw">金額と</span><span class="nw">工期の</span><span class="nw">お約束もあわせて</span><span class="nw">書きます。</span></dd></div>
-        <div class="row"><dt><span class="nw">工事の</span><span class="nw">流れ</span></dt><dd><span class="nw">お問い</span><span class="nw">合わせから、</span><span class="nw">現地の</span><span class="nw">調査・</span><span class="nw">お見積り・</span><span class="nw">色の</span><span class="nw">決め</span><span class="nw">方・</span><span class="nw">着工・</span><span class="nw">完工・</span><span class="nw">点検まで。</span></dd></div>
-        <div class="row"><dt><span class="nw">法人・</span><span class="nw">管理会社様へ</span></dt><dd><span class="nw">元請の</span><span class="nw">協力会社としての</span><span class="nw">お取引、</span><span class="nw">建物診断の</span><span class="nw">報告書、</span><span class="nw">操業を</span><span class="nw">止めない</span><span class="nw">工程の</span><span class="nw">ご案内。</span></dd></div>
-        <div class="row"><dt><span class="nw">会社概要と</span><span class="nw">許可・</span><span class="nw">資格</span></dt><dd><span class="nw">建設業許可の</span><span class="nw">番号と</span><span class="nw">業種、</span><span class="nw">設立の</span><span class="nw">年、</span><span class="nw">資格、</span><span class="nw">加入している</span><span class="nw">保険。</span><span class="nw">公開されている</span><span class="nw">情報は、</span><span class="nw">こちらで</span><span class="nw">調べて</span><span class="nw">記載します。</span></dd></div>
-        <div class="row"><dt><span class="nw">職人の</span><span class="nw">紹介・</span><span class="nw">採用</span><span class="nw">（オプション）</span></dt><dd><span class="nw">現場に</span><span class="nw">伺う</span><span class="nw">職人の</span><span class="nw">ご紹介は、</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」オプションで</span><span class="nw">お作りします。</span><span class="nw">採用の</span><span class="nw">ページは、</span><span class="nw">別の</span><span class="nw">オプション</span><span class="nw">（50,000円）です。</span></dd></div>
-        <div class="row"><dt><span class="nw">お客様の</span>声</dt><dd><span class="nw">お声がけは</span><span class="nw">御社から</span><span class="nw">お願いします。</span><span class="nw">質問の</span><span class="nw">項目と</span><span class="nw">お願いの</span><span class="nw">文面はこちらで</span><span class="nw">用意し、</span><span class="nw">いただいた</span><span class="nw">お答えを</span><span class="nw">読みやすい</span><span class="nw">文章に</span><span class="nw">整えます。</span></dd></div>
-        <div class="row"><dt><span class="nw">Googleマップ</span></dt><dd><span class="nw">Googleマップに</span><span class="nw">出る</span><span class="nw">御社の</span>欄<span class="nw">（Googleビジネスプロフィール）の</span><span class="nw">登録を</span><span class="nw">整えます。</span></dd></div>
-      </dl>
+      <div class="split">
+        <div class="split-ph rv"><img src="img/scope-960.jpg" width="960" height="1200" alt="" loading="lazy" decoding="async"></div>
+        <dl class="rows">
+          <div class="row"><dt><span class="nw">施工事例</span><span class="nw">（1件＝1ページ）</span></dt><dd><span class="nw">施工前・</span><span class="nw">工程・</span><span class="nw">施工後の</span><span class="nw">写真と、</span><span class="nw">費用・</span><span class="nw">工期・</span><span class="nw">塗料・</span><span class="nw">築年数・</span><span class="nw">施工年月。</span><span class="nw">工事の</span><span class="nw">種類と</span><span class="nw">建物</span><span class="nw">（戸建て・</span><span class="nw">アパート・</span><span class="nw">工場など）で</span><span class="nw">絞り</span><span class="nw">込める</span><span class="nw">ようにします。</span><span class="nw">公開の</span><span class="nw">ときは</span><span class="nw">10件から</span><span class="nw">始めます</span><span class="nw">（オプションの</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」を</span><span class="nw">選ばれた</span><span class="nw">場合は</span><span class="nw">20件から）。</span></dd></div>
+          <div class="row"><dt><span class="nw">費用の</span><span class="nw">目安</span></dt><dd><span class="nw">金額の</span><span class="nw">表、</span><span class="nw">含まれる</span><span class="nw">もの、</span><span class="nw">金額が</span><span class="nw">変わる</span><span class="nw">条件、</span><span class="nw">あくまで</span><span class="nw">目安である</span><span class="nw">こと。</span><span class="nw">この</span><span class="nw">4つを</span><span class="nw">1組にして</span><span class="nw">お見せします。</span></dd></div>
+          <div class="row"><dt><span class="nw">工程ごとの</span><span class="nw">単価</span><span class="nw">（オプション）</span></dt><dd><span class="nw">「外壁塗装工事</span> <span class="nw">一式」を、</span><span class="nw">足場・</span><span class="nw">高圧洗浄・</span><span class="nw">下塗り・</span><span class="nw">中塗り・</span><span class="nw">上塗りの</span><span class="nw">ように</span><span class="nw">工程に</span><span class="nw">分けた</span><span class="nw">表です。</span><span class="nw">30,000円の</span><span class="nw">オプションで、</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」とあわせて</span><span class="nw">お願いされた</span><span class="nw">場合に、</span><span class="nw">伺って</span><span class="nw">単価を</span><span class="nw">決めて</span><span class="nw">いただきます。</span><span class="nw">基本の</span><span class="nw">料金には</span><span class="nw">含みません。</span></dd></div>
+          <div class="row"><dt><span class="nw">お見積書の</span><span class="nw">見方</span></dt><dd><span class="nw">御社の</span><span class="nw">お見積書に</span><span class="nw">書いてある</span><span class="nw">ことを、</span><span class="nw">項目ごとに</span><span class="nw">ご説明します。</span></dd></div>
+          <div class="row"><dt><span class="nw">保証と</span><span class="nw">点検</span></dt><dd><span class="nw">保証の</span><span class="nw">年数と、</span><span class="nw">点検に</span><span class="nw">伺う</span><span class="nw">時期。</span><span class="nw">ご契約のあとの、</span><span class="nw">金額と</span><span class="nw">工期の</span><span class="nw">お約束もあわせて</span><span class="nw">書きます。</span></dd></div>
+          <div class="row"><dt><span class="nw">工事の</span><span class="nw">流れ</span></dt><dd><span class="nw">お問い合わせから、</span><span class="nw">現地の</span><span class="nw">調査・</span><span class="nw">お見積り・</span><span class="nw">色の</span><span class="nw">決め</span><span class="nw">方・</span><span class="nw">着工・</span><span class="nw">完工・</span><span class="nw">点検まで。</span></dd></div>
+          <div class="row"><dt><span class="nw">法人・</span><span class="nw">管理会社様へ</span></dt><dd><span class="nw">元請の</span><span class="nw">協力会社としての</span><span class="nw">お取引、</span><span class="nw">建物診断の</span><span class="nw">報告書、</span><span class="nw">操業を</span><span class="nw">止めない</span><span class="nw">工程の</span><span class="nw">ご案内。</span></dd></div>
+          <div class="row"><dt><span class="nw">会社概要と</span><span class="nw">許可・</span><span class="nw">資格</span></dt><dd><span class="nw">建設業許可の</span><span class="nw">番号と</span><span class="nw">業種、</span><span class="nw">設立の</span><span class="nw">年、</span><span class="nw">資格、</span><span class="nw">加入している</span><span class="nw">保険。</span><span class="nw">公開されている</span><span class="nw">情報は、</span><span class="nw">こちらで</span><span class="nw">調べて</span><span class="nw">記載します。</span></dd></div>
+          <div class="row"><dt><span class="nw">職人の</span><span class="nw">紹介・</span><span class="nw">採用</span><span class="nw">（オプション）</span></dt><dd><span class="nw">現場に</span><span class="nw">伺う</span><span class="nw">職人の</span><span class="nw">ご紹介は、</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」オプションで</span><span class="nw">お作りします。</span><span class="nw">採用の</span><span class="nw">ページは、</span><span class="nw">別の</span><span class="nw">オプション</span><span class="nw">（50,000円）です。</span></dd></div>
+          <div class="row"><dt><span class="nw">お客様の</span>声</dt><dd><span class="nw">お声がけは</span><span class="nw">御社から</span><span class="nw">お願いします。</span><span class="nw">質問の</span><span class="nw">項目と</span><span class="nw">お願いの</span><span class="nw">文面はこちらで</span><span class="nw">用意し、</span><span class="nw">いただいた</span><span class="nw">お答えを</span><span class="nw">読みやすい</span><span class="nw">文章に</span><span class="nw">整えます。</span></dd></div>
+          <div class="row"><dt><span class="nw">Googleマップ</span></dt><dd><span class="nw">Googleマップに</span><span class="nw">出る</span><span class="nw">御社の</span>欄<span class="nw">（Googleビジネスプロフィール）の</span><span class="nw">登録を</span><span class="nw">整えます。</span></dd></div>
+        </dl>
+      </div>
     </div>
   </section>
 
   <!-- 進め方 -->
   <section class="section" id="process">
     <div class="container">
-      <div class="sec-head">
+      <div class="sec-head rv">
         <div>
           <span class="sec-en" aria-hidden="true">Process</span>
           <h2><span class="nw">見本を</span><span class="nw">ご覧になってから、</span><span class="nw">決めて</span><span class="nw">いただけます。</span></h2>
@@ -610,47 +841,81 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
       </div>
       <div class="rows steps">
         <div class="row"><h3><span class="nwb"><span class="nw">御社名で、</span><span class="nw">見本を</span><span class="nw">お作りします</span></span></h3><p><span class="nw">写真の</span><span class="nw">場所は</span><span class="nw">空の</span><span class="nw">枠、</span><span class="nw">決まっていない</span><span class="nw">数字は</span>〔　<span class="nw">〕の</span><span class="nw">空欄のままで、</span><span class="nw">ひと</span><span class="nw">通りの</span><span class="nw">構成を</span><span class="nw">お作りして</span><span class="nw">お送りします。</span><span class="nw">費用はかかりません。</span><span class="nw">検索には</span><span class="nw">出ない</span><span class="nw">設定にしてあり、</span><span class="nw">ご不要でしたら、</span><span class="nw">ご連絡を</span><span class="nw">いただいた</span><span class="nw">時点で</span><span class="nw">削除します。</span></p></div>
-        <div class="row"><h3><span class="nwb"><span class="nw">1時間ほど、</span><span class="nw">伺います</span></span></h3><p><span class="nw">載せる</span><span class="nw">内容と、</span><span class="nw">御社にしか</span><span class="nw">決められない</span><span class="nw">ことを</span><span class="nw">伺います。</span><span class="nw">見本の</span>〔　<span class="nw">〕の</span><span class="nw">空欄は、</span><span class="nw">ここで</span><span class="nw">埋めます。</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」オプションを</span><span class="nw">選ばれた</span><span class="nw">場合は、</span><span class="nw">半日</span><span class="nw">伺い、</span><span class="nw">代表・</span><span class="nw">職人・</span><span class="nw">事務所・</span><span class="nw">現場を</span><span class="nw">こちらで</span><span class="nw">撮影し、</span><span class="nw">2時間ほど</span><span class="nw">お話を</span><span class="nw">伺います。</span></p></div>
+        <div class="row"><h3><span class="nwb"><span class="nw">1時間ほど、</span><span class="nw">伺います</span></span></h3><p><span class="nw">載せる</span><span class="nw">内容と、</span><span class="nw">御社にしか</span><span class="nw">決められない</span><span class="nw">ことを</span><span class="nw">伺います。</span><span class="nw">見本の</span>〔　<span class="nw">〕の</span><span class="nw">空欄は、</span><span class="nw">ここで</span><span class="nw">埋めます。</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」オプションを</span><span class="nw">選ばれた</span><span class="nw">場合は、</span><span class="nw">半日伺い、</span><span class="nw">代表・</span><span class="nw">職人・</span><span class="nw">事務所・</span><span class="nw">現場をこちらで</span><span class="nw">撮影し、</span><span class="nw">2時間ほど</span><span class="nw">お話を</span><span class="nw">伺います。</span></p></div>
         <div class="row"><h3><span class="nwb"><span class="nw">写真を</span><span class="nw">お預かりします</span></span></h3><p><span class="nw">お手元にある</span><span class="nw">施工前・</span><span class="nw">施工後の</span><span class="nw">写真を、</span><span class="nw">LINEか</span><span class="nw">メールで</span><span class="nw">お送り</span><span class="nw">ください。</span><span class="nw">1件ずつ、</span><span class="nw">施工事例の</span><span class="nw">ページにします。</span></p></div>
         <div class="row"><h3><span class="nwb"><span class="nw">ご確認いただいて、</span><span class="nw">公開します</span></span></h3><p><span class="nw">仕上がりを</span><span class="nw">ご覧いただき、</span><span class="nw">直す</span><span class="nw">ところを</span><span class="nw">直してから</span><span class="nw">公開します。</span><span class="nw">あわせて、</span><span class="nw">Googleマップの</span><span class="nw">登録を</span><span class="nw">整えます。</span></p></div>
         <div class="row"><h3><span class="nwb"><span class="nw">毎月</span><span class="nw">4件まで、</span><span class="nw">施工事例が</span><span class="nw">増えます</span></span></h3><p><span class="nw">公開したあとは、</span><span class="nw">LINEで</span><span class="nw">届いた</span><span class="nw">施工写真を、</span><span class="nw">毎月</span><span class="nw">4件まで</span><span class="nw">施工事例の</span><span class="nw">ページにします。</span><span class="nw">月末には、</span><span class="nw">こちらから</span><span class="nw">写真の</span><span class="nw">お声がけをします。</span></p></div>
       </div>
+
+      <div class="growth rv">
+        <div>
+          <p class="growth-k"><span class="nw">公開から</span><span class="nw">12か月で、</span><span class="nw">施工事例は</span></p>
+          <p class="growth-num">10<span class="g-u">件</span><span class="g-arw" aria-hidden="true">→</span><span class="g-u"><span class="nw">最大</span></span>58<span class="g-u">件</span></p>
+          <p class="growth-txt"><span class="nw">公開の</span><span class="nw">ときの</span><span class="nw">10件に、</span><span class="nw">毎月</span><span class="nw">4件までを</span><span class="nw">12か月重ねると、</span><span class="nw">最大で</span><span class="nw">58件になります。</span><span class="nw">写真の</span><span class="nw">届かない</span><span class="nw">月は、</span><span class="nw">その</span><span class="nw">月のぶんは</span><span class="nw">増えません。</span></p>
+        </div>
+        <div>
+          <div class="units" role="img" aria-label="施工事例の数。公開のとき10件、12か月後に最大58件">
+            <i class="uc"></i><i class="uc"></i><i class="uc"></i><i class="uc"></i><i class="uc"></i><i class="uc"></i><i class="uc"></i><i class="uc"></i><i class="uc"></i><i class="uc"></i>
+            <i class="uc m" style="--m:1"></i><i class="uc m" style="--m:1"></i><i class="uc m" style="--m:1"></i><i class="uc m" style="--m:1"></i>
+            <i class="uc m" style="--m:2"></i><i class="uc m" style="--m:2"></i><i class="uc m" style="--m:2"></i><i class="uc m" style="--m:2"></i>
+            <i class="uc m" style="--m:3"></i><i class="uc m" style="--m:3"></i><i class="uc m" style="--m:3"></i><i class="uc m" style="--m:3"></i>
+            <i class="uc m" style="--m:4"></i><i class="uc m" style="--m:4"></i><i class="uc m" style="--m:4"></i><i class="uc m" style="--m:4"></i>
+            <i class="uc m" style="--m:5"></i><i class="uc m" style="--m:5"></i><i class="uc m" style="--m:5"></i><i class="uc m" style="--m:5"></i>
+            <i class="uc m" style="--m:6"></i><i class="uc m" style="--m:6"></i><i class="uc m" style="--m:6"></i><i class="uc m" style="--m:6"></i>
+            <i class="uc m" style="--m:7"></i><i class="uc m" style="--m:7"></i><i class="uc m" style="--m:7"></i><i class="uc m" style="--m:7"></i>
+            <i class="uc m" style="--m:8"></i><i class="uc m" style="--m:8"></i><i class="uc m" style="--m:8"></i><i class="uc m" style="--m:8"></i>
+            <i class="uc m" style="--m:9"></i><i class="uc m" style="--m:9"></i><i class="uc m" style="--m:9"></i><i class="uc m" style="--m:9"></i>
+            <i class="uc m" style="--m:10"></i><i class="uc m" style="--m:10"></i><i class="uc m" style="--m:10"></i><i class="uc m" style="--m:10"></i>
+            <i class="uc m" style="--m:11"></i><i class="uc m" style="--m:11"></i><i class="uc m" style="--m:11"></i><i class="uc m" style="--m:11"></i>
+            <i class="uc m" style="--m:12"></i><i class="uc m" style="--m:12"></i><i class="uc m" style="--m:12"></i><i class="uc m" style="--m:12"></i>
+          </div>
+          <p class="units-legend"><span class="lg" aria-hidden="true"></span><span class="nw">公開の</span><span class="nw">とき</span> <span class="nw">10件</span><span class="lg m" aria-hidden="true"></span><span class="nw">毎月</span><span class="nw">4件まで×12か月</span></p>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- 写真の帯（飾り） -->
+  <div class="photo-band rv" aria-hidden="true">
+    <img src="img/band-2400.jpg" srcset="img/band-1200.jpg 1200w, img/band-2400.jpg 2400w" sizes="(max-width: 2400px) 100vw, 2400px" width="2400" height="960" alt="" loading="lazy" decoding="async">
+  </div>
 
   <!-- 御社にお願いすること -->
   <section class="section band" id="request">
     <div class="container">
-      <div class="sec-head">
+      <div class="sec-head rv">
         <div>
           <span class="sec-en" aria-hidden="true">Your part</span>
           <h2><span class="nw">御社に</span><span class="nw">お願いする</span><span class="nw">ことは、</span><span class="nw">6つです。</span></h2>
         </div>
         <p><span class="nw">料金の</span><span class="nw">お話より</span><span class="nw">先に、</span><span class="nw">御社の</span><span class="nw">手間の</span><span class="nw">お話を</span><span class="nw">いたします。</span><span class="nw">文章は</span><span class="nw">お話を</span><span class="nw">伺ってこちらで</span><span class="nw">書きます。</span><span class="nw">お願いするのは、</span><span class="nw">次の</span><span class="nw">6つです。</span></p>
       </div>
-      <dl class="rows">
-        <div class="row"><dt><span class="nw">1時間ほどの</span><span class="nw">お時間</span></dt><dd><span class="nw">載せる</span><span class="nw">内容を</span><span class="nw">決め、</span><span class="nw">代表の</span><span class="nw">お顔を</span><span class="nw">1枚</span><span class="nw">撮ります。</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」オプションを</span><span class="nw">選ばれた</span><span class="nw">場合は、</span><span class="nw">半日の</span><span class="nw">お時間を</span><span class="nw">いただきます。</span></dd></div>
-        <div class="row"><dt><span class="nw">施工前・</span><span class="nw">施工後の</span><span class="nw">写真</span><span class="nw">（10件ぶん）</span></dt><dd><span class="nw">お手元に</span><span class="nw">残っている</span><span class="nw">分で</span><span class="nw">結構です。</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」オプションを</span><span class="nw">選ばれた</span><span class="nw">場合は、</span><span class="nw">伺った</span><span class="nw">日に</span><span class="nw">現場を</span><span class="nw">1件こちらで</span><span class="nw">撮影します。</span></dd></div>
-        <div class="row"><dt><span class="nw">決めて</span><span class="nw">いただく</span><span class="nw">こと</span></dt><dd><span class="nw">保証の</span><span class="nw">年数と</span><span class="nw">点検、</span><span class="nw">着手金、</span><span class="nw">ローンの</span><span class="nw">有無、</span><span class="nw">加入している</span><span class="nw">保険。</span><span class="nw">「工程ごとの</span><span class="nw">単価」オプションを</span><span class="nw">選ばれた</span><span class="nw">場合は、</span><span class="nw">単価も</span><span class="nw">あわせて</span><span class="nw">決めて</span><span class="nw">いただきます。</span><span class="nw">御社にしか</span><span class="nw">決められない</span><span class="nw">ことだけです。</span></dd></div>
-        <div class="row"><dt><span class="nw">お客様の</span><span class="nw">声の</span><span class="nw">お願い</span></dt><dd><span class="nw">お声がけは、</span><span class="nw">御社から</span><span class="nw">お願いします。</span><span class="nw">こちらから</span><span class="nw">施主様へ</span><span class="nw">ご連絡する</span><span class="nw">ことはありません。</span><span class="nw">質問の</span><span class="nw">項目と</span><span class="nw">お願いの</span><span class="nw">文面は、</span><span class="nw">こちらで</span><span class="nw">用意します。</span></dd></div>
-        <div class="row"><dt><span class="nw">毎月</span><span class="nw">4件までの</span><span class="nw">写真</span></dt><dd><span class="nw">公開したあとは、</span><span class="nw">施工前・</span><span class="nw">施工後の</span><span class="nw">写真を、</span><span class="nw">毎月</span><span class="nw">4件まで</span><span class="nw">LINEで</span><span class="nw">お送り</span><span class="nw">ください。</span><span class="nw">無い</span><span class="nw">月があっても</span><span class="nw">構いません。</span></dd></div>
-        <div class="row"><dt><span class="nw">Googleビジネスプロフィールの</span><span class="nw">管理者権限</span></dt><dd><span class="nw">Googleマップの</span><span class="nw">整備の</span><span class="nw">ため、</span><span class="nw">「管理者」権限を</span><span class="nw">いただきます。</span><span class="nw">オーナー確認が</span><span class="nw">未了の</span><span class="nw">場合は、</span><span class="nw">お手続きを</span><span class="nw">お手伝いします。</span></dd></div>
-      </dl>
+      <div class="split rev">
+        <dl class="rows">
+          <div class="row"><dt><span class="nw">1時間ほどの</span><span class="nw">お時間</span></dt><dd><span class="nw">載せる</span><span class="nw">内容を</span><span class="nw">決め、</span><span class="nw">代表の</span><span class="nw">お顔を</span><span class="nw">1枚撮ります。</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」オプションを</span><span class="nw">選ばれた</span><span class="nw">場合は、</span><span class="nw">半日の</span><span class="nw">お時間を</span><span class="nw">いただきます。</span></dd></div>
+          <div class="row"><dt><span class="nw">施工前・</span><span class="nw">施工後の</span><span class="nw">写真</span><span class="nw">（10件ぶん）</span></dt><dd><span class="nw">お手元に</span><span class="nw">残っている</span><span class="nw">分で</span><span class="nw">結構です。</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」オプションを</span><span class="nw">選ばれた</span><span class="nw">場合は、</span><span class="nw">伺った</span><span class="nw">日に</span><span class="nw">現場を</span><span class="nw">1件こちらで</span><span class="nw">撮影します。</span></dd></div>
+          <div class="row"><dt><span class="nw">決めて</span><span class="nw">いただく</span><span class="nw">こと</span></dt><dd><span class="nw">保証の</span><span class="nw">年数と</span><span class="nw">点検、</span><span class="nw">着手金、</span><span class="nw">ローンの</span><span class="nw">有無、</span><span class="nw">加入している</span><span class="nw">保険。</span><span class="nw">「工程ごとの</span><span class="nw">単価」オプションを</span><span class="nw">選ばれた</span><span class="nw">場合は、</span><span class="nw">単価もあわせて</span><span class="nw">決めて</span><span class="nw">いただきます。</span><span class="nw">御社にしか</span><span class="nw">決められない</span><span class="nw">ことだけです。</span></dd></div>
+          <div class="row"><dt><span class="nw">お客様の</span><span class="nw">声の</span><span class="nw">お願い</span></dt><dd><span class="nw">お声がけは、</span><span class="nw">御社から</span><span class="nw">お願いします。</span><span class="nw">こちらから</span><span class="nw">施主様へ</span><span class="nw">ご連絡する</span><span class="nw">ことはありません。</span><span class="nw">質問の</span><span class="nw">項目と</span><span class="nw">お願いの</span><span class="nw">文面は、</span><span class="nw">こちらで</span><span class="nw">用意します。</span></dd></div>
+          <div class="row"><dt><span class="nw">毎月</span><span class="nw">4件までの</span><span class="nw">写真</span></dt><dd><span class="nw">公開したあとは、</span><span class="nw">施工前・</span><span class="nw">施工後の</span><span class="nw">写真を、</span><span class="nw">毎月</span><span class="nw">4件まで</span><span class="nw">LINEで</span><span class="nw">お送り</span><span class="nw">ください。</span><span class="nw">無い</span><span class="nw">月があっても</span><span class="nw">構いません。</span></dd></div>
+          <div class="row"><dt><span class="nw">Googleビジネスプロフィールの</span><span class="nw">管理者権限</span></dt><dd><span class="nw">Googleマップの</span><span class="nw">整備の</span><span class="nw">ため、</span><span class="nw">「管理者」権限を</span><span class="nw">いただきます。</span><span class="nw">オーナー</span><span class="nw">確認が</span><span class="nw">未了の</span><span class="nw">場合は、</span><span class="nw">お手続きを</span><span class="nw">お手伝いします。</span></dd></div>
+        </dl>
+        <div class="split-ph rv"><img src="img/request-960.jpg" width="960" height="1200" alt="" loading="lazy" decoding="async"></div>
+      </div>
     </div>
   </section>
 
   <!-- 料金（★サービスの定義.md ⑯ が唯一の正） -->
   <section class="section" id="price">
     <div class="container">
-      <div class="sec-head">
+      <div class="sec-head rv">
         <div>
           <span class="sec-en" aria-hidden="true">Price</span>
           <h2><span class="nw">料金</span></h2>
         </div>
-        <p><span class="nw">金額はすべて</span><span class="nw">税込です。</span><span class="nw">お納めは、</span><span class="nw">公開の</span><span class="nw">翌月末までに</span><span class="nw">一度に。</span><span class="nw">ご希望が</span><span class="nw">あれば、</span><span class="nw">公開した</span><span class="nw">月の末と、</span><span class="nw">その翌月末の</span><span class="nw">2回に</span><span class="nw">分けることも</span><span class="nw">できます。</span><span class="nw">分けることによる</span><span class="nw">手数料や</span><span class="nw">利息は</span><span class="nw">いただきません。</span></p>
+        <p><span class="nw">金額はすべて</span><span class="nw">税込です。</span><span class="nw">お納めは、</span><span class="nw">公開の</span><span class="nw">翌月末までに</span><span class="nw">一度に。</span><span class="nw">ご希望があれば、</span><span class="nw">公開した</span><span class="nw">月の</span><span class="nw">末と、</span><span class="nw">その</span><span class="nw">翌月末の</span><span class="nw">2回に</span><span class="nw">分ける</span><span class="nw">こともできます。</span><span class="nw">分ける</span><span class="nw">ことによる</span><span class="nw">手数料や</span><span class="nw">利息は</span><span class="nw">いただきません。</span></p>
       </div>
 
-      <div class="price-box">
+      <div class="price-box rv">
         <div class="price-cell">
           <span class="p-label">制作</span>
           <div class="p-line"><span class="p-amt">250,000<span class="u">円</span></span></div>
@@ -658,13 +923,13 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
         <div class="price-cell">
           <span class="p-label">保守</span>
           <div class="p-line"><span class="p-amt sm">月25,000<span class="u">円</span></span></div>
-          <p class="p-sub"><span class="nw">最低</span><span class="nw">12か月</span><span class="nw">お続けいただきます。</span></p>
+          <p class="p-sub"><span class="nw">最低</span><span class="nw">12か月</span><span class="nw">お続け</span><span class="nw">いただきます。</span></p>
         </div>
         <div class="price-inc">
           <h3><span class="nwb"><span class="nw">250,000円に</span><span class="nw">入っている</span><span class="nw">もの</span></span></h3>
           <ul>
             <li><span class="nw">ホームページ</span><span class="nw">本体</span><span class="nw">（会社概要・</span><span class="nw">費用の</span><span class="nw">目安・</span><span class="nw">保証と</span><span class="nw">点検・</span><span class="nw">工事の</span><span class="nw">流れ・</span><span class="nw">よくある</span><span class="nw">ご質問・</span><span class="nw">対応する</span><span class="nw">地域・</span><span class="nw">お問い合わせの</span><span class="nw">導線）</span></li>
-            <li><span class="nw">施工事例</span> <span class="nw">10件</span><span class="nw">（1件1ページ）</span></li>
+            <li><span class="nw">施工事例</span> <span class="nw">10件</span><span class="nw">（1件</span><span class="nw">1ページ）</span></li>
             <li><span class="nw">Googleマップ</span><span class="nw">（Googleビジネスプロフィール）の</span><span class="nw">整備</span></li>
           </ul>
         </div>
@@ -672,28 +937,28 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
           <h3><span class="nwb"><span class="nw">保守</span><span class="nw">（月</span><span class="nw">25,000円）に</span><span class="nw">含む</span><span class="nw">もの</span></span></h3>
           <ul>
             <li><span class="nw">LINEで</span><span class="nw">届いた</span><span class="nw">施工写真を、</span><span class="nw">毎月</span><span class="nw">4件まで</span><span class="nw">施工事例の</span><span class="nw">ページにします</span></li>
-            <li><span class="nw">軽微な</span><span class="nw">修正</span><span class="nw">（月2回まで）、</span><span class="nw">サーバーと</span><span class="nw">ドメインの</span><span class="nw">維持</span></li>
+            <li><span class="nw">軽微な</span><span class="nw">修正</span><span class="nw">（月</span><span class="nw">2回まで）、</span><span class="nw">サーバーと</span><span class="nw">ドメインの</span><span class="nw">維持</span></li>
             <li><span class="nw">Googleマップへの</span><span class="nw">投稿</span><span class="nw">（写真の</span><span class="nw">届かない</span><span class="nw">月は</span><span class="nw">季節の</span><span class="nw">お知らせ）</span></li>
-            <li><span class="nw">月1回の</span><span class="nw">数字の</span><span class="nw">ご報告</span></li>
+            <li>月<span class="nw">1回の</span><span class="nw">数字の</span><span class="nw">ご報告</span></li>
           </ul>
-          <p><span class="nw">月を</span><span class="nw">重ねるほど、</span><span class="nw">施工事例が</span><span class="nw">増えていきます。</span><span class="nw">公開の</span><span class="nw">月から</span><span class="nw">12か月</span><span class="nw">お続けいただき、</span><span class="nw">13か月目からは、</span><span class="nw">いつでも</span><span class="nw">おやめいただけます。</span></p>
+          <p><span class="nw">月を</span><span class="nw">重ねるほど、</span><span class="nw">施工事例が</span><span class="nw">増えていきます。</span><span class="nw">公開の</span><span class="nw">月から</span><span class="nw">12か月</span><span class="nw">お続け</span><span class="nw">いただき、</span><span class="nw">13か月目からは、</span><span class="nw">いつでもおやめ</span><span class="nw">いただけます。</span></p>
         </div>
       </div>
 
       <div class="price-inc">
-        <h3><span class="nwb"><span class="nw">オプション</span></span></h3>
-        <p><span class="nw">御社に</span><span class="nw">合いそうな</span><span class="nw">ものを</span><span class="nw">ご提案</span><span class="nw">いたします。</span><span class="nw">必要な</span><span class="nw">ものだけ</span><span class="nw">お選び</span><span class="nw">ください。</span></p>
+        <h3><span class="nw">オプション</span></h3>
+        <p><span class="nw">御社に</span><span class="nw">合いそうな</span><span class="nw">ものを</span><span class="nw">ご提案いたします。</span><span class="nw">必要な</span><span class="nw">ものだけ</span><span class="nw">お選び</span><span class="nw">ください。</span></p>
       </div>
       <dl class="rows">
-        <div class="row"><dt><span class="nw">半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く</span><span class="nw">（50,000円）</span></dt><dd><span class="nw">半日</span><span class="nw">伺い、</span><span class="nw">代表・</span><span class="nw">職人・</span><span class="nw">事務所・</span><span class="nw">現場1件を</span><span class="nw">こちらで</span><span class="nw">撮ります。</span><span class="nw">2時間ほどの</span><span class="nw">聞き取りと</span><span class="nw">書き起こし。</span><span class="nw">施工事例を</span><span class="nw">10件から</span><span class="nw">20件に</span><span class="nw">します。</span><span class="nw">50km圏内は</span><span class="nw">交通費込みです。</span></dd></div>
-        <div class="row"><dt><span class="nw">工程ごとの</span><span class="nw">単価の</span><span class="nw">表</span><span class="nw">（30,000円）</span></dt><dd><span class="nw">「足場</span> <span class="nw">○円/㎡」</span><span class="nw">「高圧洗浄</span> <span class="nw">○円/㎡」のように</span><span class="nw">工事を</span><span class="nw">部品に</span><span class="nw">分け、</span><span class="nw">1つずつ</span><span class="nw">伺って</span><span class="nw">表にします。</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」と</span><span class="nw">セットでのみ</span><span class="nw">お作りします。</span></dd></div>
-        <div class="row"><dt><span class="nw">採用の</span><span class="nw">ページ</span><span class="nw">（50,000円）</span></dt><dd><span class="nw">募集要項</span><span class="nw">（給与は</span><span class="nw">実額）・</span><span class="nw">顔ぶれ・</span><span class="nw">育て方・</span><span class="nw">一日の</span><span class="nw">流れ。</span></dd></div>
-        <div class="row"><dt><span class="nw">工事の</span><span class="nw">種類ごとの</span><span class="nw">ページ</span><span class="nw">（1本</span> <span class="nw">40,000円）</span></dt><dd><span class="nw">「雨漏り修理」</span><span class="nw">「外壁塗装」の</span><span class="nw">ように</span><span class="nw">1ページ＝</span><span class="nw">1つの</span><span class="nw">困りごとで</span><span class="nw">独立させます。</span><span class="nw">施工事例が</span><span class="nw">5件以上</span><span class="nw">ある</span><span class="nw">工事だけ</span><span class="nw">お受けします。</span></dd></div>
-        <div class="row"><dt><span class="nw">概算見積の</span><span class="nw">しくみ</span><span class="nw">（150,000円）</span></dt><dd><span class="nw">お客様が</span><span class="nw">広さ・</span><span class="nw">階数・</span><span class="nw">塗料を</span><span class="nw">選ぶと、</span><span class="nw">目安の</span><span class="nw">金額が</span><span class="nw">出ます。</span><span class="nw">必ず</span><span class="nw">「目安」と</span><span class="nw">書き、</span><span class="nw">幅で</span><span class="nw">出します。</span><span class="nw">単価の</span><span class="nw">表が</span><span class="nw">要るので、</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」と</span><span class="nw">セットでのみ</span><span class="nw">お作りします。</span></dd></div>
+        <div class="row"><dt><span class="nw">半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く</span><span class="nw">（50,000円）</span></dt><dd><span class="nw">半日伺い、</span><span class="nw">代表・</span><span class="nw">職人・</span><span class="nw">事務所・</span><span class="nw">現場</span><span class="nw">1件をこちらで</span><span class="nw">撮ります。</span><span class="nw">2時間ほどの</span><span class="nw">聞き取りと</span><span class="nw">書き起こし。</span><span class="nw">施工事例を</span><span class="nw">10件から</span><span class="nw">20件にします。</span><span class="nw">50km圏内は</span><span class="nw">交通費込みです。</span></dd></div>
+        <div class="row"><dt><span class="nw">工程ごとの</span><span class="nw">単価の</span>表<span class="nw">（30,000円）</span></dt><dd><span class="nw">「足場</span> <span class="nw">○円/</span>㎡」<span class="nw">「高圧洗浄</span> <span class="nw">○円/</span><span class="nw">㎡」の</span><span class="nw">ように</span><span class="nw">工事を</span><span class="nw">部品に</span><span class="nw">分け、</span><span class="nw">1つずつ</span><span class="nw">伺って</span><span class="nw">表にします。</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」と</span><span class="nw">セットでのみ</span><span class="nw">お作りします。</span></dd></div>
+        <div class="row"><dt><span class="nw">採用の</span><span class="nw">ページ</span><span class="nw">（50,000円）</span></dt><dd><span class="nw">募集要項</span><span class="nw">（給与は</span><span class="nw">実額）・</span><span class="nw">顔ぶれ・</span><span class="nw">育て</span><span class="nw">方・</span><span class="nw">一日の</span><span class="nw">流れ。</span></dd></div>
+        <div class="row"><dt><span class="nw">工事の</span><span class="nw">種類ごとの</span><span class="nw">ページ</span><span class="nw">（1本</span> <span class="nw">40,000円）</span></dt><dd><span class="nw">「雨漏り</span><span class="nw">修理」</span><span class="nw">「外壁塗装」の</span><span class="nw">ように</span><span class="nw">1ページ＝1つの</span><span class="nw">困りごとで</span><span class="nw">独立させます。</span><span class="nw">施工事例が</span><span class="nw">5件以上ある</span><span class="nw">工事だけ</span><span class="nw">お受けします。</span></dd></div>
+        <div class="row"><dt><span class="nw">概算見積のしくみ</span><span class="nw">（150,000円）</span></dt><dd><span class="nw">お客様が</span><span class="nw">広さ・</span><span class="nw">階数・</span><span class="nw">塗料を</span><span class="nw">選ぶと、</span><span class="nw">目安の</span><span class="nw">金額が</span><span class="nw">出ます。</span><span class="nw">必ず</span><span class="nw">「目安」と</span><span class="nw">書き、</span><span class="nw">幅で</span><span class="nw">出します。</span><span class="nw">単価の</span><span class="nw">表が</span><span class="nw">要る</span><span class="nw">ので、</span><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」と</span><span class="nw">セットでのみ</span><span class="nw">お作りします。</span></dd></div>
       </dl>
-      <p class="notes"><span class="nw">このほか</span><span class="nw">御社に</span><span class="nw">必要な</span><span class="nw">ものが</span><span class="nw">あれば、</span><span class="nw">別途</span><span class="nw">お見積もりいたします。</span></p>
+      <p class="notes"><span class="nw">このほか</span><span class="nw">御社に</span><span class="nw">必要な</span><span class="nw">ものがあれば、</span><span class="nw">別途</span><span class="nw">お見積もり</span><span class="nw">いたします。</span></p>
 
-      <p class="notes">※ <span class="nw">ホームページは、</span><span class="nw">御社の</span><span class="nw">名前を</span><span class="nw">聞いた</span><span class="nw">方が</span><span class="nw">確かめに</span><span class="nw">来た</span><span class="nw">ときに、</span><span class="nw">お見せする</span><span class="nw">中身をつくる</span><span class="nw">ものです。</span><span class="nw">お問い</span><span class="nw">合わせの</span><span class="nw">件数や、</span><span class="nw">検索の</span><span class="nw">順位を</span><span class="nw">お約束する</span><span class="nw">ものではありません。</span></p>
+      <p class="notes">※ <span class="nw">ホームページは、</span><span class="nw">御社の</span><span class="nw">名前を</span><span class="nw">聞いた</span><span class="nw">方が</span><span class="nw">確かめに</span><span class="nw">来た</span><span class="nw">ときに、</span><span class="nw">お見せする</span><span class="nw">中身をつくる</span><span class="nw">ものです。</span><span class="nw">お問い合わせの</span><span class="nw">件数や、</span><span class="nw">検索の</span><span class="nw">順位を</span><span class="nw">お約束する</span><span class="nw">ものではありません。</span></p>
       <p class="price-cta"><a href="#contact" class="btn btn-primary"><span class="nw">相談する</span><span class="arw" aria-hidden="true">→</span></a></p>
     </div>
   </section>
@@ -701,7 +966,7 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
   <!-- よくあるご質問（★文面を直したら、head の JSON-LD も同じに直す） -->
   <section class="section band" id="faq">
     <div class="container">
-      <div class="sec-head">
+      <div class="sec-head rv">
         <div>
           <span class="sec-en" aria-hidden="true">Q&amp;A</span>
           <h2><span class="nw">よくある</span><span class="nw">ご質問</span></h2>
@@ -715,7 +980,7 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
         </details>
         <details>
           <summary><span class="nw">「半日伺って</span><span class="nw">撮る・</span><span class="nw">聞く」を</span><span class="nw">選ぶと、</span><span class="nw">何が</span><span class="nw">変わりますか。</span></summary>
-          <p><span class="nw">こちらで</span><span class="nw">代表・</span><span class="nw">職人・</span><span class="nw">事務所・</span><span class="nw">現場を</span><span class="nw">撮影し、</span><span class="nw">2時間ほど</span><span class="nw">お話を</span><span class="nw">伺って</span><span class="nw">書き</span><span class="nw">起こします。</span><span class="nw">施工事例は</span><span class="nw">10件から</span><span class="nw">20件になります。</span><span class="nw">工程ごとの</span><span class="nw">単価の</span><span class="nw">表や</span><span class="nw">概算見積の</span><span class="nw">しくみは、</span><span class="nw">この</span><span class="nw">オプションと</span><span class="nw">あわせてのみ</span><span class="nw">お作りします。</span><span class="nw">50km圏内は</span><span class="nw">交通費込みです。</span></p>
+          <p><span class="nw">こちらで</span><span class="nw">代表・</span><span class="nw">職人・</span><span class="nw">事務所・</span><span class="nw">現場を</span><span class="nw">撮影し、</span><span class="nw">2時間ほど</span><span class="nw">お話を</span><span class="nw">伺って</span><span class="nw">書き起こします。</span><span class="nw">施工事例は</span><span class="nw">10件から</span><span class="nw">20件になります。</span><span class="nw">工程ごとの</span><span class="nw">単価の</span><span class="nw">表や</span><span class="nw">概算見積のしくみは、</span><span class="nw">この</span><span class="nw">オプションとあわせてのみ</span><span class="nw">お作りします。</span><span class="nw">50km圏内は</span><span class="nw">交通費込みです。</span></p>
         </details>
         <details>
           <summary><span class="nw">施工の</span><span class="nw">写真が、</span><span class="nw">あまり</span><span class="nw">残っていません。</span></summary>
@@ -727,14 +992,14 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
         </details>
         <details>
           <summary><span class="nw">保守は、</span><span class="nw">途中でやめられますか。</span></summary>
-          <p><span class="nw">公開の</span><span class="nw">月から</span><span class="nw">12か月</span><span class="nw">お続けいただきます。</span><span class="nw">13か月目からは、</span><span class="nw">いつでも</span><span class="nw">おやめいただけます。</span></p>
+          <p><span class="nw">公開の</span><span class="nw">月から</span><span class="nw">12か月</span><span class="nw">お続け</span><span class="nw">いただきます。</span><span class="nw">13か月目からは、</span><span class="nw">いつでもおやめ</span><span class="nw">いただけます。</span></p>
         </details>
         <details>
-          <summary><span class="nw">同じ市の</span><span class="nw">同業の</span><span class="nw">会社にも、</span><span class="nw">ホームページを</span><span class="nw">作りますか。</span></summary>
-          <p><span class="nw">ご契約</span><span class="nw">いただいた</span><span class="nw">会社様と</span><span class="nw">同じ</span><span class="nw">市町村・</span><span class="nw">同じ</span><span class="nw">工事の</span><span class="nw">会社様の</span><span class="nw">ホームページは、</span><span class="nw">保守を</span><span class="nw">お任せ</span><span class="nw">いただいている</span><span class="nw">間は</span><span class="nw">お作りしません。</span><span class="nw">どの</span><span class="nw">工事を</span><span class="nw">同じと</span><span class="nw">みなすかは、</span><span class="nw">御社の</span><span class="nw">ホームページに</span><span class="nw">載せる</span><span class="nw">工事で</span><span class="nw">決め、</span><span class="nw">ご契約の</span><span class="nw">書面に</span><span class="nw">書きます。</span></p>
+          <summary><span class="nw">同じ</span><span class="nw">市の</span><span class="nw">同業の</span><span class="nw">会社にも、</span><span class="nw">ホームページを</span><span class="nw">作りますか。</span></summary>
+          <p><span class="nw">ご契約いただいた</span><span class="nw">会社様と</span><span class="nw">同じ</span><span class="nw">市町村・</span><span class="nw">同じ</span><span class="nw">工事の</span><span class="nw">会社様の</span><span class="nw">ホームページは、</span><span class="nw">保守を</span><span class="nw">お任せ</span><span class="nw">いただいている</span><span class="nw">間は</span><span class="nw">お作りしません。</span><span class="nw">どの</span><span class="nw">工事を</span><span class="nw">同じとみなすかは、</span><span class="nw">御社の</span><span class="nw">ホームページに</span><span class="nw">載せる</span><span class="nw">工事で</span><span class="nw">決め、</span><span class="nw">ご契約の</span><span class="nw">書面に</span><span class="nw">書きます。</span></p>
         </details>
         <details>
-          <summary><span class="nw">ホームページを</span><span class="nw">作れば、</span><span class="nw">お問い</span><span class="nw">合わせは</span><span class="nw">増えますか。</span></summary>
+          <summary><span class="nw">ホームページを</span><span class="nw">作れば、</span><span class="nw">お問い合わせは</span><span class="nw">増えますか。</span></summary>
           <p><span class="nw">お約束はできません。</span><span class="nw">工事の</span><span class="nw">お客様の</span><span class="nw">多くは、</span><span class="nw">ご紹介や</span><span class="nw">チラシ、</span><span class="nw">看板で</span><span class="nw">御社の</span><span class="nw">名前を</span><span class="nw">知ります。</span><span class="nw">ホームページは、</span><span class="nw">その</span><span class="nw">方が</span><span class="nw">確かめに</span><span class="nw">来た</span><span class="nw">ときに</span><span class="nw">お見せする</span><span class="nw">中身です。</span><span class="nw">施工事例・</span><span class="nw">費用の</span><span class="nw">目安・</span><span class="nw">保証・</span><span class="nw">職人の</span><span class="nw">顔を、</span><span class="nw">そろえて</span><span class="nw">お見せできる</span><span class="nw">ように</span><span class="nw">お作りします。</span></p>
         </details>
         <details>
@@ -748,17 +1013,17 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
   <!-- ご相談 -->
   <section class="cta" id="contact">
     <div class="container">
-      <div>
+      <div class="rv">
         <p class="kicker"><span class="nw">ご相談</span></p>
         <h2><span class="nw">まずは、</span><span class="nw">御社の</span><span class="nw">見本を</span><br><span class="nw">ご覧になりませんか。</span></h2>
         <p><span class="nw">御社名で、</span><span class="nw">空欄つきの</span><span class="nw">見本を</span><span class="nw">お作りして</span><span class="nw">お送りします。</span><span class="nw">費用はかかりません。</span><span class="nw">続けるかどうかは、</span><span class="nw">見本を</span><span class="nw">ご覧になってから</span><span class="nw">決めて</span><span class="nw">ください。</span></p>
         <p class="mail"><span class="nw">メールでも</span><span class="nw">承ります</span> —— <a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a></p>
       </div>
-      <div class="line-box">
+      <div class="line-box rv" style="--d:.12s">
         <a href="https://lin.ee/nFu0bnO" class="btn btn-line" target="_blank" rel="noopener">公式LINEで相談する<span class="arw" aria-hidden="true">→</span></a>
         <div class="line-qr">
           <img src="../line/line-qr.png" alt="公式LINE 友だち追加のQRコード" width="96" height="96" loading="lazy">
-          <small><span class="nw">QRコードを</span><span class="nw">読み取るか、</span><span class="nw">ボタンから</span><span class="nw">友だち追加して</span><span class="nw">ください。</span><span class="nw">そのまま</span><span class="nw">メッセージを</span><span class="nw">お送り</span><span class="nw">いただけます。</span></small>
+          <p><span class="nw">QRコードを</span><span class="nw">読み</span><span class="nw">取るか、</span><span class="nw">ボタンから</span><span class="nw">友だち</span><span class="nw">追加して</span><span class="nw">ください。</span><span class="nw">そのまま</span><span class="nw">メッセージを</span><span class="nw">お送り</span><span class="nw">いただけます。</span></p>
         </div>
       </div>
     </div>
@@ -770,11 +1035,77 @@ h1, h2, h3, p, dd, li, summary { text-wrap: pretty; }
   <div class="container">
     <div>
       <a class="logo" href="../">creative works<span class="plus">+</span></a>
-      <p><span class="nw">代表:丸藤</span> <span class="nw">啓太</span><br><a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a><br><a class="to-lp" href="../"><span class="nw">飲食店・</span><span class="nw">小規模事業者の</span><span class="nw">方への</span><span class="nw">ご案内</span></a></p>
+      <p><span class="nw">代表:丸藤</span> <span class="nw">啓太</span><br><a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a><br><a class="to-lp" href="../#restaurant"><span class="nw">飲食店の</span><span class="nw">方への</span><span class="nw">ご案内</span></a></p>
     </div>
-    <p class="copyright">© 2026 creative works+</p>
+    <div>
+      <p class="copyright">© 2026 creative works+</p>
+      <p class="credit"><span class="nw">掲載の</span><span class="nw">写真は</span><span class="nw">イメージです</span></p>
+    </div>
   </div>
 </footer>
+
+<script>
+/* 動き（上品に）。★スクロール量に合わせて動かすことはしない。見えたら1度だけ出す */
+(function () {
+  var html = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = [].slice.call(document.querySelectorAll('.rv'));
+
+  // 調査の数字を 0 から数えあげる（JSが無ければ最初から本当の数字が出ている）
+  function countUp(el) {
+    var node = el.firstChild, to = parseFloat(el.getAttribute('data-to'));
+    var dec = (el.getAttribute('data-to').split('.')[1] || '').length, t0 = null, dur = 1500;
+    if (!node || node.nodeType !== 3) return;
+    node.nodeValue = (0).toFixed(dec);
+    function step(t) {
+      if (t0 === null) t0 = t;
+      var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      node.nodeValue = (to * e).toFixed(dec);
+      if (p < 1) requestAnimationFrame(step); else node.nodeValue = el.getAttribute('data-to');
+    }
+    requestAnimationFrame(step);
+  }
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-in');
+        [].forEach.call(en.target.querySelectorAll('[data-to]'), countUp);
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  // ヒーローの写真をゆっくり入れ替える。タブが裏にある間は止める。ボタンで止められる
+  var frames = [].slice.call(document.querySelectorAll('.hero-frames img'));
+  var btn = document.querySelector('.hero-pause');
+  var idx = 0, timer = null, paused = false;
+  function next() {
+    var n = (idx + 1) % frames.length;
+    if (!frames[n].complete) return;          // まだ読み込み中の写真には切り替えない
+    frames[idx].classList.remove('is-on');
+    frames[n].classList.add('is-on');
+    idx = n;
+  }
+  function start() { if (!timer && !paused && !reduce && frames.length > 1) timer = setInterval(next, 6500); }
+  function stop() { clearInterval(timer); timer = null; }
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+  if (btn) {
+    btn.addEventListener('click', function () {
+      paused = !paused;
+      btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      btn.setAttribute('aria-label', paused ? '写真の入れ替えと、流れる文字を再開する' : '写真の入れ替えと、流れる文字を止める');
+      html.classList.toggle('is-still', paused);
+      paused ? stop() : start();
+    });
+  }
+  start();
+})();
+</script>
 
 </body>
 </html>
