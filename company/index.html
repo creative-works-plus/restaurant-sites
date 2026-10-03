@@ -142,11 +142,13 @@
 <script>document.documentElement.classList.add('js');</script>
 <style>
 /* ==========================================================================
-   入口（2026-10-03 作り直し・3回目：写真を使わない）
+   入口（2026-10-03 作り直し・4回目：色の面＋大きな明朝＋見本のスマホ画面）
    ・このページの仕事は「工事店・リフォーム」「飲食店」のどちらかを選んでいただくことだけ
-   ・扉は写真ではなく「色の面＋大きな明朝」で見せる（本の表紙の組み方）。
+   ・扉は「色の面＋大きな明朝」に、開いた先でできあがる「ホームページのスマホ画面」を3枚のぞかせる。
      左＝濃緑、右＝金。どちらもロゴ（creative works＋）の2色
-     ★丸藤さん「家の入口とご飯は説明としては合っているが、見た目が悪い。画像なしでよいのでモダンに」（2026-10-03）
+     ★丸藤さん「家の入口とご飯は説明としては合っているが、見た目が悪い。画像なしでよいのでモダンに」（2026-10-03 昼）
+       → 色の面と文字だけにしたら「地味。クリックしたくなる引きがない」（同日）→ 中身（見本の画面）を見せる
+     ・工事店の画面は架空の「〇〇塗装」（版下 _work/gate-mock-reform.html）、飲食店の画面は飲食店LPの works/hero/ と同じもの
    ・★スマホでも2つを左右に並べ、最初の1画面に両方を見せる（縦に積むと、上の1つだけ見て
      「自分向けではない」と離脱される＝丸藤さんの指摘）。iPhone SE（見える高さ約548px）でも収める
    ・扉に金額は載せない（15万円と25万円を同じ画面に並べない＝サービスの定義.md ⑯）
@@ -223,13 +225,15 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 .lead { font-size: 14px; color: var(--ink-2); max-width: 25em; line-height: 1.9; }
 
 /* ---------- 扉（2つを左右に並べる。スマホでも縦に積まない） ----------
+   扉の上半分に言葉、下半分に「できあがるホームページのスマホ画面」を3枚、扇のように並べて下へはみ出させる。
+   ★押した先に何があるかが見えないと押されない（色の面と文字だけの版は「地味で、クリックしたくなる引きがない」＝丸藤さん 2026-10-03）
    扉の高さは「画面の高さ − 扉より上」。上の高さは JS が測って --above に入れる */
 .doors { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap); }
 .door {
   --bg: var(--a-bg); --bg-on: var(--a-bg-on); --fg: var(--a-fg); --sub: var(--a-sub); --rule: var(--a-rule);
-  position: relative; display: flex; flex-direction: column; min-width: 0;
+  position: relative; display: flex; flex-direction: column; min-width: 0; overflow: hidden;
   height: var(--door-h);
-  padding: clamp(28px, 3vw, 44px) clamp(28px, 3.2vw, 48px) clamp(26px, 2.8vw, 40px);
+  padding: clamp(26px, 2.8vw, 40px) clamp(26px, 3vw, 44px) 0;
   background: var(--bg); color: var(--fg); text-decoration: none;
   transition: background-color .45s ease;
 }
@@ -238,45 +242,62 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 /* 左右の扉の中の段（番号／宛名／ひとこと／業種／進む）を、行の高さごとそろえる。
    片方だけ説明が2行に折れても、宛名と説明の位置が左右でずれない（320pxでずれた＝2026-10-03） */
 @supports (grid-template-rows: subgrid) {
-  .doors { grid-template-rows: auto 1fr auto auto auto; row-gap: 0; height: var(--door-h); }
-  .door { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; height: auto; }
-  .door-for { align-self: end; }
+  .doors { grid-template-rows: auto auto auto auto auto 1fr; row-gap: 0; height: var(--door-h); }
+  .door { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; height: auto; align-content: start; }
 }
 
 /* 上：番号と欧文の小さな見出し */
 .door-top {
   display: flex; align-items: baseline; gap: 14px;
-  font-family: var(--font-latin); font-size: 13px; font-weight: 500; letter-spacing: 0.16em; line-height: 1.4;
+  font-family: var(--font-latin); font-size: 12.5px; font-weight: 500; letter-spacing: 0.16em; line-height: 1.4;
 }
 .door-top .no { font-weight: 600; }
 .door-top .en { color: var(--sub); text-transform: uppercase; }
 
-/* 下に寄せた言葉のかたまり：宛先 → ひとこと → 業種の並び → 進むリンク */
-.door-for { margin-top: auto; font-family: var(--font-display); font-weight: 500; letter-spacing: 0.03em; }
-.door-for .big { display: block; font-size: clamp(28px, 3.5vw, 50px); line-height: 1.3; }
-.door-for .sm { display: block; margin-top: 6px; font-size: clamp(14px, 1.3vw, 18px); line-height: 1.5; color: var(--sub); }
-.door-text { display: block; margin-top: clamp(14px, 1.8vw, 22px); font-size: clamp(14px, 1.15vw, 16px); line-height: 1.8; font-weight: 500; }
-.door-kinds { display: block; margin-top: 4px; font-size: 13px; line-height: 1.8; color: var(--sub); }
+/* 宛先 → ひとこと → 業種の並び → 進むリンク */
+.door-for { margin-top: clamp(14px, 1.8vw, 24px); font-family: var(--font-display); font-weight: 500; letter-spacing: 0.03em; }
+.door-for .big { display: inline; font-size: clamp(26px, 3vw, 44px); line-height: 1.3; }
+.door-for .sm { display: inline; margin-left: .4em; font-size: clamp(14px, 1.3vw, 18px); line-height: 1.5; color: var(--sub); }
+.door-text { display: block; margin-top: clamp(8px, 1vw, 12px); font-size: clamp(14px, 1.1vw, 15.5px); line-height: 1.75; font-weight: 500; }
+.door-kinds { display: block; margin-top: 2px; font-size: 12.5px; line-height: 1.8; color: var(--sub); }
 .door-go {
-  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  margin-top: clamp(20px, 2.6vw, 36px); padding-top: 14px; border-top: 1px solid var(--rule);
+  position: relative; justify-self: start; align-self: start; display: inline-flex; align-items: center; gap: 12px;
+  margin-top: clamp(12px, 1.4vw, 18px); padding-bottom: 6px; border-bottom: 1px solid var(--rule);
   font-size: 14px; font-weight: 700; letter-spacing: 0.06em; line-height: 1.5; white-space: nowrap;
 }
-/* 罫の上を左から右へ走る線（マウスを乗せたとき） */
-.door-go::before {
-  content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: currentColor;
-  transform: scaleX(0); transform-origin: left center; transition: transform .7s var(--ease-io);
+/* 下線の上を左から右へ走る線（マウスを乗せたとき） */
+.door-go::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left center; transition: transform .6s var(--ease-io);
 }
-.door-go .arw { font-family: var(--font-latin); font-weight: 400; font-size: 18px; line-height: 1; transition: transform .35s var(--ease-out); }
+.door-go .arw { font-family: var(--font-latin); font-weight: 400; font-size: 17px; line-height: 1; transition: transform .35s var(--ease-out); }
 
-/* マウスで選ぶ人だけ：乗せた扉の色が少し深くなり、罫の上を線が走り、矢印が進む（扉の幅は変えない） */
+/* 下：見本のスマホ画面3枚。扉の下の縁で切れる（はみ出したぶんは見せない） */
+.door-screens { position: absolute; left: 0; right: 0; bottom: 0; height: var(--scr-area, 46%); pointer-events: none; }
+.phone {
+  --w: clamp(120px, 15vw, 196px);
+  position: absolute; top: var(--y, 0px); left: calc(50% - var(--w) / 2 + var(--x, 0px));
+  width: var(--w); padding: 5px; border-radius: 22px; background: #121313;
+  box-shadow: 0 24px 48px rgba(10, 14, 12, .32), 0 4px 10px rgba(10, 14, 12, .18);
+  transform: translateY(var(--lift, 0px)) rotate(var(--r, 0deg));
+  transition: transform .8s var(--ease-out);
+}
+.phone img { display: block; width: 100%; height: auto; aspect-ratio: 516 / 936; object-fit: cover; object-position: top; border-radius: 17px; background: #e9e8e4; }
+.phone.p1 { --x: calc(var(--w) * -0.86); --y: 26px; --r: -7deg; }
+.phone.p2 { --x: 0px; --y: 0px; --r: 0deg; z-index: 2; }
+.phone.p3 { --x: calc(var(--w) * 0.86); --y: 26px; --r: 7deg; }
+
+/* マウスで選ぶ人だけ：乗せた扉の色が少し深くなり、画面が持ち上がって扇が開き、下線が走る（扉の幅は変えない） */
 @media (hover: hover) and (pointer: fine) {
   .door:hover { background: var(--bg-on); }
-  .door:hover .door-go::before { transform: scaleX(1); }
+  .door:hover .door-go::after { transform: scaleX(1); }
   .door:hover .door-go .arw { transform: translateX(6px); }
+  .door:hover .phone.p1 { --lift: -10px; --r: -10deg; }
+  .door:hover .phone.p2 { --lift: -18px; }
+  .door:hover .phone.p3 { --lift: -10px; --r: 10deg; }
 }
 .door:active { background: var(--bg-on); }   /* スマホで押した瞬間 */
-
+.screens-note { margin-top: 10px; text-align: right; font-size: 12px; color: var(--muted); line-height: 1.7; }
 /* ---------- 入口の下（スクロールした方へ：何者かと連絡先だけ） ---------- */
 .about { padding: clamp(64px, 9vw, 120px) 0 clamp(56px, 8vw, 104px); }
 .about .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 88px); }
@@ -309,15 +330,21 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 .foot .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
 .foot .copy { font-family: var(--font-latin); letter-spacing: 0.04em; }
 
-/* ---------- 出だしの動き（読み込んだときに1回だけ。1.5秒以内に止まり、あとは何も動かない） ----------
-   見出し → 扉の色の面が下から上へ開く（左 → 右）→ 扉の言葉（上から順に）
+/* ---------- 出だしの動き（読み込んだときに1回だけ。1.6秒以内に止まり、あとは何も動かない） ----------
+   見出し → 扉の色の面が下から上へ開く（左 → 右）→ 扉の言葉 → スマホ画面が下からせり上がる（中 → 左右）
    ★「視差効果を減らす」設定の人には位置と開く動きを止め、ふわっと出る（不透明度）は同じ時間で残す
      （丸藤さんのMacがこの設定。全部止めると何も動いていないように見える＝2026-10-02） */
-.js .title, .js .lead, .js .door > * { opacity: 0; transform: translateY(14px); }
+.js .title, .js .lead, .js .door > :not(.door-screens) { opacity: 0; transform: translateY(14px); }
+.js .phone { opacity: 0; transform: translateY(70px) rotate(var(--r, 0deg)); }
 .js .door { clip-path: inset(100% 0 0 0); }
-.js .is-ready .title, .js .is-ready .lead, .js .is-ready .door > * {
+.js .is-ready .title, .js .is-ready .lead, .js .is-ready .door > :not(.door-screens) {
   opacity: 1; transform: none;
   transition: opacity .7s var(--ease-out), transform .8s var(--ease-out);
+  transition-delay: var(--d, 0ms);
+}
+.js .is-ready .phone {
+  opacity: 1; transform: translateY(var(--lift, 0px)) rotate(var(--r, 0deg));
+  transition: opacity .6s var(--ease-out), transform 1s var(--ease-out);
   transition-delay: var(--d, 0ms);
 }
 .js .is-ready .door {
@@ -330,49 +357,65 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 .js .is-ready .d2 { --d: 240ms; }
 .js .is-ready .d1 > * { --d: 560ms; }
 .js .is-ready .d1 > .door-for { --d: 620ms; }
-.js .is-ready .d1 > .door-text, .js .is-ready .d1 > .door-kinds { --d: 700ms; }
-.js .is-ready .d1 > .door-go { --d: 780ms; }
+.js .is-ready .d1 > .door-text, .js .is-ready .d1 > .door-kinds { --d: 680ms; }
+.js .is-ready .d1 > .door-go { --d: 740ms; }
+.js .is-ready .d1 .p2 { --d: 640ms; }
+.js .is-ready .d1 .p1, .js .is-ready .d1 .p3 { --d: 760ms; }
 .js .is-ready .d2 > * { --d: 680ms; }
 .js .is-ready .d2 > .door-for { --d: 740ms; }
-.js .is-ready .d2 > .door-text, .js .is-ready .d2 > .door-kinds { --d: 820ms; }
-.js .is-ready .d2 > .door-go { --d: 900ms; }
-/* 動きが終わったら clip-path の指定を外す（扉の外へはみ出す枠線を切らないため） */
+.js .is-ready .d2 > .door-text, .js .is-ready .d2 > .door-kinds { --d: 800ms; }
+.js .is-ready .d2 > .door-go { --d: 860ms; }
+.js .is-ready .d2 .p2 { --d: 760ms; }
+.js .is-ready .d2 .p1, .js .is-ready .d2 .p3 { --d: 880ms; }
+/* 動きが終わったら、マウスを乗せたときの速さに戻す */
+.js .is-done .phone { transition: transform .8s var(--ease-out); transition-delay: 0ms; }
 .js .is-done .door { clip-path: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .title, .js .lead, .js .door > * { transform: none; }
+  .js .title, .js .lead, .js .door > :not(.door-screens) { transform: none; }
+  .js .phone { transform: rotate(var(--r, 0deg)); }
+  .js .is-ready .phone { transform: rotate(var(--r, 0deg)); transition-property: opacity; }
   .js .door { clip-path: none; opacity: 0; }
   .js .is-ready .door { opacity: 1; transition: opacity .8s ease-out, background-color .45s ease; transition-delay: var(--d, 0ms), 0ms; }
-  .js .is-ready .title, .js .is-ready .lead, .js .is-ready .door > * { transition-property: opacity; }
-  .door-go::before { transition: none; }
+  .js .is-ready .title, .js .is-ready .lead, .js .is-ready .door > :not(.door-screens) { transition-property: opacity; }
+  .door-go::after { transition: none; }
   .door:hover .door-go .arw, .btn:hover .arw { transform: none; }
+  .door:hover .phone { --lift: 0px; }
+  .door:hover .phone.p1 { --r: -7deg; }
+  .door:hover .phone.p3 { --r: 7deg; }
 }
 
 /* ---------- スマホ ---------- */
 @media (max-width: 760px) {
-  :root { --head-h: 56px; --gap: 8px; }
+  :root { --head-h: 56px; --gap: 8px; --door-h: clamp(330px, calc(100svh - var(--above, 140px) - 16px), 520px); }
   .logo { font-size: 17px; }
   .yomi { display: none; }
   .links { gap: 18px; }
   .links a { font-size: 13px; }
   .intro .wrap { grid-template-columns: 1fr; padding-top: 12px; padding-bottom: 16px; }
   .lead { display: none; }   /* 扉を1画面に収めるため。同じ内容は下の「先に、見本を」に書いてある */
-  :root { --door-h: clamp(300px, calc(100svh - var(--above, 140px) - 16px), 470px); }
-  .door { padding: 16px 14px 14px; }
+  .door { padding: 14px 13px 0; }
   .door-top { gap: 8px; font-size: 10.5px; letter-spacing: 0.12em; }
   .door-top .en-x { display: none; }
-  /* 左は2行・右は1行になる。2行ぶんの高さを取って下にそろえ、左右の言葉の高さをそろえる */
-  .door-for .big { font-size: 23px; line-height: 1.32; min-height: calc(23px * 1.32 * 2); display: flex; flex-direction: column; justify-content: flex-end; }
-  .door-for .sm { margin-top: 4px; font-size: 13px; }
-  .door-text { margin-top: 12px; font-size: 12.5px; line-height: 1.65; }
-  .door-kinds { margin-top: 4px; font-size: 11px; line-height: 1.65; }
-  .door-go { margin-top: 14px; padding-top: 10px; font-size: 13px; letter-spacing: 0.04em; }
-  .door-go .arw { font-size: 16px; }
+  .door-for { margin-top: 10px; }
+  /* 左は2行・右は1行になる。宛名と「会社様へ」は縦に積む */
+  .door-for .big { display: block; font-size: 22px; line-height: 1.32; }
+  .door-for .sm { display: block; margin: 2px 0 0; font-size: 12.5px; }
+  .door-text { display: none; }   /* 画面を見せる場所を空けるため。同じことは開いた先の最初に書いてある */
+  .door-kinds { margin-top: 6px; font-size: 11px; line-height: 1.6; }
+  .door-go { margin-top: 10px; font-size: 12.5px; letter-spacing: 0.04em; gap: 8px; padding-bottom: 4px; }
+  .door-go .arw { font-size: 15px; }
+  .door-screens { --scr-area: 44%; }
+  .screens-note { text-align: left; font-size: 11.5px; }
+  .phone { --w: clamp(84px, 27vw, 120px); padding: 3px; border-radius: 14px; box-shadow: 0 14px 28px rgba(10, 14, 12, .3); }
+  .phone img { border-radius: 11px; }
+  .phone.p1 { --x: calc(var(--w) * -0.62); --y: 18px; --r: -8deg; }
+  .phone.p3 { --x: calc(var(--w) * 0.62); --y: 18px; --r: 8deg; }
   .about .wrap { grid-template-columns: 1fr; }
   .co div { grid-template-columns: 5.5em minmax(0, 1fr); gap: 12px; }
 }
 @media (max-width: 359px) {
-  .door-for .big { font-size: 20px; min-height: calc(20px * 1.32 * 2); }
+  .door-for .big { font-size: 19px; }
   .door-top .en { display: none; }
 }
 </style>
@@ -410,6 +453,11 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
         <span class="door-text"><span class="nw">施工事例を、</span><span class="nw">1件ずつ</span><span class="nw">ページに。</span></span>
         <span class="door-kinds"><span class="nw">建築・</span><span class="nw">塗装・</span><span class="nw">水まわり・</span><span class="nw">内装・</span><span class="nw">造園</span></span>
         <span class="door-go"><span class="nw">ご案内を見る</span><span class="arw" aria-hidden="true">→</span></span>
+        <span class="door-screens" aria-hidden="true">
+          <span class="phone p1"><img src="works/gate/screen-reform-2.jpg" alt="" width="516" height="936" decoding="async"></span>
+          <span class="phone p2"><img src="works/gate/screen-reform-1.jpg" alt="" width="516" height="936" fetchpriority="high"></span>
+          <span class="phone p3"><img src="works/gate/screen-reform-3.jpg" alt="" width="516" height="936" decoding="async"></span>
+        </span>
       </a>
       <a class="door d2" href="restaurant/">
         <span class="door-top"><span class="no">02</span><span class="en">Restaurants<span class="en-x"> &amp; Cafés</span></span></span>
@@ -417,8 +465,14 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
         <span class="door-text"><span class="nw">お店の</span><span class="nw">ホームページと、</span><span class="nw">Googleの地図。</span></span>
         <span class="door-kinds"><span class="nw">和食・</span><span class="nw">居酒屋・</span><span class="nw">ラーメン・</span><span class="nw">洋食・</span><span class="nw">カフェ</span></span>
         <span class="door-go"><span class="nw">ご案内を見る</span><span class="arw" aria-hidden="true">→</span></span>
+        <span class="door-screens" aria-hidden="true">
+          <span class="phone p1"><img src="works/hero/hero-cafe.jpg" alt="" width="516" height="936" decoding="async"></span>
+          <span class="phone p2"><img src="works/hero/hero-izakaya.jpg" alt="" width="516" height="936" fetchpriority="high"></span>
+          <span class="phone p3"><img src="works/hero/hero-motsuni.jpg" alt="" width="516" height="936" decoding="async"></span>
+        </span>
       </a>
     </nav>
+    <p class="screens-note"><span class="nw">画面は、</span><span class="nw">これまでに</span><span class="nw">おつくりした</span><span class="nw">見本です</span><span class="nw">（工事店・</span><span class="nw">リフォームは</span><span class="nw">架空の例）</span></p>
   </div>
 
   <!-- スクロールした方へ：何者か・連絡先だけ。料金は載せない -->
