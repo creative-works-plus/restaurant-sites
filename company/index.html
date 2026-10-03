@@ -136,25 +136,23 @@
   ]
 }
 </script>
-<!-- 最初に目に入る画像を先に取りに行かせる（表示速度の評価＝LCPが扉の写真で決まるため） -->
-<!-- 最初に目に入る画像を先に取りに行かせる（表示速度の評価＝LCPが扉の写真で決まるため）。スマホとPCで別の切り抜き -->
-<link rel="preload" as="image" media="(max-width: 760px)" href="works/gate/reform-sp-700.jpg" imagesrcset="works/gate/reform-sp-400.jpg 400w, works/gate/reform-sp-700.jpg 700w" imagesizes="calc(50vw - 20px)" fetchpriority="high">
-<link rel="preload" as="image" media="(min-width: 761px)" href="works/gate/reform-pc-1200.jpg" imagesrcset="works/gate/reform-pc-800.jpg 800w, works/gate/reform-pc-1200.jpg 1200w, works/gate/reform-pc-1600.jpg 1600w" imagesizes="(min-width: 1248px) 588px, calc(50vw - 36px)" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');</script>
 <style>
 /* ==========================================================================
-   入口（2026-10-02 作り直し・2回目）
+   入口（2026-10-03 作り直し・3回目：写真を使わない）
    ・このページの仕事は「工事店・リフォーム」「飲食店」のどちらかを選んでいただくことだけ
+   ・扉は写真ではなく「色の面＋大きな明朝」で見せる（本の表紙の組み方）。
+     左＝濃緑、右＝金。どちらもロゴ（creative works＋）の2色
+     ★丸藤さん「家の入口とご飯は説明としては合っているが、見た目が悪い。画像なしでよいのでモダンに」（2026-10-03）
    ・★スマホでも2つを左右に並べ、最初の1画面に両方を見せる（縦に積むと、上の1つだけ見て
      「自分向けではない」と離脱される＝丸藤さんの指摘）。iPhone SE（見える高さ約548px）でも収める
-   ・写真は上、文字は写真の下の紙の上に置く（freee・LIXIL・Apple の組み方）。
-     写真の上に白い文字を置かないので、文字の下を暗くする幕も要らない
    ・扉に金額は載せない（15万円と25万円を同じ画面に並べない＝サービスの定義.md ⑯）
-   ・色と書体は飲食店・工事店のご案内と同じ（紙・墨・濃緑・金／Zen Old Mincho・Zen Kaku Gothic New・Outfit）
-   → 参考にしたサイトと寸法の根拠：_work/参考サイト調査_2026-10-02.md
+   ・角丸・ピル形・アイコン・グラデーションは使わない（安っぽく、AIが作ったように見える）
+   ・ページの地は明るい紙のまま（暗い地は読みにくい＝lp-redesign-2026-08 の判断）
+   → 寸法の根拠：_work/参考サイト調査_2026-10-02.md ／ 写真を使っていた版：_work/index_gate_photos_2026-10-03.html
    ========================================================================== */
 :root {
   --paper:      #f6f6f4;
@@ -163,14 +161,19 @@
   --ink-2:      #3b3d39;
   --muted:      #696b66;
   --line:       #dcdcd7;
-  --line-2:     #c6c6c0;
   --green:      #1c4a3e;
   --green-deep: #12312a;
   --gold:       #c9902c;
 
+  /* 扉の色。左＝濃緑に紙色の字、右＝金に墨の字 */
+  --a-bg: #1c4a3e;  --a-bg-on: #153a31;  --a-fg: #f6f6f4;  --a-sub: rgba(246, 246, 244, .74);  --a-rule: rgba(246, 246, 244, .26);
+  --b-bg: #d09a3a;  --b-bg-on: #c38b2b;  --b-fg: #191a18;  --b-sub: rgba(25, 26, 24, .74);     --b-rule: rgba(25, 26, 24, .24);
+
   --head-h: 72px;
-  --gap: 24px;
+  --gap: 20px;
+  --door-h: clamp(340px, calc(100svh - var(--above, 200px) - 28px), 580px);
   --ease-out: cubic-bezier(.25, 1, .5, 1);   /* 出だし速く、最後ゆっくり */
+  --ease-io: cubic-bezier(.76, 0, .24, 1);
   --font-display: "Zen Old Mincho", serif;
   --font-body: "Zen Kaku Gothic New", sans-serif;
   --font-latin: "Outfit", sans-serif;
@@ -181,7 +184,6 @@ body {
   font-family: var(--font-body); color: var(--ink); background: var(--paper);
   font-size: 16px; line-height: 1.9; -webkit-font-smoothing: antialiased;
 }
-img { max-width: 100%; display: block; height: auto; }
 a { color: inherit; }
 
 /* 日本語の折り返し（iPhoneのSafariは auto-phrase を無視するので、.nw で文節を守る） */
@@ -212,7 +214,7 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 /* ---------- 見出しの帯 ---------- */
 .intro .wrap {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end;
-  gap: 32px; padding-top: clamp(12px, 3.4vh, 40px); padding-bottom: clamp(16px, 3.2vh, 32px);
+  gap: 32px; padding-top: clamp(12px, 3.4vh, 40px); padding-bottom: clamp(18px, 3.4vh, 34px);
 }
 .title {
   font-family: var(--font-display); font-weight: 500;
@@ -221,40 +223,59 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 .lead { font-size: 14px; color: var(--ink-2); max-width: 25em; line-height: 1.9; }
 
 /* ---------- 扉（2つを左右に並べる。スマホでも縦に積まない） ----------
-   写真の高さは「画面の高さ − 扉より上 − 写真の下の文字」。上と下は JS が測って変数に入れる */
+   扉の高さは「画面の高さ − 扉より上」。上の高さは JS が測って --above に入れる */
 .doors { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap); }
-.door { display: flex; flex-direction: column; min-width: 0; color: var(--ink); text-decoration: none; }
-.door-ph {
-  position: relative; overflow: hidden; background: var(--paper-2);
-  height: clamp(240px, calc(100svh - var(--above, 195px) - var(--below, 140px) - 24px), 560px);
+.door {
+  --bg: var(--a-bg); --bg-on: var(--a-bg-on); --fg: var(--a-fg); --sub: var(--a-sub); --rule: var(--a-rule);
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  height: var(--door-h);
+  padding: clamp(28px, 3vw, 44px) clamp(28px, 3.2vw, 48px) clamp(26px, 2.8vw, 40px);
+  background: var(--bg); color: var(--fg); text-decoration: none;
+  transition: background-color .45s ease;
 }
-.door-ph img { width: 100%; height: 100%; object-fit: cover; }
-.door-body {
-  padding-top: 20px;
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px; align-items: end;
+.d2 { --bg: var(--b-bg); --bg-on: var(--b-bg-on); --fg: var(--b-fg); --sub: var(--b-sub); --rule: var(--b-rule); }
+.door:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+/* 左右の扉の中の段（番号／宛名／ひとこと／業種／進む）を、行の高さごとそろえる。
+   片方だけ説明が2行に折れても、宛名と説明の位置が左右でずれない（320pxでずれた＝2026-10-03） */
+@supports (grid-template-rows: subgrid) {
+  .doors { grid-template-rows: auto 1fr auto auto auto; row-gap: 0; height: var(--door-h); }
+  .door { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; height: auto; }
+  .door-for { align-self: end; }
 }
-.door-for { grid-column: 1; font-family: var(--font-display); font-weight: 500; line-height: 1.4; letter-spacing: 0.02em; }
-.door-for .big { font-size: clamp(21px, 2.15vw, 30px); transition: color .2s ease; }
-.door-for .sm { font-size: clamp(13px, 1.25vw, 17px); color: var(--ink-2); }
-.door-text { display: block; grid-column: 1; margin-top: 6px; font-size: 14.5px; line-height: 1.85; color: var(--ink-2); }
+
+/* 上：番号と欧文の小さな見出し */
+.door-top {
+  display: flex; align-items: baseline; gap: 14px;
+  font-family: var(--font-latin); font-size: 13px; font-weight: 500; letter-spacing: 0.16em; line-height: 1.4;
+}
+.door-top .no { font-weight: 600; }
+.door-top .en { color: var(--sub); text-transform: uppercase; }
+
+/* 下に寄せた言葉のかたまり：宛先 → ひとこと → 業種の並び → 進むリンク */
+.door-for { margin-top: auto; font-family: var(--font-display); font-weight: 500; letter-spacing: 0.03em; }
+.door-for .big { display: block; font-size: clamp(28px, 3.5vw, 50px); line-height: 1.3; }
+.door-for .sm { display: block; margin-top: 6px; font-size: clamp(14px, 1.3vw, 18px); line-height: 1.5; color: var(--sub); }
+.door-text { display: block; margin-top: clamp(14px, 1.8vw, 22px); font-size: clamp(14px, 1.15vw, 16px); line-height: 1.8; font-weight: 500; }
+.door-kinds { display: block; margin-top: 4px; font-size: 13px; line-height: 1.8; color: var(--sub); }
 .door-go {
-  grid-column: 2; grid-row: 1 / span 2; align-self: end;
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 14px; font-weight: 500; letter-spacing: 0.04em; white-space: nowrap;
-  padding-bottom: 6px; border-bottom: 1px solid var(--ink);
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-top: clamp(20px, 2.6vw, 36px); padding-top: 14px; border-top: 1px solid var(--rule);
+  font-size: 14px; font-weight: 700; letter-spacing: 0.06em; line-height: 1.5; white-space: nowrap;
 }
-.door-go .arw { font-family: var(--font-latin); font-weight: 400; transition: transform .25s var(--ease-out); }
-.door:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+/* 罫の上を左から右へ走る線（マウスを乗せたとき） */
+.door-go::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left center; transition: transform .7s var(--ease-io);
+}
+.door-go .arw { font-family: var(--font-latin); font-weight: 400; font-size: 18px; line-height: 1; transition: transform .35s var(--ease-out); }
 
-/* マウスで選ぶ人だけ：乗せた扉の写真がゆっくり寄り、言葉が緑に変わる（扉の幅は変えない） */
+/* マウスで選ぶ人だけ：乗せた扉の色が少し深くなり、罫の上を線が走り、矢印が進む（扉の幅は変えない） */
 @media (hover: hover) and (pointer: fine) {
-  .door-ph img { transition: transform .9s var(--ease-out); }
-  .door:hover .door-ph img { transform: scale(1.03); }
-  .door:hover .door-for .big { color: var(--green); }
-  .door:hover .door-go .arw { transform: translateX(4px); }
+  .door:hover { background: var(--bg-on); }
+  .door:hover .door-go::before { transform: scaleX(1); }
+  .door:hover .door-go .arw { transform: translateX(6px); }
 }
-
-.photo-note { font-size: 11.5px; color: var(--muted); text-align: right; padding-top: 10px; }
+.door:active { background: var(--bg-on); }   /* スマホで押した瞬間 */
 
 /* ---------- 入口の下（スクロールした方へ：何者かと連絡先だけ） ---------- */
 .about { padding: clamp(64px, 9vw, 120px) 0 clamp(56px, 8vw, 104px); }
@@ -288,38 +309,43 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 .foot .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
 .foot .copy { font-family: var(--font-latin); letter-spacing: 0.04em; }
 
-/* ---------- 出だしの動き（読み込んだときに1回だけ。1.4秒以内に止まり、あとは何も動かない） ----------
-   見出し → 写真（左 → 右）→ 扉の文字（上から順に）
-   ★「視差効果を減らす」設定の人には位置と拡大だけを止め、ふわっと出る（不透明度）は同じ時間で残す
+/* ---------- 出だしの動き（読み込んだときに1回だけ。1.5秒以内に止まり、あとは何も動かない） ----------
+   見出し → 扉の色の面が下から上へ開く（左 → 右）→ 扉の言葉（上から順に）
+   ★「視差効果を減らす」設定の人には位置と開く動きを止め、ふわっと出る（不透明度）は同じ時間で残す
      （丸藤さんのMacがこの設定。全部止めると何も動いていないように見える＝2026-10-02） */
-.js .title, .js .lead, .js .door-body > * { opacity: 0; transform: translateY(12px); }
-.js .door-ph img { opacity: 0; transform: scale(1.04); }
-.js .is-ready .title, .js .is-ready .lead, .js .is-ready .door-body > * {
+.js .title, .js .lead, .js .door > * { opacity: 0; transform: translateY(14px); }
+.js .door { clip-path: inset(100% 0 0 0); }
+.js .is-ready .title, .js .is-ready .lead, .js .is-ready .door > * {
   opacity: 1; transform: none;
-  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  transition: opacity .7s var(--ease-out), transform .8s var(--ease-out);
   transition-delay: var(--d, 0ms);
 }
-.js .is-ready .door-ph img {
-  opacity: 1; transform: none;
-  transition: opacity .9s ease-out, transform 1.4s var(--ease-out);
-  transition-delay: var(--d, 0ms);
+.js .is-ready .door {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1s var(--ease-io), background-color .45s ease;
+  transition-delay: var(--d, 0ms), 0ms;
 }
 .js .is-ready .lead { --d: 80ms; }
-.js .is-ready .d1 .door-ph img { --d: 100ms; }
-.js .is-ready .d2 .door-ph img { --d: 220ms; }
-.js .is-ready .d1 .door-for  { --d: 380ms; }
-.js .is-ready .d1 .door-text { --d: 440ms; }
-.js .is-ready .d1 .door-go   { --d: 500ms; }
-.js .is-ready .d2 .door-for  { --d: 500ms; }
-.js .is-ready .d2 .door-text { --d: 560ms; }
-.js .is-ready .d2 .door-go   { --d: 620ms; }
-/* 動きが終わったら hover の寄りに戻す（出だしの1.4秒の設定が残ると、寄りがもたつくため） */
-.js .is-done .door-ph img { transition: transform .9s var(--ease-out); transition-delay: 0ms; }
+.js .is-ready .d1 { --d: 120ms; }
+.js .is-ready .d2 { --d: 240ms; }
+.js .is-ready .d1 > * { --d: 560ms; }
+.js .is-ready .d1 > .door-for { --d: 620ms; }
+.js .is-ready .d1 > .door-text, .js .is-ready .d1 > .door-kinds { --d: 700ms; }
+.js .is-ready .d1 > .door-go { --d: 780ms; }
+.js .is-ready .d2 > * { --d: 680ms; }
+.js .is-ready .d2 > .door-for { --d: 740ms; }
+.js .is-ready .d2 > .door-text, .js .is-ready .d2 > .door-kinds { --d: 820ms; }
+.js .is-ready .d2 > .door-go { --d: 900ms; }
+/* 動きが終わったら clip-path の指定を外す（扉の外へはみ出す枠線を切らないため） */
+.js .is-done .door { clip-path: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .title, .js .lead, .js .door-body > *, .js .door-ph img { transform: none; }
-  .js .is-ready .title, .js .is-ready .lead, .js .is-ready .door-body > *, .js .is-ready .door-ph img { transition-property: opacity; }
-  .door:hover .door-ph img, .door:hover .door-go .arw, .btn:hover .arw { transform: none; }
+  .js .title, .js .lead, .js .door > * { transform: none; }
+  .js .door { clip-path: none; opacity: 0; }
+  .js .is-ready .door { opacity: 1; transition: opacity .8s ease-out, background-color .45s ease; transition-delay: var(--d, 0ms), 0ms; }
+  .js .is-ready .title, .js .is-ready .lead, .js .is-ready .door > * { transition-property: opacity; }
+  .door-go::before { transition: none; }
+  .door:hover .door-go .arw, .btn:hover .arw { transform: none; }
 }
 
 /* ---------- スマホ ---------- */
@@ -331,21 +357,23 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
   .links a { font-size: 13px; }
   .intro .wrap { grid-template-columns: 1fr; padding-top: 12px; padding-bottom: 16px; }
   .lead { display: none; }   /* 扉を1画面に収めるため。同じ内容は下の「先に、見本を」に書いてある */
-  /* 写真は縦長4:5。画面が低い機種だけ写真を縮める（文字は削らない） */
-  .door-ph { height: auto; aspect-ratio: 4 / 5; max-height: max(150px, calc(100svh - var(--above, 148px) - var(--below, 172px) - 16px)); }
-  .door-body { display: block; padding-top: 12px; }
-  /* 左は2行・右は1行になる。2行ぶんの高さを取って下に揃え、左右の言葉の高さをそろえる */
-  .door-for { display: flex; flex-direction: column; justify-content: flex-end; min-height: calc(21px * 1.4 * 2); }
-  .door-for .big { font-size: 21px; }
-  .door-for .sm { font-size: 13px; }
-  .door-text { margin-top: 6px; font-size: 13px; line-height: 1.6; }
-  .door-go { margin-top: 12px; font-size: 14px; }
+  :root { --door-h: clamp(300px, calc(100svh - var(--above, 140px) - 16px), 470px); }
+  .door { padding: 16px 14px 14px; }
+  .door-top { gap: 8px; font-size: 10.5px; letter-spacing: 0.12em; }
+  .door-top .en-x { display: none; }
+  /* 左は2行・右は1行になる。2行ぶんの高さを取って下にそろえ、左右の言葉の高さをそろえる */
+  .door-for .big { font-size: 23px; line-height: 1.32; min-height: calc(23px * 1.32 * 2); display: flex; flex-direction: column; justify-content: flex-end; }
+  .door-for .sm { margin-top: 4px; font-size: 13px; }
+  .door-text { margin-top: 12px; font-size: 12.5px; line-height: 1.65; }
+  .door-kinds { margin-top: 4px; font-size: 11px; line-height: 1.65; }
+  .door-go { margin-top: 14px; padding-top: 10px; font-size: 13px; letter-spacing: 0.04em; }
+  .door-go .arw { font-size: 16px; }
   .about .wrap { grid-template-columns: 1fr; }
   .co div { grid-template-columns: 5.5em minmax(0, 1fr); gap: 12px; }
 }
 @media (max-width: 359px) {
-  .door-for .big { font-size: 19px; }
-  .door-for { min-height: calc(19px * 1.4 * 2); }
+  .door-for .big { font-size: 20px; min-height: calc(20px * 1.32 * 2); }
+  .door-top .en { display: none; }
 }
 </style>
 </head>
@@ -377,33 +405,20 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
   <div class="wrap">
     <nav class="doors" aria-label="ご案内を選ぶ">
       <a class="door d1" href="reform/">
-        <span class="door-ph">
-          <picture>
-            <source media="(max-width: 760px)" srcset="works/gate/reform-sp-400.jpg 400w, works/gate/reform-sp-700.jpg 700w" sizes="calc(50vw - 20px)" width="700" height="875">
-            <img src="works/gate/reform-pc-1200.jpg" srcset="works/gate/reform-pc-800.jpg 800w, works/gate/reform-pc-1200.jpg 1200w, works/gate/reform-pc-1600.jpg 1600w" sizes="(min-width: 1248px) 588px, calc(50vw - 36px)" width="1200" height="1050" alt="" fetchpriority="high">
-          </picture>
-        </span>
-        <span class="door-body">
-          <span class="door-for"><span><span class="big"><span class="nw">工事店・</span><span class="nw">リフォーム</span></span><span class="sm"><span class="nw">会社様へ</span></span></span></span>
-          <span class="door-text"><span class="nw">建築・</span><span class="nw">塗装・</span><span class="nw">水まわり・</span><span class="nw">内装・</span><span class="nw">造園まで。</span></span>
-          <span class="door-go"><span class="nw">ご案内を見る</span><span class="arw" aria-hidden="true">→</span></span>
-        </span>
+        <span class="door-top"><span class="no">01</span><span class="en">Construction<span class="en-x"> &amp; Remodeling</span></span></span>
+        <span class="door-for"><span class="big"><span><span class="nw">工事店・</span><span class="nw">リフォーム</span></span></span><span class="sm"><span class="nw">会社様へ</span></span></span>
+        <span class="door-text"><span class="nw">施工事例を、</span><span class="nw">1件ずつ</span><span class="nw">ページに。</span></span>
+        <span class="door-kinds"><span class="nw">建築・</span><span class="nw">塗装・</span><span class="nw">水まわり・</span><span class="nw">内装・</span><span class="nw">造園</span></span>
+        <span class="door-go"><span class="nw">ご案内を見る</span><span class="arw" aria-hidden="true">→</span></span>
       </a>
       <a class="door d2" href="restaurant/">
-        <span class="door-ph">
-          <picture>
-            <source media="(max-width: 760px)" srcset="works/gate/food-sp-400.jpg 400w, works/gate/food-sp-700.jpg 700w" sizes="calc(50vw - 20px)" width="700" height="875">
-            <img src="works/gate/food-pc-1200.jpg" srcset="works/gate/food-pc-800.jpg 800w, works/gate/food-pc-1200.jpg 1200w, works/gate/food-pc-1600.jpg 1600w" sizes="(min-width: 1248px) 588px, calc(50vw - 36px)" width="1200" height="1050" alt="">
-          </picture>
-        </span>
-        <span class="door-body">
-          <span class="door-for"><span><span class="big"><span class="nw">飲食店</span></span><span class="sm"><span class="nw">の方へ</span></span></span></span>
-          <span class="door-text"><span class="nw">お店の</span><span class="nw">ホームページと、</span><span class="nw">Googleの地図。</span></span>
-          <span class="door-go"><span class="nw">ご案内を見る</span><span class="arw" aria-hidden="true">→</span></span>
-        </span>
+        <span class="door-top"><span class="no">02</span><span class="en">Restaurants<span class="en-x"> &amp; Cafés</span></span></span>
+        <span class="door-for"><span class="big"><span><span class="nw">飲食店</span></span></span><span class="sm"><span class="nw">の方へ</span></span></span>
+        <span class="door-text"><span class="nw">お店の</span><span class="nw">ホームページと、</span><span class="nw">Googleの地図。</span></span>
+        <span class="door-kinds"><span class="nw">和食・</span><span class="nw">居酒屋・</span><span class="nw">ラーメン・</span><span class="nw">洋食・</span><span class="nw">カフェ</span></span>
+        <span class="door-go"><span class="nw">ご案内を見る</span><span class="arw" aria-hidden="true">→</span></span>
       </a>
     </nav>
-    <p class="photo-note">写真はイメージです</p>
   </div>
 
   <!-- スクロールした方へ：何者か・連絡先だけ。料金は載せない -->
@@ -431,39 +446,34 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 <footer class="foot">
   <div class="wrap">
     <span class="copy">© 2026 creative works+</span>
-    <span>写真はイメージです</span>
   </div>
 </footer>
 
 </div>
 <script>
 (function () {
-  // 扉の写真の高さを「1画面に両方が収まる」大きさにする。扉より上と、写真の下の文字の高さを測って CSS に渡す
+  // 扉の高さを「1画面に両方が収まる」大きさにする。扉より上の高さを測って CSS に渡す
   var root = document.documentElement;
   var doors = document.querySelector('.doors');
-  var bodies = [].slice.call(document.querySelectorAll('.door-body'));
   function fit() {
     var above = doors.getBoundingClientRect().top + window.pageYOffset;
-    var below = Math.max.apply(null, bodies.map(function (b) { return b.offsetHeight; }));
     root.style.setProperty('--above', Math.round(above) + 'px');
-    root.style.setProperty('--below', Math.round(below) + 'px');
   }
   fit();
   window.addEventListener('resize', fit);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 
-  // 出だしの動き：最初の扉の写真が読めてから一斉に始める（読めなくても0.6秒で始める）
+  // 出だしの動き：書体が読めてから一斉に始める（読めなくても0.5秒で始める）
   var page = document.getElementById('page');
-  var img = document.querySelector('.d1 .door-ph img');
   var started = false;
   function go() {
     if (started) return; started = true;
+    fit();
     requestAnimationFrame(function () { page.classList.add('is-ready'); });
-    setTimeout(function () { page.classList.add('is-done'); }, 1800);
+    setTimeout(function () { page.classList.add('is-done'); }, 2000);
   }
-  if (img && img.complete && img.naturalWidth) go();
-  else if (img) { img.addEventListener('load', go); img.addEventListener('error', go); }
-  setTimeout(go, 600);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+  setTimeout(go, 500);
 })();
 </script>
 </body>
