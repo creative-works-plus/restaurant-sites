@@ -272,11 +272,13 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 }
 .door-go .arw { font-family: var(--font-latin); font-weight: 400; font-size: 17px; line-height: 1; transition: transform .35s var(--ease-out); }
 
-/* 下：見本のスマホ画面3枚。扉の下の縁で切れる（はみ出したぶんは見せない） */
-.door-screens { position: absolute; left: 0; right: 0; bottom: 0; height: var(--scr-area, 46%); pointer-events: none; }
+/* 下：見本のスマホ画面3枚。どの画面の高さでも、画面の下3割が扉の下の縁で切れるように置く（はみ出したぶんは見せない）。
+   画面の幅は「扉の高さ − 上の言葉のぶん」から決める（扉が低いPCでは小さく、言葉に重ならない） */
+.door-screens { position: absolute; inset: 0; pointer-events: none; }
 .phone {
-  --w: clamp(120px, 15vw, 196px);
-  position: absolute; top: var(--y, 0px); left: calc(50% - var(--w) / 2 + var(--x, 0px));
+  --w: clamp(110px, min(19vw, calc((var(--door-h) - 250px) * 0.75)), 196px);
+  --ph: calc(var(--w) * 1.814 + 10px);   /* スマホ画面の高さ（516:936 ＋ 黒い縁） */
+  position: absolute; bottom: calc(var(--ph) * -0.3 - var(--y, 0px)); left: calc(50% - var(--w) / 2 + var(--x, 0px));
   width: var(--w); padding: 5px; border-radius: 22px; background: #121313;
   box-shadow: 0 24px 48px rgba(10, 14, 12, .32), 0 4px 10px rgba(10, 14, 12, .18);
   transform: translateY(var(--lift, 0px)) rotate(var(--r, 0deg));
@@ -387,7 +389,7 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 
 /* ---------- スマホ ---------- */
 @media (max-width: 760px) {
-  :root { --head-h: 56px; --gap: 8px; --door-h: clamp(330px, calc(100svh - var(--above, 140px) - 16px), 520px); }
+  :root { --head-h: 56px; --gap: 8px; --door-h: clamp(330px, calc(100svh - var(--above, 140px) - 16px), 460px); }
   .logo { font-size: 17px; }
   .yomi { display: none; }
   .links { gap: 18px; }
@@ -405,9 +407,8 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
   .door-kinds { margin-top: 6px; font-size: 11px; line-height: 1.6; }
   .door-go { margin-top: 10px; font-size: 12.5px; letter-spacing: 0.04em; gap: 8px; padding-bottom: 4px; }
   .door-go .arw { font-size: 15px; }
-  .door-screens { --scr-area: 44%; }
   .screens-note { text-align: left; font-size: 11.5px; }
-  .phone { --w: clamp(84px, 27vw, 120px); padding: 3px; border-radius: 14px; box-shadow: 0 14px 28px rgba(10, 14, 12, .3); }
+  .phone { --w: clamp(80px, min(36vw, calc((var(--door-h) - 215px) * 0.75)), 150px); --ph: calc(var(--w) * 1.814 + 6px); bottom: calc(var(--ph) * -0.22 - var(--y, 0px)); padding: 3px; border-radius: 14px; box-shadow: 0 14px 28px rgba(10, 14, 12, .3); }
   .phone img { border-radius: 11px; }
   .phone.p1 { --x: calc(var(--w) * -0.62); --y: 18px; --r: -8deg; }
   .phone.p3 { --x: calc(var(--w) * 0.62); --y: 18px; --r: 8deg; }
