@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 社内向けの一覧ページ。検索エンジンには出さない -->
 <meta name="robots" content="noindex, nofollow">
-<title>制作サイト一覧（リフォーム、工事）</title>
+<title>工事店・リフォーム（全社）</title>
 <style>
-    /* 飲食店の一覧（../index.html）と同じ見た目にそろえてある。色や寸法を変えるときは両方直す */
+    /* 飲食店の一覧（../../index.html）と同じ見た目にそろえてある。色や寸法を変えるときは両方直す */
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
     body {
@@ -59,6 +59,12 @@
     li.envelope .nm::after {
         content: "✉"; margin-left: 7px; font-size: 0.78rem; color: #8f7a4e;
     }
+    /* 印は飲食店の一覧と同じ2段（2026-10-04 から）。✉＝宛名書き済み（まだポストに入れていない）／投函済み。
+       ★この指定は li.envelope より後に置く（同じ強さなので、後に書いたほうが勝つ） */
+    li.done .nm::after {
+        content: "投函済み"; margin-left: 8px; padding: 1px 7px; font-size: 0.66rem; letter-spacing: 0.06em;
+        color: #8fbf9a; border: 1px solid #2f3a32; border-radius: 4px; white-space: nowrap;
+    }
 
     /* 1社の行＝上段が「会社名（本命の案が開く）＋電話」、下段が「案ごとのボタン」。
        飲食店と違い、1社に案が3つ（A・B・C）あるので下段を足している */
@@ -92,15 +98,18 @@
 <body>
 <div class="wrap">
     <nav class="kind" aria-label="一覧の切り替え">
-        <a href="../">飲食店</a>
-        <span class="on" aria-current="page">リフォーム、工事</span>
+        <a href="../../">飲食店</a>
+        <span class="on" aria-current="page">リフォーム、工事（全社）</span>
     </nav>
 
-    <h1><span class="nw">制作サイト一覧</span><span class="nw">（リフォーム、工事）</span></h1>
+    <h1><span class="nw">工事店・リフォーム</span><span class="nw">（全社）</span></h1>
     <p class="total">全75社</p>
 
     <!-- ================================================================
-         ★2026-09-12 新設。飲食店の一覧（../index.html）とは別のページ。
+         ★2026-09-12 新設。飲食店の一覧（../../index.html）とは別のページ。
+         ★2026-10-04 に reform-list/ からここへ移した。制作サイト一覧からはリンクしない。
+           営業マンC用（../c/）は、このページの宛名書き済み・投函済みの会社だけを
+           Claude/scripts/mark_reform_letters.py が書き出したもの。印と会社はこのページだけで直す。
 
          ・叩き台は restaurant-sites ではなく **creative-works-plus.github.io** に置いてある
            （公開フォルダは リフォームサイト/.publish/）。リンクは必ず絶対URLで書く。
@@ -117,7 +126,8 @@
 
          ・新しい地域の1社目のときは <h2> + <ul> を1組複製する。地域名は「都道府県 市区町村」
          ・電話ボタンは素の <a href="tel:…">（飲食店の一覧と同じ。楽天リンクで発信するため）
-         ・手紙を出したら <li class="envelope"> にする（会社名の後ろに ✉ が付く）
+         ・印は飲食店の一覧と同じ2段。手で付けず mark_reform_letters.py で付ける（営業マンC用も一緒に書き直す）
+             宛名書きが済んだら <li class="envelope">（✉）／投函したら <li class="done envelope">（投函済み）
          ================================================================ -->
 
     <p class="note">
@@ -126,7 +136,8 @@
         ボタンの無い会社は、案が1つ（A案）だけです。<br>
         <b>緑のボタンが、その会社への電話です。</b>
         Androidはタップしてから「Rakuten Link」を選び、iPhoneは長押しして「Link」を選びます。<br>
-        <b>✉</b> ＝ 手紙を出した会社。
+        <b>✉</b> ＝ 宛名書きが済んでいる会社（まだポストに入れていない）。
+        <b>投函済み</b> ＝ 手紙をポストに入れた会社。
     </p>
 
     <h2>茨城県 古河市<span class="count">1社</span></h2>
@@ -192,7 +203,7 @@
 
     <h2>埼玉県 草加市<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/interior-haru/"><span class="nm"><span class="nw">インテリアHARU</span></span><span class="area">谷塚仲町・内装</span></a>
             <a class="tel" href="tel:080-2678-1344" aria-label="インテリアHARU に電話（080-2678-1344）" title="080-2678-1344"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -200,11 +211,11 @@
 
     <h2>埼玉県 川口市<span class="count">2社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/tokushu-gaisou/"><span class="nm"><span class="nw">特殊外装</span></span><span class="area">大字峯・外壁／防水</span></a>
             <a class="tel" href="tel:090-6489-0989" aria-label="特殊外装 に電話（090-6489-0989）" title="090-6489-0989"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/shoriki-setsubi/"><span class="nm"><span class="nw">正力設備</span></span><span class="area">木曽呂・水道工事</span></a>
             <a class="tel" href="tel:048-296-8978" aria-label="正力設備 に電話（048-296-8978）" title="048-296-8978"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -212,11 +223,11 @@
 
     <h2>埼玉県 所沢市<span class="count">2社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/uchida-koumuten/"><span class="nm"><span class="nw">有限会社</span><span class="nw">内田工務店</span></span><span class="area">美原町・修理／リフォーム</span></a>
             <a class="tel" href="tel:04-2997-8613" aria-label="有限会社内田工務店 に電話（04-2997-8613）" title="04-2997-8613"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/honda-gikan/"><span class="nm"><span class="nw">本田技管</span></span><span class="area">三ケ島・水道工事</span></a>
             <a class="tel" href="tel:04-2948-1300" aria-label="本田技管 に電話（04-2948-1300）" title="04-2948-1300"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -224,11 +235,11 @@
 
     <h2>埼玉県 狭山市<span class="count">2社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/alltech/"><span class="nm"><span class="nw">株式会社</span><span class="nw">オールテック</span></span><span class="area">青柳・塗装</span></a>
             <a class="tel" href="tel:090-4493-7956" aria-label="株式会社オールテック に電話（090-4493-7956）" title="090-4493-7956"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/okutomi-setsubi/"><span class="nm"><span class="nw">株式会社</span><span class="nw">奥冨設備</span></span><span class="area">青柳・水道／給排水設備</span></a>
             <a class="tel" href="tel:04-2952-8524" aria-label="株式会社奥冨設備 に電話（04-2952-8524）" title="04-2952-8524"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -236,7 +247,7 @@
 
     <h2>埼玉県 ふじみ野市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/yokoyama-suido/"><span class="nm"><span class="nw">有限会社</span><span class="nw">横山水道工業所</span></span><span class="area">大井武蔵野・水道／給排水設備</span></a>
             <a class="tel" href="tel:049-261-4868" aria-label="有限会社横山水道工業所 に電話（049-261-4868）" title="049-261-4868"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -244,7 +255,7 @@
 
     <h2>栃木県 宇都宮市<span class="count">2社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/tamura-bankin/"><span class="nm"><span class="nw">田村鈑金</span></span><span class="area">鶴田町・屋根／板金</span></a>
             <a class="tel" href="tel:028-647-0648" aria-label="田村鈑金 に電話（028-647-0648）" title="028-647-0648"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -256,7 +267,7 @@
 
     <h2>千葉県 松戸市<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/tanaka-kawara/"><span class="nm"><span class="nw">有限会社</span><span class="nw">田中瓦店</span></span><span class="area">金ケ作・屋根／瓦</span></a>
             <a class="tel" href="tel:047-387-3678" aria-label="有限会社田中瓦店 に電話（047-387-3678）" title="047-387-3678"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -264,7 +275,7 @@
 
     <h2>埼玉県 上尾市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/sekiguchi-suido/"><span class="nm"><span class="nw">有限会社</span><span class="nw">関口水道</span></span><span class="area">柏座・水道／給排水</span></a>
             <a class="tel" href="tel:048-771-7935" aria-label="有限会社関口水道 に電話（048-771-7935）" title="048-771-7935"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -272,7 +283,7 @@
 
     <h2>茨城県 阿見町<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/kento-tosou/"><span class="nm"><span class="nw">有限会社</span><span class="nw">建塗</span></span><span class="area">鈴木・外壁塗装／屋根塗装</span></a>
             <a class="tel" href="tel:029-891-2430" aria-label="有限会社建塗 に電話（029-891-2430）" title="029-891-2430"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -280,7 +291,7 @@
 
     <h2>栃木県 芳賀郡益子町<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/takita-setsubi/"><span class="nm"><span class="nw">有限会社</span><span class="nw">滝田設備工業</span></span><span class="area">上山・水道／下水道</span></a>
             <a class="tel" href="tel:0285-72-5144" aria-label="有限会社滝田設備工業 に電話（0285-72-5144）" title="0285-72-5144"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -288,11 +299,11 @@
 
     <h2>埼玉県 深谷市<span class="count">2社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/osato-jubyou/"><span class="nm"><span class="nw">大里樹苗造園</span><span class="nw">株式会社</span></span><span class="area">武蔵野・造園／剪定</span></a>
             <a class="tel" href="tel:048-584-1311" aria-label="大里樹苗造園株式会社 に電話（048-584-1311）" title="048-584-1311"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/shibusawa-yane/"><span class="nm"><span class="nw">渋澤屋根工事</span></span><span class="area">明戸・瓦屋根工事</span></a>
             <a class="tel" href="tel:048-572-8080" aria-label="渋澤屋根工事 に電話（048-572-8080）" title="048-572-8080"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -300,7 +311,7 @@
 
     <h2>埼玉県 比企郡嵐山町<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/otsuka-jusetsu/"><span class="nm"><span class="nw">大塚住設</span></span><span class="area">大字古里・水道工事</span></a>
             <a class="tel" href="tel:0493-62-3506" aria-label="大塚住設 に電話（0493-62-3506）" title="0493-62-3506"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -308,11 +319,11 @@
 
     <h2>埼玉県 羽生市<span class="count">2社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/imanishi-kensetsu/"><span class="nm"><span class="nw">有限会社</span><span class="nw">今西建設</span></span><span class="area">本川俣・建築工事（新築・リフォーム）</span></a>
             <a class="tel" href="tel:048-561-3788" aria-label="有限会社今西建設 に電話（048-561-3788）" title="048-561-3788"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/nagamine-setsubi/"><span class="nm"><span class="nw">有限会社</span><span class="nw">長峯設備</span></span><span class="area">羽生市・水道</span></a>
             <a class="tel" href="tel:048-561-4491" aria-label="有限会社長峯設備 に電話（048-561-4491）" title="048-561-4491"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -320,15 +331,15 @@
 
     <h2>栃木県 小山市<span class="count">3社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/alps-setsubi/"><span class="nm"><span class="nw">アルプス設備工業</span><span class="nw">株式会社</span></span><span class="area">小山市・水まわり</span></a>
             <a class="tel" href="tel:0285-24-3322" aria-label="アルプス設備工業株式会社 に電話（0285-24-3322）" title="0285-24-3322"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/saruhashi-tosou/"><span class="nm"><span class="nw">猿橋塗装店</span></span><span class="area">下初田・外壁塗装／屋根塗装</span></a>
             <a class="tel" href="tel:0285-37-1058" aria-label="猿橋塗装店 に電話（0285-37-1058）" title="0285-37-1058"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/kobana-koumuten/"><span class="nm"><span class="nw">株式会社</span><span class="nw">小花工務店</span></span><span class="area">東間々田・新築／リフォーム</span></a>
             <a class="tel" href="tel:0285-45-2146" aria-label="株式会社小花工務店 に電話（0285-45-2146）" title="0285-45-2146"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -336,7 +347,7 @@
 
     <h2>埼玉県 本庄市<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/imai-jusetsu/"><span class="nm"><span class="nw">有限会社</span><span class="nw">今井住設</span></span><span class="area">本庄市・水まわり</span></a>
             <a class="tel" href="tel:0495-72-1894" aria-label="有限会社今井住設 に電話（0495-72-1894）" title="0495-72-1894"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -344,11 +355,11 @@
 
     <h2>埼玉県 川越市<span class="count">2社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/yamagishi-zoen/"><span class="nm"><span class="nw">株式会社</span><span class="nw">山岸造園</span></span><span class="area">川越市・造園</span></a>
             <a class="tel" href="tel:049-235-1829" aria-label="株式会社山岸造園 に電話（049-235-1829）" title="049-235-1829"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/kawagoe-setsubi/"><span class="nm"><span class="nw">川越設備</span><span class="nw">株式会社</span></span><span class="area">上老袋・水道工事</span></a>
             <a class="tel" href="tel:049-223-2816" aria-label="川越設備株式会社 に電話（049-223-2816）" title="049-223-2816"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -356,7 +367,7 @@
 
     <h2>栃木県 下都賀郡壬生町<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/shinohara-zoen/"><span class="nm"><span class="nw">有限会社</span><span class="nw">篠原造園土木</span></span><span class="area">壬生町・外構、造園</span></a>
             <a class="tel" href="tel:0282-82-5071" aria-label="有限会社篠原造園土木 に電話（0282-82-5071）" title="0282-82-5071"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -364,7 +375,7 @@
 
     <h2>埼玉県 南埼玉郡宮代町<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/hirano-koumuten/"><span class="nm"><span class="nw">平野工務店</span></span><span class="area">西原・耐震改修／工務店</span></a>
             <a class="tel" href="tel:0480-32-3568" aria-label="平野工務店 に電話（0480-32-3568）" title="0480-32-3568"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -372,7 +383,7 @@
 
     <h2>埼玉県 蓮田市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/marutake-hasuda/"><span class="nm"><span class="nw">まるたけ</span></span><span class="area">黒浜・リフォーム／リノベーション</span></a>
             <a class="tel" href="tel:048-768-4900" aria-label="まるたけ に電話（048-768-4900）" title="048-768-4900"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -380,7 +391,7 @@
 
     <h2>群馬県 邑楽郡邑楽町<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/abe-densetsu/"><span class="nm"><span class="nw">有限会社</span><span class="nw">安部電設</span></span><span class="area">篠塚・電気工事</span></a>
             <a class="tel" href="tel:0276-88-0264" aria-label="有限会社安部電設 に電話（0276-88-0264）" title="0276-88-0264"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -388,11 +399,11 @@
 
     <h2>千葉県 柏市<span class="count">2社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/sunagawa-engei/"><span class="nm"><span class="nw">株式会社</span><span class="nw">砂川園芸</span></span><span class="area">大青田・造園／剪定</span></a>
             <a class="tel" href="tel:04-7131-2587" aria-label="株式会社砂川園芸 に電話（04-7131-2587）" title="04-7131-2587"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/kashiwa-tile-suido/"><span class="nm"><span class="nw">柏タイル水道</span></span><span class="area">あけぼの・水まわり工事</span></a>
             <a class="tel" href="tel:04-7143-4392" aria-label="柏タイル水道 に電話（04-7143-4392）" title="04-7143-4392"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -400,7 +411,7 @@
 
     <h2>茨城県 結城郡八千代町<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/takashima-kensetsu/"><span class="nm"><span class="nw">高島建設</span><span class="nw">株式会社</span></span><span class="area">佐野・木造住宅／リフォーム</span></a>
             <a class="tel" href="tel:0296-48-4348" aria-label="高島建設株式会社 に電話（0296-48-4348）" title="0296-48-4348"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -408,7 +419,7 @@
 
     <h2>埼玉県 朝霞市<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/nakamuraya-jusetsu/"><span class="nm"><span class="nw">中村屋住宅設備機器</span></span><span class="area">膝折町・住宅設備工事</span></a>
             <a class="tel" href="tel:048-461-0028" aria-label="中村屋住宅設備機器 に電話（048-461-0028）" title="048-461-0028"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -416,7 +427,7 @@
 
     <h2>茨城県 かすみがうら市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/hattori-setsubi/"><span class="nm"><span class="nw">株式会社</span><span class="nw">服部設備</span></span><span class="area">田伏・水道工事</span></a>
             <a class="tel" href="tel:029-896-0118" aria-label="株式会社服部設備 に電話（029-896-0118）" title="029-896-0118"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -424,7 +435,7 @@
 
     <h2>群馬県 太田市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/kinryuuen/"><span class="nm"><span class="nw">造園土木</span><span class="nw">金龍園</span></span><span class="area">鶴生田町・造園／剪定</span></a>
             <a class="tel" href="tel:0276-25-6496" aria-label="造園土木金龍園 に電話（0276-25-6496）" title="0276-25-6496"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -432,7 +443,7 @@
 
     <h2>茨城県 下妻市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/adachi-koumuten/"><span class="nm"><span class="nw">アダチ工務店</span></span><span class="area">江・新築／外構</span></a>
             <a class="tel" href="tel:0296-44-4673" aria-label="アダチ工務店 に電話（0296-44-4673）" title="0296-44-4673"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -440,7 +451,7 @@
 
     <h2>茨城県 土浦市<span class="count">1社</span></h2>
     <ul>
-        <li class="envelope">
+        <li class="done envelope">
             <a href="https://creative-works-plus.github.io/miyamoto-zoen/"><span class="nm"><span class="nw">宮本造園</span></span><span class="area">小山崎・造園</span></a>
             <a class="tel" href="tel:029-831-8449" aria-label="宮本造園 に電話（029-831-8449）" title="029-831-8449"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -448,7 +459,7 @@
 
     <h2>埼玉県 新座市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/takafujien/"><span class="nm"><span class="nw">高藤園</span></span><span class="area">野火止・造園／剪定</span></a>
             <a class="tel" href="tel:048-478-3145" aria-label="高藤園 に電話（048-478-3145）" title="048-478-3145"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -456,7 +467,7 @@
 
     <h2>群馬県 桐生市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/tsukui-tosou/"><span class="nm"><span class="nw">津久井塗装工業</span></span><span class="area">堤町・外壁塗装／屋根塗装</span></a>
             <a class="tel" href="tel:050-3390-0291" aria-label="津久井塗装工業 に電話（050-3390-0291）" title="050-3390-0291"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -464,7 +475,7 @@
 
     <h2>埼玉県 三郷市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/minato-home/"><span class="nm"><span class="nw">ミナトホーム</span><span class="nw">株式会社</span></span><span class="area">早稲田・注文住宅／リフォーム</span></a>
             <a class="tel" href="tel:048-957-2821" aria-label="ミナトホーム株式会社 に電話（048-957-2821）" title="048-957-2821"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -472,7 +483,7 @@
 
     <h2>千葉県 流山市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/daika-living/"><span class="nm"><span class="nw">株式会社</span><span class="nw">ダイカリビング</span></span><span class="area">加・リフォーム／建築</span></a>
             <a class="tel" href="tel:04-7192-8870" aria-label="株式会社ダイカリビング に電話（04-7192-8870）" title="04-7192-8870"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -480,7 +491,7 @@
 
     <h2>茨城県 坂東市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/aoki-kawara-bando/"><span class="nm"><span class="nw">有限会社</span><span class="nw">青木瓦工業</span></span><span class="area">山・屋根／瓦</span></a>
             <a class="tel" href="tel:0280-88-1720" aria-label="有限会社青木瓦工業 に電話（0280-88-1720）" title="0280-88-1720"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -488,7 +499,7 @@
 
     <h2>埼玉県 桶川市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/okano-suido/"><span class="nm"><span class="nw">岡野水道工業</span><span class="nw">有限会社</span></span><span class="area">北・水道／給排水設備</span></a>
             <a class="tel" href="tel:048-771-5699" aria-label="岡野水道工業有限会社 に電話（048-771-5699）" title="048-771-5699"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -496,7 +507,7 @@
 
     <h2>茨城県 常総市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/yoshihara-setsubi/"><span class="nm"><span class="nw">有限会社</span><span class="nw">吉原設備工業</span></span><span class="area">三坂町・水道／給排水設備</span></a>
             <a class="tel" href="tel:0297-22-9828" aria-label="有限会社吉原設備工業 に電話（0297-22-9828）" title="0297-22-9828"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -504,7 +515,7 @@
 
     <h2>埼玉県 熊谷市<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/nagomi-juken/"><span class="nm"><span class="nw">株式会社</span><span class="nw">なごみ住建</span></span><span class="area">佐谷田・外構／エクステリア</span></a>
             <a class="tel" href="tel:048-526-0358" aria-label="株式会社なごみ住建 に電話（048-526-0358）" title="048-526-0358"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -512,7 +523,7 @@
 
     <h2>埼玉県 比企郡川島町<span class="count">1社</span></h2>
     <ul>
-        <li>
+        <li class="envelope">
             <a href="https://creative-works-plus.github.io/art-kobayashi/"><span class="nm"><span class="nw">有限会社</span><span class="nw">アート小林</span></span><span class="area">下伊草・外壁塗装／屋根塗装</span></a>
             <a class="tel" href="tel:049-297-5517" aria-label="有限会社アート小林 に電話（049-297-5517）" title="049-297-5517"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h3l1.5 3.7-1.9 1.1a11 11 0 0 0 4.5 4.5l1.1-1.9 3.7 1.5v3a1.6 1.6 0 0 1-1.8 1.6A14.6 14.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5z"/></svg></a>
         </li>
@@ -703,7 +714,7 @@
     </ul>
 
     <div class="own">
-        <a href="../company/reform/"><span class="nm"><span class="nw">工事店・リフォーム会社様への</span><span class="nw">ご案内</span><span class="nw">（自社サイト）</span></span></a>
+        <a href="../../company/reform/"><span class="nm"><span class="nw">工事店・リフォーム会社様への</span><span class="nw">ご案内</span><span class="nw">（自社サイト）</span></span></a>
     </div>
 </div>
 </body>
