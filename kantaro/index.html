@@ -878,6 +878,77 @@
            最後の .menu-block を抜けたら引っ込める（骨格ライブラリ 04-base.css と同じ）。 */
         .subnav { transition: transform .3s ease, opacity .3s ease; }
         .subnav.is-past { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       金を一段強める（2026-10-07 オーナー様「もうちょっと金の感じを強く。いやらしく
+       ならない範囲で」）。金を「面」で増やさず、罫・額・数字・ボタンの塗りで増やす。
+       ・ボタンは単色の金 → 箱の金の照りに近い3色のグラデーション（文字は --bg のまま）
+       ・カードと写真の枠を白の罫 → 淡い金の罫に
+       ・節の境目に、両端が消える金の細線（図形ではなく直線＝絶対ルール⑫の範囲内）
+       ・価格と順位の数字を明るい金に
+       ・ヒーローの額の背後に、ごく淡い金の光（CSSのグラデーション）
+       ══════════════════════════════════════════════════════════════════ */
+    :root {
+        --gold-line:  rgba(201, 173, 120, 0.6);
+        --gold-faint: rgba(201, 173, 120, 0.32);   /* カード・写真の枠 */
+        /* 暗い端 #A9894F の上でも --bg の文字は 5.7:1 */
+        --gold-grad:  linear-gradient(135deg, #EED8A6 0%, #D3B67E 45%, #A9894F 100%);
+        --gold-rule:  linear-gradient(90deg, transparent, rgba(201,173,120,.75) 50%, transparent);
+    }
+    .btn-primary, .shopband-go, .sticky-bar .bar-tel {
+        background: var(--gold-grad); color: var(--bg);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 10px 26px rgba(0,0,0,.45);
+    }
+    .btn-primary:hover, .shopband-go:hover { background: var(--accent); }
+    .btn-ghost { border-color: var(--gold-line); }
+
+    .site-header { border-bottom-color: var(--gold-faint); }
+    .site-header::after {
+        content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+        background: var(--gold-rule); pointer-events: none;
+    }
+    .brand { color: var(--accent-hi); }
+
+    .hero {
+        background:
+            radial-gradient(ellipse 60% 55% at 28% 45%, rgba(201,173,120,.13), transparent 70%),
+            var(--bg);
+    }
+    .hero-catch { border-left-color: var(--accent-hi); }
+
+    /* 節の境目の金の細線（金の罫を上下に持つ節には引かない） */
+    .section:not(.oton):not(.section-board), .flow, .shopband { position: relative; }
+    .section:not(.oton):not(.section-board)::before, .flow::before, .shopband::before {
+        content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+        width: min(100% - 2 * var(--pad-inner), var(--maxw)); height: 1px;
+        background: var(--gold-rule); pointer-events: none;
+    }
+    .flow { border-block-color: transparent; }
+
+    .title-wrap .en { color: var(--accent-hi); }
+    .title-wrap .en::after { width: 64px; background: linear-gradient(90deg, var(--accent), transparent); }
+
+    .photo-frame { border-color: var(--gold-faint); }
+    .flow-step, .rank li, .menu-list li, .heat-card, .voice-grid blockquote, .shopband-card {
+        border-color: var(--gold-faint);
+    }
+    .flow-step { border-top-color: var(--accent); }
+    .shopband-card { border-left-color: var(--accent); }
+    .rank li:first-child { border-color: var(--accent); box-shadow: inset 0 0 0 1px rgba(201,173,120,.18); }
+    .menu-list li { transition: border-color .25s ease; }
+    .menu-list li:hover { border-color: var(--gold-line); }
+
+    .flow-num, .rank .no, .heat-steps .n { color: var(--accent-hi); }
+    .menu-list .price, .nabe-table td, .oton-price .oton-yen { color: var(--accent-hi); }
+    .rank .yen { color: var(--accent); }
+    .menu-head { border-bottom-color: var(--gold-line); }
+    .menu-head .yomi { color: var(--accent); }
+    .subnav { border-bottom-color: var(--gold-faint); }
+    .subnav a:hover { border-bottom-color: var(--accent-hi); }
+
+    .info-table th, .info-table td { border-bottom-color: var(--gold-faint); }
+    .site-footer { border-top-color: var(--gold-line); }
+    .footer-name { color: var(--accent-hi); }
     /* news:css:start */
 /* ── お知らせ（build_news.py が入れる。手で書き換えない） ───────────────
    0件のときは帯も節も出ない。var(…) の第2引数は、その変数が無い店のための逃げ。 */
@@ -1336,14 +1407,14 @@
                 <figure>
                     <div class="photo-frame">
                         <img src="img/pack-motsuyaki-miso-2026.jpg" alt="「モツ焼き みそ味」のラベルを貼った冷凍の真空パック"
-                             width="900" height="1200" loading="lazy" decoding="async">
+                             width="1200" height="900" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">もつ</span><span class="nw">焼き</span><span class="nw">（味噌）</span></figcaption>
                 </figure>
                 <figure>
                     <div class="photo-frame">
                         <img src="img/pack-motsuyaki-shio-2026.jpg" alt="「モツ焼き しお味」のラベルを貼った冷凍の真空パック"
-                             width="900" height="1200" loading="lazy" decoding="async">
+                             width="1200" height="900" loading="lazy" decoding="async">
                     </div>
                     <figcaption><span class="nw">もつ</span><span class="nw">焼き</span><span class="nw">（塩）</span></figcaption>
                 </figure>
@@ -1447,7 +1518,7 @@
             <div class="heat-card reveal reveal-delay-1">
                 <div class="photo-frame">
                     <img src="img/pack-motsuyaki-shoyu-2026.jpg" alt="「モツ焼き 醤油味」のラベルを貼った冷凍の真空パック"
-                         width="900" height="1200" loading="lazy" decoding="async">
+                         width="1200" height="900" loading="lazy" decoding="async">
                 </div>
                 <h3><span class="nw">お家での</span><span class="nw">温め</span>方</h3>
                 <ol class="heat-steps">
