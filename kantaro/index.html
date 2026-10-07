@@ -25,15 +25,15 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- ブラウザのアドレスバー色。店のベース背景色（--bg）と揃える -->
-    <meta name="theme-color" content="#17181A">
+    <meta name="theme-color" content="#121113">
 
     <!-- 外部リソースは Google Fonts のみ許可。preconnect 必須 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Potta+One&family=Murecho:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Cormorant+Garamond:wght@500;600&family=Murecho:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- favicon：湯気の立つ丼（07-favicon.md の「器」型）。看板の桃色で塗る -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%2317181A'/%3E%3Cpath d='M13 32h38c0 11-8.5 18-19 18s-19-7-19-18z' fill='%23DD6A93'/%3E%3Crect x='9' y='28' width='46' height='5' rx='2.5' fill='%23F2EFE9'/%3E%3Cpath d='M25 22c0-4 4-4 4-8M37 22c0-4 4-4 4-8' stroke='%23F2EFE9' stroke-width='3' stroke-linecap='round' fill='none' opacity='.7'/%3E%3C/svg%3E">
+    <!-- favicon：湯気の立つ丼（07-favicon.md の「器」型）。2026-10-07 黒金に塗り替え -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%23121113'/%3E%3Cpath d='M13 32h38c0 11-8.5 18-19 18s-19-7-19-18z' fill='%23C9AD78'/%3E%3Crect x='9' y='28' width='46' height='5' rx='2.5' fill='%23F2EFE9'/%3E%3Cpath d='M25 22c0-4 4-4 4-8M37 22c0-4 4-4 4-8' stroke='%23F2EFE9' stroke-width='3' stroke-linecap='round' fill='none' opacity='.7'/%3E%3C/svg%3E">
 
     <script type="application/ld+json">
     {
@@ -69,47 +69,54 @@
 
     <style>
     :root {
-        /* --- 面（背景） 鋳鉄の黒。もつ煮の商品写真の地がほぼ黒なので、写真と地を続ける --- */
-        --bg:          #17181A;   /* 鋳鉄の黒（ごくわずかに青みの無彩） */
-        --surface:     #202225;   /* カード・帯の面 */
-        --surface-2:   #2A2D31;   /* さらに手前の面・入れ子のカード */
+        /* ★2026-10-07 オーナー様のご希望で「黒×金・モダン・高級感」に作り替えた。
+           金は店の黒金の箱（撮ってきた写真/IMG_5488.HEIC）から拾った色。今後、倍以上の
+           価格の高級路線の品をこの色で出される予定で、サイトもそれに揃える。
+           （着手時に「暗い地×金は既出が多い」として桃にしていたが、ご契約店のご指定が優先） */
+        /* --- 面（背景） 黒金の箱の黒 ------------------------------------------- */
+        --bg:          #121113;
+        --surface:     #1A191C;   /* カード・帯の面 */
+        --surface-2:   #232126;   /* さらに手前の面 */
 
-        /* --- 文字（--bg 上でのコントラスト比を実測して入れてある） -------------- */
-        --ink:         #F2EFE9;   /* 15.5:1 */
-        --muted:       #B6B1A9;   /* 8.3:1 */
-        --dim:         #8B8781;   /* 5.0:1（小さい文字にも使える明るさにしてある） */
+        /* --- 文字（--bg 上のコントラスト比を実測） ------------------------------ */
+        --ink:         #F2EDE3;   /* 16.1:1 */
+        --muted:       #BCB4A6;   /* 9.2:1 */
+        --dim:         #8F887C;   /* 5.4:1 */
 
-        /* --- 差し色＝店の看板幕の文字の色（桃）。CTA・見出しの罫・数字だけに使う --- */
-        --accent:      #DD6A93;   /* 5.6:1 */
-        --accent-hi:   #EE87A9;   /* 7.3:1。CTAの面はこちらで塗る */
-        --accent-deep: #A2405F;   /* 押下・板の面の上の文字 */
+        /* --- 差し色＝金。罫・数字・CTAだけに使う -------------------------------- */
+        --accent:      #C9AD78;   /* 8.7:1 */
+        --accent-hi:   #DEC593;   /* 11.2:1。CTAの面はこちらで塗る（上の文字は --bg で 11.2:1） */
+        --accent-deep: #A88C58;   /* 押下 */
         --accent-2:    ;          /* 第2差し色は置かない */
 
-        /* --- 白い下見板張りの面（店の建物の色）。1節だけ反転させるのに使う ------- */
-        --board:       #F1EDE5;
-        --board-ink:   #1F211F;   /* 13.9:1 */
-        --board-muted: #56544E;   /* 6.5:1 */
+        /* --- 鍋の節の面（以前は白い下見板。黒金にあわせて黒地＋金の細い目地に） --- */
+        --board:       #19181B;
+        --board-ink:   #F2EDE3;
+        --board-muted: #BCB4A6;
 
         /* --- 罫線 -------------------------------------------------------------- */
-        --line:        rgba(242, 239, 233, 0.14);
-        --line-strong: rgba(242, 239, 233, 0.26);
+        --line:        rgba(242, 237, 227, 0.12);
+        --line-strong: rgba(242, 237, 227, 0.22);
+        --gold-line:   rgba(201, 173, 120, 0.45);
 
-        /* --- 影（暗い地なので黒を落とす） -------------------------------------- */
-        --shadow:      0 22px 54px rgba(0, 0, 0, 0.55);
+        /* --- 影 ---------------------------------------------------------------- */
+        --shadow:      0 22px 54px rgba(0, 0, 0, 0.6);
 
         /* --- 営業状況バッジ（06-script.js が使う） ------------------------------ */
         --open:        #7fc383;
         --closed:      #d98a7e;
 
-        /* --- 書体 --------------------------------------------------------------
-           見出し Potta One … 太くて丸い一本書きの筆致。店頭のA型看板と壁の幕の
-                              手描き文字にいちばん近い。全38店で未使用。
-           本文   Murecho   … 300〜700。価格が50品ぶん並ぶので数字の可読性を優先。 */
-        --font-head:   'Potta One', 'Hiragino Mincho ProN', serif;
+        /* --- 書体（2026-10-07 差し替え）------------------------------------------
+           見出し Shippori Mincho B1 … 墨だまりのある明朝。黒金の箱の筆文字の格に合わせる
+           欧文   Cormorant Garamond … 章の小さな欧文ラベルだけ
+           本文   Murecho   … 価格が並ぶので数字の可読性を優先（そのまま）
+           ★電話番号は本文書体のまま（2 と 3 の見分け。④の書体の項） */
+        --font-head:   'Shippori Mincho B1', 'Hiragino Mincho ProN', serif;
+        --font-en:     'Cormorant Garamond', 'Shippori Mincho B1', serif;
         --font-body:   'Murecho', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
 
         /* --- 形・間 ------------------------------------------------------------- */
-        --radius:      4px;
+        --radius:      2px;
         --maxw:        1120px;
         --gap:         clamp(16px, 4vw, 40px);
         --pad-section: clamp(64px, 10vw, 120px);
@@ -349,7 +356,7 @@
 
     /* --- ヘッダー ------------------------------------------------------------- */
     .site-header {
-        background: rgba(23, 24, 26, 0.82);
+        background: rgba(18, 17, 19, 0.82);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--line);
     }
@@ -372,7 +379,7 @@
         inset: auto 0 0 0;
         transform: translateY(16px);
         background: var(--surface);
-        border-top: 3px solid var(--accent);
+        border-top: 1px solid var(--accent);
         padding: 22px var(--pad-inner) calc(22px + env(safe-area-inset-bottom));
         display: flex; flex-direction: column; gap: 2px;
         box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.6);
@@ -406,7 +413,7 @@
         border: 1px solid transparent; cursor: pointer;
         transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
     }
-    .btn-primary { background: var(--accent-hi); color: #17181A; }
+    .btn-primary { background: var(--accent-hi); color: var(--bg); }
     .btn-primary:hover { background: var(--accent); }
     .btn-ghost { border-color: var(--line-strong); color: var(--ink); }
     .btn-ghost:hover { border-color: var(--accent-hi); color: var(--accent-hi); }
@@ -419,22 +426,25 @@
     /* --- 見出し --------------------------------------------------------------- */
     .title-wrap { margin-bottom: clamp(26px, 4vw, 44px); }
     .title-wrap .en {
-        display: block; font-size: 0.68rem; letter-spacing: 0.3em;
-        color: var(--accent); margin-bottom: 10px;
+        display: flex; align-items: center; gap: 14px;
+        font-family: var(--font-en); font-weight: 500;
+        font-size: 0.86rem; letter-spacing: 0.32em;
+        color: var(--accent); margin-bottom: 12px;
     }
     .section-title {
-        font-family: var(--font-head); font-weight: 400;
+        font-family: var(--font-head); font-weight: 500;
         font-size: clamp(1.5rem, 5.2vw, 2.15rem);
-        letter-spacing: 0.06em; line-height: 1.5;
+        letter-spacing: 0.08em; line-height: 1.55;
     }
+    .title-wrap .en::after { content: ''; width: 44px; height: 1px; background: var(--gold-line); }
     .section-lead {
         margin-top: 16px; max-width: 42em;
         color: var(--muted); font-size: clamp(0.94rem, 3.1vw, 1rem); line-height: 2.05;
     }
 
     /* --- ヒーロー（店の看板の絵が主役。2026-08-26 差し替え） ------------------
-       絵は白い幕に描かれたものなので、白い下見板（--board）の台紙に載せて、
-       鋳鉄の黒の地から浮かせる。文字は絵の上に重ねない（絵の中に屋号がある）。 */
+       絵は白い幕に描かれたもの。2026-10-07 から、金の細い額（二重罫）に収めて黒の地に置く。
+       文字は絵の上に重ねない（絵の中に屋号がある）。 */
     .hero {
         position: relative; display: flex; align-items: center;
         padding: clamp(26px, 5vh, 54px) 0 clamp(40px, 7vh, 70px);
@@ -443,24 +453,26 @@
     .hero .container { position: relative; z-index: 1; }
     .hero-sign { margin: 14px 0 0; font-weight: 400; line-height: 1; }
     .hero-sign-en {
-        display: block; font-family: var(--font-body); font-weight: 400;
-        font-size: clamp(0.72rem, 2.6vw, 0.86rem); letter-spacing: 0.34em;
+        display: block; font-family: var(--font-en); font-weight: 500;
+        font-size: clamp(0.86rem, 3vw, 1.02rem); letter-spacing: 0.36em;
         color: var(--accent-hi); margin-bottom: 14px;
     }
     .hero-sign-frame {
         display: block; max-width: 860px;
         padding: clamp(8px, 1.4vw, 13px);
-        background: var(--board); border-radius: 16px;
+        background: var(--bg); border-radius: 0;
+        border: 1px solid var(--accent);
+        outline: 1px solid var(--gold-line); outline-offset: 5px;
         box-shadow: var(--shadow);
     }
     /* width/height 属性を書いているので、height:auto を必ず添える（縦に伸びる） */
-    .hero-sign-frame img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .hero-sign-frame img { display: block; width: 100%; height: auto; border-radius: 0; }
     .hero-catch {
-        margin-top: 26px;
-        font-family: var(--font-head);
+        margin-top: 30px;
+        font-family: var(--font-head); font-weight: 500;
         font-size: clamp(1.1rem, 4.6vw, 1.6rem); line-height: 1.6;
         letter-spacing: 0.05em;
-        border-left: 4px solid var(--accent); padding-left: 16px;
+        border-left: 1px solid var(--accent); padding-left: 16px;
     }
     .hero-lead {
         margin-top: 20px; max-width: 30em;
@@ -498,7 +510,7 @@
         flex-wrap: wrap; gap: 16px 28px;
         padding: clamp(18px, 3vw, 26px) clamp(18px, 3vw, 30px);
         background: var(--surface); border: 1px solid var(--line);
-        border-left: 4px solid var(--accent); border-radius: 14px;
+        border-left: 1px solid var(--accent); border-radius: var(--radius);
         transition: border-color .2s ease, background .2s ease, transform .2s ease;
     }
     .shopband-card:hover, .shopband-card:focus-visible {
@@ -511,7 +523,7 @@
         color: var(--accent-hi); margin-bottom: 8px;
     }
     .shopband-ttl {
-        display: block; font-family: var(--font-head); font-weight: 400;
+        display: block; font-family: var(--font-head); font-weight: 500;
         font-size: clamp(1.05rem, 4.2vw, 1.35rem); line-height: 1.5; letter-spacing: 0.03em;
     }
     .shopband-sub {
@@ -520,8 +532,8 @@
     }
     .shopband-go {
         display: inline-flex; align-items: center; gap: 10px; flex: 0 0 auto;
-        min-height: 44px; padding: 0 20px; border-radius: 999px;
-        background: var(--accent-hi); color: #17181A;   /* 7.3:1 */
+        min-height: 44px; padding: 0 20px; border-radius: var(--radius);
+        background: var(--accent-hi); color: var(--bg);   /* 7.3:1 */
         font-weight: 700; font-size: 0.95rem; letter-spacing: 0.03em; white-space: nowrap;
     }
     .shopband-go svg { width: 17px; height: 17px; flex: 0 0 17px; }
@@ -541,7 +553,7 @@
     .flow-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2.4vw, 26px); }
     .flow-step {
         background: var(--surface-2); border: 1px solid var(--line);
-        border-top: 3px solid var(--accent);
+        border-top: 1px solid var(--accent);
         border-radius: var(--radius); padding: clamp(16px, 2.4vw, 24px);
     }
     .flow-num {
@@ -550,8 +562,8 @@
     }
     .flow-step h3 { font-size: 1.02rem; letter-spacing: 0.04em; margin-bottom: 8px; font-weight: 700; }
     .flow-step p { font-size: 0.88rem; color: var(--muted); line-height: 1.95; }
-    /* ★電話番号だけは本文書体で組む。Potta One は 2 と 3 の形が似ていて、
-       かける前に見直しが要ると指摘された（読ませる数字＝価格は Potta One のまま） */
+    /* ★電話番号だけは本文書体で組む。Potta One（当時の見出し書体）は 2 と 3 の形が
+       似ていて、かける前に見直しが要ると指摘された。明朝に替えた後も番号は本文書体のまま */
     .flow-step .tel-big {
         display: inline-block; margin-top: 10px;
         font-family: var(--font-body); font-weight: 700; font-size: clamp(1.15rem, 4.4vw, 1.45rem);
@@ -566,7 +578,7 @@
     }
     .story-text p { margin-bottom: 1.35em; line-height: 2.15; color: var(--muted); font-size: clamp(0.94rem, 3.1vw, 1.01rem); }
     .story-text p.lead-line {
-        color: var(--ink); font-family: var(--font-head); font-weight: 400;
+        color: var(--ink); font-family: var(--font-head); font-weight: 500;
         font-size: clamp(1.08rem, 4vw, 1.35rem); line-height: 1.9; letter-spacing: 0.03em;
     }
     .story-text strong { color: var(--ink); font-weight: 700; }
@@ -574,9 +586,10 @@
         margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--line);
         font-family: var(--font-head); letter-spacing: 0.08em; color: var(--ink);
     }
-    .story-photo .photo-frame { aspect-ratio: 16 / 10; }
+    .story-photo { max-width: 440px; justify-self: center; width: 100%; }
+    .story-photo .photo-frame { aspect-ratio: 4 / 5; }
     .story-photo figcaption { margin-top: 10px; font-size: 0.8rem; color: var(--dim); }
-    /* 写真（16/10）が右上に張り付き、下に本文の長さぶんの黒い空きが残るので中央に落とす */
+    /* 写真が右上に張り付き、下に本文の長さぶんの黒い空きが残るので中央に落とす */
     @media (min-width: 861px) { .story-grid { align-items: center; } }
     @media (max-width: 860px) { .story-grid { grid-template-columns: 1fr; } }
 
@@ -592,14 +605,14 @@
         color: var(--ink); margin-bottom: 5px;
     }
     .craft-list dt::before {
-        content: ''; display: inline-block; width: 18px; height: 2px;
+        content: ''; display: inline-block; width: 18px; height: 1px;
         background: var(--accent); vertical-align: middle; margin-right: 10px;
     }
     .craft-list dd { color: var(--muted); font-size: 0.94rem; line-height: 2.05; padding-left: 28px; }
     .craft-word {
         margin-top: clamp(28px, 4vw, 44px);
         background: var(--surface); border: 1px solid var(--line);
-        border-left: 4px solid var(--accent);
+        border-left: 1px solid var(--accent);
         padding: clamp(18px, 3vw, 26px);
         font-family: var(--font-head); font-size: clamp(1rem, 3.6vw, 1.2rem);
         line-height: 1.9; letter-spacing: 0.03em;
@@ -624,20 +637,46 @@
     .rank li:first-child { border-color: var(--accent); background: var(--surface-2); }
     .rank .item { font-size: clamp(1rem, 3.6vw, 1.12rem); letter-spacing: 0.04em; }
     .rank .yen { margin-left: auto; color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
+    .best-grid { display: grid; gap: clamp(20px, 3.4vw, 40px); }
+    .best-photo .photo-frame { aspect-ratio: 4 / 3; }
+    .best-photo figcaption { margin-top: 10px; font-size: 0.8rem; color: var(--dim); }
+    @media (min-width: 861px) { .best-grid { grid-template-columns: 1.15fr 0.85fr; align-items: center; } }
+
+    /* --- 小山市のブランド豚「おとん」（2026-10-07。黒金の見せ場） ---------------
+       上下を金の細罫で切り、写真を二重罫の額に入れる。図形は置かない（絶対ルール⑫） */
+    .oton { background: var(--surface); border-block: 1px solid var(--gold-line); }
+    .oton-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+    .oton-photo .photo-frame {
+        aspect-ratio: 4 / 3; border-color: var(--accent);
+        outline: 1px solid var(--gold-line); outline-offset: 6px;
+    }
+    /* 黒皿＋黒背景のスタジオ写真なので寄せて持ち上げる（以前のお品書きと同じ補正） */
+    .oton-photo .photo-frame img { object-position: 50% 52%; transform: scale(1.32); filter: brightness(1.12) contrast(1.04); }
+    .oton-list { display: grid; gap: 0; border-top: 1px solid var(--gold-line); }
+    .oton-list > div { padding: 18px 0; border-bottom: 1px solid var(--gold-line); }
+    .oton-list dt {
+        font-family: var(--font-head); font-weight: 500; font-size: 1.08rem;
+        letter-spacing: 0.08em; color: var(--accent-hi); margin-bottom: 6px;
+    }
+    .oton-list dd { color: var(--muted); font-size: 0.94rem; line-height: 2.05; }
+    .oton-price { margin-top: 20px; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.04em; }
+    .oton-price .oton-yen { font-family: var(--font-head); color: var(--accent); font-size: 1.1rem; margin-left: 6px; }
+    @media (max-width: 860px) {
+        .oton-grid { grid-template-columns: 1fr; }
+        .oton-photo { max-width: 460px; width: 100%; margin-inline: auto; }
+    }
 
     /* --- お品書き（B-2 カードグリッド。build_menu.py が出すマークアップを飾る） -- */
     .subnav {
         position: sticky; top: var(--header-h); z-index: 80;
-        background: rgba(23, 24, 26, 0.92); backdrop-filter: blur(10px);
+        background: rgba(18, 17, 19, 0.92); backdrop-filter: blur(10px);
         border-bottom: 1px solid var(--line);
-        /* 4章あるのでスマホでは右にはみ出す。右端をぼかして「まだ続く」ことを見せる */
-        -webkit-mask-image: linear-gradient(to right, #000 0 88%, transparent 100%);
-                mask-image: linear-gradient(to right, #000 0 88%, transparent 100%);
     }
-    @media (min-width: 640px) { .subnav { -webkit-mask-image: none; mask-image: none; } }
     .subnav-inner {
         width: min(100% - 2 * var(--pad-inner), var(--maxw)); margin-inline: auto;
         display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none;
+        /* 2026-10-07 章が5つになり390pxで3つ隠れた（check_tabs）。折り返して中央にそろえる */
+        flex-wrap: wrap; justify-content: center; overflow: visible; row-gap: 0;
     }
     .subnav-inner::-webkit-scrollbar { display: none; }
     .subnav a {
@@ -657,11 +696,11 @@
     .menu-block:last-child { margin-bottom: 0; }
     .menu-head {
         display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
-        padding-bottom: 10px; border-bottom: 2px solid var(--accent);
+        padding-bottom: 12px; border-bottom: 1px solid var(--gold-line);
         margin-bottom: 16px;
     }
     .menu-head h2 {
-        font-family: var(--font-head); font-weight: 400;
+        font-family: var(--font-head); font-weight: 500;
         font-size: clamp(1.25rem, 4.6vw, 1.6rem); letter-spacing: 0.06em;
     }
     .menu-head .yomi { font-size: 0.68rem; letter-spacing: 0.26em; color: var(--dim); }
@@ -698,7 +737,7 @@
     /* 写真が1枚しかない章では、グリッドの1列が本文幅いっぱいに広がって
        元写真より大きく引き伸ばされる（check_upscale.py が拾う）。幅で止める */
     .menu-photos > figure:only-child { max-width: 460px; }
-    /* 黒皿＋黒背景のスタジオ写真で、地 #17181A と溶けて空のカードに見えるので寄せて持ち上げる */
+    /* 黒皿＋黒背景のスタジオ写真で、地の黒と溶けて空のカードに見えるので寄せて持ち上げる */
     .menu-photos .photo-frame img[src*="shop-chashu-studio"] {
         transform: scale(1.4); filter: brightness(1.12) contrast(1.04);
     }
@@ -712,29 +751,28 @@
     .section-board {
         background: var(--board);
         background-image: repeating-linear-gradient(
-            to bottom, rgba(31,33,31,0.055) 0 1px, transparent 1px 34px);
+            to bottom, rgba(201,173,120,0.07) 0 1px, transparent 1px 34px);
         color: var(--board-ink);
     }
     .section-board .section-title { color: var(--board-ink); }
-    .section-board .title-wrap .en { color: var(--accent-deep); }
+    .section-board { border-block: 1px solid var(--gold-line); }
     .section-board .section-lead { color: var(--board-muted); }
     .nabe-grid { display: grid; grid-template-columns: 1fr 0.92fr; gap: clamp(24px, 4vw, 48px); align-items: start; }
     .nabe-table { width: 100%; margin-bottom: 22px; }
     .nabe-table th, .nabe-table td {
-        padding: 11px 4px; border-bottom: 1px solid rgba(31,33,31,0.16); text-align: left;
+        padding: 11px 4px; border-bottom: 1px solid var(--gold-line); text-align: left;
     }
     .nabe-table th { font-weight: 700; font-size: 0.98rem; letter-spacing: 0.05em; }
-    .nabe-table td { text-align: right; font-family: var(--font-head); font-size: 1.2rem; color: var(--accent-deep); }
+    .nabe-table td { text-align: right; font-family: var(--font-head); font-size: 1.2rem; color: var(--accent); }
     .nabe-arrange { display: grid; gap: 9px; }
     .nabe-arrange li {
         display: flex; gap: 11px; font-size: 0.93rem; color: var(--board-muted); line-height: 1.9;
     }
-    .nabe-arrange li::before { content: '・'; color: var(--accent-deep); flex: 0 0 auto; }
+    .nabe-arrange li::before { content: '・'; color: var(--accent); flex: 0 0 auto; }
     .nabe-photo .photo-frame {
-        aspect-ratio: 16 / 10; border-color: rgba(31,33,31,0.2);
-        box-shadow: 0 16px 40px rgba(31,33,31,0.14);
+        aspect-ratio: 4 / 5; max-width: 400px; margin-inline: auto;
     }
-    .nabe-photo figcaption { margin-top: 10px; font-size: 0.8rem; color: var(--board-muted); }
+    .nabe-photo figcaption { text-align: center; margin-top: 10px; font-size: 0.8rem; color: var(--board-muted); }
     @media (max-width: 820px) { .nabe-grid { grid-template-columns: 1fr; } }
 
     /* --- お持ち帰りと温め方 ---------------------------------------------------- */
@@ -744,11 +782,12 @@
         border-radius: var(--radius); padding: clamp(20px, 3vw, 28px);
     }
     .heat-card h3 {
-        font-family: var(--font-head); font-weight: 400;
+        font-family: var(--font-head); font-weight: 500;
         font-size: clamp(1.05rem, 3.8vw, 1.25rem); letter-spacing: 0.05em; margin-bottom: 12px;
     }
     .heat-card p { color: var(--muted); font-size: 0.94rem; line-height: 2.05; }
     .heat-card .photo-frame { aspect-ratio: 4 / 3; margin-bottom: 16px; }
+    .heat-card .photo-frame img[src*="freezer-packs"] { object-position: 50% 30%; }
     .heat-steps { display: grid; gap: 12px; margin-top: 14px; }
     .heat-steps li { display: flex; gap: 12px; align-items: baseline; font-size: 0.94rem; color: var(--muted); }
     .heat-steps .n {
@@ -766,7 +805,7 @@
         border: 1px solid var(--accent); border-radius: var(--radius);
         color: var(--accent-hi); font-weight: 700; letter-spacing: 0.04em; font-size: 0.94rem;
     }
-    .ship-link:hover { background: var(--accent); color: #17181A; }
+    .ship-link:hover { background: var(--accent); color: var(--bg); }
     /* 2つ目の入口（野木町のふるさと納税）。通販を主役のままにするため、こちらは罫だけ */
     .ship-links { display: flex; flex-wrap: wrap; gap: 12px; }
     .ship-link-sub { border-color: var(--line-strong); color: var(--muted); }
@@ -781,10 +820,10 @@
         font-size: 0.95rem; line-height: 2.05; color: var(--muted);
     }
     /* 鍵括弧は使わない（1つ目の声が「もつ煮」を含んでいて括弧が入れ子になる）。
-       受けるのはファビコンと同じ湯気。この店だけの目印にする */
+       受けるのは金の細線1本（2026-10-07 湯気の絵から差し替え） */
     .voice-grid blockquote::before {
-        content: ''; display: block; width: 30px; height: 20px; margin-bottom: 12px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 24'%3E%3Cg stroke='%23DD6A93' stroke-width='2.2' stroke-linecap='round' fill='none'%3E%3Cpath d='M6 22c-3.5-3.5 3.5-5.5 0-9s3.5-5 0-7.5'/%3E%3Cpath d='M18 22c-3.5-3.5 3.5-5.5 0-9s3.5-5 0-9.5'/%3E%3Cpath d='M30 22c-3.5-3.5 3.5-5.5 0-9'/%3E%3C/g%3E%3C/svg%3E") no-repeat left center / contain;
+        content: ''; display: block; width: 28px; height: 1px; margin-bottom: 16px;
+        background: var(--accent);
     }
     .voice-grid cite {
         display: block; margin-top: 14px; font-style: normal;
@@ -810,7 +849,7 @@
     .nabe-tel {
         margin-top: 18px; font-size: 0.95rem; line-height: 2; color: var(--board-muted);
     }
-    .nabe-tel a { color: var(--accent-deep); font-weight: 700; }
+    .nabe-tel a { color: var(--accent-hi); font-weight: 700; }
     .ig-link { color: var(--accent-hi); }
     .info-note { margin-top: 14px; font-size: 0.86rem; color: var(--dim); line-height: 1.9; }
     /* 右の列（写真＋地図）を左の表の高さまで伸ばす。伸ばさないと地図の下に空きができる */
@@ -922,6 +961,7 @@
 <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルナビゲーション">
     <a href="#story"   data-nav-link>名前のこと</a>
     <a href="#craft"   data-nav-link>もつ煮のこと</a>
+    <a href="#oton"    data-nav-link>おとんのチャーシュー</a>
     <a href="#menu"    data-nav-link>お品書き</a>
     <a href="#nabe"    data-nav-link>鍋持参の割引</a>
     <a href="#takeout" data-nav-link>お持ち帰り・温め方</a>
@@ -948,7 +988,7 @@
 
         <p class="hero-catch"><span class="nw">逃げない</span><span class="nw">味。</span><br class="br-sp"><span class="nw">ごまかさない</span><span class="nw">量。</span></p>
 
-        <p class="hero-lead"><span class="nw">栃木県野木町、</span><span class="nw">国道</span><span class="nw">4号沿いのもつ</span><span class="nw">煮屋です。</span><span class="nw">三種類の</span><span class="nw">味噌をあわせ、</span><span class="nw">一時間かけて</span><span class="nw">煮込んで</span><span class="nw">おります。</span><span class="nw">テイクアウト</span><span class="nw">専用の</span><span class="nw">お店です。</span><span class="nw">お電話を</span><span class="nw">いただければ、</span><span class="nw">ご用意して</span><span class="nw">お待ちし</span><span class="nw">ております。</span></p>
+        <p class="hero-lead"><span class="nw">栃木県野木町、</span><span class="nw">国道</span><span class="nw">4号沿いのもつ</span><span class="nw">煮屋です。</span><span class="nw">三種類の</span><span class="nw">味噌をあわせ、</span><span class="nw">一時間かけて</span><span class="nw">煮込んで</span><span class="nw">おります。</span><span class="nw">テイクアウト</span><span class="nw">専用の</span><span class="nw">お店です。</span><span class="nw">お電話を</span><span class="nw">いただければ、</span><span class="nw">ご用意して</span><span class="nw">お待ちして</span><span class="nw">おります。</span></p>
 
         <div class="hero-actions">
             <a href="tel:0280232312" class="btn btn-primary">
@@ -975,9 +1015,9 @@
             <div class="reveal">
                 <div class="title-wrap">
                     <span class="en">DELIVERY</span>
-                    <h2 class="section-title"><span class="nw">全国へ</span><span class="nw">お送りし</span><span class="nw">ております</span></h2>
+                    <h2 class="section-title"><span class="nw">全国へ</span><span class="nw">お送りして</span><span class="nw">おります</span></h2>
                 </div>
-                <p style="color:var(--muted);line-height:2.05;font-size:clamp(.94rem,3.1vw,1rem);"><span class="nw">当店の</span><span class="nw">通販の</span><span class="nw">ページから、</span><span class="nw">冷凍の</span><span class="nw">真空パックを</span><span class="nw">全国へ</span><span class="nw">お送りし</span><span class="nw">ております。</span><span class="nw">キャンプや</span><span class="nw">お酒のおともにも</span><span class="nw">お選び</span><span class="nw">いただい</span><span class="nw">ております。</span><span class="nw">野木町のふるさと</span><span class="nw">納税の</span><span class="nw">返礼品にも、</span><span class="nw">当店のもつ</span><span class="nw">煮と</span><span class="nw">チャーシューを</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">飲食店さまへの</span><span class="nw">卸しも</span><span class="nw">承っ</span><span class="nw">ております</span><span class="nw">ので、</span><span class="nw">お電話で</span><span class="nw">ご相談ください。</span></p>
+                <p style="color:var(--muted);line-height:2.05;font-size:clamp(.94rem,3.1vw,1rem);"><span class="nw">当店の</span><span class="nw">通販の</span><span class="nw">ページから、</span><span class="nw">冷凍の</span><span class="nw">真空パックを</span><span class="nw">全国へ</span><span class="nw">お送りして</span><span class="nw">おります。</span><span class="nw">キャンプや</span><span class="nw">お酒のおともにも</span><span class="nw">お選び</span><span class="nw">いただいて</span><span class="nw">おります。</span><span class="nw">野木町のふるさと</span><span class="nw">納税の</span><span class="nw">返礼品にも、</span><span class="nw">当店のもつ</span><span class="nw">煮と</span><span class="nw">チャーシューを</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">飲食店さまへの</span><span class="nw">卸しも</span><span class="nw">承って</span><span class="nw">おります</span><span class="nw">ので、</span><span class="nw">お電話で</span><span class="nw">ご相談ください。</span></p>
                 <div class="ship-links">
                     <a href="https://kantaro.buyshop.jp/" class="ship-link" target="_blank" rel="noopener">
                         通販のページを見る
@@ -1009,7 +1049,7 @@
 <section class="flow">
     <div class="container">
         <h2 class="flow-head reveal"><span class="nw">ご注文から、</span><span class="nw">お渡しまで</span></h2>
-        <p class="flow-note reveal"><span class="nw">お鍋を</span><span class="nw">お持ち</span><span class="nw">いただくと、</span><span class="nw">三人前から</span><a href="#nabe" style="color:var(--accent-hi);text-decoration:underline;"><span class="nw">割引をし</span><span class="nw">ております</span></a>。</p>
+        <p class="flow-note reveal"><span class="nw">お鍋を</span><span class="nw">お持ち</span><span class="nw">いただくと、</span><span class="nw">三人前から</span><a href="#nabe" style="color:var(--accent-hi);text-decoration:underline;"><span class="nw">割引をして</span><span class="nw">おります</span></a>。</p>
 
         <div class="flow-steps">
             <div class="flow-step reveal">
@@ -1026,7 +1066,7 @@
             <div class="flow-step reveal reveal-delay-2">
                 <span class="flow-num">3</span>
                 <h3><span class="nw">お家で、</span><span class="nw">そのまま</span></h3>
-                <p><span class="nw">お持ち</span><span class="nw">帰りの</span><span class="nw">品はそのまま</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただけます。</span><span class="nw">冷凍の</span><span class="nw">真空パックは、</span><span class="nw">湯せんで</span><span class="nw">五分。</span><span class="nw">もつ</span><span class="nw">焼きはそのあと</span><span class="nw">フライパンで</span><span class="nw">焼き</span><span class="nw">色をつけて</span><span class="nw">ください。</span></p>
+                <p><span class="nw">お持ち</span><span class="nw">帰りの</span><span class="nw">品はそのまま</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただけます。</span><span class="nw">冷凍の</span><span class="nw">真空パックは、</span><span class="nw">もつ</span><span class="nw">煮込みは</span><span class="nw">袋のまま</span><span class="nw">湯せんで、</span><span class="nw">もつ</span><span class="nw">焼きは</span><span class="nw">解凍してそのまま、</span><span class="nw">または</span><span class="nw">フライパンで</span><span class="nw">軽く</span><span class="nw">炒めてどうぞ。</span></p>
             </div>
         </div>
     </div>
@@ -1053,11 +1093,13 @@
             </div>
 
             <figure class="story-photo reveal reveal-delay-1">
+                <!-- ★人物の写真だが、ご本人（店主 相良 淳様）から掲載の許可をいただいている（2026-10-07・丸藤）。
+                     check_people.py が拾うのは想定どおり。絶対ルール⑯の例外（_引き継ぎ.md ⑨） -->
                 <div class="photo-frame">
-                    <img src="img/kanban-logo.jpg" alt="白い幕に描かれた「もつ煮屋」の文字と、湯気の立つ器を手にした店主のイラスト。左下に筆文字で「貫太郎」"
-                         width="1200" height="675" loading="lazy" decoding="async">
+                    <img src="img/owner-sagara.jpg" alt="厨房で、寸胴鍋のもつ煮をかき混ぜる店主の相良"
+                         width="960" height="1200" loading="lazy" decoding="async">
                 </div>
-                <figcaption><span class="nw">国道</span><span class="nw">4号から</span><span class="nw">見えるのは、</span><span class="nw">この</span><span class="nw">幕です。</span></figcaption>
+                <figcaption><span class="nw">一時間、</span><span class="nw">この</span><span class="nw">寸胴で</span><span class="nw">煮込みます。</span></figcaption>
             </figure>
         </div>
     </div>
@@ -1070,7 +1112,7 @@
         <div class="title-wrap reveal">
             <span class="en">OUR MOTSUNI</span>
             <h2 class="section-title"><span class="nw">もつ</span><span class="nw">煮の</span><span class="nw">こと</span></h2>
-            <p class="section-lead"><span class="nw">最初のひと</span><span class="nw">口はあっさりと、</span><span class="nw">あとから</span><span class="nw">コクが</span><span class="nw">来る。</span><span class="nw">そういうもつ</span><span class="nw">煮を</span><span class="nw">目指して</span><span class="nw">作っ</span><span class="nw">ております。</span></p>
+            <p class="section-lead"><span class="nw">最初のひと</span><span class="nw">口はあっさりと、</span><span class="nw">あとから</span><span class="nw">コクが</span><span class="nw">来る。</span><span class="nw">そういうもつ</span><span class="nw">煮を</span><span class="nw">目指して</span><span class="nw">作って</span><span class="nw">おります。</span></p>
         </div>
 
         <div class="craft-grid">
@@ -1088,19 +1130,19 @@
             <dl class="craft-list reveal reveal-delay-1">
                 <div>
                     <dt><span class="nw">三種類の</span><span class="nw">味噌</span></dt>
-                    <dd><span class="nw">味の</span><span class="nw">決め</span><span class="nw">手は、</span><span class="nw">三種類の</span><span class="nw">味噌をあわせた</span><span class="nw">ものです。</span><span class="nw">開業以来、</span><span class="nw">ごまかさずに</span><span class="nw">作り</span><span class="nw">続け</span><span class="nw">ております。</span></dd>
+                    <dd><span class="nw">味の</span><span class="nw">決め</span><span class="nw">手は、</span><span class="nw">三種類の</span><span class="nw">味噌をあわせた</span><span class="nw">ものです。</span><span class="nw">開業以来、</span><span class="nw">ごまかさずに</span><span class="nw">作り</span><span class="nw">続けて</span><span class="nw">おります。</span></dd>
                 </div>
                 <div>
                     <dt><span class="nw">一時間の</span><span class="nw">煮込み</span></dt>
-                    <dd><span class="nw">一時間ほど</span><span class="nw">煮込み、</span><span class="nw">余分な</span><span class="nw">油は</span><span class="nw">丁寧に</span><span class="nw">取り</span><span class="nw">除い</span><span class="nw">ております。</span><span class="nw">時間がたっても</span><span class="nw">油の</span><span class="nw">膜が</span><span class="nw">張らず、</span><span class="nw">最後まで</span><span class="nw">飲んで</span><span class="nw">いただける</span><span class="nw">スープを</span><span class="nw">目指しました。</span></dd>
+                    <dd><span class="nw">一時間ほど</span><span class="nw">煮込み、</span><span class="nw">余分な</span><span class="nw">油は</span><span class="nw">丁寧に</span><span class="nw">取り</span><span class="nw">除いて</span><span class="nw">おります。</span><span class="nw">時間がたっても</span><span class="nw">油の</span><span class="nw">膜が</span><span class="nw">張らず、</span><span class="nw">最後まで</span><span class="nw">飲んで</span><span class="nw">いただける</span><span class="nw">スープを</span><span class="nw">目指しました。</span></dd>
                 </div>
                 <div>
                     <dt><span class="nw">新しいもつ</span></dt>
-                    <dd><span class="nw">隣の</span><span class="nw">古河市の</span><span class="nw">精肉会社から、</span><span class="nw">新鮮な</span><span class="nw">大腸・</span><span class="nw">小腸・</span><span class="nw">胃袋を</span><span class="nw">仕入れ</span><span class="nw">ております。</span><span class="nw">届いてすぐに</span><span class="nw">仕込みます</span><span class="nw">ので、</span><span class="nw">臭みがありません。</span></dd>
+                    <dd><span class="nw">隣の</span><span class="nw">古河市の</span><span class="nw">精肉会社から、</span><span class="nw">新鮮な</span><span class="nw">大腸・</span><span class="nw">小腸・</span><span class="nw">胃袋を</span><span class="nw">仕入れて</span><span class="nw">おります。</span><span class="nw">届いてすぐに</span><span class="nw">仕込みます</span><span class="nw">ので、</span><span class="nw">臭みがありません。</span></dd>
                 </div>
                 <div>
                     <dt><span class="nw">野木町の</span><span class="nw">野菜</span></dt>
-                    <dd><span class="nw">大根・</span><span class="nw">にんじん・</span><span class="nw">ごぼうは、</span><span class="nw">野木町の</span><span class="nw">ものを</span><span class="nw">使っ</span><span class="nw">ております。</span></dd>
+                    <dd><span class="nw">大根・</span><span class="nw">にんじん・</span><span class="nw">ごぼうは、</span><span class="nw">野木町の</span><span class="nw">ものを</span><span class="nw">使って</span><span class="nw">おります。</span></dd>
                 </div>
             </dl>
         </div>
@@ -1119,13 +1161,59 @@
             <p class="section-lead"><span class="nw">迷われましたら、</span><span class="nw">この</span><span class="nw">五つから</span><span class="nw">お選び</span><span class="nw">ください。</span></p>
         </div>
 
-        <ol class="rank reveal">
-            <li><span class="no">1</span><span class="item"><span class="nw">坦々もつ</span>煮</span><span class="yen"><span class="nw">970円</span></span></li>
-            <li><span class="no">2</span><span class="item"><span class="nw">もつ</span><span class="nw">煮込み</span></span><span class="yen"><span class="nw">820円</span></span></li>
-            <li><span class="no">3</span><span class="item"><span class="nw">もつから</span><span class="nw">弁当</span><span class="nw">（もつ</span><span class="nw">煮＋</span><span class="nw">唐あげ）</span></span><span class="yen"><span class="nw">1,000円</span></span></li>
-            <li><span class="no">4</span><span class="item"><span class="nw">もつ</span><span class="nw">ライス</span></span><span class="yen"><span class="nw">800円</span></span></li>
-            <li><span class="no">5</span><span class="item"><span class="nw">チャーから</span><span class="nw">弁当</span><span class="nw">（チャーシュー＋</span><span class="nw">唐あげ）</span></span><span class="yen"><span class="nw">1,100円</span></span></li>
-        </ol>
+        <div class="best-grid">
+            <ol class="rank reveal">
+                <li><span class="no">1</span><span class="item"><span class="nw">坦々もつ</span>煮</span><span class="yen"><span class="nw">950円</span></span></li>
+                <li><span class="no">2</span><span class="item"><span class="nw">もつ</span><span class="nw">煮込み</span></span><span class="yen"><span class="nw">800円</span></span></li>
+                <li><span class="no">3</span><span class="item"><span class="nw">もつから</span><span class="nw">弁当</span><span class="nw">（もつ</span><span class="nw">煮＋</span><span class="nw">唐あげ）</span></span><span class="yen"><span class="nw">1,000円</span></span></li>
+                <li><span class="no">4</span><span class="item"><span class="nw">もつ</span><span class="nw">ライス</span></span><span class="yen"><span class="nw">800円</span></span></li>
+                <li><span class="no">5</span><span class="item"><span class="nw">チャーから</span><span class="nw">弁当</span><span class="nw">（チャーシュー＋</span><span class="nw">唐あげ）</span></span><span class="yen"><span class="nw">1,100円</span></span></li>
+            </ol>
+            <figure class="best-photo reveal reveal-delay-1">
+                <div class="photo-frame">
+                    <img src="img/tennai-counter-best5.jpg" alt="お店の受け渡しのカウンター。奥の壁に「当店人気BEST5」を書いた黒板"
+                         width="1200" height="900" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span class="nw">お店の</span><span class="nw">黒板にも、</span><span class="nw">同じ</span><span class="nw">五つを</span><span class="nw">書いて</span><span class="nw">おります。</span></figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══ 小山市のブランド豚「おとん」（2026-10-07 新設・黒金の見せ場） ══════ -->
+<section class="section oton" id="oton">
+    <div class="container">
+        <div class="oton-grid">
+            <figure class="oton-photo reveal">
+                <div class="photo-frame">
+                    <img src="img/shop-chashu-studio.jpg" alt="チャーシューの薄切りを白い角皿に扇状に並べたところ"
+                         width="1200" height="900" loading="lazy" decoding="async">
+                </div>
+            </figure>
+            <div class="oton-body reveal reveal-delay-1">
+                <div class="title-wrap">
+                    <span class="en">OTON PORK</span>
+                    <h2 class="section-title"><span class="nw">小山の</span><span class="nw">豚、</span><span class="nw">おとんで</span><span class="nw">作る</span><span class="nw">チャーシュー</span></h2>
+                    <p class="section-lead"><span class="nw">当店の</span><span class="nw">チャーシューには、</span><span class="nw">隣の</span><span class="nw">小山市の</span><span class="nw">ブランド</span>豚<span class="nw">「おとん」を</span><span class="nw">使って</span><span class="nw">おります。</span></p>
+                </div>
+                <dl class="oton-list">
+                    <div>
+                        <dt><span class="nw">小山市のおとん</span></dt>
+                        <dd><span class="nw">栃木県小山市の</span><span class="nw">ブランド</span>豚<span class="nw">「おとん」を</span><span class="nw">使って</span><span class="nw">おります。</span><span class="nw">国産の</span><span class="nw">豚です。</span></dd>
+                    </div>
+                    <div>
+                        <dt><span class="nw">甘ダレ</span><span class="nw">仕立て</span></dt>
+                        <dd><span class="nw">冷凍の</span><span class="nw">チャーシューは、</span><span class="nw">甘ダレで</span><span class="nw">仕立てて</span><span class="nw">おります。</span><span class="nw">袋に</span><span class="nw">残った</span><span class="nw">甘ダレは、</span><span class="nw">煮詰めて</span><span class="nw">お肉にかけて</span><span class="nw">ください。</span></dd>
+                    </div>
+                    <div>
+                        <dt><span class="nw">焼いて、</span><span class="nw">のせて</span></dt>
+                        <dd><span class="nw">冷凍の</span><span class="nw">ものは</span><span class="nw">解凍のあと、</span><span class="nw">フライパンで</span><span class="nw">焼き</span><span class="nw">色をつけて</span><span class="nw">ください。</span><span class="nw">ラーメンにのせても、</span><span class="nw">チャーシュー</span><span class="nw">丼にしても。</span></dd>
+                    </div>
+                </dl>
+                <p class="oton-price"><span class="nw">店頭の</span><span class="nw">手作り</span><span class="nw">チャーシュー</span>　<span class="nw">豚バラ・</span><span class="nw">肩ロース</span>　各200g <span class="nw oton-yen">1,500円</span></p>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1155,12 +1243,11 @@
             <p class="menu-note"><span class="nw">もつ</span><span class="nw">煮込みと</span><span class="nw">坦々もつ</span><span class="nw">煮は、</span><span class="nw">蓋つきの</span><span class="nw">カップに</span><span class="nw">お入れします。</span><span class="nw">薬味の</span><span class="nw">白髪ねぎは</span><span class="nw">別の</span><span class="nw">容器で</span><span class="nw">お付けします。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list">
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span><span class="nw">（1人前）</span></span><span class="dots"></span><span class="price"><span class="nw">820円</span><small><span class="nw">2人前</span> <span class="nw">1,640円</span></small></span></li>
-                    <li><span class="name"><span class="nw">坦々もつ</span>煮<span class="nw">（1人前）</span><span class="desc"><span class="nw">元祖坦々もつ</span><span class="nw">煮。</span><span class="nw">当店で</span><span class="nw">一番出ております</span></span></span><span class="dots"></span><span class="price"><span class="nw">970円</span><small><span class="nw">2人前</span> <span class="nw">1,940円</span></small></span></li>
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">塩・</span><span class="nw">味噌・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span><span class="dots"></span><span class="price"><span class="nw">780円</span></span></li>
-                    <li><span class="name"><span class="nw">唐あげ</span><span class="nw">（5個入）</span></span><span class="dots"></span><span class="price"><span class="nw">850円</span></span></li>
-                    <li><span class="name"><span class="nw">ヤンニョムチキン</span><span class="nw">（4個入）</span></span><span class="dots"></span><span class="price"><span class="nw">950円</span></span></li>
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">コッペパン</span></span><span class="dots"></span><span class="price"><span class="nw">600円</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span><span class="nw">（1人前）</span><span class="desc"><span class="nw">当店のおすすめです</span></span></span><span class="dots"></span><span class="price"><span class="nw">800円</span><small><span class="nw">2人前</span> <span class="nw">1,600円</span></small></span></li>
+                    <li><span class="name"><span class="nw">坦々もつ</span>煮<span class="nw">（1人前）</span><span class="desc"><span class="nw">元祖坦々もつ</span><span class="nw">煮。</span><span class="nw">当店で</span><span class="nw">一番出て</span><span class="nw">おります</span></span></span><span class="dots"></span><span class="price"><span class="nw">950円</span><small><span class="nw">2人前</span> <span class="nw">1,900円</span></small></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">塩・</span><span class="nw">味噌・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span><span class="dots"></span><span class="price"><span class="nw">750円</span></span></li>
+                    <li><span class="name"><span class="nw">唐あげ</span><span class="nw">（5個入）</span><span class="desc"><span class="nw">人気のひと</span><span class="nw">品です</span></span></span><span class="dots"></span><span class="price"><span class="nw">830円</span></span></li>
+                    <li><span class="name"><span class="nw">ヤンニョムチキン</span><span class="nw">（4個入）</span></span><span class="dots"></span><span class="price"><span class="nw">930円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1207,8 +1294,7 @@
                     <li><span class="name"><span class="nw">からあげ</span><span class="nw">弁当</span><span class="desc"><span class="nw">唐あげ</span><span class="nw">四個</span></span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
                     <li><span class="name"><span class="nw">もつ</span><span class="nw">ライス</span></span><span class="dots"></span><span class="price"><span class="nw">800円</span></span></li>
                     <li><span class="name"><span class="nw">坦々もつ</span><span class="nw">ライス</span></span><span class="dots"></span><span class="price"><span class="nw">900円</span></span></li>
-                    <li><span class="name"><span class="nw">大盛り</span><span class="desc"><span class="nw">お弁当・</span><span class="nw">ごはん</span><span class="nw">ものと</span><span class="nw">ご一緒にどうぞ</span></span></span><span class="dots"></span><span class="price"><span class="nw">150円</span></span></li>
-                    <li><span class="name"><span class="nw">塩むすび</span></span><span class="dots"></span><span class="price"><span class="nw">150円</span></span></li>
+                    <li><span class="name"><span class="nw">ご飯</span> <span class="nw">大盛り</span><span class="desc"><span class="nw">お弁当・</span><span class="nw">ごはん</span><span class="nw">ものと</span><span class="nw">ご一緒にどうぞ</span></span></span><span class="dots"></span><span class="price"><span class="nw">150円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
@@ -1226,54 +1312,52 @@
                     </div>
                     <figcaption><span class="nw">もつ</span><span class="nw">ライス</span></figcaption>
                 </figure>
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/shiomusubi.jpg" alt="黒ごまをまぶした三角の塩むすび"
-                             width="960" height="720" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">塩むすび</span></figcaption>
-                </figure>
             </div>
         </div>
 
         <div class="menu-block reveal" id="menu-frozen">
             <div class="menu-head"><h2><span class="nw">冷凍の</span><span class="nw">真空パック</span></h2><span class="yomi">FROZEN</span></div>
-            <p class="menu-note"><span class="nw">店頭の</span><span class="nw">冷凍ケースから</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">湯せんで</span><span class="nw">五分で</span><span class="nw">温まります。</span><span class="nw">お値段は</span><span class="nw">店頭か</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
+            <p class="menu-note"><span class="nw">店頭の</span><span class="nw">冷凍ケースから</span><span class="nw">お選び</span><span class="nw">いただけます。</span><span class="nw">お家で</span><span class="nw">手軽に、</span><span class="nw">お土産にも。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span></span></li>
-                    <li><span class="name"><span class="nw">坦々もつ</span>煮</span></li>
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">味噌・</span><span class="nw">塩・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">煮込み</span></span><span class="dots"></span><span class="price"><span class="nw">850円</span></span></li>
+                    <li><span class="name"><span class="nw">坦々もつ</span>煮</span><span class="dots"></span><span class="price"><span class="nw">1,000円</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼き</span><span class="desc"><span class="nw">塩・</span><span class="nw">味噌・</span><span class="nw">醤油から</span><span class="nw">お選び</span><span class="nw">ください</span></span></span><span class="dots"></span><span class="price"><span class="nw">800円</span></span></li>
                 </ul>
             </div>
             <div class="menu-photos">
                 <figure>
                     <div class="photo-frame">
-                        <img src="img/shop-pack-tray.jpg" alt="ラベルを貼った真空パックのもつ煮を、金属のトレーに並べているところ"
+                        <img src="img/pack-motsuni-2026.jpg" alt="冷凍のもつ煮込みの真空パック。豚の絵のラベル"
                              width="900" height="1200" loading="lazy" decoding="async">
                     </div>
-                    <figcaption><span class="nw">仕込みの</span>日</figcaption>
+                    <figcaption><span class="nw">もつ</span><span class="nw">煮込み</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/pack-motsuyaki-miso-2026.jpg" alt="「モツ焼き みそ味」のラベルを貼った冷凍の真空パック"
+                             width="900" height="1200" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">もつ</span><span class="nw">焼き</span><span class="nw">（味噌）</span></figcaption>
+                </figure>
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/pack-motsuyaki-shio-2026.jpg" alt="「モツ焼き しお味」のラベルを貼った冷凍の真空パック"
+                             width="900" height="1200" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">もつ</span><span class="nw">焼き</span><span class="nw">（塩）</span></figcaption>
                 </figure>
             </div>
         </div>
 
         <div class="menu-block reveal" id="menu-chashu">
             <div class="menu-head"><h2><span class="nw">手作り</span><span class="nw">チャーシュー</span></h2><span class="yomi">CHASHU</span></div>
-            <p class="menu-note"><span class="nw">とろとろになるまで</span><span class="nw">煮込んで</span><span class="nw">おります。</span><span class="nw">豚バラと</span><span class="nw">肩ロースの</span><span class="nw">二種を</span><span class="nw">ご用意し</span><span class="nw">ております。</span></p>
+            <p class="menu-note"><span class="nw">とろとろになるまで</span><span class="nw">煮込んで</span><span class="nw">おります。</span><span class="nw">豚バラと</span><span class="nw">肩ロースの</span><span class="nw">二種を</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">小山市の</span><span class="nw">ブランド</span>豚<span class="nw">「おとん」を</span><span class="nw">使って</span><span class="nw">おります。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
                     <li><span class="name"><span class="nw">豚バラ</span></span><span class="dots"></span><span class="price">200g <span class="nw">1,500円</span></span></li>
                     <li><span class="name"><span class="nw">肩ロース</span></span><span class="dots"></span><span class="price">200g <span class="nw">1,500円</span></span></li>
                 </ul>
-            </div>
-            <div class="menu-photos">
-                <figure>
-                    <div class="photo-frame">
-                        <img src="img/shop-chashu-studio.jpg" alt="チャーシューの薄切りを白い角皿に扇状に並べたところ"
-                             width="1200" height="900" loading="lazy" decoding="async">
-                    </div>
-                    <figcaption><span class="nw">手作り</span><span class="nw">チャーシュー</span></figcaption>
-                </figure>
             </div>
         </div>
 
@@ -1282,9 +1366,18 @@
             <p class="menu-note"><span class="nw">ご用意のない</span><span class="nw">日も</span><span class="nw">ございます。</span><span class="nw">お電話で</span><span class="nw">お確かめ</span><span class="nw">ください。</span></p>
             <div class="menu-grid">
                 <ul class="menu-list menu-list--solo">
-                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼きそば</span></span><span class="dots"></span><span class="price"><span class="nw">730円</span></span></li>
-                    <li><span class="name"><span class="nw">冷凍</span> <span class="nw">吉田もつうどん</span></span><span class="dots"></span><span class="price"><span class="nw">950円</span></span></li>
+                    <li><span class="name"><span class="nw">もつ</span><span class="nw">焼きそば</span></span><span class="dots"></span><span class="price"><span class="nw">700円</span></span></li>
+                    <li><span class="name"><span class="nw">冷凍</span> <span class="nw">吉田もつうどん</span><span class="desc"><span class="nw">富士吉田の</span><span class="nw">吉田うどんとの</span><span class="nw">コラボ</span></span></span><span class="dots"></span><span class="price"><span class="nw">950円</span></span></li>
                 </ul>
+            </div>
+            <div class="menu-photos">
+                <figure>
+                    <div class="photo-frame">
+                        <img src="img/yoshida-udon-collab.jpg" alt="冷凍の吉田もつうどんのパックと「富士の吉田市 限定コラボ」の掲示"
+                             width="1200" height="900" loading="lazy" decoding="async">
+                    </div>
+                    <figcaption><span class="nw">冷凍</span> <span class="nw">吉田もつうどん</span></figcaption>
+                </figure>
             </div>
         </div>
     </div>
@@ -1299,7 +1392,7 @@
         <div class="title-wrap reveal">
             <span class="en">BRING YOUR POT</span>
             <h2 class="section-title"><span class="nw">お鍋を</span><span class="nw">持ってきて</span><span class="nw">ください</span></h2>
-            <p class="section-lead"><span class="nw">三人前より、</span><span class="nw">お鍋を</span><span class="nw">お持ち</span><span class="nw">いただいた</span><span class="nw">方に</span><span class="nw">割引をし</span><span class="nw">ております。</span><span class="nw">スープも</span><span class="nw">増やして</span><span class="nw">お入れします。</span></p>
+            <p class="section-lead"><span class="nw">三人前より、</span><span class="nw">お鍋を</span><span class="nw">お持ち</span><span class="nw">いただいた</span><span class="nw">方に</span><span class="nw">割引をして</span><span class="nw">おります。</span><span class="nw">スープも</span><span class="nw">増やして</span><span class="nw">お入れします。</span></p>
         </div>
 
         <div class="nabe-grid">
@@ -1323,10 +1416,10 @@
 
             <figure class="nabe-photo reveal reveal-delay-1">
                 <div class="photo-frame">
-                    <img src="img/kanban-nabe-jisan.jpg" alt="店頭のA型看板。「鍋持参でお得！特典付き！」と書かれた黄色い貼り紙と、木の扉"
-                         width="1200" height="675" loading="lazy" decoding="async">
+                    <img src="img/kanban-nabe-2026.jpg" alt="店頭の看板。店名の絵の下に「鍋持参でお得！特典付き！3人前以上で割引！」の黄色い貼り紙"
+                         width="864" height="1200" loading="lazy" decoding="async">
                 </div>
-                <figcaption><span class="nw">入口の</span><span class="nw">看板でも</span><span class="nw">ご案内し</span><span class="nw">ております。</span></figcaption>
+                <figcaption><span class="nw">入口の</span><span class="nw">看板でも</span><span class="nw">ご案内して</span><span class="nw">おります。</span></figcaption>
             </figure>
         </div>
     </div>
@@ -1344,25 +1437,25 @@
         <div class="heat-grid">
             <div class="heat-card reveal">
                 <div class="photo-frame">
-                    <img src="img/takeout-freezer-case.jpg" alt="店頭の冷凍ケース。ラベルの付いた真空パックが並んでいる"
-                         width="1200" height="787" loading="lazy" decoding="async">
+                    <img src="img/freezer-packs-2026.jpg" alt="店頭の冷凍ケースの中。もつ煮込みともつ焼きの真空パックが並んでいる"
+                         width="900" height="1200" loading="lazy" decoding="async">
                 </div>
                 <h3><span class="nw">店頭の</span><span class="nw">冷凍ケースから</span></h3>
-                <p><span class="nw">もつ</span><span class="nw">煮込み・</span><span class="nw">坦々もつ</span><span class="nw">煮・</span><span class="nw">もつ</span><span class="nw">焼きは、</span><span class="nw">冷凍の</span><span class="nw">真空パックでも</span><span class="nw">ご用意し</span><span class="nw">ております。</span><span class="nw">店頭の</span><span class="nw">ケースから</span><span class="nw">お選び</span><span class="nw">ください。</span><span class="nw">お持たせにも、</span><span class="nw">買い</span><span class="nw">置きにもどうぞ。</span></p>
+                <p><span class="nw">もつ</span><span class="nw">煮込み・</span><span class="nw">坦々もつ</span><span class="nw">煮・</span><span class="nw">もつ</span><span class="nw">焼きは、</span><span class="nw">冷凍の</span><span class="nw">真空パックでも</span><span class="nw">ご用意して</span><span class="nw">おります。</span><span class="nw">店頭の</span><span class="nw">ケースから</span><span class="nw">お選び</span><span class="nw">ください。</span><span class="nw">お持たせにも、</span><span class="nw">買い</span><span class="nw">置きにもどうぞ。</span></p>
             </div>
 
             <div class="heat-card reveal reveal-delay-1">
                 <div class="photo-frame">
-                    <img src="img/shop-pack-motsuyaki-shio.jpg" alt="「モツ焼き しお味」のラベルが貼られた真空パック"
+                    <img src="img/pack-motsuyaki-shoyu-2026.jpg" alt="「モツ焼き 醤油味」のラベルを貼った冷凍の真空パック"
                          width="900" height="1200" loading="lazy" decoding="async">
                 </div>
                 <h3><span class="nw">お家での</span><span class="nw">温め</span>方</h3>
                 <ol class="heat-steps">
-                    <li><span class="n">1</span><span><span class="nw">袋のまま、</span><span class="nw">湯せんで</span><span class="nw">五分。</span></span></li>
-                    <li><span class="n">2</span><span><span class="nw">もつ</span><span class="nw">焼きは</span><span class="nw">袋から</span><span class="nw">出し、</span><span class="nw">フライパンで</span><span class="nw">焼き</span><span class="nw">色がつくまで</span><span class="nw">焼いて</span><span class="nw">ください。</span></span></li>
-                    <li><span class="n">3</span><span><span class="nw">もつ</span><span class="nw">煮込みは、</span><span class="nw">そのまま</span><span class="nw">器へ</span><span class="nw">移して</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">ください。</span></span></li>
+                    <li><span class="n">1</span><span><span class="nw">もつ</span><span class="nw">煮込みは、</span><span class="nw">袋のまま</span><span class="nw">湯せんして</span><span class="nw">ください。</span><span class="nw">解凍のあと、</span><span class="nw">鍋で</span><span class="nw">弱火で</span><span class="nw">温めて</span><span class="nw">いただいても。</span></span></li>
+                    <li><span class="n">2</span><span><span class="nw">もつ</span><span class="nw">焼きは、</span><span class="nw">解凍のあとそのままで</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただけます。</span><span class="nw">フライパンで</span><span class="nw">軽く</span><span class="nw">炒め、</span><span class="nw">キャベツ・</span><span class="nw">にら・</span><span class="nw">玉ねぎと</span><span class="nw">合わせても。</span></span></li>
+                    <li><span class="n">3</span><span><span class="nw">もつ</span><span class="nw">煮込みは、</span><span class="nw">豆腐やねぎを</span><span class="nw">足して。</span><span class="nw">うどんや</span><span class="nw">ご飯にかけても。</span></span></li>
                 </ol>
-                <p style="margin-top:14px;font-size:.86rem;color:var(--dim);"><span class="nw">量によって、</span><span class="nw">時間は</span><span class="nw">前後いたします。</span></p>
+                <p style="margin-top:14px;font-size:.86rem;color:var(--dim);"><span class="nw">冷凍です</span><span class="nw">ので、</span><span class="nw">お好きな</span><span class="nw">ときに</span><span class="nw">お召し</span><span class="nw">上がり</span><span class="nw">いただけます。</span></p>
             </div>
         </div>
     </div>
@@ -1443,8 +1536,8 @@
                 <div class="info-photos">
                     <figure>
                         <div class="photo-frame">
-                            <img src="img/gaikan-terrace.jpg" alt="白い下見板張りの外観。手描きの案内看板と木の扉、ウッドデッキ"
-                                 width="1200" height="675" loading="lazy" decoding="async">
+                            <img src="img/gaikan-chouchin.jpg" alt="白い板張りの外観。木の扉の前にれんがのアプローチと、「もつ煮」の赤い提灯"
+                                 width="1200" height="900" loading="lazy" decoding="async">
                         </div>
                         <figcaption><span class="nw">入口。</span><span class="nw">手前が</span><span class="nw">駐車場です。</span></figcaption>
                     </figure>
@@ -1453,7 +1546,7 @@
                             <img src="img/takeout-set.jpg" alt="お持ち帰りの一式。蓋をした弁当二折と、もつ煮とねぎのカップ"
                                  width="1200" height="883" loading="lazy" decoding="async">
                         </div>
-                        <figcaption><span class="nw">お持ち</span><span class="nw">帰りの</span><span class="nw">一式。</span><span class="nw">ご注文を</span><span class="nw">いただいてから</span><span class="nw">お包みし</span><span class="nw">ております。</span></figcaption>
+                        <figcaption><span class="nw">お持ち</span><span class="nw">帰りの</span><span class="nw">一式。</span><span class="nw">ご注文を</span><span class="nw">いただいてから</span><span class="nw">お包みして</span><span class="nw">おります。</span></figcaption>
                     </figure>
                 </div>
 
