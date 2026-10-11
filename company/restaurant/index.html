@@ -863,12 +863,36 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.in { opacity: 1; transform: none; }
 
+/* ヒーローの出だし（読み込んだときに1回だけ。オープニングが出る日は幕が明けてから）と、
+   各節の見出し（小見出し → 見出し → リード文の順に、画面に入ったとき1回だけ）。
+   ★2026-10-11 丸藤さん「飲食店の方もふわっとしたアニメーションがあったほうがいい」（工事店・板金のご案内に合わせた）
+   JSが動かない環境では .js が付かないので、最初から全部見えている */
+.js .hero-copy > *, .js .hero-shots { opacity: 0; transform: translateY(18px); }
+.js .hero.is-ready .hero-copy > *, .js .hero.is-ready .hero-shots {
+  opacity: 1; transform: none;
+  transition: opacity .8s cubic-bezier(.25, 1, .5, 1), transform .9s cubic-bezier(.25, 1, .5, 1);
+  transition-delay: var(--d, 0ms);
+}
+.js .hero.is-ready .hero-title { --d: 110ms; }
+.js .hero.is-ready .lead { --d: 230ms; }
+.js .hero.is-ready .hero-actions { --d: 340ms; }
+.js .hero.is-ready .hero-shots { --d: 280ms; }
+.js .eyebrow, .js .section-title, .js .section-lead, .js .reform-lead, .js .cta-band h2, .js .cta-band .container > p {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .8s cubic-bezier(.25, 1, .5, 1), transform .8s cubic-bezier(.25, 1, .5, 1);
+}
+.js .section-title { transition-delay: 90ms; }
+.js .section-lead, .js .reform-lead, .js .cta-band .container > p { transition-delay: 180ms; }
+.js .eyebrow.in, .js .section-title.in, .js .section-lead.in, .js .reform-lead.in, .js .cta-band h2.in, .js .cta-band .container > p.in { opacity: 1; transform: none; }
+
 /* 「視差効果を減らす」設定（iPhone・Macのアクセシビリティ）の人にも、ふわっと出る
    （不透明度だけの）演出と画面の切り替えは残す。止めるのは位置が動くものだけ。
    ★2026-10-02：丸藤さんのMacがこの設定で、以前の「全部止める」書き方だと動きが一つも見えなかった */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { transform: none; transition: opacity 0.7s ease; }
+  .js .hero-copy > *, .js .hero-shots,
+  .js .eyebrow, .js .section-title, .js .section-lead, .js .reform-lead, .js .cta-band h2, .js .cta-band .container > p { transform: none; transition-property: opacity; }
   .btn, .work-card { transition: none; }
 }
 
@@ -1013,6 +1037,7 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
 .opening.land .opening-skip { opacity: 0; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .opening { display: none !important; } }
 </style>
+<script>document.documentElement.classList.add('js');</script>
 <script>
 /* オープニングを出すかどうかの判定。
    本文が描かれる前に <html> に is-opening を付けたいので、ここ(head内)で実行する。
@@ -2044,17 +2069,34 @@ h1, h2, h3, summary, p, dd, li { text-wrap: pretty; }
   timers.push(setTimeout(finish, 4000));
 })();
 
+// ---------- ヒーローの出だし(一度だけ) ----------
+// オープニングが出る日は幕が明けてから、出ない日は書体が読めてから(最大0.5秒で見切る)
+(function () {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  let done = false;
+  function go() { if (done) return; done = true; requestAnimationFrame(() => hero.classList.add('is-ready')); }
+  if (document.documentElement.classList.contains('is-opening')) {
+    document.addEventListener('cwp:opening-done', go);
+    setTimeout(go, 4500);   // 保険
+  } else {
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+    setTimeout(go, 500);
+  }
+})();
+
 // ---------- スクロール出現演出(一度だけ) ----------
 // 「視差効果を減らす」設定でも観察は続ける（CSS側で位置の動きだけ消し、不透明度は残す）
+const REVEAL = '.reveal, .eyebrow, .section-title, .section-lead, .reform-lead, .cta-band h2, .cta-band .container > p';
 if ('IntersectionObserver' in window) {
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
   }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  document.querySelectorAll(REVEAL).forEach((el) => io.observe(el));
 } else {
-  document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+  document.querySelectorAll(REVEAL).forEach((el) => el.classList.add('in'));
 }
 
 // ---------- ヒーローの実物スクリーンショット切り替え ----------
