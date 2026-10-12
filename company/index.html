@@ -285,11 +285,14 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 
 /* 下：見本のスマホ画面3枚。どの画面の高さでも、画面の下3割が扉の下の縁で切れるように置く（はみ出したぶんは見せない）。
    画面の幅は「扉の高さ − 上の言葉のぶん」から決める（扉が低いPCでは小さく、言葉に重ならない） */
-.door-screens { position: absolute; inset: 0; pointer-events: none; }
+/* ★画面を扉の縁で切ると、白い画面が扉の外の地（ほぼ白）とつながって扉の境目が消える（丸藤さん 2026-10-12）。
+   切る位置を下と左右だけ --frame 内側へ寄せ、扉の色の縁を残す。画面の位置は --frame を足し引きして動かさない */
+.door { --frame: clamp(14px, 1.3vw, 20px); }
+.door-screens { position: absolute; inset: 0 var(--frame) var(--frame); overflow: hidden; pointer-events: none; }
 .phone {
   --w: clamp(104px, min(12.5vw, calc((var(--door-h) - 250px) * 0.75)), 172px);   /* 扉が3列になって細くなったぶん小さく */
   --ph: calc(var(--w) * 1.814 + 10px);   /* スマホ画面の高さ（516:936 ＋ 黒い縁） */
-  position: absolute; bottom: calc(var(--ph) * -0.3 - var(--y, 0px)); left: calc(50% - var(--w) / 2 + var(--x, 0px));
+  position: absolute; bottom: calc(var(--ph) * -0.3 - var(--y, 0px) - var(--frame)); left: calc(50% - var(--w) / 2 + var(--x, 0px));
   width: var(--w); padding: 5px; border-radius: 22px; background: #121313;
   box-shadow: 0 24px 48px rgba(10, 14, 12, .32), 0 4px 10px rgba(10, 14, 12, .18);
   transform: translateY(var(--lift, 0px)) rotate(var(--r, 0deg));
@@ -425,7 +428,7 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
   .door {
     --pw: clamp(52px, calc(var(--door-h) * 0.42), 64px);   /* 見本の画面1枚の幅 */
     display: flex; grid-row: auto; height: var(--door-h);
-    justify-content: center; padding: 10px 13px;
+    justify-content: center; padding: 10px 13px; --frame: 7px;
   }
   .door > :not(.door-screens) { max-width: calc(100% - var(--pw) * 2.1 - 4px); }   /* 言葉を画面に重ねない */
   .door-top { display: none; }   /* 番号と欧文は飾り。1段を低くするため */
@@ -438,7 +441,7 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
   .door-go .arw { font-size: 14px; }
   .phone {
     --w: var(--pw); --ph: calc(var(--w) * 1.814 + 6px);
-    top: calc(12px + var(--y, 0px)); bottom: auto; left: calc(100% - var(--w) * 1.55 - 10px + var(--x, 0px));
+    top: calc(12px + var(--y, 0px)); bottom: auto; left: calc(100% - var(--w) * 1.55 - 10px + var(--frame) + var(--x, 0px));
     padding: 3px; border-radius: 11px; box-shadow: 0 10px 20px rgba(10, 14, 12, .3);
   }
   .phone img { border-radius: 8px; }
