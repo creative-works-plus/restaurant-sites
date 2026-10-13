@@ -1222,8 +1222,8 @@ html.has-intro .intro {
     background:
         radial-gradient(ellipse 55% 50% at 50% 46%, rgba(201,173,120,.16), transparent 72%),
         var(--bg);
-    animation: introOut .9s cubic-bezier(.76,0,.24,1) 2.7s forwards,
-               introGone 0s linear 5s forwards;
+    animation: introOut .9s cubic-bezier(.76,0,.24,1) 3.6s forwards,
+               introGone 0s linear 5.5s forwards;
 }
 .intro-inner {
     display: flex; flex-direction: column; align-items: center; gap: 18px;
@@ -1250,6 +1250,14 @@ html.has-intro .intro {
     background: linear-gradient(90deg, transparent, var(--accent-hi), transparent);
     transform: scaleX(0); animation: introRule .9s ease-out 1.25s forwards;
 }
+/* 2026-10-13 オーナー様が選んだ一文（案1）。金の線の下に、最後にふわっと出す。読む間を取るため幕は3.6秒後 */
+.intro-copy {
+    font-family: var(--font-head); font-weight: 500;
+    font-size: clamp(1.15rem, 4.6vw, 1.7rem); line-height: 1.5; letter-spacing: .24em;
+    padding-left: .24em; white-space: nowrap;
+    color: var(--ink); text-shadow: 0 2px 18px rgba(0,0,0,.6);
+    opacity: 0; animation: introCopy 1.2s ease-out 1.7s forwards;
+}
 .intro.is-skip { animation: introOut .5s cubic-bezier(.76,0,.24,1) 0s forwards, introGone 0s linear 1s forwards !important; }
 /* 絵が読み込めるまで幕を待たせる（電波の弱いスマホで空の額が開かないように）。
    読み込みが遅くても、head の setTimeout が 2.5秒で必ず動かす */
@@ -1261,16 +1269,18 @@ html.has-intro:not(.intro-go) .intro * { animation-play-state: paused !important
 }
 @keyframes introUp   { from { opacity: 0; transform: translateY(8px); letter-spacing: .6em; } to { opacity: 1; transform: none; letter-spacing: .36em; } }
 @keyframes introRule { to { transform: scaleX(1); } }
+@keyframes introCopy { from { opacity: 0; filter: blur(6px); transform: translateY(6px); } to { opacity: 1; filter: none; transform: none; } }
 @keyframes introOut  { to { transform: translateY(-100%); } }
 @keyframes introGone { to { visibility: hidden; pointer-events: none; } }
 @keyframes introFade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes introFadeOut { to { opacity: 0; } }
 /* 動きを減らす設定：幕・切り抜き・拡大はやめて、フェードだけ残す（全体の 0.01ms 指定より強く書く） */
 @media (prefers-reduced-motion: reduce) {
-    html.has-intro .intro { animation: introFadeOut .7s ease 2.5s forwards, introGone 0s linear 5s forwards !important; }
+    html.has-intro .intro { animation: introFadeOut .7s ease 3.4s forwards, introGone 0s linear 5.5s forwards !important; }
     html.has-intro .intro .intro-frame { animation: introFade .8s ease .2s forwards !important; }
     html.has-intro .intro .intro-en    { animation: introFade .8s ease .8s forwards !important; }
     html.has-intro .intro .intro-rule  { transform: none; opacity: 0; animation: introFade .8s ease 1s forwards !important; }
+    html.has-intro .intro .intro-copy  { animation: introFade 1s ease 1.4s forwards !important; }
     html.has-intro .intro.is-skip      { animation: introFadeOut .35s ease 0s forwards, introGone 0s linear .5s forwards !important; }
 }
 </style>
@@ -1290,6 +1300,7 @@ html.has-intro:not(.intro-go) .intro * { animation-play-state: paused !important
         <span class="intro-frame"><img src="img/kanban-artwork.jpg" alt="" width="2104" height="1170" fetchpriority="high" onload="document.documentElement.classList.add('intro-go')"></span>
         <span class="intro-en">MOTSUNIYA KANTARO</span>
         <span class="intro-rule"></span>
+        <span class="intro-copy">三種の味噌、一時間の火。</span>
     </div>
 </div>
 
