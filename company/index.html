@@ -87,6 +87,7 @@
       "knowsAbout": [
         "工事店・リフォーム会社のホームページ制作",
         "飲食店のホームページ制作",
+        "宿・ペンションのホームページへの予約の入口の設定",
         "Googleビジネスプロフィールの運用",
         "Googleのクチコミへの返信文の作成"
       ]
@@ -134,6 +135,11 @@
           "@type": "WebPage",
           "name": "飲食店の方へのご案内",
           "url": "https://creative-works-plus.github.io/restaurant-sites/company/restaurant/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "宿・ペンションの皆さまへのご案内",
+          "url": "https://creative-works-plus.github.io/restaurant-sites/company/yado/"
         }
       ],
       "inLanguage": "ja"
@@ -161,6 +167,9 @@
      （「扉が3つなら3つとも見えたほうがいい」＝丸藤さん 2026-10-11）。iPhone SE（見える高さ約548px）でも収める
    ・扉に金額は載せない（15万円と25万円を同じ画面に並べない＝サービスの定義.md ⑯）
    → 2つの版：_work/index_gate2_2026-10-11.html
+   ・★2026-10-18 4つ目の扉「宿・ペンション」（yado/・木の茶色）を足した。宿は見本を先に作る形ではないので、
+     見出しの帯の「いずれも先に」を「ホームページの制作は先に」に直した。3つの版：_work/index_gate3_before_yado_2026-10-18.html
+     PCは4列、タブレット（761〜1024px）は2列×2段、スマホは縦に4段。画面の低いスマホでは業種の行を隠す
    ・角丸・ピル形・アイコン・グラデーションは使わない（安っぽく、AIが作ったように見える）
    ・ページの地は明るい紙のまま（暗い地は読みにくい＝lp-redesign-2026-08 の判断）
    → 寸法の根拠：_work/参考サイト調査_2026-10-02.md ／ 写真を使っていた版：_work/index_gate_photos_2026-10-03.html
@@ -180,6 +189,7 @@
   --a-bg: #1c4a3e;  --a-bg-on: #153a31;  --a-fg: #f6f6f4;  --a-sub: rgba(246, 246, 244, .74);  --a-rule: rgba(246, 246, 244, .26);
   --c-bg: #2c3b4a;  --c-bg-on: #23303d;  --c-fg: #f6f6f4;  --c-sub: rgba(246, 246, 244, .74);  --c-rule: rgba(246, 246, 244, .26);
   --b-bg: #d09a3a;  --b-bg-on: #c38b2b;  --b-fg: #191a18;  --b-sub: rgba(25, 26, 24, .74);     --b-rule: rgba(25, 26, 24, .24);
+  --y-bg: #6e4630;  --y-bg-on: #5c3a27;  --y-fg: #f6f6f4;  --y-sub: rgba(246, 246, 244, .74);  --y-rule: rgba(246, 246, 244, .26);   /* 宿＝木の茶色 */
 
   --head-h: 72px;
   --gap: 20px;
@@ -238,17 +248,18 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
    扉の上半分に言葉、下半分に「できあがるホームページのスマホ画面」を3枚、扇のように並べて下へはみ出させる。
    ★押した先に何があるかが見えないと押されない（色の面と文字だけの版は「地味で、クリックしたくなる引きがない」＝丸藤さん 2026-10-03）
    扉の高さは「画面の高さ − 扉より上」。上の高さは JS が測って --above に入れる */
-.doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
+.doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); }
 .door {
   --bg: var(--a-bg); --bg-on: var(--a-bg-on); --fg: var(--a-fg); --sub: var(--a-sub); --rule: var(--a-rule);
   position: relative; display: flex; flex-direction: column; min-width: 0; overflow: hidden;
   height: var(--door-h);
-  padding: clamp(26px, 2.8vw, 40px) clamp(26px, 3vw, 44px) 0;
+  padding: clamp(22px, 2.4vw, 36px) clamp(20px, 2.2vw, 34px) 0;   /* 4列になって細くなったぶん詰める */
   background: var(--bg); color: var(--fg); text-decoration: none;
   transition: background-color .45s ease;
 }
 .d2 { --bg: var(--c-bg); --bg-on: var(--c-bg-on); --fg: var(--c-fg); --sub: var(--c-sub); --rule: var(--c-rule); }
 .d3 { --bg: var(--b-bg); --bg-on: var(--b-bg-on); --fg: var(--b-fg); --sub: var(--b-sub); --rule: var(--b-rule); }
+.d4 { --bg: var(--y-bg); --bg-on: var(--y-bg-on); --fg: var(--y-fg); --sub: var(--y-sub); --rule: var(--y-rule); }
 .door:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 /* 3つの扉の中の段（番号／宛名／ひとこと／業種／進む）を、行の高さごとそろえる。
    1つだけ説明が2行に折れても、宛名と説明の位置が扉どうしでずれない（320pxでずれた＝2026-10-03） */
@@ -267,7 +278,7 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 
 /* 宛先 → ひとこと → 業種の並び → 進むリンク */
 .door-for { margin-top: clamp(14px, 1.8vw, 24px); font-family: var(--font-display); font-weight: 500; letter-spacing: 0.03em; }
-.door-for .big { display: inline; font-size: clamp(24px, 2.3vw, 36px); line-height: 1.3; }
+.door-for .big { display: inline; font-size: clamp(22px, 1.95vw, 31px); line-height: 1.3; }
 .door-for .sm { display: inline-block; font-size: clamp(14px, 1.2vw, 17px); line-height: 1.5; color: var(--sub); }
 .door-text { display: block; margin-top: clamp(8px, 1vw, 12px); font-size: clamp(14px, 1.1vw, 15.5px); line-height: 1.75; font-weight: 500; }
 .door-kinds { display: block; margin-top: 2px; font-size: 12.5px; line-height: 1.8; color: var(--sub); }
@@ -290,7 +301,7 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 .door { --frame: clamp(14px, 1.3vw, 20px); }
 .door-screens { position: absolute; inset: 0 var(--frame) var(--frame); overflow: hidden; pointer-events: none; }
 .phone {
-  --w: clamp(104px, min(12.5vw, calc((var(--door-h) - 250px) * 0.75)), 172px);   /* 扉が3列になって細くなったぶん小さく */
+  --w: clamp(96px, min(10vw, calc((var(--door-h) - 250px) * 0.75)), 148px);   /* 扉が4列になって細くなったぶん小さく */
   --ph: calc(var(--w) * 1.814 + 10px);   /* スマホ画面の高さ（516:936 ＋ 黒い縁） */
   position: absolute; bottom: calc(var(--ph) * -0.3 - var(--y, 0px) - var(--frame)); left: calc(50% - var(--w) / 2 + var(--x, 0px));
   width: var(--w); padding: 5px; border-radius: 22px; background: #121313;
@@ -389,6 +400,13 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
 .js .is-ready .d3 > .door-go { --d: 980ms; }
 .js .is-ready .d3 .p2 { --d: 880ms; }
 .js .is-ready .d3 .p1, .js .is-ready .d3 .p3 { --d: 1000ms; }
+.js .is-ready .d4 { --d: 480ms; }
+.js .is-ready .d4 > * { --d: 920ms; }
+.js .is-ready .d4 > .door-for { --d: 980ms; }
+.js .is-ready .d4 > .door-text, .js .is-ready .d4 > .door-kinds { --d: 1040ms; }
+.js .is-ready .d4 > .door-go { --d: 1100ms; }
+.js .is-ready .d4 .p2 { --d: 1000ms; }
+.js .is-ready .d4 .p1, .js .is-ready .d4 .p3 { --d: 1120ms; }
 /* 動きが終わったら、マウスを乗せたときの速さに戻す */
 .js .is-done .phone { transition: transform .8s var(--ease-out); transition-delay: 0ms; }
 .js .is-done .door { clip-path: none; }
@@ -407,16 +425,31 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
   .door:hover .phone.p3 { --r: 7deg; }
 }
 
-/* ---------- タブレット（3列のまま。扉が細く背が高くなりすぎないよう、高さの上限を下げる） ---------- */
+/* ---------- タブレット（2列×2段。4列では1つが約170pxで細すぎる。2段とも1画面に入れる） ---------- */
 @media (min-width: 761px) and (max-width: 1024px) {
-  :root { --door-h: clamp(340px, calc(100svh - var(--above, 200px) - 28px), 480px); }
-  .door-top .en-x { display: none; }
+  :root { --door-h: clamp(250px, calc((100svh - var(--above, 200px) - 28px - var(--gap)) / 2), 380px); }
+  .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; height: auto; row-gap: var(--gap); }
+  .door { display: flex; grid-row: auto; height: var(--door-h); }
+  .phone { --w: clamp(96px, min(15vw, calc((var(--door-h) - 170px) * 0.75)), 140px); }
+}
+/* タブレットの横向き（1024×768 など）は扉が低く横に広いので、画面の絵を扉の右に寄せ、言葉を左に置く（下に並べると言葉に重なる） */
+@media (min-width: 761px) and (max-width: 1024px) and (orientation: landscape) {
+  .door { --pw: clamp(92px, calc(var(--door-h) * 0.42), 128px); justify-content: center; padding: 18px 22px; }
+  .door > :not(.door-screens) { max-width: calc(100% - var(--pw) * 2.25 - 8px); }
+  .door-top { display: none; }
+  .door-for { margin-top: 0; }
+  .phone {
+    --w: var(--pw); --ph: calc(var(--w) * 1.814 + 10px);
+    top: calc(18px + var(--y, 0px)); bottom: auto; left: calc(100% - var(--w) * 1.6 - 10px + var(--frame) + var(--x, 0px));
+  }
+  .phone.p1 { --x: calc(var(--w) * -0.6); --y: 10px; }
+  .phone.p3 { --x: calc(var(--w) * 0.6); --y: 10px; }
 }
 
 /* ---------- スマホ ----------
    扉は縦に3段。1段の高さ＝（見える高さ − 扉より上 − すき間）÷ 3。言葉は左、見本の画面3枚は右に寄せて上だけのぞかせる */
 @media (max-width: 760px) {
-  :root { --head-h: 56px; --gap: 8px; --door-h: clamp(108px, calc((100svh - var(--above, 140px) - 16px - 16px) / 3), 168px); }
+  :root { --head-h: 56px; --gap: 8px; --door-h: clamp(92px, calc((100svh - var(--above, 140px) - 16px - 24px) / 4), 150px); }
   .logo { font-size: 17px; }
   .yomi { display: none; }
   .links { gap: 18px; }
@@ -450,8 +483,12 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
   .about .wrap { grid-template-columns: 1fr; }
   .co div { grid-template-columns: 5.5em minmax(0, 1fr); gap: 12px; }
 }
+/* 画面の低いスマホ（iPhone SE など）は4段を1画面に入れるため、業種の行を隠して宛名と「ご案内を見る」だけにする */
+@media (max-width: 760px) and (max-height: 640px) {
+  .door-kinds { display: none; }
+}
 @media (max-width: 359px) {
-  :root { --door-h: clamp(96px, calc((100svh - var(--above, 140px) - 16px - 16px) / 3), 168px); }
+  :root { --door-h: clamp(84px, calc((100svh - var(--above, 140px) - 16px - 24px) / 4), 150px); }
   .door { --pw: 44px; }
   .door-for .big { font-size: 17px; }
   .door-kinds { display: none; }   /* 320pxでは2行に折れて扉からはみ出す。宛名だけで選べる */
@@ -478,11 +515,11 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
   <div class="intro">
     <div class="wrap">
       <h1 class="title"><span class="nw">地域の</span><span class="nw">会社と</span><span class="nw">お店のための、</span><span class="nw">ホームページ制作。</span></h1>
-      <p class="lead"><span class="nw">いずれも先に、</span><span class="nw">御社・</span><span class="nw">お店の</span><span class="nw">名前で</span><span class="nw">見本をおつくりし、</span><span class="nw">実物を</span><span class="nw">ご覧いただいてから</span><span class="nw">決めていただけます。</span></p>
+      <p class="lead"><span class="nw">ホームページの</span><span class="nw">制作は先に、</span><span class="nw">御社・</span><span class="nw">お店の</span><span class="nw">名前で</span><span class="nw">見本をおつくりし、</span><span class="nw">実物を</span><span class="nw">ご覧いただいてから</span><span class="nw">決めていただけます。</span></p>
     </div>
   </div>
 
-  <!-- 扉3つ。工事店・リフォームを左（先）、板金塗装を中、飲食店を右に置く。扉全体が1つのリンク -->
+  <!-- 扉4つ。工事店・リフォーム → 板金塗装 → 飲食店 → 宿・ペンション（2026-10-18）の順。扉全体が1つのリンク -->
   <div class="wrap">
     <nav class="doors" aria-label="ご案内を選ぶ">
       <a class="door d1" href="reform/">
@@ -521,6 +558,18 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
           <span class="phone p3"><img src="works/hero/hero-motsuni.jpg" alt="" width="516" height="936" decoding="async"></span>
         </span>
       </a>
+      <a class="door d4" href="yado/">
+        <span class="door-top"><span class="no">04</span><span class="en">Inns<span class="en-x"> &amp; Pensions</span></span></span>
+        <span class="door-for"><span class="big"><span><span class="nw">宿・</span><span class="nw">ペンション</span></span></span> <span class="sm"><span class="nw">の皆さまへ</span></span></span>
+        <span class="door-text"><span class="nw">空室カレンダーと、</span><span class="nw">予約ボタン。</span></span>
+        <span class="door-kinds"><span class="nw">ペンション・</span><span class="nw">旅館・</span><span class="nw">ロッジ</span></span>
+        <span class="door-go"><span class="nw">ご案内を見る</span><span class="arw" aria-hidden="true">→</span></span>
+        <span class="door-screens" aria-hidden="true">
+          <span class="phone p1"><img src="yado/img/screen-1.jpg" alt="" width="516" height="936" decoding="async"></span>
+          <span class="phone p2"><img src="yado/img/screen-2.jpg" alt="" width="516" height="936" fetchpriority="high"></span>
+          <span class="phone p3"><img src="yado/img/screen-3.jpg" alt="" width="516" height="936" decoding="async"></span>
+        </span>
+      </a>
     </nav>
   </div>
 
@@ -529,7 +578,7 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
     <div class="wrap">
       <div>
         <h2 id="about-title"><span class="nw">先に、</span><span class="nw">見本を</span><span class="nw">おつくりします。</span></h2>
-        <p><span class="nw">creative works+</span><span class="nw">（クリエイティブ</span><span class="nw">ワークス</span><span class="nw">プラス）は、</span><span class="nw">工事店・</span><span class="nw">リフォーム</span><span class="nw">会社様、</span><span class="nw">自動車の</span><span class="nw">板金塗装の</span><span class="nw">工場様、</span><span class="nw">飲食店の</span><span class="nw">ホームページを</span><span class="nw">おつくりしています。</span><span class="nw">いずれも</span><span class="nw">ご依頼を</span><span class="nw">いただく前に、</span><span class="nw">御社・</span><span class="nw">お店の</span><span class="nw">名前で</span><span class="nw">見本を</span><span class="nw">おつくりします。</span><span class="nw">続けるか</span><span class="nw">どうかは、</span><span class="nw">実物を</span><span class="nw">ご覧に</span><span class="nw">なってから</span><span class="nw">決めて</span><span class="nw">ください。</span></p>
+        <p><span class="nw">creative works+</span><span class="nw">（クリエイティブ</span><span class="nw">ワークス</span><span class="nw">プラス）は、</span><span class="nw">工事店・</span><span class="nw">リフォーム</span><span class="nw">会社様、</span><span class="nw">自動車の</span><span class="nw">板金塗装の</span><span class="nw">工場様、</span><span class="nw">飲食店の</span><span class="nw">ホームページを</span><span class="nw">おつくりし、</span><span class="nw">宿・</span><span class="nw">ペンションの</span><span class="nw">ホームページには</span><span class="nw">予約の</span><span class="nw">入口を</span><span class="nw">お付けしています。</span><span class="nw">ホームページの</span><span class="nw">制作は、</span><span class="nw">ご依頼を</span><span class="nw">いただく前に、</span><span class="nw">御社・</span><span class="nw">お店の</span><span class="nw">名前で</span><span class="nw">見本を</span><span class="nw">おつくりします。</span><span class="nw">続けるか</span><span class="nw">どうかは、</span><span class="nw">実物を</span><span class="nw">ご覧に</span><span class="nw">なってから</span><span class="nw">決めて</span><span class="nw">ください。</span></p>
         <div class="line-cta">
           <a class="btn" href="https://lin.ee/nFu0bnO" target="_blank" rel="noopener"><span class="nw">公式LINEで</span><span class="nw">相談する</span><span class="arw" aria-hidden="true">→</span></a>
           <p class="mail"><span class="nw">メールでも</span><span class="nw">承ります</span> <a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a></p>
@@ -539,7 +588,7 @@ h1, h2, h3, p, dd, dt, li { word-break: auto-phrase; text-wrap: pretty; }
         <div><dt>屋号</dt><dd>creative works+<span class="nw">（クリエイティブ</span><span class="nw">ワークス</span><span class="nw">プラス）</span></dd></div>
         <div><dt>代表</dt><dd><span class="nw">丸藤</span> <span class="nw">啓太</span></dd></div>
         <div><dt>拠点</dt><dd><span class="nw">茨城県</span></dd></div>
-        <div><dt>事業内容</dt><dd><a href="reform/"><span class="nw">工事店・</span><span class="nw">リフォーム</span><span class="nw">会社様の</span><span class="nw">ホームページと</span><span class="nw">Googleの</span><span class="nw">地図</span></a><br><a href="bankin/"><span class="nw">自動車の</span><span class="nw">板金塗装の</span><span class="nw">工場様の</span><span class="nw">ホームページと</span><span class="nw">Googleの</span><span class="nw">地図</span></a><br><a href="restaurant/"><span class="nw">飲食店の</span><span class="nw">ホームページと</span><span class="nw">Googleの</span><span class="nw">地図</span></a></dd></div>
+        <div><dt>事業内容</dt><dd><a href="reform/"><span class="nw">工事店・</span><span class="nw">リフォーム</span><span class="nw">会社様の</span><span class="nw">ホームページと</span><span class="nw">Googleの</span><span class="nw">地図</span></a><br><a href="bankin/"><span class="nw">自動車の</span><span class="nw">板金塗装の</span><span class="nw">工場様の</span><span class="nw">ホームページと</span><span class="nw">Googleの</span><span class="nw">地図</span></a><br><a href="restaurant/"><span class="nw">飲食店の</span><span class="nw">ホームページと</span><span class="nw">Googleの</span><span class="nw">地図</span></a><br><a href="yado/"><span class="nw">宿・</span><span class="nw">ペンションの</span><span class="nw">空室カレンダーと</span><span class="nw">予約ボタン</span></a></dd></div>
         <div><dt>連絡先</dt><dd><span class="nw">公式</span>LINE、<span class="nw">または</span> <a href="mailto:creativeworks.plus@gmail.com">creativeworks.plus@gmail.com</a><br><span class="nw">（24時間以内に</span><span class="nw">お返事します）</span></dd></div>
       </dl>
     </div>
